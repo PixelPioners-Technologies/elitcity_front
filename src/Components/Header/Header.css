@@ -1,0 +1,74 @@
+.header {
+  height: 84px;
+  background-color: #274235;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  padding-right: 30px;
+}
+
+.LogoAndNavBar {
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  width: 475px;
+  display: flex;
+  justify-content: space-between; 
+  list-style: none; 
+  padding: 0; 
+}
+
+.buttonItemsOfList {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: white;
+}
+
+.buttonItemsOfList:hover {
+  cursor: pointer;
+  color: aquamarine;
+}
+
+.favouriteAndLanguageAndDayModeChanger {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.heartBox {
+  background-color: white;
+  width: 39px;
+  height: 39px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.heartLogoButton {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    /* Additional styles as needed */
+  
+}
+
+.heartLogoButton:hover {
+  cursor: pointer;
+}
+
+/* ჯერ–ჯერობი იყოს და არ წაშალო.. Button რომ დავამატე div-ში, აღარ დამჭირდა სურათზე width–ის მითითება */
+/* .heartLogo {
+  width: 20.11px;
+} */
