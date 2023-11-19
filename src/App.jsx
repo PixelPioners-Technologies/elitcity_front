@@ -14,8 +14,7 @@ function App() {
   return (
     <div>
       <Header />
-      <p>hello</p>
-    {/* hello */}
+    
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='complex' element={<Complex />} />
