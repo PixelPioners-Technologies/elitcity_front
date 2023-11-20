@@ -10,7 +10,7 @@
 
 .allCards {
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
   flex-wrap: wrap;
   /* padding: 0 30px; */
   gap: 40px;
@@ -20,7 +20,7 @@
 
 
 .card {
-  width: 320px;
+  width: 315px;
   height: 400px;
   background-color: #C1D6CC;
   border-radius: 20px;

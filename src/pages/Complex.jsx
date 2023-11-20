@@ -41,10 +41,8 @@ export default function Complex() {
             <p style={styles.companyTitle}>{complex.name}</p>
             <div className='textInfo'>
               <p style={styles.complexInfo}>{complex.address}</p>
-              {/* <p>{home.price_per_sq_meter}</p> */}
               <p style={styles.complexInfo}>{complex.price_per_sq_meter}</p>
-              {/* <p>{home.finished}</p> */}
-              <p style={styles.complexFinished} >{complex.phone_number}</p>
+              <p style={styles.complexFinished} >თარიღი...</p>
             </div>
           </div>
         ))}
@@ -68,9 +66,9 @@ const styles = {
     // paddingLeft: '20px'
   },
   complexInfo: {
-    color: 'black',
+    color: '#000000',
   },
   complexFinished: {
-    color: 'red',
+    color: '#515050',
   },
 };
