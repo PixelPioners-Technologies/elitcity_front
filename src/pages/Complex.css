@@ -1,0 +1,37 @@
+/* .imageOfBuilding {
+  width: 200px;
+} */
+
+.ComplexBodyBox {
+
+  margin-top: 50px;
+  padding: 0 30px;
+}
+
+.allCards {
+  display: flex;
+  /* justify-content: center; */
+  flex-wrap: wrap;
+  /* padding: 0 30px; */
+  gap: 40px;
+  
+ 
+}
+
+
+.card {
+  width: 320px;
+  height: 400px;
+  background-color: #C1D6CC;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 20px 20px;
+}
+
+.textInfo {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  /* padding-left: 20px; */
+  gap: 10px;
+}
