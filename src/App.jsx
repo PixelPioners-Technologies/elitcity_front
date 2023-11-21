@@ -7,6 +7,7 @@ import Lots from './pages/Lots';
 import Developers from './pages/Developers';
 import Map from './pages/Map';
 import Sales from './pages/Sales';
+import Plans from './pages/Plans';
 
 
 function App() {
@@ -17,7 +18,10 @@ function App() {
     
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='complex' element={<Complex />} />
+        <Route path='complex'>
+          <Route index={true} element={<Complex />} />
+          <Route path='plans' element={<Plans/>} />
+        </Route>
         <Route path='lots' element={<Lots />} />
         <Route path='developers' element={<Developers />} />
         <Route path='map' element={<Map />} />
