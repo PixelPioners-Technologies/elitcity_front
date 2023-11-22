@@ -5,10 +5,6 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-// Sort სორტირებისთვის
-// import * as React from 'react';
-// import { DataGrid } from '@mui/x-data-grid';
-// import { useDemoData } from '@mui/x-data-grid-generator';
 
 
 
@@ -24,57 +20,46 @@ const axiosInstance = axios.create({
   baseURL: 'http://34.201.93.104:8000'
 });
 
-// const VISIBLE_FIELDS = ['name', 'rating', 'country', 'dateCreated', 'isAdmin'];
 
 
 export default function Complex() {
 
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-const [totalCount, setTotalCount] = useState(0);
-// for sorting
-// const [sortBy, setSortBy] = useState({ field: 'name', order: 'asc' });
+  const [totalCount, setTotalCount] = useState(0);
+  const [images, setImages] = useState([]);
 
-
-  // const { data } = useDemoData({
-  //   dataSet: 'Employee',
-  //   visibleFields: VISIBLE_FIELDS,
-  //   rowLength: 100,
-  // });
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
-
-        // const response = await axiosInstance.get(
-        //   `/complex/?limit=10&offset=${(currentPage - 1) * 10}&ordering=${sortBy.order === 'desc' ? '-' : ''}${sortBy.field}`
-        // );
-                const { results, count } = response.data;
-        setHomes(results);
-        setTotalCount(count);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-  
-    fetchData();
-  }, [currentPage]);
-  // }, [currentPage, sortBy]);
-
-
-  // for sorting
-  // const handleSort = (field) => {
-  //   const sortOrder = sortBy.field === field && sortBy.order === 'asc' ? 'desc' : 'asc';
-  //   setSortBy({ field, order: sortOrder });
-  // };
+        const responseImage = await axiosInstance.get(`/images/?limit=10&offset=${(currentPage - 1) * 10}`);
+       
+          const { results, count } = response.data;
+          
+          
+          setHomes(results);
+          setTotalCount(count);
+          setImages(responseImage.data.results);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      
+      fetchData();
+    }, [currentPage]);
+    console.log('images: ', images);
 
 
   console.log(homes);
 
+// This is for scrool up, when user click other Pagination number
+  const pagiHandler = () => {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
 
-
+  }
 
   return (
     <div className='ComplexBodyBox'>
@@ -86,38 +71,20 @@ const [totalCount, setTotalCount] = useState(0);
           <Link to='/complex/plans' ><button>პროექტები</button></Link>
           <Link to='/map' ><button>რუკა</button></Link>
         </div>
-        {/* <div className='SortBox'>
-          <DataGrid
-            sortingOrder={['desc', 'asc']}
-            initialState={{
-              ...data.initialState,
-              sorting: {
-                ...data.initialState?.sorting,
-                sortModel: [
-                  {
-                    field: 'commodity',
-                    sort: 'asc',
-                  },
-                ],
-              },
-            }}
-            {...data}
-          />
-        </div> */}
       </div>
 
-         {/* Sorting buttons */}
-      {/* <div className='SortBox'>
-        <button onClick={() => handleSort('name')}>Sort by Name</button>
-        <button onClick={() => handleSort('address')}>Sort by Address</button>
-        <button onClick={() => handleSort('price_per_sq_meter')}>Sort by Price</button>
-      </div> */}
+      {/* ფილტრის გაკეთება back-ში ხდება და მერე მე query params-ით ვაჩვენებ sort–ირებას
+          https://v5.reactrouter.com/web/example/query-parameters
+       */}
+
 
       {/* <h1>Complex Page Component</h1> */}
       <div className='allCards'>
-        {homes && homes.map((complex, index) => (
+        {homes && homes.map((complex, index, ) => (
           <div className='card' key={index}>
-            {/* <img  src={complex.images[0].image} alt='photo of complex' style={styles.imageStyles} /> */}
+              <img src={images[index]?.image} alt='photo of complex' style={styles.imageStyles} />
+             {/* )} */}
+
             <p style={styles.companyTitle}>{complex.name}</p>
             <div className='textInfo'>
               <p style={styles.complexInfo}>{complex.address}</p>
@@ -135,6 +102,7 @@ const [totalCount, setTotalCount] = useState(0);
             shape="rounded"
             page={currentPage}
             onChange={(event, value) => setCurrentPage(value)}
+            onClick={pagiHandler}
           />
         </Stack>
       </div>

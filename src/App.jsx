@@ -8,9 +8,11 @@ import Developers from './pages/Developers';
 import Map from './pages/Map';
 import Sales from './pages/Sales';
 import Plans from './pages/Plans';
+import { useState, useEffect } from 'react';
 
 
 function App() {
+  
 
   return (
     <div>
