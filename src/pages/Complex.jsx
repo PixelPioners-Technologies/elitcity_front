@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-
+import heartIcon from '../assets/heartIcon.svg'
 
 
 // Pagination
@@ -29,6 +29,15 @@ export default function Complex() {
   const [totalCount, setTotalCount] = useState(0);
   const [images, setImages] = useState([]);
 
+  // favorite state
+  const [savedComplexes, setSavedComplexes] = useState([]);
+  
+
+  // ცვლადი ქვერი სტრინგი სადაც შევინახავ მონაცემებს, კლიკის დროს სორტირებაზე, ქუერი სტრინგში უნდა დაემატოს სორტირების ნაწილი sort = price
+  // get-
+  // const response = await axiosInstance.get(`/complex/? ქუერი სტრინგის ცვლადი `);
+  // მოკლედ ქუერი სტრინგი სანახავია
+
 
 
   useEffect(() => {
@@ -36,30 +45,44 @@ export default function Complex() {
       try {
         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
         const responseImage = await axiosInstance.get(`/images/?limit=10&offset=${(currentPage - 1) * 10}`);
-       
-          const { results, count } = response.data;
-          
-          
-          setHomes(results);
-          setTotalCount(count);
-          setImages(responseImage.data.results);
-        } catch (error) {
+
+        const { results, count } = response.data;
+        
+        setHomes(results);
+        setTotalCount(count);
+        setImages(responseImage.data.results);
+      } catch (error) {
           console.error('Error fetching data:', error);
         }
-      };
-      
-      fetchData();
-    }, [currentPage]);
-    console.log('images: ', images);
+    };
+    fetchData();
+  }, [currentPage]);
 
-
-  console.log(homes);
+  console.log('images: ', images);
+  console.log('Data all: ', homes);
 
 // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
   }
+
+
+  // This is for favourite functionality
+  const favoriteHandler = (complex) => {
+    // Check if the complex is already saved
+    const isAlreadySaved = savedComplexes.some((c) => c.id === complex.id);
+  
+    if (!isAlreadySaved) {
+      // Add the complex to the savedComplexes state
+      setSavedComplexes([...savedComplexes, complex]);
+    }
+  };
+
+  console.log('data:::: ', savedComplexes)
+
+
+  
 
   return (
     <div className='ComplexBodyBox'>
@@ -68,7 +91,7 @@ export default function Complex() {
         <p>კომპლექსები {totalCount}</p>
         <div className='projectsPlansMapsBox'>
           <Link to='/complex' ><button>პროექტები</button></Link>
-          <Link to='/complex/plans' ><button>პროექტები</button></Link>
+          <Link to='/complex/plans' ><button>გეგმარებები</button></Link>
           <Link to='/map' ><button>რუკა</button></Link>
         </div>
       </div>
@@ -77,12 +100,23 @@ export default function Complex() {
           https://v5.reactrouter.com/web/example/query-parameters
        */}
 
+       {/* 
+        let numArr = [10, 5, 80];
+
+        numArr.sort((a, b) => a - b);
+        console.log(numArr); // Output: [5, 10, 80]
+
+        სორტირება ესე უნდა მოხდეს
+       */}
+
 
       {/* <h1>Complex Page Component</h1> */}
       <div className='allCards'>
         {homes && homes.map((complex, index, ) => (
           <div className='card' key={index}>
-              <img src={images[index]?.image} alt='photo of complex' style={styles.imageStyles} />
+            <button onClick={() => favoriteHandler(complex)} key={complex.id}><img src={heartIcon} alt='Logo of heart' /> </button>
+
+            <img src={images[index]?.image} alt='photo of complex' style={styles.imageStyles} />
              {/* )} */}
 
             <p style={styles.companyTitle}>{complex.name}</p>
