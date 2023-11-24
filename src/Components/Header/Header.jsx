@@ -59,15 +59,17 @@ export default function Header() {
       <div className='favouriteAndLanguageAndDayModeChanger'>
 
         {/* ჯერ–ჯერობით favorite უბრალოდ img-ად მაქვს ვიზუალისთვის და არა ფუნქციონალით */}
-        <div className='heartBox'>
-          <button className='heartLogoButton'>
-            <img src={HeartLogo} alt='Icon of Heart' className='heartLogo'/>
-          </button>
-        </div>
+        <Link to='/favoriteComplex'>
+          <div className='heartBox'>
+              <button className='heartLogoButton'>
+                <img src={HeartLogo} alt='Icon of Heart' className='heartLogo'/>
+              </button>
+          </div>
+        </Link>
         {/* Language Menu,  */}
         {/* აქ მხოლოდ ენებს ჩამოშლის ფუნქცია აქვს და გადასაყვანია ყველა ტექსტი სხვა ენებზეც */}
         <div className='languageBox'>
-        <Button
+          <Button
             id="basic-button"
             aria-controls={open ? 'basic-menu' : undefined}
             aria-haspopup="true"

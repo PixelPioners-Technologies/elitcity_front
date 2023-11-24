@@ -22,15 +22,14 @@ const axiosInstance = axios.create({
 
 
 
-export default function Complex() {
+// eslint-disable-next-line react/prop-types
+export default function Complex({favoriteHandler}) {
 
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [images, setImages] = useState([]);
 
-  // favorite state
-  const [savedComplexes, setSavedComplexes] = useState([]);
   
 
   // ცვლადი ქვერი სტრინგი სადაც შევინახავ მონაცემებს, კლიკის დროს სორტირებაზე, ქუერი სტრინგში უნდა დაემატოს სორტირების ნაწილი sort = price
@@ -68,24 +67,17 @@ export default function Complex() {
   }
 
 
-  // This is for favourite functionality
-  const favoriteHandler = (complex) => {
-    // Check if the complex is already saved
-    const isAlreadySaved = savedComplexes.some((c) => c.id === complex.id);
   
-    if (!isAlreadySaved) {
-      // Add the complex to the savedComplexes state
-      setSavedComplexes([...savedComplexes, complex]);
-    }
-  };
 
-  console.log('data:::: ', savedComplexes)
+
 
 
   
 
   return (
     <div className='ComplexBodyBox'>
+      
+
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება... */}
       <div className='infoFieldOfComplexsPlansMaps'>
         <p>კომპლექსები {totalCount}</p>
@@ -115,9 +107,7 @@ export default function Complex() {
         {homes && homes.map((complex, index, ) => (
           <div className='card' key={index}>
             <button onClick={() => favoriteHandler(complex)} key={complex.id}><img src={heartIcon} alt='Logo of heart' /> </button>
-
             <img src={images[index]?.image} alt='photo of complex' style={styles.imageStyles} />
-             {/* )} */}
 
             <p style={styles.companyTitle}>{complex.name}</p>
             <div className='textInfo'>
