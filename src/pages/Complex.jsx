@@ -81,6 +81,7 @@ export default function Complex({favoriteHandler}) {
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება... */}
       <div className='infoFieldOfComplexsPlansMaps'>
         <p>კომპლექსები {totalCount}</p>
+        <p>test</p>
         <div className='projectsPlansMapsBox'>
           <Link to='/complex' ><button>პროექტები</button></Link>
           <Link to='/complex/plans' ><button>გეგმარებები</button></Link>
