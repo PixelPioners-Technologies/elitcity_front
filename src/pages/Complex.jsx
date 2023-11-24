@@ -82,6 +82,10 @@ export default function Complex({favoriteHandler}) {
       <div className='infoFieldOfComplexsPlansMaps'>
         <p>კომპლექსები {totalCount}</p>
         <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+
         <div className='projectsPlansMapsBox'>
           <Link to='/complex' ><button>პროექტები</button></Link>
           <Link to='/complex/plans' ><button>გეგმარებები</button></Link>
