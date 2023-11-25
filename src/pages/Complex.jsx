@@ -12,14 +12,9 @@ import heartIcon from '../assets/heartIcon.svg'
 // import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-
-
-
-
 const axiosInstance = axios.create({
-  baseURL: 'http://34.201.93.104:8000'
+  baseURL: 'http://127.0.0.1:8000'
 });
-
 
 
 // eslint-disable-next-line react/prop-types
@@ -49,7 +44,7 @@ export default function Complex({favoriteHandler}) {
         
         setHomes(results);
         setTotalCount(count);
-        setImages(responseImage.data.results);
+        // setImages(results.data.results);
       } catch (error) {
           console.error('Error fetching data:', error);
         }
@@ -67,12 +62,7 @@ export default function Complex({favoriteHandler}) {
   }
 
 
-  
 
-
-
-
-  
 
   return (
     <div className='ComplexBodyBox'>
@@ -108,7 +98,14 @@ export default function Complex({favoriteHandler}) {
         {homes && homes.map((complex, index, ) => (
           <div className='card' key={index}>
             <button onClick={() => favoriteHandler(complex)} key={complex.id}><img src={heartIcon} alt='Logo of heart' /> </button>
-            <img src={images[index]?.image} alt='photo of complex' style={styles.imageStyles} />
+            {complex.images.map((image, imageIndex) => (
+              <img
+                key={imageIndex}
+                src={image}
+                alt={`photo ${imageIndex + 1} of complex`}
+                style={styles.imageStyles}
+              />
+            ))}
 
             <p style={styles.companyTitle}>{complex.name}</p>
             <div className='textInfo'>
