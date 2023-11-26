@@ -24,11 +24,13 @@ const axiosInstance = axios.create({
 
 // eslint-disable-next-line react/prop-types
 export default function Complex({favoriteHandler}) {
+  
 
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [images, setImages] = useState([]);
+  // const [sortData, setsortData] = useState([]);
 
   
 
@@ -43,6 +45,7 @@ export default function Complex({favoriteHandler}) {
     const fetchData = async () => {
       try {
         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
+
         const responseImage = await axiosInstance.get(`/images/?limit=10&offset=${(currentPage - 1) * 10}`);
 
         const { results, count } = response.data;
@@ -50,6 +53,18 @@ export default function Complex({favoriteHandler}) {
         setHomes(results);
         setTotalCount(count);
         setImages(responseImage.data.results);
+
+        // for testing sort
+        const sortedData = results.sort((a, b) => parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter));
+        
+        sortedData.forEach(complex => {
+          console.log('Price per sq meter:', complex.price_per_sq_meter);
+        });
+        const sortedDatas = results.sort((a, b) => parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter) );
+        sortedDatas.forEach(complex => {
+          console.log('Price per sq meter:', complex.price_per_sq_meter);
+        });
+
       } catch (error) {
           console.error('Error fetching data:', error);
         }
@@ -59,6 +74,7 @@ export default function Complex({favoriteHandler}) {
 
   console.log('images: ', images);
   console.log('Data all: ', homes);
+  // console.log('sortData: ---', sortData)
 
 // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
@@ -67,16 +83,11 @@ export default function Complex({favoriteHandler}) {
   }
 
 
-  
-
-
-
 
   
 
   return (
     <div className='ComplexBodyBox'>
-      
 
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება... */}
       <div className='infoFieldOfComplexsPlansMaps'>
