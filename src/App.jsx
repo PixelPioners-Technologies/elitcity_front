@@ -19,7 +19,10 @@ function App() {
   const favoriteHandler = (complex) => {
     const isAlreadySaved = savedComplexes.some((c) => c.id === complex.id);
 
-    if (!isAlreadySaved) {
+    if (isAlreadySaved) {
+      const updatedComplexes = savedComplexes.filter((c) => c.id !== complex.id);
+      setSavedComplexes(updatedComplexes);
+    } else {
       setSavedComplexes([...savedComplexes, complex]);
     }
   };

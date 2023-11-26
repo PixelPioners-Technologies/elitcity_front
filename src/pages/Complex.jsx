@@ -12,6 +12,7 @@ import heartIcon from '../assets/heartIcon.svg'
 // import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { Skeleton } from '@mui/material';
 
 
 
@@ -29,6 +30,7 @@ export default function Complex({favoriteHandler}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   
 
@@ -42,6 +44,7 @@ export default function Complex({favoriteHandler}) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
         const responseImage = await axiosInstance.get(`/images/?limit=10&offset=${(currentPage - 1) * 10}`);
 
@@ -50,7 +53,11 @@ export default function Complex({favoriteHandler}) {
         setHomes(results);
         setTotalCount(count);
         setImages(responseImage.data.results);
+        setIsLoading(false); // Set loading state to false after fetching data
+
       } catch (error) {
+        setIsLoading(false); // Set loading state to false in case of error
+
           console.error('Error fetching data:', error);
         }
     };
@@ -106,19 +113,34 @@ export default function Complex({favoriteHandler}) {
 
       {/* <h1>Complex Page Component</h1> */}
       <div className='allCards'>
-        {homes && homes.map((complex, index, ) => (
-          <div className='card' key={index}>
-            <button onClick={() => favoriteHandler(complex)} key={complex.id}><img src={heartIcon} alt='Logo of heart' /> </button>
-            <img src={images[index]?.image} alt='photo of complex' style={styles.imageStyles} />
-
-            <p style={styles.companyTitle}>{complex.name}</p>
-            <div className='textInfo'>
-              <p style={styles.complexInfo}>{complex.address}</p>
-              <p style={styles.complexInfo}>{complex.price_per_sq_meter}</p>
-              <p style={styles.complexFinished} >თარიღი...</p>
+        {/* this is loader functionality with skeleton */}
+      {isLoading ? (
+          Array.from({ length: 10 }, (_, index) => (
+            <Skeleton
+              key={index}
+              variant='rectangle'
+              animation='wave'
+              width={styles.imageStyles.width}
+              height={styles.imageStyles.height}
+            />
+          ))
+        ) : (
+          homes &&
+          homes.map((complex, index) => (
+            <div className='card' key={index}>
+              <button onClick={() => favoriteHandler(complex)} key={complex.id}>
+                <img src={heartIcon} alt='Logo of heart' />
+              </button>
+              <img src={images[index]?.image} alt='photo of complex' style={styles.imageStyles} />
+              <p style={styles.companyTitle}>{complex.name}</p>
+              <div className='textInfo'>
+                <p style={styles.complexInfo}>{complex.address}</p>
+                <p style={styles.complexInfo}>{complex.price_per_sq_meter}</p>
+                <p style={styles.complexFinished}>თარიღი...</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
       
       <div className='pagination'>
