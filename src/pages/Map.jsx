@@ -17,17 +17,16 @@ export default function Map() {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [mapCenter, setMapCenter] = useState(initialCenter);
   const [zoomLevel, setZoomLevel] = useState(10);
-  const [image, setImage] = useState([]);
+  const [images, setImage] = useState();
 
 
-  useEffect( async () =>{
+  useEffect(() =>{
     const axiosLocations = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/complex/')
         const data = response.data
         const results = data.results
-        console.log(image);
-        // console.log(results.images);
+        console.log(results);
         setLocations(results)
         setImage(results.images)
       } catch (error) {
@@ -54,7 +53,7 @@ export default function Map() {
         <div className='map_cont'  >
             <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0" >
             <GoogleMap
-              mapContainerStyle={{ width: '700px', height: '100vh' }}
+              mapContainerStyle={{ width: '1000px', height: '100vh' }}
               center={mapCenter}
               zoom={zoomLevel}
             >
@@ -66,35 +65,29 @@ export default function Map() {
                 />
                 ))}
 
-              {selectedLocation && (
-                <InfoWindow
+                {selectedLocation && (
+              <InfoWindow
                 position={{
                   lat: selectedLocation.latitude,
                   lng: selectedLocation.longitude
                 }}
                 onCloseClick={() => setSelectedLocation(null)}
-                >
+              >
                 <div>
-                <h2>{selectedLocation.name}</h2>
-                <div className='image_cont' >
-                  {/* <img  className='self'  src={selectedLocation.image}  alt={selectedLocation.name} style={{width: '200px', height: '400px' }}  /> */}
-              {results.images.map((image, imageIndex) => (
-              <img
-                key={imageIndex}
-                src={image}
-                alt={`photo ${imageIndex + 1} of complex`}
-                style={styles.imageStyles}
-              />
-            ))}
-                <img 
-                  src={image}
-                  alt="ss"
-                
-                />
+                  <h2>{selectedLocation.name}</h2>
+                  <div className='image_cont'>
+                    {selectedLocation.images.map((image, index) => (
+                      <img
+                        key={index}
+                        src={image}
+                        alt={`Image ${index}`}
+                        style={{ width: '200px', height: '100px' }}
+                      />
+                    ))}
+                  </div>
                 </div>
-                </div>
-                </InfoWindow>
-                )}
+              </InfoWindow>
+            )}
             </GoogleMap>
           </LoadScript>
       </div>
