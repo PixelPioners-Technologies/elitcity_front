@@ -60,39 +60,39 @@ const YourComponent = () => {
   return (
     <div className='filt_div'>
       {/* Render your filter inputs and controls */}
-      <label>
+      <p className='labels'>
         Min Area:
-        <Input
+        <Input className='input'
           type="number"
           value={filters.min_area}
           onChange={(e) => handleFilterChange('min_area', e.target.value)}
         />
-      </label>
-      <label>
+      </p>
+      <label className='labels'>
         Max Area:
-        <Input
+        <Input className='input'
           type="number"
           value={filters.max_area}
           onChange={(e) => handleFilterChange('max_area', e.target.value)}
         />
       </label>
-      <label>
+      <label className='labels'>
         Min price Area:
-        <Input
+        <Input className='input'
           type="number"
           value={filters.min_price_per_sq_meter}
           onChange={(e) => handleFilterChange('min_price_per_sq_meter', e.target.value)}
         />
       </label>
-      <label>
+      <label className='labels'>
         Max price Area:
-        <Input
+        <Input className='input'
           type="number"
           value={filters.max_price_per_sq_meter}
           onChange={(e) => handleFilterChange('max_price_per_sq_meter', e.target.value)}
         />
       </label>
-      <label>
+      <label className='labels'>
         Finished:
         <Checkbox
           checked={filters.finished}
