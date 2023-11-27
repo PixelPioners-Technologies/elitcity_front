@@ -6,8 +6,8 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 
 
 const initialCenter = {
-  lat: 41.7151,  // Latitude for Tbilisi
-  lng: 44.8271   // Longitude for Tbilisi
+  lat: 42.3154, // Latitude for the center of Georgia
+  lng: 43.3569  // Longitude for the center of Georgia
 };
 
 
@@ -18,7 +18,7 @@ export default function Map() {
   const [mapCenter, setMapCenter] = useState(initialCenter);
   const [zoomLevel, setZoomLevel] = useState(10);
   const [images, setImage] = useState();
-
+  const [selectedCity , setSelectedCity] = useState('');
 
   useEffect(() =>{
     const axiosLocations = async () => {
@@ -26,8 +26,9 @@ export default function Map() {
         const response = await axios.get('http://127.0.0.1:8000/complex/')
         const data = response.data
         const results = data.results
-        console.log(results);
-        setLocations(results)
+        const addresses = results.map(item => item.address); 
+        console.log(addresses);
+        setLocations(addresses)
         setImage(results.images)
       } catch (error) {
         console.error(error)
@@ -47,9 +48,15 @@ export default function Map() {
   return (
     <div className='main_map' >
         <div className='filter_cont' >
-           map filters should go here
-        </div>
+            <select onChange={(e) => setSelectedCity(e.target.value)} value={selectedCity}>
+              <option value=''  >All Cities</option>
+              <option value='tbilisi'  >Tbilisi</option>
+              <option value='batumi'  >Batumi</option>
+           </select>
 
+           {/* სხვა ფილტრები შეიძლება ჩაიწეროს აქ*/}
+        </div>
+        <div className='for_border' ></div>
         <div className='map_cont'  >
             <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0" >
             <GoogleMap
@@ -57,14 +64,16 @@ export default function Map() {
               center={mapCenter}
               zoom={zoomLevel}
             >
-              {locations.map(location => (
-                <Marker
+              {locations.filter(location =>{
+                return selectedCity === '' || location.city.toLowerCase() === selectedCity;
+              }).map(location => (
+                <Marker 
                   key={location.id}
-                  position={{ lat: location.latitude, lng: location.longitude }}
-                  onClick={() => handleMarkerClick(location)}
+                  position={{lat: location.latitude, lng : location.longitude}}
+                  onClick={() => {handleMarkerClick(location)}}
                 />
-                ))}
-
+              ))
+              }
                 {selectedLocation && (
               <InfoWindow
                 position={{
@@ -94,3 +103,14 @@ export default function Map() {
     </div>
   )
 }
+
+
+
+
+// batumi
+
+// latitude
+// 41.640690550972636
+
+// longitude
+// 41.65238006245243

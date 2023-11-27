@@ -12,18 +12,23 @@
 }
 
 .filter_cont{
-    width: 900px;
-    height: 700px;
-    border-radius: 30px;
+    width: 100%;
+    height: 100vh;
     background: #CFE8DC;
     padding: 20px;
+
 }
 
+.for_border{
+    width: 3px;
+    height: 100vh;
+    background: #274235;
+}
 
 .main_map{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 120px;
-    padding-left: 30px;
+  
+   
 }
