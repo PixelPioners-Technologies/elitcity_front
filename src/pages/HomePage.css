@@ -1,0 +1,83 @@
+/* HomePage.css */
+
+.filt_div {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+input {
+  margin-bottom: 16px;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.checkbox-label input {
+  margin-right: 8px;
+}
+
+button {
+  padding: 10px;
+  background-color: #274235;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.unorder {
+  list-style: none;
+  padding: 0;
+}
+
+.orered {
+  margin-bottom: 8px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.previus,
+.next {
+  padding: 8px;
+  background-color: #274235;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.previus:disabled,
+.next:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Add more styles as needed */
