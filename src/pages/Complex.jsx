@@ -29,7 +29,7 @@ export default function Complex({favoriteHandler}) {
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   
@@ -46,13 +46,13 @@ export default function Complex({favoriteHandler}) {
       try {
         setIsLoading(true);
         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
-        const responseImage = await axiosInstance.get(`/images/?limit=10&offset=${(currentPage - 1) * 10}`);
+        // const responseImage = await axiosInstance.get(`/images/?limit=10&offset=${(currentPage - 1) * 10}`);
 
         const { results, count } = response.data;
         
         setHomes(results);
         setTotalCount(count);
-        setImages(responseImage.data.results);
+        // setImages(responseImage.data.results);
         setIsLoading(false); // Set loading state to false after fetching data
 
       } catch (error) {
@@ -64,8 +64,8 @@ export default function Complex({favoriteHandler}) {
     fetchData();
   }, [currentPage]);
 
-  console.log('images: ', images);
-  console.log('Data all: ', homes);
+  // console.log('images: ', images);
+  console.log('homes all: ', homes);
 
 // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
@@ -83,19 +83,27 @@ export default function Complex({favoriteHandler}) {
 
   return (
     <div className='ComplexBodyBox'>
-      
-
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება... */}
       <div className='infoFieldOfComplexsPlansMaps'>
         <p>კომპლექსები {totalCount}</p>
-       
-
         <div className='projectsPlansMapsBox'>
           <Link to='/complex' ><button>პროექტები</button></Link>
-          <Link to='/complex/plans' ><button>გეგმარებები</button></Link>
+          <Link to='/complex/apartmentList' ><button>გეგმარებები</button></Link>
           <Link to='/map' ><button>რუკა</button></Link>
         </div>
       </div>
+
+
+      {/* {homes && homes.map((complex) => (
+        <div key={complex.id}>
+          <h1>{complex.name}</h1>
+          <img src={complex.images[0]} alt={complex.name} />
+          </div>
+          
+        ))} */}
+
+
+
 
       {/* ფილტრის გაკეთება back-ში ხდება და მერე მე query params-ით ვაჩვენებ sort–ირებას
           https://v5.reactrouter.com/web/example/query-parameters
@@ -112,14 +120,13 @@ export default function Complex({favoriteHandler}) {
 
 
       {/* <h1>Complex Page Component</h1> */}
-      <div className='allCards'>
-        {/* this is loader functionality with skeleton */}
+     <div className='allCards'>
       {isLoading ? (
-          Array.from({ length: 10 }, (_, index) => (
-            <Skeleton
-              key={index}
-              variant='rectangle'
-              animation='wave'
+        Array.from({ length: 10 }, (_, index) => (
+          <Skeleton
+          key={index}
+          variant='rectangle'
+          animation='wave'
               width={styles.imageStyles.width}
               height={styles.imageStyles.height}
             />
@@ -130,16 +137,17 @@ export default function Complex({favoriteHandler}) {
             <div className='card' key={index}>
               <button onClick={() => favoriteHandler(complex)} key={complex.id}>
                 <img src={heartIcon} alt='Logo of heart' />
-              </button>
-              <img src={images[index]?.image} alt='photo of complex' style={styles.imageStyles} />
+              </button> 
+              <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
               <p style={styles.companyTitle}>{complex.name}</p>
               <div className='textInfo'>
-                <p style={styles.complexInfo}>{complex.address}</p>
-                <p style={styles.complexInfo}>{complex.price_per_sq_meter}</p>
-                <p style={styles.complexFinished}>თარიღი...</p>
+                <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
+                <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
+                <p style={styles.complexFinished}>Date: ...</p>
               </div>
             </div>
           ))
+
         )}
       </div>
       
@@ -151,6 +159,18 @@ export default function Complex({favoriteHandler}) {
             page={currentPage}
             onChange={(event, value) => setCurrentPage(value)}
             onClick={pagiHandler}
+            sx={{
+              '& .MuiPaginationItem-root': {
+                color: 'black', // Change the color to your desired color
+              },
+              '& .Mui-selected': {
+                backgroundColor: 'green', // Change the selected page background color
+                color: 'white', // Change the selected page text color
+                '&:hover': {
+                  backgroundColor: 'green', // Change the background color on hover
+                },
+              },
+            }}
           />
         </Stack>
       </div>

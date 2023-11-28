@@ -6,7 +6,6 @@
 export default function FavoriteComplex({savedComplexes}) {
   return (
     <div>
-     favorite 
      {/* Test for favorite */}
      
      {savedComplexes && savedComplexes.map((complex, index, ) => (
