@@ -52,15 +52,14 @@ export default function Map() {
   useEffect(() => {
   const fetchCities = async () => {
     try {
-      const cityResponse = await axios.get('http://127.0.0.1:8000/city/');
-      const cityData = cityResponse.data;
-      const cityResult = cityData.results;
-      
-      setCityList(cityResult.map(cityItem => {
+      const cityResult = await axios.get('http://127.0.0.1:8000/city/');
+      const cityData = cityResult.data;
+      console.log('gateste qalaqebi',cityData )
+      setCityList(cityData.map(cityItem => {
         const city = cityItem.city;
         return typeof city === 'string' ? city : '';
       }));
-      console.log("aq unda iyos lati da longi" , locations)
+      console.log("aq unda iyos lati da longi" ,locations)
     } catch (error) {
       console.error(error);
     }
