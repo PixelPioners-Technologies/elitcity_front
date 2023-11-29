@@ -79,7 +79,7 @@ export default function Complex({favoriteHandler}) {
 
 
 
-  
+  console.log (favoriteHandler)
 
   return (
     <div className='ComplexBodyBox'>
