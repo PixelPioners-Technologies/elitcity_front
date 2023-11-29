@@ -24,7 +24,7 @@ const axiosInstance = axios.create({
 
 
 // eslint-disable-next-line react/prop-types
-export default function Complex({favoriteHandler}) {
+export default function Complex({favoriteHandler, addToFavorites}) {
 
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +33,17 @@ export default function Complex({favoriteHandler}) {
   const [isLoading, setIsLoading] = useState(true);
 
   
+
+  // // for fav functionality  New
+  // const handleAddToFavorites = (item) => {
+  //   addToFavorites(item);
+  //   // Update localStorage here
+  //   const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  //   localStorage.setItem('favorites', JSON.stringify([...storedFavorites, item]));
+  // };
+
+
+
 
   // ცვლადი ქვერი სტრინგი სადაც შევინახავ მონაცემებს, კლიკის დროს სორტირებაზე, ქუერი სტრინგში უნდა დაემატოს სორტირების ნაწილი sort = price
   // get-

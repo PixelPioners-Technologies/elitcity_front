@@ -13,6 +13,14 @@ import ApartmentList from './pages/ApartmentList';
 
 
 function App() {
+  // const [favorites, setFavorites] = useState([]);
+
+  // const addToFavorites = (item) => {
+  //   setFavorites([...favorites, item]);
+  // };
+
+
+
 
   // favorites infos State
   const [savedComplexes, setSavedComplexes] = useState([]);
