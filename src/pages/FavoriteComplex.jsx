@@ -3,7 +3,7 @@
 // import React from 'react'
 // import { useEffect, useState } from "react";
 // eslint-disable-next-line react/prop-types
-export default function FavoriteComplex({savedComplexes, favorites }) {
+export default function FavoriteComplex({savedComplexes }) {
 
   return (
 
