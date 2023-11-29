@@ -14,8 +14,10 @@ import ApartmentList from './pages/ApartmentList';
 
 function App() {
 
-  
+  // favorites infos State
   const [savedComplexes, setSavedComplexes] = useState([]);
+
+  // favorites functionality
   const favoriteHandler = (complex) => {
     const isAlreadySaved = savedComplexes.some((c) => c.id === complex.id);
 

@@ -1,13 +1,36 @@
 // აქ ეს diseibleee იმიტო დავწერე, რომ map-ზე error-ს მიგდებდა tsx-ის გამო რო იქ რაღაცაა ისეთი გაწერილი რომ მიგდებს ამას
 /* eslint-disable react/prop-types */
 // import React from 'react'
-
+import { useEffect, useState } from "react";
 // eslint-disable-next-line react/prop-types
 export default function FavoriteComplex({savedComplexes}) {
+
+  const [favorites, setFavorites] = useState([]);
+
+   // Load favorites from localStorage on component mount
+   useEffect(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    setFavorites(storedFavorites);
+  }, []);
+
+  // Save favorites to localStorage whenever favorites change
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  // To add to favorites
+  const addToFavorites = (item) => {
+    setFavorites([...favorites, item]);
+  };
+
+  // To remove from favorites
+  const removeFromFavorites = (item) => {
+    setFavorites(favorites.filter((fav) => fav !== item));
+  };
+console.log('retrievedFavorites:  ', retrievedFavorites); // Display retrieved favorites
+
   return (
     <div>
-     {/* Test for favorite */}
-     
      {savedComplexes && savedComplexes.map((complex, index, ) => (
           <div className='card' key={index}>
           <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
