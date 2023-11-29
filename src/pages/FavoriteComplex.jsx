@@ -6,6 +6,7 @@
 export default function FavoriteComplex({savedComplexes }) {
 
   return (
+    
 
   // {favorites.map((fav, index) => (
   //         <div key={index}>{fav}</div>
@@ -14,6 +15,9 @@ export default function FavoriteComplex({savedComplexes }) {
 
 
     <div>
+      <h1>
+        favorite Page
+        </h1>
      {savedComplexes && savedComplexes.map((complex, index, ) => (
           <div className='card' key={index}>
           <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
