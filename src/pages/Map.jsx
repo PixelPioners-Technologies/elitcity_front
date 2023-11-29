@@ -12,24 +12,33 @@ const initialCenter = {
 
 
 
+
 export default function Map() {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [mapCenter, setMapCenter] = useState(initialCenter);
   const [zoomLevel, setZoomLevel] = useState(10);
-  const [images, setImage] = useState();
-  const [selectedCity , setSelectedCity] = useState('');
+  const [cityList, setCityList] = useState([]);
+  const [selectedCity , setSelectedCity] = useState()
+
 
   useEffect(() =>{
     const axiosLocations = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/complex/')
-        const data = response.data
-        const results = data.results
-        const addresses = results.map(item => item.address); 
-        console.log(addresses);
-        setLocations(addresses)
-        setImage(results.images)
+        const data = response.data.results
+        const locationsWithCoords = data.map(item => {
+          return {
+            ...item,
+            latitude: item.address.latitude,
+            longitude: item.address.longitude,
+            // city: item.address.city, 
+            // id : item.address.id
+          };
+        });
+        setLocations(locationsWithCoords);
+        console.log(locations)
+        // setImage(results.images)
       } catch (error) {
         console.error(error)
       }
@@ -38,20 +47,46 @@ export default function Map() {
 
   },[]);
 
+
+  // ფუნქციჯა ცალკე ენპოინტზე რომელსაც მოაქვს მხოლოდ ქალაქები 
+  useEffect(() => {
+  const fetchCities = async () => {
+    try {
+      const cityResponse = await axios.get('http://127.0.0.1:8000/city/');
+      const cityData = cityResponse.data;
+      const cityResult = cityData.results;
+      
+      setCityList(cityResult.map(cityItem => {
+        const city = cityItem.city;
+        return typeof city === 'string' ? city : '';
+      }));
+      console.log("aq unda iyos lati da longi" , locations)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  fetchCities();
+}, []);
+
+
+
   const handleMarkerClick = location =>{
     setSelectedLocation(location);
     setMapCenter({ lat:location.latitude , lng: location.longitude  });
-    setZoomLevel(15)
+    
+    setZoomLevel(25)
+    
   }
 
 
   return (
     <div className='main_map' >
         <div className='filter_cont' >
-            <select onChange={(e) => setSelectedCity(e.target.value)} value={selectedCity}>
-              <option value=''  >All Cities</option>
-              <option value='tbilisi'  >Tbilisi</option>
-              <option value='batumi'  >Batumi</option>
+            <select onChange={(e) =>  setSelectedCity(e.target.value) }   >
+              <option value='' > select a sity </option>
+              {cityList.map((city, index) => (
+                  <option key={index} value={city.toLowerCase()}> {city} </option>
+              ))}
            </select>
 
            {/* სხვა ფილტრები შეიძლება ჩაიწეროს აქ*/}
@@ -65,7 +100,7 @@ export default function Map() {
               zoom={zoomLevel}
             >
               {locations.filter(location =>{
-                return selectedCity === '' || location.city.toLowerCase() === selectedCity;
+                return !selectedCity  || location.address.city.toLowerCase() === selectedCity.toLowerCase();
               }).map(location => (
                 <Marker 
                   key={location.id}
@@ -74,7 +109,7 @@ export default function Map() {
                 />
               ))
               }
-                {selectedLocation && (
+                {/* {selectedLocation && (
               <InfoWindow
                 position={{
                   lat: selectedLocation.latitude,
@@ -96,21 +131,10 @@ export default function Map() {
                   </div>
                 </div>
               </InfoWindow>
-            )}
+            )} */}
             </GoogleMap>
           </LoadScript>
       </div>
     </div>
   )
 }
-
-
-
-
-// batumi
-
-// latitude
-// 41.640690550972636
-
-// longitude
-// 41.65238006245243
