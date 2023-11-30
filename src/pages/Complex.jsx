@@ -24,13 +24,22 @@ const axiosInstance = axios.create({
 
 
 // eslint-disable-next-line react/prop-types
-export default function Complex({favoriteHandler, addToFavorites}) {
+export default function Complex({favoriteHandler}) {
 
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   // const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+
+
+  // const handleAddToFavorites = async (complex) => {
+  //   favoriteHandler(complex); // Add to favorites state in the parent component
+
+  //   const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  //   localStorage.setItem('favorites', JSON.stringify([...storedFavorites, complex]));
+  // };
 
   
 
@@ -57,18 +66,12 @@ export default function Complex({favoriteHandler, addToFavorites}) {
       try {
         setIsLoading(true);
         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
-        // const responseImage = await axiosInstance.get(`/images/?limit=10&offset=${(currentPage - 1) * 10}`);
-
         const { results, count } = response.data;
-        
         setHomes(results);
         setTotalCount(count);
-        // setImages(responseImage.data.results);
         setIsLoading(false); // Set loading state to false after fetching data
-
       } catch (error) {
         setIsLoading(false); // Set loading state to false in case of error
-
           console.error('Error fetching data:', error);
         }
     };
@@ -81,17 +84,10 @@ export default function Complex({favoriteHandler, addToFavorites}) {
 // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
-
   }
 
 
   
-
-
-
-
-  console.log (favoriteHandler)
-
   return (
     <div className='ComplexBodyBox'>
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება... */}
