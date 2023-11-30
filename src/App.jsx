@@ -8,18 +8,31 @@ import Lots from './pages/Lots';
 import Developers from './pages/Developers';
 import Map from './pages/Map';
 import Sales from './pages/Sales';
-import Plans from './pages/Plans';
 import FavoriteComplex from './pages/FavoriteComplex';
+import ApartmentList from './pages/ApartmentList';
 
 
 function App() {
+  // const [favorites, setFavorites] = useState([]);
 
-  
+  // const addToFavorites = (item) => {
+  //   setFavorites([...favorites, item]);
+  // };
+
+
+
+
+  // favorites infos State
   const [savedComplexes, setSavedComplexes] = useState([]);
+
+  // favorites functionality
   const favoriteHandler = (complex) => {
     const isAlreadySaved = savedComplexes.some((c) => c.id === complex.id);
 
-    if (!isAlreadySaved) {
+    if (isAlreadySaved) {
+      const updatedComplexes = savedComplexes.filter((c) => c.id !== complex.id);
+      setSavedComplexes(updatedComplexes);
+    } else {
       setSavedComplexes([...savedComplexes, complex]);
     }
   };
@@ -36,7 +49,7 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='complex'>
           <Route index={true} element={<Complex favoriteHandler={favoriteHandler} />} />
-          <Route path='plans' element={<Plans/>} />
+          <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} />} />
         </Route>
         <Route path='lots' element={<Lots />} />
         <Route path='developers' element={<Developers />} />

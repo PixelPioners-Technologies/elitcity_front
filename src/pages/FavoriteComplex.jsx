@@ -1,29 +1,29 @@
 // აქ ეს diseibleee იმიტო დავწერე, რომ map-ზე error-ს მიგდებდა tsx-ის გამო რო იქ რაღაცაა ისეთი გაწერილი რომ მიგდებს ამას
 /* eslint-disable react/prop-types */
 // import React from 'react'
-
+// import { useEffect, useState } from "react";
 // eslint-disable-next-line react/prop-types
-export default function FavoriteComplex({savedComplexes}) {
+export default function FavoriteComplex({savedComplexes, favorites }) {
+
   return (
+
+  // {favorites.map((fav, index) => (
+  //         <div key={index}>{fav}</div>
+  //       ))}
+
+
+
     <div>
-     favorite 
-     {/* Test for favorite */}
-     
      {savedComplexes && savedComplexes.map((complex, index, ) => (
           <div className='card' key={index}>
-
-            {/* აქ image გავთიშე, რადგან ხო ცალკე api–ით მომქონდა complex–ის page–ზე რაც axios–ზე მაქვს გაწერილი
-            ხოლო აქ მხოლოდ complex–ების api–ზეა წვდომა ისე მაქ კოდი გაწერილი .. მაშინ დამჭირდება image-ებიც ავიტანო App-ში */}
-
-            {/* <img src={images[index]?.image} alt='photo of complex' style={styles.imageStyles} /> */}
-
-            <p style={styles.companyTitle}>{complex.name}</p>
-            <div className='textInfo'>
-              <p style={styles.complexInfo}>{complex.address}</p>
-              <p style={styles.complexInfo}>{complex.price_per_sq_meter}</p>
-              <p style={styles.complexFinished} >თარიღი...</p>
-            </div>
+          <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
+          <p style={styles.companyTitle}>{complex.name}</p>
+          <div className='textInfo'>
+            <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
+            <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
+            <p style={styles.complexFinished}>Date: ...</p>
           </div>
+        </div>
         ))}
 
     </div>
