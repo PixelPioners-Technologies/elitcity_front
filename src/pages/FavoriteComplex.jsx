@@ -3,7 +3,7 @@
 // import React from 'react'
 // import { useEffect, useState } from "react";
 // eslint-disable-next-line react/prop-types
-export default function FavoriteComplex({savedComplexes }) {
+export default function FavoriteComplex({favorites }) {
 
   return (
     
@@ -18,7 +18,7 @@ export default function FavoriteComplex({savedComplexes }) {
       <h1>
         favorite Page
         </h1>
-     {savedComplexes && savedComplexes.map((complex, index, ) => (
+     {favorites && favorites.map((complex, index, ) => (
           <div className='card' key={index}>
           <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
           <p style={styles.companyTitle}>{complex.name}</p>

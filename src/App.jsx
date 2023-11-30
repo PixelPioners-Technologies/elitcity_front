@@ -23,21 +23,22 @@ function App() {
 
 
   // favorites infos State
-  const [savedComplexes, setSavedComplexes] = useState([]);
+  const [favorites, setfavorites] = useState([]);
+
 
   // favorites functionality
   const favoriteHandler = (complex) => {
-    const isAlreadySaved = savedComplexes.some((c) => c.id === complex.id);
+    const isAlreadySaved = favorites.some((c) => c.id === complex.id);
 
     if (isAlreadySaved) {
-      const updatedComplexes = savedComplexes.filter((c) => c.id !== complex.id);
-      setSavedComplexes(updatedComplexes);
+      const updatedComplexes = favorites.filter((c) => c.id !== complex.id);
+      setfavorites(updatedComplexes);
     } else {
-      setSavedComplexes([...savedComplexes, complex]);
+      setfavorites([...favorites, complex]);
     }
   };
 
-  console.log('savedComplexes: -- ', savedComplexes)
+  console.log('favorites: -- ', favorites)
 
   
 
@@ -55,7 +56,7 @@ function App() {
         <Route path='developers' element={<Developers />} />
         <Route path='map' element={<Map />} />
         <Route path='sales' element={<Sales />} />
-        <Route path='favoriteComplex' element={<FavoriteComplex savedComplexes={savedComplexes} />} />
+        <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
       </Routes>
     </div>
   )

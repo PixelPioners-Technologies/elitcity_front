@@ -24,7 +24,7 @@ const axiosInstance = axios.create({
 
 
 // eslint-disable-next-line react/prop-types
-export default function Complex({favoriteHandler, addToFavorites}) {
+export default function Complex({favoriteHandler}) {
 
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
