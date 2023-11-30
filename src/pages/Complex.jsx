@@ -80,7 +80,7 @@ export default function Complex({favoriteHandler}) {
 
 
       {/* <h1>Complex Page Component</h1> */}
-     <div className='allCards'>
+     {/* <div className='allCards'>
       {isLoading ? (
         Array.from({ length: 10 }, (_, index) => (
           <Skeleton
@@ -109,7 +109,43 @@ export default function Complex({favoriteHandler}) {
           ))
 
         )}
+      </div> */}
+
+
+
+      <div className='allCards'>
+  {isLoading ? (
+    Array.from({ length: 10 }, (_, index) => (
+      <div className='card' key={index}>
+        <Skeleton variant='rectangle' animation='wave' width={styles.imageStyles.width} height={styles.imageStyles.height} />
+        <Skeleton variant='text' animation='wave' width={150} height={20} style={styles.companyTitle} />
+        <div className='textInfo'>
+          <Skeleton variant='text' animation='wave' width={120} height={15} style={styles.complexInfo} />
+          <Skeleton variant='text' animation='wave' width={180} height={15} style={styles.complexInfo} />
+          <Skeleton variant='text' animation='wave' width={100} height={15} style={styles.complexFinished} />
+        </div>
       </div>
+    ))
+  ) : (
+    homes &&
+    homes.map((complex, index) => (
+      <div className='card' key={index}>
+        <button onClick={() => favoriteHandler(complex)} key={complex.id}>
+          <img src={heartIcon} alt='Logo of heart' />
+        </button> 
+        <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
+        <p style={styles.companyTitle}>{complex.name}</p>
+        <div className='textInfo'>
+          <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
+          <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
+          {/* Update the line below with the actual date property */}
+          <p style={styles.complexFinished}>Date: {complex.date}</p>
+        </div>
+      </div>
+    ))
+  )}
+</div>
+
       
       {/* Pagination for user to select some page */}
       <div className='pagination'>
