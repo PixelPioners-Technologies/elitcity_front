@@ -21,6 +21,10 @@ export default function Map() {
   const [cityList, setCityList] = useState([]);
   const [selectedCity , setSelectedCity] = useState()
 
+  const [selectedParentDistrict, setSelectedParentDistrict] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+
+  41.764785, 44.790301
 
   useEffect(() =>{
     const axiosLocations = async () => {
@@ -37,7 +41,6 @@ export default function Map() {
           };
         });
         setLocations(locationsWithCoords);
-        console.log(locations)
         // setImage(results.images)
       } catch (error) {
         console.error(error)
@@ -52,14 +55,9 @@ export default function Map() {
   useEffect(() => {
   const fetchCities = async () => {
     try {
-      const cityResult = await axios.get('http://127.0.0.1:8000/city/');
-      const cityData = cityResult.data;
-      console.log('gateste qalaqebi',cityData )
-      setCityList(cityData.map(cityItem => {
-        const city = cityItem.city;
-        return typeof city === 'string' ? city : '';
-      }));
-      console.log("aq unda iyos lati da longi" ,locations)
+      const response = await axios.get('http://127.0.0.1:8000/city/');
+      setCityList(response.data)
+      
     } catch (error) {
       console.error(error);
     }
@@ -71,24 +69,42 @@ export default function Map() {
 
   const handleMarkerClick = location =>{
     setSelectedLocation(location);
-    setMapCenter({ lat:location.latitude , lng: location.longitude  });
-    
+    setMapCenter({  lat:location.latitude , lng: location.longitude  });
     setZoomLevel(25)
+
     
   }
 
 
   return (
     <div className='main_map' >
-        <div className='filter_cont' >
-            <select onChange={(e) =>  setSelectedCity(e.target.value) }   >
-              <option value='' > select a sity </option>
-              {cityList.map((city, index) => (
-                  <option key={index} value={city.toLowerCase()}> {city} </option>
-              ))}
-           </select>
+         <div className='filter_cont'>
+      {/* City Dropdown */}
+      <select onChange={(e) => setSelectedCity(e.target.value)}>
+        <option value=''>Select a city</option>
+        {cityList.map((cityItem, index) => (
+          <option key={index} value={cityItem.city}>{cityItem.city}</option>
+        ))}
+      </select>
 
-           {/* სხვა ფილტრები შეიძლება ჩაიწეროს აქ*/}
+      {/* Parent District Dropdown */}
+      <select onChange={(e) => setSelectedParentDistrict(e.target.value)}>
+        <option value=''>Select a parent district</option>
+        {cityList.find(city => city.city === selectedCity)?.pharent_districts.map((pd, index) => (
+          <option key={index} value={pd.pharentDistrict}>{pd.pharentDistrict}</option>
+        ))}
+      </select>
+
+      {/* District Dropdown */}
+      <select onChange={(e) => setSelectedDistrict(e.target.value)}>
+        <option value=''>Select a district</option>
+        {cityList
+          .find(city => city.city === selectedCity)
+          ?.pharent_districts.find(pd => pd.pharentDistrict === selectedParentDistrict)
+          ?.districts.map((d, index) => (
+            <option key={index} value={d.district}>{d.district}</option>
+          ))}
+      </select>
         </div>
         <div className='for_border' ></div>
         <div className='map_cont'  >
@@ -98,17 +114,20 @@ export default function Map() {
               center={mapCenter}
               zoom={zoomLevel}
             >
-              {locations.filter(location =>{
-                return !selectedCity  || location.address.city.toLowerCase() === selectedCity.toLowerCase();
-              }).map(location => (
-                <Marker 
-                  key={location.id}
-                  position={{lat: location.latitude, lng : location.longitude}}
-                  onClick={() => {handleMarkerClick(location)}}
-                />
-              ))
+              {
+                locations
+                  .filter(location => !selectedCity || location.address.city.toLowerCase() === selectedCity.toLowerCase())
+                  .filter(location => !selectedParentDistrict || location.address.pharentDistrict.toLowerCase() === selectedParentDistrict.toLowerCase())
+                  .filter(location => !selectedDistrict || location.address.district.toLowerCase() === selectedDistrict.toLowerCase())
+                  .map(location => (
+                    <Marker 
+                      key={location.id}
+                      position={{lat: location.latitude, lng : location.longitude}}
+                      onClick={() => {handleMarkerClick(location)}}
+                      />
+                  ))
               }
-                {/* {selectedLocation && (
+                {selectedLocation && (
               <InfoWindow
                 position={{
                   lat: selectedLocation.latitude,
@@ -130,10 +149,14 @@ export default function Map() {
                   </div>
                 </div>
               </InfoWindow>
-            )} */}
+            )}
             </GoogleMap>
           </LoadScript>
       </div>
     </div>
   )
 }
+
+
+
+
