@@ -29,29 +29,7 @@ export default function Complex({favoriteHandler}) {
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  // const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-
-
-  // const handleAddToFavorites = async (complex) => {
-  //   favoriteHandler(complex); // Add to favorites state in the parent component
-
-  //   const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  //   localStorage.setItem('favorites', JSON.stringify([...storedFavorites, complex]));
-  // };
-
-  
-
-  // // for fav functionality  New
-  // const handleAddToFavorites = (item) => {
-  //   addToFavorites(item);
-  //   // Update localStorage here
-  //   const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  //   localStorage.setItem('favorites', JSON.stringify([...storedFavorites, item]));
-  // };
-
-
 
 
   // ცვლადი ქვერი სტრინგი სადაც შევინახავ მონაცემებს, კლიკის დროს სორტირებაზე, ქუერი სტრინგში უნდა დაემატოს სორტირების ნაწილი sort = price
@@ -101,31 +79,6 @@ export default function Complex({favoriteHandler}) {
       </div>
 
 
-      {/* {homes && homes.map((complex) => (
-        <div key={complex.id}>
-          <h1>{complex.name}</h1>
-          <img src={complex.images[0]} alt={complex.name} />
-          </div>
-          
-        ))} */}
-
-
-
-
-      {/* ფილტრის გაკეთება back-ში ხდება და მერე მე query params-ით ვაჩვენებ sort–ირებას
-          https://v5.reactrouter.com/web/example/query-parameters
-       */}
-
-       {/* 
-        let numArr = [10, 5, 80];
-
-        numArr.sort((a, b) => a - b);
-        console.log(numArr); // Output: [5, 10, 80]
-
-        სორტირება ესე უნდა მოხდეს
-       */}
-
-
       {/* <h1>Complex Page Component</h1> */}
      <div className='allCards'>
       {isLoading ? (
@@ -158,6 +111,7 @@ export default function Complex({favoriteHandler}) {
         )}
       </div>
       
+      {/* Pagination for user to select some page */}
       <div className='pagination'>
         <Stack spacing={2}>
           <Pagination

@@ -13,25 +13,19 @@ import ApartmentList from './pages/ApartmentList';
 
 
 function App() {
-  // const [favorites, setFavorites] = useState([]);
-
-  // const addToFavorites = (item) => {
-  //   setFavorites([...favorites, item]);
-  // };
-
   
   
-  
-  // favorites infos State
+  // favorites infos State (and favorite functionality with local storage)
+  // START (favorite functionality)
   const [favorites, setFavorites] = useState([]);
 
-    // Retrieve saved favorites from localStorage on initial render
-    useEffect(() => {
-      const savedFavorites = JSON.parse(localStorage.getItem('favorites'));
-      if (savedFavorites) {
-        setFavorites(savedFavorites);
-      }
-    }, []);
+  // Retrieve saved favorites from localStorage on initial render
+  useEffect(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem('favorites'));
+    if (savedFavorites) {
+      setFavorites(savedFavorites);
+    }
+  }, []);
   
   // Load favorites from localStorage on initial render
   useEffect(() => {
@@ -51,9 +45,10 @@ function App() {
       const updatedFavorites = [...favorites, complex];
       setFavorites(updatedFavorites);
       localStorage.setItem('favorites', JSON.stringify(updatedFavorites)); // Update localStorage
-
     }
   };
+    // END (favorite functionality)
+
 
 
 
