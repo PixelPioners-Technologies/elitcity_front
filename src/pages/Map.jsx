@@ -1,17 +1,15 @@
-// import React from 'react'
-import './Map.css'
+import React, { useState, useEffect , useRef } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import Modal from './M0dal';
+import './Map.css'
+
 
 
 const initialCenter = {
-  lat: 42.3154, // Latitude for the center of Georgia
-  lng: 43.3569  // Longitude for the center of Georgia
+  lat: 41.7151,
+  lng: 44.8271
 };
-
-
-
 
 export default function Map() {
   const [locations, setLocations] = useState([]);
@@ -19,179 +17,188 @@ export default function Map() {
   const [mapCenter, setMapCenter] = useState(initialCenter);
   const [zoomLevel, setZoomLevel] = useState(10);
   const [cityList, setCityList] = useState([]);
-  const [selectedCity , setSelectedCity] = useState()
-
-  const [selectedParentDistrict, setSelectedParentDistrict] = useState('');
-  const [selectedDistrict, setSelectedDistrict] = useState('');
-
-  const [districtOptions, setDistrictOptions] = useState([]);
+  const [selectedCity, setSelectedCity] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [markedParentDistricts, setMarkedParentDistricts] = useState(new Set());
 
 
 
-  useEffect(() =>{
+  // fetch whole complex for location latitude and longitude
+  useEffect(() => {
     const axiosLocations = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/complex/')
-        const data = response.data.results
-        const locationsWithCoords = data.map(item => {
-          return {
-            ...item,
-            latitude: item.address.latitude,
-            longitude: item.address.longitude,
-            // city: item.address.city, 
-            // id : item.address.id
-          };
-        });
+        const response = await axios.get('http://127.0.0.1:8000/complex/');
+        const data = response.data.results;
+        const locationsWithCoords = data.map(item => ({
+          ...item,
+          latitude: item.address.latitude,
+          longitude: item.address.longitude,
+        }));
         setLocations(locationsWithCoords);
-        // setImage(results.images)
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     };
     axiosLocations();
+  }, []);
 
-  },[]);
 
 
-  // ფუნქციჯა ცალკე ენპოინტზე რომელსაც მოაქვს მხოლოდ ქალაქები 
+// fetch only cities , pharentDistricts and districts 
   useEffect(() => {
-  const fetchCities = async () => {
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/city/');
-      setCityList(response.data)
-      
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  fetchCities();
-}, []);
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/city/');
+        setCityList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchCities();
+  }, []);
 
 
 
-  const handleMarkerClick = location =>{
+
+  const handleMarkerClick = location => {
     setSelectedLocation(location);
-    setMapCenter({  lat:location.latitude , lng: location.longitude  });
-    setZoomLevel(25)
+    setMapCenter({ lat: location.latitude, lng: location.longitude });
+    setZoomLevel(25);
+  };
 
-    
-  }
-
-
-   const handleCityChange = (e) => {
-    const city = e.target.value;
+  const handleCityClick = city => {
     setSelectedCity(city);
-    setSelectedParentDistrict(''); // Reset parent district selection
-    setDistrictOptions([]); // Reset district options
+    setIsModalOpen(true);
+  };
 
-    // If a city was selected, prepare the parent district options
-    if (city) {
-      const foundCity = cityList.find(c => c.city === city);
-      setDistrictOptions(foundCity ? foundCity.pharent_districts : []);
-    }
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // setMarkedParentDistricts(new Set());  ეს რო ჩართულია , ლოკაციის ძიების ფანჯრის დახურვისას ფილტრაცია აღარ მუშაობს
   };
 
 
-  const handleParentDistrictChange = (e) => {
-    const pDistrict = e.target.value;
-    setSelectedParentDistrict(pDistrict); // Update the selected parent district
-  
-    // Find the selected city
-    const foundCity = cityList.find(c => c.city === selectedCity);
-    if (!foundCity) return; // If the city isn't found, exit the function
-  
-    // Find the parent district within the selected city
-    const foundParentDistrict = foundCity.pharent_districts.find(pd => pd.pharentDistrict === pDistrict);
-  
-    // Update the district options based on the selected parent district
-    setDistrictOptions(foundParentDistrict ? foundParentDistrict.districts : []);
+
+
+  const toggleParentDistrict = (parentDistrict) => {
+    setMarkedParentDistricts(prev => {
+      const newMarked = new Set(prev);
+      if (newMarked.has(parentDistrict)) {
+        newMarked.delete(parentDistrict);
+      } else {
+        newMarked.add(parentDistrict);
+      }
+      return newMarked;
+    });
   };
+
+
+
+  const filteredLocations = locations.filter(location => {
+    if (!selectedCity) return true; // If no city is selected, show all locations
+    if (location.address.city.toLowerCase() !== selectedCity.toLowerCase()) return false;
+    // If no parent district is marked, show all locations within the city
+    if (markedParentDistricts.size === 0) return true;
+    return markedParentDistricts.has(location.address.pharentDistrict.toLowerCase());
+  });
+
+  // ლოგიკა რუკის დაზუმვისთვის ლოკაციიის მონიშვნისას
+  const mapRef = useRef();
+
+   // Function to update the map's bounds based on the filtered locations
+   const fitBounds = (map, locations) => {
+    const bounds = new window.google.maps.LatLngBounds();
+    locations.forEach(location => {
+      bounds.extend(new window.google.maps.LatLng(location.latitude, location.longitude));
+    });
+    map.fitBounds(bounds);
+  };
+
+  useEffect(() => {
+    if (!mapRef.current || !selectedCity || markedParentDistricts.size === 0) return;
+    
+    // Assuming mapRef.current is the current Google Map instance
+    const mapInstance = mapRef.current.state.map;
+
+    // Call fitBounds to adjust the map view
+    fitBounds(mapInstance, filteredLocations);
+
+    // Optionally set a max zoom level
+    const listener = google.maps.event.addListenerOnce(mapInstance, 'bounds_changed', () => {
+      if (mapInstance.getZoom() > 15) {
+        mapInstance.setZoom(15); // Set max zoom level here
+      }
+    });
+
+    // Clean up the listener after it's been set
+    return () => google.maps.event.removeListener(listener);
+  }, [selectedCity, markedParentDistricts, filteredLocations]); // Depend on these states
+
 
 
 
 
   return (
-    <div className='main_map' >
-         <div className='filter_cont'>
-      {/* City Dropdown */}
-       <select onChange={handleCityChange} value={selectedCity}>
-        <option value=''>Select a city</option>
+    <div className='main_map'>
+      <div className='filter_cont'>
+        {/* City buttons to open the modal */}
         {cityList.map((cityItem, index) => (
-          <option key={index} value={cityItem.city}>{cityItem.city}</option>
+          <button key={index} onClick={() => handleCityClick(cityItem.city)}  className='button-19' >
+            {cityItem.city}
+          </button>
         ))}
-      </select>
 
-      {/* Parent District Dropdown */}
-      {selectedCity && (
-  <select onChange={handleParentDistrictChange} value={selectedParentDistrict}>
-    <option value=''>Select a parent district</option>
-    {cityList.find(city => city.city === selectedCity)?.pharent_districts.map((pd, index) => (
-      <option key={index} value={pd.pharentDistrict}>{pd.pharentDistrict}</option>
-    ))}
-  </select>
-)}
-
-      {/* District Dropdown */}
-      {selectedParentDistrict && (
-        <select onChange={(e) => setSelectedDistrict(e.target.value)} value={selectedDistrict}>
-          <option value=''>Select a district</option>
-          {districtOptions.map((d, index) => (
-            <option key={index} value={d.district}>{d.district}</option>
+        {/* The modal for displaying parent districts */}
+        <Modal isOpen={isModalOpen} close={closeModal}>
+          <h2>Select Parent Districts</h2>
+          {cityList.find(city => city.city === selectedCity)?.pharent_districts.map((pd, index) => (
+            <div key={index}>
+              <label>
+                <input
+                  type="checkbox"
+                  onChange={() => toggleParentDistrict(pd.pharentDistrict.toLowerCase())}
+                  checked={markedParentDistricts.has(pd.pharentDistrict.toLowerCase())}
+                />
+                {pd.pharentDistrict}
+              </label>
+            </div>
           ))}
-        </select>
-      )}
-        </div>
-        <div className='for_border' ></div>
-        <div className='map_cont'  >
-            <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0" >
-            <GoogleMap
-              mapContainerStyle={{ width: '1000px', height: '100vh' }}
-              center={mapCenter}
-              zoom={zoomLevel}
-            >
-              {
-                locations
-                  .filter(location => !selectedCity || location.address.city.toLowerCase() === selectedCity.toLowerCase())
-                  .filter(location => !selectedParentDistrict || location.address.pharentDistrict.toLowerCase() === selectedParentDistrict.toLowerCase())
-                  .filter(location => !selectedDistrict || location.address.district.toLowerCase() === selectedDistrict.toLowerCase())
-                  .map(location => (
-                    <Marker 
-                      key={location.id}
-                      position={{lat: location.latitude, lng : location.longitude}}
-                      onClick={() => {handleMarkerClick(location)}}
-                      />
-                  ))
-              }
-                {selectedLocation && (
+          <button onClick={closeModal}>Close</button>
+        </Modal>
+      </div>
+      <div className='for_border' ></div>
+      <div className='map_cont'>
+        <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
+          <GoogleMap
+            mapContainerStyle={{ width: '1000px', height: '100vh' }}
+            center={mapCenter}
+            zoom={zoomLevel}
+            ref={mapRef}
+          >
+            {filteredLocations.map(location => (
+              <Marker
+                key={location.id}
+                position={{ lat: location.latitude, lng: location.longitude }}
+                onClick={() => handleMarkerClick(location)}
+              />
+            ))}
+
+            {selectedLocation && (
               <InfoWindow
-                position={{
-                  lat: selectedLocation.latitude,
-                  lng: selectedLocation.longitude
-                }}
+                position={{ lat: selectedLocation.latitude, lng: selectedLocation.longitude }}
                 onCloseClick={() => setSelectedLocation(null)}
               >
                 <div>
                   <h2>{selectedLocation.name}</h2>
-                  <div className='image_cont'>
-                    {selectedLocation.images.map((image, index) => (
-                      <img
-                        key={index}
-                        src={image}
-                        alt={`Image ${index}`}
-                        style={{ width: '200px', height: '100px' }}
-                      />
-                    ))}
-                  </div>
+                  {/* ...other info window contents... */}
                 </div>
               </InfoWindow>
             )}
-            </GoogleMap>
-          </LoadScript>
+          </GoogleMap>
+        </LoadScript>
       </div>
     </div>
-  )
+  );
 }
-
 
 
 
