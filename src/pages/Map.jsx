@@ -24,7 +24,9 @@ export default function Map() {
   const [selectedParentDistrict, setSelectedParentDistrict] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
 
-  41.764785, 44.790301
+  const [districtOptions, setDistrictOptions] = useState([]);
+
+
 
   useEffect(() =>{
     const axiosLocations = async () => {
@@ -76,11 +78,43 @@ export default function Map() {
   }
 
 
+   const handleCityChange = (e) => {
+    const city = e.target.value;
+    setSelectedCity(city);
+    setSelectedParentDistrict(''); // Reset parent district selection
+    setDistrictOptions([]); // Reset district options
+
+    // If a city was selected, prepare the parent district options
+    if (city) {
+      const foundCity = cityList.find(c => c.city === city);
+      setDistrictOptions(foundCity ? foundCity.pharent_districts : []);
+    }
+  };
+
+
+  const handleParentDistrictChange = (e) => {
+    const pDistrict = e.target.value;
+    setSelectedParentDistrict(pDistrict); // Update the selected parent district
+  
+    // Find the selected city
+    const foundCity = cityList.find(c => c.city === selectedCity);
+    if (!foundCity) return; // If the city isn't found, exit the function
+  
+    // Find the parent district within the selected city
+    const foundParentDistrict = foundCity.pharent_districts.find(pd => pd.pharentDistrict === pDistrict);
+  
+    // Update the district options based on the selected parent district
+    setDistrictOptions(foundParentDistrict ? foundParentDistrict.districts : []);
+  };
+
+
+
+
   return (
     <div className='main_map' >
          <div className='filter_cont'>
       {/* City Dropdown */}
-      <select onChange={(e) => setSelectedCity(e.target.value)}>
+       <select onChange={handleCityChange} value={selectedCity}>
         <option value=''>Select a city</option>
         {cityList.map((cityItem, index) => (
           <option key={index} value={cityItem.city}>{cityItem.city}</option>
@@ -88,23 +122,24 @@ export default function Map() {
       </select>
 
       {/* Parent District Dropdown */}
-      <select onChange={(e) => setSelectedParentDistrict(e.target.value)}>
-        <option value=''>Select a parent district</option>
-        {cityList.find(city => city.city === selectedCity)?.pharent_districts.map((pd, index) => (
-          <option key={index} value={pd.pharentDistrict}>{pd.pharentDistrict}</option>
-        ))}
-      </select>
+      {selectedCity && (
+  <select onChange={handleParentDistrictChange} value={selectedParentDistrict}>
+    <option value=''>Select a parent district</option>
+    {cityList.find(city => city.city === selectedCity)?.pharent_districts.map((pd, index) => (
+      <option key={index} value={pd.pharentDistrict}>{pd.pharentDistrict}</option>
+    ))}
+  </select>
+)}
 
       {/* District Dropdown */}
-      <select onChange={(e) => setSelectedDistrict(e.target.value)}>
-        <option value=''>Select a district</option>
-        {cityList
-          .find(city => city.city === selectedCity)
-          ?.pharent_districts.find(pd => pd.pharentDistrict === selectedParentDistrict)
-          ?.districts.map((d, index) => (
+      {selectedParentDistrict && (
+        <select onChange={(e) => setSelectedDistrict(e.target.value)} value={selectedDistrict}>
+          <option value=''>Select a district</option>
+          {districtOptions.map((d, index) => (
             <option key={index} value={d.district}>{d.district}</option>
           ))}
-      </select>
+        </select>
+      )}
         </div>
         <div className='for_border' ></div>
         <div className='map_cont'  >
