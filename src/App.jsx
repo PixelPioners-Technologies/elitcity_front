@@ -1,7 +1,7 @@
 import './App.css'
 import Header from './Components/Header/Header'
 import { Route, Routes } from "react-router-dom";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HomePage from './pages/HomePage';
 import Complex from './pages/Complex';
 import Lots from './pages/Lots';
@@ -19,12 +19,24 @@ function App() {
   //   setFavorites([...favorites, item]);
   // };
 
-
-
-
+  
+  
+  
   // favorites infos State
-  const [favorites, setfavorites] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
+    // Retrieve saved favorites from localStorage on initial render
+    useEffect(() => {
+      const savedFavorites = JSON.parse(localStorage.getItem('favorites'));
+      if (savedFavorites) {
+        setFavorites(savedFavorites);
+      }
+    }, []);
+  
+  // Load favorites from localStorage on initial render
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   // favorites functionality
   const favoriteHandler = (complex) => {
@@ -32,11 +44,19 @@ function App() {
 
     if (isAlreadySaved) {
       const updatedComplexes = favorites.filter((c) => c.id !== complex.id);
-      setfavorites(updatedComplexes);
+      setFavorites(updatedComplexes);
+      localStorage.setItem('favorites', JSON.stringify(updatedComplexes)); // Update localStorage
+      
     } else {
-      setfavorites([...favorites, complex]);
+      const updatedFavorites = [...favorites, complex];
+      setFavorites(updatedFavorites);
+      localStorage.setItem('favorites', JSON.stringify(updatedFavorites)); // Update localStorage
+
     }
   };
+
+
+
 
   console.log('favorites: -- ', favorites)
 

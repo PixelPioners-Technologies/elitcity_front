@@ -6,12 +6,6 @@
 export default function FavoriteComplex({favorites }) {
 
   return (
-    
-
-  // {favorites.map((fav, index) => (
-  //         <div key={index}>{fav}</div>
-  //       ))}
-
 
 
     <div>
