@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Checkbox, Input } from 'antd';
+import { Checkbox, Input, } from 'antd';
+import { Link } from 'react-router-dom';
+import './HomePage.css'
 import axios from 'axios';
-import './HomePage.css';
 
 const axiosInstance = axios.create({
   baseURL: 'http://34.201.93.104:8000',
@@ -17,13 +18,16 @@ const YourComponent = () => {
   });
 
   const [data, setData] = useState([]);
+  console.log(data);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [images, setimages] = useState([]);
+  console.log(images);
 
   useEffect(() => {
     fetchData();
-  }, [filters, currentPage]);
+  }, [currentPage]);
 
   const fetchData = async () => {
     try {
@@ -37,6 +41,10 @@ const YourComponent = () => {
       }).toString();
 
       const response = await axiosInstance.get(`/apartments?${queryParams}`);
+      const imageResponse = await axiosInstance.get('http://34.201.93.104:8000/apartmentimage/?limit=10&offset=0');
+
+      setimages(imageResponse.data.results);
+      console.log(images);
       setData(response.data.results);
       console.log(data)
     } catch (error) {
@@ -58,41 +66,49 @@ const YourComponent = () => {
   };
 
   return (
+    
+    <>
+    <div className='divdiv'>
+        <Link to='/FavoriteComplex'>
+          <button>პროექტები</button>
+        </Link>
+    
     <div className='filt_div'>
+      
       {/* Render your filter inputs and controls */}
-      <p className='labels'>
+      <div className='labels'>
         Min Area:
         <Input className='input'
-          type="number"
+          type="title"
           value={filters.min_area}
           onChange={(e) => handleFilterChange('min_area', e.target.value)}
         />
-      </p>
-      <label className='labels'>
+      </div>
+      <div className='labels'>
         Max Area:
         <Input className='input'
           type="number"
           value={filters.max_area}
           onChange={(e) => handleFilterChange('max_area', e.target.value)}
         />
-      </label>
-      <label className='labels'>
+      </div>
+      <div className='labels'>
         Min price Area:
         <Input className='input'
           type="number"
           value={filters.min_price_per_sq_meter}
           onChange={(e) => handleFilterChange('min_price_per_sq_meter', e.target.value)}
         />
-      </label>
-      <label className='labels'>
+      </div>
+      <div className='labels'>
         Max price Area:
         <Input className='input'
           type="number"
           value={filters.max_price_per_sq_meter}
           onChange={(e) => handleFilterChange('max_price_per_sq_meter', e.target.value)}
         />
-      </label>
-      <label className='labels'>
+      </div>
+      <div className='labels'>
         Finished:
         <Checkbox
           checked={filters.finished}
@@ -100,8 +116,9 @@ const YourComponent = () => {
         >
           Finished
         </Checkbox>
-      </label>
-
+      </div>
+      </div>
+      <div>
       <button onClick={fetchData} disabled={loading}>
         Apply Filters
       </button>
@@ -110,10 +127,17 @@ const YourComponent = () => {
         {data.map((results) => (
           <li key={results.id} className='orered'>
             Complex ID = {results.complex}
+            floor_number = {results.floor_number}
+
           </li>
+          
         ))}
       </ul>
-
+      <div>
+      {images && images.map((images, index, ) => (
+        <img key={index} src={images.images} alt={`photo of complex ${index + 1}`} className='images'/>
+))};
+      </div>
       <div className='pagination'>
         <botton onClick={() => handlePageChange(currentPage - 1)} disabled={loading} className='previus'>
           Previus
@@ -122,7 +146,10 @@ const YourComponent = () => {
           Next
         </button>
       </div>
+      
     </div>
+    </div>
+    </>
   );
 };
 

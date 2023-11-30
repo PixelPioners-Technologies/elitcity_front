@@ -1,89 +1,95 @@
-/* HomePage.css */
+
+
+.images {
+  width: 100px;
+}
 
 .filt_div {
-  width: 80%;
-  margin: auto;
-  padding: 20px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 5px;
-}
-
-input {
-  margin-bottom: 16px;
-  padding: 8px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* HomePage.css */
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.input {
-  display: inline-block;
+    width: 70%;
+    margin: auto;
+    padding: 0px;
+    background-color: #f0f0f0;
+    border-radius: 1px;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+  }
   
-}
-
-button {
-  padding: 10px;
-  background-color: #274235;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.unorder {
-  list-style: none;
-  padding: 0;
-}
-
-.orered {
-  margin-bottom: 8px;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.pagination {
-  margin-top: 16px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.previus,
-.next {
-  padding: 8px;
-  background-color: #274235;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.previus:disabled,
-.next:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Add more styles as needed */
+  label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  input {
+    margin-bottom: 16px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* HomePage.css */
+  
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .input {
+    display: inline;
+    
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #274235;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .unorder {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .orered {
+    margin-bottom: 8px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pagination {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .previus,
+  .next {
+    padding: 8px;
+    background-color: #274235;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .previus:disabled,
+  .next:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  
+  /* Add more styles as needed */
+  
