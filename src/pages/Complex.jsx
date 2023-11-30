@@ -29,20 +29,7 @@ export default function Complex({favoriteHandler}) {
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  // const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  
-
-  // // for fav functionality  New
-  // const handleAddToFavorites = (item) => {
-  //   addToFavorites(item);
-  //   // Update localStorage here
-  //   const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  //   localStorage.setItem('favorites', JSON.stringify([...storedFavorites, item]));
-  // };
-
-
 
 
   // ცვლადი ქვერი სტრინგი სადაც შევინახავ მონაცემებს, კლიკის დროს სორტირებაზე, ქუერი სტრინგში უნდა დაემატოს სორტირების ნაწილი sort = price
@@ -57,18 +44,12 @@ export default function Complex({favoriteHandler}) {
       try {
         setIsLoading(true);
         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
-        // const responseImage = await axiosInstance.get(`/images/?limit=10&offset=${(currentPage - 1) * 10}`);
-
         const { results, count } = response.data;
-        
         setHomes(results);
         setTotalCount(count);
-        // setImages(responseImage.data.results);
         setIsLoading(false); // Set loading state to false after fetching data
-
       } catch (error) {
         setIsLoading(false); // Set loading state to false in case of error
-
           console.error('Error fetching data:', error);
         }
     };
@@ -81,13 +62,10 @@ export default function Complex({favoriteHandler}) {
 // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
-
   }
 
 
-
-  console.log (favoriteHandler)
-
+  
   return (
     <div className='ComplexBodyBox'>
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება... */}
@@ -99,31 +77,6 @@ export default function Complex({favoriteHandler}) {
           <Link to='/map' ><button>რუკა</button></Link>
         </div>
       </div>
-
-
-      {/* {homes && homes.map((complex) => (
-        <div key={complex.id}>
-          <h1>{complex.name}</h1>
-          <img src={complex.images[0]} alt={complex.name} />
-          </div>
-          
-        ))} */}
-
-
-
-
-      {/* ფილტრის გაკეთება back-ში ხდება და მერე მე query params-ით ვაჩვენებ sort–ირებას
-          https://v5.reactrouter.com/web/example/query-parameters
-       */}
-
-       {/* 
-        let numArr = [10, 5, 80];
-
-        numArr.sort((a, b) => a - b);
-        console.log(numArr); // Output: [5, 10, 80]
-
-        სორტირება ესე უნდა მოხდეს
-       */}
 
 
       {/* <h1>Complex Page Component</h1> */}
@@ -158,6 +111,7 @@ export default function Complex({favoriteHandler}) {
         )}
       </div>
       
+      {/* Pagination for user to select some page */}
       <div className='pagination'>
         <Stack spacing={2}>
           <Pagination
