@@ -59,12 +59,12 @@ function App() {
 
   return (
     <div>
-      <Header />
+      <Header favorites={favorites} />
     
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='complex'>
-          <Route index={true} element={<Complex favoriteHandler={favoriteHandler} />} />
+          <Route index={true} element={<Complex favoriteHandler={favoriteHandler} favorites={favorites} />} />
           <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} />} />
         </Route>
         <Route path='lots' element={<Lots />} />
