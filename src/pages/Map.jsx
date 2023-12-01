@@ -66,8 +66,8 @@ export default function Map() {
     setSelectedLocation(location);
     setMapCenter({ lat: location.latitude, lng: location.longitude });
     setZoomLevel(15); // Adjust the zoom level as needed
-  } else {
-    // Handle the case where coordinates are not available
+  } else {    // Handle the case where coordinates are not available
+
     console.error("Invalid coordinates for location:", location);
   }
 };
@@ -94,18 +94,38 @@ export default function Map() {
   };
 
 
-  const toggleDistrict = (district) => {
-    setMarkedDistricts(prev => {
+  const toggleDistrict = (district, parentDistrict) => {
+    setMarkedDistricts((prev) => {
       const newMarked = new Set(prev);
       if (newMarked.has(district)) {
         newMarked.delete(district);
+  
+        // Optional: Unmark the parent district if no other districts are marked
+        const parentDistricts = cityList.find((c) => c.city === selectedCity)?.pharent_districts;
+        const parent = parentDistricts?.find((pd) => pd.pharentDistrict.toLowerCase() === parentDistrict.toLowerCase());
+        const allUnmarked = parent?.districts.every((d) => !newMarked.has(d.district.toLowerCase()));
+  
+        if (allUnmarked) {
+          setMarkedParentDistricts((prevParent) => {
+            const newMarkedParent = new Set(prevParent);
+            newMarkedParent.delete(parentDistrict.toLowerCase());
+            return newMarkedParent;
+          });
+        }
       } else {
         newMarked.add(district);
+  
+        // Automatically mark the parent district when any child district is marked
+        setMarkedParentDistricts((prevParent) => {
+          const newMarkedParent = new Set(prevParent);
+          newMarkedParent.add(parentDistrict.toLowerCase());
+          return newMarkedParent;
+        });
       }
       return newMarked;
     });
   };
-
+  
 
 
   const filteredLocations = locations.filter(location => {
@@ -193,18 +213,18 @@ export default function Map() {
                   {pd.pharentDistrict}
                 </label>
                 <div className="districts-container">
-                  {pd.districts.map((d, dIndex) => (
-                    <label key={dIndex} className="checkbox-button-label">
-                      <input
-                        id={`district-checkbox-${pdIndex}-${dIndex}`}
-                        type="checkbox"
-                        className="checkbox-button"
-                        onChange={() => toggleDistrict(d.district.toLowerCase())}
-                        checked={markedDistricts.has(d.district.toLowerCase())}
-                      />
-                      {d.district}
-                    </label>
-                  ))}
+                {pd.districts.map((d, dIndex) => (
+                  <label key={dIndex} className="checkbox-button-label">
+                    <input
+                      id={`district-checkbox-${pdIndex}-${dIndex}`}
+                      type="checkbox"
+                      className="checkbox-button"
+                      onChange={() => toggleDistrict(d.district.toLowerCase(), pd.pharentDistrict.toLowerCase())}
+                      checked={markedDistricts.has(d.district.toLowerCase())}
+                    />
+                    {d.district}
+                  </label>
+                ))}
                 </div>
               </div>
             ))}
