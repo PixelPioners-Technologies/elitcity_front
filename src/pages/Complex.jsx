@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 // import React from 'react'
 import './Complex.css';
 
@@ -6,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 import heartIcon from '../assets/heartIcon.svg'
+import heartIconEmpty from '../assets/heart-empty.svg'
 
 
 // Pagination
@@ -24,7 +27,7 @@ const axiosInstance = axios.create({
 
 
 // eslint-disable-next-line react/prop-types
-export default function Complex({favoriteHandler}) {
+export default function Complex({favoriteHandler, favorites}) {
 
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -98,9 +101,13 @@ export default function Complex({favoriteHandler}) {
     homes &&
     homes.map((complex, index) => (
       <div className='card' key={index}>
-        <button onClick={() => favoriteHandler(complex)} key={complex.id}>
-          <img src={heartIcon} alt='Logo of heart' />
-        </button> 
+        <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
+          {favorites.some(fav => fav.id === complex.id) ? (
+            <img src={heartIcon} alt='Logo of heart' />
+          ) : (
+            <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '25px', height: '25px' }} />
+          )}
+      </button>
         <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
         <p style={styles.companyTitle}>{complex.name}</p>
         <div className='textInfo'>
