@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div>
-      <Header />
+      <Header favorites={favorites} />
     
       <Routes>
         <Route path='/' element={<HomePage />} />
