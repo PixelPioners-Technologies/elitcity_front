@@ -1,7 +1,7 @@
 import React, { useState, useEffect , useRef } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import Modal from './M0dal';
+import Modal from './Modal';
 import './Map.css'
 
 
@@ -20,8 +20,8 @@ export default function Map() {
   const [selectedCity, setSelectedCity] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [markedParentDistricts, setMarkedParentDistricts] = useState(new Set());
-  
-
+  const [modalContent, setModalContent] = useState('cities');
+  const [markedDistricts, setMarkedDistricts] = useState(new Set());
 
   // fetch whole complex for location latitude and longitude
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Map() {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/city/');
+        const response = await axios.get('http://127.0.0.1:8000/location/');
         setCityList(response.data);
       } catch (error) {
         console.error(error);
@@ -61,15 +61,17 @@ export default function Map() {
 
 
   const handleMarkerClick = location => {
+  // Check if the location has valid coordinates before setting the map center
+  if (location.latitude && location.longitude) {
     setSelectedLocation(location);
     setMapCenter({ lat: location.latitude, lng: location.longitude });
-    setZoomLevel(25);
-  };
+    setZoomLevel(15); // Adjust the zoom level as needed
+  } else {
+    // Handle the case where coordinates are not available
+    console.error("Invalid coordinates for location:", location);
+  }
+};
 
-  const handleCityClick = city => {
-    setSelectedCity(city);
-    setIsModalOpen(true);
-  };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -92,14 +94,27 @@ export default function Map() {
   };
 
 
+  const toggleDistrict = (district) => {
+    setMarkedDistricts(prev => {
+      const newMarked = new Set(prev);
+      if (newMarked.has(district)) {
+        newMarked.delete(district);
+      } else {
+        newMarked.add(district);
+      }
+      return newMarked;
+    });
+  };
+
+
 
   const filteredLocations = locations.filter(location => {
-    if (!selectedCity) return true; // If no city is selected, show all locations
-    if (location.address.city.toLowerCase() !== selectedCity.toLowerCase()) return false;
-    // If no parent district is marked, show all locations within the city
-    if (markedParentDistricts.size === 0) return true;
-    return markedParentDistricts.has(location.address.pharentDistrict.toLowerCase());
+    const cityMatch = !selectedCity || location.address.city.toLowerCase() === selectedCity.toLowerCase();
+    const parentDistrictMatch = markedParentDistricts.size === 0 || markedParentDistricts.has(location.address.pharentDistrict.toLowerCase());
+    const districtMatch = markedDistricts.size === 0 || markedDistricts.has(location.address.district.toLowerCase());
+    return cityMatch && parentDistrictMatch && districtMatch;
   });
+  
 
   // ლოგიკა რუკის დაზუმვისთვის ლოკაციიის მონიშვნისას
   const mapRef = useRef();
@@ -115,58 +130,103 @@ export default function Map() {
 
   useEffect(() => {
     if (!mapRef.current || !selectedCity || markedParentDistricts.size === 0) return;
-    
     // Assuming mapRef.current is the current Google Map instance
     const mapInstance = mapRef.current.state.map;
-
     // Call fitBounds to adjust the map view
     fitBounds(mapInstance, filteredLocations);
-
     // Optionally set a max zoom level
     const listener = google.maps.event.addListenerOnce(mapInstance, 'bounds_changed', () => {
       if (mapInstance.getZoom() > 15) {
         mapInstance.setZoom(15); // Set max zoom level here
       }
     });
-
     // Clean up the listener after it's been set
     return () => google.maps.event.removeListener(listener);
-  }, [selectedCity, markedParentDistricts, filteredLocations]); // Depend on these states
+  }, [selectedCity, markedParentDistricts, filteredLocations, markedDistricts]); // Depend on these states
+
+
+
+  // ----------------------------axios for django filters -------------------------------------------------
 
 
 
 
 
+
+  // ------------------------------------------------------------------------------------------------------
+
+  const handleShowCityModal = () => {
+    setModalContent('cities');
+    setIsModalOpen(true);
+  };
+
+  const handleCityClick = (city) => {
+    setModalContent('parentDistricts');
+    setSelectedCity(city);
+    setIsModalOpen(true);
+  };
+
+
+  const renderModalContent = () => {
+    switch (modalContent) {
+      case 'cities':
+        return cityList.map((cityItem, index) => (
+          <button key={index} onClick={() => handleCityClick(cityItem.city)} className='button-19'>
+            {cityItem.city}
+          </button>
+        ));
+  
+      case 'parentDistricts':
+        const cityData = cityList.find(c => c.city === selectedCity);
+        return (
+          <div className="parent-districts-container">
+            {cityData?.pharent_districts.map((pd, pdIndex) => (
+              <div key={pdIndex} className="parent-district">
+                <label className="checkbox-button-label">
+                  <input
+                    id={`pd-checkbox-${pdIndex}`}
+                    type="checkbox"
+                    className="checkbox-button"
+                    onChange={() => toggleParentDistrict(pd.pharentDistrict.toLowerCase())}
+                    checked={markedParentDistricts.has(pd.pharentDistrict.toLowerCase())}
+                  />
+                  {pd.pharentDistrict}
+                </label>
+                <div className="districts-container">
+                  {pd.districts.map((d, dIndex) => (
+                    <label key={dIndex} className="checkbox-button-label">
+                      <input
+                        id={`district-checkbox-${pdIndex}-${dIndex}`}
+                        type="checkbox"
+                        className="checkbox-button"
+                        onChange={() => toggleDistrict(d.district.toLowerCase())}
+                        checked={markedDistricts.has(d.district.toLowerCase())}
+                      />
+                      {d.district}
+                    </label>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+  
+      default:
+        return null;
+    }
+  };
+  
   return (
     <div className='main_map'>
       <div className='filter_cont'>
-        {/* City buttons to open the modal */}
-        {cityList.map((cityItem, index) => (
-          <button key={index} onClick={() => handleCityClick(cityItem.city)}  className='button-19' >
-            {cityItem.city}
-          </button>
-        ))}
+        <button onClick={handleShowCityModal} className='show_button'  >Select City</button>
 
-        {/* The modal for displaying parent districts */}
         <Modal isOpen={isModalOpen} close={closeModal}>
-          <h2>Select Parent Districts</h2>
-          {cityList.find(city => city.city === selectedCity)?.pharent_districts.map((pd, index) => (
-            <div key={index}>
-              <label>
-                <input
-                  type="checkbox"
-                  onChange={() => toggleParentDistrict(pd.pharentDistrict.toLowerCase())}
-                  checked={markedParentDistricts.has(pd.pharentDistrict.toLowerCase())}
-                />
-                {pd.pharentDistrict}
-              </label>
-            </div>
-          ))}
-          <button onClick={closeModal}>Close</button>
+          {renderModalContent()}
         </Modal>
-
-
       </div>
+
+
       <div className='for_border' ></div>
       <div className='map_cont'>
         <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
