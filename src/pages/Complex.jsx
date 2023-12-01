@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 import heartIcon from '../assets/heartIcon.svg'
-import heartIconEmpty from '../assets/heart-empty.svg'
+import heartIconEmpty from '../assets/heart-empty-white.svg'
 
 
 // Pagination
@@ -101,14 +101,18 @@ export default function Complex({favoriteHandler, favorites}) {
     homes &&
     homes.map((complex, index) => (
       <div className='card' key={index}>
-        <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
-          {favorites.some(fav => fav.id === complex.id) ? (
-            <img src={heartIcon} alt='Logo of heart' />
-          ) : (
-            <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '25px', height: '25px' }} />
-          )}
-      </button>
-        <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
+        <div className='heartbuttonAndImageBox'>
+          <div className='heartButtonBox'>
+            <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
+              {favorites.some(fav => fav.id === complex.id) ? (
+                <img src={heartIcon} alt='Logo of heart' />
+                ) : (
+                  <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+                  )}
+            </button>
+          </div>
+          <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
+        </div>
         <p style={styles.companyTitle}>{complex.name}</p>
         <div className='textInfo'>
           <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
