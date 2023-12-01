@@ -20,7 +20,7 @@ export default function Map() {
   const [selectedCity, setSelectedCity] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [markedParentDistricts, setMarkedParentDistricts] = useState(new Set());
-
+  
 
 
   // fetch whole complex for location latitude and longitude
@@ -164,6 +164,8 @@ export default function Map() {
           ))}
           <button onClick={closeModal}>Close</button>
         </Modal>
+
+
       </div>
       <div className='for_border' ></div>
       <div className='map_cont'>
