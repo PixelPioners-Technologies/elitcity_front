@@ -13,7 +13,6 @@ const initialCenter = {
 
 export default function Map() {
   const [locations, setLocations] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState(null);
   const [mapCenter, setMapCenter] = useState(initialCenter);
   const [zoomLevel, setZoomLevel] = useState(10);
   const [cityList, setCityList] = useState([]);
@@ -22,6 +21,8 @@ export default function Map() {
   const [markedParentDistricts, setMarkedParentDistricts] = useState(new Set());
   const [modalContent, setModalContent] = useState('cities');
   const [markedDistricts, setMarkedDistricts] = useState(new Set());
+  const [hoveredLocation, setHoveredLocation] = useState(null);
+  const [keepInfoWindowOpen, setKeepInfoWindowOpen] = useState(false);
 
   // fetch whole complex for location latitude and longitude
   useEffect(() => {
@@ -34,7 +35,9 @@ export default function Map() {
           latitude: item.address.latitude,
           longitude: item.address.longitude,
         }));
+        
         setLocations(locationsWithCoords);
+        console.log(selectedCity)
       } catch (error) {
         console.error(error);
       }
@@ -60,17 +63,6 @@ export default function Map() {
 
 
 
-  const handleMarkerClick = location => {
-  // Check if the location has valid coordinates before setting the map center
-  if (location.latitude && location.longitude) {
-    setSelectedLocation(location);
-    setMapCenter({ lat: location.latitude, lng: location.longitude });
-    setZoomLevel(15); // Adjust the zoom level as needed
-  } else {    // Handle the case where coordinates are not available
-
-    console.error("Invalid coordinates for location:", location);
-  }
-};
 
 
   const closeModal = () => {
@@ -236,11 +228,52 @@ export default function Map() {
     }
   };
   
+
+  // --------------------------------- reset market cityes, pharent district  and districts -------------------------------
+
+  const unmarkAll = () => {
+    // Reset the state variables for marked cities, parent districts, and districts
+    setSelectedCity('');
+    setMarkedParentDistricts(new Set());
+    setMarkedDistricts(new Set());
+  
+    // Optionally, if you want to reset the map view as well
+    setMapCenter(initialCenter);
+    setZoomLevel(10); // Set to your initial zoom level
+    
+    // Close the modal if you want
+    setIsModalOpen(false);
+  };
+// ------------------------------------------------------------------------------------------------------------------------
+
+// ----------------------------------------open infowindow on hover--------------------------------------------------------
+const handleMarkerMouseOver = (location) => {
+  setHoveredLocation(location);
+  setKeepInfoWindowOpen(true);
+};
+
+const handleMarkerMouseOut = () => {
+    if (!keepInfoWindowOpen) {
+      setHoveredLocation(null);
+    }
+};
+
+const handleInfoWindowMouseOver = () => {
+  setKeepInfoWindowOpen(true);
+};
+
+const handleInfoWindowMouseOut = () => {
+  setKeepInfoWindowOpen(false);
+  setHoveredLocation(null);
+};
+// ---------------------------------------------------------------------------------------------------------------------------
+
+
   return (
     <div className='main_map'>
       <div className='filter_cont'>
-        <button onClick={handleShowCityModal} className='show_button'  >Select City</button>
-
+        <button onClick={handleShowCityModal} className='show_button'  >Select City ...</button>
+        <button onClick={unmarkAll} className='reset_button'>Reset Marks</button>
         <Modal isOpen={isModalOpen} close={closeModal}>
           {renderModalContent()}
         </Modal>
@@ -260,21 +293,26 @@ export default function Map() {
               <Marker
                 key={location.id}
                 position={{ lat: location.latitude, lng: location.longitude }}
-                onClick={() => handleMarkerClick(location)}
+                onMouseOver={ () => handleMarkerMouseOver(location)}
+                onMouseOut={handleMarkerMouseOut}
               />
             ))}
 
-            {selectedLocation && (
-              <InfoWindow
-                position={{ lat: selectedLocation.latitude, lng: selectedLocation.longitude }}
-                onCloseClick={() => setSelectedLocation(null)}
-              >
-                <div>
-                  <h2>{selectedLocation.name}</h2>
-                  {/* ...other info window contents... */}
-                </div>
-              </InfoWindow>
-            )}
+              {hoveredLocation && (
+                <InfoWindow
+                position={{ lat: hoveredLocation.latitude, lng: hoveredLocation.longitude }}
+                onCloseClick={() => setHoveredLocation(null)}
+                onMouseOver={handleInfoWindowMouseOver}
+                onMouseOut={handleInfoWindowMouseOut}
+                >
+                  <div>
+                    <h2>{hoveredLocation.name}</h2>
+                    <img className='image_cont'  src={hoveredLocation.images} alt='location'/>
+                    {/* ...other info window contents should go here*/}
+                  </div>
+                </InfoWindow>
+              )}
+         
           </GoogleMap>
         </LoadScript>
       </div>

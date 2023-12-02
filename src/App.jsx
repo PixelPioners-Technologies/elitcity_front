@@ -53,7 +53,7 @@ function App() {
 
 
 
-  console.log('favorites: -- ', favorites)
+  // console.log('favorites: -- ', favorites)
 
   
 
