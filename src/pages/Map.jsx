@@ -153,6 +153,7 @@ export default function Map() {
       if (mapInstance.getZoom() > 15) {
         mapInstance.setZoom(15); // Set max zoom level here
       }
+    
     });
     // Clean up the listener after it's been set
     return () => google.maps.event.removeListener(listener);
