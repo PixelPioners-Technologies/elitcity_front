@@ -128,7 +128,7 @@ export default function Map() {
   });
   
 
-  // ლოგიკა რუკის დაზუმვისთვის ლოკაციიის მონიშვნისას
+  //--------------------------------------------- ლოგიკა რუკის დაზუმვისთვის ლოკაციიის მონიშვნისას--------------------------
   const mapRef = useRef();
 
    // Function to update the map's bounds based on the filtered locations
@@ -156,7 +156,7 @@ export default function Map() {
     return () => google.maps.event.removeListener(listener);
   }, [selectedCity, markedParentDistricts, filteredLocations, markedDistricts]); // Depend on these states
 
-
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
   // ----------------------------axios for django filters -------------------------------------------------
 
@@ -178,7 +178,7 @@ export default function Map() {
     setIsModalOpen(true);
   };
 
-
+// ----------------------------------------------modal for opening cities , pharent districts and districts----------------------
   const renderModalContent = () => {
     switch (modalContent) {
       case 'cities':
@@ -227,8 +227,7 @@ export default function Map() {
         return null;
     }
   };
-  
-
+  // ------------------------------------------------------------------------------------------------------------------------------
   // --------------------------------- reset market cityes, pharent district  and districts -------------------------------
 
   const unmarkAll = () => {
