@@ -198,7 +198,7 @@ export default function Map() {
                   <input
                     id={`pd-checkbox-${pdIndex}`}
                     type="checkbox"
-                    className="checkbox-button"
+                    className="checkbox-button-pharentdistrict"
                     onChange={() => toggleParentDistrict(pd.pharentDistrict.toLowerCase())}
                     checked={markedParentDistricts.has(pd.pharentDistrict.toLowerCase())}
                   />
@@ -210,7 +210,7 @@ export default function Map() {
                     <input
                       id={`district-checkbox-${pdIndex}-${dIndex}`}
                       type="checkbox"
-                      className="checkbox-button"
+                      className="checkbox-button-district"
                       onChange={() => toggleDistrict(d.district.toLowerCase(), pd.pharentDistrict.toLowerCase())}
                       checked={markedDistricts.has(d.district.toLowerCase())}
                     />

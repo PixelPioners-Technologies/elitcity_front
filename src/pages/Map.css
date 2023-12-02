@@ -20,6 +20,41 @@
 
 }
 
+.parent-district .checkbox-button-label {
+  font-weight: bold;
+}
+
+.districts-container .checkbox-button-label {
+  padding-left: 20px;
+  display: block;
+}
+
+
+.columns-container {
+  display: flex;
+}
+
+.parent-districts-column {
+  flex: 1;
+  /* Additional styles for the parent district column */
+}
+
+.districts-column {
+  flex: 1;
+  /* Additional styles for the district column */
+}
+
+.checkbox-button-pharentdistrict {
+  line-height: 30px;
+}
+/* 
+.checkbox-button-district {
+  /* Styles for district checkboxes */
+
+
+
+
+
 /*  --------------------------------------------------  city button styles ------------------------------------------------- */
 
 .button-19 {
