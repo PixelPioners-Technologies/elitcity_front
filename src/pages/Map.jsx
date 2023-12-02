@@ -71,62 +71,64 @@ export default function Map() {
   };
 
 
-
-
+// ---------------------------------logic for marking pharentdistrict if all it"s dostricts are marked -----------------------------
   const toggleParentDistrict = (parentDistrict) => {
-    setMarkedParentDistricts(prev => {
-      const newMarked = new Set(prev);
-      if (newMarked.has(parentDistrict)) {
-        newMarked.delete(parentDistrict);
-      } else {
-        newMarked.add(parentDistrict);
+    setMarkedParentDistricts(prevParent => {
+      const newMarkedParent = new Set(prevParent);
+      let childDistricts = [];
+      // Find the child districts of the selected parent district
+      const parentDistrictData = cityList.find(c => c.city === selectedCity)?.pharent_districts.find(pd => pd.pharentDistrict.toLowerCase() === parentDistrict.toLowerCase());
+      if (parentDistrictData) {
+        childDistricts = parentDistrictData.districts.map(d => d.district.toLowerCase());
       }
-      return newMarked;
+      if (newMarkedParent.has(parentDistrict)) {
+        newMarkedParent.delete(parentDistrict);
+        // Remove all child districts from markedDistricts
+        setMarkedDistricts(prevDistricts => new Set([...prevDistricts].filter(district => !childDistricts.includes(district))));
+      } else {
+        newMarkedParent.add(parentDistrict);
+        // Add all child districts to markedDistricts
+        setMarkedDistricts(prevDistricts => new Set([...prevDistricts, ...childDistricts]));
+      }
+      return newMarkedParent;
     });
   };
-
-
+  
   const toggleDistrict = (district, parentDistrict) => {
-    setMarkedDistricts((prev) => {
+    setMarkedDistricts(prev => {
       const newMarked = new Set(prev);
+  
       if (newMarked.has(district)) {
         newMarked.delete(district);
-  
-        // Optional: Unmark the parent district if no other districts are marked
-        const parentDistricts = cityList.find((c) => c.city === selectedCity)?.pharent_districts;
-        const parent = parentDistricts?.find((pd) => pd.pharentDistrict.toLowerCase() === parentDistrict.toLowerCase());
-        const allUnmarked = parent?.districts.every((d) => !newMarked.has(d.district.toLowerCase()));
-  
-        if (allUnmarked) {
-          setMarkedParentDistricts((prevParent) => {
-            const newMarkedParent = new Set(prevParent);
-            newMarkedParent.delete(parentDistrict.toLowerCase());
-            return newMarkedParent;
-          });
-        }
       } else {
         newMarked.add(district);
-  
-        // Automatically mark the parent district when any child district is marked
-        setMarkedParentDistricts((prevParent) => {
-          const newMarkedParent = new Set(prevParent);
-          newMarkedParent.add(parentDistrict.toLowerCase());
-          return newMarkedParent;
-        });
       }
+      // Automatically update parent district's marked status based on child districts
+      const parentDistricts = cityList.find(c => c.city === selectedCity)?.pharent_districts;
+      const parent = parentDistricts?.find(pd => pd.pharentDistrict.toLowerCase() === parentDistrict.toLowerCase());
+      const allMarked = parent?.districts.every(d => newMarked.has(d.district.toLowerCase()));
+  
+      setMarkedParentDistricts(prevParent => {
+        const newMarkedParent = new Set(prevParent);
+        if (allMarked) {
+          newMarkedParent.add(parentDistrict.toLowerCase());
+        } else {
+          newMarkedParent.delete(parentDistrict.toLowerCase());
+        }
+        return newMarkedParent;
+      });
+  
       return newMarked;
     });
   };
   
-
-
   const filteredLocations = locations.filter(location => {
     const cityMatch = !selectedCity || location.address.city.toLowerCase() === selectedCity.toLowerCase();
     const parentDistrictMatch = markedParentDistricts.size === 0 || markedParentDistricts.has(location.address.pharentDistrict.toLowerCase());
     const districtMatch = markedDistricts.size === 0 || markedDistricts.has(location.address.district.toLowerCase());
     return cityMatch && parentDistrictMatch && districtMatch;
   });
-  
+  // --------------------------------------------------------------------------------------------------------------------------------
 
   //--------------------------------------------- ლოგიკა რუკის დაზუმვისთვის ლოკაციიის მონიშვნისას--------------------------
   const mapRef = useRef();
@@ -158,15 +160,6 @@ export default function Map() {
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
 
-  // ----------------------------axios for django filters -------------------------------------------------
-
-
-
-
-
-
-  // ------------------------------------------------------------------------------------------------------
-
   const handleShowCityModal = () => {
     setModalContent('cities');
     setIsModalOpen(true);
@@ -178,7 +171,7 @@ export default function Map() {
     setIsModalOpen(true);
   };
 
-// ----------------------------------------------modal for opening cities , pharent districts and districts----------------------
+// ------------------------------------------modal for opening cities , pharent districts and districts----------------------------------------
   const renderModalContent = () => {
     switch (modalContent) {
       case 'cities':
