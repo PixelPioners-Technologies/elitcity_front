@@ -19,9 +19,12 @@ import { Skeleton } from '@mui/material';
 
 
 
+// const axiosInstance = axios.create({
+//   baseURL: 'http://34.201.93.104:8000'
+// });
 
 const axiosInstance = axios.create({
-  baseURL: 'http://127.0.0.1:8000'
+  baseURL: 'https://api.storkhome.ge'
 });
 
 
