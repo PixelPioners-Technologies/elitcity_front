@@ -1,0 +1,285 @@
+.image_cont{
+    width: 200px;
+    height: 400px;
+    object-fit: contain;
+}
+
+.self{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.filter_cont{
+    width: 100%;
+    height: 100vh;
+    background: #CFE8DC;
+    padding: 20px;
+
+}
+
+.parent-district .checkbox-button-label {
+  font-weight: bold;
+}
+
+.districts-container .checkbox-button-label {
+  padding-left: 20px;
+  display: block;
+}
+
+
+.columns-container {
+  display: flex;
+}
+
+.parent-districts-column {
+  flex: 1;
+}
+
+.districts-column {
+  flex: 1;
+}
+
+.checkbox-button-pharentdistrict {
+  line-height: 30px;
+}
+
+
+
+
+/*  --------------------------------------------------  city button styles ------------------------------------------------- */
+
+.button-19 {
+  appearance: button;
+  background-color: #b4cfc2;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round,sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 100px;
+  margin-right: 20px;
+}
+
+.button-19:after {
+  background-clip: padding-box;
+  background-color: #274235;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.button-19:main,
+.button-19:focus {
+  user-select: auto;
+}
+
+.button-19:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.button-19:disabled {
+  cursor: auto;
+}
+
+.button-19:active {
+  border-width: 4px 0 0;
+  background: none;
+}
+
+/* ---------------------------------------------------------------------------------------------- */
+
+/* ---------------------------------------show city  button styles -------------------------------*/ 
+
+.show_button {
+  appearance: button;
+  background-color: #b4cfc2;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round,sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 350px;
+  margin-right: 20px;
+}
+
+.show_button:after {
+  background-clip: padding-box;
+  background-color: #274235;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.show_button:main,
+.show_button:focus {
+  user-select: auto;
+}
+
+.show_button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.show_button:disabled {
+  cursor: auto;
+}
+
+.show_button:active {
+  border-width: 4px 0 0;
+  background: none;
+}
+
+
+/* ------------------------------------------------------------------------------------------- */
+
+/* -------------------------reset button styles -------------------------------------------- */
+.reset_button {
+  appearance: button;
+  background-color: #b4cfc2;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round,sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 200px;
+  margin-right: 20px;
+}
+
+.reset_button:after {
+  background-clip: padding-box;
+  background-color: #274235;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.reset_button:main,
+.reset_button:focus {
+  user-select: auto;
+}
+
+.reset_button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.reset_button:disabled {
+  cursor: auto;
+}
+
+.reset_button:active {
+  border-width: 4px 0 0;
+  background: none;
+}
+
+
+
+
+/* --------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+.for_border{
+    width: 3px;
+    height: 100vh;
+    background: #274235;
+}
+
+.main_map{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+   
+}
+
+

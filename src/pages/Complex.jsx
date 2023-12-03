@@ -28,7 +28,6 @@ const axiosInstance = axios.create({
 });
 
 
-
 // eslint-disable-next-line react/prop-types
 export default function Complex({favoriteHandler, favorites}) {
 
