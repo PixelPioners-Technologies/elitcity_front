@@ -22,12 +22,27 @@ export default function Map() {
   const [markedDistricts, setMarkedDistricts] = useState(new Set());
   const [hoveredLocation, setHoveredLocation] = useState(null);
   const [keepInfoWindowOpen, setKeepInfoWindowOpen] = useState(false);
+  // this is for filtering by full price
+  const [minFullPrice, setMinFullPrice] = useState('');
+  const [maxFullPrice, setMaxFullPrice] = useState('');
+  // this is for filtering per square meter
+  const [minPricePerSquareMeter, setMinPricePerSquareMeter ] = useState('');
+  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter ] = useState('');
+
 
   // fetch whole complex for location latitude and longitude
   useEffect(() => {
     const axiosLocations = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/complex/');
+        const response = await axios.get('http://127.0.0.1:8000/complex/' , {
+          params: {
+            min_price_per_sq_meter : minPricePerSquareMeter || undefined,
+            max_price_per_sq_meter : maxPricePerSquareMeter || undefined,
+
+            min_full_price: minFullPrice || undefined,
+            max_full_price: maxFullPrice || undefined,
+            // ...include other parameters if needed
+          }})
         const data = response.data.results;
         const locationsWithCoords = data.map(item => ({
           ...item,
@@ -42,7 +57,7 @@ export default function Map() {
       }
     };
     axiosLocations();
-  }, []);
+  }, [selectedCity, minFullPrice , maxFullPrice , minPricePerSquareMeter , maxPricePerSquareMeter ]);
 
 // fetch only cities , pharentDistricts and districts 
   useEffect(() => {
@@ -258,12 +273,6 @@ const handleInfoWindowMouseOut = () => {
 };
 // ---------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
   return (
     <div className='main_map'>
       <div className='filter_cont'>
@@ -272,7 +281,38 @@ const handleInfoWindowMouseOut = () => {
         <Modal isOpen={isModalOpen} close={closeModal}>
           {renderModalContent()}
         </Modal>
-
+        <div>
+          {/* inputs for filter  by full price */}
+          <div>
+            <input 
+              type="number" 
+              placeholder="Min Full Price" 
+              value={minFullPrice} 
+              onChange={(e) => setMinFullPrice(e.target.value)} 
+              />
+            <input 
+              type="number" 
+              placeholder="Max Full Price" 
+              value={maxFullPrice} 
+              onChange={(e) => setMaxFullPrice(e.target.value)} 
+              />
+          </div>
+          <div>
+            {/* inputs for filter by price per square meter */}
+            <input 
+              type="number" 
+              placeholder="Min price per square meter" 
+              value={minPricePerSquareMeter} 
+              onChange={(e) => setMinPricePerSquareMeter(e.target.value)} 
+            />
+             <input 
+              type="number" 
+              placeholder="Max price per square meter" 
+              value={maxPricePerSquareMeter} 
+              onChange={(e) => setMaxPricePerSquareMeter(e.target.value)} 
+            />
+          </div>
+        </div>
       </div>
 
 
@@ -284,6 +324,9 @@ const handleInfoWindowMouseOut = () => {
             center={mapCenter}
             zoom={zoomLevel}
             ref={mapRef}
+            options={{
+              gestureHandling: "greedy", // This enables zooming without the Control key
+          }}
           >
             {filteredLocations.map(location => (
               <Marker
