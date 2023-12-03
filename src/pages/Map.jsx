@@ -5,7 +5,6 @@ import Modal from './Modal';
 import './Map.css'
 
 
-
 const initialCenter = {
   lat: 41.7151,
   lng: 44.8271
@@ -44,8 +43,6 @@ export default function Map() {
     };
     axiosLocations();
   }, []);
-
-
 
 // fetch only cities , pharentDistricts and districts 
   useEffect(() => {
@@ -262,6 +259,11 @@ const handleInfoWindowMouseOut = () => {
 // ---------------------------------------------------------------------------------------------------------------------------
 
 
+
+
+
+
+
   return (
     <div className='main_map'>
       <div className='filter_cont'>
@@ -270,6 +272,7 @@ const handleInfoWindowMouseOut = () => {
         <Modal isOpen={isModalOpen} close={closeModal}>
           {renderModalContent()}
         </Modal>
+
       </div>
 
 
