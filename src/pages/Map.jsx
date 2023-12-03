@@ -1,4 +1,6 @@
-import React, { useState, useEffect , useRef } from 'react';
+/* eslint-disable no-undef */
+/* eslint-disable no-case-declarations */
+import  { useState, useEffect , useRef } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import Modal from './Modal';
@@ -42,6 +44,7 @@ export default function Map() {
       }
     };
     axiosLocations();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 // fetch only cities , pharentDistricts and districts 
