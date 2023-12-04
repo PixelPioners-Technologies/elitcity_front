@@ -29,22 +29,35 @@ export default function Map() {
   const [minPricePerSquareMeter, setMinPricePerSquareMeter ] = useState('');
   const [maxPricePerSquareMeter, setMaxPricePerSquareMeter ] = useState('');
   // this is for filtering finished complexes
-  const [isfinished , setIsFinished] = useState()
+  const [isfinished , setIsFinished] = useState('')
+  // this is for filtering space 
+  const [minArea , setMinArea ] = useState('')
+  const [maxArea , setMaxArea ] = useState('')
+  //this is for filtering apartment's number of rooms 
+  const [selectedRooms, setSelectedRooms] = useState([]);
+
 
   // fetch whole complex for location latitude and longitude
   useEffect(() => {
     const axiosLocations = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/complex/' , {
-          params: {
-            min_price_per_sq_meter : minPricePerSquareMeter || undefined,
-            max_price_per_sq_meter : maxPricePerSquareMeter || undefined,
+        const params = new URLSearchParams();
 
-            min_full_price : minFullPrice || undefined,
-            max_full_price : maxFullPrice || undefined,
-            
-            finished : isfinished !== null ? isfinished : undefined,
-          }})
+        if (minPricePerSquareMeter) params.append('min_price_per_sq_meter', minPricePerSquareMeter);
+        if (maxPricePerSquareMeter) params.append('max_price_per_sq_meter', maxPricePerSquareMeter);
+        if (minFullPrice) params.append('min_full_price', minFullPrice);
+        if (maxFullPrice) params.append('max_full_price', maxFullPrice);
+        if (isfinished !== null && isfinished !== undefined) params.append('finished', isfinished);
+        if (minArea) params.append('min_area', minArea);
+        if (maxArea) params.append('max_area', maxArea);
+
+        selectedRooms.forEach(room => {
+          if (room) params.append('number_of_rooms', room);
+        });
+
+        const response = await axios.get('http://127.0.0.1:8000/complex/' , {
+          params: params
+          })
         const data = response.data.results;
         const locationsWithCoords = data.map(item => ({
           ...item,
@@ -53,13 +66,13 @@ export default function Map() {
         }));
         
         setLocations(locationsWithCoords);
-        console.log(selectedCity)
+        console.log(params)
       } catch (error) {
         console.error(error);
       }
     };
     axiosLocations();
-  }, [selectedCity, minFullPrice , maxFullPrice , minPricePerSquareMeter , maxPricePerSquareMeter , isfinished]);
+  }, [mapCenter, selectedCity, minFullPrice , maxFullPrice , minPricePerSquareMeter , maxPricePerSquareMeter , isfinished , minArea , maxArea, selectedRooms]);
 
 // fetch only cities , pharentDistricts and districts 
   useEffect(() => {
@@ -239,7 +252,7 @@ export default function Map() {
     setSelectedCity('');
     setMarkedParentDistricts(new Set());
     setMarkedDistricts(new Set());
-  
+    
     // Optionally, if you want to reset the map view as well
     setMapCenter(initialCenter);
     setZoomLevel(10); // Set to your initial zoom level
@@ -247,6 +260,14 @@ export default function Map() {
     // Close the modal if you want
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    if (mapRef.current) {
+      const mapInstance = mapRef.current.state.map;
+      mapInstance.setCenter(mapCenter);
+      mapInstance.setZoom(zoomLevel);
+    }
+  }, [mapCenter, zoomLevel]);
 // ------------------------------------------------------------------------------------------------------------------------
 
 // ----------------------------------------open infowindow on hover--------------------------------------------------------
@@ -277,20 +298,69 @@ const handleInfoWindowMouseOut = () => {
     setMinPricePerSquareMeter('')
     setMaxPricePerSquareMeter('')
     setIsFinished('')
+    setMinArea('')
+    setMaxArea('')
+    setSelectedRooms([])
   }
 // ---------------------------------------------------------------------------------------------------------------------------
+//------------------------------------logic fot selecting and filtering apartment's number of rooms -------------------------------
+const toggleRoomSelection = (room) => {
+  setSelectedRooms((prevSelectedRooms) => {
+    if (prevSelectedRooms.includes(room)) {
+      return prevSelectedRooms.filter((r) => r !== room); // Unselect
+    } else {
+      return [...prevSelectedRooms, room]; // Select
+    }
+  });
+};
 
+
+// ---------------------------------------------------------------------------------------------------------------------------
+
+  
 
 
   return (
     <div className='main_map'>
       <div className='filter_cont'>
         <button onClick={handleShowCityModal} className='show_button'  >Select City ...</button>
-        <button onClick={unmarkAll} className='reset_button'>Reset Marks</button>
+        <button onClick={unmarkAll} className='reset_button'>Reset Selected Cities</button>
         <Modal isOpen={isModalOpen} close={closeModal}>
           {renderModalContent()}
         </Modal>
         <div className='filters' >
+          {/* Room selection buttons */}
+          <div className="room-selection">
+            {['all', '1', '2', '3', '4', '5+'].map((room) => (
+              <button
+                key={room}
+                className={`room-button ${selectedRooms.includes(room) ? 'selected' : ''}`}
+                onClick={() => toggleRoomSelection(room)}
+                
+              >
+                {room}
+              </button>
+            ))}
+          </div>
+       
+
+          {/* input for min and max area */}
+          <div>
+            <input 
+                type="number" 
+                placeholder="Min Area" 
+                value={minArea} 
+                onChange={(e) => setMinArea(e.target.value)} 
+                />
+
+            <input 
+                type="number" 
+                placeholder="Max Area" 
+                value={maxArea} 
+                onChange={(e) => setMaxArea(e.target.value)} 
+                />
+
+          </div>
           {/* inputs for filter  by full price */}
           <div>
             <input 

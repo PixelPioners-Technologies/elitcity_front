@@ -147,7 +147,7 @@
   -webkit-user-select: none;
   vertical-align: middle;
   white-space: nowrap;
-  width: 350px;
+  width: 300px;
   margin-right: 20px;
 }
 
@@ -217,7 +217,7 @@
   -webkit-user-select: none;
   vertical-align: middle;
   white-space: nowrap;
-  width: 200px;
+  width: 250px;
   margin-right: 20px;
 }
 
@@ -255,18 +255,7 @@
   background: none;
 }
 
-
-
-
 /* --------------------------------------------------------------------------------------- */
-
-
-
-
-
-
-
-
 
 .for_border{
     width: 3px;
@@ -336,6 +325,12 @@ input[type="number"]:focus {
   text-indent: 0.01px;
   text-overflow: '';
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 
 .select_filter:focus {
   outline: none;
@@ -409,10 +404,55 @@ input[type="number"]:focus {
   border-width: 4px 0 0;
   background: none;
 }
+/* -------------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------room selection button styles -------------------------------------------------------------- */
+
+.room-button {
+  /* Your styles for the buttons */
+  margin-right: 5px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+.room-button.selected {
+  /* Styles for selected buttons */
+  background-color: blue;
+  color: white;
+  border-color: blue;
+}
 
 
+/* -------------------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------styles for chack room number buttons ------------------------------------------------------ */
+.room-selection {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 16px; /* Adjust as needed */
 
+}
 
+.room-button {
+  background-color: #A8D5BA; /* Light green background */
+  border: 1px solid #76A597; /* Slightly darker green border */
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1rem; /* Adjust as needed */
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
 
+.room-button:hover {
+  border-color: #a4d7a2; /* Darker green for hover state */
+}
+
+.room-button.selected {
+  background-color: #8cc2a1; /* Even darker green for selected state */
+  color: white; /* White text for selected state */
+  border-color: #8cc2a1; /* Same as background color for a flat look */
+}
 
 /* -------------------------------------------------------------------------------------------------------------------------- */
