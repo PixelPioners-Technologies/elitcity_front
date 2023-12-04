@@ -28,7 +28,8 @@ export default function Map() {
   // this is for filtering per square meter
   const [minPricePerSquareMeter, setMinPricePerSquareMeter ] = useState('');
   const [maxPricePerSquareMeter, setMaxPricePerSquareMeter ] = useState('');
-
+  // this is for filtering finished complexes
+  const [isfinished , setIsFinished] = useState()
 
   // fetch whole complex for location latitude and longitude
   useEffect(() => {
@@ -39,9 +40,10 @@ export default function Map() {
             min_price_per_sq_meter : minPricePerSquareMeter || undefined,
             max_price_per_sq_meter : maxPricePerSquareMeter || undefined,
 
-            min_full_price: minFullPrice || undefined,
-            max_full_price: maxFullPrice || undefined,
-            // ...include other parameters if needed
+            min_full_price : minFullPrice || undefined,
+            max_full_price : maxFullPrice || undefined,
+            
+            finished : isfinished !== null ? isfinished : undefined,
           }})
         const data = response.data.results;
         const locationsWithCoords = data.map(item => ({
@@ -57,7 +59,7 @@ export default function Map() {
       }
     };
     axiosLocations();
-  }, [selectedCity, minFullPrice , maxFullPrice , minPricePerSquareMeter , maxPricePerSquareMeter ]);
+  }, [selectedCity, minFullPrice , maxFullPrice , minPricePerSquareMeter , maxPricePerSquareMeter , isfinished]);
 
 // fetch only cities , pharentDistricts and districts 
   useEffect(() => {
@@ -71,10 +73,6 @@ export default function Map() {
     };
     fetchCities();
   }, []);
-
-
-
-
 
 
   const closeModal = () => {
@@ -272,6 +270,17 @@ const handleInfoWindowMouseOut = () => {
   setHoveredLocation(null);
 };
 // ---------------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------function for reseting filters -------------------------------------------------------
+  const handleResetAllFilters = () => {
+    setMinFullPrice('')
+    setMaxFullPrice('')
+    setMinPricePerSquareMeter('')
+    setMaxPricePerSquareMeter('')
+    setIsFinished('')
+  }
+// ---------------------------------------------------------------------------------------------------------------------------
+
+
 
   return (
     <div className='main_map'>
@@ -281,7 +290,7 @@ const handleInfoWindowMouseOut = () => {
         <Modal isOpen={isModalOpen} close={closeModal}>
           {renderModalContent()}
         </Modal>
-        <div>
+        <div className='filters' >
           {/* inputs for filter  by full price */}
           <div>
             <input 
@@ -312,9 +321,18 @@ const handleInfoWindowMouseOut = () => {
               onChange={(e) => setMaxPricePerSquareMeter(e.target.value)} 
             />
           </div>
+          <div>
+            {/* select for filter by finished or not */}
+            <select  className='select_filter'   value={isfinished}  onChange={(e) => setIsFinished(e.target.value)  }   >
+              <option value=''  >All</option>
+              <option value='true'  >Finished</option>
+              <option value='false'  >Not Finished</option>
+            </select>
+          </div>
+          {/* button for reseting filters */}
+          <button  className='reset_all_fiolters_button'  onClick={handleResetAllFilters}  >Reset All Filters </button>
         </div>
       </div>
-
 
       <div className='for_border' ></div>
       <div className='map_cont'>
