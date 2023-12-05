@@ -65,12 +65,13 @@ function App() {
 
   return (
     <div>
-      {forVisible && window.location.pathname !== "/" && (
+       {/* Conditional rendering for the Header */}
+       {(forVisible && window.location.pathname !== "/") ? (
         <div>
           <Header favorites={favorites} />
         </div>
-      )}
-
+      ) : null}
+      
       <Routes>
         <Route path="/" element={<Nothing />} />
 
