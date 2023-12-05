@@ -17,9 +17,7 @@ function App() {
   
   const [forVisible, setForVisible] = useState(true);
 
-  const forVisibleHandler = () => {
-    setForVisible(!forVisible);
-  }
+
   
   // favorites infos State (and favorite functionality with local storage)
   // START (favorite functionality)
