@@ -147,7 +147,7 @@
   -webkit-user-select: none;
   vertical-align: middle;
   white-space: nowrap;
-  width: 350px;
+  width: 300px;
   margin-right: 20px;
 }
 
@@ -217,7 +217,7 @@
   -webkit-user-select: none;
   vertical-align: middle;
   white-space: nowrap;
-  width: 200px;
+  width: 250px;
   margin-right: 20px;
 }
 
@@ -255,18 +255,7 @@
   background: none;
 }
 
-
-
-
 /* --------------------------------------------------------------------------------------- */
-
-
-
-
-
-
-
-
 
 .for_border{
     width: 3px;
@@ -283,3 +272,187 @@
 }
 
 
+/* --------------------------------------------------styles for input -----------------------------------------------------  */
+
+.filters {
+  margin-top: 30px;
+}
+
+input[type="number"] {
+  background-color: #A8D5BA;
+  color: #004d40; /* Dark green for text */
+  border: 2px solid #88B4A6; /* Slightly darker green for border */
+  border-radius: 4px;
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+input[type="number"]:hover {
+  border-color: #76A597;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: #34A853; /* Bright green for focus */
+}
+/* -------------------------------------------------------------------------------------------------------------------------- */
+
+/* --------------------------------------------------styles for select filter ------------------------------------*/
+
+.select_filter {
+  padding: 10px;
+  background: #A8D5BA; /* This color is a placeholder for the light green background */
+  border: 1px solid #76A597; /* This color is a placeholder for the green border */
+  border-radius: 4px;
+  font-size: 16px;
+  color: #5c5c5c; /* This color is a placeholder for the input text color */
+  width: 472px; /* Adjust if necessary to match the width of the input fields */
+  box-sizing: border-box; /* Ensures padding is included in the width */
+
+  -webkit-appearance: none; /* Removes default styling on WebKit browsers */
+  -moz-appearance: none; /* Removes default styling for Mozilla browsers */
+  appearance: none; /* Removes default arrow for some browsers */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%235c5c5c" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* Custom arrow icon */
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%; /* Position the arrow icon */
+  background-size: 12px; /* Size of the arrow icon */
+  cursor: pointer; /* Changes cursor to pointer when hovering over select */
+  margin-bottom: 16px;
+  /* For Firefox */
+  text-indent: 0.01px;
+  text-overflow: '';
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.select_filter:focus {
+  outline: none;
+  border-color: #4cae4c; /* This color is a placeholder for the focused border color */
+}
+
+
+/* ---------------------------------------------all filter reset button styles-------------------------------------------- */
+.reset_all_fiolters_button {
+  appearance: button;
+  background-color: #b4cfc2;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round,sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 200px;
+  margin-right: 20px;
+}
+
+.reset_all_fiolters_button:after {
+  background-clip: padding-box;
+  background-color: #274235;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.reset_all_fiolters_button:main,
+.reset_all_fiolters_button:focus {
+  user-select: auto;
+}
+
+.reset_all_fiolters_button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.reset_all_fiolters_button:disabled {
+  cursor: auto;
+}
+
+.reset_all_fiolters_button:active {
+  border-width: 4px 0 0;
+  background: none;
+}
+/* -------------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------room selection button styles -------------------------------------------------------------- */
+
+.room-button {
+  /* Your styles for the buttons */
+  margin-right: 5px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+.room-button.selected {
+  /* Styles for selected buttons */
+  background-color: blue;
+  color: white;
+  border-color: blue;
+}
+
+
+/* -------------------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------styles for chack room number buttons ------------------------------------------------------ */
+.room-selection {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 16px; /* Adjust as needed */
+
+}
+
+.room-button {
+  background-color: #A8D5BA; /* Light green background */
+  border: 1px solid #76A597; /* Slightly darker green border */
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1rem; /* Adjust as needed */
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.room-button:hover {
+  border-color: #a4d7a2; /* Darker green for hover state */
+}
+
+.room-button.selected {
+  background-color: #8cc2a1; /* Even darker green for selected state */
+  color: white; /* White text for selected state */
+  border-color: #8cc2a1; /* Same as background color for a flat look */
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------- */
