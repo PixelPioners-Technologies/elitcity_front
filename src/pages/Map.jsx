@@ -3,6 +3,7 @@ import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import Modal from './Modal';
 import './Map.css'
+import { useNavigate } from 'react-router-dom';
 
 
 const initialCenter = {
@@ -73,6 +74,37 @@ export default function Map() {
     };
     axiosLocations();
   }, [mapCenter, selectedCity, minFullPrice , maxFullPrice , minPricePerSquareMeter , maxPricePerSquareMeter , isfinished , minArea , maxArea, selectedRooms]);
+
+// ----------------------------------------- buld url in brouser's url---------------------------------------------------
+
+// Inside your component
+const navigate = useNavigate();
+
+const updateURLWithFilters = () => {
+  const queryParams = new URLSearchParams();
+
+  if (minPricePerSquareMeter) queryParams.set('min_price_per_sq_meter', minPricePerSquareMeter);
+  if (maxPricePerSquareMeter) queryParams.set('max_price_per_sq_meter', maxPricePerSquareMeter);
+  if (minFullPrice) queryParams.set('min_full_price', minFullPrice);
+  if (maxFullPrice) queryParams.set('max_full_price', maxFullPrice);
+  if (isfinished !== null && isfinished !== undefined) queryParams.set('finished', isfinished);
+  if (minArea) queryParams.set('min_area', minArea);
+  if (maxArea) queryParams.set('max_area', maxArea);
+
+  // For React Router v6, you would use navigate like this:
+        navigate(`?${queryParams.toString()}`, { replace: true });
+};
+
+// ...
+
+useEffect(() => {
+  updateURLWithFilters();
+}, [minFullPrice, maxFullPrice, minPricePerSquareMeter ,maxPricePerSquareMeter, isfinished , minArea , maxArea]);
+
+
+// ---------------------------------------------------------------------------------------------------------
+
+
 
 // fetch only cities , pharentDistricts and districts 
   useEffect(() => {
