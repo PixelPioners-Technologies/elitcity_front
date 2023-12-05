@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './App.css'
 import Header from './Components/Header/Header'
 import { Route, Routes } from "react-router-dom";
