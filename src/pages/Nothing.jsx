@@ -1,10 +1,10 @@
 // import React from 'react'
 
-export default function Developers() {
+export default function Nothing() {
   return (
     <div>
       <h1>
-        Developers Page ppp
+        ERROR 404
       </h1>
     </div>
   )

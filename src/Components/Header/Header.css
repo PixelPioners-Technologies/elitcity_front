@@ -40,6 +40,11 @@ nav ul {
   gap: 40px;
 }
 
+.heartAndNumberBox {
+  display: flex;
+  position: relative;
+}
+
 .heartBox {
   background-color: white;
   width: 39px;
@@ -66,6 +71,21 @@ nav ul {
 
 .heartLogoButton:hover {
   cursor: pointer;
+}
+
+.numberOfHeart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  border-radius: 20px;
+  background-color: white;
+  height: 20px;
+  text-align: center;
+  position: absolute;
+  border: 2px solid;
+  left: 27px;
+  /* background-color: red; */
 }
 
 /* ჯერ–ჯერობი იყოს და არ წაშალო.. Button რომ დავამატე div-ში, აღარ დამჭირდა სურათზე width–ის მითითება */

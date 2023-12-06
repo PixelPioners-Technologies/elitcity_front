@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 // import React from 'react'
 import './Complex.css';
 
@@ -6,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 import heartIcon from '../assets/heartIcon.svg'
+import heartIconEmpty from '../assets/heart-empty-white.svg'
 
 
 // Pagination
@@ -16,15 +19,17 @@ import { Skeleton } from '@mui/material';
 
 
 
+// const axiosInstance = axios.create({
+//   baseURL: 'http://34.201.93.104:8000'
+// });
 
 const axiosInstance = axios.create({
-  baseURL: 'http://34.201.93.104:8000'
+  baseURL: 'https://api.storkhome.ge'
 });
 
 
-
 // eslint-disable-next-line react/prop-types
-export default function Complex({favoriteHandler}) {
+export default function Complex({favoriteHandler, favorites}) {
 
   const [homes, setHomes] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -79,37 +84,49 @@ export default function Complex({favoriteHandler}) {
       </div>
 
 
-      {/* <h1>Complex Page Component</h1> */}
-     <div className='allCards'>
-      {isLoading ? (
-        Array.from({ length: 10 }, (_, index) => (
-          <Skeleton
-          key={index}
-          variant='rectangle'
-          animation='wave'
-              width={styles.imageStyles.width}
-              height={styles.imageStyles.height}
-            />
-          ))
-        ) : (
-          homes &&
-          homes.map((complex, index) => (
-            <div className='card' key={index}>
-              <button onClick={() => favoriteHandler(complex)} key={complex.id}>
-                <img src={heartIcon} alt='Logo of heart' />
-              </button> 
-              <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
-              <p style={styles.companyTitle}>{complex.name}</p>
-              <div className='textInfo'>
-                <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
-                <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
-                <p style={styles.complexFinished}>Date: ...</p>
-              </div>
-            </div>
-          ))
 
-        )}
+
+      <div className='allCards'>
+  {isLoading ? (
+    Array.from({ length: 10 }, (_, index) => (
+      <div className='card' key={index}>
+        <Skeleton variant='rectangle' animation='wave' width={styles.imageStyles.width} height={styles.imageStyles.height} />
+        <Skeleton variant='text' animation='wave' width={150} height={20} style={styles.companyTitle} />
+        <div className='textInfo'>
+          <Skeleton variant='text' animation='wave' width={120} height={15} style={styles.complexInfo} />
+          <Skeleton variant='text' animation='wave' width={180} height={15} style={styles.complexInfo} />
+          <Skeleton variant='text' animation='wave' width={100} height={15} style={styles.complexFinished} />
+        </div>
       </div>
+    ))
+  ) : (
+    homes &&
+    homes.map((complex, index) => (
+      <div className='card' key={index}>
+        <div className='heartbuttonAndImageBox'>
+          <div className='heartButtonBox'>
+            <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
+              {favorites.some(fav => fav.id === complex.id) ? (
+                <img src={heartIcon} alt='Logo of heart' />
+                ) : (
+                  <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+                  )}
+            </button>
+          </div>
+          <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
+        </div>
+        <p style={styles.companyTitle}>{complex.name}</p>
+        <div className='textInfo'>
+          <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
+          <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
+          {/* Update the line below with the actual date property */}
+          <p style={styles.complexFinished}>Date: {complex.date}</p>
+        </div>
+      </div>
+    ))
+  )}
+</div>
+
       
       {/* Pagination for user to select some page */}
       <div className='pagination'>
