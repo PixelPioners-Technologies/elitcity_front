@@ -2,9 +2,9 @@
 
 export default function Nothing() {
   return (
-    <div>
+    <div style={{width: '100%', height: '100%'}}>
       <h1>
-        ERROR 404
+        COMING SOON...
       </h1>
     </div>
   )
