@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 // Modal.js
 import React from 'react';
 import './Modal.css';
