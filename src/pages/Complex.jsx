@@ -182,8 +182,7 @@ export default function Complex({favoriteHandler, favorites}) {
         <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>decrease</MenuItem>
         <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); }}>increase</MenuItem>
 
-        <MenuItem onClick={handleClose}>თარიღი ზრდადობით</MenuItem>
-        <MenuItem onClick={handleClose}>თარიღი კლებადობით</MenuItem>
+       
       </Menu>
 {/* // ------------------------------------------------------------------------------------ */}
 
