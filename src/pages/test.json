@@ -1,0 +1,115 @@
+{
+  "count": 2,
+  "next": null,
+  "previous": null,
+  "results": [
+  {
+  "id": 2,
+  "complex_name_en": "arqi saburtalo",
+  "internal_complex_name": {
+  "id": 1,
+  "internal_complex_name": "arqi saburtalo",
+  "price_per_sq_meter": "333.00",
+  "finish_year": 2026,
+  "finish_month": 11,
+  "finished": false,
+  "visibiliti": true,
+  "vipComplex": false,
+  "floor_number": 12,
+  "space": "2323.00",
+  "number_of_apartments": 24,
+  "number_of_houses": 1,
+  "number_of_floors": 12,
+  "complex_level": 2,
+  "phone_number": "1212121212",
+  "plot_area": "1200.00"
+  },
+  "type_of_roof_en": "kramiti",
+  "image_urls": [
+  "https://elitecity.s3.amazonaws.com/complex_images/Screenshot_from_2023-12-04_22-27-00.png?AWSAccessKeyId=AKIAVSIQSNG5MQ5K5VNJ&Signature=Gq%2FIMExJMQeunHDnW8DHnEOGAOk%3D&Expires=1702122418"
+  ],
+  "company_en": {
+  "id": 1,
+  "record_id": 1,
+  "internal_name": "arqi",
+  "Mobile": "4440023324",
+  "Mobile_Home": "+995571053816",
+  "email": "arqi@examle.com",
+  "companyweb": "https://example.com",
+  "facebook_page": "https://example.com",
+  "logocompany": "https://elitecity.s3.amazonaws.com/company_logos/bonia.jpg?AWSAccessKeyId=AKIAVSIQSNG5MQ5K5VNJ&Signature=P8S%2FmaPmppJTycV%2BbYAh7CuItX4%3D&Expires=1702122418",
+  "background_image": "https://elitecity.s3.amazonaws.com/company_background_images/Screenshot_from_2023-12-02_16-09-38.png?AWSAccessKeyId=AKIAVSIQSNG5MQ5K5VNJ&Signature=k1uFENZ1ORlIe8rPgthbxiYpRx4%3D&Expires=1702122418",
+  "topCompany": false,
+  "visibility": true,
+  "name_en": "arqi",
+  "address_en": "mikheil tamarashvili street # 13",
+  "aboutcompany_en": "about company"
+  },
+  "address_en": {
+  "id": 1,
+  "lang": "EN",
+  "city_en": "tbilisi",
+  "pharentDistrict_en": "vake-saburtalo",
+  "district_en": "vake",
+  "street_name_en": "ilia chavchavadze street",
+  "address_en": "vazha fshavela's streed #39",
+  "longitude": 41.725939,
+  "latitude": 44.747253
+  }
+  },
+  {
+  "id": 1,
+  "complex_name_en": "arqi  vake",
+  "internal_complex_name": {
+  "id": 2,
+  "internal_complex_name": "arqi vake",
+  "price_per_sq_meter": "1234.00",
+  "finish_year": 2027,
+  "finish_month": 3,
+  "finished": false,
+  "visibiliti": true,
+  "vipComplex": false,
+  "floor_number": 12,
+  "space": "900.00",
+  "number_of_apartments": 15,
+  "number_of_houses": 1,
+  "number_of_floors": 12,
+  "complex_level": 4,
+  "phone_number": "1212121212",
+  "plot_area": "1200.00"
+  },
+  "type_of_roof_en": "kramiti",
+  "image_urls": [
+  "https://elitecity.s3.amazonaws.com/complex_images/Screenshot_from_2023-12-04_22-16-09.png?AWSAccessKeyId=AKIAVSIQSNG5MQ5K5VNJ&Signature=g%2FOa49ohSWvH9IkGkAwip%2F608KQ%3D&Expires=1702122418"
+  ],
+  "company_en": {
+  "id": 1,
+  "record_id": 1,
+  "internal_name": "arqi",
+  "Mobile": "4440023324",
+  "Mobile_Home": "+995571053816",
+  "email": "arqi@examle.com",
+  "companyweb": "https://example.com",
+  "facebook_page": "https://example.com",
+  "logocompany": "https://elitecity.s3.amazonaws.com/company_logos/bonia.jpg?AWSAccessKeyId=AKIAVSIQSNG5MQ5K5VNJ&Signature=P8S%2FmaPmppJTycV%2BbYAh7CuItX4%3D&Expires=1702122418",
+  "background_image": "https://elitecity.s3.amazonaws.com/company_background_images/Screenshot_from_2023-12-02_16-09-38.png?AWSAccessKeyId=AKIAVSIQSNG5MQ5K5VNJ&Signature=k1uFENZ1ORlIe8rPgthbxiYpRx4%3D&Expires=1702122418",
+  "topCompany": false,
+  "visibility": true,
+  "name_en": "arqi",
+  "address_en": "mikheil tamarashvili street # 13",
+  "aboutcompany_en": "about company"
+  },
+  "address_en": {
+  "id": 1,
+  "lang": "EN",
+  "city_en": "tbilisi",
+  "pharentDistrict_en": "vake-saburtalo",
+  "district_en": "vake",
+  "street_name_en": "ilia chavchavadze street",
+  "address_en": "vazha fshavela's streed #39",
+  "longitude": 41.725939,
+  "latitude": 44.747253
+  }
+  }
+  ]
+  }

@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import './Map.css';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+
 const initialCenter = {
   lat: 41.7151,
   lng: 44.8271
@@ -64,11 +65,10 @@ const normalizeComplexData = (data, lang) => {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-
 export default function Map() {
   const [complexes, setComplexes] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState('en');
-
+  const [selectedComplex, setSelectedComplex] = useState(null);
 
 
 // --------------------------------------axios  for complexes --------------------------------------
@@ -76,23 +76,23 @@ export default function Map() {
     const fetchComplexes = async () => {
       try {
         const response = await axios.get(`${Base_URL}${selectedLanguage}/`);
-        console.log('API Data:', response.data); // Check the raw data structure here
-
-        const normalData = normalizeComplexData(response.data.results , selectedLanguage )
-        setComplexes('this is normalised data ',normalData);
-        console.log('first normaldata',normalData)
-        console.log('second normaldata',normalData.address)
-
- 
+        console.log('response',response.data)
+        const normalData = normalizeComplexData(response.data.results , selectedLanguage)
+        setComplexes(normalData);
       } catch (error) {
         console.error('Error fetching complexes:', error);
       }
     };
 
     fetchComplexes();
-  }, [selectedLanguage , ]); 
+  }, [selectedLanguage]); 
 
 // ----------------------------------------------------------------------------------------------
+useEffect(() => {
+  console.log('This is normalized data', complexes.map(loc => {
+    return loc
+  }));
+}, [complexes]);
 
 // -------------------------------function for language to change--------------------------------------
   const handleLanguageChange = (e) => {
@@ -104,7 +104,7 @@ export default function Map() {
 
   return (
     <div className='main_map'>
-      {/* <div className='filter_cont'>
+      <div className='filter_cont'>
         <div>
           <select id="language-selector" value={selectedLanguage} onChange={handleLanguageChange}>
             <option value="ka">KA</option>
@@ -112,18 +112,9 @@ export default function Map() {
             <option value="ru">RU</option>
           </select>
         </div>
-        {
-            complexes.map(complex => (
-              <div key={complex.id}>
-                <h2>{complex.complexName}</h2>
-                <p>{complex.address.city}</p>
-                <p>{complex.address.district}</p>
-              </div>
-            ))
-          }
+        
 
       </div>
-
       <div className='for_border'></div>
       <div className='map_cont'>
         <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
@@ -135,18 +126,47 @@ export default function Map() {
               gestureHandling: "greedy",
             }}
           >
-            {complexes.map(location => (
-              <Marker
-              key = {location.id} 
-              position={{lat: location.address.latitude , lng : location.address.longitude}}
+           {complexes.map(complex => {
+              if (complex.address && complex.address.latitude && complex.address.longitude) {
+                return (
+                  <Marker
+                    key={complex.id}
+                    position={{
+                      lat: Number(complex.address.latitude),
+                      lng: Number(complex.address.longitude),
+                    }}
+                    onClick={ () => setSelectedComplex(complex)}
+                  />
+                );
+              }
+              return null;
+            })}
+
+            {selectedComplex && (
+              <InfoWindow
+                position={{
+                  lat: Number(selectedComplex.address.latitude),
+                  lng: Number(selectedComplex.address.longitude),
+                }}
+                onCloseClick={() => setSelectedComplex(null)}
               >
+                <div>
+                  <h2>{selectedComplex.complexName}</h2>
+                  {/* Check if the images array exists and has at least one image */}
+                  {selectedComplex.images && selectedComplex.images.length > 0 && (
+                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
+                  )}
+                  {/* Additional details can be added here */}
+                </div>
+              </InfoWindow>
+            )}
 
-              </Marker>
 
-            ))}
+
+
           </GoogleMap>
         </LoadScript>
-      </div> */}
+      </div> 
     </div>
   );
 }
