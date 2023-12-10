@@ -1,8 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import axios, { all } from 'axios';
+import axios from 'axios';
 import './Map.css';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import green from  '../location_icons/icon-green.png' 
+import red from  '../location_icons/icon-red.png'
+import yelow from  '../location_icons/icon-yelow.png'
+
 
 const initialCenter = {
   lat: 41.7151,
@@ -18,7 +22,7 @@ const normalizeComplexData = (data, lang) => {
   return data.map(item => ({
     id: item.id,
     complexName: item[`complex_name_${lang}`],
-    internalComplexName: item.internal_complex_name[`internal_complex_name`],
+    internalComplexName: item.internal_complex_name.internal_complex_name,
     typeOfRoof: item[`type_of_roof_${lang}`],
     address: {
       street: item[`address_${lang}`][`address_${lang}`],
@@ -45,23 +49,29 @@ const normalizeComplexData = (data, lang) => {
     },
     images: item.image_urls,
     complexDetails: {
-      complexLevel: item.complex_level,
-      finishMonth: item.finish_month,
-      finishYear: item.finish_year,
-      isFinished: item.finished,
-      floorNumber: item.floor_number,
-      numberOfApartments: item.number_of_apartments,
-      numberOfFloors: item.number_of_floors,
-      numberOfHouses: item.number_of_houses,
-      phoneNumber: item.phone_number,
-      plotArea: item.plot_area,
-      pricePerSqMeter: item.price_per_sq_meter,
-      space: item.space,
-      isVipComplex: item.vipComplex,
-      isVisible: item.visibiliti,
+      complexLevel: item.internal_complex_name.complex_level,
+      finishMonth: item.internal_complex_name.finish_month,
+      finishYear: item.internal_complex_name.finish_year,
+      isFinished: item.internal_complex_name.status,
+      floorNumber: item.internal_complex_name.floor_number,
+      numberOfApartments: item.internal_complex_name.number_of_apartments,
+      numberOfFloors: item.internal_complex_name.number_of_floors,
+      numberOfHouses: item.internal_complex_name.number_of_houses,
+      phoneNumber: item.internal_complex_name.phone_number,
+      plotArea: item.internal_complex_name.plot_area,
+      pricePerSqMeter: item.internal_complex_name.price_per_sq_meter,
+      space: item.internal_complex_name.space,
+      isVipComplex: item.internal_complex_name.vipComplex,
+      isVisible: item.internal_complex_name.visibiliti,
     }
   }));
 };
+
+
+// dagegmili 
+// mshenebare, 
+// dasrulebuli 
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -76,7 +86,7 @@ export default function Map() {
     const fetchComplexes = async () => {
       try {
         const response = await axios.get(`${Base_URL}${selectedLanguage}/`);
-        console.log('response',response.data)
+        console.log('es aris dzveli responsi ',response.data)
         const normalData = normalizeComplexData(response.data.results , selectedLanguage)
         setComplexes(normalData);
       } catch (error) {
@@ -90,7 +100,7 @@ export default function Map() {
 // ----------------------------------------------------------------------------------------------
 useEffect(() => {
   console.log('This is normalized data', complexes.map(loc => {
-    return loc
+    return loc.address.latitude
   }));
 }, [complexes]);
 
@@ -98,6 +108,60 @@ useEffect(() => {
   const handleLanguageChange = (e) => {
     setSelectedLanguage(e.target.value);
   };
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+// ----------------------------------icon coloure and  status  change  ----------------------------------------------------------
+
+const getStatusInfo = (status) => {
+  let statusInfo = {
+    text: "Unknown Status",
+    iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' // default icon
+  };
+  // /home/guro/Desktop/ELIT CITY FRONT/elitcity_front/src/location_icons
+  switch (status) {
+    case 1: // Planned
+      statusInfo.text = "Planned";
+      statusInfo.iconUrl = red ;
+      break;
+    case 2: // Under Construction
+      statusInfo.text = "Under Construction";
+      statusInfo.iconUrl = yelow;
+      break;
+    case 3: // Completed
+      statusInfo.text = "Completed";
+      statusInfo.iconUrl = green;
+      break;
+    default:
+      // Keep default values
+      break;
+  }
+
+  return statusInfo;
+};
+
+
+const getStatusText = (status, lang) => {
+  const statusTexts = {
+    en: {
+      1: "Planned",
+      2: "Under Construction",
+      3: "Completed"
+    },
+    ka: {
+      1: "დაგეგმილი",
+      2: "მშენებარე",
+      3: "დასრულებული"
+    },
+    ru: {
+      1: "Запланировано",
+      2: "Строится",
+      3: "Завершено"
+    }
+  };
+
+  return statusTexts[lang][status] || "Unknown Status";
+};
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -128,14 +192,17 @@ useEffect(() => {
           >
            {complexes.map(complex => {
               if (complex.address && complex.address.latitude && complex.address.longitude) {
+                const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
+                
                 return (
                   <Marker
                     key={complex.id}
                     position={{
-                      lat: Number(complex.address.latitude),
-                      lng: Number(complex.address.longitude),
+                      lat: complex.address.latitude,
+                      lng: complex.address.longitude,
                     }}
-                    onClick={ () => setSelectedComplex(complex)}
+                    icon={{ url: statusInfo.iconUrl }}
+                    onClick={() => setSelectedComplex(complex)}
                   />
                 );
               }
@@ -152,16 +219,14 @@ useEffect(() => {
               >
                 <div>
                   <h2>{selectedComplex.complexName}</h2>
-                  {/* Check if the images array exists and has at least one image */}
+                  <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p> 
+                  {/* Add more details and the image if available */}
                   {selectedComplex.images && selectedComplex.images.length > 0 && (
                     <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
                   )}
-                  {/* Additional details can be added here */}
                 </div>
               </InfoWindow>
-            )}
-
-
+            )} 
 
 
           </GoogleMap>
@@ -170,3 +235,9 @@ useEffect(() => {
     </div>
   );
 }
+
+
+                        // lisi
+                        // 41.73708903770348
+                        //  44.74956274869708
+                        // 7 Mukhran Machavariani St
