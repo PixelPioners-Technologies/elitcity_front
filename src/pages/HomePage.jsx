@@ -79,14 +79,26 @@ const FilterOptions = ({ onFilterChange }) => {
       case 'popup-status':
         return (
           <div className="popup-status popupbuttons">
-            {/* Add your checkbox inputs for status */}
+            <div id="statusPopup" class="popup">
+              <label><input type="checkbox"/> Passed</label>
+              <label><input type="checkbox"/> Under construction</label>
+              <label><input type="checkbox"/> 2023</label>
+              <label><input type="checkbox"/> 2024</label>
+              <label><input type="checkbox"/> 2025</label>
+              <label><input type="checkbox"/> 2026</label>
+              <label><input type="checkbox"/> 2027</label>
+              <label><input type="checkbox"/> 2027+</label>
+            </div>
             <button onClick={closePopup}>Apply</button>
           </div>
         );
       case 'popup-location':
         return (
           <div className="popup-location popupbuttons">
-            {/* Add your location inputs */}
+            <select>
+              <option value="city1">City 1</option>
+              <option value="city2">City 2</option>
+            </select>
             <button onClick={closePopup}>Apply</button>
           </div>
         );
