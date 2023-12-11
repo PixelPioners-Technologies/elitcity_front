@@ -68,9 +68,24 @@ const normalizeComplexData = (data, lang) => {
 };
 
 
-// dagegmili 
-// mshenebare, 
-// dasrulebuli 
+const normalizeLocationData = (data, lang) => {
+  return data.map(cityItem => {
+      const cityNameField = `city_${lang}`;
+      const pharentDistrictField = `pharentDistrict_${lang}`;
+      const districtField = `district_${lang}`;
+
+      const cityName = cityItem[cityNameField];
+      const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
+          const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
+          const districts = pharentDistrictItem[districtField].map(districtItem => districtItem[districtField]);
+
+          return { pharentDistrict: pharentDistrictName, districts };
+      });
+
+      return { city: cityName, pharentDistricts };
+  });
+};
+
 
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -79,6 +94,7 @@ export default function Map() {
   const [complexes, setComplexes] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [selectedComplex, setSelectedComplex] = useState(null);
+  const [locations , setLocations ] = useState([])
 
 
 // --------------------------------------axios  for complexes --------------------------------------
@@ -86,7 +102,7 @@ export default function Map() {
     const fetchComplexes = async () => {
       try {
         const response = await axios.get(`${Base_URL}${selectedLanguage}/`);
-        console.log('es aris dzveli responsi ',response.data)
+
         const normalData = normalizeComplexData(response.data.results , selectedLanguage)
         setComplexes(normalData);
       } catch (error) {
@@ -98,10 +114,37 @@ export default function Map() {
   }, [selectedLanguage]); 
 
 // ----------------------------------------------------------------------------------------------
+//-----------------------------------fetch ionly locations --------------------------------------
+
+const base_URL_for_location = 'http://127.0.0.1:8000/map/' 
+
 useEffect(() => {
-  console.log('This is normalized data', complexes.map(loc => {
-    return loc.address.latitude
-  }));
+  const fetchLocations = async () => {
+    try {
+      const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
+      const normalisedLocationData = normalizeLocationData(response.data.results , selectedLanguage)
+
+      
+      setLocations(normalisedLocationData)
+    } catch (error) {
+      console.error("error fetching on locations =>> ", error)
+    }
+  }
+
+  fetchLocations();
+} , [selectedLanguage]  )
+
+
+
+// ----------------------------------------------------------------------------------------------
+
+useEffect(() => {
+  console.log('This is normalized data', locations.map(loc => {
+    return loc
+  
+  }
+  ));
+  
 }, [complexes]);
 
 // -------------------------------function for language to change--------------------------------------
@@ -116,7 +159,8 @@ useEffect(() => {
 const getStatusInfo = (status) => {
   let statusInfo = {
     text: "Unknown Status",
-    iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' // default icon
+    iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' ,// default icon
+    scaledSize: new window.google.maps.Size(40, 40)
   };
   // /home/guro/Desktop/ELIT CITY FRONT/elitcity_front/src/location_icons
   switch (status) {
@@ -201,9 +245,13 @@ const getStatusText = (status, lang) => {
                       lat: complex.address.latitude,
                       lng: complex.address.longitude,
                     }}
-                    icon={{ url: statusInfo.iconUrl }}
+                    icon={{
+                      url: statusInfo.iconUrl,
+                      scaledSize: statusInfo.scaledSize
+                    }}
                     onClick={() => setSelectedComplex(complex)}
                   />
+                  
                 );
               }
               return null;
