@@ -6,7 +6,7 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import green from  '../location_icons/icon-green.png' 
 import red from  '../location_icons/icon-red.png'
 import yelow from  '../location_icons/icon-yelow.png'
-
+import Modal from './Modal';
 
 const initialCenter = {
   lat: 41.7151,
@@ -96,6 +96,10 @@ export default function Map() {
   const [selectedComplex, setSelectedComplex] = useState(null);
   const [locations , setLocations ] = useState([])
 
+  const [modalContent , setModalContent] = useState('')
+  const [isModalOpen , setIsModalOpen] = useState(false)
+
+  const [selectedCity , setSelectedCity] = useState('')
 
 // --------------------------------------axios  for complexes --------------------------------------
   useEffect(() => {
@@ -123,8 +127,6 @@ useEffect(() => {
     try {
       const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
       const normalisedLocationData = normalizeLocationData(response.data.results , selectedLanguage)
-
-      
       setLocations(normalisedLocationData)
     } catch (error) {
       console.error("error fetching on locations =>> ", error)
@@ -141,10 +143,8 @@ useEffect(() => {
 useEffect(() => {
   console.log('This is normalized data', locations.map(loc => {
     return loc
-  
   }
   ));
-  
 }, [complexes]);
 
 // -------------------------------function for language to change--------------------------------------
@@ -210,6 +210,33 @@ const getStatusText = (status, lang) => {
 // ---------------------------------------------------------------------------------------------------------------------
 
 
+
+const renderModalContent = () => {
+  switch (modalContent) {
+    case 'cities':
+      return locations.map((cityItem, index) => (
+        <button key={index} onClick={() => handleCityClick(cityItem.cityName)} className='button-19'>
+          {cityItem.city}
+        </button>
+      ));
+    default:
+      return null;
+  }
+};
+
+
+const handleShowModal = () => {
+  setModalContent('cities')
+  setIsModalOpen(true)
+}
+
+const handleCityClick = (city) => {
+  // setModalContent("pharentdistricts")
+  setSelectedCity(city)
+  setIsModalOpen(true)
+  console.log(selectedCity)
+}
+
   return (
     <div className='main_map'>
       <div className='filter_cont'>
@@ -220,8 +247,12 @@ const getStatusText = (status, lang) => {
             <option value="ru">RU</option>
           </select>
         </div>
-        
-
+        <div>
+          <button onClick={handleShowModal}> Select City</button>
+        </div>
+        <Modal isOpen={isModalOpen} >
+          {renderModalContent()}
+        </Modal>
       </div>
       <div className='for_border'></div>
       <div className='map_cont'>
@@ -283,9 +314,3 @@ const getStatusText = (status, lang) => {
     </div>
   );
 }
-
-
-                        // lisi
-                        // 41.73708903770348
-                        //  44.74956274869708
-                        // 7 Mukhran Machavariani St
