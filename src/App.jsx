@@ -74,7 +74,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Nothing />} />
 
-        <Route path="homePage" element={<HomePage />} />
+        <Route path="homePage" element={<HomePage favoriteHandler={favoriteHandler} favorites={favorites}/>} />
         <Route path='complex'>
           <Route index={true} element={<Complex favoriteHandler={favoriteHandler} favorites={favorites} />} />
           <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />
