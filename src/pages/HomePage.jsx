@@ -1,12 +1,17 @@
+// ------------  Import Statements ------------------
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './HomePage.css';
 
+//---------- Constants and Axios Configuration -------
 const baseURL = 'https://api.storkhome.ge';
 const axiosInstance = axios.create({
   baseURL: baseURL,
 });
 
+// ----------- Async Function to Fetch Complex Unit Data --------
+//---This function makes an asynchronous HTTP GET request to the /complex/ endpoint with specified search parameters.
+//--- It returns the response data or throws an error if the request fails.------------
 const getComplexUniData = async (searchParams) => {
   try {
     const response = await axiosInstance.get('/complex/', {
@@ -19,6 +24,12 @@ const getComplexUniData = async (searchParams) => {
   }
 };
 
+
+// ---------------- FilterOptions Component --------------------
+// ----- This component manages filter options and handles user interactions to apply filters.
+//--- It includes functions for opening/closing filter popups,
+//--- handling input changes,
+//--- and fetching data based on the selected filters
 const FilterOptions = ({ onFilterChange }) => {
   const [activeFilter, setActiveFilter] = useState(null);
   const [searchParams, setSearchParams] = useState({});
@@ -52,6 +63,10 @@ const FilterOptions = ({ onFilterChange }) => {
     }
   };
 
+
+  // -------------- Render Popup Content Based on Active Filter ---
+  // --- This function dynamically renders different popups based on the active filter.
+  // --- Each popup contains input fields or checkboxes for specific filter criteria
   const renderPopup = () => {
     switch (activeFilter) {
       case 'popupp-space':
@@ -119,13 +134,23 @@ const FilterOptions = ({ onFilterChange }) => {
   );
 };
 
-const YourParentComponent = () => {
+
+// -------------------  HomePage ----------------------------
+// --- This component serves as the parent component.
+// --- It maintains the state for the list of homes and renders the FilterOptions component.
+// --- It also fetches initial data on component mount and updates the list of homes when filters are applied
+const HomePage = () => {
   const [homes, setHomes] = useState([]);
 
+  // ------- Initial Data Fetch and Data Update on Filter Change ----
+  // ---- The useEffect hook is used to fetch initial data when the component mounts.
   useEffect(() => {
     fetchData(); // Initial fetch with default filters
   }, []);
 
+
+  // ----- The fetchData function is responsible for making an API request to get complex unit data.
+  // -----It updates the state with the received data or handles errors
   const fetchData = async () => {
     try {
       const data = await getComplexUniData({});
@@ -139,6 +164,10 @@ const YourParentComponent = () => {
     setHomes(data);
   };
 
+
+  // ------ Rendering Filtered Homes ---------
+  // -- Homes are rendered based on the filtered data.
+  // -- The map function is used to iterate over the array of homes and render each home
   return (
     <div>
       <FilterOptions onFilterChange={handleFilterChange} />
@@ -152,4 +181,4 @@ const YourParentComponent = () => {
   );
 };
 
-export default YourParentComponent;
+export default HomePage;
