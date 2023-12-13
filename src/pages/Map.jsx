@@ -101,11 +101,23 @@ export default function Map() {
 
   const [selectedCity , setSelectedCity] = useState('')
 
+  const [selectedParentDistricts, setSelectedParentDistricts] = useState([]);
+  const [selectedDistricts, setSelectedDistricts] = useState([]);
+
+
 // --------------------------------------axios  for complexes --------------------------------------
   useEffect(() => {
     const fetchComplexes = async () => {
+      // const cityNMameParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`
+      const cityParam =      `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
       try {
-        const response = await axios.get(`${Base_URL}${selectedLanguage}/`);
+        const response = await axios.get(`${Base_URL}${selectedLanguage}/`,{
+          params: {
+            [cityParam]: selectedCity,
+            // parentDistricts: selectedParentDistricts.join(','), 
+            // districts: selectedDistricts.join(',') 
+          }
+        });
 
         const normalData = normalizeComplexData(response.data.results , selectedLanguage)
         setComplexes(normalData);
@@ -115,15 +127,18 @@ export default function Map() {
     };
 
     fetchComplexes();
-  }, [selectedLanguage]); 
+  }, [selectedLanguage, selectedCity]); 
 
 // ----------------------------------------------------------------------------------------------
 //-----------------------------------fetch ionly locations --------------------------------------
+//127.0.0.1:8000/complex/en/?address_en__city_en__city_en=&address_en__city_en__city_en__icontains=&address_en__pharentDistrict_en__pharentDistrict_en=&address_en__pharentDistrict_en__pharentDistrict_en__icontains=&address_en__district_en__district_en=&address_en__district_en__district_en__icontains=
+
 
 const base_URL_for_location = 'http://127.0.0.1:8000/map/' 
 
 useEffect(() => {
   const fetchLocations = async () => {
+      
     try {
       const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
       const normalisedLocationData = normalizeLocationData(response.data.results , selectedLanguage)
@@ -134,7 +149,7 @@ useEffect(() => {
   }
 
   fetchLocations();
-} , [selectedLanguage]  )
+} , [selectedLanguage  , selectedCity]  )
 
 
 
@@ -209,16 +224,24 @@ const getStatusText = (status, lang) => {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-
+//--------------------------------------modal and logic for opening filtration window --------------------------------------
 
 const renderModalContent = () => {
   switch (modalContent) {
     case 'cities':
-      return locations.map((cityItem, index) => (
-        <button key={index} onClick={() => handleCityClick(cityItem.cityName)} className='button-19'>
-          {cityItem.city}
-        </button>
-      ));
+      return <div>
+                {locations.map((cityItem, index) => (
+                  <button key={index} onClick={() => handleCityClick(cityItem.city)} className='button-19'>
+                    {cityItem.city}
+                  </button>
+                ))}
+                <button onClick={closeModal} >close</button>
+            </div>
+    case "pharentdistricts":
+      return <div>
+                <p>pharentdistrict is working</p>
+                <button onClick={closeModal} >close</button>
+            </div>
     default:
       return null;
   }
@@ -231,11 +254,18 @@ const handleShowModal = () => {
 }
 
 const handleCityClick = (city) => {
-  // setModalContent("pharentdistricts")
+  console.log("City selected: ", city); // Debug log
+  setModalContent("pharentdistricts")
   setSelectedCity(city)
   setIsModalOpen(true)
-  console.log(selectedCity)
 }
+
+const closeModal = () => {
+  setIsModalOpen(false)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
 
   return (
     <div className='main_map'>
