@@ -73,6 +73,7 @@ const normalizeLocationData = (data, lang) => {
       const cityNameField = `city_${lang}`;
       const pharentDistrictField = `pharentDistrict_${lang}`;
       const districtField = `district_${lang}`;
+      // const pharentdistrictName = `pharentDistrict_${lang}`
 
       const cityName = cityItem[cityNameField];
       const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
@@ -101,19 +102,39 @@ export default function Map() {
 
   const [selectedCity , setSelectedCity] = useState('')
 
-  const [selectedParentDistricts, setSelectedParentDistricts] = useState([]);
-  const [selectedDistricts, setSelectedDistricts] = useState([]);
-
+  const [selectedPharentDistricts ,  setSelectedPharentDistricts] = useState([]);
+  const [selectedDistricts , setSelectedDistricts] = useState([]);
+  
+  //127.0.0.1:8000/complex/ka/?address_ka__city_ka__city_ka=&
+      // address_ka__city_ka__city_ka__icontains=& 
+      //   address_ka__pharentDistrict_ka__pharentDistrict_ka=& 
+      //     address_ka__pharentDistrict_ka__pharentDistrict_ka__icontains=& 
+      //       address_ka__pharentDistrict_ka__pharentDistrict_ka__in=&  
+      //        address_ka__district_ka__district_ka=&  
+      //         address_ka__district_ka__district_ka__icontains=&
+      //            address_ka__district_ka__district_ka__in=
+//----------------------------------------------------------------------------------------------------
+  //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
+    //  address_en__city_en__city_en__icontains=& 
+    //    address_en__pharentDistrict_en__pharentDistrict_en=&   
+    //    address_en__pharentDistrict_en__pharentDistrict_en__icontains=& 
+    //      address_en__pharentDistrict_en__pharentDistrict_en__in=& 
+    //        address_en__district_en__district_en=&  
+    //        address_en__district_en__district_en__icontains=&  
+    //         address_en__district_en__district_en__in=saburtalo
 
 // --------------------------------------axios  for complexes --------------------------------------
   useEffect(() => {
     const fetchComplexes = async () => {
-      // const cityNMameParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`
-      const cityParam =      `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+      const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+      const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`
+      const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`
       try {
         const response = await axios.get(`${Base_URL}${selectedLanguage}/`,{
           params: {
             [cityParam]: selectedCity,
+            [pharentdistrictParams] : selectedPharentDistricts.join(','),
+            [districtParams] : selectedDistricts.join(','),
             // parentDistricts: selectedParentDistricts.join(','), 
             // districts: selectedDistricts.join(',') 
           }
@@ -127,12 +148,10 @@ export default function Map() {
     };
 
     fetchComplexes();
-  }, [selectedLanguage, selectedCity]); 
+  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts]); 
 
 // ----------------------------------------------------------------------------------------------
 //-----------------------------------fetch ionly locations --------------------------------------
-//127.0.0.1:8000/complex/en/?address_en__city_en__city_en=&address_en__city_en__city_en__icontains=&address_en__pharentDistrict_en__pharentDistrict_en=&address_en__pharentDistrict_en__pharentDistrict_en__icontains=&address_en__district_en__district_en=&address_en__district_en__district_en__icontains=
-
 
 const base_URL_for_location = 'http://127.0.0.1:8000/map/' 
 
@@ -155,12 +174,12 @@ useEffect(() => {
 
 // ----------------------------------------------------------------------------------------------
 
-useEffect(() => {
-  console.log('This is normalized data', locations.map(loc => {
-    return loc
-  }
-  ));
-}, [complexes]);
+// useEffect(() => {
+//   console.log('This is normalized data', locations.map(loc => {
+//     return loc
+//   }
+//   ));
+// }, [complexes]);
 
 // -------------------------------function for language to change--------------------------------------
   const handleLanguageChange = (e) => {
@@ -238,10 +257,40 @@ const renderModalContent = () => {
                 <button onClick={closeModal} >close</button>
             </div>
     case "pharentdistricts":
-      return <div>
-                <p>pharentdistrict is working</p>
-                <button onClick={closeModal} >close</button>
+      // Find the city object from the locations array
+      const city = locations.find(loc => loc.city === selectedCity);
+      if (!city) return null;
+
+      return (
+        <div>
+          {city.pharentDistricts.map((parentDistrict, index) => (
+            <div key={index}>
+              <div>
+                <input
+                  type="checkbox"
+                  checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
+                  onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
+                />
+                {parentDistrict.pharentDistrict}
+              </div>
+              <div style={{ marginLeft: '20px' }}>
+                {parentDistrict.districts.map((district, districtIndex) => (
+                  <div key={districtIndex}>
+                    <input
+                      type="checkbox"
+                      checked={selectedDistricts.includes(district)}
+                      onChange={(e) => handleDistrictChange(e, district)}
+                    />
+                    {district}
+                  </div>
+                ))}
+              </div>
             </div>
+          ))}
+          <button onClick={closeModal}>Close</button>
+        </div>
+      );
+      
     default:
       return null;
   }
@@ -263,6 +312,35 @@ const handleCityClick = (city) => {
 const closeModal = () => {
   setIsModalOpen(false)
 }
+
+const handleParentDistrictChange = (e, parentDistrict) => {
+  
+  setSelectedPharentDistricts(prevSelected => {
+    if (e.target.checked) {
+      return [...prevSelected, parentDistrict];
+    } else {
+      return prevSelected.filter(pd => pd !== parentDistrict);
+    }
+  });
+};
+
+const handleDistrictChange = (e, district) => {
+  
+  setSelectedDistricts(prevSelected => {
+    if (e.target.checked) {
+      return [...prevSelected, district];
+    } else {
+      return prevSelected.filter(d => d !== district);
+    }
+  });
+};
+
+useEffect( () => {
+  console.log('pharentdistrict selected : ' , selectedPharentDistricts)
+  console.log("district selected : " ,selectedDistricts)
+
+},[selectedPharentDistricts,selectedDistricts ] )
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -344,3 +422,12 @@ const closeModal = () => {
     </div>
   );
 }
+
+
+//127.0.0.1:8000/complex/en/?address_en__city_en__city_en=&
+// address_en__city_en__city_en__icontains=&
+// address_en__pharentDistrict_en__pharentDistrict_en=&
+// address_en__pharentDistrict_en__pharentDistrict_en__icontains=isani-samgori&
+// address_en__pharentDistrict_en__pharentDistrict_en__in=&
+// address_en__district_en__district_en=&address_en__district_en__district_en__icontains=&
+// address_en__district_en__district_en__in=lisi
