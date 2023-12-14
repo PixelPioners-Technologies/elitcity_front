@@ -322,7 +322,28 @@ const handleParentDistrictChange = (e, parentDistrict) => {
       return prevSelected.filter(pd => pd !== parentDistrict);
     }
   });
+    // Find the city object from the locations array
+    const city = locations.find(loc => loc.city === selectedCity);
+    if (!city) return;
+    
+    // Find the specific parent district object
+    const parentDistrictObj = city.pharentDistricts.find(pd => pd.pharentDistrict === parentDistrict);
+    if (!parentDistrictObj) return;
+
+    setSelectedDistricts(prevSelected => {
+      if (e.target.checked) {
+        // Add all districts of the parent district to the selected list
+        // Ensure no duplicates are added
+        const updatedDistricts = new Set([...prevSelected, ...parentDistrictObj.districts]);
+        return Array.from(updatedDistricts);
+      } else {
+        // Remove all districts of the parent district from the selected list
+        return prevSelected.filter(d => !parentDistrictObj.districts.includes(d));
+      }
+    });
 };
+
+
 
 const handleDistrictChange = (e, district) => {
   
@@ -334,6 +355,8 @@ const handleDistrictChange = (e, district) => {
     }
   });
 };
+
+
 
 useEffect( () => {
   console.log('pharentdistrict selected : ' , selectedPharentDistricts)
@@ -431,3 +454,12 @@ useEffect( () => {
 // address_en__pharentDistrict_en__pharentDistrict_en__in=&
 // address_en__district_en__district_en=&address_en__district_en__district_en__icontains=&
 // address_en__district_en__district_en__in=lisi
+
+
+
+
+
+
+//127.0.0.1:8000/complex/en/?address_en__city_en__city_en__icontains=tbilisi&
+// address_en__pharentDistrict_en__pharentDistrict_en__in=isani-samgori&
+// address_en__district_en__district_en__in=lisi,saburtalo
