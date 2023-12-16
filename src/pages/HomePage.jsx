@@ -4,7 +4,8 @@ export default function HomePage() {
   return (
     <div>
        <h1>
-      HomePage Component
+      HomePage Componenttt
+      test
       </h1>
     </div>
   )
