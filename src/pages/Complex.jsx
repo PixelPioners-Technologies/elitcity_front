@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 // import React from 'react'
@@ -43,6 +44,8 @@ export default function Complex({favoriteHandler, favorites}) {
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [forPriceDecrease, setForPriceDecrease] = useState(null);
+  const [sortedHomes, setSortedHomes] = useState(null); // Initialize sortedHomes state
+
   
 // ------------------------------------------------------------------------------------
 // for Sorting
@@ -65,41 +68,92 @@ export default function Complex({favoriteHandler, favorites}) {
   // მოკლედ ქუერი სტრინგი სანახავია
 
 
+// // ------------------------------------------------------------------------------------
+// // first useEffect sorting
+//   useEffect(() => {
+//     const fetchData = async (sortOrder) => {
+//       try {
+//         setIsLoading(true);
+//         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
+//         const { results, count } = response.data;
+  
+//         let sortedResults;
+  
+//         // Sort the results based on sortOrder
+//         if (sortOrder === 'decrease') {
+//           sortedResults = results.slice().sort((a, b) => {
+//             return parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter);
+//           });
+//         } else if (sortOrder === 'increase') {
+//           sortedResults = results.slice().sort((a, b) => {
+//             return parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter);
+//           });
+//         } else {
+//           sortedResults = results; // Default: no sorting
+//         }
+  
+//         setHomes(sortedResults); // Default complex(without sorting)
+//         setTotalCount(count); // Total amount of complexes
+//         setIsLoading(false); // for Loader, like a youtube video slider (wave style)
+//       } catch (error) {
+//         setIsLoading(false);
+//         console.error('Error fetching data:', error);
+//       }
+//     };
+  
+//     // Fetch data based on the currentPage and sortOrder
+//     fetchData(forPriceDecrease);
+//   }, [currentPage, forPriceDecrease]);
+// // ------------------------------------------------------------------------------------
 
-  useEffect(() => {
-    const fetchData = async (sortOrder) => {
-      try {
-        setIsLoading(true);
-        const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
-        const { results, count } = response.data;
-  
-        let sortedResults;
-  
-        // Sort the results based on sortOrder
-        if (sortOrder === 'decrease') {
-          sortedResults = results.slice().sort((a, b) => {
-            return parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter);
-          });
-        } else if (sortOrder === 'increase') {
-          sortedResults = results.slice().sort((a, b) => {
-            return parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter);
-          });
-        } else {
-          sortedResults = results; // Default: no sorting
-        }
-  
-        setHomes(sortedResults); // Default complex(without sorting)
-        setTotalCount(count); // Total amount of complexes
-        setIsLoading(false); // for Loader, like a youtube video slider (wave style)
-      } catch (error) {
-        setIsLoading(false);
-        console.error('Error fetching data:', error);
-      }
-    };
-  
-    // Fetch data based on the currentPage and sortOrder
-    fetchData(forPriceDecrease);
-  }, [currentPage, forPriceDecrease]);
+
+
+
+// ------------------------------------------------------------------------------------
+// second useEffect
+const sortHomes = (data, sortOrder) => {
+  if (sortOrder === 'decrease') {
+    return [...data].sort((a, b) => parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter));
+  } else if (sortOrder === 'increase') {
+    return [...data].sort((a, b) => parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter));
+  } else {
+    return data;
+  }
+};
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
+      const { results, count } = response.data;
+      setHomes(results);
+      setTotalCount(count);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchData();
+}, [currentPage]);
+
+useEffect(() => {
+  const sortedResults = sortHomes(homes, forPriceDecrease);
+  setSortedHomes(sortedResults);
+}, [forPriceDecrease, homes]);
+
+// ------------------------------------------------------------------------------------
+
+
+// Pagination logic
+const itemsPerPage = 10;
+const totalPageCount = Math.ceil(totalCount / itemsPerPage);
+const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : [];
+
+
+
   
 
   // 
@@ -116,8 +170,7 @@ export default function Complex({favoriteHandler, favorites}) {
 
   // Maping variable
   // ------------------------------------------------------------------------------------
-  const homeMaping = homes &&
-  homes.map((complex, index) => (
+  const homeMaping = currentSortedHomes.map((complex, index) => (
     <div className='card' key={index}>
       <div className='heartbuttonAndImageBox'>
         <div className='heartButtonBox'>
@@ -179,8 +232,8 @@ export default function Complex({favoriteHandler, favorites}) {
         }}
       >
 
-        <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>decrease</MenuItem>
-        <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); }}>increase</MenuItem>
+        <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>ფასი კლებადობით</MenuItem>
+        <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); }}>ფასი ზრდადობით</MenuItem>
 
        
       </Menu>
@@ -212,11 +265,11 @@ export default function Complex({favoriteHandler, favorites}) {
       <div className='pagination'>
         <Stack spacing={2}>
           <Pagination
-            count={Math.ceil(totalCount / 10)} 
-            shape="rounded"
-            page={currentPage}
-            onChange={(event, value) => setCurrentPage(value)}
-            onClick={pagiHandler}
+               count={totalPageCount}
+               shape="rounded"
+               page={currentPage}
+               onChange={(event, value) => setCurrentPage(value)}
+               onClick={pagiHandler}
             sx={{
               '& .MuiPaginationItem-root': {
                 color: 'black', // Change the color to your desired color
