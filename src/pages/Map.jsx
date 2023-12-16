@@ -108,6 +108,10 @@ export default function Map() {
   const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('')
   const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('')
 
+  const [minFullPrice, setMinFullPrice] = useState('')
+  const [maxFullPrice, setMaxFullPrice] = useState('')
+
+
   
 //----------------------------------------------------------------------------------------------------
   //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
@@ -132,7 +136,9 @@ export default function Map() {
             [pharentdistrictParams] : selectedPharentDistricts.join(','),
             [districtParams] : selectedDistricts.join(','),
             min_price_per_sq_meter : minPricePerSquareMeter,
-            max_price_per_sq_meter : maxPricePerSquareMeter
+            max_price_per_sq_meter : maxPricePerSquareMeter,
+            min_full_price : minFullPrice,
+            max_full_price : maxFullPrice 
           }
         });
 
@@ -144,7 +150,7 @@ export default function Map() {
     };
 
     fetchComplexes();
-  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter]); 
+  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter, minFullPrice, maxFullPrice]); 
 
 // ----------------------------------------------------------------------------------------------
 //-----------------------------------fetch ionly locations --------------------------------------
@@ -381,18 +387,39 @@ useEffect( () => {
           {renderModalContent()}
         </Modal>
         <div>
+          {/* filtration for pprices */}
+          <div>
           <input
               type="number"
               placeholder='Min Price Per Square Meter'
               value={minPricePerSquareMeter}
               onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
            />
+
             <input
               type="number"
               placeholder='Max Price Per Square Meter'
               value={maxPricePerSquareMeter}
               onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
            />
+          </div>
+
+          <div>
+            <input
+              type="number"
+              placeholder='Min Full Price'
+              value={minFullPrice}
+              onChange={(e) => setMinFullPrice(e.target.value)}
+           />
+
+            <input
+              type="number"
+              placeholder='Max Full Price'
+              value={maxFullPrice}
+              onChange={(e) => setMaxFullPrice(e.target.value)}
+           />
+          </div>
+
         </div>
       </div>
       <div className='for_border'></div>
