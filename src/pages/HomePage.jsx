@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './HomePage.css';
+import selectedLanguage from '../Components/Header/Language/Language'
 
 // ----- normalizeComplexData and normalizeLocationData functions ---
 const normalizeComplexData = (data, lang) => {
@@ -90,24 +91,43 @@ const axiosInstance = axios.create({
   baseURL: baseURL,
 });
 
+
 // ----------- Async Function to Fetch Complex Unit Data --------
 const getComplexUniData = async (searchParams, selectedLanguage, setComplexes) => {
   try {
-    const response = await axiosInstance.get(`${baseURL}/complex/${selectedLanguage}/`);
+    const response = await axiosInstance.get(`${baseURL}/complex/${selectedLanguage}/`, {
+      params: searchParams,
+    });[selectedLanguage]
+    console.log(selectedLanguage);
+    console.log(searchParams);
+    console.log(setComplexes)
 
     const normalData = normalizeComplexData(response.data.results, selectedLanguage);
     console.log(normalData);
+    console.log(selectedLanguage)
     setComplexes(normalData);
   } catch (error) {
     console.error('Error fetching complexes:', error);
-  }
+  } 
 };
 
+const handleLanguageChange = (languageCode) => {
+  // Update the selected language in the state
+  setSelectedLanguage(languageCode);
+
+  // Call the function to fetch data with the new language
+  fetchData(languageCode);
+};
+
+
+
+
 // ---------------- FilterOptions Component --------------------
-const FilterOptions = ({ onFilterChange, onLanguageChange, setComplexes }) => {
+const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
   const [activeFilter, setActiveFilter] = useState(null);
   const [searchParams, setSearchParams] = useState({});
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  console.log(selectedLanguage);
+
 
   const openPopup = (filter) => {
     setActiveFilter(filter);
@@ -120,8 +140,8 @@ const FilterOptions = ({ onFilterChange, onLanguageChange, setComplexes }) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setSearchParams((prevSearchParams) => ({
-      ...prevSearchParams,
+    setSearchParams((searchParams) => ({
+      ...searchParams,
       [name]: value,
     }));
   };
@@ -131,6 +151,7 @@ const FilterOptions = ({ onFilterChange, onLanguageChange, setComplexes }) => {
       const data = await getComplexUniData(searchParams, selectedLanguage, setComplexes);
       console.log('Fetched data:', data);
       onFilterChange(data);
+      onLanguageChange(languageCode);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -205,8 +226,9 @@ const FilterOptions = ({ onFilterChange, onLanguageChange, setComplexes }) => {
 };
 
 // -------------------  HomePage ----------------------------
-const HomePage = () => {
+const HomePage = ({selectedLanguage}) => {
   const [complexes, setComplexes] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState('en'); // Default language
   const navigate = useNavigate();
   const { min_price_per_sq_meter, max_price_per_sq_meter, min_full_price, max_full_price, finished, min_area, max_area } = useParams();
 
@@ -234,7 +256,8 @@ const HomePage = () => {
         finished,
         min_area,
         max_area,
-      }, 'en', setComplexes);
+      }, selectedLanguage, setComplexes);
+      console.log(selectedLanguage);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -244,15 +267,25 @@ const HomePage = () => {
     setComplexes(data);
   };
 
+  const handleLanguageChange = (languageCode) => {
+    setSelectedLanguage(languageCode);
+    fetchData(languageCode); // Fetch data with the new language
+  };
+
   useEffect(() => {
     updateURLWithFilters();
-    fetchData();
-  }, [min_full_price, max_full_price, min_price_per_sq_meter, max_price_per_sq_meter, finished, min_area, max_area]);
+    fetchData(selectedLanguage); // Initial fetch with the default language
+  }, [min_full_price, max_full_price, min_price_per_sq_meter, max_price_per_sq_meter, finished, min_area, max_area, selectedLanguage]);
 
   // ------ Rendering Filtered Homes ---------
   return (
     <div>
-      <FilterOptions onFilterChange={handleFilterChange} setComplexes={setComplexes} />
+      <FilterOptions
+        onFilterChange={handleFilterChange}
+        onLanguageChange={handleLanguageChange} // Pass the function to handle language change
+        setComplexes={setComplexes}
+        selectedLanguage={selectedLanguage}
+      />
       {/* Render complexes based on the filtered data */}
       {Array.isArray(complexes) && complexes.map((complex) => (
         <div key={complex.id}>
