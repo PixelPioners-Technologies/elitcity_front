@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 // import React from 'react'
@@ -18,6 +19,13 @@ import Stack from '@mui/material/Stack';
 import { Skeleton } from '@mui/material';
 
 
+// ------------------------------------------------------------------------------------
+// for Sorting
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+// ------------------------------------------------------------------------------------
 
 // const axiosInstance = axios.create({
 //   baseURL: 'http://34.201.93.104:8000'
@@ -35,6 +43,23 @@ export default function Complex({favoriteHandler, favorites}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [forPriceDecrease, setForPriceDecrease] = useState(null);
+  const [sortedHomes, setSortedHomes] = useState(null); // Initialize sortedHomes state
+
+  
+// ------------------------------------------------------------------------------------
+// for Sorting
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+// ------------------------------------------------------------------------------------
+
+
 
 
   // ცვლადი ქვერი სტრინგი სადაც შევინახავ მონაცემებს, კლიკის დროს სორტირებაზე, ქუერი სტრინგში უნდა დაემატოს სორტირების ნაწილი sort = price
@@ -43,31 +68,133 @@ export default function Complex({favoriteHandler, favorites}) {
   // მოკლედ ქუერი სტრინგი სანახავია
 
 
+// // ------------------------------------------------------------------------------------
+// // first useEffect sorting
+//   useEffect(() => {
+//     const fetchData = async (sortOrder) => {
+//       try {
+//         setIsLoading(true);
+//         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
+//         const { results, count } = response.data;
+  
+//         let sortedResults;
+  
+//         // Sort the results based on sortOrder
+//         if (sortOrder === 'decrease') {
+//           sortedResults = results.slice().sort((a, b) => {
+//             return parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter);
+//           });
+//         } else if (sortOrder === 'increase') {
+//           sortedResults = results.slice().sort((a, b) => {
+//             return parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter);
+//           });
+//         } else {
+//           sortedResults = results; // Default: no sorting
+//         }
+  
+//         setHomes(sortedResults); // Default complex(without sorting)
+//         setTotalCount(count); // Total amount of complexes
+//         setIsLoading(false); // for Loader, like a youtube video slider (wave style)
+//       } catch (error) {
+//         setIsLoading(false);
+//         console.error('Error fetching data:', error);
+//       }
+//     };
+  
+//     // Fetch data based on the currentPage and sortOrder
+//     fetchData(forPriceDecrease);
+//   }, [currentPage, forPriceDecrease]);
+// // ------------------------------------------------------------------------------------
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
-        const { results, count } = response.data;
-        setHomes(results);
-        setTotalCount(count);
-        setIsLoading(false); // Set loading state to false after fetching data
-      } catch (error) {
-        setIsLoading(false); // Set loading state to false in case of error
-          console.error('Error fetching data:', error);
-        }
-    };
-    fetchData();
-  }, [currentPage]);
+
+
+
+// ------------------------------------------------------------------------------------
+// second useEffect
+const sortHomes = (data, sortOrder) => {
+  if (sortOrder === 'decrease') {
+    return [...data].sort((a, b) => parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter));
+  } else if (sortOrder === 'increase') {
+    return [...data].sort((a, b) => parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter));
+  } else {
+    return data;
+  }
+};
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
+      const { results, count } = response.data;
+      setHomes(results);
+      setTotalCount(count);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchData();
+}, [currentPage]);
+
+useEffect(() => {
+  const sortedResults = sortHomes(homes, forPriceDecrease);
+  setSortedHomes(sortedResults);
+}, [forPriceDecrease, homes]);
+
+// ------------------------------------------------------------------------------------
+
+
+// Pagination logic
+const itemsPerPage = 10;
+const totalPageCount = Math.ceil(totalCount / itemsPerPage);
+const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : [];
+
+
+
+  
+
+  // 
 
   // console.log('images: ', images);
-  console.log('homes all: ', homes);
+  // console.log('homes all: ', homes);
+
+  
 
 // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }
+
+  // Maping variable
+  // ------------------------------------------------------------------------------------
+  const homeMaping = currentSortedHomes.map((complex, index) => (
+    <div className='card' key={index}>
+      <div className='heartbuttonAndImageBox'>
+        <div className='heartButtonBox'>
+          <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
+            {favorites.some(fav => fav.id === complex.id) ? (
+              <img src={heartIcon} alt='Logo of heart' />
+              ) : (
+                <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+                )}
+          </button>
+        </div>
+        <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
+      </div>
+      <p style={styles.companyTitle}>{complex.name}</p>
+      <div className='textInfo'>
+        <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
+        <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
+        {/* Update the line below with the actual date property */}
+        <p style={styles.complexFinished}>Date: {complex.date}</p>
+      </div>
+    </div>
+  ))
+  // ------------------------------------------------------------------------------------
+
 
 
   
@@ -82,6 +209,35 @@ export default function Complex({favoriteHandler, favorites}) {
           <Link to='/map' ><button>რუკა</button></Link>
         </div>
       </div>
+
+
+{/* for sorting */}
+{/* // ------------------------------------------------------------------------------------ */}
+      <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        სორტირება
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+
+        <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>ფასი კლებადობით</MenuItem>
+        <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); }}>ფასი ზრდადობით</MenuItem>
+
+       
+      </Menu>
+{/* // ------------------------------------------------------------------------------------ */}
 
 
 
@@ -100,30 +256,7 @@ export default function Complex({favoriteHandler, favorites}) {
       </div>
     ))
   ) : (
-    homes &&
-    homes.map((complex, index) => (
-      <div className='card' key={index}>
-        <div className='heartbuttonAndImageBox'>
-          <div className='heartButtonBox'>
-            <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
-              {favorites.some(fav => fav.id === complex.id) ? (
-                <img src={heartIcon} alt='Logo of heart' />
-                ) : (
-                  <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
-                  )}
-            </button>
-          </div>
-          <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
-        </div>
-        <p style={styles.companyTitle}>{complex.name}</p>
-        <div className='textInfo'>
-          <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
-          <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
-          {/* Update the line below with the actual date property */}
-          <p style={styles.complexFinished}>Date: {complex.date}</p>
-        </div>
-      </div>
-    ))
+    homeMaping
   )}
 </div>
 
@@ -132,11 +265,11 @@ export default function Complex({favoriteHandler, favorites}) {
       <div className='pagination'>
         <Stack spacing={2}>
           <Pagination
-            count={Math.ceil(totalCount / 10)} 
-            shape="rounded"
-            page={currentPage}
-            onChange={(event, value) => setCurrentPage(value)}
-            onClick={pagiHandler}
+               count={totalPageCount}
+               shape="rounded"
+               page={currentPage}
+               onChange={(event, value) => setCurrentPage(value)}
+               onClick={pagiHandler}
             sx={{
               '& .MuiPaginationItem-root': {
                 color: 'black', // Change the color to your desired color

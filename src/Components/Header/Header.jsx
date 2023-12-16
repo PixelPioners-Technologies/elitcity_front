@@ -17,7 +17,7 @@ export default function Header({favorites}) {
     <div className='header'>
 
       <div className='LogoAndNavBar'>
-        <Link to='/'>
+        <Link to='/homePage'>
           <img src={CompanyLogo} alt='Logo of Company ELITECITY COMPANY ' />
         </Link>
         <nav>

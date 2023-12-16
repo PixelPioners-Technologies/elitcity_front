@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './App.css'
 import Header from './Components/Header/Header'
 import { Route, Routes } from "react-router-dom";
@@ -10,10 +11,14 @@ import Map from './pages/Map';
 import Sales from './pages/Sales';
 import FavoriteComplex from './pages/FavoriteComplex';
 import ApartmentList from './pages/ApartmentList';
+import Nothing from './pages/Nothing';
 
 
 function App() {
   
+  const [forVisible, setForVisible] = useState(true);
+
+
   
   // favorites infos State (and favorite functionality with local storage)
   // START (favorite functionality)
@@ -59,13 +64,20 @@ function App() {
 
   return (
     <div>
-      <Header favorites={favorites} />
-    
+       {/* Conditional rendering for the Header */}
+       {(forVisible && window.location.pathname !== "/") ? (
+        <div>
+          <Header favorites={favorites} />
+        </div>
+      ) : null}
+      
       <Routes>
-        <Route path='/' element={<HomePage />} />
+        <Route path="/" element={<Nothing />} />
+
+        <Route path="homePage" element={<HomePage />} />
         <Route path='complex'>
           <Route index={true} element={<Complex favoriteHandler={favoriteHandler} favorites={favorites} />} />
-          <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} />} />
+          <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />
         </Route>
         <Route path='lots' element={<Lots />} />
         <Route path='developers' element={<Developers />} />
@@ -74,7 +86,7 @@ function App() {
         <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
       </Routes>
     </div>
-  )
+  ) 
 }
 
 export default App
