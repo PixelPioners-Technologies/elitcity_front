@@ -19,7 +19,6 @@ import russianFlag from '../../../assets/flag-ru-svgrepo-com.svg';
 export default function Language({handleLanguageChange}) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedLanguage, setSelectedLanguage] = useState();
 
   // for Language Menu in library
   const open = Boolean(anchorEl);

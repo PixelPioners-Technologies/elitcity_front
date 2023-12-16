@@ -3,7 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './HomePage.css';
-import selectedLanguage from '../Components/Header/Language/Language'
+
+
+// -------------------  HomePage ----------------------------
+const HomePage = ({selectedLanguage}) => {
+  console.log('es aris', selectedLanguage);
+  const [complexes, setComplexes] = useState([]);
+  const navigate = useNavigate();
+  const { min_price_per_sq_meter, max_price_per_sq_meter, min_full_price, max_full_price, finished, min_area, max_area } = useParams();
 
 // ----- normalizeComplexData and normalizeLocationData functions ---
 const normalizeComplexData = (data, lang) => {
@@ -12,7 +19,7 @@ const normalizeComplexData = (data, lang) => {
     console.error('Data is undefined or null.');
     return [];
   }
-
+  
   // Check if data is an array
   if (!Array.isArray(data)) {
     console.error('Data is not an array.');
@@ -85,6 +92,8 @@ const normalizeLocationData = (data, lang) => {
   });
 };
 
+
+
 //---------- Constants and Axios Configuration -------
 const baseURL = 'https://api.storkhome.ge';
 const axiosInstance = axios.create({
@@ -97,28 +106,14 @@ const getComplexUniData = async (searchParams, selectedLanguage, setComplexes) =
   try {
     const response = await axiosInstance.get(`${baseURL}/complex/${selectedLanguage}/`, {
       params: searchParams,
-    });[selectedLanguage]
-    console.log(selectedLanguage);
-    console.log(searchParams);
-    console.log(setComplexes)
+    }, [selectedLanguage]);
 
     const normalData = normalizeComplexData(response.data.results, selectedLanguage);
-    console.log(normalData);
-    console.log(selectedLanguage)
     setComplexes(normalData);
   } catch (error) {
     console.error('Error fetching complexes:', error);
   } 
 };
-
-const handleLanguageChange = (languageCode) => {
-  // Update the selected language in the state
-  setSelectedLanguage(languageCode);
-
-  // Call the function to fetch data with the new language
-  fetchData(languageCode);
-};
-
 
 
 
@@ -126,7 +121,6 @@ const handleLanguageChange = (languageCode) => {
 const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
   const [activeFilter, setActiveFilter] = useState(null);
   const [searchParams, setSearchParams] = useState({});
-  console.log(selectedLanguage);
 
 
   const openPopup = (filter) => {
@@ -144,17 +138,6 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
       ...searchParams,
       [name]: value,
     }));
-  };
-
-  const fetchData = async () => {
-    try {
-      const data = await getComplexUniData(searchParams, selectedLanguage, setComplexes);
-      console.log('Fetched data:', data);
-      onFilterChange(data);
-      onLanguageChange(languageCode);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
   };
 
   // -------------- Render Popup Content Based on Active Filter ---
@@ -225,12 +208,38 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
   );
 };
 
-// -------------------  HomePage ----------------------------
-const HomePage = ({selectedLanguage}) => {
-  const [complexes, setComplexes] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState('en'); // Default language
-  const navigate = useNavigate();
-  const { min_price_per_sq_meter, max_price_per_sq_meter, min_full_price, max_full_price, finished, min_area, max_area } = useParams();
+
+  // es aris complexsebis fetch filtraciis parametrebianad
+useEffect(() => {
+  const fetchComplexes = async () => {
+    // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+    // const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`
+    // const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`
+    try {
+      const response = await axios.get(`${baseURL}/complex/${selectedLanguage}/`)
+        console.log(response.data)
+        //params: {
+          // [cityParam]: selectedCity,
+          // [pharentdistrictParams] : selectedPharentDistricts.join(','),
+          // [districtParams] : selectedDistricts.join(','),
+          // min_price_per_sq_meter : minPricePerSquareMeter,
+          // max_price_per_sq_meter : maxPricePerSquareMeter,
+          // min_full_price : minFullPrice,
+          // max_full_price : maxFullPrice 
+        //}
+    
+
+      const normalData = normalizeComplexData(response.data.results , selectedLanguage)
+      setComplexes(normalData);
+    } catch (error) {
+      console.error('Error fetching complexes:', error);
+    }
+  };
+
+  fetchComplexes();
+}, [selectedLanguage]); 
+
+
 
   const updateURLWithFilters = () => {
     const queryParams = new URLSearchParams();
@@ -257,7 +266,6 @@ const HomePage = ({selectedLanguage}) => {
         min_area,
         max_area,
       }, selectedLanguage, setComplexes);
-      console.log(selectedLanguage);
     } catch (error) {
       console.error('Error fetching data:', error);
     }

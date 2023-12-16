@@ -12,21 +12,20 @@ import Sales from './pages/Sales';
 import FavoriteComplex from './pages/FavoriteComplex';
 import ApartmentList from './pages/ApartmentList';
 import Nothing from './pages/Nothing';
-import selectedLanguage from '../Components/Header/Language/Language'
+
 
 
 function App() {
   
   const [forVisible, setForVisible] = useState(true);
 
-  const [selectedLanguage, setSelectedLanguage] = useState();
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
+
 
 
   const handleLanguageChange = (languageCode) => {
     setSelectedLanguage(languageCode);
-    console.log('es aris languagecode', languageCode);
 
-    handleClose();
 
   };
 
