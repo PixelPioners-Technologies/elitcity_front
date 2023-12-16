@@ -43,20 +43,34 @@ export default function Complex({favoriteHandler, favorites}) {
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [forPriceDecrease, setForPriceDecrease] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState('KA'); // Default language
+
   
 // ------------------------------------------------------------------------------------
 // for Sorting
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 // ------------------------------------------------------------------------------------
 
-
+ // Fetch complex data by language
+ const fetchComplexesByLanguage = async (language) => {
+  try {
+    const response = await axiosInstance.get(`/complex/${language}/?limit=10&offset=${(currentPage - 1) * 10}`);
+    const { results, count } = response.data;
+    return { results, count };
+  } catch (error) {
+    console.error('Error fetching complexes:', error);
+    throw error;
+  }
+};
 
 
   // ცვლადი ქვერი სტრინგი სადაც შევინახავ მონაცემებს, კლიკის დროს სორტირებაზე, ქუერი სტრინგში უნდა დაემატოს სორტირების ნაწილი sort = price
@@ -65,41 +79,37 @@ export default function Complex({favoriteHandler, favorites}) {
   // მოკლედ ქუერი სტრინგი სანახავია
 
 
-
-  useEffect(() => {
+useEffect(() => {
     const fetchData = async (sortOrder) => {
       try {
         setIsLoading(true);
-        const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
-        const { results, count } = response.data;
-  
+        const { results, count } = await fetchComplexesByLanguage(selectedLanguage);
+
         let sortedResults;
-  
+
         // Sort the results based on sortOrder
         if (sortOrder === 'decrease') {
-          sortedResults = results.slice().sort((a, b) => {
-            return parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter);
-          });
+          sortedResults = results.slice().sort((a, b) => parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter));
         } else if (sortOrder === 'increase') {
-          sortedResults = results.slice().sort((a, b) => {
-            return parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter);
-          });
+          sortedResults = results.slice().sort((a, b) => parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter));
         } else {
           sortedResults = results; // Default: no sorting
         }
-  
-        setHomes(sortedResults); // Default complex(without sorting)
-        setTotalCount(count); // Total amount of complexes
-        setIsLoading(false); // for Loader, like a youtube video slider (wave style)
+
+        setHomes(sortedResults); // Set the fetched and sorted data
+        setTotalCount(count); // Set the total count
+        setIsLoading(false); // Disable loader
       } catch (error) {
         setIsLoading(false);
         console.error('Error fetching data:', error);
       }
     };
-  
+
     // Fetch data based on the currentPage and sortOrder
     fetchData(forPriceDecrease);
-  }, [currentPage, forPriceDecrease]);
+  }, [currentPage, forPriceDecrease, selectedLanguage]); // Add selectedLanguage to the dependencies
+
+
   
 
   // 
@@ -116,7 +126,9 @@ export default function Complex({favoriteHandler, favorites}) {
 
   // Maping variable
   // ------------------------------------------------------------------------------------
-  const homeMaping = homes &&
+  const renderComplexes = () => { 
+  return (
+  homes &&
   homes.map((complex, index) => (
     <div className='card' key={index}>
       <div className='heartbuttonAndImageBox'>
@@ -140,6 +152,10 @@ export default function Complex({favoriteHandler, favorites}) {
       </div>
     </div>
   ))
+  );
+  }
+  
+
   // ------------------------------------------------------------------------------------
 
 
@@ -203,7 +219,7 @@ export default function Complex({favoriteHandler, favorites}) {
       </div>
     ))
   ) : (
-    homeMaping
+    renderComplexes()
   )}
 </div>
 
