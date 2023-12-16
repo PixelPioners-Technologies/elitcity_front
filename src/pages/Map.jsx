@@ -1,487 +1,507 @@
+
+
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect , useRef } from 'react';
 import axios from 'axios';
+import './Map.css';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import green from  '../location_icons/icon-green.png' 
+import red from  '../location_icons/icon-red.png'
+import yelow from  '../location_icons/icon-yelow.png'
 import Modal from './Modal';
-import './Map.css'
-import { useNavigate } from 'react-router-dom';
-
 
 const initialCenter = {
   lat: 41.7151,
   lng: 44.8271
 };
 
+const Base_URL = "http://127.0.0.1:8000/complex/";
+
+
+//--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
+
+const normalizeComplexData = (data, lang) => {
+  return data.map(item => ({
+    id: item.id,
+    complexName: item[`complex_name_${lang}`],
+    internalComplexName: item.internal_complex_name.internal_complex_name,
+    typeOfRoof: item[`type_of_roof_${lang}`],
+    address: {
+      street: item[`address_${lang}`][`address_${lang}`],
+      city: item[`address_${lang}`][`city_${lang}`],
+      district: item[`address_${lang}`][`district_${lang}`],
+      pharentDistrict: item[`address_${lang}`][`pharentDistrict_${lang}`],
+      streetName: item[`address_${lang}`][`street_name_${lang}`],
+      latitude: item[`address_${lang}`].latitude,
+      longitude: item[`address_${lang}`].longitude,
+    },
+    company: {
+      mobile: item[`company_${lang}`].Mobile,
+      mobileHome: item[`company_${lang}`].Mobile_Home,
+      about: item[`company_${lang}`][`aboutcompany_${lang}`],
+      address: item[`company_${lang}`][`address_${lang}`],
+      backgroundImage: item[`company_${lang}`].background_image,
+      website: item[`company_${lang}`].companyweb,
+      email: item[`company_${lang}`].email,
+      facebookPage: item[`company_${lang}`].facebook_page,
+      logo: item[`company_${lang}`].logocompany,
+      name: item[`company_${lang}`][`name_${lang}`],
+      isTopCompany: item[`company_${lang}`].topCompany,
+      isVisible: item[`company_${lang}`].visibility,
+    },
+    images: item.image_urls,
+    complexDetails: {
+      complexLevel: item.internal_complex_name.complex_level,
+      finishMonth: item.internal_complex_name.finish_month,
+      finishYear: item.internal_complex_name.finish_year,
+      isFinished: item.internal_complex_name.status,
+      floorNumber: item.internal_complex_name.floor_number,
+      numberOfApartments: item.internal_complex_name.number_of_apartments,
+      numberOfFloors: item.internal_complex_name.number_of_floors,
+      numberOfHouses: item.internal_complex_name.number_of_houses,
+      phoneNumber: item.internal_complex_name.phone_number,
+      plotArea: item.internal_complex_name.plot_area,
+      pricePerSqMeter: item.internal_complex_name.price_per_sq_meter,
+      space: item.internal_complex_name.space,
+      isVipComplex: item.internal_complex_name.vipComplex,
+      isVisible: item.internal_complex_name.visibiliti,
+    }
+  }));
+};
+
+
+const normalizeLocationData = (data, lang) => {
+  return data.map(cityItem => {
+      const cityNameField = `city_${lang}`;
+      const pharentDistrictField = `pharentDistrict_${lang}`;
+      const districtField = `district_${lang}`;
+      // const pharentdistrictName = `pharentDistrict_${lang}`
+
+      const cityName = cityItem[cityNameField];
+      const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
+          const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
+          const districts = pharentDistrictItem[districtField].map(districtItem => districtItem[districtField]);
+
+          return { pharentDistrict: pharentDistrictName, districts };
+      });
+
+      return { city: cityName, pharentDistricts };
+  });
+};
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+
 export default function Map() {
-  const [locations, setLocations] = useState([]);
-  const [mapCenter, setMapCenter] = useState(initialCenter);
-  const [zoomLevel, setZoomLevel] = useState(10);
-  const [cityList, setCityList] = useState([]);
-  const [selectedCity, setSelectedCity] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [markedParentDistricts, setMarkedParentDistricts] = useState(new Set());
-  const [modalContent, setModalContent] = useState('cities');
-  const [markedDistricts, setMarkedDistricts] = useState(new Set());
-  const [hoveredLocation, setHoveredLocation] = useState(null);
-  const [keepInfoWindowOpen, setKeepInfoWindowOpen] = useState(false);
-  // this is for filtering by full price
-  const [minFullPrice, setMinFullPrice] = useState('');
-  const [maxFullPrice, setMaxFullPrice] = useState('');
-  // this is for filtering per square meter
-  const [minPricePerSquareMeter, setMinPricePerSquareMeter ] = useState('');
-  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter ] = useState('');
-  // this is for filtering finished complexes
-  const [isfinished , setIsFinished] = useState('')
-  // this is for filtering space 
-  const [minArea , setMinArea ] = useState('')
-  const [maxArea , setMaxArea ] = useState('')
-  //this is for filtering apartment's number of rooms 
-  const [selectedRooms, setSelectedRooms] = useState([]);
+  const [complexes, setComplexes] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [selectedComplex, setSelectedComplex] = useState(null);
+  const [locations , setLocations ] = useState([])
+
+  const [modalContent , setModalContent] = useState('')
+  const [isModalOpen , setIsModalOpen] = useState(false)
+
+  const [selectedCity , setSelectedCity] = useState('')
+
+  const [selectedPharentDistricts ,  setSelectedPharentDistricts] = useState([]);
+  const [selectedDistricts , setSelectedDistricts] = useState([]);
+
+  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('')
+  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('')
+
+  const [minFullPrice, setMinFullPrice] = useState('')
+  const [maxFullPrice, setMaxFullPrice] = useState('')
 
 
-  // fetch whole complex for location latitude and longitude
+  
+//----------------------------------------------------------------------------------------------------
+  //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
+    //  address_en__city_en__city_en__icontains=& 
+    //    address_en__pharentDistrict_en__pharentDistrict_en=&   
+    //    address_en__pharentDistrict_en__pharentDistrict_en__icontains=& 
+    //      address_en__pharentDistrict_en__pharentDistrict_en__in=& 
+    //        address_en__district_en__district_en=&  
+    //        address_en__district_en__district_en__icontains=&  
+    //         address_en__district_en__district_en__in=saburtalo
+
+// --------------------------------------axios  for complexes --------------------------------------
   useEffect(() => {
-    const axiosLocations = async () => {
+    const fetchComplexes = async () => {
+      const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+      const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`
+      const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`
       try {
-        const params = new URLSearchParams();
-
-        if (minPricePerSquareMeter) params.append('min_price_per_sq_meter', minPricePerSquareMeter);
-        if (maxPricePerSquareMeter) params.append('max_price_per_sq_meter', maxPricePerSquareMeter);
-        if (minFullPrice) params.append('min_full_price', minFullPrice);
-        if (maxFullPrice) params.append('max_full_price', maxFullPrice);
-        if (isfinished !== null && isfinished !== undefined) params.append('finished', isfinished);
-        if (minArea) params.append('min_area', minArea);
-        if (maxArea) params.append('max_area', maxArea);
-
-        selectedRooms.forEach(room => {
-          if (room) params.append('number_of_rooms', room);
+        const response = await axios.get(`${Base_URL}${selectedLanguage}/`,{
+          params: {
+            [cityParam]: selectedCity,
+            [pharentdistrictParams] : selectedPharentDistricts.join(','),
+            [districtParams] : selectedDistricts.join(','),
+            min_price_per_sq_meter : minPricePerSquareMeter,
+            max_price_per_sq_meter : maxPricePerSquareMeter,
+            min_full_price : minFullPrice,
+            max_full_price : maxFullPrice 
+          }
         });
 
-        const response = await axios.get('http://127.0.0.1:8000/complex/' , {
-          params: params
-          })
-        const data = response.data.results;
-        const locationsWithCoords = data.map(item => ({
-          ...item,
-          latitude: item.address.latitude,
-          longitude: item.address.longitude,
-        }));
-        
-        setLocations(locationsWithCoords);
-        console.log(params)
+        const normalData = normalizeComplexData(response.data.results , selectedLanguage)
+        setComplexes(normalData);
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching complexes:', error);
       }
     };
-    axiosLocations();
-  }, [mapCenter, selectedCity, minFullPrice , maxFullPrice , minPricePerSquareMeter , maxPricePerSquareMeter , isfinished , minArea , maxArea, selectedRooms]);
 
-// ----------------------------------------- buld url in brouser's url---------------------------------------------------
+    fetchComplexes();
+  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter, minFullPrice, maxFullPrice]); 
 
-// Inside your component
-const navigate = useNavigate();
+// ----------------------------------------------------------------------------------------------
+//-----------------------------------fetch ionly locations --------------------------------------
 
-const updateURLWithFilters = () => {
-  const queryParams = new URLSearchParams();
-
-  if (minPricePerSquareMeter) queryParams.set('min_price_per_sq_meter', minPricePerSquareMeter);
-  if (maxPricePerSquareMeter) queryParams.set('max_price_per_sq_meter', maxPricePerSquareMeter);
-  if (minFullPrice) queryParams.set('min_full_price', minFullPrice);
-  if (maxFullPrice) queryParams.set('max_full_price', maxFullPrice);
-  if (isfinished !== null && isfinished !== undefined) queryParams.set('finished', isfinished);
-  if (minArea) queryParams.set('min_area', minArea);
-  if (maxArea) queryParams.set('max_area', maxArea);
-
-  // For React Router v6, you would use navigate like this:
-        navigate(`?${queryParams.toString()}`, { replace: true });
-};
-
-// ...
+const base_URL_for_location = 'http://127.0.0.1:8000/map/' 
 
 useEffect(() => {
-  updateURLWithFilters();
-}, [minFullPrice, maxFullPrice, minPricePerSquareMeter ,maxPricePerSquareMeter, isfinished , minArea , maxArea]);
-
-
-// ---------------------------------------------------------------------------------------------------------
-
-
-
-// fetch only cities , pharentDistricts and districts 
-  useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/location/');
-        setCityList(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchCities();
-  }, []);
-
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    // setMarkedParentDistricts(new Set());  ეს რო ჩართულია , ლოკაციის ძიების ფანჯრის დახურვისას ფილტრაცია აღარ მუშაობს
-  };
-
-
-// ---------------------------------logic for marking pharentdistrict if all it"s dostricts are marked -----------------------------
-  const toggleParentDistrict = (parentDistrict) => {
-    setMarkedParentDistricts(prevParent => {
-      const newMarkedParent = new Set(prevParent);
-      let childDistricts = [];
-      // Find the child districts of the selected parent district
-      const parentDistrictData = cityList.find(c => c.city === selectedCity)?.pharent_districts.find(pd => pd.pharentDistrict.toLowerCase() === parentDistrict.toLowerCase());
-      if (parentDistrictData) {
-        childDistricts = parentDistrictData.districts.map(d => d.district.toLowerCase());
-      }
-      if (newMarkedParent.has(parentDistrict)) {
-        newMarkedParent.delete(parentDistrict);
-        // Remove all child districts from markedDistricts
-        setMarkedDistricts(prevDistricts => new Set([...prevDistricts].filter(district => !childDistricts.includes(district))));
-      } else {
-        newMarkedParent.add(parentDistrict);
-        // Add all child districts to markedDistricts
-        setMarkedDistricts(prevDistricts => new Set([...prevDistricts, ...childDistricts]));
-      }
-      return newMarkedParent;
-    });
-  };
-  
-  const toggleDistrict = (district, parentDistrict) => {
-    setMarkedDistricts(prev => {
-      const newMarked = new Set(prev);
-  
-      if (newMarked.has(district)) {
-        newMarked.delete(district);
-      } else {
-        newMarked.add(district);
-      }
-      // Automatically update parent district's marked status based on child districts
-      const parentDistricts = cityList.find(c => c.city === selectedCity)?.pharent_districts;
-      const parent = parentDistricts?.find(pd => pd.pharentDistrict.toLowerCase() === parentDistrict.toLowerCase());
-      const allMarked = parent?.districts.every(d => newMarked.has(d.district.toLowerCase()));
-  
-      setMarkedParentDistricts(prevParent => {
-        const newMarkedParent = new Set(prevParent);
-        if (allMarked) {
-          newMarkedParent.add(parentDistrict.toLowerCase());
-        } else {
-          newMarkedParent.delete(parentDistrict.toLowerCase());
-        }
-        return newMarkedParent;
-      });
-  
-      return newMarked;
-    });
-  };
-  
-  const filteredLocations = locations.filter(location => {
-    const cityMatch = !selectedCity || location.address.city.toLowerCase() === selectedCity.toLowerCase();
-    const parentDistrictMatch = markedParentDistricts.size === 0 || markedParentDistricts.has(location.address.pharentDistrict.toLowerCase());
-    const districtMatch = markedDistricts.size === 0 || markedDistricts.has(location.address.district.toLowerCase());
-    return cityMatch && parentDistrictMatch && districtMatch;
-  });
-  // --------------------------------------------------------------------------------------------------------------------------------
-
-  //--------------------------------------------- ლოგიკა რუკის დაზუმვისთვის ლოკაციიის მონიშვნისას--------------------------
-  const mapRef = useRef();
-
-   // Function to update the map's bounds based on the filtered locations
-   const fitBounds = (map, locations) => {
-    const bounds = new window.google.maps.LatLngBounds();
-    locations.forEach(location => {
-      bounds.extend(new window.google.maps.LatLng(location.latitude, location.longitude));
-    });
-    map.fitBounds(bounds);
-  };
-
-  useEffect(() => {
-    if (!mapRef.current || !selectedCity || markedParentDistricts.size === 0) return;
-    // Assuming mapRef.current is the current Google Map instance
-    const mapInstance = mapRef.current.state.map;
-    // Call fitBounds to adjust the map view
-    fitBounds(mapInstance, filteredLocations);
-    // Optionally set a max zoom level
-    const listener = google.maps.event.addListenerOnce(mapInstance, 'bounds_changed', () => {
-      if (mapInstance.getZoom() > 15) {
-        mapInstance.setZoom(15); // Set max zoom level here
-      }
-    
-    });
-    // Clean up the listener after it's been set
-    return () => google.maps.event.removeListener(listener);
-  }, [selectedCity, markedParentDistricts, filteredLocations, markedDistricts]); // Depend on these states
-
-// ----------------------------------------------------------------------------------------------------------------------------------------
-
-  const handleShowCityModal = () => {
-    setModalContent('cities');
-    setIsModalOpen(true);
-  };
-
-  const handleCityClick = (city) => {
-    setModalContent('parentDistricts');
-    setSelectedCity(city);
-    setIsModalOpen(true);
-  };
-
-// ------------------------------------------modal for opening cities , pharent districts and districts----------------------------------------
-  const renderModalContent = () => {
-    switch (modalContent) {
-      case 'cities':
-        return cityList.map((cityItem, index) => (
-          <button key={index} onClick={() => handleCityClick(cityItem.city)} className='button-19'>
-            {cityItem.city}
-          </button>
-        ));
-  
-      case 'parentDistricts':
-        const cityData = cityList.find(c => c.city === selectedCity);
-        return (
-          <div className="parent-districts-container">
-            {cityData?.pharent_districts.map((pd, pdIndex) => (
-              <div key={pdIndex} className="parent-district">
-                <label className="checkbox-button-label">
-                  <input
-                    id={`pd-checkbox-${pdIndex}`}
-                    type="checkbox"
-                    className="checkbox-button-pharentdistrict"
-                    onChange={() => toggleParentDistrict(pd.pharentDistrict.toLowerCase())}
-                    checked={markedParentDistricts.has(pd.pharentDistrict.toLowerCase())}
-                  />
-                  {pd.pharentDistrict}
-                </label>
-                <div className="districts-container">
-                {pd.districts.map((d, dIndex) => (
-                  <label key={dIndex} className="checkbox-button-label">
-                    <input
-                      id={`district-checkbox-${pdIndex}-${dIndex}`}
-                      type="checkbox"
-                      className="checkbox-button-district"
-                      onChange={() => toggleDistrict(d.district.toLowerCase(), pd.pharentDistrict.toLowerCase())}
-                      checked={markedDistricts.has(d.district.toLowerCase())}
-                    />
-                    {d.district}
-                  </label>
-                ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        );
-  
-      default:
-        return null;
+  const fetchLocations = async () => {
+      
+    try {
+      const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
+      const normalisedLocationData = normalizeLocationData(response.data.results , selectedLanguage)
+      setLocations(normalisedLocationData)
+    } catch (error) {
+      console.error("error fetching on locations =>> ", error)
     }
-  };
-  // ------------------------------------------------------------------------------------------------------------------------------
-  // --------------------------------- reset market cityes, pharent district  and districts -------------------------------
-
-  const unmarkAll = () => {
-    // Reset the state variables for marked cities, parent districts, and districts
-    setSelectedCity('');
-    setMarkedParentDistricts(new Set());
-    setMarkedDistricts(new Set());
-    
-    // Optionally, if you want to reset the map view as well
-    setMapCenter(initialCenter);
-    setZoomLevel(10); // Set to your initial zoom level
-    
-    // Close the modal if you want
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    if (mapRef.current) {
-      const mapInstance = mapRef.current.state.map;
-      mapInstance.setCenter(mapCenter);
-      mapInstance.setZoom(zoomLevel);
-    }
-  }, [mapCenter, zoomLevel]);
-// ------------------------------------------------------------------------------------------------------------------------
-
-// ----------------------------------------open infowindow on hover--------------------------------------------------------
-const handleMarkerMouseOver = (location) => {
-  setHoveredLocation(location);
-  setKeepInfoWindowOpen(true);
-};
-
-const handleMarkerMouseOut = () => {
-    if (!keepInfoWindowOpen) {
-      setHoveredLocation(null);
-    }
-};
-
-const handleInfoWindowMouseOver = () => {
-  setKeepInfoWindowOpen(true);
-};
-
-const handleInfoWindowMouseOut = () => {
-  setKeepInfoWindowOpen(false);
-  setHoveredLocation(null);
-};
-// ---------------------------------------------------------------------------------------------------------------------------
-// -----------------------------------------------------function for reseting filters -------------------------------------------------------
-  const handleResetAllFilters = () => {
-    setMinFullPrice('')
-    setMaxFullPrice('')
-    setMinPricePerSquareMeter('')
-    setMaxPricePerSquareMeter('')
-    setIsFinished('')
-    setMinArea('')
-    setMaxArea('')
-    setSelectedRooms([])
   }
-// ---------------------------------------------------------------------------------------------------------------------------
-//------------------------------------logic fot selecting and filtering apartment's number of rooms -------------------------------
-const toggleRoomSelection = (room) => {
-  setSelectedRooms((prevSelectedRooms) => {
-    if (prevSelectedRooms.includes(room)) {
-      return prevSelectedRooms.filter((r) => r !== room); // Unselect
+
+  fetchLocations();
+} , [selectedLanguage  , selectedCity]  )
+
+
+
+// ----------------------------------------------------------------------------------------------
+
+// useEffect(() => {
+//   console.log('This is normalized data', locations.map(loc => {
+//     return loc
+//   }
+//   ));
+// }, [complexes]);
+
+// -------------------------------function for language to change--------------------------------------
+  const handleLanguageChange = (e) => {
+    setSelectedLanguage(e.target.value);
+  };
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+// ----------------------------------icon coloure and  status  change  ----------------------------------------------------------
+
+const getStatusInfo = (status) => {
+  let statusInfo = {
+    text: "Unknown Status",
+    iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' ,// default icon
+    scaledSize: new window.google.maps.Size(40, 40)
+  };
+  // /home/guro/Desktop/ELIT CITY FRONT/elitcity_front/src/location_icons
+  switch (status) {
+    case 1: // Planned
+      statusInfo.text = "Planned";
+      statusInfo.iconUrl = red ;
+      break;
+    case 2: // Under Construction
+      statusInfo.text = "Under Construction";
+      statusInfo.iconUrl = yelow;
+      break;
+    case 3: // Completed
+      statusInfo.text = "Completed";
+      statusInfo.iconUrl = green;
+      break;
+    default:
+      // Keep default values
+      break;
+  }
+
+  return statusInfo;
+};
+
+
+const getStatusText = (status, lang) => {
+  const statusTexts = {
+    en: {
+      1: "Planned",
+      2: "Under Construction",
+      3: "Completed"
+    },
+    ka: {
+      1: "დაგეგმილი",
+      2: "მშენებარე",
+      3: "დასრულებული"
+    },
+    ru: {
+      1: "Запланировано",
+      2: "Строится",
+      3: "Завершено"
+    }
+  };
+
+  return statusTexts[lang][status] || "Unknown Status";
+};
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+//--------------------------------------modal and logic for opening filtration window --------------------------------------
+
+const renderModalContent = () => {
+  switch (modalContent) {
+    case 'cities':
+      return <div>
+                {locations.map((cityItem, index) => (
+                  <button key={index} onClick={() => handleCityClick(cityItem.city)} className='button-19'>
+                    {cityItem.city}
+                  </button>
+                ))}
+                <button onClick={closeModal} >close</button>
+            </div>
+    case "pharentdistricts":
+      // Find the city object from the locations array
+      const city = locations.find(loc => loc.city === selectedCity);
+      if (!city) return null;
+
+      return (
+        <div>
+          {city.pharentDistricts.map((parentDistrict, index) => (
+            <div key={index}>
+              <div>
+                <input
+                  type="checkbox"
+                  checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
+                  onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
+                />
+                {parentDistrict.pharentDistrict}
+              </div>
+              <div style={{ marginLeft: '20px' }}>
+                {parentDistrict.districts.map((district, districtIndex) => (
+                  <div key={districtIndex}>
+                    <input
+                      type="checkbox"
+                      checked={selectedDistricts.includes(district)}
+                      onChange={(e) => handleDistrictChange(e, district)}
+                    />
+                    {district}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+          <button onClick={closeModal}>Close</button>
+        </div>
+      );
+      
+    default:
+      return null;
+  }
+};
+
+
+const handleShowModal = () => {
+  setModalContent('cities')
+  setIsModalOpen(true)
+}
+
+const handleCityClick = (city) => {
+  console.log("City selected: ", city); // Debug log
+  setModalContent("pharentdistricts")
+  setSelectedCity(city)
+  setIsModalOpen(true)
+}
+
+const closeModal = () => {
+  setIsModalOpen(false)
+}
+
+const handleParentDistrictChange = (e, parentDistrict) => {
+  
+  setSelectedPharentDistricts(prevSelected => {
+    if (e.target.checked) {
+      return [...prevSelected, parentDistrict];
     } else {
-      return [...prevSelectedRooms, room]; // Select
+      return prevSelected.filter(pd => pd !== parentDistrict);
+    }
+  });
+    // Find the city object from the locations array
+    const city = locations.find(loc => loc.city === selectedCity);
+    if (!city) return;
+    
+    // Find the specific parent district object
+    const parentDistrictObj = city.pharentDistricts.find(pd => pd.pharentDistrict === parentDistrict);
+    if (!parentDistrictObj) return;
+
+    setSelectedDistricts(prevSelected => {
+      if (e.target.checked) {
+        // Add all districts of the parent district to the selected list
+        // Ensure no duplicates are added
+        const updatedDistricts = new Set([...prevSelected, ...parentDistrictObj.districts]);
+        return Array.from(updatedDistricts);
+      } else {
+        // Remove all districts of the parent district from the selected list
+        return prevSelected.filter(d => !parentDistrictObj.districts.includes(d));
+      }
+    });
+};
+
+
+
+const handleDistrictChange = (e, district) => {
+  
+  setSelectedDistricts(prevSelected => {
+    if (e.target.checked) {
+      return [...prevSelected, district];
+    } else {
+      return prevSelected.filter(d => d !== district);
     }
   });
 };
 
 
-// ---------------------------------------------------------------------------------------------------------------------------
 
-  
+useEffect( () => {
+  console.log('pharentdistrict selected : ' , selectedPharentDistricts)
+  console.log("district selected : " ,selectedDistricts)
+
+},[selectedPharentDistricts,selectedDistricts ] )
+
+
+// ---------------------------------------------------------------------------------------------------------------------
 
 
   return (
     <div className='main_map'>
       <div className='filter_cont'>
-        <button onClick={handleShowCityModal} className='show_button'  >Select City ...</button>
-        <button onClick={unmarkAll} className='reset_button'>Reset Selected Cities</button>
-        <Modal isOpen={isModalOpen} close={closeModal}>
+        <div>
+          <select id="language-selector" value={selectedLanguage} onChange={handleLanguageChange}>
+            <option value="ka">KA</option>
+            <option value="en">EN</option>
+            <option value="ru">RU</option>
+          </select>
+        </div>
+        <div>
+          <button onClick={handleShowModal}> Select City</button>
+        </div>
+        <Modal isOpen={isModalOpen} >
           {renderModalContent()}
         </Modal>
-        <div className='filters' >
-          {/* Room selection buttons */}
-          <div className="room-selection">
-            {['all', '1', '2', '3', '4', '5+'].map((room) => (
-              <button
-                key={room}
-                className={`room-button ${selectedRooms.includes(room) ? 'selected' : ''}`}
-                onClick={() => toggleRoomSelection(room)}
-                
-              >
-                {room}
-              </button>
-            ))}
-          </div>
-       
+        <div>
+          {/* filtration for pprices */}
+          <div>
+          <input
+              type="number"
+              placeholder='Min Price Per Square Meter'
+              value={minPricePerSquareMeter}
+              onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+           />
 
-          {/* input for min and max area */}
-          <div>
-            <input 
-                type="number" 
-                placeholder="Min Area" 
-                value={minArea} 
-                onChange={(e) => setMinArea(e.target.value)} 
-                />
+            <input
+              type="number"
+              placeholder='Max Price Per Square Meter'
+              value={maxPricePerSquareMeter}
+              onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+           />
+          </div>
 
-            <input 
-                type="number" 
-                placeholder="Max Area" 
-                value={maxArea} 
-                onChange={(e) => setMaxArea(e.target.value)} 
-                />
+          <div>
+            <input
+              type="number"
+              placeholder='Min Full Price'
+              value={minFullPrice}
+              onChange={(e) => setMinFullPrice(e.target.value)}
+           />
 
+            <input
+              type="number"
+              placeholder='Max Full Price'
+              value={maxFullPrice}
+              onChange={(e) => setMaxFullPrice(e.target.value)}
+           />
           </div>
-          {/* inputs for filter  by full price */}
-          <div>
-            <input 
-              type="number" 
-              placeholder="Min Full Price" 
-              value={minFullPrice} 
-              onChange={(e) => setMinFullPrice(e.target.value)} 
-              />
-            <input 
-              type="number" 
-              placeholder="Max Full Price" 
-              value={maxFullPrice} 
-              onChange={(e) => setMaxFullPrice(e.target.value)} 
-              />
-          </div>
-          <div>
-            {/* inputs for filter by price per square meter */}
-            <input 
-              type="number" 
-              placeholder="Min price per square meter" 
-              value={minPricePerSquareMeter} 
-              onChange={(e) => setMinPricePerSquareMeter(e.target.value)} 
-            />
-             <input 
-              type="number" 
-              placeholder="Max price per square meter" 
-              value={maxPricePerSquareMeter} 
-              onChange={(e) => setMaxPricePerSquareMeter(e.target.value)} 
-            />
-          </div>
-          <div>
-            {/* select for filter by finished or not */}
-            <select  className='select_filter'   value={isfinished}  onChange={(e) => setIsFinished(e.target.value)  }   >
-              <option value=''  >All</option>
-              <option value='true'  >Finished</option>
-              <option value='false'  >Not Finished</option>
-            </select>
-          </div>
-          {/* button for reseting filters */}
-          <button  className='reset_all_fiolters_button'  onClick={handleResetAllFilters}  >Reset All Filters </button>
+
         </div>
       </div>
-
-      <div className='for_border' ></div>
+      <div className='for_border'></div>
       <div className='map_cont'>
         <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
           <GoogleMap
             mapContainerStyle={{ width: '1000px', height: '100vh' }}
-            center={mapCenter}
-            zoom={zoomLevel}
-            ref={mapRef}
+            center={initialCenter}
+            zoom={13}
             options={{
-              gestureHandling: "greedy", // This enables zooming without the Control key
-          }}
+              gestureHandling: "greedy",
+            }}
           >
-            {filteredLocations.map(location => (
-              <Marker
-                key={location.id}
-                position={{ lat: location.latitude, lng: location.longitude }}
-                onMouseOver={ () => handleMarkerMouseOver(location)}
-                onMouseOut={handleMarkerMouseOut}
-              />
-            ))}
+           {complexes.map(complex => {
+              if (complex.address && complex.address.latitude && complex.address.longitude) {
+                const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
+                
+                return (
+                  <Marker
+                    key={complex.id}
+                    position={{
+                      lat: complex.address.latitude,
+                      lng: complex.address.longitude,
+                    }}
+                    icon={{
+                      url: statusInfo.iconUrl,
+                      scaledSize: statusInfo.scaledSize
+                    }}
+                    onClick={() => setSelectedComplex(complex)}
+                  />
+                  
+                );
+              }
+              return null;
+            })}
 
-              {hoveredLocation && (
-                <InfoWindow
-                position={{ lat: hoveredLocation.latitude, lng: hoveredLocation.longitude }}
-                onCloseClick={() => setHoveredLocation(null)}
-                onMouseOver={handleInfoWindowMouseOver}
-                onMouseOut={handleInfoWindowMouseOut}
-                >
-                  <div>
-                    <h2>{hoveredLocation.name}</h2>
-                    <img className='image_cont'  src={hoveredLocation.images} alt='location'/>
-                    {/* ...other info window contents should go here*/}
-                  </div>
-                </InfoWindow>
-              )}
-         
+            {selectedComplex && (
+              <InfoWindow
+                position={{
+                  lat: Number(selectedComplex.address.latitude),
+                  lng: Number(selectedComplex.address.longitude),
+                }}
+                onCloseClick={() => setSelectedComplex(null)}
+              >
+                <div>
+                  <h2>{selectedComplex.complexName}</h2>
+                  <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p> 
+                  {/* Add more details and the image if available */}
+                  {selectedComplex.images && selectedComplex.images.length > 0 && (
+                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
+                  )}
+                </div>
+              </InfoWindow>
+            )} 
+
+
           </GoogleMap>
         </LoadScript>
-      </div>
+      </div> 
     </div>
   );
 }
 
 
+//127.0.0.1:8000/complex/en/?address_en__city_en__city_en=&
+// address_en__city_en__city_en__icontains=&
+// address_en__pharentDistrict_en__pharentDistrict_en=&
+// address_en__pharentDistrict_en__pharentDistrict_en__icontains=isani-samgori&
+// address_en__pharentDistrict_en__pharentDistrict_en__in=&
+// address_en__district_en__district_en=&address_en__district_en__district_en__icontains=&
+// address_en__district_en__district_en__in=lisi
 
+
+
+
+
+
+//127.0.0.1:8000/complex/en/?address_en__city_en__city_en__icontains=tbilisi&
+// address_en__pharentDistrict_en__pharentDistrict_en__in=isani-samgori&
+// address_en__district_en__district_en__in=lisi,saburtalo
