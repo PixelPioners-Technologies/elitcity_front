@@ -104,15 +104,11 @@ export default function Map() {
 
   const [selectedPharentDistricts ,  setSelectedPharentDistricts] = useState([]);
   const [selectedDistricts , setSelectedDistricts] = useState([]);
+
+  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('')
+  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('')
+
   
-  //127.0.0.1:8000/complex/ka/?address_ka__city_ka__city_ka=&
-      // address_ka__city_ka__city_ka__icontains=& 
-      //   address_ka__pharentDistrict_ka__pharentDistrict_ka=& 
-      //     address_ka__pharentDistrict_ka__pharentDistrict_ka__icontains=& 
-      //       address_ka__pharentDistrict_ka__pharentDistrict_ka__in=&  
-      //        address_ka__district_ka__district_ka=&  
-      //         address_ka__district_ka__district_ka__icontains=&
-      //            address_ka__district_ka__district_ka__in=
 //----------------------------------------------------------------------------------------------------
   //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
     //  address_en__city_en__city_en__icontains=& 
@@ -135,8 +131,8 @@ export default function Map() {
             [cityParam]: selectedCity,
             [pharentdistrictParams] : selectedPharentDistricts.join(','),
             [districtParams] : selectedDistricts.join(','),
-            // parentDistricts: selectedParentDistricts.join(','), 
-            // districts: selectedDistricts.join(',') 
+            min_price_per_sq_meter : minPricePerSquareMeter,
+            max_price_per_sq_meter : maxPricePerSquareMeter
           }
         });
 
@@ -148,7 +144,7 @@ export default function Map() {
     };
 
     fetchComplexes();
-  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts]); 
+  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter]); 
 
 // ----------------------------------------------------------------------------------------------
 //-----------------------------------fetch ionly locations --------------------------------------
@@ -384,6 +380,20 @@ useEffect( () => {
         <Modal isOpen={isModalOpen} >
           {renderModalContent()}
         </Modal>
+        <div>
+          <input
+              type="number"
+              placeholder='Min Price Per Square Meter'
+              value={minPricePerSquareMeter}
+              onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+           />
+            <input
+              type="number"
+              placeholder='Max Price Per Square Meter'
+              value={maxPricePerSquareMeter}
+              onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+           />
+        </div>
       </div>
       <div className='for_border'></div>
       <div className='map_cont'>
