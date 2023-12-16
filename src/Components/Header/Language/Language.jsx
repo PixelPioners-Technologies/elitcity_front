@@ -16,10 +16,9 @@ import englishFlag from '../../../assets/united-kingdom-uk-svgrepo-com.svg';
 import russianFlag from '../../../assets/flag-ru-svgrepo-com.svg';
 
 
-export default function Language() {
+export default function Language({handleLanguageChange}) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   // for Language Menu in library
   const open = Boolean(anchorEl);
@@ -31,19 +30,14 @@ export default function Language() {
   };
 
 
-  const handleLanguageChange = (languageCode) => {
-    setSelectedLanguage(languageCode);
-    handleClose();
-
     // Here, you can make an Axios request with the selected language
-    axios.get(`YOUR_BACKEND_BASE_URL/api/data?lang=${languageCode}`)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  };
+    // axios.get(`https://api.storkhome.ge/complex/${selectedLanguage}`)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error fetching data:', error);
+    //   });
 
 
   return (

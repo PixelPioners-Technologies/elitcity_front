@@ -14,9 +14,20 @@ import ApartmentList from './pages/ApartmentList';
 import Nothing from './pages/Nothing';
 
 
+
 function App() {
   
   const [forVisible, setForVisible] = useState(true);
+
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
+
+
+
+  const handleLanguageChange = (languageCode) => {
+    setSelectedLanguage(languageCode);
+
+
+  };
 
 
   
@@ -67,14 +78,14 @@ function App() {
        {/* Conditional rendering for the Header */}
        {(forVisible && window.location.pathname !== "/") ? (
         <div>
-          <Header favorites={favorites} />
+          <Header favorites={favorites} handleLanguageChange={handleLanguageChange} />
         </div>
       ) : null}
       
       <Routes>
         <Route path="/" element={<Nothing />} />
 
-        <Route path="homePage" element={<HomePage />} />
+        <Route path="homePage" element={<HomePage favoriteHandler={favoriteHandler} favorites={favorites} selectedLanguage={selectedLanguage} />} />
         <Route path='complex'>
           <Route index={true} element={<Complex favoriteHandler={favoriteHandler} favorites={favorites} />} />
           <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />

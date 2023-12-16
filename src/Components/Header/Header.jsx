@@ -9,7 +9,7 @@ import Language from './Language/Language';
 
 
 
-export default function Header({favorites}) {
+export default function Header({favorites, handleLanguageChange }) {
 
 
 
@@ -59,7 +59,7 @@ export default function Header({favorites}) {
           </div>
         {/* Language Menu,  */}
         {/* აქ მხოლოდ ენებს ჩამოშლის ფუნქცია აქვს და გადასაყვანია ყველა ტექსტი სხვა ენებზეც */}
-       <Language />
+       <Language handleLanguageChange={handleLanguageChange} />
       
       </div>
             
