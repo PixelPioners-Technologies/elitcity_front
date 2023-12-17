@@ -96,9 +96,9 @@ const normalizeLocationData = (data, lang) => {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-export default function Map() {
+export default function Map({selectedLanguage}) {
   const [complexes, setComplexes] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  // const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [selectedComplex, setSelectedComplex] = useState(null);
   const [locations , setLocations ] = useState([])
 
@@ -374,17 +374,17 @@ useEffect( () => {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-
+ 
   return (
     <div className='main_map'>
       <div className='filter_cont'>
-        <div>
+        {/* <div>
           <select id="language-selector" value={selectedLanguage} onChange={handleLanguageChange}>
             <option value="ka">KA</option>
             <option value="en">EN</option>
             <option value="ru">RU</option>
           </select>
-        </div>
+        </div> */}
         <div>
           <button onClick={handleShowModal}> Select City</button>
         </div>

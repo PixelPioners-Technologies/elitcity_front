@@ -39,7 +39,6 @@ export default function Language({handleLanguageChange}) {
     //     console.error('Error fetching data:', error);
     //   });
 
-
   return (
     <div>
       <div className='languageBox'>
@@ -61,19 +60,19 @@ export default function Language({handleLanguageChange}) {
             'aria-labelledby': 'basic-button',
           }}
         >
-          <MenuItem onClick={() => handleLanguageChange('ka')}>
+          <MenuItem onClick={() => { handleLanguageChange('ka'); handleClose(); }} >
             <img src={georgianFlag} alt='georgian flag' style={{ width: '17px' }} />
             <p style={{ marginLeft: '5px' }}>
               Georgian
-            </p>
+            </p>z
           </MenuItem>
-          <MenuItem onClick={() => handleLanguageChange('en')}>
+          <MenuItem onClick={() => { handleLanguageChange('en'); handleClose(); }}>
             <img src={englishFlag} alt='georgian flag' style={{ width: '17px' }} />
             <p style={{ marginLeft: '5px' }}>
               English
             </p>
           </MenuItem>
-          <MenuItem onClick={() => handleLanguageChange('ru')}>
+          <MenuItem onClick={() => { handleLanguageChange('ru'); handleClose(); }}>
             <img src={russianFlag} alt='georgian flag' style={{ width: '17px' }} />
             <p style={{ marginLeft: '5px' }}>
               Russian

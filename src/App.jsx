@@ -72,7 +72,7 @@ function App() {
   // console.log('favorites: -- ', favorites)
 
   
-
+  console.log("es aris selectedlanguage" , selectedLanguage )
   return (
     <div>
        {/* Conditional rendering for the Header */}
@@ -92,7 +92,7 @@ function App() {
         </Route>
         <Route path='lots' element={<Lots />} />
         <Route path='developers' element={<Developers />} />
-        <Route path='map' element={<Map />} />
+        <Route path='map'   element={<Map selectedLanguage={selectedLanguage}/>} />
         <Route path='sales' element={<Sales />} />
         <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
       </Routes>
