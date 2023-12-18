@@ -87,7 +87,7 @@ function App() {
 
         <Route path="homePage" element={<HomePage favoriteHandler={favoriteHandler} favorites={favorites} selectedLanguage={selectedLanguage} />} />
         <Route path='complex'>
-          <Route index={true} element={<Complex favoriteHandler={favoriteHandler} favorites={favorites} />} />
+          <Route index={true} element={<Complex favoriteHandler={favoriteHandler} favorites={favorites} selectedLanguage={selectedLanguage} />} />
           <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />
         </Route>
         <Route path='lots' element={<Lots />} />

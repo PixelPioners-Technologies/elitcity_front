@@ -5,7 +5,8 @@ import axios from 'axios';
 import './HomePage.css';
 
 //---------- Constants and Axios Configuration -------
-const baseURL = 'https://api.storkhome.ge';
+//const baseURL = 'https://api.storkhome.ge';
+const baseURL = 'http://127.0.0.1:8000';
 const axiosInstance = axios.create({
   baseURL: baseURL,
 });
@@ -13,6 +14,7 @@ const axiosInstance = axios.create({
 // -------------------  HomePage ----------------------------
 const HomePage = ({selectedLanguage}) => {
   const [complexes, setComplexes] = useState([]);
+  console.log(complexes);
   const navigate = useNavigate();
   const { min_price_per_sq_meter, max_price_per_sq_meter, min_full_price, max_full_price, finished, min_area, max_area } = useParams();
 
