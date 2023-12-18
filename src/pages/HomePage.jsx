@@ -4,13 +4,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './HomePage.css';
 
+//---------- Constants and Axios Configuration -------
+const baseURL = 'https://api.storkhome.ge';
+const axiosInstance = axios.create({
+  baseURL: baseURL,
+});
 
 // -------------------  HomePage ----------------------------
 const HomePage = ({selectedLanguage}) => {
-  console.log('es aris', selectedLanguage);
   const [complexes, setComplexes] = useState([]);
   const navigate = useNavigate();
   const { min_price_per_sq_meter, max_price_per_sq_meter, min_full_price, max_full_price, finished, min_area, max_area } = useParams();
+
+  // Add state for searchParams
+  const [searchParams, setSearchParams] = useState({});
 
 // ----- normalizeComplexData and normalizeLocationData functions ---
 const normalizeComplexData = (data, lang) => {
@@ -94,20 +101,15 @@ const normalizeLocationData = (data, lang) => {
 
 
 
-//---------- Constants and Axios Configuration -------
-const baseURL = 'https://api.storkhome.ge';
-const axiosInstance = axios.create({
-  baseURL: baseURL,
-});
 
 
 // ----------- Async Function to Fetch Complex Unit Data --------
-const getComplexUniData = async (searchParams, selectedLanguage, setComplexes) => {
+const getComplexUniData = async (searchParams, selectedLanguage) => {
   try {
     const response = await axiosInstance.get(`${baseURL}/complex/${selectedLanguage}/`, {
-      params: searchParams,
-    }, [selectedLanguage]);
-
+      params: { ...searchParams }, // Add status parameter
+    });
+    
     const normalData = normalizeComplexData(response.data.results, selectedLanguage);
     setComplexes(normalData);
   } catch (error) {
@@ -116,12 +118,73 @@ const getComplexUniData = async (searchParams, selectedLanguage, setComplexes) =
 };
 
 
+ // Fetch Complex Units on Language Change
+ useEffect(() => {
+  const fetchComplexes = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/complex/${selectedLanguage}/`);
+      const normalData = normalizeComplexData(response.data.results, selectedLanguage);
+      setComplexes(normalData);
+    } catch (error) {
+      console.error('Error fetching complexes:', error);
+    }
+  };
+
+  fetchComplexes();
+}, [selectedLanguage]); 
+
+
+
+const updateURLWithFilters = () => {
+  const queryParams = new URLSearchParams();
+
+  if (min_price_per_sq_meter) queryParams.set('min_price_per_sq_meter', min_price_per_sq_meter);
+  if (max_price_per_sq_meter) queryParams.set('max_price_per_sq_meter', max_price_per_sq_meter);
+  if (min_full_price) queryParams.set('min_full_price', min_full_price);
+  if (max_full_price) queryParams.set('max_full_price', max_full_price);
+  if (finished !== null && finished !== undefined) queryParams.set('finished', finished);
+  if (min_area) queryParams.set('min_area', min_area);
+  if (max_area) queryParams.set('max_area', max_area);
+
+  navigate(`?${queryParams.toString()}`, { replace: true });
+};
+
+const fetchData = async () => {
+  try {
+    await getComplexUniData({
+      min_price_per_sq_meter,
+      max_price_per_sq_meter,
+      min_full_price,
+      max_full_price,
+      finished,
+      min_area,
+      max_area,
+      ...searchParams, // Include other search parameters
+    }, selectedLanguage);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+const handleFilterChange = (data) => {
+  setComplexes(data);
+};
+
+// Handle Language Change
+const handleLanguageChange = (languageCode) => {
+  fetchData(languageCode); // Fetch data with the new language
+};
+
+// Fetch Data on Component Mount and Filter Change
+useEffect(() => {
+  updateURLWithFilters();
+  fetchData(selectedLanguage); // Initial fetch with the default language
+}, [min_full_price, max_full_price, min_price_per_sq_meter, max_price_per_sq_meter, finished, min_area, max_area, selectedLanguage]);
 
 // ---------------- FilterOptions Component --------------------
 const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
   const [activeFilter, setActiveFilter] = useState(null);
   const [searchParams, setSearchParams] = useState({});
-
 
   const openPopup = (filter) => {
     setActiveFilter(filter);
@@ -134,10 +197,15 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setSearchParams((searchParams) => ({
-      ...searchParams,
+    setSearchParams((prevSearchParams) => ({
+      ...prevSearchParams,
       [name]: value,
     }));
+  };
+
+  const handleFilterApply = () => {
+    updateURLWithFilters(); // Update the URL with filter parameters
+    fetchData(); // Fetch data based on the applied filters
   };
 
   // -------------- Render Popup Content Based on Active Filter ---
@@ -148,7 +216,7 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
           <div className="popupp-space popupbuttons">
             <label>From: <input type="text" name="from" onChange={handleInputChange} /></label>
             <label>To: <input type="text" name="to" onChange={handleInputChange} /></label>
-            <button onClick={closePopup}>Apply</button>
+            <button onClick={handleFilterApply}>Apply</button>
           </div>
         );
       case 'popup-price':
@@ -162,7 +230,7 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
               <label>Price per square meter From: <input type="text" name="pricePerSqMeterFrom" onChange={handleInputChange} /></label>
               <label>To: <input type="text" name="pricePerSqMeterTo" onChange={handleInputChange} /></label>
             </div>
-            <button onClick={closePopup}>Apply</button>
+            <button onClick={handleFilterApply}>Apply</button>
           </div>
         );
       case 'popup-status':
@@ -178,7 +246,7 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
               <label><input type="checkbox"/> 2027</label>
               <label><input type="checkbox"/> 2027+</label>
             </div>
-            <button onClick={closePopup}>Apply</button>
+            <button onClick={handleFilterApply}>Apply</button>
           </div>
         );
       case 'popup-location':
@@ -188,7 +256,7 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
               <option value="city1">City 1</option>
               <option value="city2">City 2</option>
             </select>
-            <button onClick={closePopup}>Apply</button>
+            <button onClick={handleFilterApply}>Apply</button>
           </div>
         );
       default:
@@ -209,89 +277,14 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
 };
 
 
-  // es aris complexsebis fetch filtraciis parametrebianad
-useEffect(() => {
-  const fetchComplexes = async () => {
-    // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-    // const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`
-    // const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`
-    try {
-      const response = await axios.get(`${baseURL}/complex/${selectedLanguage}/`)
-        console.log(response.data)
-        //params: {
-          // [cityParam]: selectedCity,
-          // [pharentdistrictParams] : selectedPharentDistricts.join(','),
-          // [districtParams] : selectedDistricts.join(','),
-          // min_price_per_sq_meter : minPricePerSquareMeter,
-          // max_price_per_sq_meter : maxPricePerSquareMeter,
-          // min_full_price : minFullPrice,
-          // max_full_price : maxFullPrice 
-        //}
-    
-
-      const normalData = normalizeComplexData(response.data.results , selectedLanguage)
-      setComplexes(normalData);
-    } catch (error) {
-      console.error('Error fetching complexes:', error);
-    }
-  };
-
-  fetchComplexes();
-}, [selectedLanguage]); 
-
-
-
-  const updateURLWithFilters = () => {
-    const queryParams = new URLSearchParams();
-
-    if (min_price_per_sq_meter) queryParams.set('min_price_per_sq_meter', min_price_per_sq_meter);
-    if (max_price_per_sq_meter) queryParams.set('max_price_per_sq_meter', max_price_per_sq_meter);
-    if (min_full_price) queryParams.set('min_full_price', min_full_price);
-    if (max_full_price) queryParams.set('max_full_price', max_full_price);
-    if (finished !== null && finished !== undefined) queryParams.set('finished', finished);
-    if (min_area) queryParams.set('min_area', min_area);
-    if (max_area) queryParams.set('max_area', max_area);
-
-    navigate(`?${queryParams.toString()}`, { replace: true });
-  };
-
-  const fetchData = async () => {
-    try {
-      await getComplexUniData({
-        min_price_per_sq_meter,
-        max_price_per_sq_meter,
-        min_full_price,
-        max_full_price,
-        finished,
-        min_area,
-        max_area,
-      }, selectedLanguage, setComplexes);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  const handleFilterChange = (data) => {
-    setComplexes(data);
-  };
-
-  const handleLanguageChange = (languageCode) => {
-    setSelectedLanguage(languageCode);
-    fetchData(languageCode); // Fetch data with the new language
-  };
-
-  useEffect(() => {
-    updateURLWithFilters();
-    fetchData(selectedLanguage); // Initial fetch with the default language
-  }, [min_full_price, max_full_price, min_price_per_sq_meter, max_price_per_sq_meter, finished, min_area, max_area, selectedLanguage]);
 
   // ------ Rendering Filtered Homes ---------
   return (
     <div>
       <FilterOptions
         onFilterChange={handleFilterChange}
-        onLanguageChange={handleLanguageChange} // Pass the function to handle language change
-        setComplexes={setComplexes}
+        //onLanguageChange={handleLanguageChange} // Pass the function to handle language change
+        //setComplexes={setComplexes}
         selectedLanguage={selectedLanguage}
       />
       {/* Render complexes based on the filtered data */}
