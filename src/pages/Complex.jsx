@@ -196,6 +196,19 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
   // ------------------------------------------------------------------------------------
 
 
+    // სკროლისთვის და ასევე ინტერვალისთვის რომ, ერთიანად არ აისქორლოს..
+    const scrollToTop = () => {
+      const scrollStep = -window.scrollY / (500 / 15);
+  
+      const scrollInterval = setInterval(() => {
+        if (window.scrollY !== 0) {
+          window.scrollBy(0, scrollStep);
+        } else {
+          clearInterval(scrollInterval);
+        }
+      }, 15);
+    };
+
 
   
   return (
@@ -243,22 +256,27 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
 
 
       <div className='allCards'>
-  {isLoading ? (
-    Array.from({ length: 10 }, (_, index) => (
-      <div className='card' key={index}>
-        <Skeleton variant='rectangle' animation='wave' width={styles.imageStyles.width} height={styles.imageStyles.height} />
-        <Skeleton variant='text' animation='wave' width={150} height={20} style={styles.companyTitle} />
-        <div className='textInfo'>
-          <Skeleton variant='text' animation='wave' width={120} height={15} style={styles.complexInfo} />
-          <Skeleton variant='text' animation='wave' width={180} height={15} style={styles.complexInfo} />
-          <Skeleton variant='text' animation='wave' width={100} height={15} style={styles.complexFinished} />
-        </div>
+        {isLoading ? (
+          Array.from({ length: 10 }, (_, index) => (
+            <div className='card' key={index}>
+              <Skeleton variant='rectangle' animation='wave' width={styles.imageStyles.width} height={styles.imageStyles.height} />
+              <Skeleton variant='text' animation='wave' width={150} height={20} style={styles.companyTitle} />
+              <div className='textInfo'>
+                <Skeleton variant='text' animation='wave' width={120} height={15} style={styles.complexInfo} />
+                <Skeleton variant='text' animation='wave' width={180} height={15} style={styles.complexInfo} />
+                <Skeleton variant='text' animation='wave' width={100} height={15} style={styles.complexFinished} />
+              </div>
+            </div>
+          ))
+        ) : (
+          homeMaping
+        )}
       </div>
-    ))
-  ) : (
-    homeMaping
-  )}
-</div>
+
+      {/* for scroll UP */}
+      <button onClick={scrollToTop} style={{ borderRadius: '30px' }} >
+        <img src={scrollUp} alt='logo' style={{ width: '40px' }} />
+      </button>
 
       
       {/* Pagination for user to select some page */}
