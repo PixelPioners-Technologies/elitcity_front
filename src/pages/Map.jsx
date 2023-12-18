@@ -78,7 +78,6 @@ const normalizeLocationData = (data, lang) => {
       const cityNameField = `city_${lang}`;
       const pharentDistrictField = `pharentDistrict_${lang}`;
       const districtField = `district_${lang}`;
-      // const pharentdistrictName = `pharentDistrict_${lang}`
 
       const cityName = cityItem[cityNameField];
       const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
@@ -116,7 +115,13 @@ export default function Map({selectedLanguage}) {
   const [minFullPrice, setMinFullPrice] = useState('')
   const [maxFullPrice, setMaxFullPrice] = useState('')
 
+  const [showSelect, setShowSelect] = useState(false);
+  const [status, setStatus] = useState('');
 
+  const [mapCenter, setMapCenter] = useState(initialCenter);
+  const [zoomLevel, setZoomLevel] = useState(13);
+
+  const [mapInstance, setMapInstance] = useState(null);
   
 //----------------------------------------------------------------------------------------------------
   //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
@@ -143,7 +148,8 @@ export default function Map({selectedLanguage}) {
             min_price_per_sq_meter : minPricePerSquareMeter,
             max_price_per_sq_meter : maxPricePerSquareMeter,
             min_full_price : minFullPrice,
-            max_full_price : maxFullPrice 
+            max_full_price : maxFullPrice,
+            status : status,
           }
         });
 
@@ -153,9 +159,8 @@ export default function Map({selectedLanguage}) {
         console.error('Error fetching complexes:', error);
       }
     };
-
     fetchComplexes();
-  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter, minFullPrice, maxFullPrice]); 
+  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter, minFullPrice, maxFullPrice, status]); 
 
 // ----------------------------------------------------------------------------------------------
 //-----------------------------------fetch ionly locations --------------------------------------
@@ -180,20 +185,6 @@ useEffect(() => {
 
 
 // ----------------------------------------------------------------------------------------------
-
-// useEffect(() => {
-//   console.log('This is normalized data', locations.map(loc => {
-//     return loc
-//   }
-//   ));
-// }, [complexes]);
-
-// -------------------------------function for language to change--------------------------------------
-  const handleLanguageChange = (e) => {
-    setSelectedLanguage(e.target.value);
-  };
-
-// ---------------------------------------------------------------------------------------------------------------------
 
 // ----------------------------------icon coloure and  status  change  ----------------------------------------------------------
 
@@ -245,7 +236,7 @@ const getStatusText = (status, lang) => {
     }
   };
 
-  return statusTexts[lang][status] || "Unknown Status";
+  return statusTexts[lang][status] || "----";
 };
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -350,10 +341,7 @@ const handleParentDistrictChange = (e, parentDistrict) => {
     });
 };
 
-
-
 const handleDistrictChange = (e, district) => {
-  
   setSelectedDistricts(prevSelected => {
     if (e.target.checked) {
       return [...prevSelected, district];
@@ -374,7 +362,59 @@ useEffect( () => {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
- 
+// --------------------------function for selecting status for filtration -----------------------------------------------
+
+const handleStatusChange = (e) => {
+  setStatus(e.target.value);
+};
+
+const toggleSelect = () => {
+  setShowSelect(!showSelect)
+}
+// -----------------------------------------------------------------------------------------------------------------------------
+// --------ffunction for changing status button content language change and also select city button language change -------------
+
+const handleStatusButtonLanguageChange = (lang) => {
+  var languageInfo = {
+    statusInfoLanguage : "en" ,
+    cityButtonLanguage : "Select City "
+  } 
+
+  switch (lang) {
+    case "en" :
+      languageInfo.statusInfoLanguage = "Select Status"
+      languageInfo.cityButtonLanguage = "Select City"
+      break;
+    case "ka" :
+      languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
+      languageInfo.cityButtonLanguage = "აირჩიე ქალაქი"
+      break
+    case "ru" :
+      languageInfo.statusInfoLanguage = "выберите статус"
+      languageInfo.cityButtonLanguage = "выберите город"
+      break
+  }
+  return languageInfo
+}
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------function for zooming in on clicking any marker-------------------------------------------
+const handleMarkerClick = (complex) => {
+  setSelectedComplex(complex);
+  setZoomLevel(17); // Zoom in more when a marker is clicked
+  setMapCenter({ lat: complex.address.latitude, lng: complex.address.longitude }); 
+};
+
+const handleZoomChanged = () => {
+  if (mapInstance) {
+    setZoomLevel(mapInstance.getZoom());
+  }
+};
+
+const handleLoad = (map) => {
+  setMapInstance(map); // Store the map instance
+};
+
+// ---------------------------------------------------------------------------------------------------------------------
   return (
     <div className='main_map'>
       <div className='filter_cont'>
@@ -386,7 +426,7 @@ useEffect( () => {
           </select>
         </div> */}
         <div>
-          <button onClick={handleShowModal}> Select City</button>
+          <button onClick={handleShowModal}>{handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}</button>
         </div>
         <Modal isOpen={isModalOpen} >
           {renderModalContent()}
@@ -424,7 +464,17 @@ useEffect( () => {
               onChange={(e) => setMaxFullPrice(e.target.value)}
            />
           </div>
-
+          <div>
+              <button onClick={toggleSelect}>{handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}</button>
+              {showSelect && (
+                  <select value={status} onChange={handleStatusChange}>
+                      <option value="">{getStatusText("", selectedLanguage)}</option>
+                      <option value="1">{getStatusText("1", selectedLanguage)}</option>
+                      <option value="2">{getStatusText("2", selectedLanguage)}</option>
+                      <option value="3">{getStatusText("3", selectedLanguage)}</option>
+                  </select>
+              )}
+          </div>
         </div>
       </div>
       <div className='for_border'></div>
@@ -432,8 +482,10 @@ useEffect( () => {
         <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
           <GoogleMap
             mapContainerStyle={{ width: '1000px', height: '100vh' }}
-            center={initialCenter}
-            zoom={13}
+            center={mapCenter}
+            zoom={zoomLevel}
+            onLoad={handleLoad}
+            onZoomChanged={handleZoomChanged}
             options={{
               gestureHandling: "greedy",
             }}
@@ -453,7 +505,7 @@ useEffect( () => {
                       url: statusInfo.iconUrl,
                       scaledSize: statusInfo.scaledSize
                     }}
-                    onClick={() => setSelectedComplex(complex)}
+                    onClick={() => handleMarkerClick(complex)}
                   />
                   
                 );
@@ -479,8 +531,6 @@ useEffect( () => {
                 </div>
               </InfoWindow>
             )} 
-
-
           </GoogleMap>
         </LoadScript>
       </div> 
@@ -499,9 +549,13 @@ useEffect( () => {
 
 
 
+// on , but it is woring onli first time , after clicking first time , if  i than zoom out the map ,  and click second time on market , it is not zooming in again
 
 
-
-//127.0.0.1:8000/complex/en/?address_en__city_en__city_en__icontains=tbilisi&
-// address_en__pharentDistrict_en__pharentDistrict_en__in=isani-samgori&
-// address_en__district_en__district_en__in=lisi,saburtalo
+//127.0.0.1:8000/complex/en/?
+// address_en__city_en__city_en=&
+// address_en__city_en__city_en__icontains=&
+// min_price_per_sq_meter=&
+// max_price_per_sq_meter=&
+// max_full_price=&min_full_price=&
+// status=2
