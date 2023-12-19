@@ -5,8 +5,8 @@ import axios from 'axios';
 import './HomePage.css';
 
 //---------- Constants and Axios Configuration -------
-//const baseURL = 'https://api.storkhome.ge';
-const baseURL = 'http://127.0.0.1:8000';
+const baseURL = 'https://api.storkhome.ge';
+//const baseURL = 'http://127.0.0.1:8000';
 const axiosInstance = axios.create({
   baseURL: baseURL,
 });
@@ -24,14 +24,8 @@ const HomePage = ({selectedLanguage}) => {
 // ----- normalizeComplexData and normalizeLocationData functions ---
 const normalizeComplexData = (data, lang) => {
   // Check if data is undefined or null
-  if (!data) {
-    console.error('Data is undefined or null.');
-    return [];
-  }
-  
-  // Check if data is an array
-  if (!Array.isArray(data)) {
-    console.error('Data is not an array.');
+  if (!data || !Array.isArray(data)) {
+    console.error('Data is undefined or not an array.');
     return [];
   }
 
@@ -106,25 +100,27 @@ const normalizeLocationData = (data, lang) => {
 
 
 // ----------- Async Function to Fetch Complex Unit Data --------
-const getComplexUniData = async (searchParams, selectedLanguage) => {
-  try {
-    const response = await axiosInstance.get(`${baseURL}/complex/${selectedLanguage}/`, {
-      params: { ...searchParams }, // Add status parameter
-    });
+// const getComplexUniData = async (searchParams, selectedLanguage) => {
+//   try {
+//     const response = await axiosInstance.get(`${baseURL}/complex/${selectedLanguage}/`, {
+//       params: { ...searchParams }, // Add status parameter
+//     });
     
-    const normalData = normalizeComplexData(response.data.results, selectedLanguage);
-    setComplexes(normalData);
-  } catch (error) {
-    console.error('Error fetching complexes:', error);
-  } 
-};
+//     const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
+//     setComplexes(normalData);
+//   } catch (error) {
+//     console.error('Error fetching complexes:', error);
+//   } 
+// };
 
 
  // Fetch Complex Units on Language Change
  useEffect(() => {
   const fetchComplexes = async () => {
     try {
-      const response = await axios.get(`${baseURL}/complex/${selectedLanguage}/`);
+      const response = await axios.get(`${baseURL}/complex/${selectedLanguage}/`, {
+        params: { ...searchParams }, // Add status parameter
+      });
       const normalData = normalizeComplexData(response.data.results, selectedLanguage);
       setComplexes(normalData);
     } catch (error) {
@@ -133,7 +129,7 @@ const getComplexUniData = async (searchParams, selectedLanguage) => {
   };
 
   fetchComplexes();
-}, [selectedLanguage]); 
+}, [selectedLanguage, searchParams]); 
 
 
 
@@ -209,13 +205,21 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
     updateURLWithFilters(); // Update the URL with filter parameters
     fetchData(); // Fetch data based on the applied filters
   };
+  // Inside your React component
+
+const handleDarkModeToggle = () => {
+  // Toggle the dark mode class on the body element
+  document.body.classList.toggle('dark-mode');
+};
+
+
 
   // -------------- Render Popup Content Based on Active Filter ---
   const renderPopup = () => {
     switch (activeFilter) {
       case 'popupp-space':
         return (
-          <div className="popupp-space popupbuttons">
+          <div className="popupp-space popupbuttonsnew">
             <label>From: <input type="text" name="from" onChange={handleInputChange} /></label>
             <label>To: <input type="text" name="to" onChange={handleInputChange} /></label>
             <button onClick={handleFilterApply}>Apply</button>
@@ -223,7 +227,7 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
         );
       case 'popup-price':
         return (
-          <div className="popup-price popupbuttons">
+          <div className="popup-price popupbuttonsnew">
             <div>
               <label>Full price From: <input type="text" name="fullPriceFrom" onChange={handleInputChange} /></label>
               <label>To: <input type="text" name="fullPriceTo" onChange={handleInputChange} /></label>
@@ -237,7 +241,7 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
         );
       case 'popup-status':
         return (
-          <div className="popup-status popupbuttons">
+          <div className="popup-status popupbuttonsnew">
             <div id="statusPopup" class="popup">
               <label><input type="checkbox"/> Passed</label>
               <label><input type="checkbox"/> Under construction</label>
@@ -253,7 +257,7 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
         );
       case 'popup-location':
         return (
-          <div className="popup-location popupbuttons">
+          <div className="popup-location popupbuttonsnew">
             <select>
               <option value="city1">City 1</option>
               <option value="city2">City 2</option>
@@ -272,6 +276,8 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
       <button onClick={() => openPopup('popup-price')}>Price</button>
       <button onClick={() => openPopup('popup-status')}>Status</button>
       <button onClick={() => openPopup('popup-location')}>Location</button>
+      
+      <button onClick={handleDarkModeToggle}>--Dark--</button>
 
       {renderPopup()}
     </div>
@@ -282,17 +288,25 @@ const FilterOptions = ({ onFilterChange, setComplexes, selectedLanguage }) => {
 
   // ------ Rendering Filtered Homes ---------
   return (
-    <div>
+    <div className="complex-container">
       <FilterOptions
         onFilterChange={handleFilterChange}
-        //onLanguageChange={handleLanguageChange} // Pass the function to handle language change
-        //setComplexes={setComplexes}
         selectedLanguage={selectedLanguage}
       />
       {/* Render complexes based on the filtered data */}
       {Array.isArray(complexes) && complexes.map((complex) => (
-        <div key={complex.id}>
-          {/* Render complex details */}
+        <div className='mtavari'>
+        <div key={complex.id} className="complex-card">
+          {/* Complex Image */}
+          <img src={complex.images} alt={complex.complexName} className="complex-image" />
+  
+          {/* Complex Information */}
+          <div className="complex-info">
+            <h3>{complex.complexName}</h3>
+            <p>{complex.company.about}</p>
+            <p>{`${complex.address.city_en}, ${complex.address.street_name_en} ${complex.address.address_en}`}</p>
+          </div>
+        </div>
         </div>
       ))}
     </div>
