@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './HomePage.css';
+import HomePagecompanylogo from '../Components/HomePage/companyLogo'
 
 //---------- Constants and Axios Configuration -------
 const baseURL = 'https://api.storkhome.ge';
@@ -14,6 +15,7 @@ const axiosInstance = axios.create({
 // -------------------  HomePage ----------------------------
 const HomePage = ({selectedLanguage}) => {
   const [complexes, setComplexes] = useState([]);
+  const [company, setCompany] = useState([]);
   console.log(complexes);
   const navigate = useNavigate();
   const { min_price_per_sq_meter, max_price_per_sq_meter, min_full_price, max_full_price, finished, min_area, max_area } = useParams();
@@ -77,6 +79,35 @@ const normalizeComplexData = (data, lang) => {
   }));
 };
 
+//for company
+const normalizeCompanyData = (data, lang) => {
+  // Check if data is undefined or null
+  if (!data || !Array.isArray(data)) {
+    console.error('Data is undefined or not an array.');
+    return [];
+  }
+
+  return data.map(item => ({
+    company: {
+      id: item.id,
+      mobile: item[`company_${lang}`]?.Mobile,
+      mobileHome: item[`company_${lang}`]?.Mobile_Home,
+      about: item[`company_${lang}`]?.[`aboutcompany_${lang}`],
+      address: item[`company_${lang}`]?.[`address_${lang}`],
+      backgroundImage: item[`company_${lang}`]?.background_image,
+      website: item[`company_${lang}`]?.companyweb,
+      email: item[`company_${lang}`]?.email,
+      facebookPage: item[`company_${lang}`]?.facebook_page,
+      logo: item[`company_${lang}`]?.logocompany,
+      name: item[`company_${lang}`]?.[`name_${lang}`],
+      isTopCompany: item[`company_${lang}`]?.topCompany,
+      isVisible: item[`company_${lang}`]?.visibility,
+      images: item.image_urls,
+    },
+    
+  }));
+};
+
 const normalizeLocationData = (data, lang) => {
   return data.map(cityItem => {
     const cityNameField = `city_${lang}`;
@@ -133,6 +164,24 @@ const normalizeLocationData = (data, lang) => {
 
 
 
+// Fetch company data on language change
+useEffect(() => {
+  const fetchCompany = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/company/${selectedLanguage}/`);
+      const companyData = normalizeCompanyData(response.data.results, selectedLanguage);
+      setCompany(companyData);
+      console.log('----==--=-=-=-=', companyData);
+    } catch (error) {
+      console.error('Error fetching company data:', error);
+    }
+  };
+
+  fetchCompany();
+}, [selectedLanguage]);
+
+
+
 const updateURLWithFilters = () => {
   const queryParams = new URLSearchParams();
 
@@ -149,7 +198,7 @@ const updateURLWithFilters = () => {
 
 const fetchData = async () => {
   try {
-    await getComplexUniData({
+    await getComplexData({
       min_price_per_sq_meter,
       max_price_per_sq_meter,
       min_full_price,
@@ -286,20 +335,24 @@ const handleDarkModeToggle = () => {
 
 
 
-  // ------ Rendering Filtered Homes ---------
-  return (
-    <div className="complex-container">
-      <FilterOptions
-        onFilterChange={handleFilterChange}
-        selectedLanguage={selectedLanguage}
-      />
-      {/* Render complexes based on the filtered data */}
-      {Array.isArray(complexes) && complexes.map((complex) => (
-        <div className='mtavari'>
-        <div key={complex.id} className="complex-card">
+// ------ Rendering Filtered Homes ---------
+return (
+  <div className="complex-container">
+    <FilterOptions
+      onFilterChange={handleFilterChange}
+      selectedLanguage={selectedLanguage}
+    />
+    <div className='company-slider-inline'>
+      <HomePagecompanylogo selectedLanguage={selectedLanguage}/>
+
+    </div>
+    {/* Render complexes based on the filtered data */}
+    {Array.isArray(complexes) && complexes.map((complex) => (
+      <div className='mtavari' key={complex.id}>
+        <div className="complex-card">
           {/* Complex Image */}
           <img src={complex.images} alt={complex.complexName} className="complex-image" />
-  
+
           {/* Complex Information */}
           <div className="complex-info">
             <h3>{complex.complexName}</h3>
@@ -307,10 +360,10 @@ const handleDarkModeToggle = () => {
             <p>{`${complex.address.city_en}, ${complex.address.street_name_en} ${complex.address.address_en}`}</p>
           </div>
         </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+      </div>
+    ))}
+  </div>
+);
+    };
 
 export default HomePage;
