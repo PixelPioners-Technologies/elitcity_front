@@ -14,8 +14,9 @@ const HomePagecompanylogo = ({ selectedLanguage }) => {
 
     return data.map(item => ({
       id: item.id,
-      logo: item.logocompany
+      logo: item.logocompany,
       // Add other fields as needed
+      name: item.name_en,
     }));
   };
 
@@ -41,6 +42,7 @@ const HomePagecompanylogo = ({ selectedLanguage }) => {
           <div key={companyItem.id} className="company-mtavari">
             <div className="company-card">
               <img src={companyItem.logo} alt={`Company Logo ${companyItem.id}`} className="company-image" />
+              <p>{companyItem.name}</p>
             </div>
           </div>
         ))}
