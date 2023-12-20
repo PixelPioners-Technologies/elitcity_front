@@ -99,21 +99,21 @@ export default function Map({selectedLanguage}) {
   const [complexes, setComplexes] = useState([]);
   // const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [selectedComplex, setSelectedComplex] = useState(null);
-  const [locations , setLocations ] = useState([])
+  const [locations , setLocations ] = useState([]);
 
-  const [modalContent , setModalContent] = useState('')
-  const [isModalOpen , setIsModalOpen] = useState(false)
+  const [modalContent , setModalContent] = useState('');
+  const [isModalOpen , setIsModalOpen] = useState(false);
 
-  const [selectedCity , setSelectedCity] = useState('')
+  const [selectedCity , setSelectedCity] = useState('');
 
   const [selectedPharentDistricts ,  setSelectedPharentDistricts] = useState([]);
   const [selectedDistricts , setSelectedDistricts] = useState([]);
 
-  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('')
-  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('')
+  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('');
+  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('');
 
-  const [minFullPrice, setMinFullPrice] = useState('')
-  const [maxFullPrice, setMaxFullPrice] = useState('')
+  const [minFullPrice, setMinFullPrice] = useState('');
+  const [maxFullPrice, setMaxFullPrice] = useState('');
 
   const [showSelect, setShowSelect] = useState(false);
   const [status, setStatus] = useState('');
@@ -477,7 +477,6 @@ const handleLoad = (map) => {
           </div>
         </div>
       </div>
-      <div className='for_border'></div>
       <div className='map_cont'>
         <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
           <GoogleMap
@@ -549,7 +548,6 @@ const handleLoad = (map) => {
 
 
 
-// on , but it is woring onli first time , after clicking first time , if  i than zoom out the map ,  and click second time on market , it is not zooming in again
 
 
 //127.0.0.1:8000/complex/en/?
