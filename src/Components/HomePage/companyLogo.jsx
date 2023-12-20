@@ -14,7 +14,7 @@ const HomePagecompanylogo = ({ selectedLanguage }) => {
 
     return data.map(item => ({
       id: item.id,
-      logo: item[`logocompany_${lang}`],
+      logo: item.logocompany
       // Add other fields as needed
     }));
   };

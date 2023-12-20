@@ -15,7 +15,7 @@ const axiosInstance = axios.create({
 // -------------------  HomePage ----------------------------
 const HomePage = ({selectedLanguage}) => {
   const [complexes, setComplexes] = useState([]);
-  const [company, setCompany] = useState([]);
+  //const [company, setCompany] = useState([]);
   console.log(complexes);
   const navigate = useNavigate();
   const { min_price_per_sq_meter, max_price_per_sq_meter, min_full_price, max_full_price, finished, min_area, max_area } = useParams();
@@ -80,51 +80,51 @@ const normalizeComplexData = (data, lang) => {
 };
 
 //for company
-const normalizeCompanyData = (data, lang) => {
-  // Check if data is undefined or null
-  if (!data || !Array.isArray(data)) {
-    console.error('Data is undefined or not an array.');
-    return [];
-  }
+// const normalizeCompanyData = (data, lang) => {
+//   // Check if data is undefined or null
+//   if (!data || !Array.isArray(data)) {
+//     console.error('Data is undefined or not an array.');
+//     return [];
+//   }
 
-  return data.map(item => ({
-    company: {
-      id: item.id,
-      mobile: item[`company_${lang}`]?.Mobile,
-      mobileHome: item[`company_${lang}`]?.Mobile_Home,
-      about: item[`company_${lang}`]?.[`aboutcompany_${lang}`],
-      address: item[`company_${lang}`]?.[`address_${lang}`],
-      backgroundImage: item[`company_${lang}`]?.background_image,
-      website: item[`company_${lang}`]?.companyweb,
-      email: item[`company_${lang}`]?.email,
-      facebookPage: item[`company_${lang}`]?.facebook_page,
-      logo: item[`company_${lang}`]?.logocompany,
-      name: item[`company_${lang}`]?.[`name_${lang}`],
-      isTopCompany: item[`company_${lang}`]?.topCompany,
-      isVisible: item[`company_${lang}`]?.visibility,
-      images: item.image_urls,
-    },
+//   return data.map(item => ({
+//     company: {
+//       id: item.id,
+//       mobile: item[`company_${lang}`]?.Mobile,
+//       mobileHome: item[`company_${lang}`]?.Mobile_Home,
+//       about: item[`company_${lang}`]?.[`aboutcompany_${lang}`],
+//       address: item[`company_${lang}`]?.[`address_${lang}`],
+//       backgroundImage: item[`company_${lang}`]?.background_image,
+//       website: item[`company_${lang}`]?.companyweb,
+//       email: item[`company_${lang}`]?.email,
+//       facebookPage: item[`company_${lang}`]?.facebook_page,
+//       logo: item[`company_${lang}`]?.logocompany,
+//       name: item[`company_${lang}`]?.[`name_${lang}`],
+//       isTopCompany: item[`company_${lang}`]?.topCompany,
+//       isVisible: item[`company_${lang}`]?.visibility,
+//       images: item.image_urls,
+//     },
     
-  }));
-};
+//   }));
+// };
 
-const normalizeLocationData = (data, lang) => {
-  return data.map(cityItem => {
-    const cityNameField = `city_${lang}`;
-    const pharentDistrictField = `pharentDistrict_${lang}`;
-    const districtField = `district_${lang}`;
+// const normalizeLocationData = (data, lang) => {
+//   return data.map(cityItem => {
+//     const cityNameField = `city_${lang}`;
+//     const pharentDistrictField = `pharentDistrict_${lang}`;
+//     const districtField = `district_${lang}`;
 
-    const cityName = cityItem[cityNameField];
-    const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
-      const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
-      const districts = pharentDistrictItem[districtField].map(districtItem => districtItem[districtField]);
+//     const cityName = cityItem[cityNameField];
+//     const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
+//       const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
+//       const districts = pharentDistrictItem[districtField].map(districtItem => districtItem[districtField]);
 
-      return { pharentDistrict: pharentDistrictName, districts };
-    });
+//       return { pharentDistrict: pharentDistrictName, districts };
+//     });
 
-    return { city: cityName, pharentDistricts };
-  });
-};
+//     return { city: cityName, pharentDistricts };
+//   });
+// };
 
 
 
@@ -165,20 +165,20 @@ const normalizeLocationData = (data, lang) => {
 
 
 // Fetch company data on language change
-useEffect(() => {
-  const fetchCompany = async () => {
-    try {
-      const response = await axios.get(`${baseURL}/company/${selectedLanguage}/`);
-      const companyData = normalizeCompanyData(response.data.results, selectedLanguage);
-      setCompany(companyData);
-      console.log('----==--=-=-=-=', companyData);
-    } catch (error) {
-      console.error('Error fetching company data:', error);
-    }
-  };
+// useEffect(() => {
+//   const fetchCompany = async () => {
+//     try {
+//       const response = await axios.get(`${baseURL}/company/${selectedLanguage}/`);
+//       const companyData = normalizeCompanyData(response.data.results, selectedLanguage);
+//       setCompany(companyData);
+//       console.log('----==--=-=-=-=', companyData);
+//     } catch (error) {
+//       console.error('Error fetching company data:', error);
+//     }
+//   };
 
-  fetchCompany();
-}, [selectedLanguage]);
+//   fetchCompany();
+// }, [selectedLanguage]);
 
 
 
