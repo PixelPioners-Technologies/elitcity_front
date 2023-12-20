@@ -1,19 +1,190 @@
-
-
-.popupbuttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  /* padding: 0 30px; */
-  gap: 40px;
-  margin-bottom: 100px;
-  margin-top: 100px;
+/* Common styles for light and dark mode */
+body {
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.popup {
-  
+.popupbuttons {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  justify-content: center;
+  text-align: center;
+  background-color: #131111; /* Light background color in light mode */
+  color: #fff; /* Text color in light mode */
+}
+
+.popupbuttons.dark-mode {
+  background-color: #333; /* Dark background color in dark mode */
+  color: #fff; /* Text color in dark mode */
+}
+
+.popup-container {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff; /* Light background color in light mode */
+  color: #333; /* Text color in light mode */
+}
+
+.popup-container.dark-mode {
+  background-color: #333; /* Dark background color in dark mode */
+  color: #fff; /* Text color in dark mode */
+}
+
+.popup-container input,
+.popup-container select {
+  background-color: #fff; /* Light background color in light mode */
+  color: #333; /* Text color in light mode */
+}
+
+.popup-container.dark-mode input,
+.popup-container.dark-mode select {
+  background-color: #333; /* Dark background color in dark mode */
+  color: #fff; /* Text color in dark mode */
+}
+
+.popup-container button {
+  cursor: pointer;
+  padding: 12px;
+  font-size: 13px;
+  background-color: #000; /* Button color in light mode */
+  color: #fff; /* Text color in light mode */
+}
+
+.popup-container.dark-mode button {
+  background-color: #fff; /* Button color in dark mode */
+  color: #000; /* Text color in dark mode */
+}
+
+/* Other global styles... */
+
+/* Dark mode specific styles for HomePage.css */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.complex-info {
+  margin-top: 10px;
+  color: #fff; /* Text color in dark mode */
+}
+
+/* Dark mode specific styles for Popup.css */
+.popupp-space,
+.popup-price,
+.popup-status,
+.popup-location {
+  /* Popup specific styles in light mode */
+}
+
+.popupp-space.dark-mode,
+.popup-price.dark-mode,
+.popup-status.dark-mode,
+.popup-location.dark-mode {
+  /* Popup specific styles in dark mode */
+}
+
+/* Additional styles for other components... */
+
+/* Additional styles for other components... */
+
+/* Example: Styles for Complex Container */
+.complex-container {
   display: flex;
-  flex-direction: column;
-  /* padding-left: 20px; */
-  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.mtavari {
+  display: inline;
+}
+
+.complex-card {
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.complex-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.complex-info {
+  margin-top: 10px;
+
+  h3 {
+    margin-bottom: 5px;
+    font-size: 1.2em;
+    color: #fff; /* Text color in dark mode */
+  }
+
+  p {
+    font-size: 0.9em;
+    color: #fff; /* Text color in dark mode */
+  }
+}
+
+/* Example: Styles for Company Logo Slider */
+.logoSlider {
+  display: flex;
+}
+
+.logoSlider img {
+  width: 50px; /* Adjust the width as needed */
+  height: 50px; /* Adjust the height as needed */
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+/* Example: Styles for Slider Show */
+.company-logo-slider {
+  display: flex;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.company-logo-slider img {
+  width: 100px; /* Adjust the width as needed */
+  height: 100px; /* Adjust the height as needed */
+  margin-right: 10px; /* Adjust the margin as needed */
+  border-radius: 50%; /* Make it circular */
+}
+
+/* Adjust and add more styles as needed for your specific components */
+
+
+
+.company-slider-inline {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px; /* Adjust the padding as needed */
+}
+
+.company-mtavari {
+  margin-right: 10px; /* Adjust the margin between company logos as needed */
+}
+
+.company-card {
+  border: 1px solid #ddd; /* Add a border to each company card */
+  border-radius: 8px; /* Add border-radius for rounded corners */
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+.company-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid #ddd; /* Add a border at the bottom of the image */
 }

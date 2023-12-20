@@ -37,9 +37,10 @@ const axiosInstance = axios.create({
 
 
 // eslint-disable-next-line react/prop-types
-export default function Complex({favoriteHandler, favorites}) {
+export default function Complex({favoriteHandler, favorites, selectedLanguage}) {
 
-  const [homes, setHomes] = useState(null);
+  const [homes, setHomes] = useState([]);
+  console.log('-----',homes)
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -107,6 +108,66 @@ export default function Complex({favoriteHandler, favorites}) {
 // // ------------------------------------------------------------------------------------
 
 
+const normalizeComplexData = (data, lang) => {
+  // Check if data is undefined or null
+  if (!data) {
+    console.error('Data is undefined or null.');
+    return [];
+  }
+  
+  // Check if data is an array
+  if (!Array.isArray(data)) {
+    console.error('Data is not an array.');
+    return [];
+  }
+
+  return data.map(item => ({
+    id: item.id,
+    complexName: item[`complex_name_${lang}`],
+    internalComplexName: item.internal_complex_name ? item.internal_complex_name.internal_complex_name : '',
+    typeOfRoof: item[`type_of_roof_${lang}`],
+    address: {
+      street: item[`address_${lang}`]?.[`address_${lang}`],
+      city: item[`address_${lang}`]?.[`city_${lang}`],
+      district: item[`address_${lang}`]?.[`district_${lang}`],
+      pharentDistrict: item[`address_${lang}`]?.[`pharentDistrict_${lang}`],
+      streetName: item[`address_${lang}`]?.[`street_name_${lang}`],
+      latitude: item[`address_${lang}`]?.latitude,
+      longitude: item[`address_${lang}`]?.longitude,
+    },
+    company: {
+      mobile: item[`company_${lang}`]?.Mobile,
+      mobileHome: item[`company_${lang}`]?.Mobile_Home,
+      about: item[`company_${lang}`]?.[`aboutcompany_${lang}`],
+      address: item[`company_${lang}`]?.[`address_${lang}`],
+      backgroundImage: item[`company_${lang}`]?.background_image,
+      website: item[`company_${lang}`]?.companyweb,
+      email: item[`company_${lang}`]?.email,
+      facebookPage: item[`company_${lang}`]?.facebook_page,
+      logo: item[`company_${lang}`]?.logocompany,
+      name: item[`company_${lang}`]?.[`name_${lang}`],
+      isTopCompany: item[`company_${lang}`]?.topCompany,
+      isVisible: item[`company_${lang}`]?.visibility,
+    },
+    images: item.image_urls,
+    complexDetails: {
+      complexLevel: item.internal_complex_name?.complex_level,
+      finishMonth: item.internal_complex_name?.finish_month,
+      finishYear: item.internal_complex_name?.finish_year,
+      isFinished: item.internal_complex_name?.status,
+      floorNumber: item.internal_complex_name?.floor_number,
+      numberOfApartments: item.internal_complex_name?.number_of_apartments,
+      numberOfFloors: item.internal_complex_name?.number_of_floors,
+      numberOfHouses: item.internal_complex_name?.number_of_houses,
+      phoneNumber: item.internal_complex_name?.phone_number,
+      plotArea: item.internal_complex_name?.plot_area,
+      pricePerSqMeter: item.internal_complex_name?.price_per_sq_meter,
+      space: item.internal_complex_name?.space,
+      isVipComplex: item.internal_complex_name?.vipComplex,
+      isVisible: item.internal_complex_name?.visibiliti,
+    },
+  }));
+};
 
 
 // ------------------------------------------------------------------------------------
@@ -125,10 +186,14 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
-      const { results, count } = response.data;
-      setHomes(results);
-      setTotalCount(count);
+      const response = await axiosInstance.get(`https://api.storkhome.ge/complex/ka/`);
+      // const { results } = response.data.results[0];
+      const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
+      // console.log('es aris D A T A',data)
+      console.log('es aris RESPONSE', response)
+      setHomes(normalData);
+      // console.log('es aris meore',results)
+      // setTotalCount(count);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -197,17 +262,17 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
 
 
     // სკროლისთვის და ასევე ინტერვალისთვის რომ, ერთიანად არ აისქორლოს..
-    const scrollToTop = () => {
-      const scrollStep = -window.scrollY / (500 / 15);
+    // const scrollToTop = () => {
+    //   const scrollStep = -window.scrollY / (500 / 15);
   
-      const scrollInterval = setInterval(() => {
-        if (window.scrollY !== 0) {
-          window.scrollBy(0, scrollStep);
-        } else {
-          clearInterval(scrollInterval);
-        }
-      }, 15);
-    };
+    //   const scrollInterval = setInterval(() => {
+    //     if (window.scrollY !== 0) {
+    //       window.scrollBy(0, scrollStep);
+    //     } else {
+    //       clearInterval(scrollInterval);
+    //     }
+    //   }, 15);
+    // };
 
 
   
@@ -274,9 +339,9 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
       </div>
 
       {/* for scroll UP */}
-      <button onClick={scrollToTop} style={{ borderRadius: '30px' }} >
+      {/* <button onClick={scrollToTop} style={{ borderRadius: '30px' }} >
         <img src={scrollUp} alt='logo' style={{ width: '40px' }} />
-      </button>
+      </button> */}
 
       
       {/* Pagination for user to select some page */}
