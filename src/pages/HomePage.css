@@ -70,19 +70,19 @@ body.dark-mode {
 }
 
 /* Dark mode specific styles for Popup.css */
-.popupp-space,
+/* .popupp-space,
 .popup-price,
 .popup-status,
-.popup-location {
+.popup-location { */
   /* Popup specific styles in light mode */
-}
+/* } */
 
-.popupp-space.dark-mode,
+/* .popupp-space.dark-mode,
 .popup-price.dark-mode,
 .popup-status.dark-mode,
-.popup-location.dark-mode {
+.popup-location.dark-mode { */
   /* Popup specific styles in dark mode */
-}
+/* } */
 
 /* Additional styles for other components... */
 

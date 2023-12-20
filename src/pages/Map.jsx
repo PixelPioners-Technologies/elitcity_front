@@ -418,121 +418,124 @@ const handleLoad = (map) => {
   return (
     <div className='main_map'>
       <div className='filter_cont'>
-        {/* <div>
-          <select id="language-selector" value={selectedLanguage} onChange={handleLanguageChange}>
-            <option value="ka">KA</option>
-            <option value="en">EN</option>
-            <option value="ru">RU</option>
-          </select>
-        </div> */}
-        <div>
-          <button onClick={handleShowModal}>{handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}</button>
-        </div>
-        <Modal isOpen={isModalOpen} >
-          {renderModalContent()}
-        </Modal>
-        <div>
-          {/* filtration for pprices */}
-          <div>
-          <input
-              type="number"
-              placeholder='Min Price Per Square Meter'
-              value={minPricePerSquareMeter}
-              onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
-           />
 
-            <input
-              type="number"
-              placeholder='Max Price Per Square Meter'
-              value={maxPricePerSquareMeter}
-              onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
-           />
-          </div>
 
-          <div>
-            <input
-              type="number"
-              placeholder='Min Full Price'
-              value={minFullPrice}
-              onChange={(e) => setMinFullPrice(e.target.value)}
-           />
+              <div>
+                    <button onClick={handleShowModal}>{handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}</button>
+                    <Modal isOpen={isModalOpen} >
+                      {renderModalContent()}
+                    </Modal>
+              </div>
 
-            <input
-              type="number"
-              placeholder='Max Full Price'
-              value={maxFullPrice}
-              onChange={(e) => setMaxFullPrice(e.target.value)}
-           />
-          </div>
-          <div>
-              <button onClick={toggleSelect}>{handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}</button>
-              {showSelect && (
-                  <select value={status} onChange={handleStatusChange}>
-                      <option value="">{getStatusText("", selectedLanguage)}</option>
-                      <option value="1">{getStatusText("1", selectedLanguage)}</option>
-                      <option value="2">{getStatusText("2", selectedLanguage)}</option>
-                      <option value="3">{getStatusText("3", selectedLanguage)}</option>
-                  </select>
-              )}
-          </div>
-        </div>
-      </div>
-      <div className='map_cont'>
-        <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
-          <GoogleMap
-            mapContainerStyle={{ width: '1000px', height: '100vh' }}
-            center={mapCenter}
-            zoom={zoomLevel}
-            onLoad={handleLoad}
-            onZoomChanged={handleZoomChanged}
-            options={{
-              gestureHandling: "greedy",
-            }}
-          >
-           {complexes.map(complex => {
-              if (complex.address && complex.address.latitude && complex.address.longitude) {
-                const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
-                
-                return (
-                  <Marker
-                    key={complex.id}
-                    position={{
-                      lat: complex.address.latitude,
-                      lng: complex.address.longitude,
-                    }}
-                    icon={{
-                      url: statusInfo.iconUrl,
-                      scaledSize: statusInfo.scaledSize
-                    }}
-                    onClick={() => handleMarkerClick(complex)}
+
+
+              <div>
+                    <input
+                        type="number"
+                        placeholder='Min Price Per Square Meter'
+                        value={minPricePerSquareMeter}
+                        onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                    />
+
+                      <input
+                        type="number"
+                        placeholder='Max Price Per Square Meter'
+                        value={maxPricePerSquareMeter}
+                        onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+                    />
+              </div>
+
+
+              <div>
+                    <input
+                      type="number"
+                      placeholder='Min Full Price'
+                      value={minFullPrice}
+                      onChange={(e) => setMinFullPrice(e.target.value)}
                   />
-                  
-                );
-              }
-              return null;
-            })}
 
-            {selectedComplex && (
-              <InfoWindow
-                position={{
-                  lat: Number(selectedComplex.address.latitude),
-                  lng: Number(selectedComplex.address.longitude),
-                }}
-                onCloseClick={() => setSelectedComplex(null)}
-              >
-                <div>
-                  <h2>{selectedComplex.complexName}</h2>
-                  <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p> 
-                  {/* Add more details and the image if available */}
-                  {selectedComplex.images && selectedComplex.images.length > 0 && (
-                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
-                  )}
+                    <input
+                      type="number"
+                      placeholder='Max Full Price'
+                      value={maxFullPrice}
+                      onChange={(e) => setMaxFullPrice(e.target.value)}
+                      />
                 </div>
-              </InfoWindow>
-            )} 
-          </GoogleMap>
-        </LoadScript>
-      </div> 
+
+                <div>
+                  
+                </div>
+                    <button onClick={toggleSelect}>{handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}</button>
+                    {showSelect && (
+                        <select value={status} onChange={handleStatusChange}>
+                            <option value="">{getStatusText("", selectedLanguage)}</option>
+                            <option value="1">{getStatusText("1", selectedLanguage)}</option>
+                            <option value="2">{getStatusText("2", selectedLanguage)}</option>
+                            <option value="3">{getStatusText("3", selectedLanguage)}</option>
+                        </select>
+                    )}
+
+
+
+
+                    <div className='map_cont'>
+                      <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
+                        <GoogleMap
+                          mapContainerStyle={{ width: '1440px', height: '625px' , borderRadius: '30px' }}
+                          center={mapCenter}
+                          zoom={zoomLevel}
+                          onLoad={handleLoad}
+                          onZoomChanged={handleZoomChanged}
+                          options={{
+                            gestureHandling: "greedy",
+                          }}
+                        >
+                        {complexes.map(complex => {
+                            if (complex.address && complex.address.latitude && complex.address.longitude) {
+                              const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
+                              
+                              return (
+                                <Marker
+                                key={complex.id}
+                                  position={{
+                                    lat: complex.address.latitude,
+                                    lng: complex.address.longitude,
+                                  }}
+                                  icon={{
+                                    url: statusInfo.iconUrl,
+                                    scaledSize: statusInfo.scaledSize
+                                  }}
+                                  onClick={() => handleMarkerClick(complex)}
+                                />
+                                
+                              );
+                            }
+                            return null;
+                          })}
+
+                          {selectedComplex && (
+                            <InfoWindow
+                            position={{
+                              lat: Number(selectedComplex.address.latitude),
+                                lng: Number(selectedComplex.address.longitude),
+                              }}
+                              onCloseClick={() => setSelectedComplex(null)}
+                            >
+                              <div>
+                                <h2>{selectedComplex.complexName}</h2>
+                                <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p> 
+                                {/* Add more details and the image if available */}
+                                {selectedComplex.images && selectedComplex.images.length > 0 && (
+                                  <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
+                                )}
+                              </div>
+                            </InfoWindow>
+                          )} 
+                        </GoogleMap>
+                      </LoadScript>
+                    </div> 
+                
+      </div>
     </div>
   );
 }
