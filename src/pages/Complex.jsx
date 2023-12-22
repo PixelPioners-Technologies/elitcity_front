@@ -187,7 +187,7 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await axiosInstance.get(`https://api.storkhome.ge/complex/ka/`);
+      const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
       // const { results } = response.data.results[0];
       const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
       // console.log('es aris D A T A',data)
