@@ -11,7 +11,11 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import green from  '../location_icons/icon-green.png' 
 import red from  '../location_icons/icon-red.png'
 import yelow from  '../location_icons/icon-yelow.png'
-import Modal from './Modal';
+import Modal from '../modals for page map/Modal'
+import SpaceModal from '../modals for page map/SpaceModal';
+import PriceModal from '../modals for page map/PriceModal';
+import button_icon from '../icons/Vector.svg'
+
 
 const initialCenter = {
   lat: 41.7151,
@@ -122,7 +126,11 @@ export default function Map({selectedLanguage}) {
   const [zoomLevel, setZoomLevel] = useState(13);
 
   const [mapInstance, setMapInstance] = useState(null);
+
+  const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   
+
 //----------------------------------------------------------------------------------------------------
   //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
     //  address_en__city_en__city_en__icontains=& 
@@ -361,6 +369,26 @@ useEffect( () => {
 
 
 // ---------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
+
+const handleSpaceButtonClick = () => {
+  setIsSpaceModalOpen(true);
+};
+
+const closeSpaceModal = () => {
+  setIsSpaceModalOpen(false);
+};
+
+const handlePriceButtonClick = () => {
+  setIsPriceModalOpen(true)
+}
+
+const handleClosePriceModal= () => {
+  setIsPriceModalOpen(false)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
 
 // --------------------------function for selecting status for filtration -----------------------------------------------
 
@@ -377,21 +405,32 @@ const toggleSelect = () => {
 const handleStatusButtonLanguageChange = (lang) => {
   var languageInfo = {
     statusInfoLanguage : "en" ,
-    cityButtonLanguage : "Select City "
+    cityButtonLanguage : "Select City ",
+    spaceButtonLanguage : "Space",
+    priceButtonLanguage: "Price"
   } 
 
   switch (lang) {
     case "en" :
       languageInfo.statusInfoLanguage = "Select Status"
-      languageInfo.cityButtonLanguage = "Select City"
+      languageInfo.cityButtonLanguage = "Location"
+      languageInfo.spaceButtonLanguage = "Space"
+      languageInfo.priceButtonLanguage = "Price"
+
       break;
     case "ka" :
       languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
-      languageInfo.cityButtonLanguage = "აირჩიე ქალაქი"
+      languageInfo.cityButtonLanguage = "მდებარეობა"
+      languageInfo.spaceButtonLanguage = "ფართი"
+      languageInfo.priceButtonLanguage = "ფასი"
+
+
       break
     case "ru" :
       languageInfo.statusInfoLanguage = "выберите статус"
-      languageInfo.cityButtonLanguage = "выберите город"
+      languageInfo.cityButtonLanguage = "Местоположение"
+      languageInfo.spaceButtonLanguage = "Площадь"
+      languageInfo.priceButtonLanguage = "Цена"
       break
   }
   return languageInfo
@@ -417,71 +456,128 @@ const handleLoad = (map) => {
 // ---------------------------------------------------------------------------------------------------------------------
   return (
     <div className='main_map'>
-      <div className='filter_cont'>
+             <div className='filter_cont'>
+             <div>
+                        <button onClick={handleShowModal} className='lacation_button' >{handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}</button>
+                        <Modal isOpen={isModalOpen} >
+                          {renderModalContent()}
+                        </Modal>
+                  </div>
+                  
 
 
-              <div>
-                    <button onClick={handleShowModal}>{handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}</button>
-                    <Modal isOpen={isModalOpen} >
-                      {renderModalContent()}
-                    </Modal>
-              </div>
+                  <div>
+                        <input
+                            type="number"
+                            placeholder='Min Price Per Square Meter'
+                            value={minPricePerSquareMeter}
+                            onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                        />
+
+                          <input
+                            type="number"
+                            placeholder='Max Price Per Square Meter'
+                            value={maxPricePerSquareMeter}
+                            onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+                        />
+                  </div>
 
 
-
-              <div>
-                    <input
+                  <div>
+                      <input
                         type="number"
-                        placeholder='Min Price Per Square Meter'
-                        value={minPricePerSquareMeter}
-                        onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                        placeholder='Min Full Price'
+                        value={minFullPrice}
+                        onChange={(e) => setMinFullPrice(e.target.value)}
                     />
 
                       <input
                         type="number"
-                        placeholder='Max Price Per Square Meter'
-                        value={maxPricePerSquareMeter}
-                        onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
-                    />
-              </div>
+                        placeholder='Max Full Price'
+                        value={maxFullPrice}
+                        onChange={(e) => setMaxFullPrice(e.target.value)}
+                        />
+                  </div>  
 
-
-              <div>
-                    <input
-                      type="number"
-                      placeholder='Min Full Price'
-                      value={minFullPrice}
-                      onChange={(e) => setMinFullPrice(e.target.value)}
-                  />
-
-                    <input
-                      type="number"
-                      placeholder='Max Full Price'
-                      value={maxFullPrice}
-                      onChange={(e) => setMaxFullPrice(e.target.value)}
-                      />
-                </div>
-
+      
                 <div>
-                  
+                  <button onClick={toggleSelect}>{handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}</button>
+                  {showSelect && (
+                    <select value={status} onChange={handleStatusChange}>
+                          <option value=" ">{getStatusText("", selectedLanguage)}</option>
+                          <option value="1">{getStatusText("1", selectedLanguage)}</option>
+                          <option value="2">{getStatusText("2", selectedLanguage)}</option>
+                          <option value="3">{getStatusText("3", selectedLanguage)}</option>
+                      </select>
+                  )}
                 </div>
-                    <button onClick={toggleSelect}>{handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}</button>
-                    {showSelect && (
-                        <select value={status} onChange={handleStatusChange}>
-                            <option value="">{getStatusText("", selectedLanguage)}</option>
-                            <option value="1">{getStatusText("1", selectedLanguage)}</option>
-                            <option value="2">{getStatusText("2", selectedLanguage)}</option>
-                            <option value="3">{getStatusText("3", selectedLanguage)}</option>
-                        </select>
-                    )}
 
+             </div>
+
+                    {/* axali divebi butonebis magivrad filtraciistvis */}
+                  <div className='filter_cont'>
+
+                      {/* button for filtering space */}
+                      <div className="button-modal-container">
+                            <div onClick={handleSpaceButtonClick}  className='space_button'  >
+                              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div> 
+
+                            <SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                              <div>
+                                        <input
+                                      type="number"
+                                      placeholder='Min Price Per Square Meter'
+                                      value={minPricePerSquareMeter}
+                                      onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                                  />
+
+                                    <input
+                                      type="number"
+                                      placeholder='Max Price Per Square Meter'
+                                      value={maxPricePerSquareMeter}
+                                      onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+                                  />
+                                  <p>otaxebis filtraciac unda iyos aq</p>
+                              </div>
+                            <button onClick={closeSpaceModal}>Close</button>
+                            </SpaceModal>
+
+                      </div>
+
+                      {/* button for filtering price  */}
+                      <div className="button-modal-container">
+                            <div onClick={handlePriceButtonClick}  className='space_button'  >
+                              {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div> 
+                            <PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                              pricemodal content
+                            </PriceModal>
+                          
+
+                      </div>
+
+                      {/* button for locations */}
+                      <div className="button-modal-container" >
+                            <div onClick={handleShowModal} className='lacation_button'   >
+                            {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <Modal isOpen={isModalOpen} >
+                              {renderModalContent()}
+                            </Modal>
+                      </div>
+
+                  </div>
 
 
 
                     <div className='map_cont'>
                       <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
                         <GoogleMap
-                          mapContainerStyle={{ width: '1440px', height: '625px' , borderRadius: '30px' }}
+                          mapContainerStyle={{ width: '100%', height: '625px'  }}
                           center={mapCenter}
                           zoom={zoomLevel}
                           onLoad={handleLoad}
@@ -536,7 +632,7 @@ const handleLoad = (map) => {
                     </div> 
                 
       </div>
-    </div>
+
   );
 }
 
@@ -560,3 +656,6 @@ const handleLoad = (map) => {
 // max_price_per_sq_meter=&
 // max_full_price=&min_full_price=&
 // status=2
+
+
+
