@@ -85,7 +85,6 @@ function App() {
         </div>
       ) : null}
       
-      <div className='routesBox'>
       <Routes>
         <Route path="/" element={<Nothing />} />
 
@@ -105,7 +104,6 @@ function App() {
 
         <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
       </Routes>
-      </div>
     </div>
   ) 
 }
