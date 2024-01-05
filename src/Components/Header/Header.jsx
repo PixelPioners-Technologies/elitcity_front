@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // import React from 'react'
 import './Header.css';
-import CompanyLogo from '../../assets/eliteCityLogo.svg';
+import CompanyLogo from '../../assets/storkhomeLOGO.svg';
 import { Link } from "react-router-dom";
 import HeartLogo from '../../assets/heartIcon.svg';
 import Language from './Language/Language';
