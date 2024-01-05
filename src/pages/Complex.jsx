@@ -350,7 +350,6 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
         </div>
 
         {/* ----Dollar and Lari Toggle button */}
-        <div className='toggleButtonOnCurrencyBox'>
 
           <div className="switch" data-isOn={isOn} onClick={toggleSwitch}>
             <motion.div className="handle" layout transition={spring}>
@@ -366,7 +365,6 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
                 />
             </motion.div>
           </div>
-        </div>
         {/* ---------------- */}
 
       </div>
