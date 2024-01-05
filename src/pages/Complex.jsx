@@ -55,11 +55,11 @@ export default function Complex({favoriteHandler, favorites, selectedLanguage}) 
 
 
 
-//   // 1111111111111111111111111111111111
-// // for toggle DOllar AND LARI ---==---
-//   const [isOn, setIsOn] = useState(false);
-//   const toggleSwitch = () => setIsOn(!isOn);
-//   // -----===--------
+  // 1111111111111111111111111111111111
+// for toggle DOllar AND LARI ---==---
+  const [isOn, setIsOn] = useState(false);
+  const toggleSwitch = () => setIsOn(!isOn);
+  // -----===--------
 
 
   
@@ -349,22 +349,25 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
         {/* -------------------------------- */}
         </div>
 
-          {/* ----Dollar and Lari Toggle button */}
-            {/* <div className="switch" data-isOn={isOn} onClick={toggleSwitch}>
-              <motion.div className="handle" layout transition={spring}>
-                <img
-                  src={lari}
-                  alt="Lari Sign"
-                  className={`currency-sign ${isOn ? "active" : ""}`}
+        {/* ----Dollar and Lari Toggle button */}
+        <div className='toggleButtonOnCurrencyBox'>
+
+          <div className="switch" data-isOn={isOn} onClick={toggleSwitch}>
+            <motion.div className="handle" layout transition={spring}>
+              <img
+                src={lari}
+                alt="Lari Sign"
+                className={`currency-sign ${isOn ? "active" : ""}`}
                 />
-                <img
-                  src={dollar}
-                  alt="Dollar Sign"
-                  className={`currency-sign ${!isOn ? "active" : ""}`}
+              <img
+                src={dollar}
+                alt="Dollar Sign"
+                className={`currency-sign ${!isOn ? "active" : ""}`}
                 />
-              </motion.div>
-            </div> */}
-          {/* ---------------- */}
+            </motion.div>
+          </div>
+        </div>
+        {/* ---------------- */}
 
       </div>
 {/* // ------------------------------------------------------------------------------------ */}
@@ -446,4 +449,10 @@ const styles = {
   complexFinished: {
     color: '#515050',
   },
+};
+
+const spring = {
+  type: "spring",
+  stiffness: 100,
+  damping: 30,
 };

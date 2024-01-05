@@ -50,6 +50,12 @@
   cursor: pointer;
 }
 
+.toggleButtonOnCurrencyBox {
+  border: 1px solid red;
+  border-radius: 50px;
+
+}
+
 .switch[data-isOn="true"] {
   justify-content: flex-end;
 }
