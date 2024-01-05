@@ -77,7 +77,7 @@ function App() {
   
   console.log("es aris selectedlanguage" , selectedLanguage )
   return (
-    <div>
+    <div className='App'>
        {/* Conditional rendering for the Header */}
        {(forVisible && window.location.pathname !== "/") ? (
         <div>
@@ -85,6 +85,7 @@ function App() {
         </div>
       ) : null}
       
+      <div className='routesBox'>
       <Routes>
         <Route path="/" element={<Nothing />} />
 
@@ -104,6 +105,7 @@ function App() {
 
         <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
       </Routes>
+      </div>
     </div>
   ) 
 }
