@@ -301,14 +301,24 @@ const getStatusText = (status, lang) => {
 
   const renderStatusOptions = () => {
     return Object.entries(statusTranslations).map(([value, labels]) => (
-      <div key={value}>
-        <input
+      <div className='status_chackboxes' key={value}>
+        {/* <input
           type="checkbox"
           value={value}
           checked={selectedStatuses.includes(value)}
           onChange={(e) => handleStatusChange(e, value)}
-        />
-        {labels[selectedLanguage]}
+        /> */}
+          <label className="container">
+          <input 
+          type="checkbox"
+          checked={selectedStatuses.includes(value)}
+          value={value}
+          onChange={(e) => handleStatusChange(e, value)}
+          
+          />
+          <div className="checkmark"></div>
+        </label>
+        <p className='text_modal_color' >{labels[selectedLanguage]}</p>
       </div>
     ));
   };
@@ -575,7 +585,7 @@ const handleLoad = (map) => {
                                       value={minPricePerSquareMeter}
                                       onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
                                   />
-
+                                  
                                     <input
                                       type="number"
                                       placeholder='Max Price Per Square Meter'

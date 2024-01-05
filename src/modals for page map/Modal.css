@@ -34,3 +34,7 @@
   .modal-overlay.open {
     display: block; /* Show when the modal is open */
   }
+
+  .modal-content{
+    background-color: black;
+  }
