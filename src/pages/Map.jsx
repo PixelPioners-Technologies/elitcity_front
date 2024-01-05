@@ -11,7 +11,11 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import green from  '../location_icons/icon-green.png' 
 import red from  '../location_icons/icon-red.png'
 import yelow from  '../location_icons/icon-yelow.png'
-import Modal from './Modal';
+import Modal from '../modals for page map/Modal'
+import SpaceModal from '../modals for page map/SpaceModal';
+import PriceModal from '../modals for page map/PriceModal';
+import button_icon from '../icons/Vector.svg'
+
 
 const initialCenter = {
   lat: 41.7151,
@@ -78,7 +82,6 @@ const normalizeLocationData = (data, lang) => {
       const cityNameField = `city_${lang}`;
       const pharentDistrictField = `pharentDistrict_${lang}`;
       const districtField = `district_${lang}`;
-      // const pharentdistrictName = `pharentDistrict_${lang}`
 
       const cityName = cityItem[cityNameField];
       const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
@@ -100,24 +103,34 @@ export default function Map({selectedLanguage}) {
   const [complexes, setComplexes] = useState([]);
   // const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [selectedComplex, setSelectedComplex] = useState(null);
-  const [locations , setLocations ] = useState([])
+  const [locations , setLocations ] = useState([]);
 
-  const [modalContent , setModalContent] = useState('')
-  const [isModalOpen , setIsModalOpen] = useState(false)
+  const [modalContent , setModalContent] = useState('');
+  const [isModalOpen , setIsModalOpen] = useState(false);
 
-  const [selectedCity , setSelectedCity] = useState('')
+  const [selectedCity , setSelectedCity] = useState('');
 
   const [selectedPharentDistricts ,  setSelectedPharentDistricts] = useState([]);
   const [selectedDistricts , setSelectedDistricts] = useState([]);
 
-  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('')
-  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('')
+  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('');
+  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('');
 
-  const [minFullPrice, setMinFullPrice] = useState('')
-  const [maxFullPrice, setMaxFullPrice] = useState('')
+  const [minFullPrice, setMinFullPrice] = useState('');
+  const [maxFullPrice, setMaxFullPrice] = useState('');
 
+  const [showSelect, setShowSelect] = useState(false);
+  const [status, setStatus] = useState('');
 
+  const [mapCenter, setMapCenter] = useState(initialCenter);
+  const [zoomLevel, setZoomLevel] = useState(13);
+
+  const [mapInstance, setMapInstance] = useState(null);
+
+  const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   
+
 //----------------------------------------------------------------------------------------------------
   //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
     //  address_en__city_en__city_en__icontains=& 
@@ -143,7 +156,8 @@ export default function Map({selectedLanguage}) {
             min_price_per_sq_meter : minPricePerSquareMeter,
             max_price_per_sq_meter : maxPricePerSquareMeter,
             min_full_price : minFullPrice,
-            max_full_price : maxFullPrice 
+            max_full_price : maxFullPrice,
+            status : status,
           }
         });
 
@@ -153,9 +167,8 @@ export default function Map({selectedLanguage}) {
         console.error('Error fetching complexes:', error);
       }
     };
-
     fetchComplexes();
-  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter, minFullPrice, maxFullPrice]); 
+  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter, minFullPrice, maxFullPrice, status]); 
 
 // ----------------------------------------------------------------------------------------------
 //-----------------------------------fetch ionly locations --------------------------------------
@@ -180,20 +193,6 @@ useEffect(() => {
 
 
 // ----------------------------------------------------------------------------------------------
-
-// useEffect(() => {
-//   console.log('This is normalized data', locations.map(loc => {
-//     return loc
-//   }
-//   ));
-// }, [complexes]);
-
-// -------------------------------function for language to change--------------------------------------
-  const handleLanguageChange = (e) => {
-    setSelectedLanguage(e.target.value);
-  };
-
-// ---------------------------------------------------------------------------------------------------------------------
 
 // ----------------------------------icon coloure and  status  change  ----------------------------------------------------------
 
@@ -245,7 +244,7 @@ const getStatusText = (status, lang) => {
     }
   };
 
-  return statusTexts[lang][status] || "Unknown Status";
+  return statusTexts[lang][status] || "----";
 };
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -350,10 +349,7 @@ const handleParentDistrictChange = (e, parentDistrict) => {
     });
 };
 
-
-
 const handleDistrictChange = (e, district) => {
-  
   setSelectedDistricts(prevSelected => {
     if (e.target.checked) {
       return [...prevSelected, district];
@@ -373,118 +369,270 @@ useEffect( () => {
 
 
 // ---------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
- 
+const handleSpaceButtonClick = () => {
+  setIsSpaceModalOpen(true);
+};
+
+const closeSpaceModal = () => {
+  setIsSpaceModalOpen(false);
+};
+
+const handlePriceButtonClick = () => {
+  setIsPriceModalOpen(true)
+}
+
+const handleClosePriceModal= () => {
+  setIsPriceModalOpen(false)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+
+// --------------------------function for selecting status for filtration -----------------------------------------------
+
+const handleStatusChange = (e) => {
+  setStatus(e.target.value);
+};
+
+const toggleSelect = () => {
+  setShowSelect(!showSelect)
+}
+// -----------------------------------------------------------------------------------------------------------------------------
+// --------ffunction for changing status button content language change and also select city button language change -------------
+
+const handleStatusButtonLanguageChange = (lang) => {
+  var languageInfo = {
+    statusInfoLanguage : "en" ,
+    cityButtonLanguage : "Select City ",
+    spaceButtonLanguage : "Space",
+    priceButtonLanguage: "Price"
+  } 
+
+  switch (lang) {
+    case "en" :
+      languageInfo.statusInfoLanguage = "Select Status"
+      languageInfo.cityButtonLanguage = "Location"
+      languageInfo.spaceButtonLanguage = "Space"
+      languageInfo.priceButtonLanguage = "Price"
+
+      break;
+    case "ka" :
+      languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
+      languageInfo.cityButtonLanguage = "მდებარეობა"
+      languageInfo.spaceButtonLanguage = "ფართი"
+      languageInfo.priceButtonLanguage = "ფასი"
+
+
+      break
+    case "ru" :
+      languageInfo.statusInfoLanguage = "выберите статус"
+      languageInfo.cityButtonLanguage = "Местоположение"
+      languageInfo.spaceButtonLanguage = "Площадь"
+      languageInfo.priceButtonLanguage = "Цена"
+      break
+  }
+  return languageInfo
+}
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------function for zooming in on clicking any marker-------------------------------------------
+const handleMarkerClick = (complex) => {
+  setSelectedComplex(complex);
+  setZoomLevel(17); // Zoom in more when a marker is clicked
+  setMapCenter({ lat: complex.address.latitude, lng: complex.address.longitude }); 
+};
+
+const handleZoomChanged = () => {
+  if (mapInstance) {
+    setZoomLevel(mapInstance.getZoom());
+  }
+};
+
+const handleLoad = (map) => {
+  setMapInstance(map); // Store the map instance
+};
+
+// ---------------------------------------------------------------------------------------------------------------------
   return (
     <div className='main_map'>
-      <div className='filter_cont'>
-        {/* <div>
-          <select id="language-selector" value={selectedLanguage} onChange={handleLanguageChange}>
-            <option value="ka">KA</option>
-            <option value="en">EN</option>
-            <option value="ru">RU</option>
-          </select>
-        </div> */}
-        <div>
-          <button onClick={handleShowModal}> Select City</button>
-        </div>
-        <Modal isOpen={isModalOpen} >
-          {renderModalContent()}
-        </Modal>
-        <div>
-          {/* filtration for pprices */}
-          <div>
-          <input
-              type="number"
-              placeholder='Min Price Per Square Meter'
-              value={minPricePerSquareMeter}
-              onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
-           />
-
-            <input
-              type="number"
-              placeholder='Max Price Per Square Meter'
-              value={maxPricePerSquareMeter}
-              onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
-           />
-          </div>
-
-          <div>
-            <input
-              type="number"
-              placeholder='Min Full Price'
-              value={minFullPrice}
-              onChange={(e) => setMinFullPrice(e.target.value)}
-           />
-
-            <input
-              type="number"
-              placeholder='Max Full Price'
-              value={maxFullPrice}
-              onChange={(e) => setMaxFullPrice(e.target.value)}
-           />
-          </div>
-
-        </div>
-      </div>
-      <div className='for_border'></div>
-      <div className='map_cont'>
-        <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
-          <GoogleMap
-            mapContainerStyle={{ width: '1000px', height: '100vh' }}
-            center={initialCenter}
-            zoom={13}
-            options={{
-              gestureHandling: "greedy",
-            }}
-          >
-           {complexes.map(complex => {
-              if (complex.address && complex.address.latitude && complex.address.longitude) {
-                const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
-                
-                return (
-                  <Marker
-                    key={complex.id}
-                    position={{
-                      lat: complex.address.latitude,
-                      lng: complex.address.longitude,
-                    }}
-                    icon={{
-                      url: statusInfo.iconUrl,
-                      scaledSize: statusInfo.scaledSize
-                    }}
-                    onClick={() => setSelectedComplex(complex)}
-                  />
+             <div className='filter_cont'>
+             <div>
+                        <button onClick={handleShowModal} className='lacation_button' >{handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}</button>
+                        <Modal isOpen={isModalOpen} >
+                          {renderModalContent()}
+                        </Modal>
+                  </div>
                   
-                );
-              }
-              return null;
-            })}
 
-            {selectedComplex && (
-              <InfoWindow
-                position={{
-                  lat: Number(selectedComplex.address.latitude),
-                  lng: Number(selectedComplex.address.longitude),
-                }}
-                onCloseClick={() => setSelectedComplex(null)}
-              >
+
+                  <div>
+                        <input
+                            type="number"
+                            placeholder='Min Price Per Square Meter'
+                            value={minPricePerSquareMeter}
+                            onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                        />
+
+                          <input
+                            type="number"
+                            placeholder='Max Price Per Square Meter'
+                            value={maxPricePerSquareMeter}
+                            onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+                        />
+                  </div>
+
+
+                  <div>
+                      <input
+                        type="number"
+                        placeholder='Min Full Price'
+                        value={minFullPrice}
+                        onChange={(e) => setMinFullPrice(e.target.value)}
+                    />
+
+                      <input
+                        type="number"
+                        placeholder='Max Full Price'
+                        value={maxFullPrice}
+                        onChange={(e) => setMaxFullPrice(e.target.value)}
+                        />
+                  </div>  
+
+      
                 <div>
-                  <h2>{selectedComplex.complexName}</h2>
-                  <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p> 
-                  {/* Add more details and the image if available */}
-                  {selectedComplex.images && selectedComplex.images.length > 0 && (
-                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
+                  <button onClick={toggleSelect}>{handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}</button>
+                  {showSelect && (
+                    <select value={status} onChange={handleStatusChange}>
+                          <option value=" ">{getStatusText("", selectedLanguage)}</option>
+                          <option value="1">{getStatusText("1", selectedLanguage)}</option>
+                          <option value="2">{getStatusText("2", selectedLanguage)}</option>
+                          <option value="3">{getStatusText("3", selectedLanguage)}</option>
+                      </select>
                   )}
                 </div>
-              </InfoWindow>
-            )} 
+
+             </div>
+
+                    {/* axali divebi butonebis magivrad filtraciistvis */}
+                  <div className='filter_cont'>
+
+                      {/* button for filtering space */}
+                      <div className="button-modal-container">
+                            <div onClick={handleSpaceButtonClick}  className='space_button'  >
+                              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div> 
+
+                            <SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                              <div>
+                                        <input
+                                      type="number"
+                                      placeholder='Min Price Per Square Meter'
+                                      value={minPricePerSquareMeter}
+                                      onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                                  />
+
+                                    <input
+                                      type="number"
+                                      placeholder='Max Price Per Square Meter'
+                                      value={maxPricePerSquareMeter}
+                                      onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+                                  />
+                                  <p>otaxebis filtraciac unda iyos aq</p>
+                              </div>
+                            <button onClick={closeSpaceModal}>Close</button>
+                            </SpaceModal>
+
+                      </div>
+
+                      {/* button for filtering price  */}
+                      <div className="button-modal-container">
+                            <div onClick={handlePriceButtonClick}  className='space_button'  >
+                              {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div> 
+                            <PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                              pricemodal content
+                            </PriceModal>
+                          
+
+                      </div>
+
+                      {/* button for locations */}
+                      <div className="button-modal-container" >
+                            <div onClick={handleShowModal} className='lacation_button'   >
+                            {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <Modal isOpen={isModalOpen} >
+                              {renderModalContent()}
+                            </Modal>
+                      </div>
+
+                  </div>
 
 
-          </GoogleMap>
-        </LoadScript>
-      </div> 
-    </div>
+
+                    <div className='map_cont'>
+                      <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
+                        <GoogleMap
+                          mapContainerStyle={{ width: '100%', height: '625px'  }}
+                          center={mapCenter}
+                          zoom={zoomLevel}
+                          onLoad={handleLoad}
+                          onZoomChanged={handleZoomChanged}
+                          options={{
+                            gestureHandling: "greedy",
+                          }}
+                        >
+                        {complexes.map(complex => {
+                            if (complex.address && complex.address.latitude && complex.address.longitude) {
+                              const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
+                              
+                              return (
+                                <Marker
+                                key={complex.id}
+                                  position={{
+                                    lat: complex.address.latitude,
+                                    lng: complex.address.longitude,
+                                  }}
+                                  icon={{
+                                    url: statusInfo.iconUrl,
+                                    scaledSize: statusInfo.scaledSize
+                                  }}
+                                  onClick={() => handleMarkerClick(complex)}
+                                />
+                                
+                              );
+                            }
+                            return null;
+                          })}
+
+                          {selectedComplex && (
+                            <InfoWindow
+                            position={{
+                              lat: Number(selectedComplex.address.latitude),
+                                lng: Number(selectedComplex.address.longitude),
+                              }}
+                              onCloseClick={() => setSelectedComplex(null)}
+                            >
+                              <div>
+                                <h2>{selectedComplex.complexName}</h2>
+                                <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p> 
+                                {/* Add more details and the image if available */}
+                                {selectedComplex.images && selectedComplex.images.length > 0 && (
+                                  <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
+                                )}
+                              </div>
+                            </InfoWindow>
+                          )} 
+                        </GoogleMap>
+                      </LoadScript>
+                    </div> 
+                
+      </div>
+
   );
 }
 
@@ -501,7 +649,13 @@ useEffect( () => {
 
 
 
+//127.0.0.1:8000/complex/en/?
+// address_en__city_en__city_en=&
+// address_en__city_en__city_en__icontains=&
+// min_price_per_sq_meter=&
+// max_price_per_sq_meter=&
+// max_full_price=&min_full_price=&
+// status=2
 
-//127.0.0.1:8000/complex/en/?address_en__city_en__city_en__icontains=tbilisi&
-// address_en__pharentDistrict_en__pharentDistrict_en__in=isani-samgori&
-// address_en__district_en__district_en__in=lisi,saburtalo
+
+

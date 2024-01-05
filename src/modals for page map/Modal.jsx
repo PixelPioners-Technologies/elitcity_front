@@ -1,14 +1,11 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-// Modal.js
 import React from 'react';
 import './Modal.css';
 
 const Modal = ({ isOpen, close, children }) => {
   if (!isOpen) return null;
-
+  const openClass = isOpen ? 'open' : '';
   return (
-    <div className="modal-overlay" onClick={close}>
+    <div className={`modal-overlay ${openClass}`} onClick={close}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         {children}
       </div>
