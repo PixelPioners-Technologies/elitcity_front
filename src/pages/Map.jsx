@@ -131,6 +131,7 @@ export default function Map({selectedLanguage}) {
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
 
+  const [selectedStatuses , setSelectedStatuses] = useState([])
 //----------------------------------------------------------------------------------------------------
   //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
     //  address_en__city_en__city_en__icontains=& 
@@ -142,34 +143,67 @@ export default function Map({selectedLanguage}) {
     //         address_en__district_en__district_en__in=saburtalo
 
 // --------------------------------------axios  for complexes --------------------------------------
+  // useEffect(() => {
+  //   const fetchComplexes = async () => {
+  //     const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+  //     const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`
+  //     const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`
+  //     try {
+  //       const response = await axios.get(`${Base_URL}${selectedLanguage}/`,{
+  //         params: {
+  //           [cityParam]: selectedCity,
+  //           [pharentdistrictParams] : selectedPharentDistricts.join(','),
+  //           [districtParams] : selectedDistricts.join(','),
+  //           min_price_per_sq_meter : minPricePerSquareMeter,
+  //           max_price_per_sq_meter : maxPricePerSquareMeter,
+  //           min_full_price : minFullPrice,
+  //           max_full_price : maxFullPrice,
+  //           status : status,
+  //         }
+  //       });
+
+  //       const normalData = normalizeComplexData(response.data.results , selectedLanguage)
+  //       setComplexes(normalData);
+  //     } catch (error) {
+  //       console.error('Error fetching complexes:', error);
+  //     }
+  //   };
+  //   fetchComplexes();
+  // }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter, minFullPrice, maxFullPrice, status]); 
+
+
+
   useEffect(() => {
     const fetchComplexes = async () => {
-      const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-      const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`
-      const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`
+      const params = {
+        // other params
+        [`address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`]: selectedCity,
+        [`address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`]: selectedPharentDistricts.join(','),
+        [`address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`]: selectedDistricts.join(','),
+        min_price_per_sq_meter: minPricePerSquareMeter,
+        max_price_per_sq_meter: maxPricePerSquareMeter,
+        min_full_price: minFullPrice,
+        max_full_price: maxFullPrice,
+      };
+      // Add status to the params only if selectedStatuses is not empty
+      if (selectedStatuses.length > 0) {
+        params['status'] = selectedStatuses;
+      }
       try {
-        const response = await axios.get(`${Base_URL}${selectedLanguage}/`,{
-          params: {
-            [cityParam]: selectedCity,
-            [pharentdistrictParams] : selectedPharentDistricts.join(','),
-            [districtParams] : selectedDistricts.join(','),
-            min_price_per_sq_meter : minPricePerSquareMeter,
-            max_price_per_sq_meter : maxPricePerSquareMeter,
-            min_full_price : minFullPrice,
-            max_full_price : maxFullPrice,
-            status : status,
-          }
-        });
-
-        const normalData = normalizeComplexData(response.data.results , selectedLanguage)
+        const response = await axios.get(`${Base_URL}${selectedLanguage}/`, { params });
+        const normalData = normalizeComplexData(response.data.results, selectedLanguage);
         setComplexes(normalData);
       } catch (error) {
         console.error('Error fetching complexes:', error);
       }
     };
+  
     fetchComplexes();
-  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter, minFullPrice, maxFullPrice, status]); 
-
+  }, [
+    selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts,
+    minPricePerSquareMeter, maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses
+  ]);
+  
 // ----------------------------------------------------------------------------------------------
 //-----------------------------------fetch ionly locations --------------------------------------
 
@@ -244,8 +278,29 @@ const getStatusText = (status, lang) => {
     }
   };
 
-  return statusTexts[lang][status] || `${handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}`;
+  return statusTexts[lang][status] || `unknown status`;
 };
+
+  const statusTranslations = {
+    1: { en: 'Planned', ka: 'დაგეგმილი', ru: 'Запланировано' },
+    2: { en: 'Under Construction', ka: 'მშენებარე', ru: 'Строится' },
+    3: { en: 'Completed', ka: 'დასრულებული', ru: 'Завершено' }
+    // Add more statuses and translations if needed
+  };
+
+  const renderStatusOptions = () => {
+    return Object.entries(statusTranslations).map(([value, labels]) => (
+      <div key={value}>
+        <input
+          type="checkbox"
+          value={value}
+          checked={selectedStatuses.includes(value)}
+          onChange={(e) => handleStatusChange(e, value)}
+        />
+        {labels[selectedLanguage]}
+      </div>
+    ));
+  };
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -364,12 +419,16 @@ const handleDistrictChange = (e, district) => {
 
 
 
-useEffect( () => {
-  console.log('pharentdistrict selected : ' , selectedPharentDistricts)
-  console.log("district selected : " ,selectedDistricts)
+// useEffect( () => {
+//   console.log('pharentdistrict selected : ' , selectedPharentDistricts)
+//   console.log("district selected : " ,selectedDistricts)
+//   console.log(status)
+// },[selectedPharentDistricts,selectedDistricts ] )
 
-},[selectedPharentDistricts,selectedDistricts ] )
-
+useEffect(() => {
+  console.log("Selected Statuses:", selectedStatuses);
+  // ... rest of your useEffect code ...
+}, [selectedStatuses]);
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
@@ -413,8 +472,20 @@ const handleCloseStatusModal = () => {
 
 // --------------------------function for selecting status for filtration -----------------------------------------------
 
+// const handleStatusChange = (e) => {
+//   setStatus(e.target.value);
+// };
 const handleStatusChange = (e) => {
-  setStatus(e.target.value);
+  const value = e.target.value;
+  setSelectedStatuses((prevSelectedStatuses) => {
+    if (e.target.checked) {
+      // Add the checked status
+      return [...prevSelectedStatuses, value];
+    } else {
+      // Remove the unchecked status
+      return prevSelectedStatuses.filter((status) => status !== value);
+    }
+  });
 };
 
 // -----------------------------------------------------------------------------------------------------------------------------
@@ -567,18 +638,8 @@ const handleLoad = (map) => {
                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                             </div>
                             <StatusModal isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
-                              <div>
-
-                                  <select value={status} onChange={handleStatusChange}>
-                                        <option value=" ">{getStatusText(``, selectedLanguage)}</option>
-                                        <option value="1">{getStatusText("1", selectedLanguage)}</option>
-                                        <option value="2">{getStatusText("2", selectedLanguage)}</option>
-                                        <option value="3">{getStatusText("3", selectedLanguage)}</option>
-                                    </select>
-
-                              </div>
+                            {renderStatusOptions()}
                             <button onClick={handleCloseStatusModal}>Close</button>
-
                             </StatusModal>
                       </div>
                   </div>
