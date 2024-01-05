@@ -46,6 +46,7 @@
 
 .button-modal-container{
   position: relative;
+  cursor: pointer;
 }
 
 
@@ -54,7 +55,7 @@
 /*----------------------------- location button styles ------------------------------------- */
 .lacation_button{
   display: flex;
-  width: 159px;
+  width: 210px;
   height: 33px;
   padding: 5px 12.928px 5px 7px;
   align-items: center;
