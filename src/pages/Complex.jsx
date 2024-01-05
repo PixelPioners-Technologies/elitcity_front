@@ -4,7 +4,7 @@
 /* eslint-disable no-undef */
 // import React from 'react'
 import './Complex.css';
-
+import { motion } from "framer-motion";
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
@@ -13,6 +13,9 @@ import heartIcon from '../assets/starLogo.svg';
 
 import heartIconEmpty from '../assets/emptyStarLogo.svg';
 import mapSignLogo from  '../assets/mapSignLogoo.svg' ;
+import dollar from '../assets/dollar-svgrepo-com.svg';
+import lari from '../assets/lari-svgrepo-com.svg';
+
 
 
 // Pagination
@@ -49,6 +52,15 @@ export default function Complex({favoriteHandler, favorites, selectedLanguage}) 
   const [isLoading, setIsLoading] = useState(true);
   const [forPriceDecrease, setForPriceDecrease] = useState(null);
   const [sortedHomes, setSortedHomes] = useState(null); // Initialize sortedHomes state
+
+
+
+//   // 1111111111111111111111111111111111
+// // for toggle DOllar AND LARI ---==---
+//   const [isOn, setIsOn] = useState(false);
+//   const toggleSwitch = () => setIsOn(!isOn);
+//   // -----===--------
+
 
   
 // ------------------------------------------------------------------------------------
@@ -336,6 +348,23 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
         </Menu>
         {/* -------------------------------- */}
         </div>
+
+          {/* ----Dollar and Lari Toggle button */}
+            {/* <div className="switch" data-isOn={isOn} onClick={toggleSwitch}>
+              <motion.div className="handle" layout transition={spring}>
+                <img
+                  src={lari}
+                  alt="Lari Sign"
+                  className={`currency-sign ${isOn ? "active" : ""}`}
+                />
+                <img
+                  src={dollar}
+                  alt="Dollar Sign"
+                  className={`currency-sign ${!isOn ? "active" : ""}`}
+                />
+              </motion.div>
+            </div> */}
+          {/* ---------------- */}
 
       </div>
 {/* // ------------------------------------------------------------------------------------ */}

@@ -38,6 +38,52 @@
   width: 30px;
 }
 
+
+.switch {
+  width: 160px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.switch[data-isOn="true"] {
+  justify-content: flex-end;
+}
+
+.handle {
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.currency-sign {
+  width: 50px; /* Adjust width as needed */
+  height: auto;
+  margin-right: 5px; /* Add spacing between the images */
+}
+
+.currency-sign.active {
+  display: none; /* Hide inactive currency sign */
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .allCards {
   display: flex;
   justify-content: center;
