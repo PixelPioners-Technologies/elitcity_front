@@ -8,6 +8,88 @@
   padding: 0 30px;
 }
 
+.infoFieldOfComplexsPlansMaps {
+  border: 1px solid red;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 80px;
+}
+
+.complexInfoAndCountShowBox {
+  display: flex;
+  align-items: center;
+}
+
+.projectsPlansMapsSortingAndDollarBox {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.mapAndLogoImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapSignLogo {
+  width: 30px;
+}
+
+
+/* classes of toggle button on currency --- */
+.switch {
+  width: 110px;
+  /* height: 70px; */
+  background-color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: flex-start;
+  border: 1px solid red;
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+  /* border-radius: 50px; */
+}
+
+
+
+.switch[data-isOn="true"] {
+  justify-content: flex-end;
+}
+
+.handle {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.currency-sign {
+  width: 50px; /* Adjust width as needed */
+  height: auto;
+  margin-right: 5px; /* Add spacing between the images */
+}
+
+.currency-sign.active {
+  display: none; /* Hide inactive currency sign */
+}
+/* ------------- */
+
+
+
+
+
+
+
+
+
+
+
+
 .allCards {
   display: flex;
   justify-content: center;
@@ -27,6 +109,13 @@
   border-radius: 20px;
   overflow: hidden;
   padding: 20px 20px;
+
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
 }
 
 .heartbuttonAndImageBox {
