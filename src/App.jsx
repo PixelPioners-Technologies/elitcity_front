@@ -12,6 +12,9 @@ import Sales from './pages/Sales';
 import FavoriteComplex from './pages/FavoriteComplex';
 import ApartmentList from './pages/ApartmentList';
 import Nothing from './pages/Nothing';
+import Physical from './pages/Physical';
+import Articles from './pages/Articles';
+import Storkhome from './pages/Storkhome';
 
 
 
@@ -94,6 +97,11 @@ function App() {
         <Route path='developers' element={<Developers />} />
         <Route path='map'   element={<Map selectedLanguage={selectedLanguage}/>} />
         <Route path='sales' element={<Sales />} />
+        <Route path='physical' element={<Physical />} />
+        <Route path='articles' element={<Articles />} />
+        <Route path='storkhome' element={<Storkhome />} />
+
+
         <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
       </Routes>
     </div>

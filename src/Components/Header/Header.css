@@ -9,11 +9,14 @@
 
 .LogoAndNavBar {
   display: flex;
+  justify-content: space-between;
+
   align-items: center;
-}
+  gap: 30px;
+} 
 
 nav ul {
-  width: 475px;
+  width: 888px;
   display: flex;
   justify-content: space-between; 
   list-style: none; 
@@ -38,6 +41,12 @@ nav ul {
   display: flex;
   align-items: center;
   gap: 40px;
+}
+
+.downArrowImgAndDevelopersLinkBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .heartAndNumberBox {
