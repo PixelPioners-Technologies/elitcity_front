@@ -65,7 +65,7 @@ export default function Language({handleLanguageChange}) {
             <img src={georgianFlag} alt='georgian flag' style={{ width: '17px' }} />
             <p style={{ marginLeft: '5px' }}>
               Georgian
-            </p>z
+            </p>
           </MenuItem>
           <MenuItem onClick={() => { handleLanguageChange('en'); handleClose(); }}>
             <img src={englishFlag} alt='georgian flag' style={{ width: '17px' }} />

@@ -4,13 +4,18 @@
 /* eslint-disable no-undef */
 // import React from 'react'
 import './Complex.css';
-
+import { motion } from "framer-motion";
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-import heartIcon from '../assets/heartIcon.svg'
-import heartIconEmpty from '../assets/heart-empty-white.svg'
+import heartIcon from '../assets/starLogo.svg';
+
+import heartIconEmpty from '../assets/emptyStarLogo.svg';
+import mapSignLogo from  '../assets/mapSignLogoo.svg' ;
+import dollar from '../assets/dollar-svgrepo-com.svg';
+import lari from '../assets/lari-svgrepo-com.svg';
+
 
 
 // Pagination
@@ -47,6 +52,15 @@ export default function Complex({favoriteHandler, favorites, selectedLanguage}) 
   const [isLoading, setIsLoading] = useState(true);
   const [forPriceDecrease, setForPriceDecrease] = useState(null);
   const [sortedHomes, setSortedHomes] = useState(null); // Initialize sortedHomes state
+
+
+
+  // 1111111111111111111111111111111111
+// for toggle DOllar AND LARI ---==---
+  const [isOn, setIsOn] = useState(false);
+  const toggleSwitch = () => setIsOn(!isOn);
+  // -----===--------
+
 
   
 // ------------------------------------------------------------------------------------
@@ -187,7 +201,7 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await axiosInstance.get(`https://api.storkhome.ge/complex/ka/`);
+      const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
       // const { results } = response.data.results[0];
       const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
       // console.log('es aris D A T A',data)
@@ -279,43 +293,81 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
   
   return (
     <div className='ComplexBodyBox'>
-      {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება... */}
+      {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
       <div className='infoFieldOfComplexsPlansMaps'>
-        <p>კომპლექსები {totalCount}</p>
-        <div className='projectsPlansMapsBox'>
-          <Link to='/complex' ><button>პროექტები</button></Link>
-          <Link to='/complex/apartmentList' ><button>გეგმარებები</button></Link>
-          <Link to='/map' ><button>რუკა</button></Link>
+        <div className='complexInfoAndCountShowBox'>
+          <p>კომპლექსები {totalCount}</p>
         </div>
+        {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება ---- */}
+        <div className='projectsPlansMapsSortingAndDollarBox'>
+          <Link to='/complex' >
+            <div className='mapAndLogoImg'>
+              <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+              <button>პროექტები</button>
+            </div>
+          </Link>
+
+          <Link to='/complex/apartmentList' >
+            <div className='mapAndLogoImg'>
+              <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+              <button>გეგმარებები</button>
+            </div>
+
+          </Link>
+
+
+          <Link to='/map' >
+            <div className='mapAndLogoImg'>
+              <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+              <button>რუკა</button>
+            </div>
+          </Link>
+        {/* მხოლოდ for sorting ----- */}
+        <Button
+          id="basic-button"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+        >
+          სორტირება
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        >
+          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>თარიღი კლებადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>თარიღი ზრდადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>ფასი კლებადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); }}>ფასი ზრდადობით</MenuItem>
+        </Menu>
+        {/* -------------------------------- */}
+        </div>
+
+        {/* ----Dollar and Lari Toggle button */}
+
+          <div className="switch" data-isOn={isOn} onClick={toggleSwitch}>
+            <motion.div className="handle" layout transition={spring}>
+              <img
+                src={lari}
+                alt="Lari Sign"
+                className={`currency-sign ${isOn ? "active" : ""}`}
+                />
+              <img
+                src={dollar}
+                alt="Dollar Sign"
+                className={`currency-sign ${!isOn ? "active" : ""}`}
+                />
+            </motion.div>
+          </div>
+        {/* ---------------- */}
+
       </div>
-
-
-{/* for sorting */}
-{/* // ------------------------------------------------------------------------------------ */}
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        სორტირება
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-
-        <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>ფასი კლებადობით</MenuItem>
-        <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); }}>ფასი ზრდადობით</MenuItem>
-
-       
-      </Menu>
 {/* // ------------------------------------------------------------------------------------ */}
 
 
@@ -369,6 +421,7 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
           />
         </Stack>
       </div>
+      {/* ---------------------------------------------------------------- */}
 
     </div>
   )
@@ -394,4 +447,10 @@ const styles = {
   complexFinished: {
     color: '#515050',
   },
+};
+
+const spring = {
+  type: "spring",
+  stiffness: 100,
+  damping: 30,
 };
