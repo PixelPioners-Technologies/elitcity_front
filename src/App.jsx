@@ -77,7 +77,7 @@ function App() {
   
   console.log("es aris selectedlanguage" , selectedLanguage )
   return (
-    <div>
+    <div className='App'>
        {/* Conditional rendering for the Header */}
        {(forVisible && window.location.pathname !== "/") ? (
         <div>
