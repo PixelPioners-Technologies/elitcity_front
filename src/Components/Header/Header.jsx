@@ -35,7 +35,7 @@ export default function Header({favorites, handleLanguageChange }) {
               <Link to='/developers'><button className='buttonItemsOfList'>დეველოპერები</button></Link>
             </li>
             <li>
-              <Link to='/developers'><button className='buttonItemsOfList'>ფიზიკური პირები</button></Link>
+              <Link to='/physical'><button className='buttonItemsOfList'>ფიზიკური პირები</button></Link>
             </li>
             <li>
               <Link to='/map'><button className='buttonItemsOfList'>რუკა</button></Link>
@@ -44,10 +44,10 @@ export default function Header({favorites, handleLanguageChange }) {
               <Link to='/sales'><button className='buttonItemsOfList'>აქციები</button></Link>
             </li>
             <li>
-              <Link to='/developers'><button className='buttonItemsOfList'>სტატიები</button></Link>
+              <Link to='/articles'><button className='buttonItemsOfList'>სტატიები</button></Link>
             </li>
             <li>
-              <Link to='/developers'><button className='buttonItemsOfList'>storkhome+</button></Link>
+              <Link to='/storkhome'><button className='buttonItemsOfList'>storkhome+</button></Link>
             </li>
             
           </ul>
