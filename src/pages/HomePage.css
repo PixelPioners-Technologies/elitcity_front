@@ -69,6 +69,8 @@ body.dark-mode {
   color: #fff; /* Text color in dark mode */
 }
 
+
+/* ეს ჩავაკომენტარე რადგან არ იყენებდი და ერორს წერდა (გიორგი ჯულაყიძე) ----------------*/
 /* Dark mode specific styles for Popup.css */
 /* .popupp-space,
 .popup-price,
@@ -83,6 +85,9 @@ body.dark-mode {
 .popup-location.dark-mode { */
   /* Popup specific styles in dark mode */
 /* } */
+
+/* -------------------------------------------------- */
+
 
 /* Additional styles for other components... */
 
