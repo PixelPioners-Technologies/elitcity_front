@@ -338,31 +338,19 @@ const handleDarkModeToggle = () => {
 
 // ------ Rendering Filtered Homes ---------
 return (
-  <div className="complex-container">
-    <FilterOptions
-      onFilterChange={handleFilterChange}
-      selectedLanguage={selectedLanguage}
-    />
-    <div className='company-slider-inline'>
-      <HomePagecompanylogo selectedLanguage={selectedLanguage}/>
-
-    </div>
-    {/* Render complexes based on the filtered data */}
-    {Array.isArray(complexes) && complexes.map((complex) => (
-      <div className='mtavari' key={complex.id}>
-        <div className="complex-card">
-          {/* Complex Image */}
-          <img src={complex.images} alt={complex.complexName} className="complex-image" />
-
-          {/* Complex Information */}
-          <div className="complex-info">
-            <h3>{complex.complexName}</h3>
-            <p>{complex.company.about}</p>
-            <p>{`${complex.address.city_en}, ${complex.address.street_name_en} ${complex.address.address_en}`}</p>
-          </div>
+  <div className='pirveli'>
+    <div className='meore'>
+      <div className='mesame'>
+        ადგილი შენი კომფორტისათვის
+        <div className="complex-container">
+          <FilterOptions
+          onFilterChange={handleFilterChange}
+          selectedLanguage={selectedLanguage}
+          />
+    
         </div>
       </div>
-    ))}
+    </div>
   </div>
 );
     };
