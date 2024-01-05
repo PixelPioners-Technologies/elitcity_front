@@ -322,12 +322,10 @@ const handleDarkModeToggle = () => {
 
   return (
     <div className='popupbuttons'>
-      <button onClick={() => openPopup('popupp-space')}>Space</button>
-      <button onClick={() => openPopup('popup-price')}>Price</button>
-      <button onClick={() => openPopup('popup-status')}>Status</button>
-      <button onClick={() => openPopup('popup-location')}>Location</button>
-      
-      <button onClick={handleDarkModeToggle}>--Dark--</button>
+      <button className='buttons' onClick={() => openPopup('popupp-space')}>Space</button>
+      <button className='buttons' onClick={() => openPopup('popup-price')}>Price</button>
+      <button className='buttons' onClick={() => openPopup('popup-status')}>Status</button>
+      <button className='buttons' onClick={() => openPopup('popup-location')}>Location</button>
 
       {renderPopup()}
     </div>
@@ -341,8 +339,8 @@ return (
   <div className='pirveli'>
     <div className='meore'>
       <div className='mesame'>
-        ადგილი შენი კომფორტისათვის
         <div className="complex-container">
+        <h2 className='kompo'>ადგილი შენი კომფორტისათვის</h2>
           <FilterOptions
           onFilterChange={handleFilterChange}
           selectedLanguage={selectedLanguage}
