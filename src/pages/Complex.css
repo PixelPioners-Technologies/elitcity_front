@@ -8,6 +8,36 @@
   padding: 0 30px;
 }
 
+.infoFieldOfComplexsPlansMaps {
+  border: 1px solid red;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 80px;
+}
+
+.complexInfoAndCountShowBox {
+  display: flex;
+  align-items: center;
+}
+
+.projectsPlansMapsSortingAndDollarBox {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.mapAndLogoImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapSignLogo {
+  width: 30px;
+}
+
 .allCards {
   display: flex;
   justify-content: center;
