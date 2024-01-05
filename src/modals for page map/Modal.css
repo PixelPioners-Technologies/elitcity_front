@@ -23,3 +23,14 @@
     overflow-y: auto; /* Scroll if content is too tall */
   }
   
+  .modal-overlay {
+    display: none; /* Hide by default */
+    position: absolute;
+    top: 100%; /* This positions the modal right below the button */
+    left: 0;
+    /* other styling as needed */
+  }
+  
+  .modal-overlay.open {
+    display: block; /* Show when the modal is open */
+  }
