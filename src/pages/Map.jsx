@@ -15,6 +15,7 @@ import yelow from  '../location_icons/icon-yelow.png'
 import Modal from '../modals for page map/Modal'
 import SpaceModal from '../modals for page map/SpaceModal';
 import PriceModal from '../modals for page map/PriceModal';
+import StatusModal from '../modals for page map/StatusModa';
 import button_icon from '../icons/Vector.svg'
 
 
@@ -23,7 +24,7 @@ const initialCenter = {
   lng: 44.8271
 };
 
-const Base_URL = "https://api.storkhome.ge/complex/";
+const Base_URL = "http://127.0.0.1:8000/complex/";
 
 
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
@@ -120,7 +121,6 @@ export default function Map({selectedLanguage}) {
   const [minFullPrice, setMinFullPrice] = useState('');
   const [maxFullPrice, setMaxFullPrice] = useState('');
 
-  const [showSelect, setShowSelect] = useState(false);
   const [status, setStatus] = useState('');
 
   const [mapCenter, setMapCenter] = useState(initialCenter);
@@ -130,8 +130,9 @@ export default function Map({selectedLanguage}) {
 
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
-  
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
 
+  const [selectedStatuses , setSelectedStatuses] = useState([])
 //----------------------------------------------------------------------------------------------------
   //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
     //  address_en__city_en__city_en__icontains=& 
@@ -143,38 +144,81 @@ export default function Map({selectedLanguage}) {
     //         address_en__district_en__district_en__in=saburtalo
 
 // --------------------------------------axios  for complexes --------------------------------------
-  useEffect(() => {
-    const fetchComplexes = async () => {
-      const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-      const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`
-      const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`
-      try {
-        const response = await axios.get(`${Base_URL}${selectedLanguage}/`,{
-          params: {
-            [cityParam]: selectedCity,
-            [pharentdistrictParams] : selectedPharentDistricts.join(','),
-            [districtParams] : selectedDistricts.join(','),
-            min_price_per_sq_meter : minPricePerSquareMeter,
-            max_price_per_sq_meter : maxPricePerSquareMeter,
-            min_full_price : minFullPrice,
-            max_full_price : maxFullPrice,
-            status : status,
-          }
+  // useEffect(() => {
+  //   const fetchComplexes = async () => {
+  //     const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+  //     const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`
+  //     const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`
+  //     try {
+  //       const response = await axios.get(`${Base_URL}${selectedLanguage}/`,{
+  //         params: {
+  //           [cityParam]: selectedCity,
+  //           [pharentdistrictParams] : selectedPharentDistricts.join(','),
+  //           [districtParams] : selectedDistricts.join(','),
+  //           min_price_per_sq_meter : minPricePerSquareMeter,
+  //           max_price_per_sq_meter : maxPricePerSquareMeter,
+  //           min_full_price : minFullPrice,
+  //           max_full_price : maxFullPrice,
+  //           status : selectedStatuses.join(','),
+  //         }
+  //       });
+
+  //       const normalData = normalizeComplexData(response.data.results , selectedLanguage)
+  //       setComplexes(normalData);
+  //     } catch (error) {
+  //       console.error('Error fetching complexes:', error);
+  //     }
+  //   };
+  //   fetchComplexes();
+  // }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter,
+  //    maxPricePerSquareMeter, minFullPrice, maxFullPrice, status,selectedStatuses]); 
+
+
+     useEffect(() => {
+      const fetchComplexes = async () => {
+        const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+        const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
+        const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
+        
+        // Create a URLSearchParams object
+        let queryParams = new URLSearchParams({
+          [cityParam]: selectedCity,
+          [pharentdistrictParams]: selectedPharentDistricts.join(','),
+          [districtParams]: selectedDistricts.join(','),
+          min_price_per_sq_meter: minPricePerSquareMeter,
+          max_price_per_sq_meter: maxPricePerSquareMeter,
+          min_full_price: minFullPrice,
+          max_full_price: maxFullPrice
         });
+    
+        // Append each status as a separate parameter
+        selectedStatuses.forEach(status => {
+          queryParams.append('status', status);
+        });
+    
+        // Construct the full URL with query parameters
+        const queryString = queryParams.toString();
+        const requestUrl = `${Base_URL}${selectedLanguage}/?${queryString}`;
+    
+        try {
+          const response = await axios.get(requestUrl);
+          const normalData = normalizeComplexData(response.data.results, selectedLanguage);
+          setComplexes(normalData);
+        } catch (error) {
+          console.error('Error fetching complexes:', error);
+        }
+      };
+    
+      fetchComplexes();
+    }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter,
+       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses]);
+    
 
-        const normalData = normalizeComplexData(response.data.results , selectedLanguage)
-        setComplexes(normalData);
-      } catch (error) {
-        console.error('Error fetching complexes:', error);
-      }
-    };
-    fetchComplexes();
-  }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter, maxPricePerSquareMeter, minFullPrice, maxFullPrice, status]); 
-
+  
 // ----------------------------------------------------------------------------------------------
 //-----------------------------------fetch ionly locations --------------------------------------
 
-const base_URL_for_location = 'https://api.storkhome.ge/map/' 
+const base_URL_for_location = 'http://127.0.0.1:8000/map/' 
 
 useEffect(() => {
   const fetchLocations = async () => {
@@ -245,8 +289,39 @@ const getStatusText = (status, lang) => {
     }
   };
 
-  return statusTexts[lang][status] || "----";
+  return statusTexts[lang][status] || `unknown status`;
 };
+
+  const statusTranslations = {
+    1: { en: 'Planned', ka: 'დაგეგმილი', ru: 'Запланировано' },
+    2: { en: 'Under Construction', ka: 'მშენებარე', ru: 'Строится' },
+    3: { en: 'Completed', ka: 'დასრულებული', ru: 'Завершено' }
+    // Add more statuses and translations if needed
+  };
+
+  const renderStatusOptions = () => {
+    return Object.entries(statusTranslations).map(([value, labels]) => (
+      <div className='status_chackboxes' key={value}>
+        {/* <input
+          type="checkbox"
+          value={value}
+          checked={selectedStatuses.includes(value)}
+          onChange={(e) => handleStatusChange(e, value)}
+        /> */}
+          <label className="container">
+          <input 
+          type="checkbox"
+          checked={selectedStatuses.includes(value)}
+          value={value}
+          onChange={(e) => handleStatusChange(e, value)}
+          
+          />
+          <div className="checkmark"></div>
+        </label>
+        <p className='text_modal_color' >{labels[selectedLanguage]}</p>
+      </div>
+    ));
+  };
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -261,7 +336,7 @@ const renderModalContent = () => {
                     {cityItem.city}
                   </button>
                 ))}
-                <button onClick={closeModal} >close</button>
+                <button className='modal_close_button' onClick={closeModal} >close</button>
             </div>
     case "pharentdistricts":
       // Find the city object from the locations array
@@ -269,7 +344,7 @@ const renderModalContent = () => {
       if (!city) return null;
 
       return (
-        <div>
+        <div className='location_modal_container' >
           {city.pharentDistricts.map((parentDistrict, index) => (
             <div key={index}>
               <div>
@@ -294,7 +369,7 @@ const renderModalContent = () => {
               </div>
             </div>
           ))}
-          <button onClick={closeModal}>Close</button>
+          <button className='modal_close_button' onClick={closeModal}>Close</button>
         </div>
       );
       
@@ -307,14 +382,19 @@ const renderModalContent = () => {
 const handleShowModal = () => {
   setModalContent('cities')
   setIsModalOpen(true)
+  setIsSpaceModalOpen(false);
+  setIsPriceModalOpen(false)
+  setIsStatusModalOpen(false)
 }
 
 const handleCityClick = (city) => {
-  console.log("City selected: ", city); // Debug log
+  console.log("City selected: ", city);
   setModalContent("pharentdistricts")
   setSelectedCity(city)
   setIsModalOpen(true)
 }
+// a b c d e
+// A B C D E
 
 const closeModal = () => {
   setIsModalOpen(false)
@@ -362,18 +442,25 @@ const handleDistrictChange = (e, district) => {
 
 
 
-useEffect( () => {
-  console.log('pharentdistrict selected : ' , selectedPharentDistricts)
-  console.log("district selected : " ,selectedDistricts)
+// useEffect( () => {
+//   console.log('pharentdistrict selected : ' , selectedPharentDistricts)
+//   console.log("district selected : " ,selectedDistricts)
+//   console.log(status)
+// },[selectedPharentDistricts,selectedDistricts ] )
 
-},[selectedPharentDistricts,selectedDistricts ] )
-
+useEffect(() => {
+  console.log("Selected Statuses:", selectedStatuses);
+  // ... rest of your useEffect code ...
+}, [selectedStatuses]);
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
 const handleSpaceButtonClick = () => {
   setIsSpaceModalOpen(true);
+  setIsPriceModalOpen(false);
+  setIsStatusModalOpen(false);
+  setIsModalOpen(false);
 };
 
 const closeSpaceModal = () => {
@@ -381,25 +468,47 @@ const closeSpaceModal = () => {
 };
 
 const handlePriceButtonClick = () => {
-  setIsPriceModalOpen(true)
+  setIsPriceModalOpen(true);
+  setIsSpaceModalOpen(false);
+  setIsModalOpen(false);
+  setIsStatusModalOpen(false);
 }
 
 const handleClosePriceModal= () => {
   setIsPriceModalOpen(false)
 }
 
+const handleStatusButtonClick = () => {
+  setIsStatusModalOpen(true);
+  setIsSpaceModalOpen(false);
+  setIsPriceModalOpen(false);
+  setIsModalOpen(false);
+}
+
+const handleCloseStatusModal = () => {
+  setIsStatusModalOpen(false);
+}
+
+
 // ---------------------------------------------------------------------------------------------------------------------
 
 
 // --------------------------function for selecting status for filtration -----------------------------------------------
 
-const handleStatusChange = (e) => {
-  setStatus(e.target.value);
+// const handleStatusChange = (e) => {
+//   setStatus(e.target.value);
+// };
+const handleStatusChange = (e, value) => {
+  setSelectedStatuses((prevSelectedStatuses) => {
+    const newSelectedStatuses = e.target.checked 
+      ? [...prevSelectedStatuses, value] 
+      : prevSelectedStatuses.filter((status) => status !== value);
+
+    console.log("Updated Selected Statuses:", newSelectedStatuses); // Log the new state
+    return newSelectedStatuses;
+  });
 };
 
-const toggleSelect = () => {
-  setShowSelect(!showSelect)
-}
 // -----------------------------------------------------------------------------------------------------------------------------
 // --------ffunction for changing status button content language change and also select city button language change -------------
 
@@ -408,7 +517,8 @@ const handleStatusButtonLanguageChange = (lang) => {
     statusInfoLanguage : "en" ,
     cityButtonLanguage : "Select City ",
     spaceButtonLanguage : "Space",
-    priceButtonLanguage: "Price"
+    priceButtonLanguage: "Price",
+    allStatusLanguage: "All"
   } 
 
   switch (lang) {
@@ -417,21 +527,23 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.cityButtonLanguage = "Location"
       languageInfo.spaceButtonLanguage = "Space"
       languageInfo.priceButtonLanguage = "Price"
-
+      languageInfo.allStatusLanguage = "All"
       break;
+
     case "ka" :
       languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
       languageInfo.cityButtonLanguage = "მდებარეობა"
       languageInfo.spaceButtonLanguage = "ფართი"
       languageInfo.priceButtonLanguage = "ფასი"
-
-
+      languageInfo.allStatusLanguage = "ყველა"
       break
+
     case "ru" :
       languageInfo.statusInfoLanguage = "выберите статус"
       languageInfo.cityButtonLanguage = "Местоположение"
       languageInfo.spaceButtonLanguage = "Площадь"
       languageInfo.priceButtonLanguage = "Цена"
+      languageInfo.allStatusLanguage = "Все"
       break
   }
   return languageInfo
@@ -457,64 +569,6 @@ const handleLoad = (map) => {
 // ---------------------------------------------------------------------------------------------------------------------
   return (
     <div className='main_map'>
-             <div className='filter_cont'>
-             <div>
-                        <button onClick={handleShowModal} className='lacation_button' >{handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}</button>
-                        <Modal isOpen={isModalOpen} >
-                          {renderModalContent()}
-                        </Modal>
-                  </div>
-                  
-
-
-                  <div>
-                        <input
-                            type="number"
-                            placeholder='Min Price Per Square Meter'
-                            value={minPricePerSquareMeter}
-                            onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
-                        />
-
-                          <input
-                            type="number"
-                            placeholder='Max Price Per Square Meter'
-                            value={maxPricePerSquareMeter}
-                            onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
-                        />
-                  </div>
-
-
-                  <div>
-                      <input
-                        type="number"
-                        placeholder='Min Full Price'
-                        value={minFullPrice}
-                        onChange={(e) => setMinFullPrice(e.target.value)}
-                    />
-
-                      <input
-                        type="number"
-                        placeholder='Max Full Price'
-                        value={maxFullPrice}
-                        onChange={(e) => setMaxFullPrice(e.target.value)}
-                        />
-                  </div>  
-
-      
-                <div>
-                  <button onClick={toggleSelect}>{handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}</button>
-                  {showSelect && (
-                    <select value={status} onChange={handleStatusChange}>
-                          <option value=" ">{getStatusText("", selectedLanguage)}</option>
-                          <option value="1">{getStatusText("1", selectedLanguage)}</option>
-                          <option value="2">{getStatusText("2", selectedLanguage)}</option>
-                          <option value="3">{getStatusText("3", selectedLanguage)}</option>
-                      </select>
-                  )}
-                </div>
-
-             </div>
-
                     {/* axali divebi butonebis magivrad filtraciistvis */}
                   <div className='filter_cont'>
 
@@ -533,7 +587,7 @@ const handleLoad = (map) => {
                                       value={minPricePerSquareMeter}
                                       onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
                                   />
-
+                                  
                                     <input
                                       type="number"
                                       placeholder='Max Price Per Square Meter'
@@ -542,7 +596,7 @@ const handleLoad = (map) => {
                                   />
                                   <p>otaxebis filtraciac unda iyos aq</p>
                               </div>
-                            <button onClick={closeSpaceModal}>Close</button>
+                            <button className='modal_close_button' onClick={closeSpaceModal}>Close</button>
                             </SpaceModal>
 
                       </div>
@@ -554,11 +608,38 @@ const handleLoad = (map) => {
                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                             </div> 
                             <PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
-                              pricemodal content
-                            </PriceModal>
-                          
+                            <div>
+                                  <input
+                                      type="number"
+                                      placeholder='Min Price Per Square Meter'
+                                      value={minPricePerSquareMeter}
+                                      onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                                  />
 
-                      </div>
+                                  <input
+                                      type="number"
+                                      placeholder='Max Price Per Square Meter'
+                                      value={maxPricePerSquareMeter}
+                                      onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+                                  />
+                                 
+                                  <input
+                                    type="number"
+                                    placeholder='Min Full Price'
+                                    value={minFullPrice}
+                                    onChange={(e) => setMinFullPrice(e.target.value)}
+                                  />
+
+                                  <input
+                                    type="number"
+                                    placeholder='Max Full Price'
+                                    value={maxFullPrice}
+                                    onChange={(e) => setMaxFullPrice(e.target.value)}
+                                  />                            
+                            </div>
+                            <button className='modal_close_button' onClick={handleClosePriceModal}>Close</button>
+                            </PriceModal>
+                        </div>
 
                       {/* button for locations */}
                       <div className="button-modal-container" >
@@ -571,9 +652,20 @@ const handleLoad = (map) => {
                             </Modal>
                       </div>
 
+                        {/* button for status */}
+                      <div className="button-modal-container" >
+                            <div onClick={handleStatusButtonClick} className='lacation_button'   >
+                            {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <StatusModal isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+                            {renderStatusOptions()}
+                            <button className='modal_close_button' onClick={handleCloseStatusModal}>Close</button>
+                            </StatusModal>
+                      </div>
                   </div>
 
-
+                  
 
                     <div className='map_cont'>
                       <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
@@ -631,6 +723,9 @@ const handleLoad = (map) => {
                         </GoogleMap>
                       </LoadScript>
                     </div> 
+                    <div  >
+
+                    </div>
                 
       </div>
 

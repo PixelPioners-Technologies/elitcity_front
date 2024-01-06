@@ -15,28 +15,27 @@ import Nothing from './pages/Nothing';
 import Physical from './pages/Physical';
 import Articles from './pages/Articles';
 import Storkhome from './pages/Storkhome';
-
+import axios from 'axios';
 
 
 function App() {
-  
   const [forVisible, setForVisible] = useState(true);
-
   const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [favorites, setFavorites] = useState([]);
+  const [getCorrencyRate, setGetCorrencyRate] = useState(0);
 
 
 
+// ---------------------------language change function --------------------------
   const handleLanguageChange = (languageCode) => {
     setSelectedLanguage(languageCode);
-
-
   };
+// -----------------------------------------------------------------------------------------------
 
 
-  
+// ---------------------------------functionality for making favorite complexes --------------------
   // favorites infos State (and favorite functionality with local storage)
   // START (favorite functionality)
-  const [favorites, setFavorites] = useState([]);
 
   // Retrieve saved favorites from localStorage on initial render
   useEffect(() => {
@@ -66,16 +65,35 @@ function App() {
       localStorage.setItem('favorites', JSON.stringify(updatedFavorites)); // Update localStorage
     }
   };
-    // END (favorite functionality)
+// -----------------------------------------------------------------------------------------------
 
 
 
+// -------------------------------------function for fetching usd corrency --------------------------
 
+useEffect(() => {
+  async function getExchangeRate() {
+    const today = new Date().toISOString().split('T')[0]; // Format as "YYYY-MM-DD"
+    const url = `https://nbg.gov.ge/gw/api/ct/monetarypolicy/currencies/ka/json?currencies=USD&date=${today}`;
 
-  // console.log('favorites: -- ', favorites)
+    try {
+      const response = await axios.get(url);
+      const rates = response.data[0].currencies;
+      const rateInfo = rates.find(rate => rate.code === 'USD');
+      if (rateInfo) {
+        setGetCorrencyRate(rateInfo.rate);
+        console.log('Exchange rate from USD to GEL:', rateInfo.rate);
+      }
+    } catch (error) {
+      console.error('Error fetching exchange rate:', error);
+    }
+  }
 
-  
-  console.log("es aris selectedlanguage" , selectedLanguage )
+  getExchangeRate();
+}, []);
+
+  // ------------------------------------------------------------------------------------------
+
   return (
     <div className='App'>
        {/* Conditional rendering for the Header */}
