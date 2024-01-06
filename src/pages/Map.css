@@ -82,62 +82,172 @@
 
 /* ----------------------------------------------------------------------------------------------- */
 
+/* ------------------------------------------chackbox button styles ------------------------------------ */
+/* Hide the default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  border: 2px;
+  
+}
 
-/* 
+.container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+  animation: jello-horizontal 0.9s both;
+  
+}
 
-                  <div>
-                        <button onClick={handleShowModal} className='lacation_button' >{handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}</button>
-                        <Modal isOpen={isModalOpen} >
-                          {renderModalContent()}
-                        </Modal>
-                  </div>
-                  
+.checkmark:hover {
+  animation: jello-horizontal 0.9s both;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 1.3em;
+  width: 1.3em;
+  border-radius: 50%;
+  border: 4px;
+  border-color: #FFF;
+  background-color: #ffffff;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: rgb(0, 0, 0);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 0.45em;
+  top: 0.25em;
+  width: 0.25em;
+  height: 0.5em;
+  border: solid rgb(255, 255, 255);
+  border-width: 0 0.15em 0.15em 0;
+  transform: rotate(45deg);
+}
+
+@keyframes jello-horizontal {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
 
 
-                  <div>
-                        <input
-                            type="number"
-                            placeholder='Min Price Per Square Meter'
-                            value={minPricePerSquareMeter}
-                            onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
-                        />
+.status_chackboxes{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
 
-                          <input
-                            type="number"
-                            placeholder='Max Price Per Square Meter'
-                            value={maxPricePerSquareMeter}
-                            onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
-                        />
-                  </div>
+}
 
 
-                  <div>
-                      <input
-                        type="number"
-                        placeholder='Min Full Price'
-                        value={minFullPrice}
-                        onChange={(e) => setMinFullPrice(e.target.value)}
-                    />
+/* ----------------------------------------------------------------------------------------------- */
 
-                      <input
-                        type="number"
-                        placeholder='Max Full Price'
-                        value={maxFullPrice}
-                        onChange={(e) => setMaxFullPrice(e.target.value)}
-                        />
-                  </div>  
+.text_modal_color{
+  color: #FFF;
+}
 
-      
-                <div>
-                  <button onClick={toggleSelect}>{handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}</button>
-                  {showSelect && (
-                    <select value={status} onChange={handleStatusChange}>
-                          <option value=" ">{getStatusText("", selectedLanguage)}</option>
-                          <option value="1">{getStatusText("1", selectedLanguage)}</option>
-                          <option value="2">{getStatusText("2", selectedLanguage)}</option>
-                          <option value="3">{getStatusText("3", selectedLanguage)}</option>
-                      </select>
-                  )}
-                </div>
+.location_modal_container{
+  color: #FFF;
+}
 
-*/
+/* ----------------------------------modal close button styles------------------------------------------ */
+.modal_close_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  width: 100px;
+  height: 30px;
+  border: none;
+  background: white;
+  color: #222;
+  padding: 15px;
+  box-shadow: 0 0.7065919983928324px 0.7065919983928324px -0.625px #00000026,
+    0 1.8065619053231785px 1.8065619053231785px -1.25px #00000025,
+    0 3.6217592146567767px 3.6217592146567767px -1.875px #00000023,
+    0 6.8655999097303715px 6.8655999097303715px -2.5px #00000020,
+    0 13.646761411524492px 13.646761411524492px -3.125px #0000001b,
+    0 30px 30px -3.75px #0000000d;
+  font-weight: bold;
+  font-family: Montserrat;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: 150ms ease-in-out;
+  border-style: solid; /* This line is necessary */
+  border-color: aliceblue;
+  border-width: 1px;
+}
+
+.modal_close_button:hover {
+  scale: 0.95;
+  background: black;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.26) 0px 0.637473px 1.14745px -1.125px,
+    rgba(0, 0, 0, 0.24) 0px 1.93094px 3.4757px -2.25px,
+    rgba(0, 0, 0, 0.192) 0px 5.10423px 9.18761px -3.375px,
+    rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px;
+}
+
+
+/* ----------------------------------------------------------------------------------------------- */
+
+
+

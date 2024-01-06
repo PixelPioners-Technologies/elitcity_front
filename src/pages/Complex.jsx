@@ -4,7 +4,7 @@
 /* eslint-disable no-undef */
 // import React from 'react'
 import './Complex.css';
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
