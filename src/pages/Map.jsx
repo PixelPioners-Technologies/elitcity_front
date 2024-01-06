@@ -179,7 +179,7 @@ export default function Map({selectedLanguage}) {
         const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
         const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
         const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
-    
+        
         // Create a URLSearchParams object
         let queryParams = new URLSearchParams({
           [cityParam]: selectedCity,
@@ -336,7 +336,7 @@ const renderModalContent = () => {
                     {cityItem.city}
                   </button>
                 ))}
-                <button onClick={closeModal} >close</button>
+                <button className='modal_close_button' onClick={closeModal} >close</button>
             </div>
     case "pharentdistricts":
       // Find the city object from the locations array
@@ -344,7 +344,7 @@ const renderModalContent = () => {
       if (!city) return null;
 
       return (
-        <div>
+        <div className='location_modal_container' >
           {city.pharentDistricts.map((parentDistrict, index) => (
             <div key={index}>
               <div>
@@ -369,7 +369,7 @@ const renderModalContent = () => {
               </div>
             </div>
           ))}
-          <button onClick={closeModal}>Close</button>
+          <button className='modal_close_button' onClick={closeModal}>Close</button>
         </div>
       );
       
@@ -388,11 +388,13 @@ const handleShowModal = () => {
 }
 
 const handleCityClick = (city) => {
-  console.log("City selected: ", city); // Debug log
+  console.log("City selected: ", city);
   setModalContent("pharentdistricts")
   setSelectedCity(city)
   setIsModalOpen(true)
 }
+// a b c d e
+// A B C D E
 
 const closeModal = () => {
   setIsModalOpen(false)
@@ -594,7 +596,7 @@ const handleLoad = (map) => {
                                   />
                                   <p>otaxebis filtraciac unda iyos aq</p>
                               </div>
-                            <button onClick={closeSpaceModal}>Close</button>
+                            <button className='modal_close_button' onClick={closeSpaceModal}>Close</button>
                             </SpaceModal>
 
                       </div>
@@ -635,7 +637,7 @@ const handleLoad = (map) => {
                                     onChange={(e) => setMaxFullPrice(e.target.value)}
                                   />                            
                             </div>
-                            <button onClick={handleClosePriceModal}>Close</button>
+                            <button className='modal_close_button' onClick={handleClosePriceModal}>Close</button>
                             </PriceModal>
                         </div>
 
@@ -658,7 +660,7 @@ const handleLoad = (map) => {
                             </div>
                             <StatusModal isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
                             {renderStatusOptions()}
-                            <button onClick={handleCloseStatusModal}>Close</button>
+                            <button className='modal_close_button' onClick={handleCloseStatusModal}>Close</button>
                             </StatusModal>
                       </div>
                   </div>
