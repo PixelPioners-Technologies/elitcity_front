@@ -1,11 +1,10 @@
-<<<<<<< HEAD
-// ------------  Import Statements ------------------
-import  { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-=======
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable no-undef */
+/* eslint-disable no-case-declarations */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 
 import React, { useState, useEffect } from 'react';
->>>>>>> origin/main
 import axios from 'axios';
 import button_icon from '../icons/Vector.svg';
 import button_icon1 from "../icons/findimage.svg";
@@ -13,6 +12,8 @@ import Modal_1 from '../modals for main page/Modal_1';
 import PriceModal_1 from '../modals for main page/PriceModal_1';
 import SpaceModal_1 from '../modals for main page/SpaceModal_1';
 import StatusModal_1 from '../modals for main page/StatusModa_1';
+import { motion } from "framer-motion";
+
 import './HomePage.css'
 // const initialCenter = {
 //   lat: 41.7151,
@@ -464,7 +465,15 @@ const handleLoad = (map) => {
 // ---------------------------------------------------------------------------------------------------------------------
   return (
     <div className='main_map main_foto'>
-      <h1 className='adgilicomportistvis'>ადგილი შენი კომფორტისთვის</h1>
+      <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+        <h1 className='adgilicomportistvis'>ადგილი შენი კომფორტისთვის</h1>
+      {/* <SliderTitle>The History of Phipino</SliderTitle> */}
+
+
                     {/* axali divebi butonebis magivrad filtraciistvis */}
                   <div className='filter_cont'>
 
@@ -566,6 +575,8 @@ const handleLoad = (map) => {
                             </div>
                       </div>
                   </div>
+       </motion.div> 
+
 
 
                 
