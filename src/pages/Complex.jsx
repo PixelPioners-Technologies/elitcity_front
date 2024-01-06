@@ -14,7 +14,11 @@ import heartIcon from '../assets/starLogo.svg';
 import heartIconEmpty from '../assets/emptyStarLogo.svg';
 import mapSignLogo from  '../assets/mapSignLogoo.svg' ;
 import dollar from '../assets/dollar-svgrepo-com.svg';
+// import dollar from '../assets/dollar-whitee.svg';
+
 import lari from '../assets/lari-svgrepo-com.svg';
+// import lari from '../assets/lari-white.svg';
+
 
 
 
@@ -56,10 +60,10 @@ export default function Complex({favoriteHandler, favorites, selectedLanguage}) 
 
 
   // 1111111111111111111111111111111111
-// for toggle DOllar AND LARI ---==---
+// for toggle DOllar AND LARI ---==---(START)
   const [isOn, setIsOn] = useState(false);
   const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------
+  // -----===--------(END)
 
 
   
@@ -323,6 +327,8 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
             </div>
           </Link>
         {/* მხოლოდ for sorting ----- */}
+        {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
+        რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
         <Button
           id="basic-button"
           aria-controls={open ? 'basic-menu' : undefined}
@@ -345,6 +351,9 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
           <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>თარიღი ზრდადობით</MenuItem>
           <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>ფასი კლებადობით</MenuItem>
           <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); }}>ფასი ზრდადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); }}>რეიტინგი კლებადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); }}>რეიტინგი ზრდადობით</MenuItem>
+
         </Menu>
         {/* -------------------------------- */}
         </div>
