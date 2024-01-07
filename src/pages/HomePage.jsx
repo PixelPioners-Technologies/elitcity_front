@@ -568,12 +568,14 @@ const handleLoad = (map) => {
                             <button className='modal_close_button' onClick={handleCloseStatusModal}>Close</button>
                             </StatusModal_1>
                       </div>
+                      {/* Button For find word (sityvit dzebna) */}
                       <div className="button-modal-container" >
-                            <div onClick={handleStatusButtonClick} className='find_word'   >
+                            <div onClick={handleStatusButtonClick} className='lacation_button'   >
                             {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
                               <img src={button_icon1} alt="find_image" className='dropdown' />
                             </div>
                       </div>
+                      
                   </div>
        </motion.div> 
 
