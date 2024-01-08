@@ -363,8 +363,8 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
             'aria-labelledby': 'basic-button',
           }}
         >
-          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>თარიღი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>თარიღი ზრდადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-created_at'); }}>თარიღი კლებადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setAscendentPrice('created_at'); }}>თარიღი ზრდადობით</MenuItem>
           <MenuItem onClick={() => { handleClose(); setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით</MenuItem>
           <MenuItem onClick={() => { handleClose(); setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით</MenuItem>
         </Menu>
