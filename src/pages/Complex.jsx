@@ -423,7 +423,7 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
           <MenuItem onClick={() => { handleClose(); setAscendentPrice('-rank'); }}>რანკი კლებადობით</MenuItem>
           <MenuItem onClick={() => { handleClose(); setAscendentPrice('rank'); }}>რანკი ზრდადობით</MenuItem>
         </Menu>
-        {/* -------------------------------- */}
+        {/* ---------------------------------- */}
         </div>
 
         {/* ----Dollar and Lari Toggle button */}
