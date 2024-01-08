@@ -17,6 +17,8 @@ import SpaceModal from '../modals for page map/SpaceModal';
 import PriceModal from '../modals for page map/PriceModal';
 import StatusModal from '../modals for page map/StatusModa';
 import button_icon from '../icons/Vector.svg'
+import { motion } from "framer-motion";
+
 
 
 const initialCenter = {
@@ -577,10 +579,16 @@ const handleLoad = (map) => {
   return (
     <div className='main_map'>
                     {/* axali divebi butonebis magivrad filtraciistvis */}
-                  <div className='filter_cont'>
+                    <motion.div
+                      initial={{ y: 100, opacity: 0 }}
+                      whileInView={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 1 }}
+                    >
+
+                  <div className='filter_cont '>
 
                       {/* button for filtering space */}
-                      <div className="button-modal-container">
+                      <div className="button-modal-container ">
                             <div onClick={handleSpaceButtonClick}  className='space_button'  >
                               {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
@@ -621,7 +629,7 @@ const handleLoad = (map) => {
                                       placeholder='Min Price Per Square Meter'
                                       value={minPricePerSquareMeter}
                                       onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
-                                  />
+                                      />
 
                                   <input
                                       type="number"
@@ -671,6 +679,7 @@ const handleLoad = (map) => {
                             </StatusModal>
                       </div>
                   </div>
+                  </motion.div>
 
                   
 
