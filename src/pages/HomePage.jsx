@@ -117,6 +117,9 @@ export default function Map({selectedLanguage}) {
   const [minFullPrice, setMinFullPrice] = useState('');
   const [maxFullPrice, setMaxFullPrice] = useState('');
 
+  const [min_space, setMin_space] = useState('');
+  const [max_space, setMax_space] = useState('');
+
   // const [status, setStatus] = useState('');
 
   // const [mapCenter, setMapCenter] = useState(initialCenter);
@@ -145,7 +148,9 @@ export default function Map({selectedLanguage}) {
           min_price_per_sq_meter: minPricePerSquareMeter,
           max_price_per_sq_meter: maxPricePerSquareMeter,
           min_full_price: minFullPrice,
-          max_full_price: maxFullPrice
+          max_full_price: maxFullPrice,
+          min_space : min_space, 
+          max_space : max_space,
         });
     
         // Append each status as a separate parameter
@@ -489,15 +494,15 @@ const handleLoad = (map) => {
                                         <input
                                       type="number"
                                       placeholder='Min Price Per Square Meter'
-                                      value={minPricePerSquareMeter}
-                                      onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                                      value={min_space}
+                                      onChange={(e) => setMin_space(e.target.value)}
                                   />
                                   
                                     <input
                                       type="number"
                                       placeholder='Max Price Per Square Meter'
-                                      value={maxPricePerSquareMeter}
-                                      onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+                                      value={max_space}
+                                      onChange={(e) => setMax_space(e.target.value)}
                                   />
                                   <p>otaxebis filtraciac unda iyos aq</p>
                               </div>

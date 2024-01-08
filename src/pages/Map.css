@@ -316,3 +316,28 @@
 
 
 
+/* --------------legend styles----------------------------- */
+
+.legend_contained{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #FFF;
+  gap: 30px;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.loc_icon{
+  width: 30px;
+  height: 30px;
+}
+
+.child_legend_cont{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --------------------------------------------------------------- */

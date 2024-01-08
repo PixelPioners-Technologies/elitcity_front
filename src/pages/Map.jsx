@@ -121,6 +121,9 @@ export default function Map({selectedLanguage}) {
   const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('');
   const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('');
 
+  const [min_space, setMin_space] = useState('');
+  const [max_space, setMax_space] = useState('');
+
   const [minFullPrice, setMinFullPrice] = useState('');
   const [maxFullPrice, setMaxFullPrice] = useState('');
 
@@ -196,6 +199,8 @@ export default function Map({selectedLanguage}) {
           max_price_per_sq_meter: maxPricePerSquareMeter,
           min_full_price: minFullPrice,
           max_full_price: maxFullPrice,
+          min_space : min_space, 
+          max_space : max_space,
           ordering: ascendentPrice
         });
     
@@ -219,7 +224,7 @@ export default function Map({selectedLanguage}) {
     
       fetchComplexes();
     }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter,
-       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, ascendentPrice]);
+       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, ascendentPrice, max_space , min_space]);
     
 
   
@@ -527,8 +532,11 @@ const handleStatusButtonLanguageChange = (lang) => {
     cityButtonLanguage : "Select City ",
     spaceButtonLanguage : "Space",
     priceButtonLanguage: "Price",
-    allStatusLanguage: "All"
-  } 
+    allStatusLanguage: "All",
+    legendUnderPlanning : "Under Planning",
+    legendUnderConstructioin : "Under Construction",
+    legendComplited : "Complited",
+  }
 
   switch (lang) {
     case "en" :
@@ -537,6 +545,9 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.spaceButtonLanguage = "Space"
       languageInfo.priceButtonLanguage = "Price"
       languageInfo.allStatusLanguage = "All"
+      languageInfo.legendUnderPlanning = "Under Planning"
+      languageInfo.legendUnderConstructioin = "Under Construction"
+      languageInfo.legendComplited = "Complited"
       break;
 
     case "ka" :
@@ -545,14 +556,20 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.spaceButtonLanguage = "ფართი"
       languageInfo.priceButtonLanguage = "ფასი"
       languageInfo.allStatusLanguage = "ყველა"
+      languageInfo.legendUnderPlanning = "დაგეგმვის პროცესში"
+      languageInfo.legendUnderConstructioin = "მშენებარე"
+      languageInfo.legendComplited = "დასრულებული"
       break
-
+      
     case "ru" :
       languageInfo.statusInfoLanguage = "выберите статус"
       languageInfo.cityButtonLanguage = "Местоположение"
       languageInfo.spaceButtonLanguage = "Площадь"
       languageInfo.priceButtonLanguage = "Цена"
       languageInfo.allStatusLanguage = "Все"
+      languageInfo.legendUnderPlanning = "На стадии планирования"
+      languageInfo.legendUnderConstructioin = "На стадии строительства"
+      languageInfo.legendComplited = "Завершено"
       break
   }
   return languageInfo
@@ -599,15 +616,15 @@ const handleLoad = (map) => {
                                         <input
                                       type="number"
                                       placeholder='Min Price Per Square Meter'
-                                      value={minPricePerSquareMeter}
-                                      onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                                      value={min_space}
+                                      onChange={(e) => setMin_space(e.target.value)}
                                   />
                                   
                                     <input
                                       type="number"
                                       placeholder='Max Price Per Square Meter'
-                                      value={maxPricePerSquareMeter}
-                                      onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+                                      value={max_space}
+                                      onChange={(e) => setMax_space(e.target.value)}
                                   />
                                   <p>otaxebis filtraciac unda iyos aq</p>
                               </div>
@@ -739,9 +756,22 @@ const handleLoad = (map) => {
                         </GoogleMap>
                       </LoadScript>
                     </div> 
-                    <div  >
-                        <button onClick={() => setAscendentPrice("-price_per_sq_meter")}> fasi klebadobit</button>
-                        <button onClick={() => setAscendentPrice("price_per_sq_meter")} >fasi zrdadobit</button>
+                    <div className='legend_contained' >
+
+                      <div className='child_legend_cont' >
+                          <img src={red} rel='location icon' className='loc_icon'  />
+                          <p> {handleStatusButtonLanguageChange(selectedLanguage).legendUnderPlanning} </p>
+                      </div>
+
+                      <div className='child_legend_cont' >
+                          <img src={yelow} rel='location icon' className='loc_icon' />
+                          <p> {handleStatusButtonLanguageChange(selectedLanguage).legendUnderConstructioin} </p>
+                      </div>
+
+                      <div className='child_legend_cont' >
+                          <img src={green} rel='location icon' className='loc_icon'  />
+                          <p> {handleStatusButtonLanguageChange(selectedLanguage).legendComplited}</p>
+                      </div>
 
                     </div>
                 
