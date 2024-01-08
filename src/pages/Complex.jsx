@@ -223,7 +223,7 @@ useEffect(() => {
     try {
       setIsLoading(true);
       // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
-      const response = await axios.get(`http://127.0.0.1:8000/complex/${requestUrl}`);
+      const response = await axios.get(`https://2f7208454dce8a4221c4d6e4d2b5345b.serveo.net/${requestUrl}`);
 
       // const { results } = response.data.results[0];
       const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
