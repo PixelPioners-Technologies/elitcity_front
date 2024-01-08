@@ -44,7 +44,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 const axiosInstance = axios.create({
   // baseURL: 'https://api.storkhome.ge'
-  baseURL: 'https://6cf2c30d277cc9c200a5ff0a313ac6cf.serveo.net/'
+  baseURL: 'https://2f7208454dce8a4221c4d6e4d2b5345b.serveo.net/'
 
 
 });
@@ -269,7 +269,7 @@ useEffect(() => {
     try {
       setIsLoading(true);
       // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
-      const response = await axiosInstance.get(`http://127.0.0.1:8000/complex/${requestUrl}`);
+      const response = await axios.get(`http://127.0.0.1:8000/complex/${requestUrl}`);
 
       // const { results } = response.data.results[0];
       const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
