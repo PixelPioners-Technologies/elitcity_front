@@ -6,7 +6,7 @@ const Modal_1 = ({ isOpen, close, children }) => {
   const openClass = isOpen ? 'open' : '';
   return (
     <div className={`modal-overlay ${openClass}`} onClick={close}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
+      <div className="modal-content scale-up-top" onClick={e => e.stopPropagation()}>
         {children}
       </div>
     </div>
