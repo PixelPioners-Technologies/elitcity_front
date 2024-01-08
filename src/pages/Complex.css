@@ -43,10 +43,12 @@
 .switch {
   width: 110px;
   /* height: 70px; */
-  background-color: rgba(255, 255, 255, 0.4);
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  background-color: black;
+
   display: flex;
   justify-content: flex-start;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   border-radius: 50px;
   padding: 10px;
   cursor: pointer;
@@ -55,7 +57,7 @@
 
 
 
-.switch[data-isOn="true"] {
+.switch[data-ison="true"] {
   justify-content: flex-end;
 }
 
@@ -65,16 +67,18 @@
   background-color: white;
   border-radius: 40px;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
 .currency-sign {
-  width: 50px; /* Adjust width as needed */
+  width: 40px; /* Adjust width as needed */
   height: auto;
-  margin-right: 5px; /* Add spacing between the images */
+  margin-right: 0px; /* Add spacing between the images */
 }
 
 .currency-sign.active {
+
   display: none; /* Hide inactive currency sign */
 }
 /* ------------- */
