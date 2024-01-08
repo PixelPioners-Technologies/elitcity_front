@@ -4,7 +4,7 @@
 /* eslint-disable no-undef */
 // import React from 'react'
 import './Complex.css';
-// import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
@@ -52,6 +52,8 @@ export default function Complex({favoriteHandler, favorites, selectedLanguage}) 
   const [isLoading, setIsLoading] = useState(true);
   const [forPriceDecrease, setForPriceDecrease] = useState(null);
   const [sortedHomes, setSortedHomes] = useState(null); // Initialize sortedHomes state
+  const [ascendentPrice, setAscendentPrice] = useState('');
+
 
 
 
@@ -197,11 +199,22 @@ const sortHomes = (data, sortOrder) => {
   }
 };
 
+
+    // Create a URLSearchParams object
+    let queryParams = new URLSearchParams({
+      ordering: ascendentPrice
+    });
+
+    const queryString = queryParams.toString();
+    const requestUrl = `${selectedLanguage}/?${queryString}`;
+    
 useEffect(() => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
+      // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
+      const response = await axiosInstance.get(`http://127.0.0.1:8000/complex/${requestUrl}`);
+
       // const { results } = response.data.results[0];
       const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
       // console.log('es aris D A T A',data)
@@ -217,7 +230,7 @@ useEffect(() => {
   };
 
   fetchData();
-}, [currentPage]);
+}, [currentPage, ascendentPrice]);
 
 useEffect(() => {
   const sortedResults = sortHomes(homes, forPriceDecrease);
@@ -343,15 +356,15 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
         >
           <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>თარიღი კლებადობით</MenuItem>
           <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>თარიღი ზრდადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>ფასი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); }}>ფასი ზრდადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით</MenuItem>
         </Menu>
         {/* -------------------------------- */}
         </div>
 
         {/* ----Dollar and Lari Toggle button */}
 
-          <div className="switch" data-isOn={isOn} onClick={toggleSwitch}>
+          <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
             <motion.div className="handle" layout transition={spring}>
               <img
                 src={lari}

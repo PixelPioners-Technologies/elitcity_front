@@ -131,8 +131,12 @@ export default function Map({selectedLanguage}) {
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  
+  const [selectedStatuses, setSelectedStatuses] = useState([])
+  
+  const [ascendentPrice, setAscendentPrice] = useState('');
 
-  const [selectedStatuses , setSelectedStatuses] = useState([])
+
 //----------------------------------------------------------------------------------------------------
   //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
     //  address_en__city_en__city_en__icontains=& 
@@ -188,7 +192,8 @@ export default function Map({selectedLanguage}) {
           min_price_per_sq_meter: minPricePerSquareMeter,
           max_price_per_sq_meter: maxPricePerSquareMeter,
           min_full_price: minFullPrice,
-          max_full_price: maxFullPrice
+          max_full_price: maxFullPrice,
+          ordering: ascendentPrice
         });
     
         // Append each status as a separate parameter
@@ -211,7 +216,7 @@ export default function Map({selectedLanguage}) {
     
       fetchComplexes();
     }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter,
-       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses]);
+       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, ascendentPrice]);
     
 
   
@@ -449,9 +454,10 @@ const handleDistrictChange = (e, district) => {
 // },[selectedPharentDistricts,selectedDistricts ] )
 
 useEffect(() => {
-  console.log("Selected Statuses:", selectedStatuses);
+  console.log("es unda iyos sortirebuli kompleqsebi :", complexes);
+  console.log('sortirebis steiti',ascendentPrice )
   // ... rest of your useEffect code ...
-}, [selectedStatuses]);
+}, [selectedStatuses , ascendentPrice]);
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
@@ -724,6 +730,8 @@ const handleLoad = (map) => {
                       </LoadScript>
                     </div> 
                     <div  >
+                        <button onClick={() => setAscendentPrice("-price_per_sq_meter")}> fasi klebadobit</button>
+                        <button onClick={() => setAscendentPrice("price_per_sq_meter")} >fasi zrdadobit</button>
 
                     </div>
                 
