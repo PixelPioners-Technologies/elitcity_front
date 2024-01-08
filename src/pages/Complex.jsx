@@ -46,7 +46,7 @@ const basess = 'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/';
 
 const axiosInstance = axios.create({
   // baseURL: 'https://api.storkhome.ge'
-  baseURL: 'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/';
+  baseURL:  'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/'
 
 
 });
