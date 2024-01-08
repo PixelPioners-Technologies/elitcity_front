@@ -42,9 +42,11 @@ import MenuItem from '@mui/material/MenuItem';
 //   baseURL: 'http://34.201.93.104:8000'
 // });
 
+const basess = 'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/';
+
 const axiosInstance = axios.create({
-  // baseURL: 'https://api.storkhome.ge/'
-  baseURL: 'https://2f7208454dce8a4221c4d6e4d2b5345b.serveo.net/'
+  // baseURL: 'https://api.storkhome.ge'
+  baseURL: 'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/';
 
 
 });
@@ -198,7 +200,55 @@ const normalizeComplexData = (data, lang) => {
 
 
 // ------------------------------------------------------------------------------------
-// second useEffect
+
+// (START)---- აქ სამივეა: ფასი, გამოქვეყნების თარიღი და რეიტინგის მიხედვითაც სორტირებული
+// const sortHomes = (data, sortOrder, sortBy) => {
+//   if (sortBy === 'price') {
+//     if (sortOrder === 'decrease') {
+//       return [...data].sort((a, b) => parseFloat(b.complexDetails.pricePerSqMeter) - parseFloat(a.complexDetails.pricePerSqMeter));
+//     } else if (sortOrder === 'increase') {
+//       return [...data].sort((a, b) => parseFloat(a.complexDetails.pricePerSqMeter) - parseFloat(b.complexDetails.pricePerSqMeter));
+//     }
+//   } else if (sortBy === 'publishedTime') {
+//     if (sortOrder === 'decrease') {
+//       return [...data].sort((a, b) => new Date(b.publishedTime) - new Date(a.publishedTime));
+//     } else if (sortOrder === 'increase') {
+//       return [...data].sort((a, b) => new Date(a.publishedTime) - new Date(b.publishedTime));
+//     }
+//   } else if (sortBy === 'rating') {
+//     if (sortOrder === 'decrease') {
+//       return [...data].sort((a, b) => b.rating - a.rating);
+//     } else if (sortOrder === 'increase') {
+//       return [...data].sort((a, b) => a.rating - b.rating);
+//     }
+//   }
+//   return data;
+// };
+// -(END)-----------------------------------------------------------
+
+
+
+// (START)-----  აქ კიდე ესაა გასაწერი, რომ კონკრეტულ ღილაკზე დაჭერისას რა ქნას... მაგიტომაცაა მითითებული
+// ესენი:  setSortBy('price');, setSortBy('publishedTime'), setSortBy('rating');
+
+{/* <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('price'); }}>ფასი კლებადობით</MenuItem>
+<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('price'); }}>ფასი ზრდადობით</MenuItem>
+
+<MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('publishedTime'); }}>თარიღი კლებადობით</MenuItem>
+<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('publishedTime'); }}>თარიღი ზრდადობით</MenuItem>
+
+<MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('rating'); }}>რეიტინგი კლებადობით</MenuItem>
+<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('rating'); }}>რეიტინგი ზრდადობით</MenuItem> */}
+// -(END)----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+// second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული);
 const sortHomes = (data, sortOrder) => {
   if (sortOrder === 'decrease') {
     return [...data].sort((a, b) => parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter));
@@ -223,7 +273,7 @@ useEffect(() => {
     try {
       setIsLoading(true);
       // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
-      const response = await axios.get(`https://2f7208454dce8a4221c4d6e4d2b5345b.serveo.net/${requestUrl}`);
+      const response = await axios.get(`${basess}/complex/${requestUrl}`);
 
       // const { results } = response.data.results[0];
       const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
@@ -366,8 +416,8 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
             'aria-labelledby': 'basic-button',
           }}
         >
-          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>თარიღი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); }}>თარიღი ზრდადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-created_at'); }}>თარიღი კლებადობით</MenuItem>
+          <MenuItem onClick={() => { handleClose(); setAscendentPrice('created_at'); }}>თარიღი ზრდადობით</MenuItem>
           <MenuItem onClick={() => { handleClose(); setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით</MenuItem>
           <MenuItem onClick={() => { handleClose(); setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით</MenuItem>
         </Menu>
