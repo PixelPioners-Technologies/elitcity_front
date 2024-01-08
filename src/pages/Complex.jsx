@@ -52,6 +52,8 @@ export default function Complex({favoriteHandler, favorites, selectedLanguage}) 
 
   const [homes, setHomes] = useState([]);
   console.log('-----',homes)
+  console.log('1111111',homes)
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -218,7 +220,7 @@ useEffect(() => {
     try {
       setIsLoading(true);
       // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
-      const response = await axiosInstance.get(`http://127.0.0.1:8000/complex/${requestUrl}`);
+      const response = await axios.get(`http://127.0.0.1:8000/complex/${requestUrl}`);
 
       // const { results } = response.data.results[0];
       const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
