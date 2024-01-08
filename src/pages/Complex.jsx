@@ -42,6 +42,8 @@ import MenuItem from '@mui/material/MenuItem';
 //   baseURL: 'http://34.201.93.104:8000'
 // });
 
+const basess = 'https://2f7208454dce8a4221c4d6e4d2b5345b.serveo.net';
+
 const axiosInstance = axios.create({
   // baseURL: 'https://api.storkhome.ge'
   baseURL: 'https://2f7208454dce8a4221c4d6e4d2b5345b.serveo.net/'
@@ -55,6 +57,8 @@ export default function Complex({favoriteHandler, favorites, selectedLanguage}) 
 
   const [homes, setHomes] = useState([]);
   console.log('-----',homes)
+  console.log('1111111',homes)
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -269,7 +273,7 @@ useEffect(() => {
     try {
       setIsLoading(true);
       // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
-      const response = await axios.get(`http://127.0.0.1:8000/complex/${requestUrl}`);
+      const response = await axios.get(`${basess}/complex/${requestUrl}`);
 
       // const { results } = response.data.results[0];
       const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
