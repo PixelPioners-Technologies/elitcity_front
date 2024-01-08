@@ -13,8 +13,10 @@ import PriceModal_1 from '../modals for main page/PriceModal_1';
 import SpaceModal_1 from '../modals for main page/SpaceModal_1';
 import StatusModal_1 from '../modals for main page/StatusModa_1';
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 
 import './HomePage.css'
+import { Data } from '@react-google-maps/api';
 // const initialCenter = {
 //   lat: 41.7151,
 //   lng: 44.8271
@@ -117,6 +119,15 @@ export default function Map({selectedLanguage}) {
   const [minFullPrice, setMinFullPrice] = useState('');
   const [maxFullPrice, setMaxFullPrice] = useState('');
 
+  //////// for searchinput ///////////////////
+  const [searchInput, setSearchInput] = useState('');
+  const [searchButton, setSearchButton] = useState(false);
+
+  const searchButtonHandler = () => {
+    setSearchButton (!searchButton)
+  }
+  //////////////////////////////////////////////////
+
   // const [status, setStatus] = useState('');
 
   // const [mapCenter, setMapCenter] = useState(initialCenter);
@@ -156,6 +167,11 @@ export default function Map({selectedLanguage}) {
         // Construct the full URL with query parameters
         const queryString = queryParams.toString();
         const requestUrl = `${Base_URL}${selectedLanguage}/?${queryString}`;
+
+        //////////////////////    T  E  S  T  ///////////////////////////
+        // local_url = 'http://127.0.0.1:8000'
+        // const requestUrl = `${local_url}${selectedLanguage}/?${queryString}`;
+        /////////////// Can Erase if not need////////////////////////////
     
         try {
           const response = await axios.get(requestUrl);
@@ -168,10 +184,10 @@ export default function Map({selectedLanguage}) {
     
       fetchComplexes();
     }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter,
-       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses]);
+       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, searchButton]);
     
 
-  
+  console.log(complexes)
 // ----------------------------------------------------------------------------------------------
 //-----------------------------------fetch ionly locations --------------------------------------
 
@@ -570,10 +586,30 @@ const handleLoad = (map) => {
                       </div>
                       {/* Button For find word (sityvit dzebna) */}
                       <div className="button-modal-container" >
-                            <div onClick={handleStatusButtonClick} className='lacation_button'   >
-                            {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
-                              <img src={button_icon1} alt="find_image" className='dropdown' />
-                            </div>
+                        <input
+                          type="text"
+                          placeholder='Search Input'
+                          value={searchInput}
+                          onChange={(e) => setSearchInput(e.target.value)}
+                        />
+                      </div>
+
+                      {/* Map button link */}
+                      <div>
+                      {/* Other content in your component */}
+            
+                      {/* Button to navigate to the map page */}
+                        <Link to="/map">
+                          <button className='modal_close_button'>Go to Map</button>
+                        </Link>
+                      </div>
+                      {/* button for search */}
+                      <div>
+                        {/* <Link to="/complex"> */}
+                          <button className='modal_close_button' onClick={searchButtonHandler}>
+                            ძიება
+                          </button>
+                        {/* </Link> */}
                       </div>
                       
                   </div>
