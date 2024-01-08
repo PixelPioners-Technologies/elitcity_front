@@ -133,7 +133,16 @@ export default function Map({selectedLanguage}) {
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
 
-  const [selectedStatuses , setSelectedStatuses] = useState([])
+  const [selectedStatuses , setSelectedStatuses] = useState([]);
+  
+  const [searchInput, setSearchInput] = useState('');
+  const [searchButton , setSearchButton] = useState(false);
+  
+  const searchButtonHandler = () => {
+    setSearchButton(!searchButton)
+  };
+
+
 //----------------------------------------------------------------------------------------------------
 
      useEffect(() => {
