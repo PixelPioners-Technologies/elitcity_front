@@ -299,9 +299,13 @@
     -webkit-transform: scaleX(0.7);
             transform: scaleX(0.7);
   }
-  75% {
+  70% {
     -webkit-transform: scaleX(0.8);
             transform: scaleX(0.8);
+  }
+  80% {
+    -webkit-transform: scaleX(0.9);
+            transform: scaleX(0.9);
   }
   100% {
     -webkit-transform: scaleX(1);
