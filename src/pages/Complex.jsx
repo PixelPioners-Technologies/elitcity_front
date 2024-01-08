@@ -55,6 +55,8 @@ export default function Complex({favoriteHandler, favorites, selectedLanguage}) 
 
   const [homes, setHomes] = useState([]);
   console.log('-----',homes)
+  console.log('1111111',homes)
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
