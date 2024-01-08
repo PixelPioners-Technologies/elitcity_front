@@ -27,6 +27,7 @@ const initialCenter = {
 const Base_URL = "http://127.0.0.1:8000/complex/";
 
 
+
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
 
 const normalizeComplexData = (data, lang) => {
@@ -673,7 +674,7 @@ const handleLoad = (map) => {
 
                   
 
-                    <div className='map_cont'>
+                    <div className='map_cont scale-up-hor-center' >
                       <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
                         <GoogleMap
                           mapContainerStyle={{ width: '100%', height: '625px'  }}
