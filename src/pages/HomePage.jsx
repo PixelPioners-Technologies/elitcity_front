@@ -483,7 +483,7 @@ const handleLoad = (map) => {
                   <div className='filter_cont'>
 
                       {/* button for filtering space */}
-                      <div className="button-modal-container">
+                      <div className="button-modal-container ">
                             <div onClick={handleSpaceButtonClick}  className='space_button'  >
                               {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
