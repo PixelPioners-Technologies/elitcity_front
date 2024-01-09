@@ -248,7 +248,9 @@ const normalizeComplexData = (data, lang) => {
 
 
 
-// second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული);
+// second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული); ეს აღარაა საჭირო, რადგან გაკეთდა უვკე სორტირება !!!!!!!! 
+// (თუმცა ჯერ 
+// ეწეროს მაინც)
 const sortHomes = (data, sortOrder) => {
   if (sortOrder === 'decrease') {
     return [...data].sort((a, b) => parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter));
