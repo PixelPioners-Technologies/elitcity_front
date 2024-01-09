@@ -111,7 +111,7 @@ useEffect(() => {
           <Route index={true} element={<Complex favoriteHandler={favoriteHandler} favorites={favorites} selectedLanguage={selectedLanguage} />} />
           <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />
         </Route>
-        <Route path='lots' element={<Lots />} />
+        {/* <Route path='lots' element={<Lots />} /> */}
         <Route path='developers' element={<Developers />} />
         <Route path='map'   element={<Map selectedLanguage={selectedLanguage}/>} />
         <Route path='sales' element={<Sales />} />
