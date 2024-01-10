@@ -5,15 +5,21 @@
 .ComplexBodyBox {
 
   margin-top: 50px;
+  padding: 0 150px;
+}
+
+.forPaddingOfInfoFieldOfComplexsPlansMaps {
   padding: 0 30px;
 }
 
 .infoFieldOfComplexsPlansMaps {
-  border: 1px solid red;
+  border: 1px solid black;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
-  padding: 0 80px;
+  height: 70px;
+  padding: 0 20px;
+
 }
 
 .complexInfoAndCountShowBox {
@@ -33,16 +39,33 @@
   align-items: center;
   justify-content: center;
 }
+/* /////////////////////////////// */
+.menu-transition {
+  transition: transform 0.3s ease-in-out; /* Adjust duration and easing as needed */
+  transform-origin: top center; /* Set the transform origin */
+  transform: scaleY(0); /* Initially set the scale to 0 to hide the menu */
+}
+.menu-open {
+  transform: scaleY(1); /* Set the scale to 1 to show the menu */
+}
+/* /////////////////////////////// */
+
 
 .mapSignLogo {
   width: 30px;
 }
 
+.currencyBox {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+
+}
 
 /* classes of toggle button on currency --- */
 .switch {
-  width: 110px;
-  /* height: 70px; */
+  width: 90px;
+  height: 50px;
   /* background-color: rgba(255, 255, 255, 0.4); */
   background-color: black;
 
@@ -62,8 +85,8 @@
 }
 
 .handle {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   background-color: white;
   border-radius: 40px;
   display: flex;
@@ -72,7 +95,7 @@
 }
 
 .currency-sign {
-  width: 40px; /* Adjust width as needed */
+  width: 27px; /* Adjust width as needed */
   height: auto;
   margin-right: 0px; /* Add spacing between the images */
 }
@@ -96,10 +119,11 @@
 
 .allCards {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   /* padding: 0 30px; */
   gap: 40px;
+  margin-top: 50px;
   margin-bottom: 100px;
   
  

@@ -391,89 +391,100 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
         >
+          <div className='forPaddingOfInfoFieldOfComplexsPlansMaps'>
+            <div className='infoFieldOfComplexsPlansMaps'>
+              <div className='complexInfoAndCountShowBox'>
+                <p>კომპლექსები {totalCount}</p>
+              </div>
+              {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება ---- */}
+              <div className='projectsPlansMapsSortingAndDollarBox'>
+                <Link to='/complex' >
+                  <div className='mapAndLogoImg'>
+                    <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                    <button>პროექტები</button>
+                  </div>
+                </Link>
 
-      <div className='infoFieldOfComplexsPlansMaps'>
-        <div className='complexInfoAndCountShowBox'>
-          <p>კომპლექსები {totalCount}</p>
+                <Link to='/complex/apartmentList' >
+                  <div className='mapAndLogoImg'>
+                    <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                    <button>გეგმარებები</button>
+                  </div>
+
+                </Link>
+
+
+                <Link to='/map' >
+                  <div className='mapAndLogoImg'>
+                    <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                    <button>რუკა</button>
+                  </div>
+                </Link>
+              {/* მხოლოდ for sorting ----- */}
+              {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
+              რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
+              <Button
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+                style={{ color: 'black' }}
+
+              >
+                სორტირება
+                <img src={arrowDownSorting} style={{width: '20px'}} />
+              </Button>
+              
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+                //
+                component={motion.div} 
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9 },
+                  visible: { opacity: 1, scale: 1 },
+                }}
+                initial="hidden"
+                animate={open ? 'visible' : 'hidden'}
+                transition={{ duration: 0.6 }}
+              >
+                <MenuItem onClick={() => { handleClose(); setAscendentPrice('-created_at'); }}>თარიღი კლებადობით</MenuItem>
+                <MenuItem onClick={() => { handleClose(); setAscendentPrice('created_at'); }}>თარიღი ზრდადობით</MenuItem>
+                <MenuItem onClick={() => { handleClose(); setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით</MenuItem>
+                <MenuItem onClick={() => { handleClose(); setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით</MenuItem>
+                <MenuItem onClick={() => { handleClose(); setAscendentPrice('-rank'); }}>რანკი კლებადობით</MenuItem>
+                <MenuItem onClick={() => { handleClose(); setAscendentPrice('rank'); }}>რანკი ზრდადობით</MenuItem>
+              </Menu>
+              {/* ---------------------------------- */}
+              </div>
+
+              {/* ----Dollar and Lari Toggle button */}
+                <div className='currencyBox'>
+                  <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
+                    <motion.div className="handle" layout transition={spring}>
+                      <img
+                        src={lari}
+                        alt="Lari Sign"
+                        className={`currency-sign ${isOn ? "active" : ""}`}
+                        />
+                      <img
+                        src={dollar}
+                        alt="Dollar Sign"
+                        className={`currency-sign ${!isOn ? "active" : ""}`}
+                        />
+                    </motion.div>
+                  </div>
+                </div>
+              {/* ---------------- */}
+
+            </div>
         </div>
-        {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება ---- */}
-        <div className='projectsPlansMapsSortingAndDollarBox'>
-          <Link to='/complex' >
-            <div className='mapAndLogoImg'>
-              <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-              <button>პროექტები</button>
-            </div>
-          </Link>
-
-          <Link to='/complex/apartmentList' >
-            <div className='mapAndLogoImg'>
-              <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-              <button>გეგმარებები</button>
-            </div>
-
-          </Link>
-
-
-          <Link to='/map' >
-            <div className='mapAndLogoImg'>
-              <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-              <button>რუკა</button>
-            </div>
-          </Link>
-        {/* მხოლოდ for sorting ----- */}
-        {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
-        რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
-        <Button
-          id="basic-button"
-          aria-controls={open ? 'basic-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClick}
-          style={{ color: 'black' }}
-
-        >
-          სორტირება
-          <img src={arrowDownSorting} style={{width: '20px'}} />
-        </Button>
-        
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-        >
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-created_at'); }}>თარიღი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('created_at'); }}>თარიღი ზრდადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-rank'); }}>რანკი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('rank'); }}>რანკი ზრდადობით</MenuItem>
-        </Menu>
-        {/* ---------------------------------- */}
-        </div>
-
-        {/* ----Dollar and Lari Toggle button */}
-
-          <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
-            <motion.div className="handle" layout transition={spring}>
-              <img
-                src={lari}
-                alt="Lari Sign"
-                className={`currency-sign ${isOn ? "active" : ""}`}
-                />
-              <img
-                src={dollar}
-                alt="Dollar Sign"
-                className={`currency-sign ${!isOn ? "active" : ""}`}
-                />
-            </motion.div>
-          </div>
-        {/* ---------------- */}
-
-      </div>
       </motion.div>
 
 {/* // ------------------------------------------------------------------------------------ */}
