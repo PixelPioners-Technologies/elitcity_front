@@ -19,6 +19,7 @@ import dollar from '../assets/dollar-svgrepo-com.svg';
 
 import lari from '../assets/lari-svgrepo-com.svg';
 // import lari from '../assets/lari-white.svg';
+import arrowDownSorting from '../assets/arrow-down-for-sorting.svg';
 
 
 
@@ -42,14 +43,16 @@ import MenuItem from '@mui/material/MenuItem';
 //   baseURL: 'http://34.201.93.104:8000'
 // });
 
-const basess = 'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/';
-
-const axiosInstance = axios.create({
-  // baseURL: 'https://api.storkhome.ge'
-  baseURL:  'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/'
+// const basess = 'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net';
+const basess = 'http://127.0.0.1:8000';
 
 
-});
+// const axiosInstance = axios.create({
+//   // baseURL: 'https://api.storkhome.ge'
+//   baseURL:  'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/'
+
+
+// });
 
 
 // eslint-disable-next-line react/prop-types
@@ -248,7 +251,9 @@ const normalizeComplexData = (data, lang) => {
 
 
 
-// second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული);
+// second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული); ეს აღარაა საჭირო, რადგან გაკეთდა უვკე სორტირება !!!!!!!! 
+// (თუმცა ჯერ 
+// ეწეროს მაინც)
 const sortHomes = (data, sortOrder) => {
   if (sortOrder === 'decrease') {
     return [...data].sort((a, b) => parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter));
@@ -291,6 +296,7 @@ useEffect(() => {
 
   fetchData();
 }, [currentPage, ascendentPrice]);
+console.log('homes: -----', homes);
 
 useEffect(() => {
   const sortedResults = sortHomes(homes, forPriceDecrease);
@@ -324,27 +330,39 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
   // Maping variable
   // ------------------------------------------------------------------------------------
   const homeMaping = currentSortedHomes.map((complex, index) => (
+    
+    
     <div className='card' key={index}>
-      <div className='heartbuttonAndImageBox'>
-        <div className='heartButtonBox'>
-          <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
-            {favorites.some(fav => fav.id === complex.id) ? (
-              <img src={heartIcon} alt='Logo of heart' />
-              ) : (
-                <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
-                )}
-          </button>
+      <motion.div
+          initial={{ x: -50, opacity: 0 }}
+          transition={{ duration: 1 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+        >
+
+        <div className='heartbuttonAndImageBox'>
+          <div className='heartButtonBox'>
+            <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
+              {favorites.some(fav => fav.id === complex.id) ? (
+                <img src={heartIcon} alt='Logo of heart' />
+                ) : (
+                  <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+                  )}
+            </button>
+          </div>
+          <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
         </div>
-        <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
-      </div>
-      <p style={styles.companyTitle}>{complex.name}</p>
-      <div className='textInfo'>
-        <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
-        <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
-        {/* Update the line below with the actual date property */}
-        <p style={styles.complexFinished}>Date: {complex.date}</p>
-      </div>
+        <p style={styles.companyTitle}>{complex.name}</p>
+        <div className='textInfo'>
+          <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
+          <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
+          {/* Update the line below with the actual date property */}
+          <p style={styles.complexFinished}>Date: {complex.date}</p>
+        </div>
+      </motion.div>
     </div>
+  
+
   ))
   // ------------------------------------------------------------------------------------
 
@@ -367,6 +385,13 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
   return (
     <div className='ComplexBodyBox'>
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
+      <motion.div
+          initial={{ y: -50, opacity: 0 }}
+          transition={{ duration: 1 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+        >
+
       <div className='infoFieldOfComplexsPlansMaps'>
         <div className='complexInfoAndCountShowBox'>
           <p>კომპლექსები {totalCount}</p>
@@ -404,9 +429,13 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
+          style={{ color: 'black' }}
+
         >
           სორტირება
+          <img src={arrowDownSorting} style={{width: '20px'}} />
         </Button>
+        
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
@@ -445,6 +474,8 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
         {/* ---------------- */}
 
       </div>
+      </motion.div>
+
 {/* // ------------------------------------------------------------------------------------ */}
 
 
@@ -464,6 +495,7 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
             </div>
           ))
         ) : (
+          
           homeMaping
         )}
       </div>
