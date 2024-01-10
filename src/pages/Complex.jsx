@@ -307,7 +307,7 @@ useEffect(() => {
 
 
 // Pagination logic
-const itemsPerPage = 10;
+const itemsPerPage = 12;
 const totalPageCount = Math.ceil(totalCount / itemsPerPage);
 const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : [];
 
