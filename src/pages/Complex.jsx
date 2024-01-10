@@ -43,20 +43,16 @@ import MenuItem from '@mui/material/MenuItem';
 //   baseURL: 'http://34.201.93.104:8000'
 // });
 
-<<<<<<< HEAD
 // const basess = 'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net';
 const basess = 'http://127.0.0.1:8000';
 
-=======
-const basess = 'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/';
->>>>>>> origin/main
 
-const axiosInstance = axios.create({
-  // baseURL: 'https://api.storkhome.ge'
-  baseURL:  'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/'
+// const axiosInstance = axios.create({
+//   // baseURL: 'https://api.storkhome.ge'
+//   baseURL:  'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/'
 
 
-});
+// });
 
 
 // eslint-disable-next-line react/prop-types
