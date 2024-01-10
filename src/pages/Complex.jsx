@@ -444,6 +444,15 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
                 MenuListProps={{
                   'aria-labelledby': 'basic-button',
                 }}
+                //
+                component={motion.div} 
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9 },
+                  visible: { opacity: 1, scale: 1 },
+                }}
+                initial="hidden"
+                animate={open ? 'visible' : 'hidden'}
+                transition={{ duration: 0.6 }}
               >
                 <MenuItem onClick={() => { handleClose(); setAscendentPrice('-created_at'); }}>თარიღი კლებადობით</MenuItem>
                 <MenuItem onClick={() => { handleClose(); setAscendentPrice('created_at'); }}>თარიღი ზრდადობით</MenuItem>

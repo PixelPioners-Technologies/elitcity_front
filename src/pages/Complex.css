@@ -39,6 +39,17 @@
   align-items: center;
   justify-content: center;
 }
+/* /////////////////////////////// */
+.menu-transition {
+  transition: transform 0.3s ease-in-out; /* Adjust duration and easing as needed */
+  transform-origin: top center; /* Set the transform origin */
+  transform: scaleY(0); /* Initially set the scale to 0 to hide the menu */
+}
+.menu-open {
+  transform: scaleY(1); /* Set the scale to 1 to show the menu */
+}
+/* /////////////////////////////// */
+
 
 .mapSignLogo {
   width: 30px;
