@@ -138,12 +138,12 @@ export default function Map({selectedLanguage}) {
   const [searchInput, setSearchInput] = useState('');
   const [searchButton , setSearchButton] = useState(false);
   
-  const searchButtonHandler = () => {
-    setSearchButton(!searchButton)
-  };
+  // const searchButtonHandler = () => {
+  //   setSearchButton(!searchButton)
+  // };
 
 
-//----------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 
      useEffect(() => {
       const fetchComplexes = async () => {
@@ -151,18 +151,7 @@ export default function Map({selectedLanguage}) {
         const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
         const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
         
-        // Create a URLSearchParams object
-        let queryParams = new URLSearchParams({
-          [cityParam]: selectedCity,
-          [pharentdistrictParams]: selectedPharentDistricts.join(','),
-          [districtParams]: selectedDistricts.join(','),
-          min_price_per_sq_meter: minPricePerSquareMeter,
-          max_price_per_sq_meter: maxPricePerSquareMeter,
-          min_full_price: minFullPrice,
-          max_full_price: maxFullPrice,
-          min_space : min_space, 
-          max_space : max_space,
-        });
+        //f
     
         // Append each status as a separate parameter
         selectedStatuses.forEach(status => {
@@ -192,7 +181,26 @@ export default function Map({selectedLanguage}) {
        maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, searchButton]);
     
 
-  console.log(complexes)
+//===================================================================================
+// --------------------------------for search input -------------------------------------------
+// Add this constant at the beginning of your component
+const SearchBase_URL = "http://127.0.0.1:8000/complex_word/";
+
+// Update the searchButtonHandler function
+const searchButtonHandler = async () => {
+  // Build the request URL for searching
+  const searchUrl = `${SearchBase_URL}${selectedLanguage}/?search=${searchInput}`;
+
+  try {
+    // Make the Axios request with the new URL
+    const response = await axios.get(searchUrl);
+    // Process the response or update state as needed
+    console.log('Search Results:', response.data);
+  } catch (error) {
+    console.error('Error searching complexes:', error);
+  }
+};
+
 // ----------------------------------------------------------------------------------------------
 //-----------------------------------fetch ionly locations --------------------------------------
 
