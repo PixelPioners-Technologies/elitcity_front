@@ -19,6 +19,8 @@ import dollar from '../assets/dollar-svgrepo-com.svg';
 
 import lari from '../assets/lari-svgrepo-com.svg';
 // import lari from '../assets/lari-white.svg';
+import arrowDownSorting from '../assets/arrow-down-white.svg';
+import googleMapImage from '../assets/mapImageForFooter.svg';
 
 
 
@@ -42,14 +44,17 @@ import MenuItem from '@mui/material/MenuItem';
 //   baseURL: 'http://34.201.93.104:8000'
 // });
 
+
+
 const basess = 'http://127.0.0.1:8000';
 
-const axiosInstance = axios.create({
-  // baseURL: 'https://api.storkhome.ge'
-  baseURL: 'https://2f7208454dce8a4221c4d6e4d2b5345b.serveo.net/'
+
+// const axiosInstance = axios.create({
+//   // baseURL: 'https://api.storkhome.ge'
+//   baseURL:  'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/'
 
 
-});
+// });
 
 
 // eslint-disable-next-line react/prop-types
@@ -248,7 +253,9 @@ const normalizeComplexData = (data, lang) => {
 
 
 
-// second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული);
+// second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული); ეს აღარაა საჭირო, რადგან გაკეთდა უვკე სორტირება !!!!!!!! 
+// (თუმცა ჯერ 
+// ეწეროს მაინც)
 const sortHomes = (data, sortOrder) => {
   if (sortOrder === 'decrease') {
     return [...data].sort((a, b) => parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter));
@@ -290,7 +297,9 @@ useEffect(() => {
   };
 
   fetchData();
+
 }, [currentPage, ascendentPrice, selectedLanguage]);
+
 
 useEffect(() => {
   const sortedResults = sortHomes(homes, forPriceDecrease);
@@ -301,9 +310,11 @@ useEffect(() => {
 
 
 // Pagination logic
-const itemsPerPage = 10;
+const itemsPerPage = 12;
 const totalPageCount = Math.ceil(totalCount / itemsPerPage);
 const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : [];
+
+
 
 
 
@@ -324,27 +335,39 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
   // Maping variable
   // ------------------------------------------------------------------------------------
   const homeMaping = currentSortedHomes.map((complex, index) => (
+    
+    
     <div className='card' key={index}>
-      <div className='heartbuttonAndImageBox'>
-        <div className='heartButtonBox'>
-          <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
-            {favorites.some(fav => fav.id === complex.id) ? (
-              <img src={heartIcon} alt='Logo of heart' />
-              ) : (
-                <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
-                )}
-          </button>
+      <motion.div
+          initial={{ x: -50, opacity: 0 }}
+          transition={{ duration: 1 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+        >
+
+        <div className='heartbuttonAndImageBox'>
+          <div className='heartButtonBox'>
+            <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
+              {favorites.some(fav => fav.id === complex.id) ? (
+                <img src={heartIcon} alt='Logo of heart' />
+                ) : (
+                  <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+                  )}
+            </button>
+          </div>
+          <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
         </div>
-        <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
-      </div>
-      <p style={styles.companyTitle}>{complex.name}</p>
-      <div className='textInfo'>
-        <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
-        <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
-        {/* Update the line below with the actual date property */}
-        <p style={styles.complexFinished}>Date: {complex.date}</p>
-      </div>
+        <p style={styles.companyTitle}>{complex.name}</p>
+        <div className='textInfo'>
+          <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
+          <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
+          {/* Update the line below with the actual date property */}
+          <p style={styles.complexFinished}>Date: {complex.date}</p>
+        </div>
+      </motion.div>
     </div>
+  
+
   ))
   // ------------------------------------------------------------------------------------
 
@@ -367,84 +390,205 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
   return (
     <div className='ComplexBodyBox'>
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
-      <div className='infoFieldOfComplexsPlansMaps'>
-        <div className='complexInfoAndCountShowBox'>
-          <p>კომპლექსები {totalCount}</p>
-        </div>
-        {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება ---- */}
-        <div className='projectsPlansMapsSortingAndDollarBox'>
-          <Link to='/complex' >
-            <div className='mapAndLogoImg'>
-              <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-              <button>პროექტები</button>
-            </div>
-          </Link>
-
-          <Link to='/complex/apartmentList' >
-            <div className='mapAndLogoImg'>
-              <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-              <button>გეგმარებები</button>
-            </div>
-
-          </Link>
-
-
-          <Link to='/map' >
-            <div className='mapAndLogoImg'>
-              <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-              <button>რუკა</button>
-            </div>
-          </Link>
-        {/* მხოლოდ for sorting ----- */}
-        {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
-        რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
-        <Button
-          id="basic-button"
-          aria-controls={open ? 'basic-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClick}
+      <motion.div
+          initial={{ y: -50, opacity: 0 }}
+          transition={{ duration: 1 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
         >
-          სორტირება
-        </Button>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-        >
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-created_at'); }}>თარიღი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('created_at'); }}>თარიღი ზრდადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-rank'); }}>რანკი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('rank'); }}>რანკი ზრდადობით</MenuItem>
-        </Menu>
-        {/* ---------------------------------- */}
+          <div className='forPaddingOfInfoFieldOfComplexsPlansMaps'>
+            <div className='infoFieldOfComplexsPlansMaps'>
+              <div className='complexInfoAndCountShowBox'>
+                <p style={{color: 'white'}}>კომპლექსები {totalCount}</p>
+              </div>
+              {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
+              <div className='projectsPlansMapsSortingAndDollarBox'>
+                <Link to='/complex' >
+                <motion.div
+                  className="textButtonContainer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <div className='mapAndLogoImg'>
+                    <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                    <button className='textButton'>პროექტები</button>
+                  </div>
+                </motion.div>
+                </Link>
+
+                <Link to='/complex/apartmentList' >
+                <motion.div
+                  className="textButtonContainer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <div className='mapAndLogoImg'>
+                    <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                    <button className='textButton'>გეგმარებები</button>
+                  </div>
+                </motion.div>
+                </Link>
+
+
+                <Link to='/map' >
+                <motion.div
+                  className="textButtonContainer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <div className='mapAndLogoImg'>
+                    <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                    <button className='textButton'>რუკა</button>
+                  </div>
+                </motion.div>
+                </Link>
+                {/* მხოლოდ for sorting ----- */}
+                {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
+                რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  style={{ color: 'white', fontSize: '16px' }}
+                  
+                  >
+                  <div className='sortAndArrowDownImgBox'>
+                    სორტირება
+                    <img src={arrowDownSorting} style={{width: '20px', }} />
+                  </div>
+                </Button>
+                
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    style: {
+                      backgroundColor: "black",
+                      width: "270px",
+                  },
+                    'aria-labelledby': 'basic-button',
+                  }}
+            
+                  //
+                  component={motion.div} 
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.9 },
+                    visible: { opacity: 1, scale: 1 },
+                  }}
+                  initial="hidden"
+                  animate={open ? 'visible' : 'hidden'}
+                  transition={{ duration: 0.6 }}
+                >
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <MenuItem
+                        style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('-created_at'); }}>თარიღი კლებადობით
+                      </MenuItem>
+                    </motion.div>
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <MenuItem
+                        style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('created_at'); }}>თარიღი ზრდადობით
+                      </MenuItem>
+                    </motion.div>
+
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <MenuItem
+                        style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით
+                      </MenuItem>
+                    </motion.div>
+
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <MenuItem
+                        style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით
+                      </MenuItem>
+                    </motion.div>
+
+
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    > 
+                      <MenuItem
+                        style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('-rank'); }}>რანკი კლებადობით
+                      </MenuItem>
+                    </motion.div>
+
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <MenuItem
+                       style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('rank'); }}>რანკი ზრდადობით
+                      </MenuItem>
+                    </motion.div>
+
+                </Menu>
+                {/* ---------------------------------- */}
+
+                  {/* ----Dollar and Lari Toggle button */}
+                  <div className='currencyBox'>
+                    <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
+                      <motion.div className="handle" layout transition={spring}>
+                        <img
+                          src={lari}
+                          alt="Lari Sign"
+                          className={`currency-sign ${isOn ? "active" : ""}`}
+                          />
+                        <img
+                          src={dollar}
+                          alt="Dollar Sign"
+                          className={`currency-sign ${!isOn ? "active" : ""}`}
+                          />
+                      </motion.div>
+                    </div>
+                  </div>
+                    {/* ---------------- */}
+                </div>
+
+            </div>
         </div>
+      </motion.div>
 
-        {/* ----Dollar and Lari Toggle button */}
-
-          <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
-            <motion.div className="handle" layout transition={spring}>
-              <img
-                src={lari}
-                alt="Lari Sign"
-                className={`currency-sign ${isOn ? "active" : ""}`}
-                />
-              <img
-                src={dollar}
-                alt="Dollar Sign"
-                className={`currency-sign ${!isOn ? "active" : ""}`}
-                />
-            </motion.div>
-          </div>
-        {/* ---------------- */}
-
-      </div>
 {/* // ------------------------------------------------------------------------------------ */}
 
 
@@ -464,6 +608,7 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
             </div>
           ))
         ) : (
+          
           homeMaping
         )}
       </div>
@@ -499,6 +644,18 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
         </Stack>
       </div>
       {/* ---------------------------------------------------------------- */}
+      <div className='googleMapImageBox'>
+        <Link to='/map' >
+          <motion.div
+              initial={{ x: -150, opacity: 0 }}
+              transition={{ duration: 1.5 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <img src={googleMapImage} alt='googleMapImage' className='googleMapImage' />
+          </motion.div>
+        </Link>
+      </div>
 
     </div>
   )
@@ -519,10 +676,10 @@ const styles = {
     // paddingLeft: '20px'
   },
   complexInfo: {
-    color: '#000000',
+    color: 'white',
   },
   complexFinished: {
-    color: '#515050',
+    color: 'white',
   },
 };
 

@@ -756,7 +756,7 @@ const handleLoad = (map) => {
                         </GoogleMap>
                       </LoadScript>
                     </div> 
-                    <div className='legend_contained' >
+                    <div className='legend_contained scale-up-hor-center' >
 
                       <div className='child_legend_cont' >
                           <img src={red} rel='location icon' className='loc_icon'  />

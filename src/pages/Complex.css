@@ -5,15 +5,21 @@
 .ComplexBodyBox {
 
   margin-top: 50px;
+  padding: 100px 150px;
+}
+
+.forPaddingOfInfoFieldOfComplexsPlansMaps {
   padding: 0 30px;
 }
 
 .infoFieldOfComplexsPlansMaps {
-  border: 1px solid red;
+  border: 1px solid black;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
-  padding: 0 80px;
+  height: 70px;
+  padding: 0 20px;
+
 }
 
 .complexInfoAndCountShowBox {
@@ -34,20 +40,68 @@
   justify-content: center;
 }
 
+
+.textButtonContainer:hover .textButton {
+  color: aqua;
+  cursor: pointer;
+}
+
+.textButton {
+  display: inline-block;
+  /* padding: 10px 20px; */
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid #000;
+  background-color: #000;
+  color: #fff;
+
+}
+
+
+
 .mapSignLogo {
   width: 30px;
 }
 
+.sortAndArrowDownImgBox {
+  display: flex;
+  gap: 10px;
+}
+
+
+/* /////////////////////////////// */
+.menu-transition {
+  transition: transform 0.3s ease-in-out; /* Adjust duration and easing as needed */
+  transform-origin: top center; /* Set the transform origin */
+  transform: scaleY(0); /* Initially set the scale to 0 to hide the menu */
+}
+.menu-open {
+  transform: scaleY(1); /* Set the scale to 1 to show the menu */
+}
+/* /////////////////////////////// */
+
+
+.currencyBox {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+
+
+}
 
 /* classes of toggle button on currency --- */
 .switch {
-  width: 110px;
-  /* height: 70px; */
+  width: 90px;
+  height: 40px;
   /* background-color: rgba(255, 255, 255, 0.4); */
   background-color: black;
 
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-start;  
+  align-items: center;
+  border: 1px solid white;
+
   /* border: 1px solid red; */
   border-radius: 50px;
   padding: 10px;
@@ -62,8 +116,8 @@
 }
 
 .handle {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   background-color: white;
   border-radius: 40px;
   display: flex;
@@ -72,7 +126,7 @@
 }
 
 .currency-sign {
-  width: 40px; /* Adjust width as needed */
+  width: 27px; /* Adjust width as needed */
   height: auto;
   margin-right: 0px; /* Add spacing between the images */
 }
@@ -96,10 +150,11 @@
 
 .allCards {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   /* padding: 0 30px; */
   gap: 40px;
+  margin-top: 50px;
   margin-bottom: 100px;
   
  
@@ -109,7 +164,9 @@
 .card {
   width: 315px;
   height: 400px;
-  background-color: #C1D6CC;
+  /* background-color: #C1D6CC; */
+  background-color: black;
+  border: 1px solid white;
   border-radius: 20px;
   overflow: hidden;
   padding: 20px 20px;
@@ -159,3 +216,15 @@
   /* padding-left: 20px; */
   gap: 10px;
 }
+
+.googleMapImageBox {
+ display: flex;
+ justify-content: center;
+}
+
+.googleMapImage {
+  height: 358px;
+  width: 1074px;
+}
+
+
