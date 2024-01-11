@@ -4,7 +4,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect  } from 'react';
 import axios from 'axios';
 import button_icon from '../icons/Vector.svg';
 import button_icon1 from "../icons/findimage.svg";
@@ -22,230 +22,72 @@ import { Data } from '@react-google-maps/api';
 //   lng: 44.8271
 // };
 
-const Base_URL = "http://127.0.0.1:8000/complex/";
-
-
-//--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
-
-const normalizeComplexData = (data, lang) => {
-  return data.map(item => ({
-    id: item.id,
-    complexName: item[`complex_name_${lang}`],
-    internalComplexName: item.internal_complex_name.internal_complex_name,
-    typeOfRoof: item[`type_of_roof_${lang}`],
-    address: {
-      street: item[`address_${lang}`][`address_${lang}`],
-      city: item[`address_${lang}`][`city_${lang}`],
-      district: item[`address_${lang}`][`district_${lang}`],
-      pharentDistrict: item[`address_${lang}`][`pharentDistrict_${lang}`],
-      streetName: item[`address_${lang}`][`street_name_${lang}`],
-      latitude: item[`address_${lang}`].latitude,
-      longitude: item[`address_${lang}`].longitude,
-    },
-    company: {
-      mobile: item[`company_${lang}`].Mobile,
-      mobileHome: item[`company_${lang}`].Mobile_Home,
-      about: item[`company_${lang}`][`aboutcompany_${lang}`],
-      address: item[`company_${lang}`][`address_${lang}`],
-      backgroundImage: item[`company_${lang}`].background_image,
-      website: item[`company_${lang}`].companyweb,
-      email: item[`company_${lang}`].email,
-      facebookPage: item[`company_${lang}`].facebook_page,
-      logo: item[`company_${lang}`].logocompany,
-      name: item[`company_${lang}`][`name_${lang}`],
-      isTopCompany: item[`company_${lang}`].topCompany,
-      isVisible: item[`company_${lang}`].visibility,
-    },
-    images: item.image_urls,
-    complexDetails: {
-      complexLevel: item.internal_complex_name.complex_level,
-      finishMonth: item.internal_complex_name.finish_month,
-      finishYear: item.internal_complex_name.finish_year,
-      isFinished: item.internal_complex_name.status,
-      floorNumber: item.internal_complex_name.floor_number,
-      numberOfApartments: item.internal_complex_name.number_of_apartments,
-      numberOfFloors: item.internal_complex_name.number_of_floors,
-      numberOfHouses: item.internal_complex_name.number_of_houses,
-      phoneNumber: item.internal_complex_name.phone_number,
-      plotArea: item.internal_complex_name.plot_area,
-      pricePerSqMeter: item.internal_complex_name.price_per_sq_meter,
-      space: item.internal_complex_name.space,
-      isVipComplex: item.internal_complex_name.vipComplex,
-      isVisible: item.internal_complex_name.visibiliti,
-    }
-  }));
-};
-
-
-const normalizeLocationData = (data, lang) => {
-  return data.map(cityItem => {
-      const cityNameField = `city_${lang}`;
-      const pharentDistrictField = `pharentDistrict_${lang}`;
-      const districtField = `district_${lang}`;
-
-      const cityName = cityItem[cityNameField];
-      const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
-          const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
-          const districts = pharentDistrictItem[districtField].map(districtItem => districtItem[districtField]);
-
-          return { pharentDistrict: pharentDistrictName, districts };
-      });
-
-      return { city: cityName, pharentDistricts };
-  });
-};
 
 
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-export default function Map({selectedLanguage}) {
-  const [complexes, setComplexes] = useState([]);
-  // const [selectedLanguage, setSelectedLanguage] = useState('en');
-  // const [selectedComplex, setSelectedComplex] = useState(null);
-  const [locations , setLocations ] = useState([]);
+export default function Map({selectedLanguage,
+
+  // favorites,
+  // complexChangeHandler,
+  // locationsChangeHandler,
+  selectedCityChangeHandler,
+  selectedPharentDistrictsChangeHandler,
+  selectedDistrictsChangeHandler,
+  minPricePerSquareMeterChangeHandler,
+  maxPricePerSquareMeterChangeHandler,
+  minFullPriceChangeHandler,
+  maxFullPriceChangeHandler,
+  min_spacehangeHandler,
+  max_spacehangeHandler,
+  selectedStatusesChangeHandler,
+  selectedStatuses,
+  locations,
+  searchButtonhangeHandler,
+  min_space,
+  max_space,
+  minPricePerSquareMeter,
+  maxPricePerSquareMeter,
+  minFullPrice,
+  maxFullPrice,
+  searchButton,
+  selectedCity,
+  selectedPharentDistricts,
+  selectedDistricts
+
+}) {
 
   const [modalContent , setModalContent] = useState('');
   const [isModalOpen , setIsModalOpen] = useState(false);
 
-  const [selectedCity , setSelectedCity] = useState('');
-
-  const [selectedPharentDistricts ,  setSelectedPharentDistricts] = useState([]);
-  const [selectedDistricts , setSelectedDistricts] = useState([]);
-
-  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('');
-  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('');
-
-  const [minFullPrice, setMinFullPrice] = useState('');
-  const [maxFullPrice, setMaxFullPrice] = useState('');
-
-  const [min_space, setMin_space] = useState('');
-  const [max_space, setMax_space] = useState('');
-
+  
   // const [status, setStatus] = useState('');
 
   // const [mapCenter, setMapCenter] = useState(initialCenter);
   // const [zoomLevel, setZoomLevel] = useState(13);
 
-  const [mapInstance, setMapInstance] = useState(null);
+  // const [mapInstance, setMapInstance] = useState(null);
 
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  
 
-  const [selectedStatuses , setSelectedStatuses] = useState([]);
+  
   
   const [searchInput, setSearchInput] = useState('');
-  const [searchButton , setSearchButton] = useState(false);
+  // const [searchButton , setSearchButton] = useState(false);
   
-  const searchButtonHandler = () => {
-    setSearchButton(!searchButton)
-  };
+  // const searchButtonHandler = () => {
+  //   setSearchButton(!searchButton)
+  // };
 
 
 //----------------------------------------------------------------------------------------------------
 
-     useEffect(() => {
-      const fetchComplexes = async () => {
-        const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-        const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
-        const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
-        
-        // Create a URLSearchParams object
-        let queryParams = new URLSearchParams({
-          [cityParam]: selectedCity,
-          [pharentdistrictParams]: selectedPharentDistricts.join(','),
-          [districtParams]: selectedDistricts.join(','),
-          min_price_per_sq_meter: minPricePerSquareMeter,
-          max_price_per_sq_meter: maxPricePerSquareMeter,
-          min_full_price: minFullPrice,
-          max_full_price: maxFullPrice,
-          min_space : min_space, 
-          max_space : max_space,
-        });
-    
-        // Append each status as a separate parameter
-        selectedStatuses.forEach(status => {
-          queryParams.append('status', status);
-        });
-    
-        // Construct the full URL with query parameters
-        const queryString = queryParams.toString();
-        const requestUrl = `${Base_URL}${selectedLanguage}/?${queryString}`;
-
-        //////////////////////    T  E  S  T  ///////////////////////////
-        // local_url = 'http://127.0.0.1:8000'
-        // const requestUrl = `${local_url}${selectedLanguage}/?${queryString}`;
-        /////////////// Can Erase if not need////////////////////////////
-    
-        try {
-          const response = await axios.get(requestUrl);
-          const normalData = normalizeComplexData(response.data.results, selectedLanguage);
-          setComplexes(normalData);
-        } catch (error) {
-          console.error('Error fetching complexes:', error);
-        }
-      };
-    
-      fetchComplexes();
-    }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter,
-       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, searchButton]);
-    
-
-  console.log(complexes)
-// ----------------------------------------------------------------------------------------------
-//-----------------------------------fetch ionly locations --------------------------------------
-
-const base_URL_for_location = 'http://127.0.0.1:8000/map/' 
-
-useEffect(() => {
-  const fetchLocations = async () => {
-      
-    try {
-      const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
-      const normalisedLocationData = normalizeLocationData(response.data.results , selectedLanguage)
-      setLocations(normalisedLocationData)
-    } catch (error) {
-      console.error("error fetching on locations =>> ", error)
-    }
-  }
-
-  fetchLocations();
-} , [selectedLanguage  , selectedCity]  )
-
-
 
 // ----------------------------------------------------------------------------------------------
-
-// ----------------------------------icon coloure and  status  change  ----------------------------------------------------------
-
-
-  const statusTranslations = {
-    1: { en: 'Planned', ka: 'დაგეგმილი', ru: 'Запланировано' },
-    2: { en: 'Under Construction', ka: 'მშენებარე', ru: 'Строится' },
-    3: { en: 'Completed', ka: 'დასრულებული', ru: 'Завершено' }
-    // Add more statuses and translations if needed
-  };
-
-  const renderStatusOptions = () => {
-    return Object.entries(statusTranslations).map(([value, labels]) => (
-      <div className='status_chackboxes' key={value}>
-
-          <label className="container">
-          <input 
-          type="checkbox"
-          checked={selectedStatuses.includes(value)}
-          value={value}
-          onChange={(e) => handleStatusChange(e, value)}
-          />
-          <div className="checkmark"></div>
-        </label>
-        <p className='text_modal_color' >{labels[selectedLanguage]}</p>
-      </div>
-    ));
-  };
-
-// ---------------------------------------------------------------------------------------------------------------------
 
 //--------------------------------------modal and logic for opening filtration window --------------------------------------
 
@@ -312,7 +154,7 @@ const handleShowModal = () => {
 const handleCityClick = (city) => {
   console.log("City selected: ", city);
   setModalContent("pharentdistricts")
-  setSelectedCity(city)
+  selectedCityChangeHandler(city)
   setIsModalOpen(true)
 }
 
@@ -322,7 +164,7 @@ const closeModal = () => {
 
 const handleParentDistrictChange = (e, parentDistrict) => {
   
-  setSelectedPharentDistricts(prevSelected => {
+  selectedPharentDistrictsChangeHandler(prevSelected => {
     if (e.target.checked) {
       return [...prevSelected, parentDistrict];
     } else {
@@ -337,7 +179,7 @@ const handleParentDistrictChange = (e, parentDistrict) => {
     const parentDistrictObj = city.pharentDistricts.find(pd => pd.pharentDistrict === parentDistrict);
     if (!parentDistrictObj) return;
 
-    setSelectedDistricts(prevSelected => {
+    selectedDistrictsChangeHandler(prevSelected => {
       if (e.target.checked) {
         // Add all districts of the parent district to the selected list
         // Ensure no duplicates are added
@@ -351,7 +193,7 @@ const handleParentDistrictChange = (e, parentDistrict) => {
 };
 
 const handleDistrictChange = (e, district) => {
-  setSelectedDistricts(prevSelected => {
+  selectedDistrictsChangeHandler(prevSelected => {
     if (e.target.checked) {
       return [...prevSelected, district];
     } else {
@@ -411,12 +253,40 @@ const handleCloseStatusModal = () => {
 
 
 // ---------------------------------------------------------------------------------------------------------------------
+// ----------------------------------icon coloure and  status  change  ----------------------------------------------------------
 
+
+const statusTranslations = {
+  1: { en: 'Planned', ka: 'დაგეგმილი', ru: 'Запланировано' },
+  2: { en: 'Under Construction', ka: 'მშენებარე', ru: 'Строится' },
+  3: { en: 'Completed', ka: 'დასრულებული', ru: 'Завершено' }
+  // Add more statuses and translations if needed
+};
+
+const renderStatusOptions = () => {
+  return Object.entries(statusTranslations).map(([value, labels]) => (
+    <div className='status_chackboxes' key={value}>
+
+        <label className="container">
+        <input 
+        type="checkbox"
+        checked={selectedStatuses.includes(value)}
+        value={value}
+        onChange={(e) => handleStatusChange(e, value)}
+        />
+        <div className="checkmark"></div>
+      </label>
+      <p className='text_modal_color' >{labels[selectedLanguage]}</p>
+    </div>
+  ));
+};
+
+// ---------------------------------------------------------------------------------------------------------------------
 
 // --------------------------function for selecting status for filtration -----------------------------------------------
 
 const handleStatusChange = (e, value) => {
-  setSelectedStatuses((prevSelectedStatuses) => {
+  selectedStatusesChangeHandler((prevSelectedStatuses) => {
     const newSelectedStatuses = e.target.checked 
       ? [...prevSelectedStatuses, value] 
       : prevSelectedStatuses.filter((status) => status !== value);
@@ -427,6 +297,13 @@ const handleStatusChange = (e, value) => {
 };
 
 // -----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 // --------ffunction for changing status button content language change and also select city button language change -------------
 
 const handleStatusButtonLanguageChange = (lang) => {
@@ -466,22 +343,6 @@ const handleStatusButtonLanguageChange = (lang) => {
   return languageInfo
 }
 // ---------------------------------------------------------------------------------------------------------------------
-// ---------------------------------function for zooming in on clicking any marker-------------------------------------------
-const handleMarkerClick = (complex) => {
-  setSelectedComplex(complex);
-  setZoomLevel(17); // Zoom in more when a marker is clicked
-  setMapCenter({ lat: complex.address.latitude, lng: complex.address.longitude }); 
-};
-
-const handleZoomChanged = () => {
-  if (mapInstance) {
-    setZoomLevel(mapInstance.getZoom());
-  }
-};
-
-const handleLoad = (map) => {
-  setMapInstance(map); // Store the map instance
-};
 
 // ---------------------------------------------------------------------------------------------------------------------
   return (
@@ -511,14 +372,14 @@ const handleLoad = (map) => {
                                       type="number"
                                       placeholder='Min Price Per Square Meter'
                                       value={min_space}
-                                      onChange={(e) => setMin_space(e.target.value)}
+                                      onChange={(e) => max_spacehangeHandler(e.target.value)}
                                   />
                                   
                                     <input
                                       type="number"
                                       placeholder='Max Price Per Square Meter'
                                       value={max_space}
-                                      onChange={(e) => setMax_space(e.target.value)}
+                                      onChange={(e) => min_spacehangeHandler(e.target.value)}
                                   />
                                   <p>otaxebis filtraciac unda iyos aq</p>
                               </div>
@@ -539,28 +400,28 @@ const handleLoad = (map) => {
                                       type="number"
                                       placeholder='Min Price Per Square Meter'
                                       value={minPricePerSquareMeter}
-                                      onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                                      onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
                                   />
 
                                   <input
                                       type="number"
                                       placeholder='Max Price Per Square Meter'
                                       value={maxPricePerSquareMeter}
-                                      onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+                                      onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
                                   />
                                  
                                   <input
                                     type="number"
                                     placeholder='Min Full Price'
                                     value={minFullPrice}
-                                    onChange={(e) => setMinFullPrice(e.target.value)}
+                                    onChange={(e) => minFullPriceChangeHandler(e.target.value)}
                                   />
 
                                   <input
                                     type="number"
                                     placeholder='Max Full Price'
                                     value={maxFullPrice}
-                                    onChange={(e) => setMaxFullPrice(e.target.value)}
+                                    onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
                                   />                            
                             </div>
                             <button className='modal_close_button' onClick={handleClosePriceModal}>Close</button>
@@ -610,11 +471,11 @@ const handleLoad = (map) => {
                       </div>
                       {/* button for search */}
                       <div>
-                        {/* <Link to="/complex"> */}
-                          <button className='modal_close_button' onClick={searchButtonHandler}>
+                        <Link to="/complex">
+                          <button className='modal_close_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
                             ძიება
                           </button>
-                        {/* </Link> */}
+                        </Link>
                       </div>
                       
                   </div>
