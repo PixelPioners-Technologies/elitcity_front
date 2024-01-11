@@ -12,3 +12,65 @@
 .hide {
   display: none;
 }
+
+
+
+/* (START)   რუკის დივზე ეფექტურად, ანიმაციურად გასახსნელად.. ასევე pin-ის აიკონების დივზეც  */
+/* 
+.scale-up-hor-center {
+	-webkit-animation: scale-up-hor-center 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: scale-up-hor-center 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+ @-webkit-keyframes scale-up-hor-center {
+  0% {
+    -webkit-transform: scaleX(0.4);
+            transform: scaleX(0.4);
+  }
+  100% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+}
+@keyframes scale-up-hor-center {
+  0% {
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1);
+  }
+  10% {
+    -webkit-transform: scaleX(0.2);
+            transform: scaleX(0.2);
+  }
+  20% {
+    -webkit-transform: scaleX(0.4);
+            transform: scaleX(0.4);
+  }
+  30% {
+    -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
+  }
+  50% {
+    -webkit-transform: scaleX(0.6);
+            transform: scaleX(0.6);
+  }
+  60% {
+    -webkit-transform: scaleX(0.7);
+            transform: scaleX(0.7);
+  }
+  70% {
+    -webkit-transform: scaleX(0.8);
+            transform: scaleX(0.8);
+  }
+  80% {
+    -webkit-transform: scaleX(0.9);
+            transform: scaleX(0.9);
+  }
+  100% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+} */
+/* --(END)---------------------------------------- */
+
+
+
