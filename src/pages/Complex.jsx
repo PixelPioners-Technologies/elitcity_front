@@ -20,6 +20,7 @@ import dollar from '../assets/dollar-svgrepo-com.svg';
 import lari from '../assets/lari-svgrepo-com.svg';
 // import lari from '../assets/lari-white.svg';
 import arrowDownSorting from '../assets/arrow-down-white.svg';
+import googleMapImage from '../assets/mapImageForFooter.svg';
 
 
 
@@ -593,6 +594,18 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
         </Stack>
       </div>
       {/* ---------------------------------------------------------------- */}
+      <div className='googleMapImageBox'>
+        <Link to='/map' >
+          <motion.div
+              initial={{ x: -150, opacity: 0 }}
+              transition={{ duration: 1.5 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <img src={googleMapImage} alt='googleMapImage' className='googleMapImage' />
+          </motion.div>
+        </Link>
+      </div>
 
     </div>
   )
