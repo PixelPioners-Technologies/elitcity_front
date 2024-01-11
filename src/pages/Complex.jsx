@@ -19,7 +19,7 @@ import dollar from '../assets/dollar-svgrepo-com.svg';
 
 import lari from '../assets/lari-svgrepo-com.svg';
 // import lari from '../assets/lari-white.svg';
-import arrowDownSorting from '../assets/arrow-down-for-sorting.svg';
+import arrowDownSorting from '../assets/arrow-down-white.svg';
 
 
 
@@ -394,21 +394,21 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
           <div className='forPaddingOfInfoFieldOfComplexsPlansMaps'>
             <div className='infoFieldOfComplexsPlansMaps'>
               <div className='complexInfoAndCountShowBox'>
-                <p>კომპლექსები {totalCount}</p>
+                <p style={{color: 'white'}}>კომპლექსები {totalCount}</p>
               </div>
               {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება ---- */}
               <div className='projectsPlansMapsSortingAndDollarBox'>
                 <Link to='/complex' >
                   <div className='mapAndLogoImg'>
                     <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                    <button>პროექტები</button>
+                    <button className='textButton'>პროექტები</button>
                   </div>
                 </Link>
 
                 <Link to='/complex/apartmentList' >
                   <div className='mapAndLogoImg'>
                     <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                    <button>გეგმარებები</button>
+                    <button className='textButton'>გეგმარებები</button>
                   </div>
 
                 </Link>
@@ -417,7 +417,7 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
                 <Link to='/map' >
                   <div className='mapAndLogoImg'>
                     <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                    <button>რუკა</button>
+                    <button className='textButton'>რუკა</button>
                   </div>
                 </Link>
               {/* მხოლოდ for sorting ----- */}
@@ -429,11 +429,13 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                style={{ color: 'black' }}
-
-              >
-                სორტირება
-                <img src={arrowDownSorting} style={{width: '20px'}} />
+                style={{ color: 'white', fontSize: '16px' }}
+                
+                >
+                <div className='sortAndArrowDownImgBox'>
+                  სორტირება
+                  <img src={arrowDownSorting} style={{width: '20px', }} />
+                </div>
               </Button>
               
               <Menu
@@ -442,8 +444,13 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
                 open={open}
                 onClose={handleClose}
                 MenuListProps={{
+                  style: {
+                    backgroundColor: "black",
+                    width: "270px",
+                },
                   'aria-labelledby': 'basic-button',
                 }}
+          
                 //
                 component={motion.div} 
                 variants={{
@@ -454,12 +461,36 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
                 animate={open ? 'visible' : 'hidden'}
                 transition={{ duration: 0.6 }}
               >
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('-created_at'); }}>თარიღი კლებადობით</MenuItem>
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('created_at'); }}>თარიღი ზრდადობით</MenuItem>
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით</MenuItem>
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით</MenuItem>
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('-rank'); }}>რანკი კლებადობით</MenuItem>
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('rank'); }}>რანკი ზრდადობით</MenuItem>
+                  <MenuItem
+                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    onClick={() => { handleClose(); 
+                    setAscendentPrice('-created_at'); }}>თარიღი კლებადობით
+                    </MenuItem>
+                  <MenuItem
+                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    onClick={() => { handleClose(); 
+                    setAscendentPrice('created_at'); }}>თარიღი ზრდადობით
+                    </MenuItem>
+                  <MenuItem
+                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    onClick={() => { handleClose(); 
+                    setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით
+                    </MenuItem>
+                  <MenuItem
+                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    onClick={() => { handleClose(); 
+                    setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით
+                    </MenuItem>
+                  <MenuItem
+                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    onClick={() => { handleClose(); 
+                    setAscendentPrice('-rank'); }}>რანკი კლებადობით
+                    </MenuItem>
+                  <MenuItem
+                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    onClick={() => { handleClose(); 
+                    setAscendentPrice('rank'); }}>რანკი ზრდადობით
+                    </MenuItem>
               </Menu>
               {/* ---------------------------------- */}
               </div>
@@ -562,10 +593,10 @@ const styles = {
     // paddingLeft: '20px'
   },
   complexInfo: {
-    color: '#000000',
+    color: 'white',
   },
   complexFinished: {
-    color: '#515050',
+    color: 'white',
   },
 };
 
