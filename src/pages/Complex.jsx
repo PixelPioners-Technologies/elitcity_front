@@ -58,7 +58,25 @@ const basess = 'http://127.0.0.1:8000';
 
 
 // eslint-disable-next-line react/prop-types
-export default function Complex({favoriteHandler, favorites, selectedLanguage}) {
+export default function Complex({
+    favoriteHandler, 
+    favorites,
+    selectedLanguage,
+    // selectedStatuses,
+    // locations,
+    min_space,
+    max_space,
+    minPricePerSquareMeter,
+    maxPricePerSquareMeter,
+    minFullPrice,
+    maxFullPrice,
+    selectedCity,
+    selectedPharentDistricts,
+    selectedDistricts,
+    searchButton,
+    selectedStatuses
+
+  }) {
 
   const [homes, setHomes] = useState([]);
   console.log('-----',homes)
@@ -265,11 +283,25 @@ const sortHomes = (data, sortOrder) => {
     return data;
   }
 };
+    const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+    const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
+    const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
 
 
     // Create a URLSearchParams object
     let queryParams = new URLSearchParams({
+      [cityParam]: selectedCity,
+      [pharentdistrictParams]: selectedPharentDistricts.join(','),
+      [districtParams]: selectedDistricts.join(','),
+      min_price_per_sq_meter: minPricePerSquareMeter,
+      max_price_per_sq_meter: maxPricePerSquareMeter,
+      min_full_price: minFullPrice,
+      max_full_price: maxFullPrice,
+      min_space : min_space, 
+      max_space : max_space,
+      status: selectedStatuses,
       ordering: ascendentPrice
+
     });
 
     const queryString = queryParams.toString();
@@ -298,7 +330,7 @@ useEffect(() => {
 
   fetchData();
 
-}, [currentPage, ascendentPrice, selectedLanguage]);
+}, [currentPage, ascendentPrice, selectedLanguage, searchButton]);
 
 
 useEffect(() => {
