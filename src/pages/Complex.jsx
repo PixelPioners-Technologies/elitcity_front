@@ -396,7 +396,7 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
               <div className='complexInfoAndCountShowBox'>
                 <p style={{color: 'white'}}>კომპლექსები {totalCount}</p>
               </div>
-              {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება ---- */}
+              {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
               <div className='projectsPlansMapsSortingAndDollarBox'>
                 <Link to='/complex' >
                   <div className='mapAndLogoImg'>
@@ -420,99 +420,99 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
                     <button className='textButton'>რუკა</button>
                   </div>
                 </Link>
-              {/* მხოლოდ for sorting ----- */}
-              {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
-              რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
-              <Button
-                id="basic-button"
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
-                style={{ color: 'white', fontSize: '16px' }}
-                
-                >
-                <div className='sortAndArrowDownImgBox'>
-                  სორტირება
-                  <img src={arrowDownSorting} style={{width: '20px', }} />
-                </div>
-              </Button>
-              
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  style: {
-                    backgroundColor: "black",
-                    width: "270px",
-                },
-                  'aria-labelledby': 'basic-button',
-                }}
-          
-                //
-                component={motion.div} 
-                variants={{
-                  hidden: { opacity: 0, scale: 0.9 },
-                  visible: { opacity: 1, scale: 1 },
-                }}
-                initial="hidden"
-                animate={open ? 'visible' : 'hidden'}
-                transition={{ duration: 0.6 }}
-              >
-                  <MenuItem
-                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                    onClick={() => { handleClose(); 
-                    setAscendentPrice('-created_at'); }}>თარიღი კლებადობით
-                    </MenuItem>
-                  <MenuItem
-                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                    onClick={() => { handleClose(); 
-                    setAscendentPrice('created_at'); }}>თარიღი ზრდადობით
-                    </MenuItem>
-                  <MenuItem
-                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                    onClick={() => { handleClose(); 
-                    setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით
-                    </MenuItem>
-                  <MenuItem
-                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                    onClick={() => { handleClose(); 
-                    setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით
-                    </MenuItem>
-                  <MenuItem
-                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                    onClick={() => { handleClose(); 
-                    setAscendentPrice('-rank'); }}>რანკი კლებადობით
-                    </MenuItem>
-                  <MenuItem
-                   style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                    onClick={() => { handleClose(); 
-                    setAscendentPrice('rank'); }}>რანკი ზრდადობით
-                    </MenuItem>
-              </Menu>
-              {/* ---------------------------------- */}
-              </div>
-
-              {/* ----Dollar and Lari Toggle button */}
-                <div className='currencyBox'>
-                  <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
-                    <motion.div className="handle" layout transition={spring}>
-                      <img
-                        src={lari}
-                        alt="Lari Sign"
-                        className={`currency-sign ${isOn ? "active" : ""}`}
-                        />
-                      <img
-                        src={dollar}
-                        alt="Dollar Sign"
-                        className={`currency-sign ${!isOn ? "active" : ""}`}
-                        />
-                    </motion.div>
+                {/* მხოლოდ for sorting ----- */}
+                {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
+                რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  style={{ color: 'white', fontSize: '16px' }}
+                  
+                  >
+                  <div className='sortAndArrowDownImgBox'>
+                    სორტირება
+                    <img src={arrowDownSorting} style={{width: '20px', }} />
                   </div>
+                </Button>
+                
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    style: {
+                      backgroundColor: "black",
+                      width: "270px",
+                  },
+                    'aria-labelledby': 'basic-button',
+                  }}
+            
+                  //
+                  component={motion.div} 
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.9 },
+                    visible: { opacity: 1, scale: 1 },
+                  }}
+                  initial="hidden"
+                  animate={open ? 'visible' : 'hidden'}
+                  transition={{ duration: 0.6 }}
+                >
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-created_at'); }}>თარიღი კლებადობით
+                      </MenuItem>
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('created_at'); }}>თარიღი ზრდადობით
+                      </MenuItem>
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით
+                      </MenuItem>
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით
+                      </MenuItem>
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-rank'); }}>რანკი კლებადობით
+                      </MenuItem>
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('rank'); }}>რანკი ზრდადობით
+                      </MenuItem>
+                </Menu>
+                {/* ---------------------------------- */}
+
+                  {/* ----Dollar and Lari Toggle button */}
+                  <div className='currencyBox'>
+                    <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
+                      <motion.div className="handle" layout transition={spring}>
+                        <img
+                          src={lari}
+                          alt="Lari Sign"
+                          className={`currency-sign ${isOn ? "active" : ""}`}
+                          />
+                        <img
+                          src={dollar}
+                          alt="Dollar Sign"
+                          className={`currency-sign ${!isOn ? "active" : ""}`}
+                          />
+                      </motion.div>
+                    </div>
+                  </div>
+                    {/* ---------------- */}
                 </div>
-              {/* ---------------- */}
 
             </div>
         </div>
