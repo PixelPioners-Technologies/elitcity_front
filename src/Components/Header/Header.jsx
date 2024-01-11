@@ -32,6 +32,7 @@ export default function Header({favorites, handleLanguageChange }) {
                  <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
                   <button className='buttonItemsOfList'>კომპლესები</button>
@@ -43,6 +44,7 @@ export default function Header({favorites, handleLanguageChange }) {
                  <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
                   <button className='buttonItemsOfList'>ნაკვეთები</button>
@@ -54,6 +56,7 @@ export default function Header({favorites, handleLanguageChange }) {
                  <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
                   <button className='buttonItemsOfList'>დეველოპერები</button>
@@ -65,6 +68,7 @@ export default function Header({favorites, handleLanguageChange }) {
                  <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
                   <button className='buttonItemsOfList'>ფიზიკური პირები</button>
@@ -76,6 +80,7 @@ export default function Header({favorites, handleLanguageChange }) {
                  <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
                   <button className='buttonItemsOfList'>რუკა</button>
@@ -87,6 +92,7 @@ export default function Header({favorites, handleLanguageChange }) {
                  <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
                   <button className='buttonItemsOfList'>აქციები</button>
@@ -98,6 +104,7 @@ export default function Header({favorites, handleLanguageChange }) {
                  <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
                   <button className='buttonItemsOfList'>სტატიები</button>
@@ -109,6 +116,7 @@ export default function Header({favorites, handleLanguageChange }) {
                  <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
                   <button className='buttonItemsOfList'>storkhome+</button>
