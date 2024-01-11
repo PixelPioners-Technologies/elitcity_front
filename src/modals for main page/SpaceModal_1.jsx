@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './SpaceModal_1.css';
 
-
-
 const SpaceModal_1 = ({ isOpen, close, children }) => {
+  useEffect(() => {
+    const handleDocumentClick = (e) => {
+      if (isOpen && e.target.closest('.modal-overlay') === null) {
+        close();
+      }
+    };
+    document.addEventListener('mousedown', handleDocumentClick);
+    return () => {
+      document.removeEventListener('mousedown', handleDocumentClick);
+    };
+  }, [isOpen, close]);
+
   if (!isOpen) return null;
   const openClass = isOpen ? 'open' : '';
 
   return (
     <div className={`modal-overlay ${openClass}`} onClick={close}>
-      <div className="modal-content scale-up-tl" onClick={e => e.stopPropagation()}>
+      <div className="modal-content scale-up-tl" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>

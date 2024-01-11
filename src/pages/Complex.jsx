@@ -314,6 +314,8 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
 
 
 
+
+
   
 
   // 
@@ -482,36 +484,82 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
                   animate={open ? 'visible' : 'hidden'}
                   transition={{ duration: 0.6 }}
                 >
-                    <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                      onClick={() => { handleClose(); 
-                      setAscendentPrice('-created_at'); }}>თარიღი კლებადობით
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <MenuItem
+                        style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('-created_at'); }}>თარიღი კლებადობით
                       </MenuItem>
-                    <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                      onClick={() => { handleClose(); 
-                      setAscendentPrice('created_at'); }}>თარიღი ზრდადობით
+                    </motion.div>
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <MenuItem
+                        style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('created_at'); }}>თარიღი ზრდადობით
                       </MenuItem>
-                    <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                      onClick={() => { handleClose(); 
-                      setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით
+                    </motion.div>
+
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <MenuItem
+                        style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით
                       </MenuItem>
-                    <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                      onClick={() => { handleClose(); 
-                      setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით
+                    </motion.div>
+
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <MenuItem
+                        style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით
                       </MenuItem>
-                    <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                      onClick={() => { handleClose(); 
-                      setAscendentPrice('-rank'); }}>რანკი კლებადობით
+                    </motion.div>
+
+
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    > 
+                      <MenuItem
+                        style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('-rank'); }}>რანკი კლებადობით
                       </MenuItem>
-                    <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                      onClick={() => { handleClose(); 
-                      setAscendentPrice('rank'); }}>რანკი ზრდადობით
+                    </motion.div>
+
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.1 }} 
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <MenuItem
+                       style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                        onClick={() => { handleClose(); 
+                        setAscendentPrice('rank'); }}>რანკი ზრდადობით
                       </MenuItem>
+                    </motion.div>
+
                 </Menu>
                 {/* ---------------------------------- */}
 
