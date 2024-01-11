@@ -19,7 +19,8 @@ import dollar from '../assets/dollar-svgrepo-com.svg';
 
 import lari from '../assets/lari-svgrepo-com.svg';
 // import lari from '../assets/lari-white.svg';
-import arrowDownSorting from '../assets/arrow-down-for-sorting.svg';
+import arrowDownSorting from '../assets/arrow-down-white.svg';
+import googleMapImage from '../assets/mapImageForFooter.svg';
 
 
 
@@ -307,7 +308,7 @@ useEffect(() => {
 
 
 // Pagination logic
-const itemsPerPage = 10;
+const itemsPerPage = 12;
 const totalPageCount = Math.ceil(totalCount / itemsPerPage);
 const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : [];
 
@@ -394,94 +395,145 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
           <div className='forPaddingOfInfoFieldOfComplexsPlansMaps'>
             <div className='infoFieldOfComplexsPlansMaps'>
               <div className='complexInfoAndCountShowBox'>
-                <p>კომპლექსები {totalCount}</p>
+                <p style={{color: 'white'}}>კომპლექსები {totalCount}</p>
               </div>
-              {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება ---- */}
+              {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
               <div className='projectsPlansMapsSortingAndDollarBox'>
                 <Link to='/complex' >
+                <motion.div
+                  className="textButtonContainer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
                   <div className='mapAndLogoImg'>
                     <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                    <button>პროექტები</button>
+                    <button className='textButton'>პროექტები</button>
                   </div>
+                </motion.div>
                 </Link>
 
                 <Link to='/complex/apartmentList' >
+                <motion.div
+                  className="textButtonContainer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
                   <div className='mapAndLogoImg'>
                     <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                    <button>გეგმარებები</button>
+                    <button className='textButton'>გეგმარებები</button>
                   </div>
-
+                </motion.div>
                 </Link>
 
 
                 <Link to='/map' >
+                <motion.div
+                  className="textButtonContainer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
                   <div className='mapAndLogoImg'>
                     <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                    <button>რუკა</button>
+                    <button className='textButton'>რუკა</button>
                   </div>
+                </motion.div>
                 </Link>
-              {/* მხოლოდ for sorting ----- */}
-              {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
-              რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
-              <Button
-                id="basic-button"
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
-                style={{ color: 'black' }}
-
-              >
-                სორტირება
-                <img src={arrowDownSorting} style={{width: '20px'}} />
-              </Button>
-              
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  'aria-labelledby': 'basic-button',
-                }}
-                //
-                component={motion.div} 
-                variants={{
-                  hidden: { opacity: 0, scale: 0.9 },
-                  visible: { opacity: 1, scale: 1 },
-                }}
-                initial="hidden"
-                animate={open ? 'visible' : 'hidden'}
-                transition={{ duration: 0.6 }}
-              >
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('-created_at'); }}>თარიღი კლებადობით</MenuItem>
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('created_at'); }}>თარიღი ზრდადობით</MenuItem>
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით</MenuItem>
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით</MenuItem>
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('-rank'); }}>რანკი კლებადობით</MenuItem>
-                <MenuItem onClick={() => { handleClose(); setAscendentPrice('rank'); }}>რანკი ზრდადობით</MenuItem>
-              </Menu>
-              {/* ---------------------------------- */}
-              </div>
-
-              {/* ----Dollar and Lari Toggle button */}
-                <div className='currencyBox'>
-                  <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
-                    <motion.div className="handle" layout transition={spring}>
-                      <img
-                        src={lari}
-                        alt="Lari Sign"
-                        className={`currency-sign ${isOn ? "active" : ""}`}
-                        />
-                      <img
-                        src={dollar}
-                        alt="Dollar Sign"
-                        className={`currency-sign ${!isOn ? "active" : ""}`}
-                        />
-                    </motion.div>
+                {/* მხოლოდ for sorting ----- */}
+                {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
+                რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  style={{ color: 'white', fontSize: '16px' }}
+                  
+                  >
+                  <div className='sortAndArrowDownImgBox'>
+                    სორტირება
+                    <img src={arrowDownSorting} style={{width: '20px', }} />
                   </div>
+                </Button>
+                
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    style: {
+                      backgroundColor: "black",
+                      width: "270px",
+                  },
+                    'aria-labelledby': 'basic-button',
+                  }}
+            
+                  //
+                  component={motion.div} 
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.9 },
+                    visible: { opacity: 1, scale: 1 },
+                  }}
+                  initial="hidden"
+                  animate={open ? 'visible' : 'hidden'}
+                  transition={{ duration: 0.6 }}
+                >
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-created_at'); }}>თარიღი კლებადობით
+                      </MenuItem>
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('created_at'); }}>თარიღი ზრდადობით
+                      </MenuItem>
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით
+                      </MenuItem>
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით
+                      </MenuItem>
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-rank'); }}>რანკი კლებადობით
+                      </MenuItem>
+                    <MenuItem
+                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('rank'); }}>რანკი ზრდადობით
+                      </MenuItem>
+                </Menu>
+                {/* ---------------------------------- */}
+
+                  {/* ----Dollar and Lari Toggle button */}
+                  <div className='currencyBox'>
+                    <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
+                      <motion.div className="handle" layout transition={spring}>
+                        <img
+                          src={lari}
+                          alt="Lari Sign"
+                          className={`currency-sign ${isOn ? "active" : ""}`}
+                          />
+                        <img
+                          src={dollar}
+                          alt="Dollar Sign"
+                          className={`currency-sign ${!isOn ? "active" : ""}`}
+                          />
+                      </motion.div>
+                    </div>
+                  </div>
+                    {/* ---------------- */}
                 </div>
-              {/* ---------------- */}
 
             </div>
         </div>
@@ -542,6 +594,18 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
         </Stack>
       </div>
       {/* ---------------------------------------------------------------- */}
+      <div className='googleMapImageBox'>
+        <Link to='/map' >
+          <motion.div
+              initial={{ x: -150, opacity: 0 }}
+              transition={{ duration: 1.5 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <img src={googleMapImage} alt='googleMapImage' className='googleMapImage' />
+          </motion.div>
+        </Link>
+      </div>
 
     </div>
   )
@@ -562,10 +626,10 @@ const styles = {
     // paddingLeft: '20px'
   },
   complexInfo: {
-    color: '#000000',
+    color: 'white',
   },
   complexFinished: {
-    color: '#515050',
+    color: 'white',
   },
 };
 
