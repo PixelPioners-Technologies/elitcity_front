@@ -40,6 +40,10 @@
   justify-content: center;
 }
 
+.textButtonContainer:hover .textButton {
+  color: aqua;
+}
+
 .textButton {
   display: inline-block;
   /* padding: 10px 20px; */
@@ -51,6 +55,8 @@
   background-color: #000;
   color: #fff;
 }
+
+
 
 .mapSignLogo {
   width: 30px;

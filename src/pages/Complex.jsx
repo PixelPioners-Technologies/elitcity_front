@@ -399,26 +399,43 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
               {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
               <div className='projectsPlansMapsSortingAndDollarBox'>
                 <Link to='/complex' >
+                <motion.div
+                  className="textButtonContainer"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
                   <div className='mapAndLogoImg'>
                     <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
                     <button className='textButton'>პროექტები</button>
                   </div>
+                </motion.div>
                 </Link>
 
                 <Link to='/complex/apartmentList' >
+                <motion.div
+                  className="textButtonContainer"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
                   <div className='mapAndLogoImg'>
                     <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
                     <button className='textButton'>გეგმარებები</button>
                   </div>
-
+                </motion.div>
                 </Link>
 
 
                 <Link to='/map' >
+                <motion.div
+                  className="textButtonContainer"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
                   <div className='mapAndLogoImg'>
                     <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
                     <button className='textButton'>რუკა</button>
                   </div>
+                </motion.div>
                 </Link>
                 {/* მხოლოდ for sorting ----- */}
                 {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო

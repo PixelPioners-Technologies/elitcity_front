@@ -23,6 +23,11 @@ nav ul {
   padding: 0; 
 }
 
+.textButtonContainer:hover .buttonItemsOfList {
+  color: aqua;
+  cursor: pointer;
+}
+
 .buttonItemsOfList {
   margin: 0;
   padding: 0;
@@ -32,10 +37,6 @@ nav ul {
   color: white;
 }
 
-.buttonItemsOfList:hover {
-  cursor: pointer;
-  color: aquamarine;
-}
 
 .favouriteAndLanguageAndDayModeChanger {
   display: flex;
