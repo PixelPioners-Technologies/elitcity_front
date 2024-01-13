@@ -267,7 +267,7 @@ const renderStatusOptions = () => {
   return Object.entries(statusTranslations).map(([value, labels]) => (
     <div className='status_chackboxes' key={value}>
 
-        <label className="container">
+        <label className="container" style={{display: 'flex', gap: '15px'}}>
         <input 
         type="checkbox"
         checked={selectedStatuses.includes(value)}
@@ -275,8 +275,8 @@ const renderStatusOptions = () => {
         onChange={(e) => handleStatusChange(e, value)}
         />
         <div className="checkmark"></div>
-      </label>
       <p className='text_modal_color' >{labels[selectedLanguage]}</p>
+      </label>
     </div>
   ));
 };
