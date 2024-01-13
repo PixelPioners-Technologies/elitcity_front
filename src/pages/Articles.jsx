@@ -12,9 +12,7 @@ export default function Articles() {
 
   return (
     <div className='ArticlesPageBox'>
-      <h1 style={{ color: 'white' }}>
-        სტატიები
-      </h1>
+   
       {DataOfArticles.map((article, index) => (
         <motion.div
           key={article.id}
