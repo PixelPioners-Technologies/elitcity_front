@@ -42,7 +42,7 @@
 
 
 .textButtonContainer:hover .textButton {
-  color: aqua;
+  /* color: aqua; */
   cursor: pointer;
 }
 

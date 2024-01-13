@@ -6,6 +6,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect , useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 import './Map.css';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
@@ -591,6 +593,28 @@ const handleZoomChanged = () => {
 const handleLoad = (map) => {
   setMapInstance(map); // Store the map instance
 };
+
+
+// for map refresh when user click map on header nav bar
+const navigate = useNavigate();
+const [refreshCount, setRefreshCount] = useState(0);
+const maxRefreshCount = 2; 
+
+useEffect(() => {
+  const currentRoute = window.location.pathname;
+
+  if (currentRoute === '/map' && refreshCount < maxRefreshCount) {
+    setRefreshCount((prevCount) => prevCount + 1);
+
+    const timeoutId = setTimeout(() => {
+      window.location.reload();
+    }, 1000); 
+
+    return () => clearTimeout(timeoutId);
+  }
+}, [refreshCount, maxRefreshCount, navigate]);
+
+
 
 // ---------------------------------------------------------------------------------------------------------------------
   return (
