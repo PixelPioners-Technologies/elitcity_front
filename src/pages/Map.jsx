@@ -598,23 +598,18 @@ const handleLoad = (map) => {
 // for map refresh when user click map on header nav bar
 const navigate = useNavigate();
 const [refreshCount, setRefreshCount] = useState(0);
-const maxRefreshCount = 2; // Set the desired number of refreshes
+const maxRefreshCount = 2; 
 
 useEffect(() => {
-  // Get the current route
   const currentRoute = window.location.pathname;
 
-  // Check if the current route is the "Sales" page
   if (currentRoute === '/map' && refreshCount < maxRefreshCount) {
-    // Increment the refresh count
     setRefreshCount((prevCount) => prevCount + 1);
 
-    // Refresh the page after a short delay (adjust as needed)
     const timeoutId = setTimeout(() => {
       window.location.reload();
-    }, 1000); // 1000 milliseconds = 1 second
+    }, 1000); 
 
-    // Clear the timeout to avoid triggering additional refreshes if the component unmounts
     return () => clearTimeout(timeoutId);
   }
 }, [refreshCount, maxRefreshCount, navigate]);
