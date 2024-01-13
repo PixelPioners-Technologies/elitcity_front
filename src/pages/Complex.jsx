@@ -47,11 +47,16 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 const basess = 'http://127.0.0.1:8000';
+// const basess = 'https://127.0.0.1:8000'; 
+
+// const basess = 'http://localhost:5173';
 
 
 // const axiosInstance = axios.create({
 //   // baseURL: 'https://api.storkhome.ge'
 //   baseURL:  'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/'
+// const basess = 'http://127.0.0.1:8000';
+
 
 
 // });
@@ -299,7 +304,7 @@ const sortHomes = (data, sortOrder) => {
       max_full_price: maxFullPrice,
       min_space : min_space, 
       max_space : max_space,
-      status: selectedStatuses,
+      // status: selectedStatuses,
       ordering: ascendentPrice
 
     });
@@ -313,6 +318,7 @@ useEffect(() => {
       setIsLoading(true);
       // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
       const response = await axios.get(`${basess}/complex/${requestUrl}`);
+      console.log('-3333333333',response)
 
       // const { results } = response.data.results[0];
       const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
