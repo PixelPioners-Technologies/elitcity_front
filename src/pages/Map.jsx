@@ -592,6 +592,24 @@ const handleLoad = (map) => {
   setMapInstance(map); // Store the map instance
 };
 
+
+// for map refresh when user click map on header nav bar
+const [refreshCount, setRefreshCount] = useState(0);
+const maxRefreshCount = 2; 
+
+useEffect(() => {
+  if (refreshCount < maxRefreshCount) {
+    setRefreshCount((prevCount) => prevCount + 1);
+
+    const timeoutId = setTimeout(() => {
+      window.location.reload();
+    }, 1000); 
+    return () => clearTimeout(timeoutId);
+  }
+}, [refreshCount, maxRefreshCount]);
+
+
+
 // ---------------------------------------------------------------------------------------------------------------------
   return (
     <div className='main_map'>
