@@ -1,8 +1,4 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: black; /* Set your desired background color */
-}
+
 
 .ArticlesPageBox {
   min-height: 100vh; /* Ensure the component covers at least the viewport height */
