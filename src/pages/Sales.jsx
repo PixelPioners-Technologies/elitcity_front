@@ -50,9 +50,22 @@ export default function Sales() {
   const renderSaleArticles = () => {
     return saleDATA.map((item, index) => (
       <div className="saleArticlesBox" key={`saleArticle_${index}`}>
-        {renderSaleArticle(item)}
-        {/* Render the second eachSaleArticleBox */}
-        {renderSaleArticle(item)}
+         <motion.div
+              initial={{ x: -120, opacity: 0 }}
+              transition={{ duration: 1.5 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+          >
+            {renderSaleArticle(item)}
+            </motion.div>
+            <motion.div
+              initial={{ x: 120, opacity: 0 }}
+              transition={{ duration: 1.5 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              {renderSaleArticle(item)}
+            </motion.div>
       </div>
     ));
   };
