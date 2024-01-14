@@ -5,8 +5,58 @@ import percentImg from '../assets/percent-svgrepo-com.svg';
 import giftImg from '../assets/gift-svgrepo-com (1).svg';
 import istallmentImg from '../assets/time1-svgrepo-com.svg';
 import saleDATA from '../SaleDATA.json';
+import percentImage from '../assets/percentRED.svg';
+import companyImage from '../assets/ARCHISVG.svg';
+import navigateLogo from '../assets/navigateArrow.svg';
+import microphoneLogo from '../assets/microphoneImg.svg';
+
+
+
 
 export default function Sales() {
+
+  const truncateText = (text, limit) => {
+    return text.length > limit ? `${text.substring(0, limit)}...` : text;
+  };
+
+  const renderSaleArticle = (item) => (
+    <div className="eachSaleArticleBox" >
+      <div className="saleArticleInfoText">
+        <div className="timeAndCompanyLogo">
+          <div className="saleTimeBox">
+            <p>{item.time1}--{item.time2}</p>
+          </div>
+          <div className="logoOfPercentAndCompany">
+            <img src={percentImage} alt="Percent Discount" />
+            <img src={companyImage} alt="Company Logo" />
+          </div>
+        </div>
+        <p style={{color: '#bba8a8'}}>{item.saleText}</p>
+        <div className="microphoneAndItsInfoText">
+          <img src={microphoneLogo} alt="Microphone" />
+          <p>{truncateText(item.firstText, 50)}</p>
+        </div>
+        <div className="navigateAndItsInfoText">
+          <img src={navigateLogo} alt="Navigate Arrow" />
+          <p>{truncateText(item.secondText, 70)}</p>
+        </div>
+      </div>
+      <div className="SaleArticleImageBox">
+        <img src={item.image} alt="Sale Article Image" className="imageOfSaleComplex" />
+      </div>
+    </div>
+  );
+
+  const renderSaleArticles = () => {
+    return saleDATA.map((item, index) => (
+      <div className="saleArticlesBox" key={`saleArticle_${index}`}>
+        {renderSaleArticle(item)}
+        {/* Render the second eachSaleArticleBox */}
+        {renderSaleArticle(item)}
+      </div>
+    ));
+  };
+
   return (
     <div className="SalesBox">
         {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
@@ -45,35 +95,8 @@ export default function Sales() {
         </div>
       </motion.div>
 
-      {
-  saleDATA.map((item) => (
-    <div className="saleArticlesBox" key={item.id}>
-      <div className="eachSaleArticleBox">
-        <div className="saleArticleInfoText">
-          <div className="timeAndCompanyLogo">
-            <p>{item.time1}--{item.time2}</p>
-            <img src={item.percentImage} alt="Percent Discount" />
-            <img src={item.companyImage} alt="Company Logo" />
-          </div>
-          <p>{item.saleText}</p>
-          <p>{item.firstText}</p>
-          <p>{item.secondText}</p>
-          <div>
-            <img src={item.microphoneLogo} alt="Microphone" />
-            <p>{item.firstText}</p>
-          </div>
-          <div>
-            <img src={item.navigateLogo} alt="Navigate Arrow" />
-            <p>{item.secondText}</p>
-          </div>
-        </div>
-        <div className="SaleArticleImageBox">
-          <img src={item.image} alt="Sale Article Image" />
-        </div>
-      </div>
-    </div>
-  ))
-}
+      {renderSaleArticles()}
+
 
 
 {/* // ------------------------------------------------------------------------------------ */}
