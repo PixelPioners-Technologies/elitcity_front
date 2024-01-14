@@ -433,6 +433,7 @@ const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * i
           transition={{ duration: 1 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
+          className='motionBox'
         >
           <div className='forPaddingOfInfoFieldOfComplexsPlansMaps'>
             <div className='infoFieldOfComplexsPlansMaps'>
