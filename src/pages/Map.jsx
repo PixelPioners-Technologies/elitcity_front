@@ -595,7 +595,7 @@ const handleLoad = (map) => {
 };
 
 
-// for map refresh when user click map on header nav bar
+// for map refresh when user clicks map on header navbar
 const navigate = useNavigate();
 const [refreshCount, setRefreshCount] = useState(0);
 const maxRefreshCount = 2; 
@@ -606,11 +606,16 @@ useEffect(() => {
   if (currentRoute === '/map' && refreshCount < maxRefreshCount) {
     setRefreshCount((prevCount) => prevCount + 1);
 
-    const timeoutId = setTimeout(() => {
+    const intervalId = setInterval(() => {
       window.location.reload();
-    }, 1000); 
+    }, 1000);
 
-    return () => clearTimeout(timeoutId);
+    // Clear the interval after 1 second
+    setTimeout(() => {
+      clearInterval(intervalId);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
   }
 }, [refreshCount, maxRefreshCount, navigate]);
 
