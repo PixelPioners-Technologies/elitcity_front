@@ -8,6 +8,10 @@
   padding: 100px 150px;
 }
 
+.motionBox {
+  border: 1px solid white;
+}
+
 .forPaddingOfInfoFieldOfComplexsPlansMaps {
   padding: 0 30px;
 }
