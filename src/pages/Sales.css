@@ -1,0 +1,124 @@
+.SalesBox {
+  margin-top: 50px;
+  min-height: 100vh; /* Ensure the component covers at least the viewport height */
+  background-color: black; /* Set your desired background color */
+  /* padding: 20px; */
+}
+
+.forPaddingOfsalesNavBar {
+  padding: 0 90px;
+} 
+
+.infoFieldOfSalesAndSoOn {
+  border: 1px solid white;
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 40px;
+
+}
+
+.boxOftitleOfActionAndOffers {
+  display: flex;
+  align-items: center;
+}
+
+.titleOfActionAndOffers {
+  color: white;
+}
+
+.allSaleGiftAndInstallmentBox {
+  display: flex;
+  gap: 105px;
+}
+.eachSectionBox {
+  display: flex;
+  gap: 10px;
+}
+
+.eachSectionBox:hover {
+  cursor: pointer;
+  scale: 1.1;
+  transform: 0.3sec;
+}
+
+
+
+.buttonOfEachSection {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  color: white;
+}
+
+
+
+.percentIstallmentImg {
+  width: 23px;
+}
+
+.giftImg {
+  width: 30px;
+
+}
+
+.saleArticlesBox {
+  display: flex;
+  margin-top: 50px;
+  padding: 40px;
+  justify-content: space-around;
+}
+
+.eachSaleArticleBox {
+  border: 1px solid white;
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+  color: white;
+}
+
+.saleArticleInfoText {
+  width: 300px;
+}
+.timeAndCompanyLogo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.saleTimeBox {
+  display: flex;
+  align-items: center;
+  color: gray;
+}
+
+.logoOfPercentAndCOmpany {
+  display: flex;
+  gap: 5px;
+}
+
+/* .SaleArticleImageBox {
+
+} */
+
+.microphoneAndItsInfoText {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.navigateAndItsInfoText {
+  display: flex;
+  gap: 22px;
+  margin-top: 22px;
+
+
+}
+
+
+.imageOfSaleComplex {
+  width: 300px;
+}

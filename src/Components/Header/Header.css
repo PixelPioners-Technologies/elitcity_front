@@ -24,7 +24,7 @@ nav ul {
 }
 
 .textButtonContainer:hover .buttonItemsOfList {
-  color: aqua;
+  /* color: aqua; */
   cursor: pointer;
 }
 

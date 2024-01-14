@@ -12,3 +12,8 @@
   letter-spacing: 10%;
   color: #FFFFFF;
 }
+
+.container {
+  display: flex;
+  gap: 15px;
+}

@@ -1,0 +1,41 @@
+
+
+.ArticlesPageBox {
+  min-height: 100vh; /* Ensure the component covers at least the viewport height */
+  background-color: black; /* Set your desired background color */
+  padding: 20px;
+
+}
+
+.Left {
+  float: left;
+}
+
+.Right {
+  float: right;
+}
+
+.BoxOfEachArticle {
+  margin-top: 20px;
+  display: flex;
+  border: 1px solid white;
+  width: 60%;
+}
+
+.ArticleImgBox {
+  padding: 20px;
+}
+
+.img {
+  width: 555px;
+  height: 232px;
+}
+
+
+.ArticleTextBox {
+color: white;
+padding: 20px 30px;
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
