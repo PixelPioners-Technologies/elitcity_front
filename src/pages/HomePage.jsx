@@ -471,11 +471,11 @@ const handleStatusButtonLanguageChange = (lang) => {
                       </div>
                       {/* button for search */}
                       <div>
-                        <Link to="/complex">
+                        {/* <Link to="/complex"> */}
                           <button className='modal_close_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
                             ძიება
                           </button>
-                        </Link>
+                        {/* </Link> */}
                       </div>
                       
                   </div>

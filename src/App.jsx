@@ -211,7 +211,7 @@ function App() {
     fetchComplexes();
   }, [searchButton]);
 
-console.log(complexes)
+console.log('for app.js',complexes)
     //-----------------------------------fetch ionly locations --------------------------------------
 
 const base_URL_for_location = 'http://127.0.0.1:8000/map/' 

@@ -299,7 +299,7 @@ const sortHomes = (data, sortOrder) => {
       max_full_price: maxFullPrice,
       min_space : min_space, 
       max_space : max_space,
-      status: selectedStatuses,
+      // status: selectedStatuses,
       ordering: ascendentPrice
 
     });
@@ -342,7 +342,7 @@ useEffect(() => {
 
 
 // Pagination logic
-const itemsPerPage = 12;
+const itemsPerPage = 15;
 const totalPageCount = Math.ceil(totalCount / itemsPerPage);
 const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : [];
 
