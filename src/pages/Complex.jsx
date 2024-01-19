@@ -299,10 +299,17 @@ const sortHomes = (data, sortOrder) => {
       max_full_price: maxFullPrice,
       min_space : min_space, 
       max_space : max_space,
-      status: selectedStatuses,
+      // status: selectedStatuses,
       ordering: ascendentPrice
 
     });
+
+    if (selectedStatuses && selectedStatuses.length > 0) {
+      selectedStatuses.forEach(status => {
+        queryParams.append('status', status);
+      })
+  }
+
 
     const queryString = queryParams.toString();
     const requestUrl = `${selectedLanguage}/?${queryString}`;
@@ -342,7 +349,7 @@ useEffect(() => {
 
 
 // Pagination logic
-const itemsPerPage = 12;
+const itemsPerPage = 600;
 const totalPageCount = Math.ceil(totalCount / itemsPerPage);
 const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : [];
 
