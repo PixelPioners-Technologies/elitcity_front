@@ -1,13 +1,5 @@
-/* eslint-disable react/prop-types */
-
-
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-case-declarations */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect , useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import axios from 'axios';
 import './Map.css';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
@@ -15,13 +7,16 @@ import green from  '../location_icons/icon-green.png'
 import red from  '../location_icons/icon-red.png'
 import yelow from  '../location_icons/icon-yelow.png'
 import Modal from '../modals for page map/Modal'
+import apartment_market from '../location_icons/private_apartment2.png'
 import SpaceModal from '../modals for page map/SpaceModal';
 import PriceModal from '../modals for page map/PriceModal';
 import StatusModal from '../modals for page map/StatusModa';
 import button_icon from '../icons/Vector.svg'
 import { motion } from "framer-motion";
 
-
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const initialCenter = {
   lat: 41.7151,
@@ -29,8 +24,6 @@ const initialCenter = {
 };
 
 const Base_URL = "http://127.0.0.1:8000/complex/";
-
-
 
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
 
@@ -103,6 +96,34 @@ const normalizeLocationData = (data, lang) => {
 };
 
 
+const normalizePrivateApartmentData = (data, lang) => {
+  return data.map(item => ({
+    id: item.id,
+    internalName: item.internal_private_apartment_name.internal_private_apartment_name,
+    numberOfRooms: item.internal_private_apartment_name.number_of_rooms,
+    status: item.internal_private_apartment_name.status,
+    area: item.internal_private_apartment_name.area,
+    fullPrice: item.internal_private_apartment_name.full_price,
+    squarePrice: item.internal_private_apartment_name.square_price,
+    floorNumber: item.internal_private_apartment_name.floor_number,
+    isAvailable: item.internal_private_apartment_name.is_available,
+    visibility: item.internal_private_apartment_name.visibiliti,
+    address: {
+      city: item[`private_apartment_address_${lang}`].city_en,
+      pharentDistrict: item[`private_apartment_address_${lang}`].pharentDistrict_en,
+      district: item[`private_apartment_address_${lang}`].district_en,
+      streetName: item[`private_apartment_address_${lang}`].street_name_en,
+      address: item[`private_apartment_address_${lang}`].address_en,
+      latitude: item[`private_apartment_address_${lang}`].latitude,
+      longitude: item[`private_apartment_address_${lang}`].longitude,
+    },
+    images: item.private_apartment_images,
+    privateApartmentName: item[`private_apartment_name_${lang}`],
+    testPrivateField: item[`test_private_field_${lang}`]
+  }));
+};
+
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -144,7 +165,31 @@ export default function Map({selectedLanguage}) {
   
   const [ascendentPrice, setAscendentPrice] = useState('');
 
+  // ეს არის სთეიტი ფილტრაციების შეცვლისთვისკომპლექსებიდან კერძო აპარტამენტებზე
+  const [filterType, setFilterType] = useState('complexes'); 
 
+  // -------------------------private apartment states-----------------------
+  const [privateApartments, setPrivateApartments] = useState([]);
+  const [min_square_price, setMin_square_price] = useState('');
+  const [max_square_price, setMax_square_price] = useState('');
+  const [min_area, setMin_area] = useState('');
+  const [max_area, setMax_area] = useState('');
+// --------------------------------------------------------------------------
+  useEffect(() =>{
+    setSelectedCity('')
+    setSelectedPharentDistricts([])
+    setSelectedDistricts([])
+    setMin_space('')
+    setMax_space('')
+    setMinFullPrice('')
+    setMaxFullPrice('')
+    setMaxPricePerSquareMeter('')  
+    setMinPricePerSquareMeter('')
+    setLocations([])
+    setSelectedStatuses([])
+  },[selectedLanguage])
+  
+  
 //----------------------------------------------------------------------------------------------------
   //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
     //  address_en__city_en__city_en__icontains=& 
@@ -154,36 +199,6 @@ export default function Map({selectedLanguage}) {
     //        address_en__district_en__district_en=&  
     //        address_en__district_en__district_en__icontains=&  
     //         address_en__district_en__district_en__in=saburtalo
-
-// --------------------------------------axios  for complexes --------------------------------------
-  // useEffect(() => {
-  //   const fetchComplexes = async () => {
-  //     const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-  //     const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`
-  //     const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`
-  //     try {
-  //       const response = await axios.get(`${Base_URL}${selectedLanguage}/`,{
-  //         params: {
-  //           [cityParam]: selectedCity,
-  //           [pharentdistrictParams] : selectedPharentDistricts.join(','),
-  //           [districtParams] : selectedDistricts.join(','),
-  //           min_price_per_sq_meter : minPricePerSquareMeter,
-  //           max_price_per_sq_meter : maxPricePerSquareMeter,
-  //           min_full_price : minFullPrice,
-  //           max_full_price : maxFullPrice,
-  //           status : selectedStatuses.join(','),
-  //         }
-  //       });
-
-  //       const normalData = normalizeComplexData(response.data.results , selectedLanguage)
-  //       setComplexes(normalData);
-  //     } catch (error) {
-  //       console.error('Error fetching complexes:', error);
-  //     }
-  //   };
-  //   fetchComplexes();
-  // }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter,
-  //    maxPricePerSquareMeter, minFullPrice, maxFullPrice, status,selectedStatuses]); 
 
 
      useEffect(() => {
@@ -251,6 +266,53 @@ useEffect(() => {
 } , [selectedLanguage  , selectedCity]  )
 
 
+
+// ----------------------------------------------------------------------------------------------
+
+const BaseURL_Private = 'http://127.0.0.1:8000/privateapartments/'
+
+useEffect(() => {
+  const fetcPrivateApartments = async () => {
+
+    // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+    // const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
+    // const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
+
+    const cityParam = `city`;
+    const pharentdistrictParams =  `parent_districts`;
+    const districtParams = `districts`;
+
+    let queryParams = new URLSearchParams({
+      [cityParam]: selectedCity,
+      [pharentdistrictParams]: selectedPharentDistricts.join(','),
+      [districtParams]: selectedDistricts.join(','),
+      min_square_price: min_square_price,
+      max_square_price: max_square_price,
+      min_full_price: minFullPrice,
+      max_full_price: maxFullPrice,
+      min_area : min_area, 
+      max_area : max_area,
+      // ordering: ascendentPrice
+    });
+
+    if (selectedStatuses && selectedStatuses.length > 0) {
+      selectedStatuses.forEach(status => {
+        queryParams.append('status', status);
+      })
+  }
+
+    const queryString = queryParams.toString();
+    const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
+
+    const response = await axios.get(requestUrl)
+    const data = response.data.results
+    const normalised_Data = normalizePrivateApartmentData(data, selectedLanguage)
+    setPrivateApartments(normalised_Data)
+    // console.log(privateApartments)
+  }
+  fetcPrivateApartments();
+},[selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, min_square_price,
+  max_square_price, minFullPrice, maxFullPrice, selectedStatuses, max_area , min_area])
 
 // ----------------------------------------------------------------------------------------------
 
@@ -464,10 +526,8 @@ const handleDistrictChange = (e, district) => {
 // },[selectedPharentDistricts,selectedDistricts ] )
 
 useEffect(() => {
-  console.log("es unda iyos sortirebuli kompleqsebi :", complexes);
-  console.log('sortirebis steiti',ascendentPrice )
-  // ... rest of your useEffect code ...
-}, [selectedStatuses , ascendentPrice]);
+  console.log('this is private apartmebts ', privateApartments)
+}, [privateApartments ]);
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
@@ -615,12 +675,25 @@ useEffect(() => {
 }, [refreshCount, maxRefreshCount, navigate]);
 
 
+// ---------------------------------logika filtraciis cvlilebistvis-----------------------------------------
 
-// ---------------------------------------------------------------------------------------------------------------------
-  return (
-    <div className='main_map'>
-                    {/* axali divebi butonebis magivrad filtraciistvis */}
-                    <motion.div
+
+// for Language Menu in library
+
+
+const handleCheckboxChange = (event) => {
+  setFilterType(event.target.value);
+};
+
+
+
+const renderFilterUI = () => {
+  switch (filterType) {
+    case 'complexes':
+      return (
+      <div>
+         {/* axali divebi butonebis magivrad filtraciistvis */}
+         <motion.div
                       initial={{ y: 100, opacity: 0 }}
                       whileInView={{ y: 0, opacity: 1 }}
                       transition={{ duration: 1 }}
@@ -721,7 +794,107 @@ useEffect(() => {
                       </div>
                   </div>
                   </motion.div>
+      </div>
+    );
+   case 'privateApartments' : 
+    return (
+     <div className='filter_cont' >
+          <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1 }}
+            >
+              <div className="button-modal-container">
+                <div onClick={handlePriceButtonClick}  className='space_button'  >
+                  {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                </div> 
+                <PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                <div>
+                      <input
+                          type="number"
+                          placeholder='Min Price Per Square Meter'
+                          value={minPricePerSquareMeter}
+                          onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
+                          />
 
+                      <input
+                          type="number"
+                          placeholder='Max Price Per Square Meter'
+                          value={maxPricePerSquareMeter}
+                          onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
+                      />
+                      
+                      <input
+                        type="number"
+                        placeholder='Min Full Price'
+                        value={minFullPrice}
+                        onChange={(e) => setMinFullPrice(e.target.value)}
+                      />
+
+                      <input
+                        type="number"
+                        placeholder='Max Full Price'
+                        value={maxFullPrice}
+                        onChange={(e) => setMaxFullPrice(e.target.value)}
+                      />                            
+                </div>
+                <button className='modal_close_button' onClick={handleClosePriceModal}>Close</button>
+                </PriceModal>
+            </div>
+          </motion.div>
+     </div>
+    );
+  }
+};
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+  return (
+    <div className='main_map'>
+
+                   <div className="toggle-button-container">
+                    {/* pirveli chekboxi */}
+                        <div className='filter_chackboxes' >
+                          <div>
+                            <label className="ui-bookmark">
+                                <input type="checkbox" value="complexes"  checked={filterType === 'complexes'}  onChange={handleCheckboxChange} />
+                                <div className="bookmark">
+                                  <svg viewBox="0 0 32 32">
+                                    <g>
+                                      <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
+                                    </g>
+                                  </svg>
+                                </div>
+                              </label>
+                          </div>
+                              <h1 className='filter_mark'  >gafiltre kompleqsebi</h1>
+                        </div>
+
+                    {/* meore chekboxi */}
+                      <div className='filter_chackboxes'>
+                        <div>
+                          <label className="ui-bookmark">
+                                  <input type="checkbox" value="privateApartments"  checked={filterType === 'privateApartments'}  onChange={handleCheckboxChange} />
+                                  <div className="bookmark">
+                                    <svg viewBox="0 0 32 32">
+                                      <g>
+                                        <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
+                                      </g>
+                                    </svg>
+                                  </div>
+                                </label>
+                          </div>
+                                <h1 className='filter_mark'  >gafiltre apartamentebi</h1>
+                        </div>
+                    </div>
+
+
+
+                    {/* orive filtracia iqneba am divshi */}
+                   <div>
+                    {renderFilterUI()}
+                   </div>
                   
 
                     <div className='map_cont scale-up-hor-center' >
@@ -736,6 +909,7 @@ useEffect(() => {
                             gestureHandling: "greedy",
                           }}
                         >
+                        {/* map complexes */}
                         {complexes.map(complex => {
                             if (complex.address && complex.address.latitude && complex.address.longitude) {
                               const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
@@ -758,7 +932,6 @@ useEffect(() => {
                             }
                             return null;
                           })}
-
                           {selectedComplex && (
                             <InfoWindow
                             position={{
@@ -766,17 +939,37 @@ useEffect(() => {
                                 lng: Number(selectedComplex.address.longitude),
                               }}
                               onCloseClick={() => setSelectedComplex(null)}
-                            >
+                              >
                               <div>
                                 <h2>{selectedComplex.complexName}</h2>
                                 <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p> 
                                 {/* Add more details and the image if available */}
                                 {selectedComplex.images && selectedComplex.images.length > 0 && (
                                   <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
-                                )}
+                                  )}
                               </div>
                             </InfoWindow>
                           )} 
+                          {/* map private apartments */}
+                          {privateApartments.map(p_apartments => {
+                            if (privateApartments&& p_apartments.address.latitude && p_apartments.address.longitude){
+                              return (
+                                <Marker 
+                                key={p_apartments.id}
+                                position={{
+                                  lat: p_apartments.address.latitude,
+                                  lng: p_apartments.address.longitude,
+                                }}
+                                icon={{
+                                  url: apartment_market,
+                                  scaledSize: new window.google.maps.Size(40, 40),
+                                }}
+                                />
+                              )
+                            }
+                          })}
+
+
                         </GoogleMap>
                       </LoadScript>
                     </div> 
@@ -798,32 +991,45 @@ useEffect(() => {
                       </div>
 
                     </div>
-                
       </div>
 
   );
 }
 
 
-//127.0.0.1:8000/complex/en/?address_en__city_en__city_en=&
-// address_en__city_en__city_en__icontains=&
-// address_en__pharentDistrict_en__pharentDistrict_en=&
-// address_en__pharentDistrict_en__pharentDistrict_en__icontains=isani-samgori&
-// address_en__pharentDistrict_en__pharentDistrict_en__in=&
-// address_en__district_en__district_en=&address_en__district_en__district_en__icontains=&
-// address_en__district_en__district_en__in=lisi
+
+
+// -------------------------------------   A   L  E   R   T                     --------------------------------
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
+
+// ro daiwyeb mushaobas  gaixsene ro yvela steitis saxelebi gaq shesacvleli 
+// sxvadasxva filtraciistvis ro orive filtraciam calcalke imushaos
+
+
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
 
 
 
 
 
-//127.0.0.1:8000/complex/en/?
-// address_en__city_en__city_en=&
-// address_en__city_en__city_en__icontains=&
-// min_price_per_sq_meter=&
-// max_price_per_sq_meter=&
-// max_full_price=&min_full_price=&
-// status=2
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
