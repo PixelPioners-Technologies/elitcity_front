@@ -194,7 +194,7 @@ function App() {
       // Construct the full URL with query parameters
       const queryString = queryParams.toString();
       const requestUrl = `${Base_URL}${selectedLanguage}/?${queryString}`;
-
+      
       //////////////////////    T  E  S  T  ///////////////////////////
       // local_url = 'http://127.0.0.1:8000'
       // const requestUrl = `${local_url}${selectedLanguage}/?${queryString}`;

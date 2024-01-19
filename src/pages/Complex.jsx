@@ -309,6 +309,13 @@ const sortHomes = (data, sortOrder) => {
 
     });
 
+    if (selectedStatuses && selectedStatuses.length > 0) {
+      selectedStatuses.forEach(status => {
+        queryParams.append('status', status);
+      })
+  }
+
+
     const queryString = queryParams.toString();
     const requestUrl = `${selectedLanguage}/?${queryString}`;
     
