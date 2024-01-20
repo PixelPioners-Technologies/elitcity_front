@@ -14,9 +14,12 @@ import StatusModal from '../modals for page map/StatusModa';
 import button_icon from '../icons/Vector.svg'
 import { motion } from "framer-motion";
 
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+// import P_Modal from "../modals for private page/P_Modal";
+// import P_PriceModal from '../modals for private page/P_PriceModal';
+// import P_SpaceModal from '../modals for private page/P_SpaceModal';
+// import P_StatusModal from '../modals for private page/P_StatusModa'
+// import P_PriceModal from '../modals for private page/P_PriceModal'
+
 
 const initialCenter = {
   lat: 41.7151,
@@ -174,6 +177,17 @@ export default function Map({selectedLanguage}) {
   const [max_square_price, setMax_square_price] = useState('');
   const [min_area, setMin_area] = useState('');
   const [max_area, setMax_area] = useState('');
+  const [max_P_FullPrice, setMax_P_FullPrice] = useState('');
+  const [min_P_FullPrice, setMin_P_FullPrice] = useState('');
+  const [status_Option_for_P_and_C, setStatus_Option_for_P_and_C] = useState('complex');
+
+
+
+
+  // const [is_P_ModalOpen, setIs_P_ModalOpen] = useState('');
+  // const [is_P_PriceModalOpen, setIs_P_PriceModalOpen] = useState(false);
+  // const [is_P_SpaceModalOpen, setIs_P_SpaceModalOpen] = useState(false);
+  // const [is_P_StatusModalOpen, setIs_P_StatusModalOpen] = useState(false);
 // --------------------------------------------------------------------------
   useEffect(() =>{
     setSelectedCity('')
@@ -379,12 +393,6 @@ const getStatusText = (status, lang) => {
   const renderStatusOptions = () => {
     return Object.entries(statusTranslations).map(([value, labels]) => (
       <div className='status_chackboxes' key={value}>
-        {/* <input
-          type="checkbox"
-          value={value}
-          checked={selectedStatuses.includes(value)}
-          onChange={(e) => handleStatusChange(e, value)}
-        /> */}
           <label className="container">
           <input 
           type="checkbox"
@@ -525,9 +533,9 @@ const handleDistrictChange = (e, district) => {
 //   console.log(status)
 // },[selectedPharentDistricts,selectedDistricts ] )
 
-useEffect(() => {
-  console.log('this is private apartmebts ', privateApartments)
-}, [privateApartments ]);
+// useEffect(() => {
+//   console.log('this is private apartmebts ', privateApartments)
+// }, [privateApartments ]);
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
@@ -564,7 +572,6 @@ const handleStatusButtonClick = () => {
 const handleCloseStatusModal = () => {
   setIsStatusModalOpen(false);
 }
-
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -677,15 +684,9 @@ useEffect(() => {
 
 // ---------------------------------logika filtraciis cvlilebistvis-----------------------------------------
 
-
-// for Language Menu in library
-
-
 const handleCheckboxChange = (event) => {
   setFilterType(event.target.value);
 };
-
-
 
 const renderFilterUI = () => {
   switch (filterType) {
@@ -795,120 +796,178 @@ const renderFilterUI = () => {
                   </div>
                   </motion.div>
       </div>
-    );
-   case 'privateApartments' : 
+    ); case 'privateApartments' : 
     return (
-     <div className='filter_cont' >
-          <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              <div className="button-modal-container">
-                <div onClick={handlePriceButtonClick}  className='space_button'  >
-                  {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
-                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-                </div> 
-                <PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
-                <div>
-                      <input
-                          type="number"
-                          placeholder='Min Price Per Square Meter'
-                          value={minPricePerSquareMeter}
-                          onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
-                          />
+      <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <div className='filter_cont' >
+                 {/* container for filtering space */}
+                 <div className="button-modal-container ">
+                            <div onClick={handleSpaceButtonClick}  className='space_button'  >
+                              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div> 
+                            <SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                              <div>
+                                  <input
+                                      type="number"
+                                      placeholder='Min Price Per Square Meter'
+                                      value={min_area}
+                                      onChange={(e) => setMin_area(e.target.value)}
+                                  />
+                                  
+                                    <input
+                                      type="number"
+                                      placeholder='Max Price Per Square Meter'
+                                      value={max_area}
+                                      onChange={(e) => setMax_area(e.target.value)}
+                                  />
+                                  <p>otaxebis filtraciac unda iyos aq</p>
+                              </div>
+                            <button className='modal_close_button' onClick={closeSpaceModal}>Close</button>
+                            </SpaceModal>
+                      </div>
 
-                      <input
-                          type="number"
-                          placeholder='Max Price Per Square Meter'
-                          value={maxPricePerSquareMeter}
-                          onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
-                      />
-                      
-                      <input
-                        type="number"
-                        placeholder='Min Full Price'
-                        value={minFullPrice}
-                        onChange={(e) => setMinFullPrice(e.target.value)}
-                      />
+                  {/* container for filtering price  */}
+                  <div className="button-modal-container">
+                            <div onClick={handlePriceButtonClick}  className='space_button'  >
+                              {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div> 
+                            <PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                            <div>
+                                  <input
+                                      type="number"
+                                      placeholder='Min Price Per Square Meter'
+                                      value={min_square_price}
+                                      onChange={(e) => setMin_square_price(e.target.value)}
+                                      />
 
-                      <input
-                        type="number"
-                        placeholder='Max Full Price'
-                        value={maxFullPrice}
-                        onChange={(e) => setMaxFullPrice(e.target.value)}
-                      />                            
-                </div>
-                <button className='modal_close_button' onClick={handleClosePriceModal}>Close</button>
-                </PriceModal>
-            </div>
+                                  <input
+                                      type="number"
+                                      placeholder='Max Price Per Square Meter'
+                                      value={max_square_price}
+                                      onChange={(e) => setMax_square_price(e.target.value)}
+                                  />
+                                 
+                                 <input
+                                   type="number"
+                                   placeholder='Min Full Price'
+                                   value={min_P_FullPrice}
+                                   onChange={(e) => setMin_P_FullPrice(e.target.value)}
+                                 />              
+
+                                  <input
+                                    type="number"
+                                    placeholder='Max Full Price'
+                                    value={max_P_FullPrice}
+                                    onChange={(e) => setMax_P_FullPrice(e.target.value)}
+                                  />
+
+                            </div>
+                            <button className='modal_close_button' onClick={handleClosePriceModal}>Close</button>
+                            </PriceModal>
+                        </div>
+
+                        {/* button for locations */}
+                      <div className="button-modal-container" >
+                            <div onClick={handleShowModal} className='lacation_button'   >
+                            {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <Modal isOpen={isModalOpen} >
+                              {renderModalContent()}
+                            </Modal>
+                      </div>
+          </div>
           </motion.div>
-     </div>
     );
+
+
   }
 };
 
 
-// ---------------------------------------------------------------------------------------------------------------------
-  return (
-    <div className='main_map'>
-
-                   <div className="toggle-button-container">
-                    {/* pirveli chekboxi */}
-                        <div className='filter_chackboxes' >
-                          <div>
-                            <label className="ui-bookmark">
-                                <input type="checkbox" value="complexes"  checked={filterType === 'complexes'}  onChange={handleCheckboxChange} />
-                                <div className="bookmark">
-                                  <svg viewBox="0 0 32 32">
-                                    <g>
-                                      <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
-                                    </g>
-                                  </svg>
-                                </div>
-                              </label>
-                          </div>
-                              <h1 className='filter_mark'  >gafiltre kompleqsebi</h1>
-                        </div>
-
-                    {/* meore chekboxi */}
-                      <div className='filter_chackboxes'>
-                        <div>
-                          <label className="ui-bookmark">
-                                  <input type="checkbox" value="privateApartments"  checked={filterType === 'privateApartments'}  onChange={handleCheckboxChange} />
-                                  <div className="bookmark">
-                                    <svg viewBox="0 0 32 32">
-                                      <g>
-                                        <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
-                                      </g>
-                                    </svg>
-                                  </div>
-                                </label>
-                          </div>
-                                <h1 className='filter_mark'  >gafiltre apartamentebi</h1>
-                        </div>
-                    </div>
 
 
-
-                    {/* orive filtracia iqneba am divshi */}
-                   <div>
-                    {renderFilterUI()}
-                   </div>
-                  
-
-                    <div className='map_cont scale-up-hor-center' >
-                      <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
-                        <GoogleMap
-                          mapContainerStyle={{ width: '100%', height: '625px'  }}
-                          center={mapCenter}
-                          zoom={zoomLevel}
-                          onLoad={handleLoad}
-                          onZoomChanged={handleZoomChanged}
-                          options={{
-                            gestureHandling: "greedy",
-                          }}
-                        >
+const renderMarkers = () => {
+  switch (filterType) {
+    case "complexes":
+      return (
+        <>
+          {/* map complexes */}
+          {complexes.map(complex => {
+                            if (complex.address && complex.address.latitude && complex.address.longitude) {
+                              const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
+                              
+                              return (
+                                <Marker
+                                key={complex.id}
+                                  position={{
+                                    lat: complex.address.latitude,
+                                    lng: complex.address.longitude,
+                                  }}
+                                  icon={{
+                                    url: statusInfo.iconUrl,
+                                    scaledSize: statusInfo.scaledSize
+                                  }}
+                                  onClick={() => handleMarkerClick(complex)}
+                                />
+                                
+                              );
+                            }
+                            return null;
+                          })}
+                          {selectedComplex && (
+                            <InfoWindow
+                            position={{
+                              lat: Number(selectedComplex.address.latitude),
+                                lng: Number(selectedComplex.address.longitude),
+                              }}
+                              onCloseClick={() => setSelectedComplex(null)}
+                              >
+                              <div>
+                                <h2>{selectedComplex.complexName}</h2>
+                                <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p> 
+                                {/* Add more details and the image if available */}
+                                {selectedComplex.images && selectedComplex.images.length > 0 && (
+                                  <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
+                                  )}
+                              </div>
+                            </InfoWindow>
+                          )} 
+        </>
+      );
+    case "privateApartments":
+      return (
+        <>
+        {privateApartments.map(p_apartments => {
+          if (privateApartments&& p_apartments.address.latitude && p_apartments.address.longitude){
+            return (
+              <Marker 
+              key={p_apartments.id}
+              position={{
+                lat: p_apartments.address.latitude,
+                lng: p_apartments.address.longitude,
+              }}
+              icon={{
+                url: apartment_market,
+                scaledSize: new window.google.maps.Size(40, 40),
+              }}
+              />
+            )
+          }
+           })}
+        </>
+      );
+    case "all":
+    default:
+      
+      return (
+        <>
                         {/* map complexes */}
                         {complexes.map(complex => {
                             if (complex.address && complex.address.latitude && complex.address.longitude) {
@@ -968,8 +1027,91 @@ const renderFilterUI = () => {
                               )
                             }
                           })}
+        </>
+      );
+  }
+};
 
 
+
+// ---------------------------------------------------------------------------------------------------------------------
+  return (
+    <div className='main_map'>
+
+                   <div className="toggle-button-container">
+                    {/* pirveli chekboxi */}
+                        <div className='filter_chackboxes' >
+                          <div>
+                            <label className="ui-bookmark">
+                                <input type="checkbox" value="complexes"  checked={filterType === 'complexes'}  onChange={handleCheckboxChange} />
+                                <div className="bookmark">
+                                  <svg viewBox="0 0 32 32">
+                                    <g>
+                                      <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
+                                    </g>
+                                  </svg>
+                                </div>
+                              </label>
+                          </div>
+                              <h1 className='filter_mark'  >გაფილტრე კომპლექსები</h1>
+                        </div>
+
+                    {/* meore chekboxi */}
+                      <div className='filter_chackboxes'>
+                        <div>
+                          <label className="ui-bookmark">
+                                  <input type="checkbox" value="privateApartments"  checked={filterType === 'privateApartments'}  onChange={handleCheckboxChange} />
+                                  <div className="bookmark">
+                                    <svg viewBox="0 0 32 32">
+                                      <g>
+                                        <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
+                                      </g>
+                                    </svg>
+                                  </div>
+                                </label>
+                          </div>
+                                <h1 className='filter_mark'  >გაფილტრე კერძო ბინები</h1>
+                        </div>
+
+
+                         {/* meore chekboxi */}
+                      <div className='filter_chackboxes'>
+                        <div>
+                          <label className="ui-bookmark">
+                                  <input type="checkbox" value="all"  checked={filterType === 'all'}  onChange={handleCheckboxChange} />
+                                  <div className="bookmark">
+                                    <svg viewBox="0 0 32 32">
+                                      <g>
+                                        <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
+                                      </g>
+                                    </svg>
+                                  </div>
+                                </label>
+                          </div>
+                                <h1 className='filter_mark'  >აჩვენე ყველა </h1>
+                        </div>
+                    </div>
+
+                    
+                    {/* orive filtracia iqneba am divshi */}
+                   <div>
+                    {renderFilterUI()}
+                   </div>
+                  
+
+                    <div className='map_cont scale-up-hor-center' >
+                      <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
+                        <GoogleMap
+                          mapContainerStyle={{ width: '100%', height: '625px'  }}
+                          center={mapCenter}
+                          zoom={zoomLevel}
+                          onLoad={handleLoad}
+                          onZoomChanged={handleZoomChanged}
+                          options={{
+                            gestureHandling: "greedy",
+                          }}
+                        >
+                        {renderMarkers()}
                         </GoogleMap>
                       </LoadScript>
                     </div> 
@@ -989,17 +1131,15 @@ const renderFilterUI = () => {
                           <img src={green} rel='location icon' className='loc_icon'  />
                           <p> {handleStatusButtonLanguageChange(selectedLanguage).legendComplited}</p>
                       </div>
-
                     </div>
       </div>
-
   );
 }
 
 
 
-
-// -------------------------------------   A   L  E   R   T                     --------------------------------
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------   A   L  E   R   T         --------------------------------------------
 // -------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------
