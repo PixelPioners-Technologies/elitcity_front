@@ -17,6 +17,7 @@ import Physical from './pages/Physical';
 import Articles from './pages/Articles';
 import Storkhome from './pages/Storkhome';
 import axios from 'axios';
+import EachComplex from './pages/EachComplex';
 
 
 
@@ -404,6 +405,8 @@ useEffect(() => {
         <Route path='articles' element={<Articles />} />
         <Route path='storkhome' element={<Storkhome />} />
 
+        <Route path='eachComplex' element={<EachComplex />} />
+        
 
         <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
       </Routes>
