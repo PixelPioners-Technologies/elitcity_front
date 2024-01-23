@@ -1,0 +1,37 @@
+.main_private_container {
+  color: aliceblue;
+}
+
+.physical_cards_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 52px;
+  margin-top: 40px;
+}
+
+
+.physical_card {
+  width: 315px;
+  height: 400px;
+  /* background-color: #C1D6CC; */
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 20px 20px;
+
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}
+
+
+
+
+.apartment_image{
+  width: 250px;
+}
