@@ -568,3 +568,35 @@
 }
 
 /* ----------------------------------------------------------------------- */
+
+/* ----------------------this is infowindow styles----------------------- */
+
+
+.gm-style-iw {
+  background-color: #222 !important;
+  color: #fff !important;
+}
+
+
+.gm-style-iw-d{
+  padding: 0px !important;
+  background-color: #222 !important;
+  overflow: hidden !important
+
+} 
+
+.gm-ui-hover-effect>span {
+  background-color: #ffffff !important;
+  width: 52px !important;
+  height: 32px   !important;
+  margin: 1px   !important;
+  
+}
+
+.gm-ui-hover-effect{
+  padding-right: 36px  !important;
+  padding-top: 12px  !important;
+
+}
+
+/* ----------------------------------------------------------------------- */

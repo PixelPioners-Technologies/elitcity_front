@@ -222,7 +222,7 @@ useEffect(() => {
       
     try {
       const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
-      const normalisedLocationData = normalizeLocationData(response.data.results , selectedLanguage)
+      const normalisedLocationData = normalizeLocationData(response.data , selectedLanguage)
       setLocations(normalisedLocationData)
     } catch (error) {
       console.error("error fetching on locations =>> ", error)

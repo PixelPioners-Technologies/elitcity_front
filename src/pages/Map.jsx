@@ -132,7 +132,6 @@ const normalizePrivateApartmentData = (data, lang) => {
 
 export default function Map({selectedLanguage}) {
   const [complexes, setComplexes] = useState([]);
-  // const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [selectedComplex, setSelectedComplex] = useState(null);
   const [locations , setLocations ] = useState([]);
 
@@ -163,31 +162,23 @@ export default function Map({selectedLanguage}) {
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
-  
   const [selectedStatuses, setSelectedStatuses] = useState([])
   
   const [ascendentPrice, setAscendentPrice] = useState('');
 
   // ეს არის სთეიტი ფილტრაციების შეცვლისთვისკომპლექსებიდან კერძო აპარტამენტებზე
   const [filterType, setFilterType] = useState('complexes'); 
-
   // -------------------------private apartment states-----------------------
   const [privateApartments, setPrivateApartments] = useState([]);
+  const [selectedPrivateApartments, setSelectedPrivateApartments] = useState(null);
   const [min_square_price, setMin_square_price] = useState('');
   const [max_square_price, setMax_square_price] = useState('');
   const [min_area, setMin_area] = useState('');
   const [max_area, setMax_area] = useState('');
   const [max_P_FullPrice, setMax_P_FullPrice] = useState('');
   const [min_P_FullPrice, setMin_P_FullPrice] = useState('');
-  const [status_Option_for_P_and_C, setStatus_Option_for_P_and_C] = useState('complex');
+  const [selectedStatuses_For_P, setSelectedStatuses_For_P] = useState([])
 
-
-
-
-  // const [is_P_ModalOpen, setIs_P_ModalOpen] = useState('');
-  // const [is_P_PriceModalOpen, setIs_P_PriceModalOpen] = useState(false);
-  // const [is_P_SpaceModalOpen, setIs_P_SpaceModalOpen] = useState(false);
-  // const [is_P_StatusModalOpen, setIs_P_StatusModalOpen] = useState(false);
 // --------------------------------------------------------------------------
   useEffect(() =>{
     setSelectedCity('')
@@ -199,8 +190,19 @@ export default function Map({selectedLanguage}) {
     setMaxFullPrice('')
     setMaxPricePerSquareMeter('')  
     setMinPricePerSquareMeter('')
-    setLocations([])
     setSelectedStatuses([])
+    setSelectedCity('')
+    setSelectedPharentDistricts([])
+    setSelectedDistricts([])
+    setMinPricePerSquareMeter('')
+    setMaxPricePerSquareMeter('')
+    setMin_space('')
+    setMax_space('')
+    setMinFullPrice('')
+    setMaxFullPrice('')
+    setStatus('')
+    setSelectedStatuses([])
+    setSelectedStatuses_For_P([])
   },[selectedLanguage])
   
   
@@ -269,7 +271,7 @@ useEffect(() => {
       
     try {
       const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
-      const normalisedLocationData = normalizeLocationData(response.data.results , selectedLanguage)
+      const normalisedLocationData = normalizeLocationData(response.data , selectedLanguage)
       setLocations(normalisedLocationData)
     } catch (error) {
       console.error("error fetching on locations =>> ", error)
@@ -309,11 +311,10 @@ useEffect(() => {
       // ordering: ascendentPrice
     });
 
-    if (selectedStatuses && selectedStatuses.length > 0) {
-      selectedStatuses.forEach(status => {
-        queryParams.append('status', status);
-      })
-  }
+    selectedStatuses_For_P.forEach(status => {
+      queryParams.append('status', status);
+    });
+
 
     const queryString = queryParams.toString();
     const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
@@ -326,7 +327,7 @@ useEffect(() => {
   }
   fetcPrivateApartments();
 },[selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, min_square_price,
-  max_square_price, minFullPrice, maxFullPrice, selectedStatuses, max_area , min_area])
+  max_square_price, minFullPrice, maxFullPrice, selectedStatuses, max_area , min_area, selectedStatuses_For_P])
 
 // ----------------------------------------------------------------------------------------------
 
@@ -407,6 +408,64 @@ const getStatusText = (status, lang) => {
       </div>
     ));
   };
+
+
+
+
+  const getStatusTextfor_P = (status, lang) => {
+    const statusTexts = {
+      en: {
+        1: "Newly renovated",
+        2: "With old repairs",
+        3: "To be repairedd"
+      },
+      ka: {
+        1: "ახალ გარემონტებული",
+        2: "ძველი რემონტით",
+        3: "გაურემონტებელი"
+      },
+      ru: {
+        1: "Недавно отремонтированный",
+        2: "Со старым ремонтом",
+        3: "Подлежит ремонту"
+      }
+    };
+  
+    return statusTexts[lang][status] || `unknown status`;
+  };
+  
+
+
+  const statusTranslations_For_P = {
+    1: { en: 'Newly renovated', ka: 'ახალ გარემონტებული', ru: 'Недавно отремонтированный' },
+    2: { en: 'With old repairs', ka: 'ძველი რემონტით', ru: 'Со старым ремонтом' },
+    3: { en: 'To be repairedd', ka: 'გაურემონტებელი', ru: 'Подлежит ремонту' }
+    // Add more statuses and translations if needed
+  };
+
+  // ("1" , 'Newly renovated'),
+  // ('2' , 'with old repairs'),
+  // ('3', 'to be repaired'),
+
+  const renderStatusOptions_For_P = () => {
+    return Object.entries(statusTranslations_For_P).map(([value, labels]) => (
+      <div className='status_chackboxes' key={value}>
+          <label className="container">
+          <input 
+            type="checkbox"
+            checked={selectedStatuses_For_P.includes(value)}
+            value={value}
+            onChange={(e) => handleStatusChange_For_P(e, value)}
+          />
+          <div className="checkmark"></div>
+        </label>
+        <p className='text_modal_color' >{labels[selectedLanguage]}</p>
+      </div>
+    ));
+  };
+
+  // const [status_Option_for_P, setStatus_Option_for_P] = useState('complex');
+  // const [selectedStatuses_For_P, setSelectedStatuses_For_P] = useState([])
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -577,12 +636,17 @@ const handleCloseStatusModal = () => {
 
 
 // --------------------------function for selecting status for filtration -----------------------------------------------
-
-// const handleStatusChange = (e) => {
-//   setStatus(e.target.value);
-// };
 const handleStatusChange = (e, value) => {
   setSelectedStatuses((prevSelectedStatuses) => {
+    const newSelectedStatuses = e.target.checked 
+      ? [...prevSelectedStatuses, value] 
+      : prevSelectedStatuses.filter((status) => status !== value);
+    return newSelectedStatuses;
+  });
+};
+
+const handleStatusChange_For_P = (e, value) => {
+  setSelectedStatuses_For_P((prevSelectedStatuses) => {
     const newSelectedStatuses = e.target.checked 
       ? [...prevSelectedStatuses, value] 
       : prevSelectedStatuses.filter((status) => status !== value);
@@ -591,6 +655,7 @@ const handleStatusChange = (e, value) => {
     return newSelectedStatuses;
   });
 };
+
 
 // -----------------------------------------------------------------------------------------------------------------------------
 // --------ffunction for changing status button content language change and also select city button language change -------------
@@ -651,6 +716,12 @@ const handleMarkerClick = (complex) => {
   setMapCenter({ lat: complex.address.latitude, lng: complex.address.longitude }); 
 };
 
+const handle_P_MarkerClick = (private_apartment) => {
+  setSelectedPrivateApartments(private_apartment);
+  setZoomLevel(17); // Zoom in more when a marker is clicked
+  setMapCenter({ lat: private_apartment.address.latitude, lng: private_apartment.address.longitude }); 
+}
+
 const handleZoomChanged = () => {
   if (mapInstance) {
     setZoomLevel(mapInstance.getZoom());
@@ -680,6 +751,7 @@ useEffect(() => {
     return () => clearTimeout(timeoutId);
   }
 }, [refreshCount, maxRefreshCount, navigate]);
+
 
 
 // ---------------------------------logika filtraciis cvlilebistvis-----------------------------------------
@@ -882,14 +954,23 @@ const renderFilterUI = () => {
                               {renderModalContent()}
                             </Modal>
                       </div>
+
+                      {/* button for status */}
+                      <div className="button-modal-container" >
+                            <div onClick={handleStatusButtonClick} className='lacation_button'   >
+                            {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <StatusModal isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+                            {renderStatusOptions_For_P()}
+                            <button className='modal_close_button' onClick={handleCloseStatusModal}>Close</button>
+                            </StatusModal>
+                      </div>
           </div>
           </motion.div>
     );
-
-
   }
 };
-
 
 
 
@@ -957,10 +1038,31 @@ const renderMarkers = () => {
                 url: apartment_market,
                 scaledSize: new window.google.maps.Size(40, 40),
               }}
+              onClick={() => handle_P_MarkerClick(p_apartments)}
               />
             )
           }
-           })}
+           })};
+            {selectedPrivateApartments && (
+                <InfoWindow
+                className='infowindoe_itself'
+                position={{
+                    lat: Number(selectedPrivateApartments.address.latitude),
+                    lng: Number(selectedPrivateApartments.address.longitude),
+                  }}
+                  onCloseClick={() => setSelectedPrivateApartments(null)}
+                  >
+                  <div className='infowindow_container'  >
+                    <h2>{selectedPrivateApartments.privateApartmentName}</h2>
+                    <p>{getStatusTextfor_P(selectedPrivateApartments.status, selectedLanguage)}</p> 
+                    {/* Add more details and the image if available */}
+                    {selectedPrivateApartments.images && selectedPrivateApartments.images.length > 0 && (
+                      <img src={selectedPrivateApartments.images[0]} alt={selectedPrivateApartments.privateApartmentName} className='infowindow_img' />
+                      )}
+                  </div>
+                </InfoWindow>
+              )} 
+
         </>
       );
     case "all":
@@ -968,8 +1070,8 @@ const renderMarkers = () => {
       
       return (
         <>
-                        {/* map complexes */}
-                        {complexes.map(complex => {
+          {/* map complexes */}
+          {complexes.map(complex => {
                             if (complex.address && complex.address.latitude && complex.address.longitude) {
                               const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
                               
@@ -1009,41 +1111,118 @@ const renderMarkers = () => {
                               </div>
                             </InfoWindow>
                           )} 
-                          {/* map private apartments */}
-                          {privateApartments.map(p_apartments => {
-                            if (privateApartments&& p_apartments.address.latitude && p_apartments.address.longitude){
-                              return (
-                                <Marker 
-                                key={p_apartments.id}
-                                position={{
-                                  lat: p_apartments.address.latitude,
-                                  lng: p_apartments.address.longitude,
-                                }}
-                                icon={{
-                                  url: apartment_market,
-                                  scaledSize: new window.google.maps.Size(40, 40),
-                                }}
-                                />
-                              )
-                            }
-                          })}
+          {privateApartments.map(p_apartments => {
+          if (privateApartments&& p_apartments.address.latitude && p_apartments.address.longitude){
+            return (
+              <Marker 
+              key={p_apartments.id}
+              position={{
+                lat: p_apartments.address.latitude,
+                lng: p_apartments.address.longitude,
+              }}
+              icon={{
+                url: apartment_market,
+                scaledSize: new window.google.maps.Size(40, 40),
+              }}
+              onClick={() => handle_P_MarkerClick(p_apartments)}
+              />
+            )
+          }
+           })};
+            {selectedPrivateApartments && (
+                <InfoWindow
+                className='infowindoe_itself'
+                position={{
+                    lat: Number(selectedPrivateApartments.address.latitude),
+                    lng: Number(selectedPrivateApartments.address.longitude),
+                  }}
+                  onCloseClick={() => setSelectedPrivateApartments(null)}
+                  >
+                  <div className='infowindow_container'  >
+                    <h2>{selectedPrivateApartments.privateApartmentName}</h2>
+                    <p>{getStatusTextfor_P(selectedPrivateApartments.status, selectedLanguage)}</p> 
+                    {/* Add more details and the image if available */}
+                    {selectedPrivateApartments.images && selectedPrivateApartments.images.length > 0 && (
+                      <img src={selectedPrivateApartments.images[0]} alt={selectedPrivateApartments.privateApartmentName} className='infowindow_img' />
+                      )}
+                  </div>
+                </InfoWindow>
+              )} 
+
+           
         </>
       );
   }
 };
 
 
+const handleResetComplexStates  = () =>{
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMinPricePerSquareMeter('')
+  setMaxPricePerSquareMeter('')
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setStatus('')
+  setSelectedStatuses([])
+}
+
+
+const handleReset_PApartmentStates = () => {
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setMaxPricePerSquareMeter('')  
+  setMinPricePerSquareMeter('')
+  setSelectedStatuses_For_P([])
+}
+
+
+const HandleResetAllStates = () => {
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setMaxPricePerSquareMeter('')  
+  setMinPricePerSquareMeter('')
+  setSelectedStatuses([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMinPricePerSquareMeter('')
+  setMaxPricePerSquareMeter('')
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setStatus('')
+  setSelectedStatuses([])
+  setSelectedStatuses_For_P([])
+}
 
 // ---------------------------------------------------------------------------------------------------------------------
   return (
     <div className='main_map'>
 
-                   <div className="toggle-button-container">
+                   <div className="toggle-button-container" >
                     {/* pirveli chekboxi */}
                         <div className='filter_chackboxes' >
                           <div>
                             <label className="ui-bookmark">
-                                <input type="checkbox" value="complexes"  checked={filterType === 'complexes'}  onChange={handleCheckboxChange} />
+                                <input type="checkbox" value="complexes"  checked={filterType === 'complexes'}  onChange={(event) => {
+                                  handleCheckboxChange(event);
+                                  handleReset_PApartmentStates(event);
+                                }} />
                                 <div className="bookmark">
                                   <svg viewBox="0 0 32 32">
                                     <g>
@@ -1060,7 +1239,10 @@ const renderMarkers = () => {
                       <div className='filter_chackboxes'>
                         <div>
                           <label className="ui-bookmark">
-                                  <input type="checkbox" value="privateApartments"  checked={filterType === 'privateApartments'}  onChange={handleCheckboxChange} />
+                                  <input type="checkbox" value="privateApartments"  checked={filterType === 'privateApartments'}  onChange={(event) => {
+                                  handleCheckboxChange(event);
+                                  handleResetComplexStates(event);
+                                  }}/>
                                   <div className="bookmark">
                                     <svg viewBox="0 0 32 32">
                                       <g>
@@ -1078,7 +1260,10 @@ const renderMarkers = () => {
                       <div className='filter_chackboxes'>
                         <div>
                           <label className="ui-bookmark">
-                                  <input type="checkbox" value="all"  checked={filterType === 'all'}  onChange={handleCheckboxChange} />
+                                  <input type="checkbox" value="all"  checked={filterType === 'all'} onChange={(event) => {
+                                  handleCheckboxChange(event);
+                                  HandleResetAllStates(event);
+                                  }} />
                                   <div className="bookmark">
                                     <svg viewBox="0 0 32 32">
                                       <g>
@@ -1135,26 +1320,6 @@ const renderMarkers = () => {
       </div>
   );
 }
-
-
-
-// -------------------------------------------------------------------------------------------------------------
-// -------------------------------------   A   L  E   R   T         --------------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-
-// ro daiwyeb mushaobas  gaixsene ro yvela steitis saxelebi gaq shesacvleli 
-// sxvadasxva filtraciistvis ro orive filtraciam calcalke imushaos
-
-
-// -------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-
-
-
 
 
 
