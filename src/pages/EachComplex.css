@@ -1,12 +1,21 @@
-
-.bigImageBox {
-  width: 711px;
-
+.eachComplexBox {
+  padding: 0 50px;
 }
+
+.imageAndTextInfos {
+  display: flex;
+  gap: 50px;
+}
+
 .imageSliderBox {
   display: flex;
   flex-direction: column;
   position: relative;
+}
+
+.bigImageBox {
+  width: 711px;
+
 }
 
 .miniImagesBox {
@@ -35,3 +44,31 @@
 /* .clicked {
   scale: 1.1;
 } */
+
+
+.complexTextsBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.seenIdFavouriteAndOthersBox {
+  /* color: white; */
+  display: flex;
+  /* justify-content: space-around; */
+  gap: 50px;
+  
+
+}
+
+.seenAndIdBox {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.favouriteDollarAndShareBox {
+  display: flex;
+  gap: 20px;
+}

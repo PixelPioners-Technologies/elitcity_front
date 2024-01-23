@@ -1,5 +1,14 @@
 import  { useState } from 'react';
 import './EachComplex.css';
+import DATA from '../EachComplexDATA.json';
+import { motion } from "framer-motion";
+import lari from '../assets/lari-svgrepo-com.svg';
+import dollar from '../assets/dollar-svgrepo-com.svg';
+import star from '../assets/Star for Each Complex Page.svg';
+import share from '../assets/ShareImage.svg';
+
+
+
 
 import img1 from '../assets/ComplexesPhotos/0zzz.jpg';
 import img2 from '../assets/ComplexesPhotos/1zz.jpg';
@@ -45,8 +54,18 @@ export default function EachComplex() {
     setWordData(wordSlider);
   };
 
+
+  // for toggle DOllar AND LARI ---==---(START)
+  const [isOn, setIsOn] = useState(false);
+  const toggleSwitch = () => setIsOn(!isOn);
+  // -----===--------(END)
+
+
   return (
-    <div className="each-complex">
+    <div className="eachComplexBox">
+      <div className='imageAndTextInfos'>
+
+      {/* Complexes photos info */}
       <div className='imageSliderBox'>
         <div className='bigImageBox'>
           <button className='btns' onClick={handlePrevious}>P</button>
@@ -74,6 +93,65 @@ export default function EachComplex() {
           ))}
         </div>
       </div>
+        {/* --------- */}
+
+      {/* complex text info */}
+      
+      {DATA.map((complex, index) => (
+        <div key={index} className='complexTextsBox'>
+          <div className='seenIdFavouriteAndOthersBox'>
+            <div className='seenAndIdBox'>
+              <p style={{color: '#838282'}} >Seen: {complex.seen}</p>
+              <p style={{color: '#838282'}}>ID: {complex.ID}</p>
+            </div>
+            
+            <div className='favouriteDollarAndShareBox'>
+              {/* Star favourite box */}
+                <button className='heartButtons' >
+                  <img src={star} style={{ width: '30px', height: '30px', }} />
+                </button>
+               {/* ----Dollar and Lari Toggle button */}
+               <div className='currencyBox'>
+                  <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
+                    <motion.div className="handle" layout transition={spring}>
+                      <img
+                        src={lari}
+                        alt="Lari Sign"
+                        className={`currency-sign ${isOn ? "active" : ""}`}
+                        />
+                      <img
+                        src={dollar}
+                        alt="Dollar Sign"
+                        className={`currency-sign ${!isOn ? "active" : ""}`}
+                        />
+                    </motion.div>
+                  </div>
+                </div>
+                {/* Share Button */}
+                <button className='heartButtons' >
+                  <img src={share} style={{ width: '30px', height: '30px', }} />
+                </button>
+            </div>
+            
+          </div>
+
+
+            <p style={{color: '#838282'}}>Title: {complex.title}</p>
+            <p style={{color: '#838282'}}>City: {complex.city}</p>
+            <p style={{color: '#838282'}}>Address: {complex.adress}</p>
+            <p style={{color: '#838282'}}>Price: {complex.price}</p>
+        </div>
+      ))}
+        {/* ---------- */}
+
+      </div>
     </div>
   );
 }
+
+
+const spring = {
+  type: "spring",
+  stiffness: 100,
+  damping: 30,
+};
