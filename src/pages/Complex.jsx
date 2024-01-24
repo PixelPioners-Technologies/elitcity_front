@@ -46,7 +46,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 
-const basess = 'http://127.0.0.1:8000';
+const basess = 'http://127.0.0.1:8000/';
 // const basess = 'https://127.0.0.1:8000'; 
 
 // const basess = 'http://localhost:5173';
@@ -332,9 +332,9 @@ useEffect(() => {
       // console.log('es aris D A T A',data)
       console.log('es aris RESPONSE', response)
       setHomes(normalData);
-      // console.log('es aris meore',results)
-      // setTotalCount(count);
       setIsLoading(false);
+      setTotalCount(response.data.total_items)
+
     } catch (error) {
       setIsLoading(false);
       console.error('Error fetching data:', error);

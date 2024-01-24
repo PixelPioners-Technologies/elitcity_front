@@ -178,6 +178,7 @@ export default function Map({selectedLanguage}) {
   const [max_P_FullPrice, setMax_P_FullPrice] = useState('');
   const [min_P_FullPrice, setMin_P_FullPrice] = useState('');
   const [selectedStatuses_For_P, setSelectedStatuses_For_P] = useState([])
+  const [resendAxios , setResendAxios] = useState(false)
 
 // --------------------------------------------------------------------------
   useEffect(() =>{
@@ -257,7 +258,7 @@ export default function Map({selectedLanguage}) {
     
       fetchComplexes();
     }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter,
-       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, ascendentPrice, max_space , min_space]);
+       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, ascendentPrice, max_space , min_space ,resendAxios]);
     
 
   
@@ -586,15 +587,6 @@ const handleDistrictChange = (e, district) => {
 
 
 
-// useEffect( () => {
-//   console.log('pharentdistrict selected : ' , selectedPharentDistricts)
-//   console.log("district selected : " ,selectedDistricts)
-//   console.log(status)
-// },[selectedPharentDistricts,selectedDistricts ] )
-
-// useEffect(() => {
-//   console.log('this is private apartmebts ', privateApartments)
-// }, [privateApartments ]);
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
@@ -746,6 +738,7 @@ useEffect(() => {
 
     const timeoutId = setTimeout(() => {
       window.location.reload();
+      setResendAxios(true)
     }, 1000); 
 
     return () => clearTimeout(timeoutId);
