@@ -1,5 +1,8 @@
 .eachComplexBox {
-  padding: 0 50px;
+  height: 100vh;
+  width: 99vw;
+  padding: 0 42px;
+  
 }
 
 .imageAndTextInfos {
@@ -51,13 +54,16 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  padding-top: 40px;
+  
 }
 
 .seenIdFavouriteAndOthersBox {
   /* color: white; */
   display: flex;
   /* justify-content: space-around; */
-  gap: 50px;
+  /* gap: 50px; */
+  justify-content: space-between;
   
 
 }

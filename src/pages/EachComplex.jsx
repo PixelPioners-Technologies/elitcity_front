@@ -136,10 +136,10 @@ export default function EachComplex() {
           </div>
 
 
-            <p style={{color: '#838282'}}>Title: {complex.title}</p>
-            <p style={{color: '#838282'}}>City: {complex.city}</p>
-            <p style={{color: '#838282'}}>Address: {complex.adress}</p>
-            <p style={{color: '#838282'}}>Price: {complex.price}</p>
+            <p style={{color: '#ccc', fontSize: '20px'}}> {complex.title}</p>
+            <p style={{color: '#838289'}}> {complex.city}</p>
+            <p style={{color: '#838282'}}> {complex.adress}</p>
+            <p style={{color: '#ccc', fontSize: '20px'}}>M2-ის ფასი {complex.price}$-დან</p>
         </div>
       ))}
         {/* ---------- */}
