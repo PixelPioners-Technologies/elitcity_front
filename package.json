@@ -16,7 +16,7 @@
     "@mui/x-data-grid": "^6.18.1",
     "@react-google-maps/api": "^2.19.2",
     "axios": "^1.6.2",
-    "framer-motion": "^10.17.9",
+    "framer-motion": "^10.18.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",

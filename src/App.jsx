@@ -212,7 +212,7 @@ function App() {
     fetchComplexes();
   }, [searchButton]);
 
-console.log('for app.js',complexes)
+// console.log(complexes)
     //-----------------------------------fetch ionly locations --------------------------------------
 
 const base_URL_for_location = 'http://127.0.0.1:8000/map/' 
@@ -222,7 +222,7 @@ useEffect(() => {
       
     try {
       const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
-      const normalisedLocationData = normalizeLocationData(response.data.results , selectedLanguage)
+      const normalisedLocationData = normalizeLocationData(response.data , selectedLanguage)
       setLocations(normalisedLocationData)
     } catch (error) {
       console.error("error fetching on locations =>> ", error)
@@ -236,27 +236,7 @@ useEffect(() => {
 
 // ----------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//-----------------------------------fetch private apartments --------------------------------------
 
 
 
@@ -400,7 +380,7 @@ useEffect(() => {
         <Route path='developers' element={<Developers />} />
         <Route path='map'   element={<Map selectedLanguage={selectedLanguage}/>} />
         <Route path='sales' element={<Sales />} />
-        <Route path='physical' element={<Physical />} />
+        <Route path='physical' element={<Physical  selectedLanguage={selectedLanguage}  />} />
         <Route path='articles' element={<Articles />} />
         <Route path='storkhome' element={<Storkhome />} />
 
