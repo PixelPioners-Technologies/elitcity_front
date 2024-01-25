@@ -96,7 +96,7 @@ export default function Physical({selectedLanguage}) {
   const [totalCount, setTotalCount] = useState(0);
   const [totalPageCount , setTotalPageCount] = useState(0)
   const [currentPage, setCorrentPage] = useState(0)
-  // const [ascendentPrice, setAscendentPrice] = useState('');
+  const [ascendentPrice, setAscendentPrice] = useState('');
 
 useEffect(() =>{
   setSelectedCity('')
@@ -128,7 +128,7 @@ useEffect(() =>{
       const pharentdistrictParams =  `parent_districts`;
       const districtParams = `districts`;
 
-      const limit = 10; // Define the limit or make it dynamic as per your requirement
+      const limit = 2; // Define the limit or make it dynamic as per your requirement
       const offset = (currentPage - 1) * limit;
   
 
@@ -143,8 +143,8 @@ useEffect(() =>{
         min_area : min_area, 
         max_area : max_area,
         limit: limit,
-        offset: offset
-        // ordering: ascendentPrice
+        offset: offset,
+        ordering: ascendentPrice
       });
 
       if (selectedStatuses && selectedStatuses.length > 0) {
@@ -167,7 +167,7 @@ useEffect(() =>{
     }
     fetcPrivateApartments();
   },[selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, min_square_price,
-    max_square_price, minFullPrice, maxFullPrice, selectedStatuses, max_area , min_area , currentPage])
+    max_square_price, minFullPrice, maxFullPrice, selectedStatuses, max_area , min_area , currentPage ,ascendentPrice])
   
 
     useEffect(() => {
@@ -523,7 +523,53 @@ const pagiHandler = () => {
 }
 
 // ------------------------------------------------------------------------------------
+const handleStatusButtonLanguageChange = (lang) => {
+  var languageInfo = {
+    statusInfoLanguage : "en" ,
+    sortingButtonAscendentPrice : "Ascendant price in m²",
+    sortingButtonDescendentPrice : "Descendent price in m²",
+    sortingButtonAscendantTime : "Ascendant created at",
+    sortingButtonDescendentTime : "Decendant created at",
+    sortingButtonAscendantFullPrice : "Ascendant full price ",
+    sortingButtonDescendentFullPrice : "Descendant full price",
 
+  }
+
+  switch (lang) {
+    case "en" :
+      languageInfo.sortingButtonAscendentPrice = "Ascendant price in m²"
+      languageInfo.sortingButtonDescendentPrice = "Descendent price in m²"
+      languageInfo.sortingButtonAscendantTime = "Ascendant created at"
+      languageInfo.sortingButtonDescendentTime = "Decendent created at"
+      languageInfo.sortingButtonAscendantFullPrice = "Ascendant full price "
+      languageInfo.sortingButtonDescendentFullPrice = "Decendent full price"
+
+
+      break;
+
+    case "ka" :
+      languageInfo.sortingButtonAscendentPrice = "მ² ფასი ზრდადობით"
+      languageInfo.sortingButtonDescendentPrice = "მ² ფასი კლებადობით"
+      languageInfo.sortingButtonAscendantTime = "თარიღი ზრდადობით"
+      languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით"
+      languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით"
+      languageInfo.sortingButtonDescendentFullPrice = "მთლიანი ფასი კლებადობით"
+
+      break
+      
+    case "ru" :
+      languageInfo.sortingButtonAscendentPrice = "Ццена м² с шагом"
+      languageInfo.sortingButtonDescendentPrice = "м² цена снижается"
+      languageInfo.sortingButtonAscendantTime = "Асцендент создан в"
+      languageInfo.sortingButtonDescendentTime = "Потомок создан в"
+      languageInfo.sortingButtonAscendantFullPrice = "Полная цена Асцендента."
+      languageInfo.sortingButtonDescendentFullPrice = "Полная стоимость потомка"
+
+
+      break
+  }
+  return languageInfo
+}
 
 
   return (
@@ -736,7 +782,7 @@ const pagiHandler = () => {
                           <MenuItem
                             style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
                             onClick={() => { handleClose(); 
-                            setAscendentPrice('-created_at'); }}>თარიღი კლებადობით
+                            setAscendentPrice('-created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentTime}
                           </MenuItem>
                         </motion.div>
                         
@@ -748,20 +794,7 @@ const pagiHandler = () => {
                           <MenuItem
                             style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
                             onClick={() => { handleClose(); 
-                            setAscendentPrice('created_at'); }}>თარიღი ზრდადობით
-                          </MenuItem>
-                        </motion.div>
-
-                        
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით
+                            setAscendentPrice('created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantTime}
                           </MenuItem>
                         </motion.div>
 
@@ -774,7 +807,20 @@ const pagiHandler = () => {
                           <MenuItem
                             style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
                             onClick={() => { handleClose(); 
-                            setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით
+                            setAscendentPrice('-square_pricer'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendentPrice}
+                          </MenuItem>
+                        </motion.div>
+
+                        
+                        <motion.div
+                          whileHover={{ scale: 1.1 }} 
+                          whileTap={{ scale: 0.9 }}
+                          transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        >
+                          <MenuItem
+                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                            onClick={() => { handleClose(); 
+                            setAscendentPrice('square_price'); }}> {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentPrice}
                           </MenuItem>
                         </motion.div>
 
@@ -787,7 +833,7 @@ const pagiHandler = () => {
                           <MenuItem
                             style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
                             onClick={() => { handleClose(); 
-                            setAscendentPrice('-rank'); }}>რანკი კლებადობით
+                            setAscendentPrice('-full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantFullPrice}
                           </MenuItem>
                         </motion.div>
 
@@ -800,7 +846,7 @@ const pagiHandler = () => {
                           <MenuItem
                           style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
                             onClick={() => { handleClose(); 
-                            setAscendentPrice('rank'); }}>რანკი ზრდადობით
+                            setAscendentPrice('full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentFullPrice}
                           </MenuItem>
                         </motion.div>
 
