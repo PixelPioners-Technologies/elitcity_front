@@ -78,3 +78,21 @@
   display: flex;
   gap: 20px;
 }
+
+.chabarebaPartebiKorpusebi {
+  width: 100px;
+}
+
+.eachTextOnListTextsOne {
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.eachTextOnListTextsTwo {
+  display: flex;
+  flex-direction: column;
+
+
+}

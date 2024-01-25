@@ -139,7 +139,23 @@ export default function EachComplex() {
             <p style={{color: '#ccc', fontSize: '20px'}}> {complex.title}</p>
             <p style={{color: '#838289'}}> {complex.city}</p>
             <p style={{color: '#838282'}}> {complex.adress}</p>
-            <p style={{color: '#ccc', fontSize: '20px'}}>M2-ის ფასი {complex.price}$-დან</p>
+            <p style={{color: '#ccc', fontSize: '20px'}}>m²-ის ფასი {complex.price}$-დან</p>
+
+            <div className='chabarebaPartebiKorpusebi'>
+              <div className='eachTextOnListTexts'>
+                <p style={{color: '#838289'}}> ჩაბარება</p>
+                <p style={{color: '#838289'}}> ფართები{complex.city}</p>
+                <p style={{color: '#838289'}}> ბინების რ-ობა{complex.city}</p>
+                <p style={{color: '#838289'}}> კორპუსები{complex.city}</p>
+                <p style={{color: '#838289'}}> სართულიანობა{complex.city}</p>
+              </div>
+
+              <div className='eachTextOnListTextsTwo'>
+                <p style={{color: '#ccc'}}> {complex.city}</p>
+                
+              </div>
+            </div>
+
         </div>
       ))}
         {/* ---------- */}
