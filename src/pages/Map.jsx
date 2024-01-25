@@ -12,6 +12,7 @@ import SpaceModal from '../modals for page map/SpaceModal';
 import PriceModal from '../modals for page map/PriceModal';
 import StatusModal from '../modals for page map/StatusModa';
 import button_icon from '../icons/Vector.svg'
+import ground_marker from '../location_icons/ground_location_icon.png'
 import { motion } from "framer-motion";
 
 // import P_Modal from "../modals for private page/P_Modal";
@@ -126,6 +127,31 @@ const normalizePrivateApartmentData = (data, lang) => {
   }));
 };
 
+const normalizeGroundData = (data, lang) => {
+  return data.map(item => ({
+    id: item.id,
+    internalName: item.internal_ground_name.internal_ground_name,
+    area: item.internal_ground_name.area,
+    fullPrice: item.internal_ground_name.full_price,
+    squarePrice: item.internal_ground_name.square_price,
+    status: item.internal_ground_name.status,
+    rank: item.internal_ground_name.rank,
+    isAvailable: item.internal_ground_name.is_available,
+    visibility: item.internal_ground_name.visibiliti,
+    address: {
+      city: item[`ground_address_${lang}`].city_en,
+      parentDistrict: item[`ground_address_${lang}`].pharentDistrict_en,
+      district: item[`ground_address_${lang}`].district_en,
+      streetName: item[`ground_address_${lang}`].street_name_en,
+      address: item[`ground_address_${lang}`].address_en,
+      latitude: item[`ground_address_${lang}`].latitude,
+      longitude: item[`ground_address_${lang}`].longitude,
+    },
+    images: item.ground_images,
+    groundName: item[`ground_name_${lang}`]
+  }));
+};
+
 
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -178,9 +204,27 @@ export default function Map({selectedLanguage}) {
   const [max_P_FullPrice, setMax_P_FullPrice] = useState('');
   const [min_P_FullPrice, setMin_P_FullPrice] = useState('');
   const [selectedStatuses_For_P, setSelectedStatuses_For_P] = useState([])
-  const [resendAxios , setResendAxios] = useState(false)
+  // const [resendAxios , setResendAxios] = useState(false)
+
+  // this states are for grounds-----------------------------------
+  const [grounds, setGrounds] = useState('');
+  const [selectedGrounds, setSelectedGrounds] = useState('');
+
+  const [min_ground_area, setMin_ground_area] = useState('');
+  const [max_ground_area, setMax_ground_area] = useState('');
+
+  const [min_graund_full_price, setMin_graund_full_price] = useState('');
+  const [max_ground_fill_price, setMax_ground_fill_price] = useState('');
+
+  const [min_graund_square_price, setMin_graund_square_price] = useState('');
+  const [max_ground_square_price, setMax_ground_square_price] = useState('');
+
+  const [graundStatus, setGraundStatus] = useState([]);
+
+
 
 // --------------------------------------------------------------------------
+
   useEffect(() =>{
     setSelectedCity('')
     setSelectedPharentDistricts([])
@@ -258,7 +302,7 @@ export default function Map({selectedLanguage}) {
     
       fetchComplexes();
     }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter,
-       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, ascendentPrice, max_space , min_space ,resendAxios]);
+       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, ascendentPrice, max_space , min_space /*,resendAxios]*/ ]);
     
 
   
@@ -331,6 +375,47 @@ useEffect(() => {
   max_square_price, minFullPrice, maxFullPrice, selectedStatuses, max_area , min_area, selectedStatuses_For_P])
 
 // ----------------------------------------------------------------------------------------------
+// ------------------------------------axios for fetching ground----------------------------------------------------------
+
+const Ground_baseURL = 'http://127.0.0.1:8000/ground/'
+
+useEffect(() => {
+  const fetchGrounds = async () => {
+
+    const cityParam = `city`;
+    const pharentdistrictParams =  `parent_districts`;
+    const districtParams = `districts`;
+
+    let queryParams = new URLSearchParams({
+      [cityParam]: selectedCity,
+      [pharentdistrictParams]: selectedPharentDistricts.join(','),
+      [districtParams]: selectedDistricts.join(','),
+      min_square_price: min_graund_square_price,
+      max_square_price: max_ground_square_price,
+      min_full_price: min_graund_full_price,
+      max_full_price: max_ground_fill_price,
+      min_area : min_ground_area, 
+      max_area : max_ground_area,
+    });
+
+    graundStatus.forEach(status => {
+      queryParams.append('status', status);
+    });
+
+    const queryString = queryParams.toString();
+    const requestUrl = `${Ground_baseURL}${selectedLanguage}/?${queryString}`;
+
+    const response = await axios.get(requestUrl)
+    const data = response.data.results
+    const normalised_Data = normalizeGroundData(data, selectedLanguage)
+    setGrounds(normalised_Data)
+  }
+  fetchGrounds()
+} ,[selectedLanguage,selectedCity,selectedPharentDistricts,selectedDistricts,min_ground_area, max_ground_area ,
+  min_graund_full_price, max_ground_fill_price,min_graund_square_price, max_ground_square_price, graundStatus] )
+
+// ----------------------------------------------------------------------------------------------
+
 
 // ----------------------------------icon coloure and  status  change  ----------------------------------------------------------
 
@@ -465,8 +550,31 @@ const getStatusText = (status, lang) => {
     ));
   };
 
-  // const [status_Option_for_P, setStatus_Option_for_P] = useState('complex');
-  // const [selectedStatuses_For_P, setSelectedStatuses_For_P] = useState([])
+
+
+  const statusTranslationFor_Ground = {
+    1: { en: 'Agricultural', ka: 'სასოფლო-სამეურნეო', ru: 'Сельскохозяйственный' },
+    2: { en: 'Land for settlement', ka: 'სამოსახლო', ru: 'Земля для поселения' },
+    3: { en: 'Commercial', ka: 'კომერციული', ru: 'Коммерческий' }
+  };
+  const render_Ground_StatusOption = () => {
+    return Object.entries(statusTranslationFor_Ground).map(([value, labels]) => (
+      <div className='status_chackboxes' key={value}>
+          <label className="container">
+          <input 
+            type="checkbox"
+            checked={graundStatus.includes(value)}
+            value={value}
+            onChange={(e) => handleStatusChangeForGround(e, value)}
+          />
+          <div className="checkmark"></div>
+        </label>
+        <p className='text_modal_color' >{labels[selectedLanguage]}</p>
+      </div>
+    ));
+  };
+
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -648,6 +756,17 @@ const handleStatusChange_For_P = (e, value) => {
   });
 };
 
+const handleStatusChangeForGround = (e, value) => {
+  setGraundStatus((prevSelectedStatuses) => {
+    const newSelectedStatuses = e.target.checked 
+      ? [...prevSelectedStatuses, value] 
+      : prevSelectedStatuses.filter((status) => status !== value);
+
+    console.log("Updated Selected Statuses:", newSelectedStatuses); // Log the new state
+    return newSelectedStatuses;
+  });
+};
+
 
 // -----------------------------------------------------------------------------------------------------------------------------
 // --------ffunction for changing status button content language change and also select city button language change -------------
@@ -714,6 +833,14 @@ const handle_P_MarkerClick = (private_apartment) => {
   setMapCenter({ lat: private_apartment.address.latitude, lng: private_apartment.address.longitude }); 
 }
 
+const handle_ground_MarkerClick = (ground) => {
+  setSelectedGrounds(ground);
+  setZoomLevel(17); // Zoom in more when a marker is clicked
+  setMapCenter({ lat: ground.address.latitude, lng: ground.address.longitude }); 
+}
+
+
+
 const handleZoomChanged = () => {
   if (mapInstance) {
     setZoomLevel(mapInstance.getZoom());
@@ -738,7 +865,7 @@ useEffect(() => {
 
     const timeoutId = setTimeout(() => {
       window.location.reload();
-      setResendAxios(true)
+      // setResendAxios(true)
     }, 1000); 
 
     return () => clearTimeout(timeoutId);
@@ -961,6 +1088,105 @@ const renderFilterUI = () => {
                       </div>
           </div>
           </motion.div>
+    );case 'grounds' : 
+    return (
+      <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <div className='filter_cont' >
+                 {/* container for filtering space */}
+                 <div className="button-modal-container ">
+                            <div onClick={handleSpaceButtonClick}  className='space_button'  >
+                              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div> 
+                            <SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                              <div>
+                                  <input
+                                      type="number"
+                                      placeholder='Min Price Per Square Meter'
+                                      value={min_ground_area}
+                                      onChange={(e) => setMin_ground_area(e.target.value)}
+                                  />
+                                  
+                                    <input
+                                      type="number"
+                                      placeholder='Max Price Per Square Meter'
+                                      value={max_ground_area}
+                                      onChange={(e) => setMax_ground_area(e.target.value)}
+                                  />
+                              </div>
+                            <button className='modal_close_button' onClick={closeSpaceModal}>Close</button>
+                            </SpaceModal>
+                      </div>
+
+                  {/* container for filtering price  */}
+                  <div className="button-modal-container">
+                            <div onClick={handlePriceButtonClick}  className='space_button'  >
+                              {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div> 
+                            <PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                            <div>
+                                  <input
+                                      type="number"
+                                      placeholder='Min Price Per Square Meter'
+                                      value={min_graund_square_price}
+                                      onChange={(e) => setMin_graund_square_price(e.target.value)}
+                                      />
+
+                                  <input
+                                      type="number"
+                                      placeholder='Max Price Per Square Meter'
+                                      value={max_ground_square_price}
+                                      onChange={(e) => setMax_ground_square_price(e.target.value)}
+                                  />
+                                 
+                                 <input
+                                   type="number"
+                                   placeholder='Min Full Price'
+                                   value={min_graund_full_price}
+                                   onChange={(e) => setMin_graund_full_price(e.target.value)}
+                                 />              
+
+                                  <input
+                                    type="number"
+                                    placeholder='Max Full Price'
+                                    value={max_ground_fill_price}
+                                    onChange={(e) => setMax_ground_fill_price(e.target.value)}
+                                  />
+
+                            </div>
+                            <button className='modal_close_button' onClick={handleClosePriceModal}>Close</button>
+                            </PriceModal>
+                        </div>
+
+                        {/* button for locations */}
+                      <div className="button-modal-container" >
+                            <div onClick={handleShowModal} className='lacation_button'   >
+                            {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <Modal isOpen={isModalOpen} >
+                              {renderModalContent()}
+                            </Modal>
+                      </div>
+
+                      {/* button for status */}
+                      <div className="button-modal-container" >
+                            <div onClick={handleStatusButtonClick} className='lacation_button'   >
+                            {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <StatusModal isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+                            {render_Ground_StatusOption()}
+                            <button className='modal_close_button' onClick={handleCloseStatusModal}>Close</button>
+                            </StatusModal>
+                      </div>
+          </div>
+          </motion.div>
     );
   }
 };
@@ -1058,6 +1284,49 @@ const renderMarkers = () => {
 
         </>
       );
+      case "grounds":
+        return (
+          <>
+          {grounds.map(ground => {
+            if (privateApartments&& ground.address.latitude && ground.address.longitude){
+              return (
+                <Marker 
+                key={ground.id}
+                position={{
+                  lat: ground.address.latitude,
+                  lng: ground.address.longitude,
+                }}
+                icon={{
+                  url: ground_marker,
+                  scaledSize: new window.google.maps.Size(40, 40),
+                }}
+                onClick={() => handle_ground_MarkerClick(ground)}
+                />
+              )
+            }
+             })};
+             {selectedGrounds && (
+                  <InfoWindow
+                  className='infowindoe_itself'
+                  position={{
+                      lat: Number(selectedGrounds.address.latitude),
+                      lng: Number(selectedGrounds.address.longitude),
+                    }}
+                    onCloseClick={() => setSelectedGrounds(null)}
+                    >
+                    <div className='infowindow_container'  >
+                      <h2>{selectedGrounds.privateApartmentName}</h2>
+                      <p>{getStatusTextfor_P(selectedGrounds.status, selectedLanguage)}</p>  
+                      {/* Add more details and the image if available */}
+                       {selectedGrounds.images && selectedGrounds.images.length > 0 && (
+                        <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} className='infowindow_img' />
+                        )}
+                    </div>
+                  </InfoWindow>
+                )}  
+  
+          </>
+        );
     case "all":
     default:
       
@@ -1065,45 +1334,46 @@ const renderMarkers = () => {
         <>
           {/* map complexes */}
           {complexes.map(complex => {
-                            if (complex.address && complex.address.latitude && complex.address.longitude) {
-                              const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
-                              
-                              return (
-                                <Marker
-                                key={complex.id}
-                                  position={{
-                                    lat: complex.address.latitude,
-                                    lng: complex.address.longitude,
-                                  }}
-                                  icon={{
-                                    url: statusInfo.iconUrl,
-                                    scaledSize: statusInfo.scaledSize
-                                  }}
-                                  onClick={() => handleMarkerClick(complex)}
-                                />
-                                
-                              );
-                            }
-                            return null;
-                          })}
-                          {selectedComplex && (
-                            <InfoWindow
-                            position={{
-                              lat: Number(selectedComplex.address.latitude),
-                                lng: Number(selectedComplex.address.longitude),
-                              }}
-                              onCloseClick={() => setSelectedComplex(null)}
-                              >
-                              <div>
-                                <h2>{selectedComplex.complexName}</h2>
-                                <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p> 
-                                {/* Add more details and the image if available */}
-                                {selectedComplex.images && selectedComplex.images.length > 0 && (
-                                  <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
-                                  )}
-                              </div>
-                            </InfoWindow>
-                          )} 
+                  if (complex.address && complex.address.latitude && complex.address.longitude) {
+                    const statusInfo = getStatusInfo(complex.complexDetails.isFinished);
+                    
+                    return (
+                      <Marker
+                      key={complex.id}
+                        position={{
+                          lat: complex.address.latitude,
+                          lng: complex.address.longitude,
+                        }}
+                        icon={{
+                          url: statusInfo.iconUrl,
+                          scaledSize: statusInfo.scaledSize
+                        }}
+                        onClick={() => handleMarkerClick(complex)}
+                      />
+                      
+                    );
+                  }
+                  return null;
+                })}
+                {selectedComplex && (
+                  <InfoWindow
+                  position={{
+                    lat: Number(selectedComplex.address.latitude),
+                      lng: Number(selectedComplex.address.longitude),
+                    }}
+                    onCloseClick={() => setSelectedComplex(null)}
+                    >
+                    <div>
+                      <h2>{selectedComplex.complexName}</h2>
+                      <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p> 
+                      {/* Add more details and the image if available */}
+                      {selectedComplex.images && selectedComplex.images.length > 0 && (
+                        <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
+                        )}
+                    </div>
+                  </InfoWindow>
+                )} 
+            {/* marketebis damapva kerdzo pirebis binebistvis */}
           {privateApartments.map(p_apartments => {
           if (privateApartments&& p_apartments.address.latitude && p_apartments.address.longitude){
             return (
@@ -1141,7 +1411,44 @@ const renderMarkers = () => {
                   </div>
                 </InfoWindow>
               )} 
-
+          {/* marketebis damapva miwebistvis */}
+            {grounds.map(ground => {
+            if (privateApartments&& ground.address.latitude && ground.address.longitude){
+              return (
+                <Marker 
+                key={ground.id}
+                position={{
+                  lat: ground.address.latitude,
+                  lng: ground.address.longitude,
+                }}
+                icon={{
+                  url: ground_marker,
+                  scaledSize: new window.google.maps.Size(40, 40),
+                }}
+                onClick={() => handle_ground_MarkerClick(ground)}
+                />
+              )
+            }
+             })};
+             {selectedGrounds && (
+                  <InfoWindow
+                  className='infowindoe_itself'
+                  position={{
+                      lat: Number(selectedGrounds.address.latitude),
+                      lng: Number(selectedGrounds.address.longitude),
+                    }}
+                    onCloseClick={() => setSelectedGrounds(null)}
+                    >
+                    <div className='infowindow_container'  >
+                      <h2>{selectedGrounds.privateApartmentName}</h2>
+                      <p>{getStatusTextfor_P(selectedGrounds.status, selectedLanguage)}</p>  
+                      {/* Add more details and the image if available */}
+                       {selectedGrounds.images && selectedGrounds.images.length > 0 && (
+                        <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} className='infowindow_img' />
+                        )}
+                    </div>
+                  </InfoWindow>
+                )}  
            
         </>
       );
@@ -1177,6 +1484,19 @@ const handleReset_PApartmentStates = () => {
   setSelectedStatuses_For_P([])
 }
 
+const handleReset_complex_and_pApartmentStates = () =>{
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setGraundStatus([])
+  setMin_ground_area('')
+  setMax_ground_area('')
+  setMin_graund_full_price('')
+  setMax_ground_fill_price('')
+  setMin_graund_square_price('')
+  setMax_ground_square_price('')
+}
+
 
 const HandleResetAllStates = () => {
   setSelectedCity('')
@@ -1201,14 +1521,27 @@ const HandleResetAllStates = () => {
   setStatus('')
   setSelectedStatuses([])
   setSelectedStatuses_For_P([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setGraundStatus([])
+  setMin_ground_area('')
+  setMax_ground_area('')
+  setMin_graund_full_price('')
+  setMax_ground_fill_price('')
+  setMin_graund_square_price('')
+  setMax_ground_square_price('')
 }
+
+
+
 
 // ---------------------------------------------------------------------------------------------------------------------
   return (
     <div className='main_map'>
 
                    <div className="toggle-button-container" >
-                    {/* pirveli chekboxi */}
+                    {/* pirveli chekboxi kompleqsebistvis */}
                         <div className='filter_chackboxes' >
                           <div>
                             <label className="ui-bookmark">
@@ -1228,7 +1561,7 @@ const HandleResetAllStates = () => {
                               <h1 className='filter_mark'  >გაფილტრე კომპლექსები</h1>
                         </div>
 
-                    {/* meore chekboxi */}
+                    {/* meore chekboxi kerdzo apartamentebistvis */}
                       <div className='filter_chackboxes'>
                         <div>
                           <label className="ui-bookmark">
@@ -1248,8 +1581,28 @@ const HandleResetAllStates = () => {
                                 <h1 className='filter_mark'  >გაფილტრე კერძო ბინები</h1>
                         </div>
 
+                        {/* mesame chekboxi miwebistvis */}
+                      <div className='filter_chackboxes'>
+                        <div>
+                          <label className="ui-bookmark">
+                                  <input type="checkbox" value="grounds"  checked={filterType === 'grounds'}  onChange={(event) => {
+                                  handleCheckboxChange(event);
+                                  handleReset_complex_and_pApartmentStates(event);
+                                  }}/>
+                                  <div className="bookmark">
+                                    <svg viewBox="0 0 32 32">
+                                      <g>
+                                        <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
+                                      </g>
+                                    </svg>
+                                  </div>
+                                </label>
+                          </div>
+                                <h1 className='filter_mark'  >გაფილტრე მიწები </h1>
+                        </div>
 
-                         {/* meore chekboxi */}
+
+                         {/* meore chekboxi yvelas chvenebistvis */}
                       <div className='filter_chackboxes'>
                         <div>
                           <label className="ui-bookmark">
