@@ -585,8 +585,8 @@ const renderModalContent = () => {
     case 'cities':
       return <div>
                 {locations.map((cityItem, index) => (
-                  <button key={index} onClick={() => handleCityClick(cityItem.city)} className='button-19'>
-                    {cityItem.city}
+                  <button key={index} onClick={() => handleCityClick(cityItem.city)} className='city_button'>
+                    <span>{cityItem.city}</span> 
                   </button>
                 ))}
                 <button className='modal_close_button' onClick={closeModal} >close</button>
@@ -781,6 +781,8 @@ const handleStatusButtonLanguageChange = (lang) => {
     legendUnderPlanning : "Under Planning",
     legendUnderConstructioin : "Under Construction",
     legendComplited : "Complited",
+    privateApartmebt : "Private appartment",
+    groundMarkers :"Grounds"
   }
 
   switch (lang) {
@@ -793,6 +795,11 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.legendUnderPlanning = "Under Planning"
       languageInfo.legendUnderConstructioin = "Under Construction"
       languageInfo.legendComplited = "Complited"
+      languageInfo.privateApartmebt = "Private appartment"
+      languageInfo.groundMarkers = "Grounds"
+
+
+
       break;
 
     case "ka" :
@@ -804,6 +811,9 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.legendUnderPlanning = "დაგეგმვის პროცესში"
       languageInfo.legendUnderConstructioin = "მშენებარე"
       languageInfo.legendComplited = "დასრულებული"
+      languageInfo.privateApartmebt = "კერძო ბინები"
+      languageInfo.groundMarkers = "ნაკვეთები"
+
       break
       
     case "ru" :
@@ -815,6 +825,10 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.legendUnderPlanning = "На стадии планирования"
       languageInfo.legendUnderConstructioin = "На стадии строительства"
       languageInfo.legendComplited = "Завершено"
+      languageInfo.privateApartmebt = "частные апартаменты"
+      languageInfo.groundMarkers = "Участки"
+
+
       break
   }
   return languageInfo
@@ -903,8 +917,9 @@ const renderFilterUI = () => {
 
                             <SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
                               <div>
-                                        <input
+                                  <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Min Price Per Square Meter'
                                       value={min_space}
                                       onChange={(e) => setMin_space(e.target.value)}
@@ -912,6 +927,7 @@ const renderFilterUI = () => {
                                   
                                     <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Max Price Per Square Meter'
                                       value={max_space}
                                       onChange={(e) => setMax_space(e.target.value)}
@@ -933,6 +949,7 @@ const renderFilterUI = () => {
                             <div>
                                   <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Min Price Per Square Meter'
                                       value={minPricePerSquareMeter}
                                       onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
@@ -940,6 +957,7 @@ const renderFilterUI = () => {
 
                                   <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Max Price Per Square Meter'
                                       value={maxPricePerSquareMeter}
                                       onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
@@ -947,6 +965,7 @@ const renderFilterUI = () => {
                                  
                                   <input
                                     type="number"
+                                    className='filter_inputs'
                                     placeholder='Min Full Price'
                                     value={minFullPrice}
                                     onChange={(e) => setMinFullPrice(e.target.value)}
@@ -954,6 +973,7 @@ const renderFilterUI = () => {
 
                                   <input
                                     type="number"
+                                    className='filter_inputs'
                                     placeholder='Max Full Price'
                                     value={maxFullPrice}
                                     onChange={(e) => setMaxFullPrice(e.target.value)}
@@ -1006,6 +1026,7 @@ const renderFilterUI = () => {
                               <div>
                                   <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Min Price Per Square Meter'
                                       value={min_area}
                                       onChange={(e) => setMin_area(e.target.value)}
@@ -1013,6 +1034,7 @@ const renderFilterUI = () => {
                                   
                                     <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Max Price Per Square Meter'
                                       value={max_area}
                                       onChange={(e) => setMax_area(e.target.value)}
@@ -1033,6 +1055,7 @@ const renderFilterUI = () => {
                             <div>
                                   <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Min Price Per Square Meter'
                                       value={min_square_price}
                                       onChange={(e) => setMin_square_price(e.target.value)}
@@ -1040,6 +1063,7 @@ const renderFilterUI = () => {
 
                                   <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Max Price Per Square Meter'
                                       value={max_square_price}
                                       onChange={(e) => setMax_square_price(e.target.value)}
@@ -1047,6 +1071,7 @@ const renderFilterUI = () => {
                                  
                                  <input
                                    type="number"
+                                   className='filter_inputs'
                                    placeholder='Min Full Price'
                                    value={min_P_FullPrice}
                                    onChange={(e) => setMin_P_FullPrice(e.target.value)}
@@ -1054,6 +1079,7 @@ const renderFilterUI = () => {
 
                                   <input
                                     type="number"
+                                    className='filter_inputs'
                                     placeholder='Max Full Price'
                                     value={max_P_FullPrice}
                                     onChange={(e) => setMax_P_FullPrice(e.target.value)}
@@ -1106,6 +1132,7 @@ const renderFilterUI = () => {
                               <div>
                                   <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Min Price Per Square Meter'
                                       value={min_ground_area}
                                       onChange={(e) => setMin_ground_area(e.target.value)}
@@ -1113,6 +1140,7 @@ const renderFilterUI = () => {
                                   
                                     <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Max Price Per Square Meter'
                                       value={max_ground_area}
                                       onChange={(e) => setMax_ground_area(e.target.value)}
@@ -1132,6 +1160,7 @@ const renderFilterUI = () => {
                             <div>
                                   <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Min Price Per Square Meter'
                                       value={min_graund_square_price}
                                       onChange={(e) => setMin_graund_square_price(e.target.value)}
@@ -1139,6 +1168,7 @@ const renderFilterUI = () => {
 
                                   <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Max Price Per Square Meter'
                                       value={max_ground_square_price}
                                       onChange={(e) => setMax_ground_square_price(e.target.value)}
@@ -1147,12 +1177,14 @@ const renderFilterUI = () => {
                                  <input
                                    type="number"
                                    placeholder='Min Full Price'
+                                   className='filter_inputs'
                                    value={min_graund_full_price}
                                    onChange={(e) => setMin_graund_full_price(e.target.value)}
                                  />              
 
                                   <input
                                     type="number"
+                                    className='filter_inputs'
                                     placeholder='Max Full Price'
                                     value={max_ground_fill_price}
                                     onChange={(e) => setMax_ground_fill_price(e.target.value)}
@@ -1532,8 +1564,186 @@ const HandleResetAllStates = () => {
   setMin_graund_square_price('')
   setMax_ground_square_price('')
 }
+// ---------------------------------functions for clicking legend icons and filtering it ----------------------------------
 
+const handle_red_markerClick = () => {
+  setFilterType('complexes')
+  setSelectedStatuses(['1'])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setMaxPricePerSquareMeter('')  
+  setMinPricePerSquareMeter('')
+  // setSelectedStatuses([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMinPricePerSquareMeter('')
+  setMaxPricePerSquareMeter('')
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setStatus('')
+  setSelectedStatuses_For_P([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setGraundStatus([])
+  setMin_ground_area('')
+  setMax_ground_area('')
+  setMin_graund_full_price('')
+  setMax_ground_fill_price('')
+  setMin_graund_square_price('')
+  setMax_ground_square_price('')
+}
 
+const handle_yelow_markerClick = () => {
+  setFilterType('complexes')
+  setSelectedStatuses(['2'])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setMaxPricePerSquareMeter('')  
+  setMinPricePerSquareMeter('')
+  // setSelectedStatuses([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMinPricePerSquareMeter('')
+  setMaxPricePerSquareMeter('')
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setStatus('')
+  setSelectedStatuses_For_P([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setGraundStatus([])
+  setMin_ground_area('')
+  setMax_ground_area('')
+  setMin_graund_full_price('')
+  setMax_ground_fill_price('')
+  setMin_graund_square_price('')
+  setMax_ground_square_price('')
+  
+}
+
+const handle_green_markerClick = () => {
+  setFilterType('complexes')
+  setSelectedStatuses(['3'])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setMaxPricePerSquareMeter('')  
+  setMinPricePerSquareMeter('')
+  // setSelectedStatuses([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMinPricePerSquareMeter('')
+  setMaxPricePerSquareMeter('')
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setStatus('')
+  setSelectedStatuses_For_P([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setGraundStatus([])
+  setMin_ground_area('')
+  setMax_ground_area('')
+  setMin_graund_full_price('')
+  setMax_ground_fill_price('')
+  setMin_graund_square_price('')
+  setMax_ground_square_price('')
+}
+
+const handle_PApartmentMarkerClick = () => {
+  setFilterType('privateApartments')
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setMaxPricePerSquareMeter('')  
+  setMinPricePerSquareMeter('')
+  setSelectedStatuses([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMinPricePerSquareMeter('')
+  setMaxPricePerSquareMeter('')
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setStatus('')
+  // setSelectedStatuses_For_P([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setGraundStatus([])
+  setMin_ground_area('')
+  setMax_ground_area('')
+  setMin_graund_full_price('')
+  setMax_ground_fill_price('')
+  setMin_graund_square_price('')
+  setMax_ground_square_price('')
+}
+
+const handle_Ground_MarkerClick = () => {
+  setFilterType('grounds')
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setMaxPricePerSquareMeter('')  
+  setMinPricePerSquareMeter('')
+  // setSelectedStatuses([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMinPricePerSquareMeter('')
+  setMaxPricePerSquareMeter('')
+  setMin_space('')
+  setMax_space('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setStatus('')
+  setSelectedStatuses_For_P([])
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setGraundStatus([])
+  setMin_ground_area('')
+  setMax_ground_area('')
+  setMin_graund_full_price('')
+  setMax_ground_fill_price('')
+  setMin_graund_square_price('')
+  setMax_ground_square_price('')
+}
 
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -1623,7 +1833,6 @@ const HandleResetAllStates = () => {
                         </div>
                     </div>
 
-                    
                     {/* orive filtracia iqneba am divshi */}
                    <div>
                     {renderFilterUI()}
@@ -1648,20 +1857,31 @@ const HandleResetAllStates = () => {
                     </div> 
                     <div className='legend_contained scale-up-hor-center' >
 
-                      <div className='child_legend_cont' >
-                          <img src={red} rel='location icon' className='loc_icon'  />
+                      <div className='child_legend_cont' onClick={handle_red_markerClick}>
+                          <img src={red} alt='location icon' className='loc_icon' />
                           <p> {handleStatusButtonLanguageChange(selectedLanguage).legendUnderPlanning} </p>
                       </div>
 
-                      <div className='child_legend_cont' >
+                      <div className='child_legend_cont' onClick={handle_yelow_markerClick}  >
                           <img src={yelow} rel='location icon' className='loc_icon' />
                           <p> {handleStatusButtonLanguageChange(selectedLanguage).legendUnderConstructioin} </p>
                       </div>
 
-                      <div className='child_legend_cont' >
+                      <div className='child_legend_cont' onClick={handle_green_markerClick} >
                           <img src={green} rel='location icon' className='loc_icon'  />
                           <p> {handleStatusButtonLanguageChange(selectedLanguage).legendComplited}</p>
                       </div>
+
+                      <div className='child_legend_cont'  onClick={handle_PApartmentMarkerClick} >
+                          <img src={apartment_market} rel='location icon' className='loc_icon'  />
+                          <p> {handleStatusButtonLanguageChange(selectedLanguage).privateApartmebt}</p>
+                      </div>
+
+                      <div className='child_legend_cont' onClick={handle_Ground_MarkerClick} >
+                          <img src={ground_marker} rel='location icon' className='loc_icon'  />
+                          <p> {handleStatusButtonLanguageChange(selectedLanguage).groundMarkers}</p>
+                      </div>
+
                     </div>
       </div>
   );
