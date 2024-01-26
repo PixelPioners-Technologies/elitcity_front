@@ -35,3 +35,163 @@
 .apartment_image{
   width: 250px;
 }
+
+.buttons_container{
+  margin-top: 88px;
+}
+
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+
+/* ----------------------------------------modal styles------------------------------------------ */
+/* Modal.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  max-height: 800vh;
+  overflow-y: auto; /* Scroll if content is too tall */
+}
+
+.modal-overlay {
+  display: none; /* Hide by default */
+  position: absolute;
+  top: 100%; /* This positions the modal right below the button */
+  left: 0;
+  /* other styling as needed */
+}
+
+.modal-overlay.open {
+  display: block; /* Show when the modal is open */
+}
+
+.modal-content{
+  background-color: black;
+  border-width: 0.5px;
+  border-style: solid; /* This line is necessary */
+  border-color: aliceblue;
+}
+
+
+
+/*  *******
+(START)
+1) This styles is for SpaceModals and PRICEmodals(ანუ სადაც SPACE-ისა და Price მხრივ ირჩევს
+ მომხმარებელი ინფორმაციას) მაგის DIV-ის სტილების 
+შესაცვლელად -------  */
+
+.scale-up-tl {
+-webkit-animation: scale-up-tl 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+        animation: scale-up-tl 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+@-webkit-keyframes scale-up-tl {
+0% {
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+  -webkit-transform-origin: 0% 0%;
+          transform-origin: 0% 0%;
+}
+100% {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transform-origin: 0% 0%;
+          transform-origin: 0% 0%;
+}
+}
+@keyframes scale-up-tl {
+0% {
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+  -webkit-transform-origin: 0% 0%;
+          transform-origin: 0% 0%;
+}
+100% {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transform-origin: 0% 0%;
+          transform-origin: 0% 0%;
+}
+}
+
+/* --(END)---------------------------------------- */
+
+
+
+
+/*  *******
+(START)
+2) This styles is for LOCATIONModals(ანუ სადაც LOCATION-ის მხრივ ირჩევს მომხმარებელი ინფორმაციას) მაგის DIV-ის სტილების 
+შესაცვლელად -------  */
+.scale-up-top {
+-webkit-animation: scale-up-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+        animation: scale-up-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+
+@-webkit-keyframes scale-up-top {
+0% {
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+}
+100% {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+}
+}
+@keyframes scale-up-top {
+0% {
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+}
+100% {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+}
+}
+
+.modal-overlay {
+  display: none; /* Hide by default */
+  position: absolute;
+  top: 100%; /* This positions the modal right below the button */
+  left: 0;
+  /* other styling as needed */
+}
+
+.modal-overlay.open {
+  display: block; /* Show when the modal is open */
+}
+
+.pagination{
+  margin-top: 400px;
+  margin-bottom: 70px;
+}
