@@ -2,7 +2,7 @@ import React, { useState, useEffect , useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Map.css';
-import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, InfoWindow , useJsApiLoader} from '@react-google-maps/api';
 import green from  '../location_icons/icon-green.png' 
 import red from  '../location_icons/icon-red.png'
 import yelow from  '../location_icons/icon-yelow.png'
@@ -14,12 +14,8 @@ import StatusModal from '../modals for page map/StatusModa';
 import button_icon from '../icons/Vector.svg'
 import ground_marker from '../location_icons/ground_location_icon.png'
 import { motion } from "framer-motion";
+// import M_ChildMap from './M_ChildMap';
 
-// import P_Modal from "../modals for private page/P_Modal";
-// import P_PriceModal from '../modals for private page/P_PriceModal';
-// import P_SpaceModal from '../modals for private page/P_SpaceModal';
-// import P_StatusModal from '../modals for private page/P_StatusModa'
-// import P_PriceModal from '../modals for private page/P_PriceModal'
 
 
 const initialCenter = {
@@ -220,7 +216,6 @@ export default function Map({selectedLanguage}) {
   const [max_ground_square_price, setMax_ground_square_price] = useState('');
 
   const [graundStatus, setGraundStatus] = useState([]);
-
 
 
 // --------------------------------------------------------------------------
@@ -866,25 +861,6 @@ const handleLoad = (map) => {
 };
 
 
-// for map refresh when user click map on header nav bar
-const navigate = useNavigate();
-const [refreshCount, setRefreshCount] = useState(0);
-const maxRefreshCount = 2; 
-
-useEffect(() => {
-  const currentRoute = window.location.pathname;
-
-  if (currentRoute === '/map' && refreshCount < maxRefreshCount) {
-    setRefreshCount((prevCount) => prevCount + 1);
-
-    const timeoutId = setTimeout(() => {
-      window.location.reload();
-      // setResendAxios(true)
-    }, 1000); 
-
-    return () => clearTimeout(timeoutId);
-  }
-}, [refreshCount, maxRefreshCount, navigate]);
 
 
 
@@ -1746,6 +1722,16 @@ const handle_Ground_MarkerClick = () => {
 }
 
 
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
+  });
+
+  if (loadError) {
+    return <div>Error loading maps</div>;
+  }
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
 // ---------------------------------------------------------------------------------------------------------------------
   return (
     <div className='main_map'>
@@ -1840,7 +1826,7 @@ const handle_Ground_MarkerClick = () => {
                   
 
                     <div className='map_cont scale-up-hor-center' >
-                      <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
+                      {/* <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0"> */}
                         <GoogleMap
                           mapContainerStyle={{ width: '100%', height: '625px'  }}
                           center={mapCenter}
@@ -1853,7 +1839,19 @@ const handle_Ground_MarkerClick = () => {
                         >
                         {renderMarkers()}
                         </GoogleMap>
-                      </LoadScript>
+                      {/* </LoadScript> */}
+                      {/* <M_ChildMap  
+                          center={mapCenter} 
+                          mapCenter={mapCenter} 
+                          zoomLevel={zoomLevel}
+                          onLoad={handleLoad} 
+                          onZoomChanged={handleZoomChanged}  
+                          getStatusInfo={getStatusInfo}
+                          handleMarkerClick={handleMarkerClick}
+                          complexes={complexes}
+                          selectedComplex={selectedComplex}
+                        
+                      /> */}
                     </div> 
                     <div className='legend_contained scale-up-hor-center' >
 
