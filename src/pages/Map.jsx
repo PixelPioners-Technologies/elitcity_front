@@ -1,8 +1,7 @@
-import React, { useState, useEffect , useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect  } from 'react';
 import axios from 'axios';
 import './Map.css';
-import { GoogleMap, LoadScript, Marker, InfoWindow , useJsApiLoader} from '@react-google-maps/api';
+import { GoogleMap, Marker, InfoWindow , useJsApiLoader} from '@react-google-maps/api';
 import green from  '../location_icons/icon-green.png' 
 import red from  '../location_icons/icon-red.png'
 import yelow from  '../location_icons/icon-yelow.png'
@@ -764,6 +763,61 @@ const handleStatusChangeForGround = (e, value) => {
 
 
 // -----------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------function for input placeholder language change---------------------------------------------
+
+const handleInputLanguageChange = (lang) => {
+  var inputLanguage = {
+    min_space: 'Min Space',
+    max_space: 'Max Space',
+    min_price_per_sq_meter: 'Min price per square meter',
+    max_price_per_sq_meter: 'Max price per square meter',
+    min_full_price: 'Min full price',
+    max_full_price: 'Max full price',
+  }
+
+  switch (lang){
+    case 'en':
+      inputLanguage.min_space = 'Min Space'
+      inputLanguage.max_space = 'Max Space'
+      inputLanguage.min_price_per_sq_meter = 'Min price per square meter'
+      inputLanguage.max_price_per_sq_meter = 'Max price per square meter'
+      inputLanguage.min_full_price = 'Min full price'
+      inputLanguage.max_full_price = 'Max full price'
+      break;
+
+    case "ka":
+      inputLanguage.min_space = 'მინიმალური ფართი'
+      inputLanguage.max_space = 'მაქსიმალური ფართი'
+      inputLanguage.min_price_per_sq_meter = 'მინიმალური კვადრატული ფასი'
+      inputLanguage.max_price_per_sq_meter = 'მაქსიმალური კვადრატული ფასი'
+      inputLanguage.min_full_price = 'მინიმალური მთლიანი ფასი'
+      inputLanguage.max_full_price = 'მაქსიმალური მთლიანი ფასი'
+      break;
+
+    case "ru":
+      inputLanguage.min_space = 'Минимальное пространство'
+      inputLanguage.max_space = 'максимальное пространство'
+      inputLanguage.min_price_per_sq_meter = 'Минимальная цена за квадратный метр'
+      inputLanguage.max_price_per_sq_meter = 'Максимальная цена за квадратный метр'
+      inputLanguage.min_full_price = 'Минимальная общая стоимость'
+      inputLanguage.max_full_price = 'Максимальная общая стоимость'
+      break;
+    
+  }
+  return inputLanguage
+}
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 // --------ffunction for changing status button content language change and also select city button language change -------------
 
 const handleStatusButtonLanguageChange = (lang) => {
@@ -896,7 +950,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_space}
                                       value={min_space}
                                       onChange={(e) => setMin_space(e.target.value)}
                                   />
@@ -904,7 +958,7 @@ const renderFilterUI = () => {
                                     <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_space}
                                       value={max_space}
                                       onChange={(e) => setMax_space(e.target.value)}
                                   />
@@ -926,7 +980,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_price_per_sq_meter}
                                       value={minPricePerSquareMeter}
                                       onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
                                       />
@@ -934,7 +988,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_price_per_sq_meter}
                                       value={maxPricePerSquareMeter}
                                       onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
                                   />
@@ -942,7 +996,7 @@ const renderFilterUI = () => {
                                   <input
                                     type="number"
                                     className='filter_inputs'
-                                    placeholder='Min Full Price'
+                                    placeholder={handleInputLanguageChange(selectedLanguage).min_full_price}
                                     value={minFullPrice}
                                     onChange={(e) => setMinFullPrice(e.target.value)}
                                   />
@@ -950,7 +1004,7 @@ const renderFilterUI = () => {
                                   <input
                                     type="number"
                                     className='filter_inputs'
-                                    placeholder='Max Full Price'
+                                    placeholder={handleInputLanguageChange(selectedLanguage).max_full_price}
                                     value={maxFullPrice}
                                     onChange={(e) => setMaxFullPrice(e.target.value)}
                                   />                            
@@ -1003,7 +1057,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_space}
                                       value={min_area}
                                       onChange={(e) => setMin_area(e.target.value)}
                                   />
@@ -1011,7 +1065,7 @@ const renderFilterUI = () => {
                                     <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_space}
                                       value={max_area}
                                       onChange={(e) => setMax_area(e.target.value)}
                                   />
@@ -1032,7 +1086,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_price_per_sq_meter}
                                       value={min_square_price}
                                       onChange={(e) => setMin_square_price(e.target.value)}
                                       />
@@ -1040,7 +1094,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_price_per_sq_meter}
                                       value={max_square_price}
                                       onChange={(e) => setMax_square_price(e.target.value)}
                                   />
@@ -1048,7 +1102,7 @@ const renderFilterUI = () => {
                                  <input
                                    type="number"
                                    className='filter_inputs'
-                                   placeholder='Min Full Price'
+                                   placeholder={handleInputLanguageChange(selectedLanguage).min_full_price}
                                    value={min_P_FullPrice}
                                    onChange={(e) => setMin_P_FullPrice(e.target.value)}
                                  />              
@@ -1056,7 +1110,7 @@ const renderFilterUI = () => {
                                   <input
                                     type="number"
                                     className='filter_inputs'
-                                    placeholder='Max Full Price'
+                                    placeholder={handleInputLanguageChange(selectedLanguage).max_full_price}
                                     value={max_P_FullPrice}
                                     onChange={(e) => setMax_P_FullPrice(e.target.value)}
                                   />
@@ -1109,7 +1163,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_space}
                                       value={min_ground_area}
                                       onChange={(e) => setMin_ground_area(e.target.value)}
                                   />
@@ -1117,7 +1171,7 @@ const renderFilterUI = () => {
                                     <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_space}
                                       value={max_ground_area}
                                       onChange={(e) => setMax_ground_area(e.target.value)}
                                   />
@@ -1137,7 +1191,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_price_per_sq_meter}
                                       value={min_graund_square_price}
                                       onChange={(e) => setMin_graund_square_price(e.target.value)}
                                       />
@@ -1145,14 +1199,14 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_price_per_sq_meter}
                                       value={max_ground_square_price}
                                       onChange={(e) => setMax_ground_square_price(e.target.value)}
                                   />
                                  
                                  <input
                                    type="number"
-                                   placeholder='Min Full Price'
+                                   placeholder={handleInputLanguageChange(selectedLanguage).min_full_price}
                                    className='filter_inputs'
                                    value={min_graund_full_price}
                                    onChange={(e) => setMin_graund_full_price(e.target.value)}
@@ -1161,7 +1215,7 @@ const renderFilterUI = () => {
                                   <input
                                     type="number"
                                     className='filter_inputs'
-                                    placeholder='Max Full Price'
+                                    placeholder={handleInputLanguageChange(selectedLanguage).max_full_price}
                                     value={max_ground_fill_price}
                                     onChange={(e) => setMax_ground_fill_price(e.target.value)}
                                   />
