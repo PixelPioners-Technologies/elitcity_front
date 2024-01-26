@@ -176,7 +176,7 @@ export default function Map({selectedLanguage}) {
   const [status, setStatus] = useState('');
 
   const [mapCenter, setMapCenter] = useState(initialCenter);
-  const [zoomLevel, setZoomLevel] = useState(13);
+  const [zoomLevel, setZoomLevel] = useState(11);
 
   const [mapInstance, setMapInstance] = useState(null);
 
