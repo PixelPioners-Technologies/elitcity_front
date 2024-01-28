@@ -17,6 +17,9 @@ import lari from '../assets/lari-svgrepo-com.svg';
 import dollar from '../assets/dollar-svgrepo-com.svg';
 import Stack from '@mui/material/Stack';
 import Pagination from '@mui/material/Pagination';
+import heartIcon from '../assets/starLogo.svg';
+import heartIconEmpty from '../assets/emptyStarLogo.svg';
+import googleMapImage from '../assets/mapImageForFooter.svg';
 
 
 const normalizePrivateApartmentData = (data, lang) => {
@@ -67,7 +70,7 @@ const normalizeLocationData = (data, lang) => {
 
 
 
-export default function Physical({selectedLanguage}) {
+export default function Physical({selectedLanguage ,favorites}) {
   const [privateApartments, setPrivateApartments] = useState([]);
   
 
@@ -128,7 +131,7 @@ useEffect(() =>{
       const pharentdistrictParams =  `parent_districts`;
       const districtParams = `districts`;
 
-      const limit = 2; // Define the limit or make it dynamic as per your requirement
+      const limit = 12; // Define the limit or make it dynamic as per your requirement
       const offset = (currentPage - 1) * limit;
   
 
@@ -161,6 +164,7 @@ useEffect(() =>{
       const data = response.data.results
       const normalised_Data = normalizePrivateApartmentData(data, selectedLanguage)
       setPrivateApartments(normalised_Data)
+      console.log('aq unda iyos suratebi',privateApartments)
       setTotalCount(response.data.total_items)
       setTotalPageCount(response.data.total_pages)
       setCorrentPage(response.data.current_page)
@@ -171,10 +175,8 @@ useEffect(() =>{
   
 
     useEffect(() => {
-      console.log('es aris itemenbis raodenoba' ,totalCount)
-      console.log('mtliani gverdebis raodenoba' ,totalPageCount)
-
-    },[totalCount]  )
+      console.log('aq unda iyos suratebi',privateApartments)
+    },[totalCount, selectedLanguage]  )
     
 
 //-----------------------------------fetch ionly locations --------------------------------------
@@ -571,329 +573,652 @@ const handleStatusButtonLanguageChange = (lang) => {
   return languageInfo
 }
 
+const handle_close_comentars = () => {
+//   return (
+//     <div className="main_private_container">
 
-  return (
-    <div className="main_private_container">
+//                 <div className="private_filter_conteiner">
+//                     <motion.div initial={{ y: 100, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
+//                     <div className='filter_cont '>
+//                       {/* button for filtering space */}
+//                       <div className="button-modal-container ">
+//                             <div onClick={handle_P_SpaceButtonClick}  className='space_button'  >
+//                               {handle_P_StatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+//                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+//                             </div> 
 
-                <div className="private_filter_conteiner">
-                    <motion.div initial={{ y: 100, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
-                    <div className='filter_cont '>
-                      {/* button for filtering space */}
-                      <div className="button-modal-container ">
-                            <div onClick={handle_P_SpaceButtonClick}  className='space_button'  >
-                              {handle_P_StatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
-                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-                            </div> 
-
-                            <P_SpaceModal isOpen={is_P_SpaceModalOpen} close={close_P_SpaceModal}>
-                              <div>
-                                        <input
-                                      type="number"
-                                      placeholder='Min Price Per Square Meter'
-                                      value={min_area}
-                                      onChange={(e) => setMin_area(e.target.value)}
-                                  />
+//                             <P_SpaceModal isOpen={is_P_SpaceModalOpen} close={close_P_SpaceModal}>
+//                               <div>
+//                                         <input
+//                                       type="number"
+//                                       placeholder='Min Price Per Square Meter'
+//                                       value={min_area}
+//                                       onChange={(e) => setMin_area(e.target.value)}
+//                                   />
                                   
-                                    <input
-                                      type="number"
-                                      placeholder='Max Price Per Square Meter'
-                                      value={max_area}
-                                      onChange={(e) => setMax_area(e.target.value)}
-                                  />
-                                  <p>otaxebis filtraciac unda iyos aq</p>
-                              </div>
-                            <button className='modal_close_button' onClick={close_P_SpaceModal}>Close</button>
-                            </P_SpaceModal>
+//                                     <input
+//                                       type="number"
+//                                       placeholder='Max Price Per Square Meter'
+//                                       value={max_area}
+//                                       onChange={(e) => setMax_area(e.target.value)}
+//                                   />
+//                                   <p>otaxebis filtraciac unda iyos aq</p>
+//                               </div>
+//                             <button className='modal_close_button' onClick={close_P_SpaceModal}>Close</button>
+//                             </P_SpaceModal>
 
-                      </div>
+//                       </div>
 
-                      {/* button for filtering price  */}
-                      <div className="button-modal-container">
-                            <div onClick={handle_P_PriceButtonClick}  className='space_button'  >
-                              {handle_P_StatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
-                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-                            </div> 
-                            <P_PriceModal isOpen={is_P_PriceModalOpen} close={handleClose_P_PriceModal} >
-                            <div>
-                                  <input
-                                      type="number"
-                                      placeholder='Min Price Per Square Meter'
-                                      value={min_square_price}
-                                      onChange={(e) => setMin_square_price(e.target.value)}
-                                      />
+//                       {/* button for filtering price  */}
+//                       <div className="button-modal-container">
+//                             <div onClick={handle_P_PriceButtonClick}  className='space_button'  >
+//                               {handle_P_StatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+//                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+//                             </div> 
+//                             <P_PriceModal isOpen={is_P_PriceModalOpen} close={handleClose_P_PriceModal} >
+//                             <div>
+//                                   <input
+//                                       type="number"
+//                                       placeholder='Min Price Per Square Meter'
+//                                       value={min_square_price}
+//                                       onChange={(e) => setMin_square_price(e.target.value)}
+//                                       />
 
-                                  <input
-                                      type="number"
-                                      placeholder='Max Price Per Square Meter'
-                                      value={max_square_price}
-                                      onChange={(e) => setMax_square_price(e.target.value)}
-                                  />
+//                                   <input
+//                                       type="number"
+//                                       placeholder='Max Price Per Square Meter'
+//                                       value={max_square_price}
+//                                       onChange={(e) => setMax_square_price(e.target.value)}
+//                                   />
                                  
-                                  <input
-                                    type="number"
-                                    placeholder='Min Full Price'
-                                    value={minFullPrice}
-                                    onChange={(e) => setMinFullPrice(e.target.value)}
-                                  />
+//                                   <input
+//                                     type="number"
+//                                     placeholder='Min Full Price'
+//                                     value={minFullPrice}
+//                                     onChange={(e) => setMinFullPrice(e.target.value)}
+//                                   />
 
-                                  <input
-                                    type="number"
-                                    placeholder='Max Full Price'
-                                    value={maxFullPrice}
-                                    onChange={(e) => setMaxFullPrice(e.target.value)}
-                                  />                            
-                            </div>
-                            <button className='modal_close_button' onClick={handleClose_P_PriceModal}>Close</button>
-                            </P_PriceModal>
-                        </div>
+//                                   <input
+//                                     type="number"
+//                                     placeholder='Max Full Price'
+//                                     value={maxFullPrice}
+//                                     onChange={(e) => setMaxFullPrice(e.target.value)}
+//                                   />                            
+//                             </div>
+//                             <button className='modal_close_button' onClick={handleClose_P_PriceModal}>Close</button>
+//                             </P_PriceModal>
+//                         </div>
 
-                      {/* button for locations */}
-                      <div className="button-modal-container" >
-                            <div onClick={handleShowModal} className='lacation_button'   >
-                            {handle_P_StatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
-                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-                            </div>
-                            <P_Modal isOpen={is_P_ModalOpen} >
-                              {renderModalContent()}
-                            </P_Modal>
-                      </div>
+//                       {/* button for locations */}
+//                       <div className="button-modal-container" >
+//                             <div onClick={handleShowModal} className='lacation_button'   >
+//                             {handle_P_StatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
+//                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+//                             </div>
+//                             <P_Modal isOpen={is_P_ModalOpen} >
+//                               {renderModalContent()}
+//                             </P_Modal>
+//                       </div>
 
-                        {/* button for status */}
-                      <div className="button-modal-container" >
-                            <div onClick={handle_P_StatusButtonClick} className='lacation_button'   >
-                            {handle_P_StatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
-                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-                            </div>
-                            <P_StatusModal isOpen={is_P_StatusModalOpen} close={handleClose_P_StatusModal} >
-                            {renderStatusOptions()}
-                            <button className='modal_close_button' onClick={handleClose_P_StatusModal}>Close</button>
-                            </P_StatusModal>
-                      </div>
-                  </div>
-                  </motion.div>
+//                         {/* button for status */}
+//                       <div className="button-modal-container" >
+//                             <div onClick={handle_P_StatusButtonClick} className='lacation_button'   >
+//                             {handle_P_StatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
+//                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+//                             </div>
+//                             <P_StatusModal isOpen={is_P_StatusModalOpen} close={handleClose_P_StatusModal} >
+//                             {renderStatusOptions()}
+//                             <button className='modal_close_button' onClick={handleClose_P_StatusModal}>Close</button>
+//                             </P_StatusModal>
+//                       </div>
+//                   </div>
+//                   </motion.div>
+//             </div>
+
+
+//           <div className='buttons_container' >
+//           {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
+//       <motion.div
+//           initial={{ y: -50, opacity: 0 }}
+//           transition={{ duration: 1 }}
+//           whileInView={{ y: 0, opacity: 1 }}
+//           viewport={{ once: true }}
+//           className='motionBox'
+//         >
+//           <div className='forPaddingOfInfoFieldOfComplexsPlansMaps'>
+//             <div className='infoFieldOfComplexsPlansMaps'>
+//               <div className='complexInfoAndCountShowBox'>
+//                 <p style={{color: 'white'}}>კომპლექსები {totalCount}</p>
+//               </div>
+
+//               {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
+//               <div className='projectsPlansMapsSortingAndDollarBox'>
+//                     <Link to='/complex' >
+//                     <motion.div
+//                       className="textButtonContainer"
+//                       whileHover={{ scale: 1.1 }}
+//                       whileTap={{ scale: 0.9 }}
+//                       transition={{ duration: 0.3, ease: 'easeInOut' }}
+//                     >
+//                       <div className='mapAndLogoImg'>
+//                         <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+//                         <button className='textButton'>პროექტები</button>
+//                       </div>
+//                     </motion.div>
+//                     </Link>
+
+//                     <Link to='/complex/apartmentList' >
+//                     <motion.div
+//                       className="textButtonContainer"
+//                       whileHover={{ scale: 1.1 }}
+//                       whileTap={{ scale: 0.9 }}
+//                       transition={{ duration: 0.3, ease: 'easeInOut' }}
+//                     >
+//                       <div className='mapAndLogoImg'>
+//                         <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+//                         <button className='textButton'>გეგმარებები</button>
+//                       </div>
+//                     </motion.div>
+//                     </Link>
+
+
+//                     <Link to='/map' >
+//                     <motion.div
+//                       className="textButtonContainer"
+//                       whileHover={{ scale: 1.1 }}
+//                       whileTap={{ scale: 0.9 }}
+//                       transition={{ duration: 0.3, ease: 'easeInOut' }}
+//                     >
+//                       <div className='mapAndLogoImg'>
+//                         <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+//                         <button className='textButton'>რუკა</button>
+//                       </div>
+//                     </motion.div>
+//                     </Link>
+//                     {/* მხოლოდ for sorting ----- */}
+//                     {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
+//                     რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
+//                     <Button
+//                       id="basic-button"
+//                       aria-controls={open ? 'basic-menu' : undefined}
+//                       aria-haspopup="true"
+//                       aria-expanded={open ? 'true' : undefined}
+//                       onClick={handleClick}
+//                       style={{ color: 'white', fontSize: '16px' }}
+                      
+//                       >
+//                       <div className='sortAndArrowDownImgBox'>
+//                         სორტირება
+//                         <img src={arrowDownSorting} style={{width: '20px', }} />
+//                       </div>
+//                     </Button>
+                    
+//                     <Menu
+//                       id="basic-menu"
+//                       anchorEl={anchorEl}
+//                       open={open}
+//                       onClose={handleClose}
+//                       MenuListProps={{
+//                         style: {
+//                           backgroundColor: "black",
+//                           width: "270px",
+//                       },
+//                         'aria-labelledby': 'basic-button',
+//                       }}
+                
+//                       //
+//                       component={motion.div} 
+//                       variants={{
+//                         hidden: { opacity: 0, scale: 0.9 },
+//                         visible: { opacity: 1, scale: 1 },
+//                       }}
+//                       initial="hidden"
+//                       animate={open ? 'visible' : 'hidden'}
+//                       transition={{ duration: 0.6 }}
+//                     >
+//                         <motion.div
+//                           whileHover={{ scale: 1.1 }} 
+//                           whileTap={{ scale: 0.9 }}
+//                           transition={{ duration: 0.3, ease: 'easeInOut' }}
+//                         >
+//                           <MenuItem
+//                             style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+//                             onClick={() => { handleClose(); 
+//                             setAscendentPrice('-created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentTime}
+//                           </MenuItem>
+//                         </motion.div>
+                        
+//                         <motion.div
+//                           whileHover={{ scale: 1.1 }} 
+//                           whileTap={{ scale: 0.9 }}
+//                           transition={{ duration: 0.3, ease: 'easeInOut' }}
+//                         >
+//                           <MenuItem
+//                             style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+//                             onClick={() => { handleClose(); 
+//                             setAscendentPrice('created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantTime}
+//                           </MenuItem>
+//                         </motion.div>
+
+                        
+//                         <motion.div
+//                           whileHover={{ scale: 1.1 }} 
+//                           whileTap={{ scale: 0.9 }}
+//                           transition={{ duration: 0.3, ease: 'easeInOut' }}
+//                         >
+//                           <MenuItem
+//                             style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+//                             onClick={() => { handleClose(); 
+//                             setAscendentPrice('-square_pricer'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendentPrice}
+//                           </MenuItem>
+//                         </motion.div>
+
+                        
+//                         <motion.div
+//                           whileHover={{ scale: 1.1 }} 
+//                           whileTap={{ scale: 0.9 }}
+//                           transition={{ duration: 0.3, ease: 'easeInOut' }}
+//                         >
+//                           <MenuItem
+//                             style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+//                             onClick={() => { handleClose(); 
+//                             setAscendentPrice('square_price'); }}> {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentPrice}
+//                           </MenuItem>
+//                         </motion.div>
+
+
+//                         <motion.div
+//                           whileHover={{ scale: 1.1 }} 
+//                           whileTap={{ scale: 0.9 }}
+//                           transition={{ duration: 0.3, ease: 'easeInOut' }}
+//                         > 
+//                           <MenuItem
+//                             style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+//                             onClick={() => { handleClose(); 
+//                             setAscendentPrice('-full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantFullPrice}
+//                           </MenuItem>
+//                         </motion.div>
+
+                        
+//                         <motion.div
+//                           whileHover={{ scale: 1.1 }} 
+//                           whileTap={{ scale: 0.9 }}
+//                           transition={{ duration: 0.3, ease: 'easeInOut' }}
+//                         >
+//                           <MenuItem
+//                           style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+//                             onClick={() => { handleClose(); 
+//                             setAscendentPrice('full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentFullPrice}
+//                           </MenuItem>
+//                         </motion.div>
+
+//                     </Menu>
+//                     {/* ---------------------------------- */}
+
+//                       {/* ----Dollar and Lari Toggle button */}
+//                       <div className='currencyBox'>
+//                         <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
+//                           <motion.div className="handle" layout transition={spring}>
+//                             <img
+//                               src={lari}
+//                               alt="Lari Sign"
+//                               className={`currency-sign ${isOn ? "active" : ""}`}
+//                               />
+//                             <img
+//                               src={dollar}
+//                               alt="Dollar Sign"
+//                               className={`currency-sign ${!isOn ? "active" : ""}`}
+//                               />
+//                           </motion.div>
+//                         </div>
+//                       </div>
+//                         {/* ---------------- */}
+//                     </div>
+//                 </div>
+//             </div>
+//           </motion.div>
+
+//           </div>
+
+//              <div className='physical_cards_container' >
+//                     {privateApartments.map((prev_apartments, index) => (
+//                       <div className='physical_card' key={index}>
+//                         <motion.div
+//                             initial={{ x: -50, opacity: 0 }}
+//                             transition={{ duration: 1 }}
+//                             whileInView={{ x: 0, opacity: 1 }}
+//                             viewport={{ once: true }}
+//                           >
+
+//                           <div className='heartbuttonAndImageBox'>
+//                             <div className='heartButtonBox'>
+//                               <button onClick={() => favoriteHandler(prev_apartments)} key={prev_apartments.id} className='heartButtons' >
+//                                 {favorites.some(fav => fav.id === prev_apartments.id) ? (
+//                                   <img src={heartIcon} alt='Logo of heart' />
+//                                   ) : (
+//                                     <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+//                                     )}
+//                               </button>
+//                             </div>
+//                             <img src={prev_apartments.images[0]} alt={prev_apartments.name} style={styles.imageStyles} />
+//                           </div>
+//                           <p style={styles.companyTitle}>{prev_apartments.name}</p>
+//                           <div className='textInfo'>
+//                             <p style={styles.complexInfo}>{prev_apartments.address.city}, {prev_apartments.address.street}</p>
+//                             <p style={styles.complexInfo}>Price per sq meter: {prev_apartments.price_per_sq_meter}</p>
+//                             {/* Update the line below with the actual date property */}
+//                             {/* <p style={styles.complexFinished}>Date: {complex.date}</p> */}
+//                           </div>
+//                         </motion.div>
+//                       </div>
+//                     ))}
+//               </div>     
+
+
+
+
+
+
+//              {/* Pagination for user to select some page */}
+//       <div className='pagination'>
+//         <Stack spacing={2}>
+//           <Pagination
+//               count={totalPageCount}
+//               shape="rounded"
+//               page={currentPage}
+//               onChange={(event, value) => setCorrentPage(Number(value))}
+//               onClick={pagiHandler}
+//               sx={{
+//                 '& .MuiPaginationItem-root': {
+//                   color: 'white', // Text color for unselected items
+//                   '&:hover': {
+//                     backgroundColor: '#f0f0f0', // Change background color on hover for unselected items
+//                     color: 'black', // Change text color on hover for unselected items
+//                   },
+//                 },
+//                 '& .Mui-selected': {
+//                   backgroundColor: 'white', // Background color for selected item
+//                   color: 'black', // Text color for selected item
+//                   '&:hover': {
+//                     backgroundColor: 'white', // Background color on hover for selected item
+//                     color: 'black', // Text color on hover for selected item
+//                   },
+//                 },
+//               }}
+//           />
+//         </Stack>
+//       </div>
+
+
+//     </div>
+//   );
+// }
+
+
+
+  console.log('')
+}
+
+
+// Maping variable
+// ------------------------------------------------------------------------------------
+
+
+
+  
+return (
+  <div className='ComplexBodyBox_physical'>
+    {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
+    <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        transition={{ duration: 1 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        className='motionBox_physical'
+      >
+        <div className='forPaddingOfInfoFieldOfComplexsPlansMaps_physical'>
+          <div className='infoFieldOfComplexsPlansMaps_physical'>
+            <div className='complexInfoAndCountShowBox_physical'>
+              <p style={{color: 'white'}}>კომპლექსები {totalCount}</p>
             </div>
+            {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
+            <div className='projectsPlansMapsSortingAndDollarBox_physical'>
+              <Link to='/complex' >
+              <motion.div
+                className="textButtonContainer_physical"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <div className='mapAndLogoImg_physical'>
+                  <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                  <button className='textButton_physical'>პროექტები</button>
+                </div>
+              </motion.div>
+              </Link>
+
+              <Link to='/complex/apartmentList' >
+              <motion.div
+                className="textButtonContainer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <div className='mapAndLogoImg'>
+                  <img src={mapSignLogo} alt='mapSignLogo_physical' className='mapSignLogo' />
+                  <button className='textButton'>გეგმარებები</button>
+                </div>
+              </motion.div>
+              </Link>
 
 
-          <div className='buttons_container' >
-          {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
-      <motion.div
-          initial={{ y: -50, opacity: 0 }}
-          transition={{ duration: 1 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          className='motionBox'
-        >
-          <div className='forPaddingOfInfoFieldOfComplexsPlansMaps'>
-            <div className='infoFieldOfComplexsPlansMaps'>
-              <div className='complexInfoAndCountShowBox'>
-                <p style={{color: 'white'}}>კომპლექსები {totalCount}</p>
+              <Link to='/map' >
+              <motion.div
+                className="textButtonContainer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <div className='mapAndLogoImg'>
+                  <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                  <button className='textButton'>რუკა</button>
+                </div>
+              </motion.div>
+              </Link>
+              {/* მხოლოდ for sorting ----- */}
+              {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
+              რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
+              <Button
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+                style={{ color: 'white', fontSize: '16px' }}
+                
+                >
+                <div className='sortAndArrowDownImgBox_physical'>
+                  სორტირება
+                  <img src={arrowDownSorting} style={{width: '20px', }} />
+                </div>
+              </Button>
+              
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  style: {
+                    backgroundColor: "black",
+                    width: "270px",
+                },
+                  'aria-labelledby': 'basic-button',
+                }}
+          
+                //
+                component={motion.div} 
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9 },
+                  visible: { opacity: 1, scale: 1 },
+                }}
+                initial="hidden"
+                animate={open ? 'visible' : 'hidden'}
+                transition={{ duration: 0.6 }}
+              >
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentTime}
+                    </MenuItem>
+                  </motion.div>
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantTime}
+                    </MenuItem>
+                  </motion.div>
+
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-square_price'); }}> {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentPrice}
+                    </MenuItem>
+                  </motion.div>
+
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                        setAscendentPrice('square_pricer'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendentPrice}
+                    </MenuItem>
+                  </motion.div>
+
+
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  > 
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentFullPrice}
+                    </MenuItem>
+                  </motion.div>
+
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                     style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantFullPrice}
+                    </MenuItem>
+                  </motion.div>
+
+              </Menu>
+              {/* ---------------------------------- */}
+
+                {/* ----Dollar and Lari Toggle button */}
+                <div className='currencyBox_physical'>
+                  <div className="switch_physical" data-ison={isOn} onClick={toggleSwitch}>
+                    <motion.div className="handle_physical" layout transition={spring}>
+                      <img
+                        src={lari}
+                        alt="Lari Sign"
+                        className={`currency-sign_physical ${isOn ? "active" : ""}`}
+                        />
+                      <img
+                        src={dollar}
+                        alt="Dollar Sign"
+                        className={`currency-sign_physical ${!isOn ? "active" : ""}`}
+                        />
+                    </motion.div>
+                  </div>
+                </div>
+                  {/* ---------------- */}
               </div>
 
-              {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
-              <div className='projectsPlansMapsSortingAndDollarBox'>
-                    <Link to='/complex' >
-                    <motion.div
-                      className="textButtonContainer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    >
-                      <div className='mapAndLogoImg'>
-                        <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                        <button className='textButton'>პროექტები</button>
-                      </div>
-                    </motion.div>
-                    </Link>
-
-                    <Link to='/complex/apartmentList' >
-                    <motion.div
-                      className="textButtonContainer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    >
-                      <div className='mapAndLogoImg'>
-                        <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                        <button className='textButton'>გეგმარებები</button>
-                      </div>
-                    </motion.div>
-                    </Link>
-
-
-                    <Link to='/map' >
-                    <motion.div
-                      className="textButtonContainer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    >
-                      <div className='mapAndLogoImg'>
-                        <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                        <button className='textButton'>რუკა</button>
-                      </div>
-                    </motion.div>
-                    </Link>
-                    {/* მხოლოდ for sorting ----- */}
-                    {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
-                    რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
-                    <Button
-                      id="basic-button"
-                      aria-controls={open ? 'basic-menu' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                      onClick={handleClick}
-                      style={{ color: 'white', fontSize: '16px' }}
-                      
-                      >
-                      <div className='sortAndArrowDownImgBox'>
-                        სორტირება
-                        <img src={arrowDownSorting} style={{width: '20px', }} />
-                      </div>
-                    </Button>
-                    
-                    <Menu
-                      id="basic-menu"
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
-                      MenuListProps={{
-                        style: {
-                          backgroundColor: "black",
-                          width: "270px",
-                      },
-                        'aria-labelledby': 'basic-button',
-                      }}
-                
-                      //
-                      component={motion.div} 
-                      variants={{
-                        hidden: { opacity: 0, scale: 0.9 },
-                        visible: { opacity: 1, scale: 1 },
-                      }}
-                      initial="hidden"
-                      animate={open ? 'visible' : 'hidden'}
-                      transition={{ duration: 0.6 }}
-                    >
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('-created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentTime}
-                          </MenuItem>
-                        </motion.div>
-                        
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantTime}
-                          </MenuItem>
-                        </motion.div>
-
-                        
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('-square_pricer'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendentPrice}
-                          </MenuItem>
-                        </motion.div>
-
-                        
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('square_price'); }}> {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentPrice}
-                          </MenuItem>
-                        </motion.div>
-
-
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        > 
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('-full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantFullPrice}
-                          </MenuItem>
-                        </motion.div>
-
-                        
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                          style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentFullPrice}
-                          </MenuItem>
-                        </motion.div>
-
-                    </Menu>
-                    {/* ---------------------------------- */}
-
-                      {/* ----Dollar and Lari Toggle button */}
-                      <div className='currencyBox'>
-                        <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
-                          <motion.div className="handle" layout transition={spring}>
-                            <img
-                              src={lari}
-                              alt="Lari Sign"
-                              className={`currency-sign ${isOn ? "active" : ""}`}
-                              />
-                            <img
-                              src={dollar}
-                              alt="Dollar Sign"
-                              className={`currency-sign ${!isOn ? "active" : ""}`}
-                              />
-                          </motion.div>
-                        </div>
-                      </div>
-                        {/* ---------------- */}
-                    </div>
-
-                </div>
-            </div>
-          </motion.div>
-
           </div>
+      </div>
+    </motion.div>
+
+{/* // ------------------------------------------------------------------------------------ */}
 
 
-            <div className='physical_cards_container' >
-                {privateApartments.map(item => (
-                  <div key={item.id} className="physical_card">
-                    <img src={item.images[0]} alt="apartment_image" className="apartment_image" />
-                    bina {item.privateApartmentName}
-                  </div>
-                ))}
-            </div>
 
 
-             {/* Pagination for user to select some page */}
-      <div className='pagination'>
-        <Stack spacing={2}>
-          <Pagination
+    <div className='allCards_physical'>
+                {privateApartments.map((prev_apartments, index) => (
+                <div className='card_physical' key={index}>
+                  <motion.div
+                      initial={{ x: -50, opacity: 0 }}
+                      transition={{ duration: 1 }}
+                      whileInView={{ x: 0, opacity: 1 }}
+                      viewport={{ once: true }}
+                    >
+
+                    <div className='heartbuttonAndImageBox_physical'>
+                      <div className='heartButtonBox_physical'>
+                        <button onClick={() => favoriteHandler(prev_apartments)} key={prev_apartments.id} className='heartButtons_physical' >
+                          {favorites.some(fav => fav.id === prev_apartments.id) ? (
+                            <img src={heartIcon} alt='Logo of heart' />
+                            ) : (
+                              <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+                              )}
+                        </button>
+                      </div>
+                      <img src={prev_apartments.images[0]} alt={prev_apartments.name} style={styles.imageStyles} />
+                    </div>
+                    <p style={styles.companyTitle}>{prev_apartments.name}</p>
+                    <div className='textInfo_physical'>
+                      <p style={styles.complexInfo}>{prev_apartments.address.city}, {prev_apartments.address.street}</p>
+                      <p style={styles.complexInfo}>Price per sq meter: {prev_apartments.price_per_sq_meter}</p>
+                      {/* Update the line below with the actual date property */}
+                      {/* <p style={styles.complexFinished}>Date: {complex.date}</p> */}
+                    </div>
+                  </motion.div>
+                </div>
+              ))}
+    </div>
+
+
+    {/* for scroll UP */}
+    {/* <button onClick={scrollToTop} style={{ borderRadius: '30px' }} >
+      <img src={scrollUp} alt='logo' style={{ width: '40px' }} />
+    </button> */}
+
+    
+    {/* Pagination for user to select some page */}
+       <div className='pagination'>
+         <Stack spacing={2}>
+           <Pagination
               count={totalPageCount}
               shape="rounded"
               page={currentPage}
@@ -919,34 +1244,54 @@ const handleStatusButtonLanguageChange = (lang) => {
           />
         </Stack>
       </div>
-    </div>
-  );
+
+
+
+
+
+
+          {/* ---------------------------------------------------------------- */}
+          <div className='googleMapImageBox_physical'>
+            <Link to='/map' >
+              <motion.div
+                  initial={{ x: -150, opacity: 0 }}
+                  transition={{ duration: 1.5 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                >
+                  <img src={googleMapImage} alt='googleMapImage' className='googleMapImage_physical' />
+              </motion.div>
+            </Link>
+          </div>
+
+  </div>
+)
 }
 
 
 
-// const styles = {
-//   imageStyles: {
-//     width: '278px',
-//     height: '229px',
-//     overflow: 'hidden',
-//     borderRadius: '20px',
-//   },
-//   companyTitle: {
-//     // position: 'absolute',
-//     // top: '262px',
-//     // paddingLeft: '20px'
-//   },
-//   complexInfo: {
-//     color: 'white',
-//   },
-//   complexFinished: {
-//     color: 'white',
-//   },
-// };
+const styles = {
+imageStyles: {
+  width: '278px',
+  height: '229px',
+  overflow: 'hidden',
+  borderRadius: '20px',
+},
+companyTitle: {
+  // position: 'absolute',
+  // top: '262px',
+  // paddingLeft: '20px'
+},
+complexInfo: {
+  color: 'white',
+},
+complexFinished: {
+  color: 'white',
+},
+};
 
 const spring = {
-  type: "spring",
-  stiffness: 100,
-  damping: 30,
+type: "spring",
+stiffness: 100,
+damping: 30,
 };

@@ -936,7 +936,7 @@ const renderFilterUI = () => {
                       transition={{ duration: 1 }}
                     >
 
-                  <div className='filter_cont '>
+                  <div className='filter_cont ' id='filter_cont_2' >
 
                       {/* button for filtering space */}
                       <div className="button-modal-container ">
@@ -946,7 +946,7 @@ const renderFilterUI = () => {
                             </div> 
 
                             <SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
-                              <div>
+                              <div className='filter_little_container'   >
                                   <input
                                       type="number"
                                       className='filter_inputs'
@@ -1252,8 +1252,6 @@ const renderFilterUI = () => {
     );
   }
 };
-
-
 
 const renderMarkers = () => {
   switch (filterType) {
@@ -1880,7 +1878,6 @@ const handle_Ground_MarkerClick = () => {
                   
 
                     <div className='map_cont scale-up-hor-center' >
-                      {/* <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0"> */}
                         <GoogleMap
                           mapContainerStyle={{ width: '100%', height: '625px'  }}
                           center={mapCenter}
@@ -1893,19 +1890,6 @@ const handle_Ground_MarkerClick = () => {
                         >
                         {renderMarkers()}
                         </GoogleMap>
-                      {/* </LoadScript> */}
-                      {/* <M_ChildMap  
-                          center={mapCenter} 
-                          mapCenter={mapCenter} 
-                          zoomLevel={zoomLevel}
-                          onLoad={handleLoad} 
-                          onZoomChanged={handleZoomChanged}  
-                          getStatusInfo={getStatusInfo}
-                          handleMarkerClick={handleMarkerClick}
-                          complexes={complexes}
-                          selectedComplex={selectedComplex}
-                        
-                      /> */}
                     </div> 
                     <div className='legend_contained scale-up-hor-center' >
 
