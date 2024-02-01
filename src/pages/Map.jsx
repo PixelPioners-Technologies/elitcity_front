@@ -871,7 +871,12 @@ const handleStatusButtonLanguageChange = (lang) => {
     legendUnderConstructioin : "Under Construction",
     legendComplited : "Complited",
     privateApartmebt : "Private appartment",
-    groundMarkers :"Grounds"
+    groundMarkers :"Grounds",
+    categoryLanguage : "Category" ,
+    complexes : "Complexes",
+    private_apartments : "Private Appartments",
+    lands : "Lands",
+    show_all : "Show All"
   }
 
   switch (lang) {
@@ -886,9 +891,11 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.legendComplited = "Complited"
       languageInfo.privateApartmebt = "Private appartment"
       languageInfo.groundMarkers = "Grounds"
-
-
-
+      languageInfo.categoryLanguage = "Category"
+      languageInfo.complexes = "Complexes"
+      languageInfo.private_apartments = "Private Appartments"
+      languageInfo.lands = "Lands"
+      languageInfo.show_all = "Show All"
       break;
 
     case "ka" :
@@ -902,7 +909,11 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.legendComplited = "დასრულებული"
       languageInfo.privateApartmebt = "კერძო ბინები"
       languageInfo.groundMarkers = "ნაკვეთები"
-
+      languageInfo.categoryLanguage = "კატეგორია"
+      languageInfo.complexes = "კომპლექსები"
+      languageInfo.private_apartments = "კერძო ბინები"
+      languageInfo.lands = "ნაკვეთები"
+      languageInfo.show_all = "აჩვენე ყველა"
       break
       
     case "ru" :
@@ -916,8 +927,11 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.legendComplited = "Завершено"
       languageInfo.privateApartmebt = "частные апартаменты"
       languageInfo.groundMarkers = "Участки"
-
-
+      languageInfo.categoryLanguage = "Категория"
+      languageInfo.complexes = "Комплексы"
+      languageInfo.private_apartments = "Частные апартаменты"
+      languageInfo.lands = "Участки"
+      languageInfo.show_all = "Показать все"
       break
   }
   return languageInfo
@@ -958,7 +972,7 @@ const handleLoad = (map) => {
 
 
 // --------------------------changing filtation methods-----------------------------------------
-
+// -------------------------------
 const renderFilterMethods = () => {
   return (
     <>
@@ -973,7 +987,7 @@ const renderFilterMethods = () => {
                                     <div className="checkmark"></div>
                             </label>
                           </div>
-                              <h1 className='filter_mark'  >კომპლექსები</h1>
+                              <h1 className='filter_mark'  >{handleStatusButtonLanguageChange(selectedLanguage).complexes}</h1>
                         </div>
 
                     {/* meore chekboxi kerdzo apartamentebistvis */}
@@ -987,7 +1001,7 @@ const renderFilterMethods = () => {
                                   <div className="checkmark"></div>
                                 </label>
                           </div>
-                                <h1 className='filter_mark'  >კერძო ბინები</h1>
+                                <h1 className='filter_mark'  >{handleStatusButtonLanguageChange(selectedLanguage).private_apartments}</h1>
                         </div>
 
                         {/* mesame chekboxi miwebistvis */}
@@ -1001,7 +1015,7 @@ const renderFilterMethods = () => {
                                   <div className="checkmark"></div>
                                 </label>
                           </div>
-                                <h1 className='filter_mark'  >მიწები </h1>
+                                <h1 className='filter_mark'  >{handleStatusButtonLanguageChange(selectedLanguage).lands}</h1>
                         </div>
 
 
@@ -1016,7 +1030,7 @@ const renderFilterMethods = () => {
                                   <div className="checkmark"></div>
                                 </label>
                           </div>
-                                <h1 className='filter_mark'  >აჩვენე ყველა </h1>
+                                <h1 className='filter_mark'  >{handleStatusButtonLanguageChange(selectedLanguage).show_all}</h1>
                         </div>
     </>
   )
@@ -1908,7 +1922,7 @@ const handle_Ground_MarkerClick = () => {
                               {/* modal for filtering method changing */}
                               <div className="button-modal-container ">
                                 <div onClick={handleFilterChangeModalClick}  className='space_button'  >
-                                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+                                  {handleStatusButtonLanguageChange(selectedLanguage).categoryLanguage}
                                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                                 </div> 
 
