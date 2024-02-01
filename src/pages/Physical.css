@@ -139,16 +139,32 @@
 
   display: none; /* Hide inactive currency sign */
 }
-/* ------------- */
+
+/* ----------------------------------filter container  styles ---------------------------------------------- */
+.filter_cont_for_physical{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 50px;
+}
 
 
 
 
 
+/* ------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------------------pagination container styles ---------------------------------------------- */
+
+.pagination{
+  margin-bottom: 120px;
+  display: flex;
+  justify-content: center;
+}
 
 
-
-
+/* ------------------------------------------------------------------------------------------------------------- */
 
 
 
@@ -157,7 +173,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   /* padding: 0 30px; */
-  gap: 40px;
+  gap: 29px;
   margin-top: 50px;
   margin-bottom: 100px;
   
@@ -230,5 +246,7 @@
   height: 358px;
   width: 1074px;
 }
+
+
 
 

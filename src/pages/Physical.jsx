@@ -20,6 +20,11 @@ import Pagination from '@mui/material/Pagination';
 import heartIcon from '../assets/starLogo.svg';
 import heartIconEmpty from '../assets/emptyStarLogo.svg';
 import googleMapImage from '../assets/mapImageForFooter.svg';
+import G_Modal from '../modals for ground filters/G_Modal';
+import G_PriceModal from '../modals for ground filters/G_PriceModal';
+import G_SpaceModal from '../modals for ground filters/G_SpaceModal';
+import G_StatusModal from '../modals for ground filters/G_StatusModa';
+
 
 
 const normalizePrivateApartmentData = (data, lang) => {
@@ -101,6 +106,10 @@ export default function Physical({selectedLanguage ,favorites}) {
   const [currentPage, setCorrentPage] = useState(0)
   const [ascendentPrice, setAscendentPrice] = useState('');
 
+  const [isStringFiltrationOpen, setIsStringFiltrationOpen] = useState(false);
+
+
+
 useEffect(() =>{
   setSelectedCity('')
   setSelectedPharentDistricts([])
@@ -113,6 +122,7 @@ useEffect(() =>{
   setMax_square_price('')
   setLocations([])
   setSelectedStatuses([])
+  setIsStringFiltrationOpen(false)
 },[selectedLanguage])
 
 
@@ -164,7 +174,6 @@ useEffect(() =>{
       const data = response.data.results
       const normalised_Data = normalizePrivateApartmentData(data, selectedLanguage)
       setPrivateApartments(normalised_Data)
-      console.log('aq unda iyos suratebi',privateApartments)
       setTotalCount(response.data.total_items)
       setTotalPageCount(response.data.total_pages)
       setCorrentPage(response.data.current_page)
@@ -203,14 +212,13 @@ useEffect(() => {
 // ----------------------------------------------------------------------------------------------
 
   // ------------------------------------modal and logic for opening filtration window --------------------------------------
-
   const renderModalContent = () => {
     switch (modalContent) {
       case 'cities':
         return <div>
                   {locations.map((cityItem, index) => (
-                    <button key={index} onClick={() => handleCityClick(cityItem.city)} className='button-19'>
-                      {cityItem.city}
+                    <button key={index} onClick={() => handleCityClick(cityItem.city)} className='city_button'>
+                      <span>{cityItem.city}</span> 
                     </button>
                   ))}
                   <button className='modal_close_button' onClick={closeModal} >close</button>
@@ -222,30 +230,41 @@ useEffect(() => {
   
         return (
           <div className='location_modal_container' >
-            {city.pharentDistricts.map((parentDistrict, index) => (
-              <div key={index}>
-                <div>
-                  <input
-                    type="checkbox"
-                    checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
-                    onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
-                  />
-                  {parentDistrict.pharentDistrict}
-                </div>
-                <div style={{ marginLeft: '20px' }}>
-                  {parentDistrict.districts.map((district, districtIndex) => (
-                    <div key={districtIndex}>
-                      <input
-                        type="checkbox"
-                        checked={selectedDistricts.includes(district)}
-                        onChange={(e) => handleDistrictChange(e, district)}
-                      />
-                      {district}
-                    </div>
+            <div className='districts_and_pharentdostricts'> 
+                  {city.pharentDistricts.map((parentDistrict, index) => (
+                    <ul key={index} >
+  
+                      <div className='pharent_district_chackmarks' >
+                            <label className="container">
+                              <input
+                                type="checkbox"
+                                checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
+                                onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
+                              />
+                            <div className="checkmark"></div>
+                            </label>
+                            <p>{parentDistrict.pharentDistrict}</p>
+                      </div>
+  
+                      <div className='district_checkmarks' >
+                          {parentDistrict.districts.map((district, districtIndex) => (
+                            <li key={districtIndex} className='child_district_checkmarks' >
+                              <label className="container">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedDistricts.includes(district)}
+                                  onChange={(e) => handleDistrictChange(e, district)}
+                                />
+                              <div className="checkmark"></div>
+                              </label>
+                              
+                              <p>{district}</p>
+                            </li>
+                          ))}
+                      </div>
+                    </ul>
                   ))}
-                </div>
-              </div>
-            ))}
+            </div>
             <button className='modal_close_button' onClick={closeModal}>Close</button>
           </div>
         );
@@ -503,6 +522,11 @@ const handleClose_P_StatusModal = () => {
 }
 
 
+const handleStringFiltrationButtonClick = () => {
+
+}
+
+
 
   // for Sorting
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -521,8 +545,12 @@ const handleClose_P_StatusModal = () => {
 
 // This is for scrool up, when user click other Pagination number
 const pagiHandler = () => {
-  document.body.scrollTop = document.documentElement.scrollTop = 0;
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
+
 
 // ------------------------------------------------------------------------------------
 const handleStatusButtonLanguageChange = (lang) => {
@@ -968,6 +996,129 @@ const handle_close_comentars = () => {
   
 return (
   <div className='ComplexBodyBox_physical'>
+              <div className="private_filter_conteiner">
+                    <motion.div initial={{ y: 100, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
+                    <div className='filter_cont_for_physical '>
+                      {/* button for filtering space */}
+                      <div className="button-modal-container ">
+                            <div onClick={handle_P_SpaceButtonClick}  className='space_button'  >
+                              {handle_P_StatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                             </div> 
+
+                            <P_SpaceModal isOpen={is_P_SpaceModalOpen} close={close_P_SpaceModal}>
+                               <div>
+                                        <input
+                                      type="number"
+                                      className='filter_inputs'
+                                      placeholder='Min Price Per Square Meter'
+                                      value={min_area}
+                                      onChange={(e) => setMin_area(e.target.value)}
+                                  />
+                                  
+                                    <input
+                                      type="number"
+                                      className='filter_inputs'
+                                      placeholder='Max Price Per Square Meter'
+                                      value={max_area}
+                                      onChange={(e) => setMax_area(e.target.value)}
+                                  />
+                                  <p>otaxebis filtraciac unda iyos aq</p>
+                              </div>
+                            <button className='modal_close_button' onClick={close_P_SpaceModal}>Close</button>
+                            </P_SpaceModal>
+
+                      </div>
+
+                      {/* button for filtering price  */}
+                      <div className="button-modal-container">
+                            <div onClick={handle_P_PriceButtonClick}  className='space_button'  >
+                              {handle_P_StatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div> 
+                            <P_PriceModal isOpen={is_P_PriceModalOpen} close={handleClose_P_PriceModal} >
+                            <div>
+                                  <input
+                                      type="number"
+                                      className='filter_inputs'
+                                      placeholder='Min Price Per Square Meter'
+                                      value={min_square_price}
+                                      onChange={(e) => setMin_square_price(e.target.value)}
+                                      />
+
+                                  <input
+                                      type="number"
+                                      className='filter_inputs'
+                                      placeholder='Max Price Per Square Meter'
+                                      value={max_square_price}
+                                      onChange={(e) => setMax_square_price(e.target.value)}
+                                  />
+                                 
+                                  <input
+                                    type="number"
+                                    className='filter_inputs'
+                                    placeholder='Min Full Price'
+                                    value={minFullPrice}
+                                    onChange={(e) => setMinFullPrice(e.target.value)}
+                                  />
+
+                                  <input
+                                    type="number"
+                                    className='filter_inputs'
+                                    placeholder='Max Full Price'
+                                    value={maxFullPrice}
+                                    onChange={(e) => setMaxFullPrice(e.target.value)}
+                                  />                            
+                            </div>
+                            <button className='modal_close_button' onClick={handleClose_P_PriceModal}>Close</button>
+                            </P_PriceModal>
+                        </div>
+
+                      {/* button for locations */}
+                      <div className="button-modal-container" >
+                            <div onClick={handleShowModal} className='lacation_button'   >
+                            {handle_P_StatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <P_Modal isOpen={is_P_ModalOpen} >
+                              {renderModalContent()}
+                            </P_Modal>
+                      </div>
+
+                        {/* button for status */}
+                      <div className="button-modal-container" >
+                            <div onClick={handle_P_StatusButtonClick} className='lacation_button'   >
+                            {handle_P_StatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <P_StatusModal isOpen={is_P_StatusModalOpen} close={handleClose_P_StatusModal} >
+                            {renderStatusOptions()}
+                            <button className='modal_close_button' onClick={handleClose_P_StatusModal}>Close</button>
+                            </P_StatusModal>
+                      </div>
+
+                       {/* for searching with string*/}
+                       <div className="button-modal-container" >
+                            <div onClick={handle_P_StatusButtonClick} className='lacation_button'   >
+                            {handle_P_StatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <P_StatusModal isOpen={is_P_StatusModalOpen} close={handleClose_P_StatusModal} >
+                            <button className='modal_close_button' onClick={handleClose_P_StatusModal}>Close</button>
+                            </P_StatusModal>
+                      </div>
+                  </div>
+                  </motion.div>
+            </div>
+
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+
+   
+
     {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
     <motion.div
         initial={{ y: -50, opacity: 0 }}
@@ -1206,50 +1357,48 @@ return (
                   </motion.div>
                 </div>
               ))}
-    </div>
-
-
-    {/* for scroll UP */}
-    {/* <button onClick={scrollToTop} style={{ borderRadius: '30px' }} >
-      <img src={scrollUp} alt='logo' style={{ width: '40px' }} />
-    </button> */}
-
+            </div>
     
-    {/* Pagination for user to select some page */}
-       <div className='pagination'>
-         <Stack spacing={2}>
-           <Pagination
-              count={totalPageCount}
-              shape="rounded"
-              page={currentPage}
-              onChange={(event, value) => setCorrentPage(Number(value))}
-              onClick={pagiHandler}
-              sx={{
-                '& .MuiPaginationItem-root': {
-                  color: 'white', // Text color for unselected items
-                  '&:hover': {
-                    backgroundColor: '#f0f0f0', // Change background color on hover for unselected items
-                    color: 'black', // Change text color on hover for unselected items
-                  },
-                },
-                '& .Mui-selected': {
-                  backgroundColor: 'white', // Background color for selected item
-                  color: 'black', // Text color for selected item
-                  '&:hover': {
-                    backgroundColor: 'white', // Background color on hover for selected item
-                    color: 'black', // Text color on hover for selected item
-                  },
-                },
-              }}
-          />
-        </Stack>
-      </div>
-
-
-
-
-
-
+            {/* Pagination for user to select some page */}
+              <div className='pagination'>
+                <Stack spacing={2}>
+                  <Pagination
+                      count={totalPageCount}
+                      shape="rounded"
+                      page={currentPage}
+                      onChange={(event, value) => setCorrentPage(Number(value))}
+                      onClick={pagiHandler}
+                      sx={{
+                        '& .MuiPaginationItem-root': {
+                          color: '#fff !important', // White text color for unselected items, with increased specificity
+                          margin: '3px !important', // Removes margin between buttons, with increased specificity
+                          padding: '0 !important', // Removes padding inside buttons, with increased specificity
+                          '&:hover': {
+                            backgroundColor: '#f0f0f0 !important', // Background color on hover for unselected items, with increased specificity
+                            color: '#000 !important', // Text color on hover for unselected items, with increased specificity
+                          },
+                        },
+                        '& .Mui-selected': {
+                          backgroundColor: '#fff !important', // White background color for the selected item, with increased specificity
+                          color: '#000 !important', // Black text color for the selected item, with increased specificity
+                          '&:hover': {
+                            backgroundColor: '#fff !important', // Keep the background color on hover for selected item, with increased specificity
+                            color: '#000 !important', // Keep the text color on hover for selected item, with increased specificity
+                          },
+                        },
+                        '& .MuiPaginationItem-ellipsis': {
+                          color: '#fff !important', // Color of the ellipsis, with increased specificity
+                          margin: '0 !important', // Removes margin around the ellipsis, with increased specificity
+                          padding: '0 !important', // Removes padding around the ellipsis, with increased specificity
+                        },
+                        '.MuiPagination-ul': {
+                          justifyContent: 'center !important', // Centers the pagination items, with increased specificity
+                          flexWrap: 'nowrap !important', // Prevents the pagination items from wrapping, with increased specificity
+                        }
+                      }}
+                  />
+                </Stack>
+              </div>
           {/* ---------------------------------------------------------------- */}
           <div className='googleMapImageBox_physical'>
             <Link to='/map' >
