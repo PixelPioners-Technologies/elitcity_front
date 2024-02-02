@@ -143,3 +143,13 @@
 
 
 }
+
+.binebiDaGegmarebaFullBox {
+  padding: 0 30px;
+}
+
+.firstBoxOfBinebi {
+  display: flex;
+  justify-content: space-between;
+  
+}
