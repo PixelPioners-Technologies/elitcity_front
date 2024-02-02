@@ -1,84 +1,577 @@
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-undef */
-// import React from 'react'
-import './Complex.css';
-import { motion } from "framer-motion";
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import './Physical.css';
+import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import P_Modal from "../modals for private page/P_Modal";
+import P_PriceModal from '../modals for private page/P_PriceModal';
+import P_SpaceModal from '../modals for private page/P_SpaceModal';
+import P_StatusModal from '../modals for private page/P_StatusModa';
+import { motion} from 'framer-motion';
+import button_icon from '../icons/Vector.svg';
 import { Link } from "react-router-dom";
-
-import heartIcon from '../assets/starLogo.svg';
-
-import heartIconEmpty from '../assets/emptyStarLogo.svg';
 import mapSignLogo from  '../assets/mapSignLogoo.svg' ;
-import dollar from '../assets/dollar-svgrepo-com.svg';
-// import dollar from '../assets/dollar-whitee.svg';
-
-import lari from '../assets/lari-svgrepo-com.svg';
-// import lari from '../assets/lari-white.svg';
-
-
-
-
-// Pagination
-// import * as React from 'react';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-import { Skeleton } from '@mui/material';
-
-
-// ------------------------------------------------------------------------------------
-// for Sorting
-import * as React from 'react';
 import Button from '@mui/material/Button';
+import arrowDownSorting from '../assets/arrow-down-white.svg';
 import Menu from '@mui/material/Menu';
+import loupe from '../icons/loupe.png'
 import MenuItem from '@mui/material/MenuItem';
-// ------------------------------------------------------------------------------------
-
-// const axiosInstance = axios.create({
-//   baseURL: 'http://34.201.93.104:8000'
-// });
-
-const basess = 'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net';
-
-const axiosInstance = axios.create({
-  // baseURL: 'https://api.storkhome.ge'
-  baseURL: 'https://2f7208454dce8a4221c4d6e4d2b5345b.serveo.net/'
+import lari from '../assets/lari-svgrepo-com.svg';
+import dollar from '../assets/dollar-svgrepo-com.svg';
+import Stack from '@mui/material/Stack';
+import Pagination from '@mui/material/Pagination';
+import heartIcon from '../assets/starLogo.svg';
+import heartIconEmpty from '../assets/emptyStarLogo.svg';
+import googleMapImage from '../assets/mapImageForFooter.svg';
 
 
-});
+
+const normalizeGroundData = (data, lang) => {
+  return data.map(item => ({
+    id: item.id,
+    internalName: item.internal_ground_name.internal_ground_name,
+    area: item.internal_ground_name.area,
+    fullPrice: item.internal_ground_name.full_price,
+    squarePrice: item.internal_ground_name.square_price,
+    status: item.internal_ground_name.status,
+    rank: item.internal_ground_name.rank,
+    isAvailable: item.internal_ground_name.is_available,
+    visibility: item.internal_ground_name.visibiliti,
+    address: {
+      city: item[`ground_address_${lang}`][`city_${lang}`],
+      parentDistrict: item[`ground_address_${lang}`][`pharentDistrict_${lang}`],
+      district: item[`ground_address_${lang}`][`district_${lang}`],
+      streetName: item[`ground_address_${lang}`][`street_name_${lang}`],
+      address: item[`ground_address_${lang}`][`address_${lang}`],
+      latitude: item[`ground_address_${lang}`].latitude,
+      longitude: item[`ground_address_${lang}`].longitude,
+    },
+    groundName: item[`ground_name_${lang}`],
+    images: item.ground_images
+  }));
+};
+
+const normalizePrivateApartmentData = (data, lang) => {
+  return data.map(item => ({
+    id: item.id,
+    internalName: item.internal_private_apartment_name.internal_private_apartment_name,
+    numberOfRooms: item.internal_private_apartment_name.number_of_rooms,
+    status: item.internal_private_apartment_name.status,
+    area: item.internal_private_apartment_name.area,
+    fullPrice: item.internal_private_apartment_name.full_price,
+    squarePrice: item.internal_private_apartment_name.square_price,
+    floorNumber: item.internal_private_apartment_name.floor_number,
+    isAvailable: item.internal_private_apartment_name.is_available,
+    visibility: item.internal_private_apartment_name.visibiliti,
+    rank: item.internal_private_apartment_name.rank,
+    address: {
+      city: item[`private_apartment_address_${lang}`][`city_${lang}`],
+      parentDistrict: item[`private_apartment_address_${lang}`][`pharentDistrict_${lang}`],
+      district: item[`private_apartment_address_${lang}`][`district_${lang}`],
+      streetName: item[`private_apartment_address_${lang}`][`street_name_${lang}`],
+      address: item[`private_apartment_address_${lang}`][`address_${lang}`],
+      latitude: item[`private_apartment_address_${lang}`].latitude,
+      longitude: item[`private_apartment_address_${lang}`].longitude,
+    },
+    images: item.private_apartment_images,
+    privateApartmentName: item[`private_apartment_name_${lang}`],
+    testPrivateField: item[`test_private_field_${lang}`]
+  }));
+};
 
 
-// eslint-disable-next-line react/prop-types
-export default function Complex({favoriteHandler, favorites, selectedLanguage}) {
 
-  const [lots, setlots] = useState([]);
-  console.log('-----',lots)
-  console.log('1111111',lots)
+const normalizeLocationData = (data, lang) => {
+  return data.map(cityItem => {
+      const cityNameField = `city_${lang}`;
+      const pharentDistrictField = `pharentDistrict_${lang}`;
+      const districtField = `district_${lang}`;
 
-  const [currentPage, setCurrentPage] = useState(1);
+      const cityName = cityItem[cityNameField];
+      const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
+          const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
+          const districts = pharentDistrictItem[districtField].map(districtItem => districtItem[districtField]);
+
+          return { pharentDistrict: pharentDistrictName, districts };
+      });
+
+      return { city: cityName, pharentDistricts };
+  });
+};
+
+
+
+export default function Physical({selectedLanguage ,favorites}) {
+  const [privateApartments, setPrivateApartments] = useState([]);
+  
+
+  const [is_P_ModalOpen, setIs_P_ModalOpen] = useState('');
+  const [is_P_PriceModalOpen, setIs_P_PriceModalOpen] = useState(false);
+  const [is_P_SpaceModalOpen, setIs_P_SpaceModalOpen] = useState(false);
+  const [is_P_StatusModalOpen, setIs_P_StatusModalOpen] = useState(false);
+  const [modalContent , setModalContent] = useState('');
+
+  const [selectedCity , setSelectedCity] = useState('');
+  const [selectedPharentDistricts ,  setSelectedPharentDistricts] = useState([]);
+  const [selectedDistricts , setSelectedDistricts] = useState([]);
+
+  const [locations , setLocations ] = useState([]);
+  const [selectedStatuses, setSelectedStatuses] = useState([])
+  const [selectedRoomNumbers, setSelectedRoomNumbers] = useState([]);
+
+  const [min_square_price, setMin_square_price] = useState('');
+  const [max_square_price, setMax_square_price] = useState('');
+
+  const [min_area, setMin_area] = useState('');
+  const [max_area, setMax_area] = useState('');
+
+  const [minFullPrice, setMinFullPrice] = useState('');
+  const [maxFullPrice, setMaxFullPrice] = useState('');
+
   const [totalCount, setTotalCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [forPriceDecrease, setForPriceDecrease] = useState(null);
-  const [sortedlots, setSortedlots] = useState(null); // Initialize sortedlots state
+  const [totalPageCount , setTotalPageCount] = useState(0)
+  const [currentPage, setCorrentPage] = useState(0)
   const [ascendentPrice, setAscendentPrice] = useState('');
 
+  const [stringFilterValue, setStringFilterValue] = useState('')
 
 
+useEffect(() =>{
+  setSelectedCity('')
+  setSelectedPharentDistricts([])
+  setSelectedDistricts([])
+  setMin_area('')
+  setMax_area('')
+  setMinFullPrice('')
+  setMaxFullPrice('')
+  setMin_square_price('')  
+  setMax_square_price('')
+  setLocations([])
+  setSelectedStatuses([])
+},[selectedLanguage])
 
-  // 1111111111111111111111111111111111
-// for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
 
+// ------------------------------------axios for fetching private apartments -----------------------------------------
 
+  const BaseURL_Private = 'http://127.0.0.1:8000/ground/'
+
+  useEffect(() => {
+    const fetcPrivateApartments = async () => {
+
+      // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+      // const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
+      // const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
+
+      const cityParam = `city`;
+      const pharentdistrictParams =  `parent_districts`;
+      const districtParams = `districts`;
+
+      const limit = 12; // Define the limit or make it dynamic as per your requirement
+      const offset = (currentPage - 1) * limit;
   
-// ------------------------------------------------------------------------------------
-// for Sorting
+
+      let queryParams = new URLSearchParams({
+        [cityParam]: selectedCity,
+        [pharentdistrictParams]: selectedPharentDistricts.join(','),
+        [districtParams]: selectedDistricts.join(','),
+        min_square_price: min_square_price,
+        max_square_price: max_square_price,
+        min_full_price: minFullPrice,
+        max_full_price: maxFullPrice,
+        min_area : min_area, 
+        max_area : max_area,
+        limit: limit,
+        offset: offset,
+        ordering: ascendentPrice,
+        search: stringFilterValue,
+      });
+
+      if (selectedStatuses && selectedStatuses.length > 0) {
+        selectedStatuses.forEach(status => {
+          queryParams.append('status', status);
+        })
+    }
+    if (selectedRoomNumbers && selectedRoomNumbers.length > 0) {
+      selectedRoomNumbers.forEach(room_number => {
+        queryParams.append('number_of_rooms', room_number);
+      })
+  }
+    
+      const queryString = queryParams.toString();
+      const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
+
+
+      const response = await axios.get(requestUrl)
+      const data = response.data.results
+      const normalised_Data = normalizeGroundData(data, selectedLanguage)
+      setPrivateApartments(normalised_Data)
+      setTotalCount(response.data.total_items)
+      setTotalPageCount(response.data.total_pages)
+      setCorrentPage(response.data.current_page)
+    }
+    fetcPrivateApartments();
+  },[selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, min_square_price,
+    max_square_price, minFullPrice, maxFullPrice, selectedStatuses, max_area , min_area , currentPage ,
+    ascendentPrice ,stringFilterValue, selectedRoomNumbers])
+    
+    console.log(privateApartments)
+
+    useEffect(() => {
+      console.log('aq unda iyos suratebi',privateApartments)
+    },[totalCount, selectedLanguage]  )
+    
+
+//-----------------------------------fetch ionly locations --------------------------------------
+
+const base_URL_for_location = 'http://127.0.0.1:8000/map/' 
+
+useEffect(() => {
+  const fetchLocations = async () => {
+      
+    try {
+      const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
+      const normalisedLocationData = normalizeLocationData(response.data , selectedLanguage)
+      setLocations(normalisedLocationData)
+
+    } catch (error) {
+      console.error("error fetching on locations =>> ", error)
+    }
+  }
+
+  fetchLocations();
+} , [selectedLanguage  , selectedCity , selectedPharentDistricts, selectedDistricts]  )
+
+
+// ----------------------------------------------------------------------------------------------
+
+  // ------------------------------------modal and logic for opening filtration window --------------------------------------
+  const renderModalContent = () => {
+    switch (modalContent) {
+      case 'cities':
+        return <div>
+                  {locations.map((cityItem, index) => (
+                    <button key={index} onClick={() => handleCityClick(cityItem.city)} className='city_button'>
+                      <span>{cityItem.city}</span> 
+                    </button>
+                  ))}
+                  <button className='modal_close_button' onClick={closeModal} >close</button>
+              </div>
+      case "pharentdistricts":
+        // Find the city object from the locations array
+        const city = locations.find(loc => loc.city === selectedCity);
+        if (!city) return null;
+  
+        return (
+          <div className='location_modal_container' >
+            <div className='districts_and_pharentdostricts'> 
+                  {city.pharentDistricts.map((parentDistrict, index) => (
+                    <ul key={index} >
+  
+                      <div className='pharent_district_chackmarks' >
+                            <label className="container">
+                              <input
+                                type="checkbox"
+                                checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
+                                onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
+                              />
+                            <div className="checkmark"></div>
+                            </label>
+                            <p>{parentDistrict.pharentDistrict}</p>
+                      </div>
+  
+                      <div className='district_checkmarks' >
+                          {parentDistrict.districts.map((district, districtIndex) => (
+                            <li key={districtIndex} className='child_district_checkmarks' >
+                              <label className="container">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedDistricts.includes(district)}
+                                  onChange={(e) => handleDistrictChange(e, district)}
+                                />
+                              <div className="checkmark"></div>
+                              </label>
+                              
+                              <p>{district}</p>
+                            </li>
+                          ))}
+                      </div>
+                    </ul>
+                  ))}
+            </div>
+            <button className='modal_close_button' onClick={closeModal}>Close</button>
+          </div>
+        );
+        
+      default:
+        return null;
+    }
+  };
+  
+
+  // -------------------------------------------------------------------------------------------------------------------------------------
+  
+// --------------------------------------------------------selecting districts and pharentdistricts --------------------------------------
+
+const handleParentDistrictChange = (e, parentDistrict) => {
+  
+  setSelectedPharentDistricts(prevSelected => {
+    if (e.target.checked) {
+      return [...prevSelected, parentDistrict];
+    } else {
+      return prevSelected.filter(pd => pd !== parentDistrict);
+    }
+  });
+    // Find the city object from the locations array
+    const city = locations.find(loc => loc.city === selectedCity);
+    if (!city) return;
+    
+    // Find the specific parent district object
+    const parentDistrictObj = city.pharentDistricts.find(pd => pd.pharentDistrict === parentDistrict);
+    if (!parentDistrictObj) return;
+
+    setSelectedDistricts(prevSelected => {
+      if (e.target.checked) {
+        // Add all districts of the parent district to the selected list
+        // Ensure no duplicates are added
+        const updatedDistricts = new Set([...prevSelected, ...parentDistrictObj.districts]);
+        return Array.from(updatedDistricts);
+      } else {
+        // Remove all districts of the parent district from the selected list
+        return prevSelected.filter(d => !parentDistrictObj.districts.includes(d));
+      }
+    });
+};
+
+const handleDistrictChange = (e, district) => {
+  setSelectedDistricts(prevSelected => {
+    const updatedSelectedDistricts = e.target.checked 
+      ? [...prevSelected, district] 
+      : prevSelected.filter(d => d !== district);
+
+    // Update parent districts based on selected districts
+    const updatedSelectedParentDistricts = locations.reduce((acc, cityItem) => {
+      if (cityItem.city === selectedCity) {
+        cityItem.pharentDistricts.forEach(pd => {
+          // Check if any district of this parent district is selected
+          const isAnyDistrictSelected = pd.districts.some(dist => updatedSelectedDistricts.includes(dist));
+
+          // If any district is selected, add the parent district, else remove it
+          if (isAnyDistrictSelected) {
+            if (!acc.includes(pd.pharentDistrict)) {
+              acc.push(pd.pharentDistrict);
+            }
+          } else {
+            acc = acc.filter(p => p !== pd.pharentDistrict);
+          }
+        });
+      }
+      return acc;
+    }, [...selectedPharentDistricts]);
+
+    // Update selectedPharentDistricts state
+    setSelectedPharentDistricts(updatedSelectedParentDistricts);
+
+    return updatedSelectedDistricts;
+  });
+};
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+ 
+// --------------------------function for selecting status for filtration -----------------------------------------------
+
+// const handleStatusChange = (e) => {
+//   setStatus(e.target.value);
+// };
+const handleStatusChange = (e, value) => {
+  setSelectedStatuses((prevSelectedStatuses) => {
+    const newSelectedStatuses = e.target.checked 
+      ? [...prevSelectedStatuses, value] 
+      : prevSelectedStatuses.filter((status) => status !== value);
+
+    console.log("Updated Selected Statuses:", newSelectedStatuses); // Log the new state
+    return newSelectedStatuses;
+  });
+};
+
+// -----------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------icon coloure and  status  change  ----------------------------------------------------------
+
+
+// const getStatusText = (status, lang) => {
+//   const statusTexts = {
+//     en: {
+//       1: "Planned",
+//       2: "Under Construction",
+//       3: "Completed"
+//     },
+//     ka: {
+//       1: "დაგეგმილი",
+//       2: "მშენებარე",
+//       3: "დასრულებული"
+//     },
+//     ru: {
+//       1: "Запланировано",
+//       2: "Строится",
+//       3: "Завершено"
+//     }
+//   };
+
+//   return statusTexts[lang][status] || `unknown status`;
+// };
+
+  const statusTranslations = {
+    1: { en: 'Newly renovated', ka: 'ახალ გარემონტებულო', ru: 'Недавно отремонтированный' },
+    2: { en: 'With old repairs', ka: 'ძველი რემონტით', ru: 'Со старым ремонтом' },
+    3: { en: 'To be repairedd', ka: 'გაურემონტებელი', ru: 'To be repairedd' }
+    // Add more statuses and translations if needed
+  };
+
+  // ("1" , 'Newly renovated'),
+  // ('2' , 'with old repairs'),
+  // ('3', 'to be repaired'),
+
+  const renderStatusOptions = () => {
+    return Object.entries(statusTranslations).map(([value, labels]) => (
+      <div className='status_chackboxes' key={value}>
+          <label className="container">
+          <input 
+            type="checkbox"
+            checked={selectedStatuses.includes(value)}
+            value={value}
+            onChange={(e) => handleStatusChange(e, value)}
+          />
+          <div className="checkmark"></div>
+        </label>
+        <p className='text_modal_color' >{labels[selectedLanguage]}</p>
+      </div>
+    ));
+  };
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --------ffunction for changing status button content language change and also select city button language change -------------
+
+const handle_P_StatusButtonLanguageChange = (lang) => {
+  var languageInfo = {
+    statusInfoLanguage : "en" ,
+    cityButtonLanguage : "Select City ",
+    spaceButtonLanguage : "Space",
+    priceButtonLanguage: "Price",
+    allStatusLanguage: "All",
+    legendUnderPlanning : "Under Planning",
+    legendUnderConstructioin : "Under Construction",
+    legendComplited : "Complited",
+    stringFiltrationButtonLanguage: "Search by word",
+    complexes: "Complexes",
+    private_apartments: "Private Appartments"
+
+  }
+
+  switch (lang) {
+    case "en" :
+      languageInfo.statusInfoLanguage = "Select Status"
+      languageInfo.cityButtonLanguage = "Location"
+      languageInfo.spaceButtonLanguage = "Space"
+      languageInfo.priceButtonLanguage = "Price"
+      languageInfo.allStatusLanguage = "All"
+      languageInfo.legendUnderPlanning = "Under Planning"
+      languageInfo.legendUnderConstructioin = "Under Construction"
+      languageInfo.legendComplited = "Complited"
+      languageInfo.stringFiltrationButtonLanguage = "Search by word"
+      languageInfo.complexes = "Complexes"
+      languageInfo.private_apartments = "Private Appartments"
+      break;
+
+    case "ka" :
+      languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
+      languageInfo.cityButtonLanguage = "მდებარეობა"
+      languageInfo.spaceButtonLanguage = "ფართი"
+      languageInfo.priceButtonLanguage = "ფასი"
+      languageInfo.allStatusLanguage = "ყველა"
+      languageInfo.legendUnderPlanning = "დაგეგმვის პროცესში"
+      languageInfo.legendUnderConstructioin = "მშენებარე"
+      languageInfo.legendComplited = "დასრულებული"
+      languageInfo.stringFiltrationButtonLanguage = "იპოვე სიტყვით"
+      languageInfo.complexes = "კომპლექსები"
+      languageInfo.private_apartments = "კერძო ბინები"
+      break
+      
+    case "ru" :
+      languageInfo.statusInfoLanguage = "Выберите статус"
+      languageInfo.cityButtonLanguage = "Местоположение"
+      languageInfo.spaceButtonLanguage = "Площадь"
+      languageInfo.priceButtonLanguage = "Цена"
+      languageInfo.allStatusLanguage = "Все"
+      languageInfo.legendUnderPlanning = "На стадии планирования"
+      languageInfo.legendUnderConstructioin = "На стадии строительства"
+      languageInfo.legendComplited = "Завершено"
+      languageInfo.stringFiltrationButtonLanguage = "Поиск по слову"
+      languageInfo.complexes = "Комплексы"
+      languageInfo.private_apartments = "Частные апартаменты"
+      break
+  }
+  return languageInfo
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
+const closeModal = () => {
+  setIs_P_ModalOpen(false)
+}
+
+
+const handleShowModal = () => {
+  setModalContent('cities')
+  setIs_P_ModalOpen(true)
+  setIs_P_SpaceModalOpen(false);
+  setIs_P_PriceModalOpen(false)
+  setIs_P_StatusModalOpen(false)
+}
+
+const handleCityClick = (city) => {
+  setModalContent("pharentdistricts")
+  setSelectedCity(city)
+  setIs_P_ModalOpen(true)
+}
+
+
+
+const handle_P_SpaceButtonClick = () => {
+  setIs_P_SpaceModalOpen(true);
+  setIs_P_PriceModalOpen(false);
+  setIs_P_StatusModalOpen(false);
+  setIs_P_ModalOpen(false);
+};
+
+const close_P_SpaceModal = () => {
+  setIs_P_SpaceModalOpen(false);
+};
+
+const handle_P_PriceButtonClick = () => {
+  setIs_P_PriceModalOpen(true);
+  setIs_P_SpaceModalOpen(false);
+  setIs_P_ModalOpen(false);
+  setIs_P_StatusModalOpen(false);
+}
+
+const handleClose_P_PriceModal= () => {
+  setIs_P_PriceModalOpen(false)
+}
+
+const handle_P_StatusButtonClick = () => {
+  setIs_P_StatusModalOpen(true);
+  setIs_P_SpaceModalOpen(false);
+  setIs_P_PriceModalOpen(false);
+  setIs_P_ModalOpen(false);
+}
+
+const handleClose_P_StatusModal = () => {
+  setIs_P_StatusModalOpen(false);
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+
+  // for Sorting
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -87,435 +580,648 @@ export default function Complex({favoriteHandler, favorites, selectedLanguage}) 
   const handleClose = () => {
     setAnchorEl(null);
   };
-// ------------------------------------------------------------------------------------
 
-
-
-
-  // ცვლადი ქვერი სტრინგი სადაც შევინახავ მონაცემებს, კლიკის დროს სორტირებაზე, ქუერი სტრინგში უნდა დაემატოს სორტირების ნაწილი sort = price
-  // get-
-  // const response = await axiosInstance.get(`/complex/? ქუერი სტრინგის ცვლადი `);
-  // მოკლედ ქუერი სტრინგი სანახავია
-
-
-// // ------------------------------------------------------------------------------------
-// // first useEffect sorting
-//   useEffect(() => {
-//     const fetchData = async (sortOrder) => {
-//       try {
-//         setIsLoading(true);
-//         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
-//         const { results, count } = response.data;
-  
-//         let sortedResults;
-  
-//         // Sort the results based on sortOrder
-//         if (sortOrder === 'decrease') {
-//           sortedResults = results.slice().sort((a, b) => {
-//             return parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter);
-//           });
-//         } else if (sortOrder === 'increase') {
-//           sortedResults = results.slice().sort((a, b) => {
-//             return parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter);
-//           });
-//         } else {
-//           sortedResults = results; // Default: no sorting
-//         }
-  
-//         setlots(sortedResults); // Default complex(without sorting)
-//         setTotalCount(count); // Total amount of complexes
-//         setIsLoading(false); // for Loader, like a youtube video slider (wave style)
-//       } catch (error) {
-//         setIsLoading(false);
-//         console.error('Error fetching data:', error);
-//       }
-//     };
-  
-//     // Fetch data based on the currentPage and sortOrder
-//     fetchData(forPriceDecrease);
-//   }, [currentPage, forPriceDecrease]);
-// // ------------------------------------------------------------------------------------
-
-
-
-
-// რაც შეეხება ამ normalizeComplexData ნორმალაიზერს,  ეს უნდა იყოს მიწებისთვის ამიტომ შიგთავსი
-//  კონტენტი რა წამოვა ეგ ზუსტად უნდა გაიწეროს და სანახავია (Back-ენდთან ) არის გასავლელი...  
-// 
-// 
-const normalizeComplexData = (data, lang) => {
-  // Check if data is undefined or null
-  if (!data) {
-    console.error('Data is undefined or null.');
-    return [];
-  }
-  
-  // Check if data is an array
-  if (!Array.isArray(data)) {
-    console.error('Data is not an array.');
-    return [];
-  }
-
-  return data.map(item => ({
-    id: item.id,
-    complexName: item[`complex_name_${lang}`],
-    internalComplexName: item.internal_complex_name ? item.internal_complex_name.internal_complex_name : '',
-    typeOfRoof: item[`type_of_roof_${lang}`],
-    address: {
-      street: item[`address_${lang}`]?.[`address_${lang}`],
-      city: item[`address_${lang}`]?.[`city_${lang}`],
-      district: item[`address_${lang}`]?.[`district_${lang}`],
-      pharentDistrict: item[`address_${lang}`]?.[`pharentDistrict_${lang}`],
-      streetName: item[`address_${lang}`]?.[`street_name_${lang}`],
-      latitude: item[`address_${lang}`]?.latitude,
-      longitude: item[`address_${lang}`]?.longitude,
-    },
-    company: {
-      mobile: item[`company_${lang}`]?.Mobile,
-      mobileHome: item[`company_${lang}`]?.Mobile_Home,
-      about: item[`company_${lang}`]?.[`aboutcompany_${lang}`],
-      address: item[`company_${lang}`]?.[`address_${lang}`],
-      backgroundImage: item[`company_${lang}`]?.background_image,
-      website: item[`company_${lang}`]?.companyweb,
-      email: item[`company_${lang}`]?.email,
-      facebookPage: item[`company_${lang}`]?.facebook_page,
-      logo: item[`company_${lang}`]?.logocompany,
-      name: item[`company_${lang}`]?.[`name_${lang}`],
-      isTopCompany: item[`company_${lang}`]?.topCompany,
-      isVisible: item[`company_${lang}`]?.visibility,
-    },
-    images: item.image_urls,
-    complexDetails: {
-      complexLevel: item.internal_complex_name?.complex_level,
-      finishMonth: item.internal_complex_name?.finish_month,
-      finishYear: item.internal_complex_name?.finish_year,
-      isFinished: item.internal_complex_name?.status,
-      floorNumber: item.internal_complex_name?.floor_number,
-      numberOfApartments: item.internal_complex_name?.number_of_apartments,
-      numberOfFloors: item.internal_complex_name?.number_of_floors,
-      numberOfHouses: item.internal_complex_name?.number_of_houses,
-      phoneNumber: item.internal_complex_name?.phone_number,
-      plotArea: item.internal_complex_name?.plot_area,
-      pricePerSqMeter: item.internal_complex_name?.price_per_sq_meter,
-      space: item.internal_complex_name?.space,
-      isVipComplex: item.internal_complex_name?.vipComplex,
-      isVisible: item.internal_complex_name?.visibiliti,
-    },
-  }));
-};
-
-
-// ------------------------------------------------------------------------------------
-
-// (START)---- აქ სამივეა: ფასი, გამოქვეყნების თარიღი და რეიტინგის მიხედვითაც სორტირებული
-// const sortlots = (data, sortOrder, sortBy) => {
-//   if (sortBy === 'price') {
-//     if (sortOrder === 'decrease') {
-//       return [...data].sort((a, b) => parseFloat(b.complexDetails.pricePerSqMeter) - parseFloat(a.complexDetails.pricePerSqMeter));
-//     } else if (sortOrder === 'increase') {
-//       return [...data].sort((a, b) => parseFloat(a.complexDetails.pricePerSqMeter) - parseFloat(b.complexDetails.pricePerSqMeter));
-//     }
-//   } else if (sortBy === 'publishedTime') {
-//     if (sortOrder === 'decrease') {
-//       return [...data].sort((a, b) => new Date(b.publishedTime) - new Date(a.publishedTime));
-//     } else if (sortOrder === 'increase') {
-//       return [...data].sort((a, b) => new Date(a.publishedTime) - new Date(b.publishedTime));
-//     }
-//   } else if (sortBy === 'rating') {
-//     if (sortOrder === 'decrease') {
-//       return [...data].sort((a, b) => b.rating - a.rating);
-//     } else if (sortOrder === 'increase') {
-//       return [...data].sort((a, b) => a.rating - b.rating);
-//     }
-//   }
-//   return data;
-// };
-// -(END)-----------------------------------------------------------
-
-
-
-// (START)-----  აქ კიდე ესაა გასაწერი, რომ კონკრეტულ ღილაკზე დაჭერისას რა ქნას... მაგიტომაცაა მითითებული
-// ესენი:  setSortBy('price');, setSortBy('publishedTime'), setSortBy('rating');
-
-{/* <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('price'); }}>ფასი კლებადობით</MenuItem>
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('price'); }}>ფასი ზრდადობით</MenuItem>
-
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('publishedTime'); }}>თარიღი კლებადობით</MenuItem>
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('publishedTime'); }}>თარიღი ზრდადობით</MenuItem>
-
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('rating'); }}>რეიტინგი კლებადობით</MenuItem>
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('rating'); }}>რეიტინგი ზრდადობით</MenuItem> */}
-// -(END)----------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-// second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული); ეს აღარაა საჭირო, რადგან გაკეთდა უვკე სორტირება !!!!!!!! 
-// (თუმცა ჯერ 
-// ეწეროს მაინც)
-
-const sortlots = (data, sortOrder) => {
-  if (sortOrder === 'decrease') {
-    return [...data].sort((a, b) => parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter));
-  } else if (sortOrder === 'increase') {
-    return [...data].sort((a, b) => parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter));
-  } else {
-    return data;
-  }
-};
-
-
-    // Create a URLSearchParams object
-    let queryParams = new URLSearchParams({
-      ordering: ascendentPrice
-    });
-
-    const queryString = queryParams.toString();
-    const requestUrl = `${selectedLanguage}/?${queryString}`;
-    
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      setIsLoading(true);
-      // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
-      const response = await axios.get(`${basess}/complex/${requestUrl}`);
-
-      // const { results } = response.data.results[0];
-      const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
-      // console.log('es aris D A T A',data)
-      console.log('es aris RESPONSE', response)
-      setlots(normalData);
-      // console.log('es aris meore',results)
-      // setTotalCount(count);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  fetchData();
-}, [currentPage, ascendentPrice]);
-
-useEffect(() => {
-  const sortedResults = sortlots(lots, forPriceDecrease);
-  setSortedlots(sortedResults);
-}, [forPriceDecrease, lots]);
-
-// ------------------------------------------------------------------------------------
-
-
-// Pagination logic
-const itemsPerPage = 10;
-const totalPageCount = Math.ceil(totalCount / itemsPerPage);
-const currentSortedlots = sortedlots ? sortedlots.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : [];
-
-
-
-  
-
-  // 
-
-  // console.log('images: ', images);
-  // console.log('lots all: ', lots);
-
-  
+  // for toggle DOllar AND LARI ---==---(START)
+  const [isOn, setIsOn] = useState(false);
+  const toggleSwitch = () => setIsOn(!isOn);
+  // -----===--------(END)
 
 // This is for scrool up, when user click other Pagination number
-  const pagiHandler = () => {
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
+const pagiHandler = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+
+// ------------------------------------------------------------------------------------
+const handleStatusButtonLanguageChange = (lang) => {
+  var languageInfo = {
+    statusInfoLanguage : "en" ,
+    sortingButtonAscendentPrice : "Ascendant price in m²",
+    sortingButtonDescendentPrice : "Descendent price in m²",
+    sortingButtonAscendantTime : "Ascendant created at",
+    sortingButtonDescendentTime : "Decendant created at",
+    sortingButtonAscendantFullPrice : "Ascendant full price ",
+    sortingButtonDescendentFullPrice : "Descendant full price",
+    studio: "Studio",
+
   }
 
-  // Maping variable
-  // ------------------------------------------------------------------------------------
-  const homeMaping = currentSortedlots.map((complex, index) => (
-    <div className='card' key={index}>
-      <div className='heartbuttonAndImageBox'>
-        <div className='heartButtonBox'>
-          <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
-            {favorites.some(fav => fav.id === complex.id) ? (
-              <img src={heartIcon} alt='Logo of heart' />
-              ) : (
-                <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
-                )}
-          </button>
-        </div>
-        <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
-      </div>
-      <p style={styles.companyTitle}>{complex.name}</p>
-      <div className='textInfo'>
-        <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
-        <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
-        {/* Update the line below with the actual date property */}
-        <p style={styles.complexFinished}>Date: {complex.date}</p>
-      </div>
-    </div>
-  ))
-  // ------------------------------------------------------------------------------------
+  switch (lang) {
+    case "en" :
+      languageInfo.sortingButtonAscendentPrice = "Ascendant price in m²"
+      languageInfo.sortingButtonDescendentPrice = "Descendent price in m²"
+      languageInfo.sortingButtonAscendantTime = "Ascendant created at"
+      languageInfo.sortingButtonDescendentTime = "Decendent created at"
+      languageInfo.sortingButtonAscendantFullPrice = "Ascendant full price "
+      languageInfo.sortingButtonDescendentFullPrice = "Decendent full price"
+      languageInfo.studio = "Studio"
+
+      break;
+
+    case "ka" :
+      languageInfo.sortingButtonAscendentPrice = "მ² ფასი ზრდადობით"
+      languageInfo.sortingButtonDescendentPrice = "მ² ფასი კლებადობით"
+      languageInfo.sortingButtonAscendantTime = "თარიღი ზრდადობით"
+      languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით"
+      languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით"
+      languageInfo.sortingButtonDescendentFullPrice = "მთლიანი ფასი კლებადობით"
+      languageInfo.studio = "სტუდიო"
+
+      break
+      
+    case "ru" :
+      languageInfo.sortingButtonAscendentPrice = "Ццена м² с шагом"
+      languageInfo.sortingButtonDescendentPrice = "м² цена снижается"
+      languageInfo.sortingButtonAscendantTime = "Асцендент создан в"
+      languageInfo.sortingButtonDescendentTime = "Потомок создан в"
+      languageInfo.sortingButtonAscendantFullPrice = "Полная цена Асцендента."
+      languageInfo.sortingButtonDescendentFullPrice = "Полная стоимость потомка"
+      languageInfo.studio = "Студия"
+
+      break
+  }
+  return languageInfo
+}
+
+// 1: { en: 'Agricultural', ka: 'სასოფლო-სამეურნეო', ru: 'Сельскохозяйственный' },
+// 2: { en: 'Land for settlement', ka: 'სამოსახლო', ru: 'Земля для поселения' },
+// 3: { en: 'Commercial', ka: 'კომერციული', ru: 'Коммерческий' }
+// };
+// --------------------------------------------language change for card status setting and content ---------------------------------------------------
+const cardStatusSettingLanguage = (lang, status) => {
+  const statusLanguageInfo = {
+    en: {
+      '1': "Agricultural",
+      '2': 'Land for settlement',
+      '3': 'Commercial'
+    },
+    ka: { // Assuming 'ka' stands for another language, e.g., Georgian
+      '1': "სასოფლო-სამეურნეო",
+      '2': 'სამოსახლო',
+      '3': 'კომერციული'
+    },
+    ru: { // Assuming 'ru' stands for Russian
+      '1': "Сельскохозяйственный",
+      '2': 'Земля для поселения',
+      '3': 'Коммерческий'
+    }
+    // Add more languages as needed
+  };
+
+  // Get the status descriptions for the current language
+  const currentLanguageStatusInfo = statusLanguageInfo[lang];
+
+  // Return the status description based on the status value
+  return currentLanguageStatusInfo[status];
+};
 
 
-    // სკროლისთვის და ასევე ინტერვალისთვის რომ, ერთიანად არ აისქორლოს..
-    // const scrollToTop = () => {
-    //   const scrollStep = -window.scrollY / (500 / 15);
+// ----------------------------------------------------------------------------------------------------------
+// ------------------------------------ otaxebis raodenobis  filtraciis logika -------------------------------------
+
+const NUMBER_OF_ROOM_CHOICES = [
+  { value: 'studio', label: `${handleStatusButtonLanguageChange(selectedLanguage).studio}` },
+  { value: '1', label: '1' },
+  { value: '2', label: '2' },
+  { value: '3', label: '3' },
+  { value: '4', label: '4' },
+  { value: '5+', label: '5+' },
+];
+
+// Function to handle change in checkbox selection
+const handleRoomNumberChange = (value) => {
+  const currentIndex = selectedRoomNumbers.indexOf(value);
+  const newSelectedRoomNumbers = [...selectedRoomNumbers];
+
+  if (currentIndex === -1) {
+    newSelectedRoomNumbers.push(value);
+  } else {
+    newSelectedRoomNumbers.splice(currentIndex, 1);
+  }
+
+  setSelectedRoomNumbers(newSelectedRoomNumbers);
+};
+
+// ------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------card settings language change function ---------------------------------------------
+
+const squareSymbol = '\u00B2';
+
+const car_settings_language_change = (lang) => {
+  var languageInfo = {
+    city : "City" ,
+    square_from : `M${squareSymbol} - from`
+
+  }
+
+  switch (lang) {
+    case "en" :
+      languageInfo.city = "City"
+      languageInfo.square_from = `M${squareSymbol} - from`
+
+      break;
+
+    case "ka" :
+      languageInfo.city = "ქალაქი"
+      languageInfo.square_from = `მ${squareSymbol} - დან`
+
+      break
+      
+    case "ru" :
+      languageInfo.city = "Город"
+      languageInfo.square_from = `М${squareSymbol} от`;
+
+      break
+  }
+  return languageInfo
+}
+
+
+
+
+// ------------------------------------------------------------------------------------------------------------------------
+
+return (
+  <div className='ComplexBodyBox_physical'>
+              <div className="private_filter_conteiner">
+                    <motion.div initial={{ y: 100, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
+                    <div className='filter_cont_for_physical '>
+                      {/* button for filtering space */}
+                      <div className="button-modal-container ">
+                            <div onClick={handle_P_SpaceButtonClick}  className='space_button'  >
+                              {handle_P_StatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                             </div> 
+
+                            <P_SpaceModal isOpen={is_P_SpaceModalOpen} close={close_P_SpaceModal}>
+                               <div>
+                                        <input
+                                      type="number"
+                                      className='filter_inputs'
+                                      placeholder='Min Price Per Square Meter'
+                                      value={min_area}
+                                      onChange={(e) => setMin_area(e.target.value)}
+                                  />
+                                  
+                                    <input
+                                      type="number"
+                                      className='filter_inputs'
+                                      placeholder='Max Price Per Square Meter'
+                                      value={max_area}
+                                      onChange={(e) => setMax_area(e.target.value)}
+                                  />
+                                    {/* otaxebis raodenobis filtraciistvis */}
+                                    <div className='room_choice_container' >
+                                      {NUMBER_OF_ROOM_CHOICES.map(choice => (
+                                        <React.Fragment key={choice.value}>
+                                          <label
+                                            className={`checkbox-label ${selectedRoomNumbers.includes(choice.value) ? 'selected' : ''}`}
+                                            onClick={() => handleRoomNumberChange(choice.value)}
+                                          >
+                                            {choice.label}
+                                          </label>
+                                          <input
+                                            type="checkbox"
+                                            id={`checkbox-${choice.value}`}
+                                            name="number_of_rooms"
+                                            value={choice.value}
+                                            checked={selectedRoomNumbers.includes(choice.value)}
+                                            onChange={() => {}}
+                                            style={{ display: 'none' }}
+                                          />
+                                        </React.Fragment>
+                                      ))}
+                                    </div>
+
+                                  <p>otaxebis filtraciac unda iyos aq</p>
+                              </div>
+                            <button className='modal_close_button' onClick={close_P_SpaceModal}>Close</button>
+                            </P_SpaceModal>
+
+                      </div>
+
+                      {/* button for filtering price  */}
+                      <div className="button-modal-container">
+                            <div onClick={handle_P_PriceButtonClick}  className='space_button'  >
+                              {handle_P_StatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div> 
+                            <P_PriceModal isOpen={is_P_PriceModalOpen} close={handleClose_P_PriceModal} >
+                            <div>
+                                  <input
+                                      type="number"
+                                      className='filter_inputs'
+                                      placeholder='Min Price Per Square Meter'
+                                      value={min_square_price}
+                                      onChange={(e) => setMin_square_price(e.target.value)}
+                                      />
+
+                                  <input
+                                      type="number"
+                                      className='filter_inputs'
+                                      placeholder='Max Price Per Square Meter'
+                                      value={max_square_price}
+                                      onChange={(e) => setMax_square_price(e.target.value)}
+                                  />
+                                 
+                                  <input
+                                    type="number"
+                                    className='filter_inputs'
+                                    placeholder='Min Full Price'
+                                    value={minFullPrice}
+                                    onChange={(e) => setMinFullPrice(e.target.value)}
+                                  />
+
+                                  <input
+                                    type="number"
+                                    className='filter_inputs'
+                                    placeholder='Max Full Price'
+                                    value={maxFullPrice}
+                                    onChange={(e) => setMaxFullPrice(e.target.value)}
+                                  />                            
+                            </div>
+                            <button className='modal_close_button' onClick={handleClose_P_PriceModal}>Close</button>
+                            </P_PriceModal>
+                        </div>
+
+                      {/* button for locations */}
+                      <div className="button-modal-container" >
+                            <div onClick={handleShowModal} className='lacation_button'   >
+                            {handle_P_StatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <P_Modal isOpen={is_P_ModalOpen} >
+                              {renderModalContent()}
+                            </P_Modal>
+                      </div>
+
+                        {/* button for status */}
+                      <div className="button-modal-container" >
+                            <div onClick={handle_P_StatusButtonClick} className='lacation_button'   >
+                            {handle_P_StatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
+                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            </div>
+                            <P_StatusModal isOpen={is_P_StatusModalOpen} close={handleClose_P_StatusModal} >
+                            {renderStatusOptions()}
+                            <button className='modal_close_button' onClick={handleClose_P_StatusModal}>Close</button>
+                            </P_StatusModal>
+                      </div>
+
+                       {/* for searching with string*/}
+                       <div className="button-modal-container" >
+                            <div className='lacation_button'   >
+                              <input 
+                                className='string_filter_input'
+                                type='text'
+                                placeholder={handle_P_StatusButtonLanguageChange(selectedLanguage).stringFiltrationButtonLanguage}
+                                value={stringFilterValue}
+                                onChange={(e)=> {setStringFilterValue(e.target.value)}}
+                               />
+                              <img src={loupe} alt="button dropdown icon" className='dropdown' />
+                            </div>
+
+                      </div>
+                  </div>
+                  </motion.div>
+            </div>
   
-    //   const scrollInterval = setInterval(() => {
-    //     if (window.scrollY !== 0) {
-    //       window.scrollBy(0, scrollStep);
-    //     } else {
-    //       clearInterval(scrollInterval);
-    //     }
-    //   }, 15);
-    // };
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+
+   
+
+    {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
+    <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        transition={{ duration: 1 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        className='motionBox_physical'
+      >
+        <div className='forPaddingOfInfoFieldOfComplexsPlansMaps_physical'>
+          <div className='infoFieldOfComplexsPlansMaps_physical'>
+            <div className='complexInfoAndCountShowBox_physical'>
+              <p style={{color: 'white'}}>{handle_P_StatusButtonLanguageChange(selectedLanguage).private_apartments} : {totalCount}</p>
+            </div>
+            {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
+            <div className='projectsPlansMapsSortingAndDollarBox_physical'>
+              <Link to='/complex' >
+              <motion.div
+                className="textButtonContainer_physical"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <div className='mapAndLogoImg_physical'>
+                  <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                  <button className='textButton_physical'>პროექტები</button>
+                </div>
+              </motion.div>
+              </Link>
+{/* 
+              <Link to='/complex/apartmentList' >
+              <motion.div
+                className="textButtonContainer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <div className='mapAndLogoImg'>
+                  <img src={mapSignLogo} alt='mapSignLogo_physical' className='mapSignLogo' />
+                  <button className='textButton'>გეგმარებები</button>
+                </div>
+              </motion.div>
+              </Link>
+ */}
+
+              <Link to='/map' >
+              <motion.div
+                className="textButtonContainer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <div className='mapAndLogoImg'>
+                  <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                  <button className='textButton'>რუკა</button>
+                </div>
+              </motion.div>
+              </Link>
+              {/* მხოლოდ for sorting ----- */}
+              {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
+              რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
+              <Button
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+                style={{ color: 'white', fontSize: '16px' }}
+                
+                >
+                <div className='sortAndArrowDownImgBox_physical'>
+                  სორტირება
+                  <img src={arrowDownSorting} style={{width: '20px', }} />
+                </div>
+              </Button>
+              
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  style: {
+                    backgroundColor: "black",
+                    width: "270px",
+                },
+                  'aria-labelledby': 'basic-button',
+                }}
+          
+                //
+                component={motion.div} 
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9 },
+                  visible: { opacity: 1, scale: 1 },
+                }}
+                initial="hidden"
+                animate={open ? 'visible' : 'hidden'}
+                transition={{ duration: 0.6 }}
+              >
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentTime}
+                    </MenuItem>
+                  </motion.div>
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantTime}
+                    </MenuItem>
+                  </motion.div>
+
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-square_price'); }}> {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentPrice}
+                    </MenuItem>
+                  </motion.div>
+
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                        setAscendentPrice('square_pricer'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendentPrice}
+                    </MenuItem>
+                  </motion.div>
 
 
-  
-  return (
-    <div className='ComplexBodyBox'>
-      {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
-      <div className='infoFieldOfComplexsPlansMaps'>
-        <div className='complexInfoAndCountShowBox'>
-          <p>კომპლექსები {totalCount}</p>
-        </div>
-        {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება ---- */}
-        <div className='projectsPlansMapsSortingAndDollarBox'>
-    
-        {/* მხოლოდ for sorting ----- */}
-        {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
-        რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
-        <Button
-          id="basic-button"
-          aria-controls={open ? 'basic-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClick}
-        >
-          სორტირება
-        </Button>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-        >
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-created_at'); }}>თარიღი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('created_at'); }}>თარიღი ზრდადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-price_per_sq_meter'); }}>ფასი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('price_per_sq_meter'); }}>ფასი ზრდადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('-rank'); }}>რანკი კლებადობით</MenuItem>
-          <MenuItem onClick={() => { handleClose(); setAscendentPrice('rank'); }}>რანკი ზრდადობით</MenuItem>
-        </Menu>
-        {/* ---------------------------------- */}
-        </div>
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  > 
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentFullPrice}
+                    </MenuItem>
+                  </motion.div>
 
-        {/* ----Dollar and Lari Toggle button */}
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                     style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantFullPrice}
+                    </MenuItem>
+                  </motion.div>
 
-          <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
-            <motion.div className="handle" layout transition={spring}>
-              <img
-                src={lari}
-                alt="Lari Sign"
-                className={`currency-sign ${isOn ? "active" : ""}`}
-                />
-              <img
-                src={dollar}
-                alt="Dollar Sign"
-                className={`currency-sign ${!isOn ? "active" : ""}`}
-                />
-            </motion.div>
+              </Menu>
+              {/* ---------------------------------- */}
+
+                {/* ----Dollar and Lari Toggle button */}
+                <div className='currencyBox_physical'>
+                  <div className="switch_physical" data-ison={isOn} onClick={toggleSwitch}>
+                    <motion.div className="handle_physical" layout transition={spring}>
+                      <img
+                        src={lari}
+                        alt="Lari Sign"
+                        className={`currency-sign_physical ${isOn ? "active" : ""}`}
+                        />
+                      <img
+                        src={dollar}
+                        alt="Dollar Sign"
+                        className={`currency-sign_physical ${!isOn ? "active" : ""}`}
+                        />
+                    </motion.div>
+                  </div>
+                </div>
+                  {/* ---------------- */}
+              </div>
+
           </div>
-        {/* ---------------- */}
-
       </div>
+    </motion.div>
+
 {/* // ------------------------------------------------------------------------------------ */}
 
 
+    <div className='allCards_physical'>
+                {privateApartments.map((prev_apartments, index) => (
+                <div className='card_physical' key={index}>
+                  <motion.div
+                      key={currentPage}
+                      initial={{ x: -50, opacity: 0 }}
+                      transition={{ duration: 1 }}
+                      whileInView={{ x: 0, opacity: 1 }}
+                      viewport={{ once: true }}
+                    >
 
-
-      <div className='allCards'>
-        {isLoading ? (
-          Array.from({ length: 10 }, (_, index) => (
-            <div className='card' key={index}>
-              <Skeleton variant='rectangle' animation='wave' width={styles.imageStyles.width} height={styles.imageStyles.height} />
-              <Skeleton variant='text' animation='wave' width={150} height={20} style={styles.companyTitle} />
-              <div className='textInfo'>
-                <Skeleton variant='text' animation='wave' width={120} height={15} style={styles.complexInfo} />
-                <Skeleton variant='text' animation='wave' width={180} height={15} style={styles.complexInfo} />
-                <Skeleton variant='text' animation='wave' width={100} height={15} style={styles.complexFinished} />
-              </div>
+                    <div className='heartbuttonAndImageBox_physical'>
+                      <div className='heartButtonBox_physical'>
+                        <button onClick={() => favoriteHandler(prev_apartments)} key={prev_apartments.id} className='heartButtons_physical' >
+                          {favorites.some(fav => fav.id === prev_apartments.id) ? (
+                            <img src={heartIcon} alt='Logo of heart' />
+                            ) : (
+                              <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+                              )}
+                        </button>
+                      </div>
+                      <img src={prev_apartments.images[0]} alt={prev_apartments.name} style={styles.imageStyles} />
+                    </div>
+                    {/* --------------card details------------------- */}
+                    <h1 className='company_title'  style={styles.companyTitle}>{prev_apartments.groundName}</h1>
+                    <div className='textInfo_physical'>
+                      <p className='city_settings' style={styles.complexInfo}>{car_settings_language_change(selectedLanguage).city} : {prev_apartments.address.city}</p>
+                      <p className='price_settings' style={styles.complexInfo}>{prev_apartments.squarePrice} {car_settings_language_change(selectedLanguage).square_from}</p>
+                      <div className='status_and_rank' >
+                        <p className='status_settings'> {cardStatusSettingLanguage(selectedLanguage,prev_apartments.status ) }</p>
+                        <p className='private_apartment_rank' >{prev_apartments.rank}   </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              ))}
             </div>
-          ))
-        ) : (
-          homeMaping
-        )}
-      </div>
+            {/* Pagination for user to select some page */}
+              <div className='pagination'>
+                <Stack spacing={2}>
+                  <Pagination
+                      count={totalPageCount}
+                      shape="rounded"
+                      page={currentPage}
+                      onChange={(event, value) => setCorrentPage(Number(value))}
+                      onClick={pagiHandler}
+                      sx={{
+                        '& .MuiPaginationItem-root': {
+                          color: '#fff !important', // White text color for unselected items, with increased specificity
+                          margin: '3px !important', // Removes margin between buttons, with increased specificity
+                          padding: '0 !important', // Removes padding inside buttons, with increased specificity
+                          '&:hover': {
+                            backgroundColor: '#f0f0f0 !important', // Background color on hover for unselected items, with increased specificity
+                            color: '#000 !important', // Text color on hover for unselected items, with increased specificity
+                          },
+                        },
+                        '& .Mui-selected': {
+                          backgroundColor: '#fff !important', // White background color for the selected item, with increased specificity
+                          color: '#000 !important', // Black text color for the selected item, with increased specificity
+                          '&:hover': {
+                            backgroundColor: '#fff !important', // Keep the background color on hover for selected item, with increased specificity
+                            color: '#000 !important', // Keep the text color on hover for selected item, with increased specificity
+                          },
+                        },
+                        '& .MuiPaginationItem-ellipsis': {
+                          color: '#fff !important', // Color of the ellipsis, with increased specificity
+                          margin: '0 !important', // Removes margin around the ellipsis, with increased specificity
+                          padding: '0 !important', // Removes padding around the ellipsis, with increased specificity
+                        },
+                        '.MuiPagination-ul': {
+                          justifyContent: 'center !important', // Centers the pagination items, with increased specificity
+                          flexWrap: 'nowrap !important', // Prevents the pagination items from wrapping, with increased specificity
+                        }
+                      }}
+                  />
+                </Stack>
+              </div>
+          {/* ---------------------------------------------------------------- */}
+          <div className='googleMapImageBox_physical'>
+            <Link to='/map' >
+              <motion.div
+                  initial={{ x: -150, opacity: 0 }}
+                  transition={{ duration: 1.5 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                >
+                  <img src={googleMapImage} alt='googleMapImage' className='googleMapImage_physical' />
+              </motion.div>
+            </Link>
+          </div>
 
-      {/* for scroll UP */}
-      {/* <button onClick={scrollToTop} style={{ borderRadius: '30px' }} >
-        <img src={scrollUp} alt='logo' style={{ width: '40px' }} />
-      </button> */}
-
-      
-      {/* Pagination for user to select some page */}
-      <div className='pagination'>
-        <Stack spacing={2}>
-          <Pagination
-               count={totalPageCount}
-               shape="rounded"
-               page={currentPage}
-               onChange={(event, value) => setCurrentPage(value)}
-               onClick={pagiHandler}
-            sx={{
-              '& .MuiPaginationItem-root': {
-                color: 'black', // Change the color to your desired color
-              },
-              '& .Mui-selected': {
-                backgroundColor: 'green', // Change the selected page background color
-                color: 'white', // Change the selected page text color
-                '&:hover': {
-                  backgroundColor: 'green', // Change the background color on hover
-                },
-              },
-            }}
-          />
-        </Stack>
-      </div>
-      {/* ---------------------------------------------------------------- */}
-
-    </div>
-  )
+  </div>
+)
 }
 
 
 
 const styles = {
-  imageStyles: {
-    width: '278px',
-    height: '229px',
-    overflow: 'hidden',
-    borderRadius: '20px',
-  },
-  companyTitle: {
-    // position: 'absolute',
-    // top: '262px',
-    // paddingLeft: '20px'
-  },
-  complexInfo: {
-    color: '#000000',
-  },
-  complexFinished: {
-    color: '#515050',
-  },
+imageStyles: {
+  width: '278px',
+  height: '229px',
+  overflow: 'hidden',
+  borderRadius: '20px',
+},
+companyTitle: {
+  // position: 'absolute',
+  // top: '262px',
+  // paddingLeft: '20px'
+  color: "white",
+  fontSize: '16px',
+
+},
+complexInfo: {
+  color: 'white',
+},
+complexFinished: {
+  color: 'white',
+},
 };
 
 const spring = {
-  type: "spring",
-  stiffness: 100,
-  damping: 30,
+type: "spring",
+stiffness: 100,
+damping: 30,
 };
