@@ -46,14 +46,14 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 
-const basess = 'http://127.0.0.1:8000/';
+// const basess = 'http://127.0.0.1:8000';
 // const basess = 'https://127.0.0.1:8000'; 
 
 // const basess = 'http://localhost:5173';
 
 
+const basess = 'https://api.storkhome.ge'
 // const axiosInstance = axios.create({
-//   // baseURL: 'https://api.storkhome.ge'
 //   baseURL:  'https://5413d1edf90d0979e78c124c45a3faf1.serveo.net/'
 // const basess = 'http://127.0.0.1:8000';
 
@@ -84,8 +84,8 @@ export default function Complex({
   }) {
 
   const [homes, setHomes] = useState([]);
-  console.log('-----',homes)
-  console.log('1111111',homes)
+  // console.log('-----',homes)
+  // console.log('1111111',homes)
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
@@ -325,12 +325,9 @@ useEffect(() => {
       setIsLoading(true);
       // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
       const response = await axios.get(`${basess}/complex/${requestUrl}`);
-      console.log('-3333333333',response)
 
       // const { results } = response.data.results[0];
       const normalData = normalizeComplexData(response.data.results, selectedLanguage); 
-      // console.log('es aris D A T A',data)
-      console.log('es aris RESPONSE', response)
       setHomes(normalData);
       setIsLoading(false);
       setTotalCount(response.data.total_items)
