@@ -6,6 +6,8 @@ import lari from '../assets/lari-svgrepo-com.svg';
 import dollar from '../assets/dollar-svgrepo-com.svg';
 import star from '../assets/Star for Each Complex Page.svg';
 import share from '../assets/ShareImage.svg';
+import phoneImage from '../assets/🦆 icon _phone_.svg'
+import headSetImage from '../assets/🦆 icon _headset_.svg';
 
 
 
@@ -134,24 +136,44 @@ export default function EachComplex() {
             </div>
             
           </div>
-
-
-            <p style={{color: '#ccc', fontSize: '20px'}}> {complex.title}</p>
-            <p style={{color: '#838289'}}> {complex.city}</p>
-            <p style={{color: '#838282'}}> {complex.adress}</p>
-            <p style={{color: '#ccc', fontSize: '20px'}}>m²-ის ფასი {complex.price}$-დან</p>
+          {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}
+            <div className='companyAdressPriceTextBox'>
+              <p style={{color: '#ccc', fontSize: '20px'}}> {complex.title}</p>
+              <p style={{color: '#838289'}}> {complex.city}</p>
+              <p style={{color: '#838282'}}> {complex.adress}</p>
+              <p style={{color: '#ccc', fontSize: '20px'}}>m²-ის ფასი {complex.price}$-დან</p>
+            </div>
 
             <div className='chabarebaPartebiKorpusebi'>
+            {/* ქვედა, მეორე ტექსტია.. ჩაბარება, Fართები... სართულიანობა */}
               <div className='eachTextOnListTexts'>
-                <p style={{color: '#838289'}}> ჩაბარება</p>
-                <p style={{color: '#838289'}}> ფართები{complex.city}</p>
-                <p style={{color: '#838289'}}> ბინების რ-ობა{complex.city}</p>
-                <p style={{color: '#838289'}}> კორპუსები{complex.city}</p>
-                <p style={{color: '#838289'}}> სართულიანობა{complex.city}</p>
+                <p style={{color: '#C2BFBF'}}> ჩაბარება </p>
+                <p style={{color: '#C2BFBF'}}> ფართები</p>
+                <p style={{color: '#C2BFBF'}}> ბინების რ-ობა</p>
+                <p style={{color: '#C2BFBF'}}> კორპუსები</p>
+                <p style={{color: '#C2BFBF'}}> სართულიანობა</p>
               </div>
 
               <div className='eachTextOnListTextsTwo'>
-                <p style={{color: '#ccc'}}> {complex.city}</p>
+                <p style={{color: '#FFFFFF'}}> {complex.city}</p>
+                <p style={{color: '#FFFFFF'}}> {complex.city}</p>
+                <p style={{color: '#FFFFFF'}}> {complex.city}</p>
+                <p style={{color: '#FFFFFF'}}> {complex.city}</p>
+                <p style={{color: '#FFFFFF'}}> {complex.city}</p>
+              </div>
+            </div>
+            
+            <div className='numberAndCallRequestBox'>
+              <div className='numberBox'>
+                <img src={phoneImage} style={{width: '40px'}} alt='phone'/>
+                <p style={{color: '#FFFFFF'}}>032 22 23 **</p>
+                <button className='numberSHowButton'>ნომრის<br /> ჩვენება</button>
+
+              </div>
+              <div className='callRequestBox'>
+              <img src={headSetImage} style={{width: '40px'}} alt='headset'/>
+              <button className='numberSHowButton'>ზარის<br /> მოთხოვნა</button>
+
                 
               </div>
             </div>
