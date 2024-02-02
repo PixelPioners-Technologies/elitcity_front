@@ -12,6 +12,7 @@ import mapSignLogo from  '../assets/mapSignLogoo.svg' ;
 import Button from '@mui/material/Button';
 import arrowDownSorting from '../assets/arrow-down-white.svg';
 import Menu from '@mui/material/Menu';
+import loupe from '../icons/loupe.png'
 import MenuItem from '@mui/material/MenuItem';
 import lari from '../assets/lari-svgrepo-com.svg';
 import dollar from '../assets/dollar-svgrepo-com.svg';
@@ -24,7 +25,7 @@ import G_Modal from '../modals for ground filters/G_Modal';
 import G_PriceModal from '../modals for ground filters/G_PriceModal';
 import G_SpaceModal from '../modals for ground filters/G_SpaceModal';
 import G_StatusModal from '../modals for ground filters/G_StatusModa';
-
+import P_StringModal from '../modals for private page/P_StringModal';
 
 
 const normalizePrivateApartmentData = (data, lang) => {
@@ -106,8 +107,7 @@ export default function Physical({selectedLanguage ,favorites}) {
   const [currentPage, setCorrentPage] = useState(0)
   const [ascendentPrice, setAscendentPrice] = useState('');
 
-  const [isStringFiltrationOpen, setIsStringFiltrationOpen] = useState(false);
-
+  const [stringFilterValue, setStringFilterValue] = useState('')
 
 
 useEffect(() =>{
@@ -122,7 +122,6 @@ useEffect(() =>{
   setMax_square_price('')
   setLocations([])
   setSelectedStatuses([])
-  setIsStringFiltrationOpen(false)
 },[selectedLanguage])
 
 
@@ -427,6 +426,10 @@ const handle_P_StatusButtonLanguageChange = (lang) => {
     legendUnderPlanning : "Under Planning",
     legendUnderConstructioin : "Under Construction",
     legendComplited : "Complited",
+    stringFiltrationButtonLanguage: "Search by word",
+    complexes: "Complexes",
+    private_apartments: "Private Appartments"
+
   }
 
   switch (lang) {
@@ -439,6 +442,9 @@ const handle_P_StatusButtonLanguageChange = (lang) => {
       languageInfo.legendUnderPlanning = "Under Planning"
       languageInfo.legendUnderConstructioin = "Under Construction"
       languageInfo.legendComplited = "Complited"
+      languageInfo.stringFiltrationButtonLanguage = "Search by word"
+      languageInfo.complexes = "Complexes"
+      languageInfo.private_apartments = "Private Appartments"
       break;
 
     case "ka" :
@@ -450,10 +456,13 @@ const handle_P_StatusButtonLanguageChange = (lang) => {
       languageInfo.legendUnderPlanning = "დაგეგმვის პროცესში"
       languageInfo.legendUnderConstructioin = "მშენებარე"
       languageInfo.legendComplited = "დასრულებული"
+      languageInfo.stringFiltrationButtonLanguage = "იპოვე სიტყვით"
+      languageInfo.complexes = "კომპლექსები"
+      languageInfo.private_apartments = "კერძო ბინები"
       break
       
     case "ru" :
-      languageInfo.statusInfoLanguage = "выберите статус"
+      languageInfo.statusInfoLanguage = "Выберите статус"
       languageInfo.cityButtonLanguage = "Местоположение"
       languageInfo.spaceButtonLanguage = "Площадь"
       languageInfo.priceButtonLanguage = "Цена"
@@ -461,10 +470,15 @@ const handle_P_StatusButtonLanguageChange = (lang) => {
       languageInfo.legendUnderPlanning = "На стадии планирования"
       languageInfo.legendUnderConstructioin = "На стадии строительства"
       languageInfo.legendComplited = "Завершено"
+      languageInfo.stringFiltrationButtonLanguage = "Поиск по слову"
+      languageInfo.complexes = "Комплексы"
+      languageInfo.private_apartments = "Частные апартаменты"
       break
   }
   return languageInfo
 }
+
+
 // ---------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 const closeModal = () => {
@@ -522,10 +536,7 @@ const handleClose_P_StatusModal = () => {
 }
 
 
-const handleStringFiltrationButtonClick = () => {
-
-}
-
+// ---------------------------------------------------------------------------------------------------------------------
 
 
   // for Sorting
@@ -600,6 +611,7 @@ const handleStatusButtonLanguageChange = (lang) => {
   }
   return languageInfo
 }
+
 
 const handle_close_comentars = () => {
 //   return (
@@ -988,12 +1000,8 @@ const handle_close_comentars = () => {
 }
 
 
-// Maping variable
-// ------------------------------------------------------------------------------------
 
 
-
-  
 return (
   <div className='ComplexBodyBox_physical'>
               <div className="private_filter_conteiner">
@@ -1099,18 +1107,22 @@ return (
 
                        {/* for searching with string*/}
                        <div className="button-modal-container" >
-                            <div onClick={handle_P_StatusButtonClick} className='lacation_button'   >
-                            {handle_P_StatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
-                              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                            <div className='lacation_button'   >
+                              <input 
+                                className='string_filter_input'
+                                type='text'
+                                placeholder={handle_P_StatusButtonLanguageChange(selectedLanguage).stringFiltrationButtonLanguage}
+                                value={stringFilterValue}
+                                onChange={(e)=> {setStringFilterValue(e.target.value)}}
+                               />
+                              <img src={loupe} alt="button dropdown icon" className='dropdown' />
                             </div>
-                            <P_StatusModal isOpen={is_P_StatusModalOpen} close={handleClose_P_StatusModal} >
-                            <button className='modal_close_button' onClick={handleClose_P_StatusModal}>Close</button>
-                            </P_StatusModal>
+
                       </div>
                   </div>
                   </motion.div>
             </div>
-
+  
     {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
     {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
     {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
@@ -1130,7 +1142,7 @@ return (
         <div className='forPaddingOfInfoFieldOfComplexsPlansMaps_physical'>
           <div className='infoFieldOfComplexsPlansMaps_physical'>
             <div className='complexInfoAndCountShowBox_physical'>
-              <p style={{color: 'white'}}>კომპლექსები {totalCount}</p>
+              <p style={{color: 'white'}}>{handle_P_StatusButtonLanguageChange(selectedLanguage).private_apartments} : {totalCount}</p>
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
             <div className='projectsPlansMapsSortingAndDollarBox_physical'>
@@ -1147,7 +1159,7 @@ return (
                 </div>
               </motion.div>
               </Link>
-
+{/* 
               <Link to='/complex/apartmentList' >
               <motion.div
                 className="textButtonContainer"
@@ -1161,7 +1173,7 @@ return (
                 </div>
               </motion.div>
               </Link>
-
+ */}
 
               <Link to='/map' >
               <motion.div
@@ -1329,6 +1341,7 @@ return (
                 {privateApartments.map((prev_apartments, index) => (
                 <div className='card_physical' key={index}>
                   <motion.div
+                      key={currentPage}
                       initial={{ x: -50, opacity: 0 }}
                       transition={{ duration: 1 }}
                       whileInView={{ x: 0, opacity: 1 }}

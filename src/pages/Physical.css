@@ -165,6 +165,25 @@
 
 
 /* ------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------string filtration input styles ---------------------------------------------- */
+.string_filter_input {
+  background-color: transparent; /* Make background transparent */
+  border: none; /* Remove border */
+  outline: none; /* Remove outline */
+  color: #fffcfc; /* Set text color to black, adjust as needed */
+  /* Add other styling here */
+}
+
+.string_filter_input::placeholder {
+  color: rgb(201, 201, 201); /* Set placeholder text color to white */
+  opacity: 1; /* Optional: ensures full opacity of placeholder */
+}
+
+.dropdown{
+  width: 20px;
+}
+
+/* ------------------------------------------------------------------------------------------------------------- */
 
 
 
