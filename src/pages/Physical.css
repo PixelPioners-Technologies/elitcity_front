@@ -1,6 +1,7 @@
-/* .imageOfBuilding {
-  width: 200px;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+
+
 
 .ComplexBodyBox_physical {
 
@@ -183,6 +184,33 @@
   width: 20px;
 }
 
+/* ---------------------------------------room number chackboxes----------------------------------------------------- */
+.room_choice_container{
+  margin-top: 10px;
+  
+}
+
+.checkbox-label {
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: #f0f0f0;
+  cursor: pointer;
+}
+
+.checkbox-label:hover {
+  background-color: #fffbfb;
+  color: #000;
+}
+
+.checkbox-label.selected {
+  background-color: #fcfeff;
+  color: rgb(0, 0, 0);
+}
+
+input[type="checkbox"] {
+  display: none; /* Hide the checkbox */
+}
+
 /* ------------------------------------------------------------------------------------------------------------- */
 
 
@@ -220,6 +248,7 @@
 
 .heartbuttonAndImageBox_physical {
   position: relative;
+  
 }
 
 .heartButtonBox_physical {
@@ -247,6 +276,30 @@
   transform: scale(1.2); 
   transition: transform 0.3s ease; 
 }
+/* ----------------------------------card info styles---------------------------------------------------- */
+.company_title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.city_settings{
+  font-family: 'Roboto', sans-serif;
+
+}
+
+.price_settings{
+  font-family: 'Roboto', sans-serif;
+
+}
+
+.status_settings{
+  font-family: 'Roboto', sans-serif;
+  color: #868282;
+}
+
 
 .textInfo_physical {
   margin-top: 10px;
@@ -255,6 +308,21 @@
   /* padding-left: 20px; */
   gap: 10px;
 }
+
+.private_apartment_rank{
+  color: #f0f0f0;
+}
+
+.status_and_rank{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
+}
+
+
+
+/* ------------------------------------------------------------------------------------------------------- */
 
 .googleMapImageBox_physical {
  display: flex;
