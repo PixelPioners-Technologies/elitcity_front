@@ -28,6 +28,34 @@ import G_StatusModal from '../modals for ground filters/G_StatusModa';
 import P_StringModal from '../modals for private page/P_StringModal';
 
 
+// const normalizePrivateApartmentData = (data, lang) => {
+//   return data.map(item => ({
+//     id: item.id,
+//     internalName: item.internal_private_apartment_name.internal_private_apartment_name,
+//     numberOfRooms: item.internal_private_apartment_name.number_of_rooms,
+//     status: item.internal_private_apartment_name.status,
+//     area: item.internal_private_apartment_name.area,
+//     fullPrice: item.internal_private_apartment_name.full_price,
+//     squarePrice: item.internal_private_apartment_name.square_price,
+//     floorNumber: item.internal_private_apartment_name.floor_number,
+//     isAvailable: item.internal_private_apartment_name.is_available,
+//     visibility: item.internal_private_apartment_name.visibiliti,
+//     rank:item.internal_private_apartment_name.rank,
+//     address: {
+//       city: item[`private_apartment_address_${lang}`].city_en,
+//       pharentDistrict: item[`private_apartment_address_${lang}`].pharentDistrict_en,
+//       district: item[`private_apartment_address_${lang}`].district_en,
+//       streetName: item[`private_apartment_address_${lang}`].street_name_en,
+//       address: item[`private_apartment_address_${lang}`].address_en,
+//       latitude: item[`private_apartment_address_${lang}`].latitude,
+//       longitude: item[`private_apartment_address_${lang}`].longitude,
+//     },
+//     images: item.private_apartment_images,
+//     privateApartmentName: item[`private_apartment_name_${lang}`],
+//     testPrivateField: item[`test_private_field_${lang}`]
+//   }));
+// };
+
 const normalizePrivateApartmentData = (data, lang) => {
   return data.map(item => ({
     id: item.id,
@@ -40,12 +68,13 @@ const normalizePrivateApartmentData = (data, lang) => {
     floorNumber: item.internal_private_apartment_name.floor_number,
     isAvailable: item.internal_private_apartment_name.is_available,
     visibility: item.internal_private_apartment_name.visibiliti,
+    rank: item.internal_private_apartment_name.rank,
     address: {
-      city: item[`private_apartment_address_${lang}`].city_en,
-      pharentDistrict: item[`private_apartment_address_${lang}`].pharentDistrict_en,
-      district: item[`private_apartment_address_${lang}`].district_en,
-      streetName: item[`private_apartment_address_${lang}`].street_name_en,
-      address: item[`private_apartment_address_${lang}`].address_en,
+      city: item[`private_apartment_address_${lang}`][`city_${lang}`],
+      parentDistrict: item[`private_apartment_address_${lang}`][`pharentDistrict_${lang}`],
+      district: item[`private_apartment_address_${lang}`][`district_${lang}`],
+      streetName: item[`private_apartment_address_${lang}`][`street_name_${lang}`],
+      address: item[`private_apartment_address_${lang}`][`address_${lang}`],
       latitude: item[`private_apartment_address_${lang}`].latitude,
       longitude: item[`private_apartment_address_${lang}`].longitude,
     },
@@ -92,6 +121,7 @@ export default function Physical({selectedLanguage ,favorites}) {
 
   const [locations , setLocations ] = useState([]);
   const [selectedStatuses, setSelectedStatuses] = useState([])
+  const [selectedRoomNumbers, setSelectedRoomNumbers] = useState([]);
 
   const [min_square_price, setMin_square_price] = useState('');
   const [max_square_price, setMax_square_price] = useState('');
@@ -156,7 +186,8 @@ useEffect(() =>{
         max_area : max_area,
         limit: limit,
         offset: offset,
-        ordering: ascendentPrice
+        ordering: ascendentPrice,
+        search: stringFilterValue,
       });
 
       if (selectedStatuses && selectedStatuses.length > 0) {
@@ -164,6 +195,11 @@ useEffect(() =>{
           queryParams.append('status', status);
         })
     }
+    if (selectedRoomNumbers && selectedRoomNumbers.length > 0) {
+      selectedRoomNumbers.forEach(room_number => {
+        queryParams.append('number_of_rooms', room_number);
+      })
+  }
     
       const queryString = queryParams.toString();
       const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
@@ -179,7 +215,8 @@ useEffect(() =>{
     }
     fetcPrivateApartments();
   },[selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, min_square_price,
-    max_square_price, minFullPrice, maxFullPrice, selectedStatuses, max_area , min_area , currentPage ,ascendentPrice])
+    max_square_price, minFullPrice, maxFullPrice, selectedStatuses, max_area , min_area , currentPage ,
+    ascendentPrice ,stringFilterValue, selectedRoomNumbers])
   
 
     useEffect(() => {
@@ -573,6 +610,7 @@ const handleStatusButtonLanguageChange = (lang) => {
     sortingButtonDescendentTime : "Decendant created at",
     sortingButtonAscendantFullPrice : "Ascendant full price ",
     sortingButtonDescendentFullPrice : "Descendant full price",
+    studio: "Studio",
 
   }
 
@@ -584,7 +622,7 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.sortingButtonDescendentTime = "Decendent created at"
       languageInfo.sortingButtonAscendantFullPrice = "Ascendant full price "
       languageInfo.sortingButtonDescendentFullPrice = "Decendent full price"
-
+      languageInfo.studio = "Studio"
 
       break;
 
@@ -595,6 +633,7 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით"
       languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით"
       languageInfo.sortingButtonDescendentFullPrice = "მთლიანი ფასი კლებადობით"
+      languageInfo.studio = "სტუდიო"
 
       break
       
@@ -605,7 +644,7 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.sortingButtonDescendentTime = "Потомок создан в"
       languageInfo.sortingButtonAscendantFullPrice = "Полная цена Асцендента."
       languageInfo.sortingButtonDescendentFullPrice = "Полная стоимость потомка"
-
+      languageInfo.studio = "Студия"
 
       break
   }
@@ -998,9 +1037,99 @@ const handle_close_comentars = () => {
 
   console.log('')
 }
+// --------------------------------------------language change for card status setting and content ---------------------------------------------------
+const cardStatusSettingLanguage = (lang, status) => {
+  const statusLanguageInfo = {
+    en: {
+      '1': "Newly renovated",
+      '2': 'With old repairs',
+      '3': 'To be repaired'
+    },
+    ka: { // Assuming 'ka' stands for another language, e.g., Georgian
+      '1': "ახალი რემონტი",
+      '2': 'ძველი რემონტით',
+      '3': 'სარემონტო'
+    },
+    ru: { // Assuming 'ru' stands for Russian
+      '1': "Недавно отремонтированный",
+      '2': 'Со старым ремонтом',
+      '3': 'Требует ремонта'
+    }
+    // Add more languages as needed
+  };
+
+  // Get the status descriptions for the current language
+  const currentLanguageStatusInfo = statusLanguageInfo[lang];
+
+  // Return the status description based on the status value
+  return currentLanguageStatusInfo[status];
+};
+
+
+// ----------------------------------------------------------------------------------------------------------
+// ------------------------------------ otaxebis raodenobis  filtraciis logika -------------------------------------
+
+const NUMBER_OF_ROOM_CHOICES = [
+  { value: 'studio', label: `${handleStatusButtonLanguageChange(selectedLanguage).studio}` },
+  { value: '1', label: '1' },
+  { value: '2', label: '2' },
+  { value: '3', label: '3' },
+  { value: '4', label: '4' },
+  { value: '5+', label: '5+' },
+];
+
+// Function to handle change in checkbox selection
+const handleRoomNumberChange = (value) => {
+  const currentIndex = selectedRoomNumbers.indexOf(value);
+  const newSelectedRoomNumbers = [...selectedRoomNumbers];
+
+  if (currentIndex === -1) {
+    newSelectedRoomNumbers.push(value);
+  } else {
+    newSelectedRoomNumbers.splice(currentIndex, 1);
+  }
+
+  setSelectedRoomNumbers(newSelectedRoomNumbers);
+};
+
+// ------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------card settings language change function ---------------------------------------------
+
+const squareSymbol = '\u00B2';
+
+const car_settings_language_change = (lang) => {
+  var languageInfo = {
+    city : "City" ,
+    square_from : `M${squareSymbol} - from`
+
+  }
+
+  switch (lang) {
+    case "en" :
+      languageInfo.city = "City"
+      languageInfo.square_from = `M${squareSymbol} - from`
+
+      break;
+
+    case "ka" :
+      languageInfo.city = "ქალაქი"
+      languageInfo.square_from = `მ${squareSymbol} - დან`
+
+      break
+      
+    case "ru" :
+      languageInfo.city = "Город"
+      languageInfo.square_from = `М${squareSymbol} от`;
+
+      break
+  }
+  return languageInfo
+}
 
 
 
+
+// ------------------------------------------------------------------------------------------------------------------------
 
 return (
   <div className='ComplexBodyBox_physical'>
@@ -1031,6 +1160,29 @@ return (
                                       value={max_area}
                                       onChange={(e) => setMax_area(e.target.value)}
                                   />
+                                    {/* otaxebis raodenobis filtraciistvis */}
+                                    <div className='room_choice_container' >
+                                      {NUMBER_OF_ROOM_CHOICES.map(choice => (
+                                        <React.Fragment key={choice.value}>
+                                          <label
+                                            className={`checkbox-label ${selectedRoomNumbers.includes(choice.value) ? 'selected' : ''}`}
+                                            onClick={() => handleRoomNumberChange(choice.value)}
+                                          >
+                                            {choice.label}
+                                          </label>
+                                          <input
+                                            type="checkbox"
+                                            id={`checkbox-${choice.value}`}
+                                            name="number_of_rooms"
+                                            value={choice.value}
+                                            checked={selectedRoomNumbers.includes(choice.value)}
+                                            onChange={() => {}}
+                                            style={{ display: 'none' }}
+                                          />
+                                        </React.Fragment>
+                                      ))}
+                                    </div>
+
                                   <p>otaxebis filtraciac unda iyos aq</p>
                               </div>
                             <button className='modal_close_button' onClick={close_P_SpaceModal}>Close</button>
@@ -1360,18 +1512,51 @@ return (
                       </div>
                       <img src={prev_apartments.images[0]} alt={prev_apartments.name} style={styles.imageStyles} />
                     </div>
-                    <p style={styles.companyTitle}>{prev_apartments.name}</p>
+                    {/* --------------card details------------------- */}
+                    <h1 className='company_title'  style={styles.companyTitle}>{prev_apartments.privateApartmentName}</h1>
                     <div className='textInfo_physical'>
-                      <p style={styles.complexInfo}>{prev_apartments.address.city}, {prev_apartments.address.street}</p>
-                      <p style={styles.complexInfo}>Price per sq meter: {prev_apartments.price_per_sq_meter}</p>
-                      {/* Update the line below with the actual date property */}
-                      {/* <p style={styles.complexFinished}>Date: {complex.date}</p> */}
+                      <p className='city_settings' style={styles.complexInfo}>{car_settings_language_change(selectedLanguage).city} : {prev_apartments.address.city}</p>
+                      <p className='price_settings' style={styles.complexInfo}>{prev_apartments.squarePrice} {car_settings_language_change(selectedLanguage).square_from}</p>
+                      <div className='status_and_rank' >
+                        <p className='status_settings'> {cardStatusSettingLanguage(selectedLanguage,prev_apartments.status ) }</p>
+                        <p className='private_apartment_rank' >{prev_apartments.rank}   </p>
+                      </div>
                     </div>
                   </motion.div>
                 </div>
               ))}
             </div>
     
+
+            {/* return data.map(item => ({
+    id: item.id,
+    internalName: item.internal_private_apartment_name.internal_private_apartment_name,
+    numberOfRooms: item.internal_private_apartment_name.number_of_rooms,
+    status: item.internal_private_apartment_name.status,
+    area: item.internal_private_apartment_name.area,
+    fullPrice: item.internal_private_apartment_name.full_price,
+    squarePrice: item.internal_private_apartment_name.square_price,
+    floorNumber: item.internal_private_apartment_name.floor_number,
+    isAvailable: item.internal_private_apartment_name.is_available,
+    visibility: item.internal_private_apartment_name.visibiliti,
+    address: {
+      city: item[`private_apartment_address_${lang}`].city_en,
+      pharentDistrict: item[`private_apartment_address_${lang}`].pharentDistrict_en,
+      district: item[`private_apartment_address_${lang}`].district_en,
+      streetName: item[`private_apartment_address_${lang}`].street_name_en,
+      address: item[`private_apartment_address_${lang}`].address_en,
+      latitude: item[`private_apartment_address_${lang}`].latitude,
+      longitude: item[`private_apartment_address_${lang}`].longitude,
+    },
+    images: item.private_apartment_images,
+    privateApartmentName: item[`private_apartment_name_${lang}`],
+    testPrivateField: item[`test_private_field_${lang}`]
+  }));
+};
+ */}
+
+
+
             {/* Pagination for user to select some page */}
               <div className='pagination'>
                 <Stack spacing={2}>
@@ -1443,6 +1628,9 @@ companyTitle: {
   // position: 'absolute',
   // top: '262px',
   // paddingLeft: '20px'
+  color: "white",
+  fontSize: '16px',
+
 },
 complexInfo: {
   color: 'white',
