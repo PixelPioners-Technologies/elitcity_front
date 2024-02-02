@@ -772,7 +772,8 @@ return (
                                       placeholder='Max Price Per Square Meter'
                                       value={max_area}
                                       onChange={(e) => setMax_area(e.target.value)}
-                                  />                                   
+                                  />    
+                                  <p>test</p>                               
                               </div>
                             <button className='modal_close_button' onClick={close_P_SpaceModal}>Close</button>
                             </P_SpaceModal>
