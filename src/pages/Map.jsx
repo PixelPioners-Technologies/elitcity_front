@@ -1,11 +1,11 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect , useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect  } from 'react';
 import axios from 'axios';
 import './Map.css';
-import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, Marker, InfoWindow , useJsApiLoader} from '@react-google-maps/api';
 import green from  '../location_icons/icon-green.png' 
 import red from  '../location_icons/icon-red.png'
 import yelow from  '../location_icons/icon-yelow.png'
@@ -17,12 +17,8 @@ import StatusModal from '../modals for page map/StatusModa';
 import button_icon from '../icons/Vector.svg'
 import ground_marker from '../location_icons/ground_location_icon.png'
 import { motion } from "framer-motion";
+// import M_ChildMap from './M_ChildMap';
 
-// import P_Modal from "../modals for private page/P_Modal";
-// import P_PriceModal from '../modals for private page/P_PriceModal';
-// import P_SpaceModal from '../modals for private page/P_SpaceModal';
-// import P_StatusModal from '../modals for private page/P_StatusModa'
-// import P_PriceModal from '../modals for private page/P_PriceModal'
 
 
 const initialCenter = {
@@ -184,7 +180,7 @@ export default function Map({selectedLanguage}) {
   const [status, setStatus] = useState('');
 
   const [mapCenter, setMapCenter] = useState(initialCenter);
-  const [zoomLevel, setZoomLevel] = useState(13);
+  const [zoomLevel, setZoomLevel] = useState(11);
 
   const [mapInstance, setMapInstance] = useState(null);
 
@@ -208,8 +204,6 @@ export default function Map({selectedLanguage}) {
   const [min_P_FullPrice, setMin_P_FullPrice] = useState('');
   const [selectedStatuses_For_P, setSelectedStatuses_For_P] = useState([])
   // const [resendAxios , setResendAxios] = useState(false)
-<<<<<<< HEAD
-=======
 
   // this states are for grounds-----------------------------------
   const [grounds, setGrounds] = useState('');
@@ -226,8 +220,6 @@ export default function Map({selectedLanguage}) {
 
   const [graundStatus, setGraundStatus] = useState([]);
 
-
->>>>>>> origin/main
 
 // --------------------------------------------------------------------------
 
@@ -308,11 +300,7 @@ export default function Map({selectedLanguage}) {
     
       fetchComplexes();
     }, [selectedLanguage, selectedCity, selectedPharentDistricts, selectedDistricts, minPricePerSquareMeter,
-<<<<<<< HEAD
-       maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, ascendentPrice, max_space , min_space ]);
-=======
        maxPricePerSquareMeter, minFullPrice, maxFullPrice, selectedStatuses, ascendentPrice, max_space , min_space /*,resendAxios]*/ ]);
->>>>>>> origin/main
     
 
   
@@ -779,6 +767,61 @@ const handleStatusChangeForGround = (e, value) => {
 
 
 // -----------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------function for input placeholder language change---------------------------------------------
+
+const handleInputLanguageChange = (lang) => {
+  var inputLanguage = {
+    min_space: 'Min Space',
+    max_space: 'Max Space',
+    min_price_per_sq_meter: 'Min price per square meter',
+    max_price_per_sq_meter: 'Max price per square meter',
+    min_full_price: 'Min full price',
+    max_full_price: 'Max full price',
+  }
+
+  switch (lang){
+    case 'en':
+      inputLanguage.min_space = 'Min Space'
+      inputLanguage.max_space = 'Max Space'
+      inputLanguage.min_price_per_sq_meter = 'Min price per square meter'
+      inputLanguage.max_price_per_sq_meter = 'Max price per square meter'
+      inputLanguage.min_full_price = 'Min full price'
+      inputLanguage.max_full_price = 'Max full price'
+      break;
+
+    case "ka":
+      inputLanguage.min_space = 'მინიმალური ფართი'
+      inputLanguage.max_space = 'მაქსიმალური ფართი'
+      inputLanguage.min_price_per_sq_meter = 'მინიმალური კვადრატული ფასი'
+      inputLanguage.max_price_per_sq_meter = 'მაქსიმალური კვადრატული ფასი'
+      inputLanguage.min_full_price = 'მინიმალური მთლიანი ფასი'
+      inputLanguage.max_full_price = 'მაქსიმალური მთლიანი ფასი'
+      break;
+
+    case "ru":
+      inputLanguage.min_space = 'Минимальное пространство'
+      inputLanguage.max_space = 'максимальное пространство'
+      inputLanguage.min_price_per_sq_meter = 'Минимальная цена за квадратный метр'
+      inputLanguage.max_price_per_sq_meter = 'Максимальная цена за квадратный метр'
+      inputLanguage.min_full_price = 'Минимальная общая стоимость'
+      inputLanguage.max_full_price = 'Максимальная общая стоимость'
+      break;
+    
+  }
+  return inputLanguage
+}
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 // --------ffunction for changing status button content language change and also select city button language change -------------
 
 const handleStatusButtonLanguageChange = (lang) => {
@@ -876,34 +919,6 @@ const handleLoad = (map) => {
 };
 
 
-// for map refresh when user clicks map on header navbar
-const navigate = useNavigate();
-const [refreshCount, setRefreshCount] = useState(0);
-const maxRefreshCount = 2; 
-
-useEffect(() => {
-  const currentRoute = window.location.pathname;
-
-  if (currentRoute === '/map' && refreshCount < maxRefreshCount) {
-    setRefreshCount((prevCount) => prevCount + 1);
-
-    const intervalId = setInterval(() => {
-      window.location.reload();
-<<<<<<< HEAD
-    }, 1000);
-=======
-      // setResendAxios(true)
-    }, 1000); 
->>>>>>> origin/main
-
-    // Clear the interval after 1 second
-    setTimeout(() => {
-      clearInterval(intervalId);
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }
-}, [refreshCount, maxRefreshCount, navigate]);
 
 
 
@@ -939,7 +954,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_space}
                                       value={min_space}
                                       onChange={(e) => setMin_space(e.target.value)}
                                   />
@@ -947,7 +962,7 @@ const renderFilterUI = () => {
                                     <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_space}
                                       value={max_space}
                                       onChange={(e) => setMax_space(e.target.value)}
                                   />
@@ -969,7 +984,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_price_per_sq_meter}
                                       value={minPricePerSquareMeter}
                                       onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
                                       />
@@ -977,7 +992,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_price_per_sq_meter}
                                       value={maxPricePerSquareMeter}
                                       onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
                                   />
@@ -985,7 +1000,7 @@ const renderFilterUI = () => {
                                   <input
                                     type="number"
                                     className='filter_inputs'
-                                    placeholder='Min Full Price'
+                                    placeholder={handleInputLanguageChange(selectedLanguage).min_full_price}
                                     value={minFullPrice}
                                     onChange={(e) => setMinFullPrice(e.target.value)}
                                   />
@@ -993,7 +1008,7 @@ const renderFilterUI = () => {
                                   <input
                                     type="number"
                                     className='filter_inputs'
-                                    placeholder='Max Full Price'
+                                    placeholder={handleInputLanguageChange(selectedLanguage).max_full_price}
                                     value={maxFullPrice}
                                     onChange={(e) => setMaxFullPrice(e.target.value)}
                                   />                            
@@ -1046,7 +1061,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_space}
                                       value={min_area}
                                       onChange={(e) => setMin_area(e.target.value)}
                                   />
@@ -1054,7 +1069,7 @@ const renderFilterUI = () => {
                                     <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_space}
                                       value={max_area}
                                       onChange={(e) => setMax_area(e.target.value)}
                                   />
@@ -1075,7 +1090,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_price_per_sq_meter}
                                       value={min_square_price}
                                       onChange={(e) => setMin_square_price(e.target.value)}
                                       />
@@ -1083,7 +1098,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_price_per_sq_meter}
                                       value={max_square_price}
                                       onChange={(e) => setMax_square_price(e.target.value)}
                                   />
@@ -1091,7 +1106,7 @@ const renderFilterUI = () => {
                                  <input
                                    type="number"
                                    className='filter_inputs'
-                                   placeholder='Min Full Price'
+                                   placeholder={handleInputLanguageChange(selectedLanguage).min_full_price}
                                    value={min_P_FullPrice}
                                    onChange={(e) => setMin_P_FullPrice(e.target.value)}
                                  />              
@@ -1099,7 +1114,7 @@ const renderFilterUI = () => {
                                   <input
                                     type="number"
                                     className='filter_inputs'
-                                    placeholder='Max Full Price'
+                                    placeholder={handleInputLanguageChange(selectedLanguage).max_full_price}
                                     value={max_P_FullPrice}
                                     onChange={(e) => setMax_P_FullPrice(e.target.value)}
                                   />
@@ -1152,7 +1167,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_space}
                                       value={min_ground_area}
                                       onChange={(e) => setMin_ground_area(e.target.value)}
                                   />
@@ -1160,7 +1175,7 @@ const renderFilterUI = () => {
                                     <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_space}
                                       value={max_ground_area}
                                       onChange={(e) => setMax_ground_area(e.target.value)}
                                   />
@@ -1180,7 +1195,7 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Min Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).min_price_per_sq_meter}
                                       value={min_graund_square_price}
                                       onChange={(e) => setMin_graund_square_price(e.target.value)}
                                       />
@@ -1188,14 +1203,14 @@ const renderFilterUI = () => {
                                   <input
                                       type="number"
                                       className='filter_inputs'
-                                      placeholder='Max Price Per Square Meter'
+                                      placeholder={handleInputLanguageChange(selectedLanguage).max_price_per_sq_meter}
                                       value={max_ground_square_price}
                                       onChange={(e) => setMax_ground_square_price(e.target.value)}
                                   />
                                  
                                  <input
                                    type="number"
-                                   placeholder='Min Full Price'
+                                   placeholder={handleInputLanguageChange(selectedLanguage).min_full_price}
                                    className='filter_inputs'
                                    value={min_graund_full_price}
                                    onChange={(e) => setMin_graund_full_price(e.target.value)}
@@ -1204,7 +1219,7 @@ const renderFilterUI = () => {
                                   <input
                                     type="number"
                                     className='filter_inputs'
-                                    placeholder='Max Full Price'
+                                    placeholder={handleInputLanguageChange(selectedLanguage).max_full_price}
                                     value={max_ground_fill_price}
                                     onChange={(e) => setMax_ground_fill_price(e.target.value)}
                                   />
@@ -1765,6 +1780,16 @@ const handle_Ground_MarkerClick = () => {
 }
 
 
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
+  });
+
+  if (loadError) {
+    return <div>Error loading maps</div>;
+  }
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
 // ---------------------------------------------------------------------------------------------------------------------
   return (
     <div className='main_map'>
@@ -1859,7 +1884,7 @@ const handle_Ground_MarkerClick = () => {
                   
 
                     <div className='map_cont scale-up-hor-center' >
-                      <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0">
+                      {/* <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0"> */}
                         <GoogleMap
                           mapContainerStyle={{ width: '100%', height: '625px'  }}
                           center={mapCenter}
@@ -1872,7 +1897,19 @@ const handle_Ground_MarkerClick = () => {
                         >
                         {renderMarkers()}
                         </GoogleMap>
-                      </LoadScript>
+                      {/* </LoadScript> */}
+                      {/* <M_ChildMap  
+                          center={mapCenter} 
+                          mapCenter={mapCenter} 
+                          zoomLevel={zoomLevel}
+                          onLoad={handleLoad} 
+                          onZoomChanged={handleZoomChanged}  
+                          getStatusInfo={getStatusInfo}
+                          handleMarkerClick={handleMarkerClick}
+                          complexes={complexes}
+                          selectedComplex={selectedComplex}
+                        
+                      /> */}
                     </div> 
                     <div className='legend_contained scale-up-hor-center' >
 
