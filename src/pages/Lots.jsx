@@ -758,7 +758,7 @@ return (
 
                             <P_SpaceModal isOpen={is_P_SpaceModalOpen} close={close_P_SpaceModal}>
                                <div>
-                                        <input
+                                    <input
                                       type="number"
                                       className='filter_inputs'
                                       placeholder='Min Price Per Square Meter'
@@ -772,31 +772,7 @@ return (
                                       placeholder='Max Price Per Square Meter'
                                       value={max_area}
                                       onChange={(e) => setMax_area(e.target.value)}
-                                  />
-                                    {/* otaxebis raodenobis filtraciistvis */}
-                                    <div className='room_choice_container' >
-                                      {NUMBER_OF_ROOM_CHOICES.map(choice => (
-                                        <React.Fragment key={choice.value}>
-                                          <label
-                                            className={`checkbox-label ${selectedRoomNumbers.includes(choice.value) ? 'selected' : ''}`}
-                                            onClick={() => handleRoomNumberChange(choice.value)}
-                                          >
-                                            {choice.label}
-                                          </label>
-                                          <input
-                                            type="checkbox"
-                                            id={`checkbox-${choice.value}`}
-                                            name="number_of_rooms"
-                                            value={choice.value}
-                                            checked={selectedRoomNumbers.includes(choice.value)}
-                                            onChange={() => {}}
-                                            style={{ display: 'none' }}
-                                          />
-                                        </React.Fragment>
-                                      ))}
-                                    </div>
-
-                                  <p>otaxebis filtraciac unda iyos aq</p>
+                                  />                                   
                               </div>
                             <button className='modal_close_button' onClick={close_P_SpaceModal}>Close</button>
                             </P_SpaceModal>
