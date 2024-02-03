@@ -26,7 +26,8 @@ const initialCenter = {
   lng: 44.8271
 };
 
-const Base_URL = "http://127.0.0.1:8000/complex/";
+// const Base_URL = "http://127.0.0.1:8000/complex/";
+const Base_URL = "https://api.storkhome.ge/complex/";
 
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
 
@@ -310,7 +311,9 @@ export default function Map({ selectedLanguage }) {
   // ----------------------------------------------------------------------------------------------
   //-----------------------------------fetch ionly locations --------------------------------------
 
-  const base_URL_for_location = 'http://127.0.0.1:8000/map/'
+  // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
+
+  const base_URL_for_location = ' https://api.storkhome.ge/map/'
 
   useEffect(() => {
     const fetchLocations = async () => {

@@ -152,7 +152,8 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
-  const BaseURL_Private = 'http://127.0.0.1:8000/privateapartments/'
+  // const BaseURL_Private = 'http://127.0.0.1:8000/privateapartments/'
+  const BaseURL_Private = 'https://api.storkhome.ge/privateapartments/'
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
@@ -221,7 +222,8 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
-  const base_URL_for_location = 'http://127.0.0.1:8000/map/'
+  // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
+  const base_URL_for_location = 'https://api.storkhome.ge/map/'
 
   useEffect(() => {
     const fetchLocations = async () => {

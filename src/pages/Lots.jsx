@@ -123,7 +123,8 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
-  const BaseURL_Private = 'http://127.0.0.1:8000/ground/'
+  // const BaseURL_Private = 'http://127.0.0.1:8000/ground/'
+  const BaseURL_Private =   'https://api.storkhome.ge/ground/'
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
