@@ -378,16 +378,16 @@ useEffect(() => {
            
            />} />
           <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />
-        </Route>
-        {/* <Route path='lots' element={<Lots />} /> */}
-        <Route path='developers' element={<Developers />} />
-        <Route path='map'   element={<Map selectedLanguage={selectedLanguage}/>} />
-        <Route path='sales' element={<Sales />} />
-        <Route path='physical' element={<Physical  selectedLanguage={selectedLanguage}  />} />
-        <Route path='articles' element={<Articles />} />
-        <Route path='storkhome' element={<Storkhome />} />
+          </Route>
+          {/* <Route path='lots' element={<Lots />} /> */}
+          <Route path='developers' element={<Developers />} />
+          <Route path='map'   element={<Map selectedLanguage={selectedLanguage}/>} />
+          <Route path='sales' element={<Sales />} />
+          <Route path='physical' element={<Physical  favorites={favorites}   selectedLanguage={selectedLanguage}  />} />
+          <Route path='articles' element={<Articles />} />
+          <Route path='storkhome' element={<Storkhome />} />
 
-        <Route path='eachComplex' element={<EachComplex />} />
+        <Route path='eachComplex' element={<EachComplex selectedLanguage={selectedLanguage} />} />
         
 
         <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />

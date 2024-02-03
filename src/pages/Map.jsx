@@ -17,7 +17,11 @@ import StatusModal from '../modals for page map/StatusModa';
 import button_icon from '../icons/Vector.svg'
 import ground_marker from '../location_icons/ground_location_icon.png'
 import { motion } from "framer-motion";
-// import M_ChildMap from './M_ChildMap';
+import FilterChangeModal from '../modals for page map/FilterChangeModal'
+import G_Modal from '../modals for ground filters/G_Modal';
+import G_PriceModal from '../modals for ground filters/G_PriceModal';
+import G_SpaceModal from '../modals for ground filters/G_SpaceModal';
+import G_StatusModal from '../modals for ground filters/G_StatusModa';
 
 
 
@@ -188,6 +192,9 @@ export default function Map({selectedLanguage}) {
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
   const [selectedStatuses, setSelectedStatuses] = useState([])
+  const [isfilterChangeModalOpen, setIsfilterChangeModalOpen] = useState(false);
+
+
   
   const [ascendentPrice, setAscendentPrice] = useState('');
 
@@ -596,30 +603,41 @@ const renderModalContent = () => {
 
       return (
         <div className='location_modal_container' >
-          {city.pharentDistricts.map((parentDistrict, index) => (
-            <div key={index}>
-              <div>
-                <input
-                  type="checkbox"
-                  checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
-                  onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
-                />
-                {parentDistrict.pharentDistrict}
-              </div>
-              <div style={{ marginLeft: '20px' }}>
-                {parentDistrict.districts.map((district, districtIndex) => (
-                  <div key={districtIndex}>
-                    <input
-                      type="checkbox"
-                      checked={selectedDistricts.includes(district)}
-                      onChange={(e) => handleDistrictChange(e, district)}
-                    />
-                    {district}
-                  </div>
+          <div className='districts_and_pharentdostricts'> 
+                {city.pharentDistricts.map((parentDistrict, index) => (
+                  <ul key={index} >
+
+                    <div className='pharent_district_chackmarks' >
+                          <label className="container">
+                            <input
+                              type="checkbox"
+                              checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
+                              onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
+                            />
+                          <div className="checkmark"></div>
+                          </label>
+                          <p>{parentDistrict.pharentDistrict}</p>
+                    </div>
+
+                    <div className='district_checkmarks' >
+                        {parentDistrict.districts.map((district, districtIndex) => (
+                          <li key={districtIndex} className='child_district_checkmarks' >
+                            <label className="container">
+                              <input
+                                type="checkbox"
+                                checked={selectedDistricts.includes(district)}
+                                onChange={(e) => handleDistrictChange(e, district)}
+                              />
+                            <div className="checkmark"></div>
+                            </label>
+                            
+                            <p>{district}</p>
+                          </li>
+                        ))}
+                    </div>
+                  </ul>
                 ))}
-              </div>
-            </div>
-          ))}
+          </div>
           <button className='modal_close_button' onClick={closeModal}>Close</button>
         </div>
       );
@@ -636,6 +654,7 @@ const handleShowModal = () => {
   setIsSpaceModalOpen(false);
   setIsPriceModalOpen(false)
   setIsStatusModalOpen(false)
+  setIsfilterChangeModalOpen(false)
 }
 
 const handleCityClick = (city) => {
@@ -697,11 +716,28 @@ const handleDistrictChange = (e, district) => {
 // ---------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
+const handleFilterChangeModalClick= ()=> {
+  setIsfilterChangeModalOpen(true)
+  setIsSpaceModalOpen(false);
+  setIsPriceModalOpen(false);
+  setIsStatusModalOpen(false);
+  setIsModalOpen(false);
+
+}
+
+
+const closeFilterChangeModal = ()=> {
+  setIsfilterChangeModalOpen(false)
+}
+
+
+
 const handleSpaceButtonClick = () => {
   setIsSpaceModalOpen(true);
   setIsPriceModalOpen(false);
   setIsStatusModalOpen(false);
   setIsModalOpen(false);
+  setIsfilterChangeModalOpen(false)
 };
 
 const closeSpaceModal = () => {
@@ -713,6 +749,8 @@ const handlePriceButtonClick = () => {
   setIsSpaceModalOpen(false);
   setIsModalOpen(false);
   setIsStatusModalOpen(false);
+  setIsfilterChangeModalOpen(false)
+
 }
 
 const handleClosePriceModal= () => {
@@ -724,6 +762,8 @@ const handleStatusButtonClick = () => {
   setIsSpaceModalOpen(false);
   setIsPriceModalOpen(false);
   setIsModalOpen(false);
+  setIsfilterChangeModalOpen(false)
+
 }
 
 const handleCloseStatusModal = () => {
@@ -835,7 +875,12 @@ const handleStatusButtonLanguageChange = (lang) => {
     legendUnderConstructioin : "Under Construction",
     legendComplited : "Complited",
     privateApartmebt : "Private appartment",
-    groundMarkers :"Grounds"
+    groundMarkers :"Grounds",
+    categoryLanguage : "Category" ,
+    complexes : "Complexes",
+    private_apartments : "Private Appartments",
+    lands : "Lands",
+    show_all : "Show All"
   }
 
   switch (lang) {
@@ -850,9 +895,11 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.legendComplited = "Complited"
       languageInfo.privateApartmebt = "Private appartment"
       languageInfo.groundMarkers = "Grounds"
-
-
-
+      languageInfo.categoryLanguage = "Category"
+      languageInfo.complexes = "Complexes"
+      languageInfo.private_apartments = "Private Appartments"
+      languageInfo.lands = "Lands"
+      languageInfo.show_all = "Show All"
       break;
 
     case "ka" :
@@ -866,7 +913,11 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.legendComplited = "დასრულებული"
       languageInfo.privateApartmebt = "კერძო ბინები"
       languageInfo.groundMarkers = "ნაკვეთები"
-
+      languageInfo.categoryLanguage = "კატეგორია"
+      languageInfo.complexes = "კომპლექსები"
+      languageInfo.private_apartments = "კერძო ბინები"
+      languageInfo.lands = "ნაკვეთები"
+      languageInfo.show_all = "აჩვენე ყველა"
       break
       
     case "ru" :
@@ -880,8 +931,11 @@ const handleStatusButtonLanguageChange = (lang) => {
       languageInfo.legendComplited = "Завершено"
       languageInfo.privateApartmebt = "частные апартаменты"
       languageInfo.groundMarkers = "Участки"
-
-
+      languageInfo.categoryLanguage = "Категория"
+      languageInfo.complexes = "Комплексы"
+      languageInfo.private_apartments = "Частные апартаменты"
+      languageInfo.lands = "Участки"
+      languageInfo.show_all = "Показать все"
       break
   }
   return languageInfo
@@ -921,6 +975,72 @@ const handleLoad = (map) => {
 
 
 
+// --------------------------changing filtation methods-----------------------------------------
+// -------------------------------
+const renderFilterMethods = () => {
+  return (
+    <>
+                      {/* pirveli chekboxi kompleqsebistvis */}
+                      <div className='filter_chackboxes' >
+                          <div>
+                            <label className="container">
+                                    <input type="checkbox" value="complexes"  checked={filterType === 'complexes'}  onChange={(event) => {
+                                      handleCheckboxChange(event);
+                                      handleReset_PApartmentStates(event);
+                                    }} />
+                                    <div className="checkmark"></div>
+                            </label>
+                          </div>
+                              <h1 className='filter_mark'  >{handleStatusButtonLanguageChange(selectedLanguage).complexes}</h1>
+                        </div>
+
+                    {/* meore chekboxi kerdzo apartamentebistvis */}
+                      <div className='filter_chackboxes'>
+                        <div>
+                          <label className="container">
+                                  <input type="checkbox" value="privateApartments"  checked={filterType === 'privateApartments'}  onChange={(event) => {
+                                  handleCheckboxChange(event);
+                                  handleResetComplexStates(event);
+                                  }}/>
+                                  <div className="checkmark"></div>
+                                </label>
+                          </div>
+                                <h1 className='filter_mark'  >{handleStatusButtonLanguageChange(selectedLanguage).private_apartments}</h1>
+                        </div>
+
+                        {/* mesame chekboxi miwebistvis */}
+                      <div className='filter_chackboxes'>
+                        <div>
+                          <label className="container">
+                                  <input type="checkbox" value="grounds"  checked={filterType === 'grounds'}  onChange={(event) => {
+                                  handleCheckboxChange(event);
+                                  handleReset_complex_and_pApartmentStates(event);
+                                  }}/>
+                                  <div className="checkmark"></div>
+                                </label>
+                          </div>
+                                <h1 className='filter_mark'  >{handleStatusButtonLanguageChange(selectedLanguage).lands}</h1>
+                        </div>
+
+
+                         {/*chekboxi yvelas chvenebistvis */}
+                      <div className='filter_chackboxes'>
+                        <div>
+                          <label className="container">
+                                  <input type="checkbox" value="all"  checked={filterType === 'all'} onChange={(event) => {
+                                  handleCheckboxChange(event);
+                                  HandleResetAllStates(event);
+                                  }} />
+                                  <div className="checkmark"></div>
+                                </label>
+                          </div>
+                                <h1 className='filter_mark'  >{handleStatusButtonLanguageChange(selectedLanguage).show_all}</h1>
+                        </div>
+    </>
+  )
+}
+
+// -----------------------------------------------------------------------------------------
 
 // ---------------------------------logika filtraciis cvlilebistvis-----------------------------------------
 
@@ -935,12 +1055,14 @@ const renderFilterUI = () => {
       <div>
          {/* axali divebi butonebis magivrad filtraciistvis */}
          <motion.div
+                      key={filterType}
                       initial={{ y: 100, opacity: 0 }}
                       whileInView={{ y: 0, opacity: 1 }}
                       transition={{ duration: 1 }}
                     >
 
-                  <div className='filter_cont '>
+                  <div className='filter_cont ' id='filter_cont_2' >
+
 
                       {/* button for filtering space */}
                       <div className="button-modal-container ">
@@ -950,7 +1072,7 @@ const renderFilterUI = () => {
                             </div> 
 
                             <SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
-                              <div>
+                              <div className='filter_little_container'   >
                                   <input
                                       type="number"
                                       className='filter_inputs'
@@ -970,7 +1092,6 @@ const renderFilterUI = () => {
                               </div>
                             <button className='modal_close_button' onClick={closeSpaceModal}>Close</button>
                             </SpaceModal>
-
                       </div>
 
                       {/* button for filtering price  */}
@@ -1045,6 +1166,7 @@ const renderFilterUI = () => {
     ); case 'privateApartments' : 
     return (
       <motion.div
+           key={filterType}
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
@@ -1151,6 +1273,7 @@ const renderFilterUI = () => {
     );case 'grounds' : 
     return (
       <motion.div
+          key={filterType}
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
@@ -1162,7 +1285,7 @@ const renderFilterUI = () => {
                               {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                             </div> 
-                            <SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                            <G_SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
                               <div>
                                   <input
                                       type="number"
@@ -1181,7 +1304,7 @@ const renderFilterUI = () => {
                                   />
                               </div>
                             <button className='modal_close_button' onClick={closeSpaceModal}>Close</button>
-                            </SpaceModal>
+                            </G_SpaceModal>
                       </div>
 
                   {/* container for filtering price  */}
@@ -1190,7 +1313,7 @@ const renderFilterUI = () => {
                               {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                             </div> 
-                            <PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                            <G_PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
                             <div>
                                   <input
                                       type="number"
@@ -1226,7 +1349,7 @@ const renderFilterUI = () => {
 
                             </div>
                             <button className='modal_close_button' onClick={handleClosePriceModal}>Close</button>
-                            </PriceModal>
+                            </G_PriceModal>
                         </div>
 
                         {/* button for locations */}
@@ -1235,9 +1358,9 @@ const renderFilterUI = () => {
                             {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                             </div>
-                            <Modal isOpen={isModalOpen} >
+                            <G_Modal isOpen={isModalOpen} >
                               {renderModalContent()}
-                            </Modal>
+                            </G_Modal>
                       </div>
 
                       {/* button for status */}
@@ -1246,18 +1369,16 @@ const renderFilterUI = () => {
                             {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                             </div>
-                            <StatusModal isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+                            <G_StatusModal isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
                             {render_Ground_StatusOption()}
                             <button className='modal_close_button' onClick={handleCloseStatusModal}>Close</button>
-                            </StatusModal>
+                            </G_StatusModal>
                       </div>
           </div>
           </motion.div>
     );
   }
 };
-
-
 
 const renderMarkers = () => {
   switch (filterType) {
@@ -1794,97 +1915,39 @@ const handle_Ground_MarkerClick = () => {
   return (
     <div className='main_map'>
 
-                   <div className="toggle-button-container" >
-                    {/* pirveli chekboxi kompleqsebistvis */}
-                        <div className='filter_chackboxes' >
-                          <div>
-                            <label className="ui-bookmark">
-                                <input type="checkbox" value="complexes"  checked={filterType === 'complexes'}  onChange={(event) => {
-                                  handleCheckboxChange(event);
-                                  handleReset_PApartmentStates(event);
-                                }} />
-                                <div className="bookmark">
-                                  <svg viewBox="0 0 32 32">
-                                    <g>
-                                      <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
-                                    </g>
-                                  </svg>
-                                </div>
-                              </label>
-                          </div>
-                              <h1 className='filter_mark'  >გაფილტრე კომპლექსები</h1>
-                        </div>
 
-                    {/* meore chekboxi kerdzo apartamentebistvis */}
-                      <div className='filter_chackboxes'>
-                        <div>
-                          <label className="ui-bookmark">
-                                  <input type="checkbox" value="privateApartments"  checked={filterType === 'privateApartments'}  onChange={(event) => {
-                                  handleCheckboxChange(event);
-                                  handleResetComplexStates(event);
-                                  }}/>
-                                  <div className="bookmark">
-                                    <svg viewBox="0 0 32 32">
-                                      <g>
-                                        <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
-                                      </g>
-                                    </svg>
-                                  </div>
-                                </label>
-                          </div>
-                                <h1 className='filter_mark'  >გაფილტრე კერძო ბინები</h1>
-                        </div>
+            <motion.div
+                      initial={{ y: 100, opacity: 0 }}
+                      whileInView={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 1 }}
+                    >
+                    <div className='filtetmethods_and_filters'  >
+                      <div className='filter_methods_container'  >
+                              {/* modal for filtering method changing */}
+                              <div className="button-modal-container ">
+                                <div onClick={handleFilterChangeModalClick}  className='space_button'  >
+                                  {handleStatusButtonLanguageChange(selectedLanguage).categoryLanguage}
+                                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                                </div> 
 
-                        {/* mesame chekboxi miwebistvis */}
-                      <div className='filter_chackboxes'>
-                        <div>
-                          <label className="ui-bookmark">
-                                  <input type="checkbox" value="grounds"  checked={filterType === 'grounds'}  onChange={(event) => {
-                                  handleCheckboxChange(event);
-                                  handleReset_complex_and_pApartmentStates(event);
-                                  }}/>
-                                  <div className="bookmark">
-                                    <svg viewBox="0 0 32 32">
-                                      <g>
-                                        <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
-                                      </g>
-                                    </svg>
-                                  </div>
-                                </label>
-                          </div>
-                                <h1 className='filter_mark'  >გაფილტრე მიწები </h1>
-                        </div>
-
-
-                         {/* meore chekboxi yvelas chvenebistvis */}
-                      <div className='filter_chackboxes'>
-                        <div>
-                          <label className="ui-bookmark">
-                                  <input type="checkbox" value="all"  checked={filterType === 'all'} onChange={(event) => {
-                                  handleCheckboxChange(event);
-                                  HandleResetAllStates(event);
-                                  }} />
-                                  <div className="bookmark">
-                                    <svg viewBox="0 0 32 32">
-                                      <g>
-                                        <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
-                                      </g>
-                                    </svg>
-                                  </div>
-                                </label>
-                          </div>
-                                <h1 className='filter_mark'  >აჩვენე ყველა </h1>
-                        </div>
+                                <FilterChangeModal isOpen={isfilterChangeModalOpen} close={closeFilterChangeModal}>
+                                    <div className='filter_little_container'>
+                                          {renderFilterMethods()}
+                                    </div>
+                                    <button className='modal_close_button' onClick={closeFilterChangeModal}>Close</button>
+                                </FilterChangeModal>
+                            </div>
+                      </div>
+                    <div>
+                      {renderFilterUI()}
                     </div>
-
-                    {/* orive filtracia iqneba am divshi */}
-                   <div>
-                    {renderFilterUI()}
                    </div>
-                  
+                   </motion.div>
+
+                   <div className="toggle-button-container" >
+                   </div>
 
                     <div className='map_cont scale-up-hor-center' >
-                      {/* <LoadScript googleMapsApiKey="AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0"> */}
                         <GoogleMap
                           mapContainerStyle={{ width: '100%', height: '625px'  }}
                           center={mapCenter}
@@ -1897,19 +1960,6 @@ const handle_Ground_MarkerClick = () => {
                         >
                         {renderMarkers()}
                         </GoogleMap>
-                      {/* </LoadScript> */}
-                      {/* <M_ChildMap  
-                          center={mapCenter} 
-                          mapCenter={mapCenter} 
-                          zoomLevel={zoomLevel}
-                          onLoad={handleLoad} 
-                          onZoomChanged={handleZoomChanged}  
-                          getStatusInfo={getStatusInfo}
-                          handleMarkerClick={handleMarkerClick}
-                          complexes={complexes}
-                          selectedComplex={selectedComplex}
-                        
-                      /> */}
                     </div> 
                     <div className='legend_contained scale-up-hor-center' >
 

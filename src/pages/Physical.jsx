@@ -16,11 +16,20 @@ import mapSignLogo from  '../assets/mapSignLogoo.svg' ;
 import Button from '@mui/material/Button';
 import arrowDownSorting from '../assets/arrow-down-white.svg';
 import Menu from '@mui/material/Menu';
+import loupe from '../icons/loupe.png'
 import MenuItem from '@mui/material/MenuItem';
 import lari from '../assets/lari-svgrepo-com.svg';
 import dollar from '../assets/dollar-svgrepo-com.svg';
 import Stack from '@mui/material/Stack';
 import Pagination from '@mui/material/Pagination';
+import heartIcon from '../assets/starLogo.svg';
+import heartIconEmpty from '../assets/emptyStarLogo.svg';
+import googleMapImage from '../assets/mapImageForFooter.svg';
+// import G_Modal from '../modals for ground filters/G_Modal';
+// import G_PriceModal from '../modals for ground filters/G_PriceModal';
+// import G_SpaceModal from '../modals for ground filters/G_SpaceModal';
+// import G_StatusModal from '../modals for ground filters/G_StatusModa';
+// import P_StringModal from '../modals for private page/P_StringModal';
 
 
 const normalizePrivateApartmentData = (data, lang) => {
@@ -71,7 +80,7 @@ const normalizeLocationData = (data, lang) => {
 
 
 
-export default function Physical({selectedLanguage}) {
+export default function Physical({selectedLanguage ,favorites}) {
   const [privateApartments, setPrivateApartments] = useState([]);
   
 
@@ -101,6 +110,9 @@ export default function Physical({selectedLanguage}) {
   const [totalPageCount , setTotalPageCount] = useState(0)
   const [currentPage, setCorrentPage] = useState(0)
   const [ascendentPrice, setAscendentPrice] = useState('');
+
+  const [stringFilterValue, setStringFilterValue] = useState('')
+
 
 useEffect(() =>{
   setSelectedCity('')
@@ -132,7 +144,7 @@ useEffect(() =>{
       const pharentdistrictParams =  `parent_districts`;
       const districtParams = `districts`;
 
-      const limit = 2; // Define the limit or make it dynamic as per your requirement
+      const limit = 12; // Define the limit or make it dynamic as per your requirement
       const offset = (currentPage - 1) * limit;
   
 
@@ -175,10 +187,8 @@ useEffect(() =>{
   
 
     useEffect(() => {
-      console.log('es aris itemenbis raodenoba' ,totalCount)
-      console.log('mtliani gverdebis raodenoba' ,totalPageCount)
-
-    },[totalCount]  )
+      console.log('aq unda iyos suratebi',privateApartments)
+    },[totalCount, selectedLanguage]  )
     
 
 //-----------------------------------fetch ionly locations --------------------------------------
@@ -205,14 +215,13 @@ useEffect(() => {
 // ----------------------------------------------------------------------------------------------
 
   // ------------------------------------modal and logic for opening filtration window --------------------------------------
-
   const renderModalContent = () => {
     switch (modalContent) {
       case 'cities':
         return <div>
                   {locations.map((cityItem, index) => (
-                    <button key={index} onClick={() => handleCityClick(cityItem.city)} className='button-19'>
-                      {cityItem.city}
+                    <button key={index} onClick={() => handleCityClick(cityItem.city)} className='city_button'>
+                      <span>{cityItem.city}</span> 
                     </button>
                   ))}
                   <button className='modal_close_button' onClick={closeModal} >close</button>
@@ -224,30 +233,41 @@ useEffect(() => {
   
         return (
           <div className='location_modal_container' >
-            {city.pharentDistricts.map((parentDistrict, index) => (
-              <div key={index}>
-                <div>
-                  <input
-                    type="checkbox"
-                    checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
-                    onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
-                  />
-                  {parentDistrict.pharentDistrict}
-                </div>
-                <div style={{ marginLeft: '20px' }}>
-                  {parentDistrict.districts.map((district, districtIndex) => (
-                    <div key={districtIndex}>
-                      <input
-                        type="checkbox"
-                        checked={selectedDistricts.includes(district)}
-                        onChange={(e) => handleDistrictChange(e, district)}
-                      />
-                      {district}
-                    </div>
+            <div className='districts_and_pharentdostricts'> 
+                  {city.pharentDistricts.map((parentDistrict, index) => (
+                    <ul key={index} >
+  
+                      <div className='pharent_district_chackmarks' >
+                            <label className="container">
+                              <input
+                                type="checkbox"
+                                checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
+                                onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
+                              />
+                            <div className="checkmark"></div>
+                            </label>
+                            <p>{parentDistrict.pharentDistrict}</p>
+                      </div>
+  
+                      <div className='district_checkmarks' >
+                          {parentDistrict.districts.map((district, districtIndex) => (
+                            <li key={districtIndex} className='child_district_checkmarks' >
+                              <label className="container">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedDistricts.includes(district)}
+                                  onChange={(e) => handleDistrictChange(e, district)}
+                                />
+                              <div className="checkmark"></div>
+                              </label>
+                              
+                              <p>{district}</p>
+                            </li>
+                          ))}
+                      </div>
+                    </ul>
                   ))}
-                </div>
-              </div>
-            ))}
+            </div>
             <button className='modal_close_button' onClick={closeModal}>Close</button>
           </div>
         );
@@ -410,6 +430,10 @@ const handle_P_StatusButtonLanguageChange = (lang) => {
     legendUnderPlanning : "Under Planning",
     legendUnderConstructioin : "Under Construction",
     legendComplited : "Complited",
+    stringFiltrationButtonLanguage: "Search by word",
+    complexes: "Complexes",
+    private_apartments: "Private Appartments"
+
   }
 
   switch (lang) {
@@ -422,6 +446,9 @@ const handle_P_StatusButtonLanguageChange = (lang) => {
       languageInfo.legendUnderPlanning = "Under Planning"
       languageInfo.legendUnderConstructioin = "Under Construction"
       languageInfo.legendComplited = "Complited"
+      languageInfo.stringFiltrationButtonLanguage = "Search by word"
+      languageInfo.complexes = "Complexes"
+      languageInfo.private_apartments = "Private Appartments"
       break;
 
     case "ka" :
@@ -433,10 +460,13 @@ const handle_P_StatusButtonLanguageChange = (lang) => {
       languageInfo.legendUnderPlanning = "დაგეგმვის პროცესში"
       languageInfo.legendUnderConstructioin = "მშენებარე"
       languageInfo.legendComplited = "დასრულებული"
+      languageInfo.stringFiltrationButtonLanguage = "იპოვე სიტყვით"
+      languageInfo.complexes = "კომპლექსები"
+      languageInfo.private_apartments = "კერძო ბინები"
       break
       
     case "ru" :
-      languageInfo.statusInfoLanguage = "выберите статус"
+      languageInfo.statusInfoLanguage = "Выберите статус"
       languageInfo.cityButtonLanguage = "Местоположение"
       languageInfo.spaceButtonLanguage = "Площадь"
       languageInfo.priceButtonLanguage = "Цена"
@@ -444,10 +474,15 @@ const handle_P_StatusButtonLanguageChange = (lang) => {
       languageInfo.legendUnderPlanning = "На стадии планирования"
       languageInfo.legendUnderConstructioin = "На стадии строительства"
       languageInfo.legendComplited = "Завершено"
+      languageInfo.stringFiltrationButtonLanguage = "Поиск по слову"
+      languageInfo.complexes = "Комплексы"
+      languageInfo.private_apartments = "Частные апартаменты"
       break
   }
   return languageInfo
 }
+
+
 // ---------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 const closeModal = () => {
@@ -505,6 +540,8 @@ const handleClose_P_StatusModal = () => {
 }
 
 
+// ---------------------------------------------------------------------------------------------------------------------
+
 
   // for Sorting
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -523,8 +560,12 @@ const handleClose_P_StatusModal = () => {
 
 // This is for scrool up, when user click other Pagination number
 const pagiHandler = () => {
-  document.body.scrollTop = document.documentElement.scrollTop = 0;
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
+
 
 // ------------------------------------------------------------------------------------
 
@@ -577,23 +618,28 @@ const handleStatusButtonLanguageChange = (lang) => {
 }
 
 
-  return (
-    <div className="main_private_container">
 
-                <div className="private_filter_conteiner">
+
+
+
+
+return (
+  <div className='ComplexBodyBox_physical'>
+              <div className="private_filter_conteiner">
                     <motion.div initial={{ y: 100, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
-                    <div className='filter_cont '>
+                    <div className='filter_cont_for_physical '>
                       {/* button for filtering space */}
                       <div className="button-modal-container ">
                             <div onClick={handle_P_SpaceButtonClick}  className='space_button'  >
                               {handle_P_StatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
                               <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-                            </div> 
+                             </div> 
 
                             <P_SpaceModal isOpen={is_P_SpaceModalOpen} close={close_P_SpaceModal}>
-                              <div>
+                               <div>
                                         <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Min Price Per Square Meter'
                                       value={min_area}
                                       onChange={(e) => setMin_area(e.target.value)}
@@ -601,6 +647,7 @@ const handleStatusButtonLanguageChange = (lang) => {
                                   
                                     <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Max Price Per Square Meter'
                                       value={max_area}
                                       onChange={(e) => setMax_area(e.target.value)}
@@ -622,6 +669,7 @@ const handleStatusButtonLanguageChange = (lang) => {
                             <div>
                                   <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Min Price Per Square Meter'
                                       value={min_square_price}
                                       onChange={(e) => setMin_square_price(e.target.value)}
@@ -629,6 +677,7 @@ const handleStatusButtonLanguageChange = (lang) => {
 
                                   <input
                                       type="number"
+                                      className='filter_inputs'
                                       placeholder='Max Price Per Square Meter'
                                       value={max_square_price}
                                       onChange={(e) => setMax_square_price(e.target.value)}
@@ -636,6 +685,7 @@ const handleStatusButtonLanguageChange = (lang) => {
                                  
                                   <input
                                     type="number"
+                                    className='filter_inputs'
                                     placeholder='Min Full Price'
                                     value={minFullPrice}
                                     onChange={(e) => setMinFullPrice(e.target.value)}
@@ -643,6 +693,7 @@ const handleStatusButtonLanguageChange = (lang) => {
 
                                   <input
                                     type="number"
+                                    className='filter_inputs'
                                     placeholder='Max Full Price'
                                     value={maxFullPrice}
                                     onChange={(e) => setMaxFullPrice(e.target.value)}
@@ -674,284 +725,356 @@ const handleStatusButtonLanguageChange = (lang) => {
                             <button className='modal_close_button' onClick={handleClose_P_StatusModal}>Close</button>
                             </P_StatusModal>
                       </div>
+
+                       {/* for searching with string*/}
+                       <div className="button-modal-container" >
+                            <div className='lacation_button'   >
+                              <input 
+                                className='string_filter_input'
+                                type='text'
+                                placeholder={handle_P_StatusButtonLanguageChange(selectedLanguage).stringFiltrationButtonLanguage}
+                                value={stringFilterValue}
+                                onChange={(e)=> {setStringFilterValue(e.target.value)}}
+                               />
+                              <img src={loupe} alt="button dropdown icon" className='dropdown' />
+                            </div>
+
+                      </div>
                   </div>
                   </motion.div>
             </div>
+  
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+    {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
+
+   
+
+    {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
+    <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        transition={{ duration: 1 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        className='motionBox_physical'
+      >
+        <div className='forPaddingOfInfoFieldOfComplexsPlansMaps_physical'>
+          <div className='infoFieldOfComplexsPlansMaps_physical'>
+            <div className='complexInfoAndCountShowBox_physical'>
+              <p style={{color: 'white'}}>{handle_P_StatusButtonLanguageChange(selectedLanguage).private_apartments} : {totalCount}</p>
+            </div>
+            {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
+            <div className='projectsPlansMapsSortingAndDollarBox_physical'>
+              <Link to='/complex' >
+              <motion.div
+                className="textButtonContainer_physical"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <div className='mapAndLogoImg_physical'>
+                  <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                  <button className='textButton_physical'>პროექტები</button>
+                </div>
+              </motion.div>
+              </Link>
+{/* 
+              <Link to='/complex/apartmentList' >
+              <motion.div
+                className="textButtonContainer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <div className='mapAndLogoImg'>
+                  <img src={mapSignLogo} alt='mapSignLogo_physical' className='mapSignLogo' />
+                  <button className='textButton'>გეგმარებები</button>
+                </div>
+              </motion.div>
+              </Link>
+ */}
+
+              <Link to='/map' >
+              <motion.div
+                className="textButtonContainer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <div className='mapAndLogoImg'>
+                  <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
+                  <button className='textButton'>რუკა</button>
+                </div>
+              </motion.div>
+              </Link>
+              {/* მხოლოდ for sorting ----- */}
+              {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
+              რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
+              <Button
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+                style={{ color: 'white', fontSize: '16px' }}
+                
+                >
+                <div className='sortAndArrowDownImgBox_physical'>
+                  სორტირება
+                  <img src={arrowDownSorting} style={{width: '20px', }} />
+                </div>
+              </Button>
+              
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  style: {
+                    backgroundColor: "black",
+                    width: "270px",
+                },
+                  'aria-labelledby': 'basic-button',
+                }}
+          
+                //
+                component={motion.div} 
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9 },
+                  visible: { opacity: 1, scale: 1 },
+                }}
+                initial="hidden"
+                animate={open ? 'visible' : 'hidden'}
+                transition={{ duration: 0.6 }}
+              >
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentTime}
+                    </MenuItem>
+                  </motion.div>
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantTime}
+                    </MenuItem>
+                  </motion.div>
+
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-square_price'); }}> {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentPrice}
+                    </MenuItem>
+                  </motion.div>
+
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                        setAscendentPrice('square_pricer'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendentPrice}
+                    </MenuItem>
+                  </motion.div>
 
 
-          <div className='buttons_container' >
-          {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
-      <motion.div
-          initial={{ y: -50, opacity: 0 }}
-          transition={{ duration: 1 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          className='motionBox'
-        >
-          <div className='forPaddingOfInfoFieldOfComplexsPlansMaps'>
-            <div className='infoFieldOfComplexsPlansMaps'>
-              <div className='complexInfoAndCountShowBox'>
-                <p style={{color: 'white'}}>კომპლექსები {totalCount}</p>
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  > 
+                    <MenuItem
+                      style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('-full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentFullPrice}
+                    </MenuItem>
+                  </motion.div>
+
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <MenuItem
+                     style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                      onClick={() => { handleClose(); 
+                      setAscendentPrice('full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantFullPrice}
+                    </MenuItem>
+                  </motion.div>
+
+              </Menu>
+              {/* ---------------------------------- */}
+
+                {/* ----Dollar and Lari Toggle button */}
+                <div className='currencyBox_physical'>
+                  <div className="switch_physical" data-ison={isOn} onClick={toggleSwitch}>
+                    <motion.div className="handle_physical" layout transition={spring}>
+                      <img
+                        src={lari}
+                        alt="Lari Sign"
+                        className={`currency-sign_physical ${isOn ? "active" : ""}`}
+                        />
+                      <img
+                        src={dollar}
+                        alt="Dollar Sign"
+                        className={`currency-sign_physical ${!isOn ? "active" : ""}`}
+                        />
+                    </motion.div>
+                  </div>
+                </div>
+                  {/* ---------------- */}
               </div>
 
-              {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
-              <div className='projectsPlansMapsSortingAndDollarBox'>
-                    <Link to='/complex' >
-                    <motion.div
-                      className="textButtonContainer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+          </div>
+      </div>
+    </motion.div>
+
+{/* // ------------------------------------------------------------------------------------ */}
+
+
+
+
+    <div className='allCards_physical'>
+                {privateApartments.map((prev_apartments, index) => (
+                <div className='card_physical' key={index}>
+                  <motion.div
+                      key={currentPage}
+                      initial={{ x: -50, opacity: 0 }}
+                      transition={{ duration: 1 }}
+                      whileInView={{ x: 0, opacity: 1 }}
+                      viewport={{ once: true }}
                     >
-                      <div className='mapAndLogoImg'>
-                        <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                        <button className='textButton'>პროექტები</button>
+
+                    <div className='heartbuttonAndImageBox_physical'>
+                      <div className='heartButtonBox_physical'>
+                        <button onClick={() => favoriteHandler(prev_apartments)} key={prev_apartments.id} className='heartButtons_physical' >
+                          {favorites.some(fav => fav.id === prev_apartments.id) ? (
+                            <img src={heartIcon} alt='Logo of heart' />
+                            ) : (
+                              <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+                              )}
+                        </button>
                       </div>
-                    </motion.div>
-                    </Link>
-
-                    <Link to='/complex/apartmentList' >
-                    <motion.div
-                      className="textButtonContainer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    >
-                      <div className='mapAndLogoImg'>
-                        <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                        <button className='textButton'>გეგმარებები</button>
-                      </div>
-                    </motion.div>
-                    </Link>
-
-
-                    <Link to='/map' >
-                    <motion.div
-                      className="textButtonContainer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    >
-                      <div className='mapAndLogoImg'>
-                        <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                        <button className='textButton'>რუკა</button>
-                      </div>
-                    </motion.div>
-                    </Link>
-                    {/* მხოლოდ for sorting ----- */}
-                    {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
-                    რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
-                    <Button
-                      id="basic-button"
-                      aria-controls={open ? 'basic-menu' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                      onClick={handleClick}
-                      style={{ color: 'white', fontSize: '16px' }}
-                      
-                      >
-                      <div className='sortAndArrowDownImgBox'>
-                        სორტირება
-                        <img src={arrowDownSorting} style={{width: '20px', }} />
-                      </div>
-                    </Button>
-                    
-                    <Menu
-                      id="basic-menu"
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
-                      MenuListProps={{
-                        style: {
-                          backgroundColor: "black",
-                          width: "270px",
-                      },
-                        'aria-labelledby': 'basic-button',
-                      }}
-                
-                      //
-                      component={motion.div} 
-                      variants={{
-                        hidden: { opacity: 0, scale: 0.9 },
-                        visible: { opacity: 1, scale: 1 },
-                      }}
-                      initial="hidden"
-                      animate={open ? 'visible' : 'hidden'}
-                      transition={{ duration: 0.6 }}
-                    >
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('-created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentTime}
-                          </MenuItem>
-                        </motion.div>
-                        
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('created_at'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantTime}
-                          </MenuItem>
-                        </motion.div>
-
-                        
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('-square_pricer'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendentPrice}
-                          </MenuItem>
-                        </motion.div>
-
-                        
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('square_price'); }}> {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentPrice}
-                          </MenuItem>
-                        </motion.div>
-
-
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        > 
-                          <MenuItem
-                            style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('-full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantFullPrice}
-                          </MenuItem>
-                        </motion.div>
-
-                        
-                        <motion.div
-                          whileHover={{ scale: 1.1 }} 
-                          whileTap={{ scale: 0.9 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          <MenuItem
-                          style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
-                            onClick={() => { handleClose(); 
-                            setAscendentPrice('full_price'); }}>{handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentFullPrice}
-                          </MenuItem>
-                        </motion.div>
-
-                    </Menu>
-                    {/* ---------------------------------- */}
-
-                      {/* ----Dollar and Lari Toggle button */}
-                      <div className='currencyBox'>
-                        <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
-                          <motion.div className="handle" layout transition={spring}>
-                            <img
-                              src={lari}
-                              alt="Lari Sign"
-                              className={`currency-sign ${isOn ? "active" : ""}`}
-                              />
-                            <img
-                              src={dollar}
-                              alt="Dollar Sign"
-                              className={`currency-sign ${!isOn ? "active" : ""}`}
-                              />
-                          </motion.div>
-                        </div>
-                      </div>
-                        {/* ---------------- */}
+                      <img src={prev_apartments.images[0]} alt={prev_apartments.name} style={styles.imageStyles} />
                     </div>
-
+                    <p style={styles.companyTitle}>{prev_apartments.name}</p>
+                    <div className='textInfo_physical'>
+                      <p style={styles.complexInfo}>{prev_apartments.address.city}, {prev_apartments.address.street}</p>
+                      <p style={styles.complexInfo}>Price per sq meter: {prev_apartments.price_per_sq_meter}</p>
+                      {/* Update the line below with the actual date property */}
+                      {/* <p style={styles.complexFinished}>Date: {complex.date}</p> */}
+                    </div>
+                  </motion.div>
                 </div>
+              ))}
             </div>
-          </motion.div>
-
+    
+            {/* Pagination for user to select some page */}
+              <div className='pagination'>
+                <Stack spacing={2}>
+                  <Pagination
+                      count={totalPageCount}
+                      shape="rounded"
+                      page={currentPage}
+                      onChange={(event, value) => setCorrentPage(Number(value))}
+                      onClick={pagiHandler}
+                      sx={{
+                        '& .MuiPaginationItem-root': {
+                          color: '#fff !important', // White text color for unselected items, with increased specificity
+                          margin: '3px !important', // Removes margin between buttons, with increased specificity
+                          padding: '0 !important', // Removes padding inside buttons, with increased specificity
+                          '&:hover': {
+                            backgroundColor: '#f0f0f0 !important', // Background color on hover for unselected items, with increased specificity
+                            color: '#000 !important', // Text color on hover for unselected items, with increased specificity
+                          },
+                        },
+                        '& .Mui-selected': {
+                          backgroundColor: '#fff !important', // White background color for the selected item, with increased specificity
+                          color: '#000 !important', // Black text color for the selected item, with increased specificity
+                          '&:hover': {
+                            backgroundColor: '#fff !important', // Keep the background color on hover for selected item, with increased specificity
+                            color: '#000 !important', // Keep the text color on hover for selected item, with increased specificity
+                          },
+                        },
+                        '& .MuiPaginationItem-ellipsis': {
+                          color: '#fff !important', // Color of the ellipsis, with increased specificity
+                          margin: '0 !important', // Removes margin around the ellipsis, with increased specificity
+                          padding: '0 !important', // Removes padding around the ellipsis, with increased specificity
+                        },
+                        '.MuiPagination-ul': {
+                          justifyContent: 'center !important', // Centers the pagination items, with increased specificity
+                          flexWrap: 'nowrap !important', // Prevents the pagination items from wrapping, with increased specificity
+                        }
+                      }}
+                  />
+                </Stack>
+              </div>
+          {/* ---------------------------------------------------------------- */}
+          <div className='googleMapImageBox_physical'>
+            <Link to='/map' >
+              <motion.div
+                  initial={{ x: -150, opacity: 0 }}
+                  transition={{ duration: 1.5 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                >
+                  <img src={googleMapImage} alt='googleMapImage' className='googleMapImage_physical' />
+              </motion.div>
+            </Link>
           </div>
 
-
-            <div className='physical_cards_container' >
-                {privateApartments.map(item => (
-                  <div key={item.id} className="physical_card">
-                    <img src={item.images[0]} alt="apartment_image" className="apartment_image" />
-                    bina {item.privateApartmentName}
-                  </div>
-                ))}
-            </div>
-
-
-             {/* Pagination for user to select some page */}
-      <div className='pagination'>
-        <Stack spacing={2}>
-          <Pagination
-              count={totalPageCount}
-              shape="rounded"
-              page={currentPage}
-              onChange={(event, value) => setCorrentPage(Number(value))}
-              onClick={pagiHandler}
-              sx={{
-                '& .MuiPaginationItem-root': {
-                  color: 'white', // Text color for unselected items
-                  '&:hover': {
-                    backgroundColor: '#f0f0f0', // Change background color on hover for unselected items
-                    color: 'black', // Change text color on hover for unselected items
-                  },
-                },
-                '& .Mui-selected': {
-                  backgroundColor: 'white', // Background color for selected item
-                  color: 'black', // Text color for selected item
-                  '&:hover': {
-                    backgroundColor: 'white', // Background color on hover for selected item
-                    color: 'black', // Text color on hover for selected item
-                  },
-                },
-              }}
-          />
-        </Stack>
-      </div>
-    </div>
-  );
+  </div>
+)
 }
 
 
 
-// const styles = {
-//   imageStyles: {
-//     width: '278px',
-//     height: '229px',
-//     overflow: 'hidden',
-//     borderRadius: '20px',
-//   },
-//   companyTitle: {
-//     // position: 'absolute',
-//     // top: '262px',
-//     // paddingLeft: '20px'
-//   },
-//   complexInfo: {
-//     color: 'white',
-//   },
-//   complexFinished: {
-//     color: 'white',
-//   },
-// };
+const styles = {
+imageStyles: {
+  width: '278px',
+  height: '229px',
+  overflow: 'hidden',
+  borderRadius: '20px',
+},
+companyTitle: {
+  // position: 'absolute',
+  // top: '262px',
+  // paddingLeft: '20px'
+},
+complexInfo: {
+  color: 'white',
+},
+complexFinished: {
+  color: 'white',
+},
+};
 
 const spring = {
-  type: "spring",
-  stiffness: 100,
-  damping: 30,
+type: "spring",
+stiffness: 100,
+damping: 30,
 };
