@@ -20,7 +20,8 @@ import axios from 'axios';
 import Call_Modal from './Modals_for_stokhome_plus/Call_Modal';
 
 
-const Base_URL = "http://127.0.0.1:8000/complex/";
+// const Base_URL = "http://127.0.0.1:8000/complex/";
+const Base_URL = "https://api.storkhome.ge/complex/";
 
 
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--

@@ -41,7 +41,8 @@ export default function Developers({ favorites, selectedLanguage }) {
 
   // --------------------------------------function for fetching company data-------------------------------------------
 
-  const baseURL_Comany = "http://127.0.0.1:8000/company/"
+  // const baseURL_Comany = "http://127.0.0.1:8000/company/"
+  const baseURL_Comany = "https://api.storkhome.ge/company/"
 
   useEffect(() => {
     const fetchCompanies = async () => {
