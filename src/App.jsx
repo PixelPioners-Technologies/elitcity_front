@@ -382,7 +382,7 @@ function App() {
         <Route path='sales' element={<Sales />} />
         <Route path='physical' element={<Physical favorites={favorites} selectedLanguage={selectedLanguage} />} />
         <Route path='articles' element={<Articles />} />
-        <Route path='storkhome' element={<Storkhome />} />
+        <Route path='storkhome' element={<Storkhome selectedLanguage={selectedLanguage}   />} />
 
 
         <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
