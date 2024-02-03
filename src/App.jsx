@@ -11,7 +11,6 @@ import Developers from './pages/Developers';
 import Map from './pages/Map';
 import Sales from './pages/Sales';
 import FavoriteComplex from './pages/FavoriteComplex';
-import ApartmentList from './pages/ApartmentList';
 import Nothing from './pages/Nothing';
 import Physical from './pages/Physical';
 import Articles from './pages/Articles';
@@ -406,7 +405,6 @@ function App() {
 
 
           />} />
-          <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />
         </Route>
         <Route path='lots' element={<Lots favorites={favorites} selectedLanguage={selectedLanguage} />} />
         <Route path='developers' element={<Developers favorites={favorites} selectedLanguage={selectedLanguage} />} />
