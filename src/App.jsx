@@ -377,7 +377,7 @@ function App() {
           <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />
         </Route>
         <Route path='lots' element={<Lots favorites={favorites} selectedLanguage={selectedLanguage} />} />
-        <Route path='developers' element={<Developers />} />
+        <Route path='developers' element={<Developers  favorites={favorites} selectedLanguage={selectedLanguage} />} />
         <Route path='map' element={<Map selectedLanguage={selectedLanguage} />} />
         <Route path='sales' element={<Sales />} />
         <Route path='physical' element={<Physical favorites={favorites} selectedLanguage={selectedLanguage} />} />

@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Strike&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;500&display=swap');
+
+
+
+
+
+
+
+
+
+
+
+.developers_main_container{
+ 
+  padding: 60px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+.header_container{
+  color: aliceblue;
+  width: 442px;
+  height: 36px;
+  top: 88px;
+  left: 71px;
+  font-family: 'Protest Strike', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.11em;
+  text-align: left;
+  
+}
+
+
+.companyes_header{
+  color: aliceblue;
+  width: 442px;
+  height: 36px;
+  top: 88px;
+  left: 71px;
+  font-family: 'Protest Strike', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.11em;
+  text-align: left;
+}
+/* ---------------------------developer cards cstyles ------------------------------------------- */
+.developers{
+  height: 190px;
+  padding: 20px;
+  display: flex;
+  color: aliceblue;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  border-style: solid;
+  border-width: 2px;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+}
+
+
+.developers_child_container{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.company_logo{
+  width: 110px;
+  border-radius: 50%;
+}
+
+
+.settings_container{
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.company_background_image{
+  width: auto;
+  height: 170px;
+  margin-right: 30px;
+}
+
+
+/* ----------------------------------------------------------------------------------------------------- */
