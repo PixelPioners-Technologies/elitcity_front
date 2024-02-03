@@ -219,7 +219,7 @@ function App() {
   // console.log(complexes)
   //-----------------------------------fetch ionly locations --------------------------------------
 
-  const base_URL_for_location = 'http://api.storkhome.ge/map/'
+  const base_URL_for_location = 'https://api.storkhome.ge/map/'
   // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
 
 
