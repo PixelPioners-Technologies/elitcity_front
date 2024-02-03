@@ -155,32 +155,32 @@ const HomePage = ({ onSearch, favoriteHandler, favorites }) => {
   };
 
   const homeMapping = homes && homes.length > 0 ? (
-  homes.map((complex, index) => (
-    <div className='card' key={index}>
-      <div className='heartbuttonAndImageBox'>
-        <div className='heartButtonBox'>
-          <button
-            onClick={() => openModal(complex)}
-            key={complex.id}
-            className='heartButtons'
-          >
-            {favorites.some((fav) => fav.id === complex.id) ? (
-              <div>ფართი</div>
-            ) : (
-              <div>ჩამოსქროლე</div>
-            )}
-          </button>
+    homes.map((complex, index) => (
+      <div className='card' key={index}>
+        <div className='heartbuttonAndImageBox'>
+          <div className='heartButtonBox'>
+            <button
+              onClick={() => openModal(complex)}
+              key={complex.id}
+              className='heartButtons'
+            >
+              {favorites.some((fav) => fav.id === complex.id) ? (
+                <div>ფართი</div>
+              ) : (
+                <div>ჩამოსქროლე</div>
+              )}
+            </button>
+          </div>
+        </div>
+
+        <div className='spaceField' onClick={() => openModal(complex)}>
+          Space: {complex.space}
         </div>
       </div>
-
-      <div className='spaceField' onClick={() => openModal(complex)}>
-        Space: {complex.space}
-      </div>
-    </div>
-  ))
-) : (
-  <p>No homes found</p>
-);
+    ))
+  ) : (
+    <p>No homes found</p>
+  );
 
   return (
     <>

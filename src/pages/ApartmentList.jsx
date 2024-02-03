@@ -65,55 +65,55 @@ export default function ApartmentList({ favoriteHandler, favorites }) {
       </div>
       {/* ... */}
 
-      
+
       <div className='allApartments'>
         {error ? ( // Display error message if an error occurred
           <p>{error}</p>
-        ) : 
-        
-        isLoading ? (
-          Array.from({ length: 10 }, (_, index) => (
-            <Skeleton
-              key={index}
-              variant='rectangle'
-              animation='wave'
-              width={styles.imageStyles.width}
-              height={styles.imageStyles.height}
-            />
-          ))
-        ) : (
-          apartments && apartments.length > 0 ? (
-          apartments.map((apartment, index) => (
-            <div className='apartmentCard' key={index}>
-              {/* ... */}
-              {/* Your apartment information */}
-            <div className='heartbuttonAndImageBox'>
-              <div className='heartButtonBox'>
-                <button onClick={() => favoriteHandler(apartment)} key={apartment.id} className='heartButtons' >
-                  {favorites.some(fav => fav.id === apartment.id) ? (
-                    <img src={heartIcon} alt='Logo of heart' />
-                    ) : (
-                      <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
-                      )}
-                </button>
-              </div>
-              {/* <img src={apartment.images[0]} alt={apartment.name} style={styles.imageStyles} /> */}
-              </div>
+        ) :
 
-              <h1>{apartment.id}</h1>
-              <p style={styles.companyTitle} >Number of rooms: {apartment.number_of_rooms}</p>
-              <p style={styles.companyTitle} >Area: {apartment.area}</p>
-              <p style={styles.companyTitle}>Price: {apartment.price}</p>
-              <p style={styles.companyTitle}>Floor number: {apartment.floor_number}</p>
-              <p style={styles.companyTitle}>Is available: {apartment.is_available ? 'Yes' : 'No'}</p>
-              <p >Complex: {apartment.complex}</p>
-              {/* ... */}
-            </div>
-          ))
+          isLoading ? (
+            Array.from({ length: 10 }, (_, index) => (
+              <Skeleton
+                key={index}
+                variant='rectangle'
+                animation='wave'
+                width={styles.imageStyles.width}
+                height={styles.imageStyles.height}
+              />
+            ))
           ) : (
-            <p>No apartments found.</p>
-          )
-        )}
+            apartments && apartments.length > 0 ? (
+              apartments.map((apartment, index) => (
+                <div className='apartmentCard' key={index}>
+                  {/* ... */}
+                  {/* Your apartment information */}
+                  <div className='heartbuttonAndImageBox'>
+                    <div className='heartButtonBox'>
+                      <button onClick={() => favoriteHandler(apartment)} key={apartment.id} className='heartButtons' >
+                        {favorites.some(fav => fav.id === apartment.id) ? (
+                          <img src={heartIcon} alt='Logo of heart' />
+                        ) : (
+                          <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+                        )}
+                      </button>
+                    </div>
+                    {/* <img src={apartment.images[0]} alt={apartment.name} style={styles.imageStyles} /> */}
+                  </div>
+
+                  <h1>{apartment.id}</h1>
+                  <p style={styles.companyTitle} >Number of rooms: {apartment.number_of_rooms}</p>
+                  <p style={styles.companyTitle} >Area: {apartment.area}</p>
+                  <p style={styles.companyTitle}>Price: {apartment.price}</p>
+                  <p style={styles.companyTitle}>Floor number: {apartment.floor_number}</p>
+                  <p style={styles.companyTitle}>Is available: {apartment.is_available ? 'Yes' : 'No'}</p>
+                  <p >Complex: {apartment.complex}</p>
+                  {/* ... */}
+                </div>
+              ))
+            ) : (
+              <p>No apartments found.</p>
+            )
+          )}
       </div>
       {/* ... */}
       <div className='pagination'>
@@ -148,21 +148,21 @@ export default function ApartmentList({ favoriteHandler, favorites }) {
 
 
 const styles = {
-imageStyles: {
-width: '278px',
-height: '229px',
-overflow: 'hidden',
-borderRadius: '20px',
-},
-companyTitle: {
-// position: 'absolute',
-// top: '262px',
-// paddingLeft: '20px'
-},
-complexInfo: {
-color: '#000000',
-},
-complexFinished: {
-color: '#515050',
-},
+  imageStyles: {
+    width: '278px',
+    height: '229px',
+    overflow: 'hidden',
+    borderRadius: '20px',
+  },
+  companyTitle: {
+    // position: 'absolute',
+    // top: '262px',
+    // paddingLeft: '20px'
+  },
+  complexInfo: {
+    color: '#000000',
+  },
+  complexFinished: {
+    color: '#515050',
+  },
 };

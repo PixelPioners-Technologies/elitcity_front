@@ -12,7 +12,7 @@ export default function Articles() {
 
   return (
     <div className='ArticlesPageBox'>
-   
+
       {DataOfArticles.map((article, index) => (
         <motion.div
           key={article.id}

@@ -77,19 +77,19 @@ const normalizeComplexData = (data, lang) => {
 
 const normalizeLocationData = (data, lang) => {
   return data.map(cityItem => {
-      const cityNameField = `city_${lang}`;
-      const pharentDistrictField = `pharentDistrict_${lang}`;
-      const districtField = `district_${lang}`;
+    const cityNameField = `city_${lang}`;
+    const pharentDistrictField = `pharentDistrict_${lang}`;
+    const districtField = `district_${lang}`;
 
-      const cityName = cityItem[cityNameField];
-      const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
-          const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
-          const districts = pharentDistrictItem[districtField].map(districtItem => districtItem[districtField]);
+    const cityName = cityItem[cityNameField];
+    const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
+      const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
+      const districts = pharentDistrictItem[districtField].map(districtItem => districtItem[districtField]);
 
-          return { pharentDistrict: pharentDistrictName, districts };
-      });
+      return { pharentDistrict: pharentDistrictName, districts };
+    });
 
-      return { city: cityName, pharentDistricts };
+    return { city: cityName, pharentDistricts };
   });
 };
 
@@ -102,11 +102,11 @@ function App() {
 
   // ------------------------------steitebi chasawodeblad -----------------------------
   const [complexes, setComplexes] = useState([]);
-  const [locations , setLocations ] = useState([]);
-  const [selectedCity , setSelectedCity] = useState('');
+  const [locations, setLocations] = useState([]);
+  const [selectedCity, setSelectedCity] = useState('');
 
-  const [selectedPharentDistricts ,  setSelectedPharentDistricts] = useState([]);
-  const [selectedDistricts , setSelectedDistricts] = useState([]);
+  const [selectedPharentDistricts, setSelectedPharentDistricts] = useState([]);
+  const [selectedDistricts, setSelectedDistricts] = useState([]);
 
   const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('');
   const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('');
@@ -117,9 +117,9 @@ function App() {
   const [min_space, setMin_space] = useState('');
   const [max_space, setMax_space] = useState('');
 
-  const [selectedStatuses , setSelectedStatuses] = useState([]);
+  const [selectedStatuses, setSelectedStatuses] = useState([]);
 
-  const [searchButton , setSearchButton] = useState(false);
+  const [searchButton, setSearchButton] = useState(false);
   // -----------------------------------------------------------------------------------------------------
 
 
@@ -171,7 +171,7 @@ function App() {
   useEffect(() => {
     const fetchComplexes = async () => {
       const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-      const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
+      const pharentdistrictParams = `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
       const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
       // Create a URLSearchParams object
       let queryParams = new URLSearchParams({
@@ -182,19 +182,19 @@ function App() {
         max_price_per_sq_meter: maxPricePerSquareMeter,
         min_full_price: minFullPrice,
         max_full_price: maxFullPrice,
-        min_space : min_space, 
-        max_space : max_space,
+        min_space: min_space,
+        max_space: max_space,
       });
-      
+
       // Append each status as a separate parameter
       selectedStatuses.forEach(status => {
         queryParams.append('status', status);
       });
-  
+
       // Construct the full URL with query parameters
       const queryString = queryParams.toString();
       const requestUrl = `${Base_URL}${selectedLanguage}/?${queryString}`;
-      
+
       //////////////////////    T  E  S  T  ///////////////////////////
       // local_url = 'http://127.0.0.1:8000'
       // const requestUrl = `${local_url}${selectedLanguage}/?${queryString}`;
@@ -208,49 +208,49 @@ function App() {
         console.error('Error fetching complexes:', error);
       }
     };
-  
+
     fetchComplexes();
   }, [searchButton]);
 
-// console.log(complexes)
-    //-----------------------------------fetch ionly locations --------------------------------------
+  // console.log(complexes)
+  //-----------------------------------fetch ionly locations --------------------------------------
 
-const base_URL_for_location = 'http://127.0.0.1:8000/map/' 
+  const base_URL_for_location = 'http://127.0.0.1:8000/map/'
 
-useEffect(() => {
-  const fetchLocations = async () => {
-      
-    try {
-      const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
-      const normalisedLocationData = normalizeLocationData(response.data , selectedLanguage)
-      setLocations(normalisedLocationData)
-    } catch (error) {
-      console.error("error fetching on locations =>> ", error)
+  useEffect(() => {
+    const fetchLocations = async () => {
+
+      try {
+        const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
+        const normalisedLocationData = normalizeLocationData(response.data, selectedLanguage)
+        setLocations(normalisedLocationData)
+      } catch (error) {
+        console.error("error fetching on locations =>> ", error)
+      }
     }
-  }
 
-  fetchLocations();
-} , [searchButton]  )
-
+    fetchLocations();
+  }, [searchButton])
 
 
-// ----------------------------------------------------------------------------------------------
 
-//-----------------------------------fetch private apartments --------------------------------------
+  // ----------------------------------------------------------------------------------------------
 
+  //-----------------------------------fetch private apartments --------------------------------------
 
 
 
 
 
-// ---------------------------language change function --------------------------
+
+  // ---------------------------language change function --------------------------
   const handleLanguageChange = (languageCode) => {
     setSelectedLanguage(languageCode);
   };
-// -----------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------
 
 
-// ---------------------------------functionality for making favorite complexes --------------------
+  // ---------------------------------functionality for making favorite complexes --------------------
   // favorites infos State (and favorite functionality with local storage)
   // START (favorite functionality)
 
@@ -261,7 +261,7 @@ useEffect(() => {
       setFavorites(savedFavorites);
     }
   }, []);
-  
+
   // Load favorites from localStorage on initial render
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
@@ -275,57 +275,57 @@ useEffect(() => {
       const updatedComplexes = favorites.filter((c) => c.id !== complex.id);
       setFavorites(updatedComplexes);
       localStorage.setItem('favorites', JSON.stringify(updatedComplexes)); // Update localStorage
-      
+
     } else {
       const updatedFavorites = [...favorites, complex];
       setFavorites(updatedFavorites);
       localStorage.setItem('favorites', JSON.stringify(updatedFavorites)); // Update localStorage
     }
   };
-// -----------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------
 
 
 
-// -------------------------------------function for fetching usd corrency --------------------------
+  // -------------------------------------function for fetching usd corrency --------------------------
 
-useEffect(() => {
-  async function getExchangeRate() {
-    const today = new Date().toISOString().split('T')[0]; // Format as "YYYY-MM-DD"
-    const url = `https://nbg.gov.ge/gw/api/ct/monetarypolicy/currencies/ka/json?currencies=USD&date=${today}`;
+  useEffect(() => {
+    async function getExchangeRate() {
+      const today = new Date().toISOString().split('T')[0]; // Format as "YYYY-MM-DD"
+      const url = `https://nbg.gov.ge/gw/api/ct/monetarypolicy/currencies/ka/json?currencies=USD&date=${today}`;
 
-    try {
-      const response = await axios.get(url);
-      const rates = response.data[0].currencies;
-      const rateInfo = rates.find(rate => rate.code === 'USD');
-      if (rateInfo) {
-        setGetCorrencyRate(rateInfo.rate);
-        console.log('Exchange rate from USD to GEL:', rateInfo.rate);
+      try {
+        const response = await axios.get(url);
+        const rates = response.data[0].currencies;
+        const rateInfo = rates.find(rate => rate.code === 'USD');
+        if (rateInfo) {
+          setGetCorrencyRate(rateInfo.rate);
+          console.log('Exchange rate from USD to GEL:', rateInfo.rate);
+        }
+      } catch (error) {
+        console.error('Error fetching exchange rate:', error);
       }
-    } catch (error) {
-      console.error('Error fetching exchange rate:', error);
     }
-  }
 
-  getExchangeRate();
-}, []);
+    getExchangeRate();
+  }, []);
 
   // ------------------------------------------------------------------------------------------
 
   return (
     <div className='App'>
-       {/* Conditional rendering for the Header */}
-       {(forVisible && window.location.pathname !== "/") ? (
+      {/* Conditional rendering for the Header */}
+      {(forVisible && window.location.pathname !== "/") ? (
         <div>
           <Header favorites={favorites} handleLanguageChange={handleLanguageChange} />
         </div>
       ) : null}
-      
+
       <Routes>
         <Route path="/" element={<Nothing />} />
 
-        <Route path="homePage" 
-            element={<HomePage favoriteHandler={favoriteHandler}
-            favorites={favorites} 
+        <Route path="homePage"
+          element={<HomePage favoriteHandler={favoriteHandler}
+            favorites={favorites}
             selectedLanguage={selectedLanguage}
             complexChangeHandler={complexChangeHandler}
             locationsChangeHandler={locationsChangeHandler}
@@ -353,12 +353,12 @@ useEffect(() => {
             selectedPharentDistricts={selectedPharentDistricts}
             selectedDistricts={selectedDistricts}
 
-    />} />
+          />} />
         <Route path='complex'>
-          <Route index={true} element={<Complex 
+          <Route index={true} element={<Complex
             favoriteHandler={favoriteHandler}
-            favorites={favorites} 
-            selectedLanguage={selectedLanguage} 
+            favorites={favorites}
+            selectedLanguage={selectedLanguage}
             selectedStatuses={selectedStatuses}
             locations={locations}
             min_space={min_space}
@@ -372,43 +372,25 @@ useEffect(() => {
             selectedDistricts={selectedDistricts}
             searchButton={searchButton}
 
-           
-           />} />
+
+          />} />
           <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />
-          </Route>
-          <Route path='lots' element={<Lots  favorites={favorites}   selectedLanguage={selectedLanguage}   />} />
-          <Route path='developers' element={<Developers />} />
-          <Route path='map'   element={<Map selectedLanguage={selectedLanguage}/>} />
-          <Route path='sales' element={<Sales />} />
-          <Route path='physical' element={<Physical  favorites={favorites}   selectedLanguage={selectedLanguage}  />} />
-          <Route path='articles' element={<Articles />} />
-          <Route path='storkhome' element={<Storkhome />} />
+        </Route>
+        <Route path='lots' element={<Lots favorites={favorites} selectedLanguage={selectedLanguage} />} />
+        <Route path='developers' element={<Developers />} />
+        <Route path='map' element={<Map selectedLanguage={selectedLanguage} />} />
+        <Route path='sales' element={<Sales />} />
+        <Route path='physical' element={<Physical favorites={favorites} selectedLanguage={selectedLanguage} />} />
+        <Route path='articles' element={<Articles />} />
+        <Route path='storkhome' element={<Storkhome />} />
 
 
         <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
       </Routes>
     </div>
-  ) 
+  )
 }
 
 export default App
 
 
-
-// export default function Complex({
-//   favoriteHandler, 
-//   favorites,
-//   selectedLanguage,
-//   selectedStatuses,
-//   locations,
-//   ,
-//   ,
-//   ,
-//   ,
-//   ,
-//   ,
-//   ,
-//   ,
-//   ,
-
-// }) {
