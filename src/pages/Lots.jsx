@@ -412,7 +412,7 @@ export default function Physical({ selectedLanguage, favorites }) {
       legendComplited: "Complited",
       stringFiltrationButtonLanguage: "Search by word",
       complexes: "Complexes",
-      private_apartments: "Land"
+      private_apartments: "Private Appartments"
 
     }
 
@@ -428,7 +428,7 @@ export default function Physical({ selectedLanguage, favorites }) {
         languageInfo.legendComplited = "Complited"
         languageInfo.stringFiltrationButtonLanguage = "Search by word"
         languageInfo.complexes = "Complexes"
-        languageInfo.private_apartments = "Land"
+        languageInfo.private_apartments = "Private Appartments"
         break;
 
       case "ka":
