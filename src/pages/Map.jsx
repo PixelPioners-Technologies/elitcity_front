@@ -254,7 +254,7 @@ export default function Map({ selectedLanguage }) {
 
 
   //----------------------------------------------------------------------------------------------------
-  //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=& 
+  // complex/en/?address_en__city_en__city_en=& 
   //  address_en__city_en__city_en__icontains=& 
   //    address_en__pharentDistrict_en__pharentDistrict_en=&   
   //    address_en__pharentDistrict_en__pharentDistrict_en__icontains=& 
