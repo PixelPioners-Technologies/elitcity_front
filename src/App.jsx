@@ -17,7 +17,7 @@ import Physical from './pages/Physical';
 import Articles from './pages/Articles';
 import Storkhome from './pages/Storkhome';
 import axios from 'axios';
-
+import Call_Modal from './Modals_for_stokhome_plus/Call_Modal';
 
 
 const Base_URL = "http://127.0.0.1:8000/complex/";
@@ -120,6 +120,9 @@ function App() {
   const [selectedStatuses, setSelectedStatuses] = useState([]);
 
   const [searchButton, setSearchButton] = useState(false);
+
+  const [isCallModalOpen, setIsCallModalOpen] = useState(false);
+
   // -----------------------------------------------------------------------------------------------------
 
 
@@ -309,6 +312,36 @@ function App() {
     getExchangeRate();
   }, []);
 
+  // ------------------------function for opening call modal----------------------------------
+  useEffect(() => {
+    // First timer to open the modal after 10 seconds
+    const timer1 = setTimeout(() => {
+      setIsCallModalOpen(true);
+    }, 1000); // 10 seconds
+
+    // Second timer to close and then reopen the modal after 20 seconds
+    const timer2 = setTimeout(() => {
+      setIsCallModalOpen(false); // Close the modal first to create a noticeable effect
+      setTimeout(() => setIsCallModalOpen(true), 200); // Reopen it shortly after closing for user notice
+    }, 2000); // 20 seconds
+
+    // Cleanup function to clear both timers if the component unmounts
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, []); // Empty dependency array means this effect runs once after initial render
+
+
+
+  const handleCloseCallModal = () => {
+    setIsCallModalOpen(false)
+  }
+
+  const handleCallButtonClick = () => {
+    setIsCallModalOpen(true)
+  }
+
   // ------------------------------------------------------------------------------------------
 
   return (
@@ -377,16 +410,25 @@ function App() {
           <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />
         </Route>
         <Route path='lots' element={<Lots favorites={favorites} selectedLanguage={selectedLanguage} />} />
-        <Route path='developers' element={<Developers  favorites={favorites} selectedLanguage={selectedLanguage} />} />
+        <Route path='developers' element={<Developers favorites={favorites} selectedLanguage={selectedLanguage} />} />
         <Route path='map' element={<Map selectedLanguage={selectedLanguage} />} />
         <Route path='sales' element={<Sales />} />
         <Route path='physical' element={<Physical favorites={favorites} selectedLanguage={selectedLanguage} />} />
         <Route path='articles' element={<Articles />} />
-        <Route path='storkhome' element={<Storkhome selectedLanguage={selectedLanguage}   />} />
+        <Route path='storkhome' element={<Storkhome
+          selectedLanguage={selectedLanguage}
+          handleCloseCallModal={handleCloseCallModal}
+          handleCallButtonClick={handleCallButtonClick}
+          isCallModalOpen={isCallModalOpen}
+        />} />
 
 
         <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
       </Routes>
+      <Call_Modal isOpen={isCallModalOpen} close={handleCloseCallModal} onClick={e => e.stopPropagation()} >
+        <p className='call_modal_content' >this is call modal</p>
+        <div className="call_modal"></div>
+      </Call_Modal>
     </div>
   )
 }

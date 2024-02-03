@@ -113,6 +113,7 @@
   border-style: solid;
   border-width: 2px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  cursor: pointer;
 }
 
 
@@ -128,6 +129,21 @@
 
   
 }
+
+
+/* -------------------------------------------------------------------------------------------------- */
+/* -----------------------------------call modal styles---------------------------------------------- */
+
+.call_modal_content{
+  color: aliceblue;
+}
+
+
+.call_modal{
+  height: 400px;
+}
+
+
 
 
 
