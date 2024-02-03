@@ -32,13 +32,13 @@
   font-weight: 400;
   letter-spacing: 0.11em;
   text-align: left;
+  margin-bottom: 60px;
   
 }
 
 
 .companyes_header{
   color: aliceblue;
-  width: 442px;
   height: 36px;
   top: 88px;
   left: 71px;
@@ -48,6 +48,11 @@
   font-weight: 400;
   letter-spacing: 0.11em;
   text-align: left;
+  margin-bottom: 70px;
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-between;
+  
 }
 /* ---------------------------developer cards cstyles ------------------------------------------- */
 .developers{
@@ -88,3 +93,36 @@
 
 
 /* ----------------------------------------------------------------------------------------------------- */
+/*----------------------------- string input styles ------------------------------------- */
+.lacation_button{
+  display: flex;
+  width: 210px;
+  height: 33px;
+  padding: 5px 12.928px 5px 7px;
+  align-items: center;
+  gap: 43px;
+  flex-shrink: 0;
+  border: 1.5px solid #ADA9A9;
+  mix-blend-mode: hard-light;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #FFF;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0px; /* 0% */
+  letter-spacing: 1.76px;
+  position: relative;
+}
+
+.dropdown{
+  position: absolute;
+  margin-left: 80%;
+}
+
+.lacation_button_for_word {
+  flex-shrink: 0;
+}
+
+/* ----------------------------------------------------------------------------------------------- */
