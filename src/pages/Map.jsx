@@ -334,7 +334,10 @@ export default function Map({ selectedLanguage }) {
 
   // ----------------------------------------------------------------------------------------------
 
-  const BaseURL_Private = 'http://127.0.0.1:8000/privateapartments/'
+  // const BaseURL_Private = 'http://127.0.0.1:8000/privateapartments/'
+  const BaseURL_Private = 'http://api.storkhome.ge/privateapartments/'
+
+
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
@@ -381,7 +384,10 @@ export default function Map({ selectedLanguage }) {
   // ----------------------------------------------------------------------------------------------
   // ------------------------------------axios for fetching ground----------------------------------------------------------
 
-  const Ground_baseURL = 'http://127.0.0.1:8000/ground/'
+  // const Ground_baseURL = 'http://127.0.0.1:8000/ground/'
+  const Ground_baseURL = 'http://api.storkhome.ge/ground/'
+
+
 
   useEffect(() => {
     const fetchGrounds = async () => {
