@@ -110,6 +110,28 @@ export default function Storkhome({
           <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
           <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
           <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
         </div>
 
         <div className='kit_settings_cont' >
