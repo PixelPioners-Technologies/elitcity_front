@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Storkhome.css'
 import CompanyLogo from '../assets/LogoOfStorkhome.svg';
-import Call_Modal from '../Modals_for_stokhome_plus/Call_Modal'
+// import Call_Modal from '../Modals_for_stokhome_plus/Call_Modal'
 import headphone_icon from '../icons/headphones.png'
+import { motion } from 'framer-motion';
 
 
 
 
-export default function Storkhome({ selectedLanguage }) {
+export default function Storkhome({
+  selectedLanguage,
+  handleCallButtonClick,
+
+}) {
+
+
+
+
 
   const LanguageChangeForStorkhomePage = (lang) => {
     var languageInfo = {
       header: "For more comfort",
-
     }
 
     switch (lang) {
@@ -33,8 +41,6 @@ export default function Storkhome({ selectedLanguage }) {
     }
     return languageInfo
   }
-
-
 
 
 
@@ -119,13 +125,20 @@ export default function Storkhome({ selectedLanguage }) {
         </div>
 
       </div>
-
-      <div className='big_call_cont' >
-        <div className="make_call">
-          <img className='hedaphone_icon' src={headphone_icon} rel='headphone icon' />
-          <p className='call' > zaris motxovna </p>
+      <motion.div
+        className="textButtonContainer"
+        whileHover={{ scale: 1.05 }}
+        // whileTap={{ scale: 0.9 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+      >
+        <div className='big_call_cont' onClick={handleCallButtonClick} >
+          <div className="make_call">
+            <img className='hedaphone_icon' src={headphone_icon} rel='headphone icon' />
+            <p className='call' > zaris motxovna </p>
+          </div>
         </div>
-      </div>
+      </motion.div>
+
 
     </div>
   )
