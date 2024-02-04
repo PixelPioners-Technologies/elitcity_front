@@ -12,16 +12,16 @@ const axiosInstance = axios.create({
 });
 
 const getComplexUniData = async (searchParams) => {
-    try {
-      const response = await axiosInstance.get('/complex/uni/', { params: searchParams });
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      throw error;
-    }
-  };
-  
-  export { axiosInstance, getComplexUniData };
+  try {
+    const response = await axiosInstance.get('/complex/uni/', { params: searchParams });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+
+export { axiosInstance, getComplexUniData };
 
 const HomePage = ({ onSearch, favoriteHandler, favorites }) => {
   const [homes, setHomes] = useState([]);
@@ -98,9 +98,9 @@ const HomePage = ({ onSearch, favoriteHandler, favorites }) => {
         {/* Add input fields for each search parameter */}
         {/* ... (rest of the input fields) */}
         <label>
-        Internal Complex Name:
-        <input type="text" name="internal_complex_name" value={searchParams.internal_complex_name} onChange={handleChange} />
-      </label>
+          Internal Complex Name:
+          <input type="text" name="internal_complex_name" value={searchParams.internal_complex_name} onChange={handleChange} />
+        </label>
         <button type="submit">Search</button>
       </form>
 
@@ -113,18 +113,18 @@ const HomePage = ({ onSearch, favoriteHandler, favorites }) => {
             <h2>{selectedComplex.internal_complex_name}</h2>
             {/* Add more details as needed */}
             <label>
-                Internal Complex Name:
-                <input type="text" name="internal_complex_name" value={searchParams.internal_complex_name} onChange={handleChange} />
-            </label>
-            
-            <label>
-               Price per Sq Meter:
-               <input type="text" name="price_per_sq_meter" value={searchParams.price_per_sq_meter} onChange={handleChange} />
+              Internal Complex Name:
+              <input type="text" name="internal_complex_name" value={searchParams.internal_complex_name} onChange={handleChange} />
             </label>
 
             <label>
-               Finish Year:
-               <input type="text" name="finish_year" value={searchParams.finish_year} onChange={handleChange} />
+              Price per Sq Meter:
+              <input type="text" name="price_per_sq_meter" value={searchParams.price_per_sq_meter} onChange={handleChange} />
+            </label>
+
+            <label>
+              Finish Year:
+              <input type="text" name="finish_year" value={searchParams.finish_year} onChange={handleChange} />
             </label>
           </>
         )}

@@ -1,17 +1,234 @@
-.main_private_container {
-  color: aliceblue;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+
+
+
+.ComplexBodyBox_physical {
+
+  margin-top: 50px;
+  padding: 100px 150px;
 }
 
-.physical_cards_container{
+.motionBox_physical {
+  border: 1px solid white;
+}
+
+.forPaddingOfInfoFieldOfComplexsPlansMaps_physical {
+  padding: 0 30px;
+} 
+
+.infoFieldOfComplexsPlansMaps_physical {
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 20px;
+
+}
+
+.complexInfoAndCountShowBox_physical {
+  display: flex;
+  align-items: center;
+}
+
+.projectsPlansMapsSortingAndDollarBox_physical {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.mapAndLogoImg_physical {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.textButtonContainer_physical:hover .textButton {
+  /* color: aqua; */
+  cursor: pointer;
+}
+
+.textButton_physical {
+  display: inline-block;
+  /* padding: 10px 20px; */
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid #000;
+  background-color: #000;
+  color: #fff;
+
+}
+
+
+
+.mapSignLogo_physical {
+  width: 30px;
+}
+
+.sortAndArrowDownImgBox_physical {
+  display: flex;
+  gap: 10px;
+}
+
+
+/* /////////////////////////////// */
+.menu-transition {
+  transition: transform 0.3s ease-in-out; /* Adjust duration and easing as needed */
+  transform-origin: top center; /* Set the transform origin */
+  transform: scaleY(0); /* Initially set the scale to 0 to hide the menu */
+}
+.menu-open {
+  transform: scaleY(1); /* Set the scale to 1 to show the menu */
+}
+/* /////////////////////////////// */
+
+
+.currencyBox_physical {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+
+
+}
+
+/* classes of toggle button on currency --- */
+.switch_physical {
+  width: 90px;
+  height: 40px;
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  background-color: black;
+
+  display: flex;
+  justify-content: flex-start;  
+  align-items: center;
+  border: 1px solid white;
+
+  /* border: 1px solid red; */
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+  /* border-radius: 50px; */
+}
+
+
+
+.switch_physical[data-ison="true"] {
+  justify-content: flex-end;
+}
+
+.handle_physical {
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border-radius: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 52px;
-  margin-top: 40px;
+}
+
+.currency-sign_physical {
+  width: 27px; /* Adjust width as needed */
+  height: auto;
+  margin-right: 0px; /* Add spacing between the images */
+}
+
+.currency-sign_physical.active {
+
+  display: none; /* Hide inactive currency sign */
+}
+
+/* ----------------------------------filter container  styles ---------------------------------------------- */
+.filter_cont_for_physical{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 50px;
 }
 
 
-.physical_card {
+
+
+
+/* ------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------------------pagination container styles ---------------------------------------------- */
+
+.pagination{
+  margin-bottom: 120px;
+  display: flex;
+  justify-content: center;
+}
+
+
+/* ------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------string filtration input styles ---------------------------------------------- */
+.string_filter_input {
+  background-color: transparent; /* Make background transparent */
+  border: none; /* Remove border */
+  outline: none; /* Remove outline */
+  color: #fffcfc; /* Set text color to black, adjust as needed */
+  /* Add other styling here */
+}
+
+.string_filter_input::placeholder {
+  color: rgb(201, 201, 201); /* Set placeholder text color to white */
+  opacity: 1; /* Optional: ensures full opacity of placeholder */
+}
+
+.dropdown{
+  width: 20px;
+}
+
+/* ---------------------------------------room number chackboxes----------------------------------------------------- */
+.room_choice_container{
+  margin-top: 10px;
+  
+}
+
+.checkbox-label {
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: #f0f0f0;
+  cursor: pointer;
+}
+
+.checkbox-label:hover {
+  background-color: #fffbfb;
+  color: #000;
+}
+
+.checkbox-label.selected {
+  background-color: #fcfeff;
+  color: rgb(0, 0, 0);
+}
+
+input[type="checkbox"] {
+  display: none; /* Hide the checkbox */
+}
+
+/* ------------------------------------------------------------------------------------------------------------- */
+
+
+
+.allCards_physical {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* padding: 0 30px; */
+  gap: 29px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  
+ 
+}
+
+
+.card_physical {
   width: 315px;
   height: 400px;
   /* background-color: #C1D6CC; */
@@ -29,169 +246,94 @@
   }
 }
 
-
-
-
-.apartment_image{
-  width: 250px;
-}
-
-.buttons_container{
-  margin-top: 88px;
-}
-
-.pagination{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
-}
-
-
-/* ----------------------------------------modal styles------------------------------------------ */
-/* Modal.css */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  width: 400px;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.heartbuttonAndImageBox_physical {
   position: relative;
-  max-height: 800vh;
-  overflow-y: auto; /* Scroll if content is too tall */
+  
 }
 
-.modal-overlay {
-  display: none; /* Hide by default */
+.heartButtonBox_physical {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
   position: absolute;
-  top: 100%; /* This positions the modal right below the button */
-  left: 0;
-  /* other styling as needed */
+
 }
 
-.modal-overlay.open {
-  display: block; /* Show when the modal is open */
+.heartButtons_physical {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  appearance: none;
+  display: flex;
+  align-items: center;
 }
 
-.modal-content{
-  background-color: black;
-  border-width: 0.5px;
-  border-style: solid; /* This line is necessary */
-  border-color: aliceblue;
+.heartButtons_physical:hover {
+  cursor: pointer;
+  transform: scale(1.2); 
+  transition: transform 0.3s ease; 
+}
+/* ----------------------------------card info styles---------------------------------------------------- */
+.company_title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3px;
+  font-family: 'Roboto', sans-serif;
 }
 
+.city_settings{
+  font-family: 'Roboto', sans-serif;
 
-
-/*  *******
-(START)
-1) This styles is for SpaceModals and PRICEmodals(ანუ სადაც SPACE-ისა და Price მხრივ ირჩევს
- მომხმარებელი ინფორმაციას) მაგის DIV-ის სტილების 
-შესაცვლელად -------  */
-
-.scale-up-tl {
--webkit-animation: scale-up-tl 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-        animation: scale-up-tl 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
-@-webkit-keyframes scale-up-tl {
-0% {
-  -webkit-transform: scale(0.5);
-          transform: scale(0.5);
-  -webkit-transform-origin: 0% 0%;
-          transform-origin: 0% 0%;
-}
-100% {
-  -webkit-transform: scale(1);
-          transform: scale(1);
-  -webkit-transform-origin: 0% 0%;
-          transform-origin: 0% 0%;
-}
-}
-@keyframes scale-up-tl {
-0% {
-  -webkit-transform: scale(0.5);
-          transform: scale(0.5);
-  -webkit-transform-origin: 0% 0%;
-          transform-origin: 0% 0%;
-}
-100% {
-  -webkit-transform: scale(1);
-          transform: scale(1);
-  -webkit-transform-origin: 0% 0%;
-          transform-origin: 0% 0%;
-}
+.price_settings{
+  font-family: 'Roboto', sans-serif;
+
 }
 
-/* --(END)---------------------------------------- */
-
-
-
-
-/*  *******
-(START)
-2) This styles is for LOCATIONModals(ანუ სადაც LOCATION-ის მხრივ ირჩევს მომხმარებელი ინფორმაციას) მაგის DIV-ის სტილების 
-შესაცვლელად -------  */
-.scale-up-top {
--webkit-animation: scale-up-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-        animation: scale-up-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+.status_settings{
+  font-family: 'Roboto', sans-serif;
+  color: #868282;
 }
 
 
-@-webkit-keyframes scale-up-top {
-0% {
-  -webkit-transform: scale(0.5);
-          transform: scale(0.5);
-  -webkit-transform-origin: 50% 0%;
-          transform-origin: 50% 0%;
-}
-100% {
-  -webkit-transform: scale(1);
-          transform: scale(1);
-  -webkit-transform-origin: 50% 0%;
-          transform-origin: 50% 0%;
-}
-}
-@keyframes scale-up-top {
-0% {
-  -webkit-transform: scale(0.5);
-          transform: scale(0.5);
-  -webkit-transform-origin: 50% 0%;
-          transform-origin: 50% 0%;
-}
-100% {
-  -webkit-transform: scale(1);
-          transform: scale(1);
-  -webkit-transform-origin: 50% 0%;
-          transform-origin: 50% 0%;
-}
+.textInfo_physical {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  /* padding-left: 20px; */
+  gap: 10px;
 }
 
-.modal-overlay {
-  display: none; /* Hide by default */
-  position: absolute;
-  top: 100%; /* This positions the modal right below the button */
-  left: 0;
-  /* other styling as needed */
+.private_apartment_rank{
+  color: #f0f0f0;
 }
 
-.modal-overlay.open {
-  display: block; /* Show when the modal is open */
+.status_and_rank{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
 }
 
-.pagination{
-  margin-top: 400px;
-  margin-bottom: 70px;
+
+
+/* ------------------------------------------------------------------------------------------------------- */
+
+.googleMapImageBox_physical {
+ display: flex;
+ justify-content: center;
 }
+
+.googleMapImage_physical {
+  height: 358px;
+  width: 1074px;
+}
+
+
+
+

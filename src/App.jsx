@@ -1,32 +1,59 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import './App.css'
-import Header from './Components/Header/Header'
+import "./App.css";
+import Header from "./Components/Header/Header";
 import { Route, Routes } from "react-router-dom";
-import { useState, useEffect } from 'react';
-import HomePage from './pages/HomePage';
-import Complex from './pages/Complex';
-import Lots from './pages/Lots';
-import Developers from './pages/Developers';
-import Map from './pages/Map';
-import Sales from './pages/Sales';
-import FavoriteComplex from './pages/FavoriteComplex';
-import ApartmentList from './pages/ApartmentList';
-import Nothing from './pages/Nothing';
-import Physical from './pages/Physical';
-import Articles from './pages/Articles';
-import Storkhome from './pages/Storkhome';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import HomePage from "./pages/HomePage";
+import Complex from "./pages/Complex";
+import Lots from "./pages/Lots";
+import Developers from "./pages/Developers";
+import Map from "./pages/Map";
+import Sales from "./pages/Sales";
+import FavoriteComplex from "./pages/FavoriteComplex";
+import Nothing from "./pages/Nothing";
+import Physical from "./pages/Physical";
+import Articles from "./pages/Articles";
+import Storkhome from "./pages/Storkhome";
+import axios from "axios";
+import EachComplex from "./pages/EachComplex";
+import Call_Modal from "./Modals_for_stokhome_plus/Call_Modal";
+
+const BaseURLs = {
+  // storkhome
+  
+  complex: "https://api.storkhome.ge/complex/",
+  company: "https://api.storkhome.ge/company/",
+  apartment: "https://api.storkhome.ge/apartment/",
+  private_apartment: "https://api.storkhome.ge/privateapartments/",
+  ground: "https://api.storkhome.ge/ground/",
+  promotion: "https://api.storkhome.ge/promotions/",
+  blog: "https://api.storkhome.ge/blog/",
+  map: "https://api.storkhome.ge/map/",
+  complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+
+  // local
+
+  // complex: "http://127.0.0.1:8000/complex/",
+  // company: "http://127.0.0.1:8000/company/",
+  // apartment: "http://127.0.0.1:8000/apartment/",
+  // private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  // ground: "http://127.0.0.1:8000/ground/",
+  // promotion: "http://127.0.0.1:8000/promotions/",
+  // blog: "http://127.0.0.1:8000/blog/",
+  // map: "http://127.0.0.1:8000/map/",
+  // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+}
 
 
+export { BaseURLs };
 
-const Base_URL = "http://127.0.0.1:8000/complex/";
 
 
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
 
 const normalizeComplexData = (data, lang) => {
-  return data.map(item => ({
+  return data.map((item) => ({
     id: item.id,
     complexName: item[`complex_name_${lang}`],
     internalComplexName: item.internal_complex_name.internal_complex_name,
@@ -70,131 +97,133 @@ const normalizeComplexData = (data, lang) => {
       space: item.internal_complex_name.space,
       isVipComplex: item.internal_complex_name.vipComplex,
       isVisible: item.internal_complex_name.visibiliti,
-    }
+    },
   }));
 };
 
-
 const normalizeLocationData = (data, lang) => {
-  return data.map(cityItem => {
-      const cityNameField = `city_${lang}`;
-      const pharentDistrictField = `pharentDistrict_${lang}`;
-      const districtField = `district_${lang}`;
+  return data.map((cityItem) => {
+    const cityNameField = `city_${lang}`;
+    const pharentDistrictField = `pharentDistrict_${lang}`;
+    const districtField = `district_${lang}`;
 
-      const cityName = cityItem[cityNameField];
-      const pharentDistricts = cityItem[pharentDistrictField].map(pharentDistrictItem => {
-          const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
-          const districts = pharentDistrictItem[districtField].map(districtItem => districtItem[districtField]);
+    const cityName = cityItem[cityNameField];
+    const pharentDistricts = cityItem[pharentDistrictField].map(
+      (pharentDistrictItem) => {
+        const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
+        const districts = pharentDistrictItem[districtField].map(
+          (districtItem) => districtItem[districtField]
+        );
 
-          return { pharentDistrict: pharentDistrictName, districts };
-      });
+        return { pharentDistrict: pharentDistrictName, districts };
+      }
+    );
 
-      return { city: cityName, pharentDistricts };
+    return { city: cityName, pharentDistricts };
   });
 };
 
-
 function App() {
   const [forVisible, setForVisible] = useState(true);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [favorites, setFavorites] = useState([]);
   const [getCorrencyRate, setGetCorrencyRate] = useState(0);
 
   // ------------------------------steitebi chasawodeblad -----------------------------
   const [complexes, setComplexes] = useState([]);
-  const [locations , setLocations ] = useState([]);
-  const [selectedCity , setSelectedCity] = useState('');
+  const [locations, setLocations] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
 
-  const [selectedPharentDistricts ,  setSelectedPharentDistricts] = useState([]);
-  const [selectedDistricts , setSelectedDistricts] = useState([]);
+  const [selectedPharentDistricts, setSelectedPharentDistricts] = useState([]);
+  const [selectedDistricts, setSelectedDistricts] = useState([]);
 
-  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState('');
-  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState('');
+  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState("");
+  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState("");
 
-  const [minFullPrice, setMinFullPrice] = useState('');
-  const [maxFullPrice, setMaxFullPrice] = useState('');
+  const [minFullPrice, setMinFullPrice] = useState("");
+  const [maxFullPrice, setMaxFullPrice] = useState("");
 
-  const [min_space, setMin_space] = useState('');
-  const [max_space, setMax_space] = useState('');
+  const [min_space, setMin_space] = useState("");
+  const [max_space, setMax_space] = useState("");
 
-  const [selectedStatuses , setSelectedStatuses] = useState([]);
+  const [selectedStatuses, setSelectedStatuses] = useState([]);
 
-  const [searchButton , setSearchButton] = useState(false);
+  const [searchButton, setSearchButton] = useState(false);
+
+  const [isCallModalOpen, setIsCallModalOpen] = useState(false);
+
   // -----------------------------------------------------------------------------------------------------
-
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
   const complexChangeHandler = (data) => {
-    setComplexes(data)
-  }
+    setComplexes(data);
+  };
   const locationsChangeHandler = (data) => {
-    setLocations(data)
-  }
+    setLocations(data);
+  };
   const selectedCityChangeHandler = (data) => {
-    setSelectedCity(data)
-  }
+    setSelectedCity(data);
+  };
   const selectedPharentDistrictsChangeHandler = (data) => {
-    setSelectedPharentDistricts(data)
-  }
+    setSelectedPharentDistricts(data);
+  };
   const selectedDistrictsChangeHandler = (data) => {
-    setSelectedDistricts(data)
-  }
+    setSelectedDistricts(data);
+  };
   const minPricePerSquareMeterChangeHandler = (data) => {
-    setMinPricePerSquareMeter(data)
-  }
+    setMinPricePerSquareMeter(data);
+  };
   const maxPricePerSquareMeterChangeHandler = (data) => {
-    setMaxPricePerSquareMeter(data)
-  }
+    setMaxPricePerSquareMeter(data);
+  };
   const minFullPriceChangeHandler = (data) => {
-    setMinFullPrice(data)
-  }
+    setMinFullPrice(data);
+  };
   const maxFullPriceChangeHandler = (data) => {
-    setMaxFullPrice(data)
-  }
+    setMaxFullPrice(data);
+  };
   const min_spacehangeHandler = (data) => {
-    setMax_space(data)
-  }
+    setMax_space(data);
+  };
   const max_spacehangeHandler = (data) => {
-    setMin_space(data)
-  }
+    setMin_space(data);
+  };
   const selectedStatusesChangeHandler = (data) => {
-    setSelectedStatuses(data)
-  }
+    setSelectedStatuses(data);
+  };
   const searchButtonhangeHandler = (data) => {
-    setSearchButton(data)
-  }
-
-
+    setSearchButton(data);
+  };
 
   // -----------------------------------------------------------------------------------------------------
 
   useEffect(() => {
     const fetchComplexes = async () => {
       const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-      const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
+      const pharentdistrictParams = `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
       const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
       // Create a URLSearchParams object
       let queryParams = new URLSearchParams({
         [cityParam]: selectedCity,
-        [pharentdistrictParams]: selectedPharentDistricts.join(','),
-        [districtParams]: selectedDistricts.join(','),
+        [pharentdistrictParams]: selectedPharentDistricts.join(","),
+        [districtParams]: selectedDistricts.join(","),
         min_price_per_sq_meter: minPricePerSquareMeter,
         max_price_per_sq_meter: maxPricePerSquareMeter,
         min_full_price: minFullPrice,
         max_full_price: maxFullPrice,
-        min_space : min_space, 
-        max_space : max_space,
+        min_space: min_space,
+        max_space: max_space,
       });
-      
+
       // Append each status as a separate parameter
-      selectedStatuses.forEach(status => {
-        queryParams.append('status', status);
+      selectedStatuses.forEach((status) => {
+        queryParams.append("status", status);
       });
-  
+
       // Construct the full URL with query parameters
       const queryString = queryParams.toString();
-      const requestUrl = `${Base_URL}${selectedLanguage}/?${queryString}`;
-      
+      const requestUrl = `${BaseURLs.complex}${selectedLanguage}/?${queryString}`;
+
       //////////////////////    T  E  S  T  ///////////////////////////
       // local_url = 'http://127.0.0.1:8000'
       // const requestUrl = `${local_url}${selectedLanguage}/?${queryString}`;
@@ -202,69 +231,69 @@ function App() {
 
       try {
         const response = await axios.get(requestUrl);
-        const normalData = normalizeComplexData(response.data.results, selectedLanguage);
+        const normalData = normalizeComplexData(
+          response.data.results,
+          selectedLanguage
+        );
         setComplexes(normalData);
       } catch (error) {
-        console.error('Error fetching complexes:', error);
+        console.error("Error fetching complexes:", error);
       }
     };
-  
+
     fetchComplexes();
   }, [searchButton]);
 
-// console.log(complexes)
-    //-----------------------------------fetch ionly locations --------------------------------------
+  // console.log(complexes)
+  //-----------------------------------fetch ionly locations --------------------------------------
 
-const base_URL_for_location = 'http://127.0.0.1:8000/map/' 
+  const base_URL_for_location = "https://api.storkhome.ge/map/";
+  // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
 
-useEffect(() => {
-  const fetchLocations = async () => {
-      
-    try {
-      const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
-      const normalisedLocationData = normalizeLocationData(response.data , selectedLanguage)
-      setLocations(normalisedLocationData)
-    } catch (error) {
-      console.error("error fetching on locations =>> ", error)
-    }
-  }
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const response = await axios.get(
+          `${base_URL_for_location}${selectedLanguage}`
+        );
+        const normalisedLocationData = normalizeLocationData(
+          response.data,
+          selectedLanguage
+        );
+        setLocations(normalisedLocationData);
+      } catch (error) {
+        console.error("error fetching on locations =>> ", error);
+      }
+    };
 
-  fetchLocations();
-} , [searchButton]  )
+    fetchLocations();
+  }, [searchButton]);
 
+  // ----------------------------------------------------------------------------------------------
 
+  //-----------------------------------fetch private apartments --------------------------------------
 
-// ----------------------------------------------------------------------------------------------
-
-//-----------------------------------fetch private apartments --------------------------------------
-
-
-
-
-
-
-// ---------------------------language change function --------------------------
+  // ---------------------------language change function --------------------------
   const handleLanguageChange = (languageCode) => {
     setSelectedLanguage(languageCode);
   };
-// -----------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------
 
-
-// ---------------------------------functionality for making favorite complexes --------------------
+  // ---------------------------------functionality for making favorite complexes --------------------
   // favorites infos State (and favorite functionality with local storage)
   // START (favorite functionality)
 
   // Retrieve saved favorites from localStorage on initial render
   useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('favorites'));
+    const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
     if (savedFavorites) {
       setFavorites(savedFavorites);
     }
   }, []);
-  
+
   // Load favorites from localStorage on initial render
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
   // favorites functionality
@@ -274,141 +303,210 @@ useEffect(() => {
     if (isAlreadySaved) {
       const updatedComplexes = favorites.filter((c) => c.id !== complex.id);
       setFavorites(updatedComplexes);
-      localStorage.setItem('favorites', JSON.stringify(updatedComplexes)); // Update localStorage
-      
+      localStorage.setItem("favorites", JSON.stringify(updatedComplexes)); // Update localStorage
     } else {
       const updatedFavorites = [...favorites, complex];
       setFavorites(updatedFavorites);
-      localStorage.setItem('favorites', JSON.stringify(updatedFavorites)); // Update localStorage
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Update localStorage
     }
   };
-// -----------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------
 
+  // -------------------------------------function for fetching usd corrency --------------------------
 
+  useEffect(() => {
+    async function getExchangeRate() {
+      const today = new Date().toISOString().split("T")[0]; // Format as "YYYY-MM-DD"
+      const url = `https://nbg.gov.ge/gw/api/ct/monetarypolicy/currencies/ka/json?currencies=USD&date=${today}`;
 
-// -------------------------------------function for fetching usd corrency --------------------------
-
-useEffect(() => {
-  async function getExchangeRate() {
-    const today = new Date().toISOString().split('T')[0]; // Format as "YYYY-MM-DD"
-    const url = `https://nbg.gov.ge/gw/api/ct/monetarypolicy/currencies/ka/json?currencies=USD&date=${today}`;
-
-    try {
-      const response = await axios.get(url);
-      const rates = response.data[0].currencies;
-      const rateInfo = rates.find(rate => rate.code === 'USD');
-      if (rateInfo) {
-        setGetCorrencyRate(rateInfo.rate);
-        console.log('Exchange rate from USD to GEL:', rateInfo.rate);
+      try {
+        const response = await axios.get(url);
+        const rates = response.data[0].currencies;
+        const rateInfo = rates.find((rate) => rate.code === "USD");
+        if (rateInfo) {
+          setGetCorrencyRate(rateInfo.rate);
+          console.log("Exchange rate from USD to GEL:", rateInfo.rate);
+        }
+      } catch (error) {
+        console.error("Error fetching exchange rate:", error);
       }
-    } catch (error) {
-      console.error('Error fetching exchange rate:', error);
     }
-  }
 
-  getExchangeRate();
-}, []);
+    getExchangeRate();
+  }, []);
+
+  // ------------------------function for opening call modal----------------------------------
+  useEffect(() => {
+    // First timer to open the modal after 10 seconds
+    const timer1 = setTimeout(() => {
+      setIsCallModalOpen(true);
+    }, 60000); // 10 seconds
+
+    // Second timer to close and then reopen the modal after 20 seconds
+    const timer2 = setTimeout(() => {
+      setIsCallModalOpen(false); // Close the modal first to create a noticeable effect
+      setTimeout(() => setIsCallModalOpen(true), 200); // Reopen it shortly after closing for user notice
+    }, 120000); // 20 seconds
+
+    // Cleanup function to clear both timers if the component unmounts
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, []); // Empty dependency array means this effect runs once after initial render
+
+  const handleCloseCallModal = () => {
+    setIsCallModalOpen(false);
+  };
+
+  const handleCallButtonClick = () => {
+    setIsCallModalOpen(true);
+  };
 
   // ------------------------------------------------------------------------------------------
 
   return (
-    <div className='App'>
-       {/* Conditional rendering for the Header */}
-       {(forVisible && window.location.pathname !== "/") ? (
+    <div className="App">
+      {/* Conditional rendering for the Header */}
+      {forVisible && window.location.pathname !== "/" ? (
         <div>
-          <Header favorites={favorites} handleLanguageChange={handleLanguageChange} />
+          <Header
+            favorites={favorites}
+            handleLanguageChange={handleLanguageChange}
+          />
         </div>
       ) : null}
-      
+
       <Routes>
         <Route path="/" element={<Nothing />} />
 
-        <Route path="homePage" 
-            element={<HomePage favoriteHandler={favoriteHandler}
-            favorites={favorites} 
-            selectedLanguage={selectedLanguage}
-            complexChangeHandler={complexChangeHandler}
-            locationsChangeHandler={locationsChangeHandler}
-            selectedCityChangeHandler={selectedCityChangeHandler}
-            selectedPharentDistrictsChangeHandler={selectedPharentDistrictsChangeHandler}
-            selectedDistrictsChangeHandler={selectedDistrictsChangeHandler}
-            minPricePerSquareMeterChangeHandler={minPricePerSquareMeterChangeHandler}
-            maxPricePerSquareMeterChangeHandler={maxPricePerSquareMeterChangeHandler}
-            minFullPriceChangeHandler={minFullPriceChangeHandler}
-            maxFullPriceChangeHandler={maxFullPriceChangeHandler}
-            min_spacehangeHandler={min_spacehangeHandler}
-            max_spacehangeHandler={max_spacehangeHandler}
-            selectedStatusesChangeHandler={selectedStatusesChangeHandler}
-            selectedStatuses={selectedStatuses}
-            locations={locations}
-            searchButtonhangeHandler={searchButtonhangeHandler}
-            min_space={min_space}
-            max_space={max_space}
-            minPricePerSquareMeter={minPricePerSquareMeter}
-            maxPricePerSquareMeter={maxPricePerSquareMeter}
-            minFullPrice={minFullPrice}
-            maxFullPrice={maxFullPrice}
-            searchButton={searchButton}
-            selectedCity={selectedCity}
-            selectedPharentDistricts={selectedPharentDistricts}
-            selectedDistricts={selectedDistricts}
-
-    />} />
-        <Route path='complex'>
-          <Route index={true} element={<Complex 
-            favoriteHandler={favoriteHandler}
-            favorites={favorites} 
-            selectedLanguage={selectedLanguage} 
-            selectedStatuses={selectedStatuses}
-            locations={locations}
-            min_space={min_space}
-            max_space={max_space}
-            minPricePerSquareMeter={minPricePerSquareMeter}
-            maxPricePerSquareMeter={maxPricePerSquareMeter}
-            minFullPrice={minFullPrice}
-            maxFullPrice={maxFullPrice}
-            selectedCity={selectedCity}
-            selectedPharentDistricts={selectedPharentDistricts}
-            selectedDistricts={selectedDistricts}
-            searchButton={searchButton}
-
-           
-           />} />
-          <Route path='apartmentList' element={<ApartmentList favoriteHandler={favoriteHandler} favorites={favorites} />} />
+        <Route
+          path="homePage"
+          element={
+            <HomePage
+              favoriteHandler={favoriteHandler}
+              favorites={favorites}
+              selectedLanguage={selectedLanguage}
+              complexChangeHandler={complexChangeHandler}
+              locationsChangeHandler={locationsChangeHandler}
+              selectedCityChangeHandler={selectedCityChangeHandler}
+              selectedPharentDistrictsChangeHandler={
+                selectedPharentDistrictsChangeHandler
+              }
+              selectedDistrictsChangeHandler={selectedDistrictsChangeHandler}
+              minPricePerSquareMeterChangeHandler={
+                minPricePerSquareMeterChangeHandler
+              }
+              maxPricePerSquareMeterChangeHandler={
+                maxPricePerSquareMeterChangeHandler
+              }
+              minFullPriceChangeHandler={minFullPriceChangeHandler}
+              maxFullPriceChangeHandler={maxFullPriceChangeHandler}
+              min_spacehangeHandler={min_spacehangeHandler}
+              max_spacehangeHandler={max_spacehangeHandler}
+              selectedStatusesChangeHandler={selectedStatusesChangeHandler}
+              selectedStatuses={selectedStatuses}
+              locations={locations}
+              searchButtonhangeHandler={searchButtonhangeHandler}
+              min_space={min_space}
+              max_space={max_space}
+              minPricePerSquareMeter={minPricePerSquareMeter}
+              maxPricePerSquareMeter={maxPricePerSquareMeter}
+              minFullPrice={minFullPrice}
+              maxFullPrice={maxFullPrice}
+              searchButton={searchButton}
+              selectedCity={selectedCity}
+              selectedPharentDistricts={selectedPharentDistricts}
+              selectedDistricts={selectedDistricts}
+            />
+          }
+        />
+        <Route path="complex">
+          <Route
+            index={true}
+            element={
+              <Complex
+                favoriteHandler={favoriteHandler}
+                favorites={favorites}
+                selectedLanguage={selectedLanguage}
+                selectedStatuses={selectedStatuses}
+                locations={locations}
+                min_space={min_space}
+                max_space={max_space}
+                minPricePerSquareMeter={minPricePerSquareMeter}
+                maxPricePerSquareMeter={maxPricePerSquareMeter}
+                minFullPrice={minFullPrice}
+                maxFullPrice={maxFullPrice}
+                selectedCity={selectedCity}
+                selectedPharentDistricts={selectedPharentDistricts}
+                selectedDistricts={selectedDistricts}
+                searchButton={searchButton}
+              />
+            }
+          />
         </Route>
-        {/* <Route path='lots' element={<Lots />} /> */}
-        <Route path='developers' element={<Developers />} />
-        <Route path='map'   element={<Map selectedLanguage={selectedLanguage}/>} />
-        <Route path='sales' element={<Sales />} />
-        <Route path='physical' element={<Physical  selectedLanguage={selectedLanguage}  />} />
-        <Route path='articles' element={<Articles />} />
-        <Route path='storkhome' element={<Storkhome />} />
+        <Route
+          path="lots"
+          element={
+            <Lots favorites={favorites} selectedLanguage={selectedLanguage} />
+          }
+        />
+        <Route
+          path="developers"
+          element={
+            <Developers
+              favorites={favorites}
+              selectedLanguage={selectedLanguage}
+            />
+          }
+        />
+        <Route
+          path="map"
+          element={<Map selectedLanguage={selectedLanguage} />}
+        />
+        <Route path="sales" element={<Sales />} />
+        <Route
+          path="physical"
+          element={
+            <Physical
+              favorites={favorites}
+              selectedLanguage={selectedLanguage}
+            />
+          }
+        />
+        <Route path="articles" element={<Articles />} />
+        <Route
+          path="storkhome"
+          element={
+            <Storkhome
+              selectedLanguage={selectedLanguage}
+              handleCloseCallModal={handleCloseCallModal}
+              handleCallButtonClick={handleCallButtonClick}
+              isCallModalOpen={isCallModalOpen}
+            />
+          }
+        />
 
+        <Route
+          path="eachComplex/:complexId"
+          element={<EachComplex selectedLanguage={selectedLanguage} />}
+        />
 
-        <Route path='favoriteComplex' element={<FavoriteComplex favorites={favorites} />} />
+        <Route
+          path="favoriteComplex"
+          element={<FavoriteComplex favorites={favorites} />}
+        />
       </Routes>
+      <Call_Modal
+        isOpen={isCallModalOpen}
+        close={handleCloseCallModal}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <p className="call_modal_content">this is call modal</p>
+        <div className="call_modal"></div>
+      </Call_Modal>
     </div>
-  ) 
+  );
 }
 
-export default App
-
-
-
-// export default function Complex({
-//   favoriteHandler, 
-//   favorites,
-//   selectedLanguage,
-//   selectedStatuses,
-//   locations,
-//   ,
-//   ,
-//   ,
-//   ,
-//   ,
-//   ,
-//   ,
-//   ,
-//   ,
-
-// }) {
+export default App;
