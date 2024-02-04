@@ -21,7 +21,7 @@ import Call_Modal from "./Modals_for_stokhome_plus/Call_Modal";
 
 const BaseURLs = {
   // storkhome
-  
+
   // complex: "https://api.storkhome.ge/complex/",
   // company: "https://api.storkhome.ge/company/",
   // apartment: "https://api.storkhome.ge/apartment/",
@@ -480,16 +480,17 @@ function App() {
           element={
             <Storkhome
               selectedLanguage={selectedLanguage}
-              handleCloseCallModal={handleCloseCallModal}
               handleCallButtonClick={handleCallButtonClick}
-              isCallModalOpen={isCallModalOpen}
             />
           }
         />
 
         <Route
           path="eachComplex/:complexId"
-          element={<EachComplex selectedLanguage={selectedLanguage} />}
+          element={<EachComplex
+            selectedLanguage={selectedLanguage}
+            handleCallButtonClick={handleCallButtonClick}
+          />}
         />
 
         <Route
@@ -502,8 +503,10 @@ function App() {
         close={handleCloseCallModal}
         onClick={(e) => e.stopPropagation()}
       >
-        <p className="call_modal_content">this is call modal</p>
-        <div className="call_modal"></div>
+        <div>
+          <p className="call_modal_content">this is call modal</p>
+          <div className="call_modal"></div>
+        </div>
       </Call_Modal>
     </div>
   );
