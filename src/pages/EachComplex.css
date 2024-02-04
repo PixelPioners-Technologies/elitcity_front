@@ -25,10 +25,13 @@
   display: flex;
   gap: 20px;
   justify-content: center;
-  top: 371px;
   position: absolute;
+  top: 371px;
   left: 136px;
+  background-color: lightblue; /* Add a background color */
 }
+
+
 
 .thumbnail {
   border: 2px solid white;
