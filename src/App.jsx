@@ -22,33 +22,56 @@ import headphone_icon from './icons/headphones.png'
 import { color } from "framer-motion";
 import { motion } from 'framer-motion';
 import cancel_icon from './icons/cancel.png'
+import ReactGA from 'react-ga';
+import { useLocation } from 'react-router-dom';
+
+
+
+
+// function usePageViews() {
+//   let location = useLocation();
+  
+//   useEffect(() => {
+//     ReactGA.pageview(location.pathname + location.search);
+//   }, [location]);
+// }
+
+
+function trackButtonClick(buttonName) {
+  ReactGA.event({
+    category: 'Header',
+    action: 'Click',
+    label: buttonName
+  });
+}
+
 
 
 
 const BaseURLs = {
   // storkhome
 
-  // complex: "https://api.storkhome.ge/complex/",
-  // company: "https://api.storkhome.ge/company/",
-  // apartment: "https://api.storkhome.ge/apartment/",
-  // private_apartment: "https://api.storkhome.ge/privateapartments/",
-  // ground: "https://api.storkhome.ge/ground/",
-  // promotion: "https://api.storkhome.ge/promotions/",
-  // blog: "https://api.storkhome.ge/blog/",
-  // map: "https://api.storkhome.ge/map/",
-  // complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+  complex: "https://api.storkhome.ge/complex/",
+  company: "https://api.storkhome.ge/company/",
+  apartment: "https://api.storkhome.ge/apartment/",
+  private_apartment: "https://api.storkhome.ge/privateapartments/",
+  ground: "https://api.storkhome.ge/ground/",
+  promotion: "https://api.storkhome.ge/promotions/",
+  blog: "https://api.storkhome.ge/blog/",
+  map: "https://api.storkhome.ge/map/",
+  complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
 
   // local
 
-  complex: "http://127.0.0.1:8000/complex/",
-  company: "http://127.0.0.1:8000/company/",
-  apartment: "http://127.0.0.1:8000/apartment/",
-  private_apartment: "http://127.0.0.1:8000/privateapartments/",
-  ground: "http://127.0.0.1:8000/ground/",
-  promotion: "http://127.0.0.1:8000/promotions/",
-  blog: "http://127.0.0.1:8000/blog/",
-  map: "http://127.0.0.1:8000/map/",
-  complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+  // complex: "http://127.0.0.1:8000/complex/",
+  // company: "http://127.0.0.1:8000/company/",
+  // apartment: "http://127.0.0.1:8000/apartment/",
+  // private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  // ground: "http://127.0.0.1:8000/ground/",
+  // promotion: "http://127.0.0.1:8000/promotions/",
+  // blog: "http://127.0.0.1:8000/blog/",
+  // map: "http://127.0.0.1:8000/map/",
+  // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
 }
 
 
@@ -130,6 +153,19 @@ const normalizeLocationData = (data, lang) => {
 };
 
 function App() {
+
+  const location = useLocation();
+
+  // Track page views when the route changes
+  useEffect(() => {
+    // Your tracking ID
+    const TRACKING_ID = "G-FFTZPPMQNZ";
+    ReactGA.initialize(TRACKING_ID);
+
+    ReactGA.pageview(location.pathname + location.search);
+  }, [location]);
+
+
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [favorites, setFavorites] = useState([]);
@@ -419,6 +455,31 @@ function App() {
   }
   // ------------------------------------------------------------------------------------------
 
+  // ------------------------------------------------------------------------------------------
+  // -------------------------------functions for google analitics-----------------------------
+  // ------------------------------------------------------------------------------------------
+
+
+  const TRACKING_ID = "G-S2FEW89VQE"; // Replace with your Google Analytics tracking ID
+  ReactGA.initialize(TRACKING_ID);
+  
+
+
+
+
+  // ------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -430,6 +491,7 @@ function App() {
           <Header
             favorites={favorites}
             handleLanguageChange={handleLanguageChange}
+            onButtonClick={trackButtonClick} 
           />
         </div>
       ) : null}
