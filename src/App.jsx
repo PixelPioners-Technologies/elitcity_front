@@ -18,6 +18,12 @@ import Storkhome from "./pages/Storkhome";
 import axios from "axios";
 import EachComplex from "./pages/EachComplex";
 import Call_Modal from "./Modals_for_stokhome_plus/Call_Modal";
+import headphone_icon from './icons/headphones.png'
+import { color } from "framer-motion";
+import { motion } from 'framer-motion';
+import cancel_icon from './icons/cancel.png'
+
+
 
 const BaseURLs = {
   // storkhome
@@ -374,6 +380,57 @@ function App() {
   };
 
   // ------------------------------------------------------------------------------------------
+  // ----------------------------static buttons and input language translation----------------------------------------
+
+  const languageTranslationForCheetModal = (lang) => {
+    var languageInfo = {
+      name: "Name",
+      phone_number: 'Phone number',
+      please_choose: "Please choose",
+      salse_Department: "Sales department",
+      storkhome_plus: "Storkhome +",
+      other: 'Other',
+      send: "Send"
+    }
+
+    switch (lang) {
+      case "en":
+        languageInfo.name = "Name"
+        languageInfo.phone_number = 'Phone number'
+        languageInfo.please_choose = "Please choose"
+        languageInfo.salse_Department = "Sales department"
+        languageInfo.storkhome_plus = "Storkhome +"
+        languageInfo.other = 'Other'
+        languageInfo.send = "Send"
+
+        break;
+
+      case "ka":
+        languageInfo.name = "სახელი"
+        languageInfo.phone_number = 'ტელეფონის ნომერი'
+        languageInfo.please_choose = "გთხოვთ აირჩიეთ"
+        languageInfo.salse_Department = "გაყიდვების განყოფილება"
+        languageInfo.storkhome_plus = "Storkhome +"
+        languageInfo.other = 'სხვა'
+        languageInfo.send = "გაგზავნა"
+        break
+
+      case "ru":
+        languageInfo.name = "Имя"
+        languageInfo.phone_number = 'Номер телефона'
+        languageInfo.please_choose = "Пожалуйста, выбери"
+        languageInfo.salse_Department = "Отдел продаж"
+        languageInfo.storkhome_plus = "Storkhome +"
+        languageInfo.other = 'Другой'
+        languageInfo.send = "Отправлять"
+        break
+    }
+    return languageInfo
+  }
+  // ------------------------------------------------------------------------------------------
+
+
+
 
   return (
     <div className="App">
@@ -511,11 +568,68 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-        onClick={(e) => e.stopPropagation()}
+        // onClick={(e) => e.stopPropagation()}
       >
-        <div>
-          <p className="call_modal_content">this is call modal</p>
-          <div className="call_modal"></div>
+        <div className="call_modal_containerr" >
+          <div className="cancel_icon_container" >
+            <img src={cancel_icon} alt="cencel icon" className="cansel_button" onClick={handleCloseCallModal} />
+          </div>
+          <div>
+            <div className="headphone_icon_container">
+              <img className="headphone_icon" src={headphone_icon} alt="headphone icon" />
+            </div>
+            <div className="call_input_container">
+              <input type="text" className="call_input" placeholder={languageTranslationForCheetModal(selectedLanguage).name} />
+            </div>
+            <div className="call_input_container">
+              <input type="number" className="call_input" placeholder={languageTranslationForCheetModal(selectedLanguage).phone_number} />
+            </div>
+          </div>
+          <div className="choose_container" >
+            <div className="department_choices"> <p className="choose">{languageTranslationForCheetModal(selectedLanguage).please_choose}</p>    </div>
+          </div>
+          {/* departamentis chekmarkebi */}
+          <div className="call_checkmark_container" >
+
+            {/* 1 chekmark konteineri  tavisi saxelit */}
+            <div className="little_checkmark_container">
+              <label>
+                <input type="checkbox" className="input" />
+                <span className="custom-checkbox"></span>
+              </label>
+              <p style={{ color: 'white' }}  >{languageTranslationForCheetModal(selectedLanguage).salse_Department}</p>
+            </div>
+
+            {/* 2 chekmark konteineri  tavisi saxelit */}
+            <div className="little_checkmark_container">
+              <label>
+                <input type="checkbox" className="input" />
+                <span className="custom-checkbox"></span>
+              </label>
+              <p style={{ color: 'white' }}  >{languageTranslationForCheetModal(selectedLanguage).storkhome_plus}</p>
+            </div>
+
+            {/* 3 chekmark konteineri  tavisi saxelit */}
+            <div className="little_checkmark_container">
+              <label>
+                <input type="checkbox" className="input" />
+                <span className="custom-checkbox"></span>
+              </label>
+              <p style={{ color: 'white' }}  >{languageTranslationForCheetModal(selectedLanguage).other}</p>
+            </div>
+
+          </div>
+          <div className="send_container" >
+            <motion.div
+              className="textButtonContainer send_sheet_button_container"
+              whileHover={{ scale: 1.05 }}
+              // whileTap={{ scale: 0.9 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <button className="senc_to_sheet"> {languageTranslationForCheetModal(selectedLanguage).send} </button>
+            </motion.div>
+          </div>
+
         </div>
       </Call_Modal>
     </div>
