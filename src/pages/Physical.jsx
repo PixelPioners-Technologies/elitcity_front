@@ -21,35 +21,10 @@ import Pagination from '@mui/material/Pagination';
 import heartIcon from '../assets/starLogo.svg';
 import heartIconEmpty from '../assets/emptyStarLogo.svg';
 import googleMapImage from '../assets/mapImageForFooter.svg';
+import { BaseURLs } from '../App';
 
 
-// const normalizePrivateApartmentData = (data, lang) => {
-//   return data.map(item => ({
-//     id: item.id,
-//     internalName: item.internal_private_apartment_name.internal_private_apartment_name,
-//     numberOfRooms: item.internal_private_apartment_name.number_of_rooms,
-//     status: item.internal_private_apartment_name.status,
-//     area: item.internal_private_apartment_name.area,
-//     fullPrice: item.internal_private_apartment_name.full_price,
-//     squarePrice: item.internal_private_apartment_name.square_price,
-//     floorNumber: item.internal_private_apartment_name.floor_number,
-//     isAvailable: item.internal_private_apartment_name.is_available,
-//     visibility: item.internal_private_apartment_name.visibiliti,
-//     rank:item.internal_private_apartment_name.rank,
-//     address: {
-//       city: item[`private_apartment_address_${lang}`].city_en,
-//       pharentDistrict: item[`private_apartment_address_${lang}`].pharentDistrict_en,
-//       district: item[`private_apartment_address_${lang}`].district_en,
-//       streetName: item[`private_apartment_address_${lang}`].street_name_en,
-//       address: item[`private_apartment_address_${lang}`].address_en,
-//       latitude: item[`private_apartment_address_${lang}`].latitude,
-//       longitude: item[`private_apartment_address_${lang}`].longitude,
-//     },
-//     images: item.private_apartment_images,
-//     privateApartmentName: item[`private_apartment_name_${lang}`],
-//     testPrivateField: item[`test_private_field_${lang}`]
-//   }));
-// };
+
 
 const normalizePrivateApartmentData = (data, lang) => {
   return data.map(item => ({
@@ -152,9 +127,6 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
-  // const BaseURL_Private = 'http://127.0.0.1:8000/privateapartments/'
-  const BaseURL_Private = 'https://api.storkhome.ge/privateapartments/'
-
   useEffect(() => {
     const fetcPrivateApartments = async () => {
 
@@ -198,7 +170,7 @@ export default function Physical({ selectedLanguage, favorites }) {
       }
 
       const queryString = queryParams.toString();
-      const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
+      const requestUrl = `${BaseURLs.private_apartment}${selectedLanguage}/?${queryString}`;
 
 
       const response = await axios.get(requestUrl)
@@ -221,15 +193,11 @@ export default function Physical({ selectedLanguage, favorites }) {
 
 
   //-----------------------------------fetch ionly locations --------------------------------------
-
-  // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
-  const base_URL_for_location = 'https://api.storkhome.ge/map/'
-
   useEffect(() => {
     const fetchLocations = async () => {
 
       try {
-        const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
+        const response = await axios.get(`${BaseURLs.map}${selectedLanguage}`);
         const normalisedLocationData = normalizeLocationData(response.data, selectedLanguage)
         setLocations(normalisedLocationData)
 

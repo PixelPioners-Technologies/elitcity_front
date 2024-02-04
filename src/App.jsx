@@ -19,8 +19,36 @@ import axios from 'axios';
 import Call_Modal from './Modals_for_stokhome_plus/Call_Modal';
 
 
-// const Base_URL = "http://127.0.0.1:8000/complex/";
-const Base_URL = "https://api.storkhome.ge/complex/";
+const BaseURLs = {
+  // storkhome
+  
+  // complex: "https://api.storkhome.ge/complex/",
+  // company: "https://api.storkhome.ge/company/",
+  // apartment: "https://api.storkhome.ge/apartment/",
+  // private_apartment: "https://api.storkhome.ge/privateapartments/",
+  // ground: "https://api.storkhome.ge/ground/",
+  // promotion: "https://api.storkhome.ge/promotions/",
+  // blog: "https://api.storkhome.ge/blog/",
+  // map: "https://api.storkhome.ge/map/",
+  // complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+
+  // local
+
+  complex: "http://127.0.0.1:8000/complex/",
+  company: "http://127.0.0.1:8000/company/",
+  apartment: "http://127.0.0.1:8000/apartment/",
+  private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  ground: "http://127.0.0.1:8000/ground/",
+  promotion: "http://127.0.0.1:8000/promotions/",
+  blog: "http://127.0.0.1:8000/blog/",
+  map: "http://127.0.0.1:8000/map/",
+  complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+}
+
+
+export { BaseURLs };
+
+
 
 
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
@@ -196,7 +224,7 @@ function App() {
 
       // Construct the full URL with query parameters
       const queryString = queryParams.toString();
-      const requestUrl = `${Base_URL}${selectedLanguage}/?${queryString}`;
+      const requestUrl = `${BaseURLs.complex}${selectedLanguage}/?${queryString}`;
 
       //////////////////////    T  E  S  T  ///////////////////////////
       // local_url = 'http://127.0.0.1:8000'
@@ -315,13 +343,13 @@ function App() {
     // First timer to open the modal after 10 seconds
     const timer1 = setTimeout(() => {
       setIsCallModalOpen(true);
-    }, 1000); // 10 seconds
+    }, 60000); // 10 seconds
 
     // Second timer to close and then reopen the modal after 20 seconds
     const timer2 = setTimeout(() => {
       setIsCallModalOpen(false); // Close the modal first to create a noticeable effect
       setTimeout(() => setIsCallModalOpen(true), 200); // Reopen it shortly after closing for user notice
-    }, 2000); // 20 seconds
+    }, 120000); // 20 seconds
 
     // Cleanup function to clear both timers if the component unmounts
     return () => {

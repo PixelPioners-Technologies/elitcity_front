@@ -18,6 +18,7 @@ import G_Modal from '../modals for ground filters/G_Modal';
 import G_PriceModal from '../modals for ground filters/G_PriceModal';
 import G_SpaceModal from '../modals for ground filters/G_SpaceModal';
 import G_StatusModal from '../modals for ground filters/G_StatusModa';
+import { BaseURLs } from '../App';
 
 
 
@@ -26,8 +27,7 @@ const initialCenter = {
   lng: 44.8271
 };
 
-// const Base_URL = "http://127.0.0.1:8000/complex/";
-const Base_URL = "https://api.storkhome.ge/complex/";
+
 
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
 
@@ -207,7 +207,6 @@ export default function Map({ selectedLanguage }) {
   const [max_P_FullPrice, setMax_P_FullPrice] = useState('');
   const [min_P_FullPrice, setMin_P_FullPrice] = useState('');
   const [selectedStatuses_For_P, setSelectedStatuses_For_P] = useState([])
-  // const [resendAxios , setResendAxios] = useState(false)
 
   // this states are for grounds-----------------------------------
   const [grounds, setGrounds] = useState('');
@@ -291,7 +290,7 @@ export default function Map({ selectedLanguage }) {
 
       // Construct the full URL with query parameters
       const queryString = queryParams.toString();
-      const requestUrl = `${Base_URL}${selectedLanguage}/?${queryString}`;
+      const requestUrl = `${BaseURLs.complex}${selectedLanguage}/?${queryString}`;
 
       try {
         const response = await axios.get(requestUrl);
@@ -311,15 +310,11 @@ export default function Map({ selectedLanguage }) {
   // ----------------------------------------------------------------------------------------------
   //-----------------------------------fetch ionly locations --------------------------------------
 
-  // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
-
-  const base_URL_for_location = ' https://api.storkhome.ge/map/'
-
   useEffect(() => {
     const fetchLocations = async () => {
 
       try {
-        const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
+        const response = await axios.get(`${BaseURLs.map}${selectedLanguage}`);
         const normalisedLocationData = normalizeLocationData(response.data, selectedLanguage)
         setLocations(normalisedLocationData)
       } catch (error) {
@@ -333,11 +328,6 @@ export default function Map({ selectedLanguage }) {
 
 
   // ----------------------------------------------------------------------------------------------
-
-  // const BaseURL_Private = 'http://127.0.0.1:8000/privateapartments/'
-  const BaseURL_Private = 'https://api.storkhome.ge/privateapartments/'
-
-
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
@@ -369,7 +359,7 @@ export default function Map({ selectedLanguage }) {
 
 
       const queryString = queryParams.toString();
-      const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
+      const requestUrl = `${BaseURLs.private_apartment}${selectedLanguage}/?${queryString}`;
 
       const response = await axios.get(requestUrl)
       const data = response.data.results
@@ -383,11 +373,6 @@ export default function Map({ selectedLanguage }) {
 
   // ----------------------------------------------------------------------------------------------
   // ------------------------------------axios for fetching ground----------------------------------------------------------
-
-  // const Ground_baseURL = 'http://127.0.0.1:8000/ground/'
-  const Ground_baseURL = 'https://api.storkhome.ge/ground/'
-
-
 
   useEffect(() => {
     const fetchGrounds = async () => {
@@ -413,7 +398,7 @@ export default function Map({ selectedLanguage }) {
       });
 
       const queryString = queryParams.toString();
-      const requestUrl = `${Ground_baseURL}${selectedLanguage}/?${queryString}`;
+      const requestUrl = `${BaseURLs.ground}${selectedLanguage}/?${queryString}`;
 
       const response = await axios.get(requestUrl)
       const data = response.data.results

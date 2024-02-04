@@ -21,6 +21,7 @@ import Pagination from '@mui/material/Pagination';
 import heartIcon from '../assets/starLogo.svg';
 import heartIconEmpty from '../assets/emptyStarLogo.svg';
 import googleMapImage from '../assets/mapImageForFooter.svg';
+import { BaseURLs } from '../App';
 
 
 
@@ -123,9 +124,6 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
-  // const BaseURL_Private = 'http://127.0.0.1:8000/ground/'
-  const BaseURL_Private =   'https://api.storkhome.ge/ground/'
-
   useEffect(() => {
     const fetcPrivateApartments = async () => {
 
@@ -164,7 +162,7 @@ export default function Physical({ selectedLanguage, favorites }) {
       }
 
       const queryString = queryParams.toString();
-      const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
+      const requestUrl = `${BaseURLs.ground}${selectedLanguage}/?${queryString}`;
 
 
       const response = await axios.get(requestUrl)
@@ -189,15 +187,13 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
-  // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
-  const base_URL_for_location = 'https://api.storkhome.ge/map/'
 
 
   useEffect(() => {
     const fetchLocations = async () => {
 
       try {
-        const response = await axios.get(`${base_URL_for_location}${selectedLanguage}`);
+        const response = await axios.get(`${BaseURLs.map}${selectedLanguage}`);
         const normalisedLocationData = normalizeLocationData(response.data, selectedLanguage)
         setLocations(normalisedLocationData)
 
