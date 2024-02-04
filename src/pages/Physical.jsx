@@ -26,7 +26,7 @@ import heartIcon from '../assets/starLogo.svg';
 import heartIconEmpty from '../assets/emptyStarLogo.svg';
 import googleMapImage from '../assets/mapImageForFooter.svg';
 import { BaseURLs } from '../App';
-
+import { useNavigate } from "react-router-dom";
 
 
 

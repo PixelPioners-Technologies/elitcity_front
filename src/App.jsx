@@ -32,6 +32,16 @@ const BaseURLs = {
   map: "https://api.storkhome.ge/map/",
   complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
 
+  // complex: "https://api.storkhome.ge/complex/",
+  // company: "https://api.storkhome.ge/company/",
+  // apartment: "https://api.storkhome.ge/apartment/",
+  // private_apartment: "https://api.storkhome.ge/privateapartments/",
+  // ground: "https://api.storkhome.ge/ground/",
+  // promotion: "https://api.storkhome.ge/promotions/",
+  // blog: "https://api.storkhome.ge/blog/",
+  // map: "https://api.storkhome.ge/map/",
+  // complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+
   // local
 
   // complex: "http://127.0.0.1:8000/complex/",
@@ -480,16 +490,17 @@ function App() {
           element={
             <Storkhome
               selectedLanguage={selectedLanguage}
-              handleCloseCallModal={handleCloseCallModal}
               handleCallButtonClick={handleCallButtonClick}
-              isCallModalOpen={isCallModalOpen}
             />
           }
         />
 
         <Route
           path="eachComplex/:complexId"
-          element={<EachComplex selectedLanguage={selectedLanguage} />}
+          element={<EachComplex
+            selectedLanguage={selectedLanguage}
+            handleCallButtonClick={handleCallButtonClick}
+          />}
         />
 
         <Route
@@ -502,8 +513,10 @@ function App() {
         close={handleCloseCallModal}
         onClick={(e) => e.stopPropagation()}
       >
-        <p className="call_modal_content">this is call modal</p>
-        <div className="call_modal"></div>
+        <div>
+          <p className="call_modal_content">this is call modal</p>
+          <div className="call_modal"></div>
+        </div>
       </Call_Modal>
     </div>
   );
