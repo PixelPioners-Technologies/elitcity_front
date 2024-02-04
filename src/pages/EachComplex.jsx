@@ -103,6 +103,7 @@ export default function EachComplex({ selectedLanguage }) {
     setSelectedStatuses([]);
   }, [selectedLanguage]);
 
+  console.log("hello");
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
   const BaseURL_Private = "https://api.storkhome.ge/privateapartments/";
