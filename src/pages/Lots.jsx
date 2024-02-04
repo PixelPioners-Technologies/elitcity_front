@@ -27,7 +27,7 @@ import heartIcon from '../assets/starLogo.svg';
 import heartIconEmpty from '../assets/emptyStarLogo.svg';
 import googleMapImage from '../assets/mapImageForFooter.svg';
 import { BaseURLs } from '../App';
-
+import { useNavigate } from "react-router-dom";
 
 
 const normalizeGroundData = (data, lang) => {
@@ -1227,7 +1227,7 @@ export default function Physical({ selectedLanguage, favorites }) {
         {privateApartments.map((prev_apartments, index) => (
           <div
             className="card_physical"
-            key={index}
+            key={prev_apartments.id}
             onClick={() => handleLotsClick(prev_apartments.id)}
           >
             <motion.div
