@@ -42,6 +42,14 @@ const usePageTracking = () => {
   }, [location]);
 };
 
+function trackButtonClick(buttonName) {
+  ReactGA.event({
+    category: 'Header',
+    action: 'Click',
+    label: buttonName
+  });
+}
+
 
 const BaseURLs = {
   // storkhome
@@ -67,7 +75,7 @@ const BaseURLs = {
   blog: "http://127.0.0.1:8000/blog/",
   map: "http://127.0.0.1:8000/map/",
   complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
-}
+}  
 
 
 export { BaseURLs };
@@ -439,32 +447,7 @@ function App() {
   }
   // ------------------------------------------------------------------------------------------
 
-  // ------------------------------------------------------------------------------------------
-  // -------------------------------functions for google analitics-----------------------------
-  // ------------------------------------------------------------------------------------------
-
-
-  const TRACKING_ID = "G-S2FEW89VQE"; // Replace with your Google Analytics tracking ID
-  ReactGA.initialize(TRACKING_ID);
-  
-
-
-
-
-  // ------------------------------------------------------------------------------------------
-  // ------------------------------------------------------------------------------------------
-  // ------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
   return (
