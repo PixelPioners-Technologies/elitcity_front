@@ -3,6 +3,8 @@
 import DataOfArticles from '../ArticleDATA.json';
 import './Articles.css';
 import { motion } from "framer-motion";
+import { BaseURLs } from '../App';
+
 
 export default function Articles() {
   // Function to truncate text

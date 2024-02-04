@@ -6,53 +6,29 @@ import "./Physical.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import P_Modal from "../modals for private page/P_Modal";
-import P_PriceModal from "../modals for private page/P_PriceModal";
-import P_SpaceModal from "../modals for private page/P_SpaceModal";
-import P_StatusModal from "../modals for private page/P_StatusModa";
-import { motion } from "framer-motion";
-import button_icon from "../icons/Vector.svg";
-import { Link, useNavigate } from "react-router-dom";
-import mapSignLogo from "../assets/mapSignLogoo.svg";
-import Button from "@mui/material/Button";
-import arrowDownSorting from "../assets/arrow-down-white.svg";
-import Menu from "@mui/material/Menu";
-import loupe from "../icons/loupe.png";
-import MenuItem from "@mui/material/MenuItem";
-import lari from "../assets/lari-svgrepo-com.svg";
-import dollar from "../assets/dollar-svgrepo-com.svg";
-import Stack from "@mui/material/Stack";
-import Pagination from "@mui/material/Pagination";
-import heartIcon from "../assets/starLogo.svg";
-import heartIconEmpty from "../assets/emptyStarLogo.svg";
-import googleMapImage from "../assets/mapImageForFooter.svg";
+import P_PriceModal from '../modals for private page/P_PriceModal';
+import P_SpaceModal from '../modals for private page/P_SpaceModal';
+import P_StatusModal from '../modals for private page/P_StatusModa';
+import { motion } from 'framer-motion';
+import button_icon from '../icons/Vector.svg';
+import { Link } from "react-router-dom";
+import mapSignLogo from '../assets/mapSignLogoo.svg';
+import Button from '@mui/material/Button';
+import arrowDownSorting from '../assets/arrow-down-white.svg';
+import Menu from '@mui/material/Menu';
+import loupe from '../icons/loupe.png'
+import MenuItem from '@mui/material/MenuItem';
+import lari from '../assets/lari-svgrepo-com.svg';
+import dollar from '../assets/dollar-svgrepo-com.svg';
+import Stack from '@mui/material/Stack';
+import Pagination from '@mui/material/Pagination';
+import heartIcon from '../assets/starLogo.svg';
+import heartIconEmpty from '../assets/emptyStarLogo.svg';
+import googleMapImage from '../assets/mapImageForFooter.svg';
+import { BaseURLs } from '../App';
 
-// const normalizePrivateApartmentData = (data, lang) => {
-//   return data.map(item => ({
-//     id: item.id,
-//     internalName: item.internal_private_apartment_name.internal_private_apartment_name,
-//     numberOfRooms: item.internal_private_apartment_name.number_of_rooms,
-//     status: item.internal_private_apartment_name.status,
-//     area: item.internal_private_apartment_name.area,
-//     fullPrice: item.internal_private_apartment_name.full_price,
-//     squarePrice: item.internal_private_apartment_name.square_price,
-//     floorNumber: item.internal_private_apartment_name.floor_number,
-//     isAvailable: item.internal_private_apartment_name.is_available,
-//     visibility: item.internal_private_apartment_name.visibiliti,
-//     rank:item.internal_private_apartment_name.rank,
-//     address: {
-//       city: item[`private_apartment_address_${lang}`].city_en,
-//       pharentDistrict: item[`private_apartment_address_${lang}`].pharentDistrict_en,
-//       district: item[`private_apartment_address_${lang}`].district_en,
-//       streetName: item[`private_apartment_address_${lang}`].street_name_en,
-//       address: item[`private_apartment_address_${lang}`].address_en,
-//       latitude: item[`private_apartment_address_${lang}`].latitude,
-//       longitude: item[`private_apartment_address_${lang}`].longitude,
-//     },
-//     images: item.private_apartment_images,
-//     privateApartmentName: item[`private_apartment_name_${lang}`],
-//     testPrivateField: item[`test_private_field_${lang}`]
-//   }));
-// };
+
+
 
 const normalizePrivateApartmentData = (data, lang) => {
   return data.map((item) => ({
@@ -163,9 +139,6 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
-  // const BaseURL_Private = 'http://127.0.0.1:8000/privateapartments/'
-  const BaseURL_Private = "https://api.storkhome.ge/privateapartments/";
-
   useEffect(() => {
     const fetcPrivateApartments = async () => {
       // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
@@ -207,7 +180,7 @@ export default function Physical({ selectedLanguage, favorites }) {
       }
 
       const queryString = queryParams.toString();
-      const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
+      const requestUrl = `${BaseURLs.private_apartment}${selectedLanguage}/?${queryString}`;
 
       const response = await axios.get(requestUrl);
       const data = response.data.results;
@@ -244,21 +217,13 @@ export default function Physical({ selectedLanguage, favorites }) {
   }, [totalCount, selectedLanguage]);
 
   //-----------------------------------fetch ionly locations --------------------------------------
-
-  // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
-  const base_URL_for_location = "https://api.storkhome.ge/map/";
-
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await axios.get(
-          `${base_URL_for_location}${selectedLanguage}`
-        );
-        const normalisedLocationData = normalizeLocationData(
-          response.data,
-          selectedLanguage
-        );
-        setLocations(normalisedLocationData);
+        const response = await axios.get(`${BaseURLs.map}${selectedLanguage}`);
+        const normalisedLocationData = normalizeLocationData(response.data, selectedLanguage)
+        setLocations(normalisedLocationData)
+
       } catch (error) {
         console.error("error fetching on locations =>> ", error);
       }

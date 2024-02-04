@@ -5,7 +5,6 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import button_icon from '../icons/Vector.svg';
 import button_icon1 from "../icons/findimage.svg";
 import Modal_1 from '../modals for main page/Modal_1';
