@@ -1,5 +1,5 @@
 // import React from 'react'
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import './Sales.css';
 import percentImg from '../assets/percent-svgrepo-com.svg';
 import giftImg from '../assets/gift-svgrepo-com (1).svg';
@@ -31,7 +31,7 @@ export default function Sales() {
             <img src={companyImage} alt="Company Logo" />
           </div>
         </div>
-        <p style={{color: '#bba8a8'}}>{item.saleText}</p>
+        <p style={{ color: '#bba8a8' }}>{item.saleText}</p>
         <div className="microphoneAndItsInfoText">
           <img src={microphoneLogo} alt="Microphone" />
           <p>{truncateText(item.firstText, 50)}</p>
@@ -50,36 +50,36 @@ export default function Sales() {
   const renderSaleArticles = () => {
     return saleDATA.map((item, index) => (
       <div className="saleArticlesBox" key={`saleArticle_${index}`}>
-         <motion.div
-              initial={{ x: -120, opacity: 0 }}
-              transition={{ duration: 1.5 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-          >
-            {renderSaleArticle(item)}
-            </motion.div>
-            <motion.div
-              initial={{ x: 120, opacity: 0 }}
-              transition={{ duration: 1.5 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-            >
-              {renderSaleArticle(item)}
-            </motion.div>
+        <motion.div
+          initial={{ x: -120, opacity: 0 }}
+          transition={{ duration: 1.5 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          {renderSaleArticle(item)}
+        </motion.div>
+        <motion.div
+          initial={{ x: 120, opacity: 0 }}
+          transition={{ duration: 1.5 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          {renderSaleArticle(item)}
+        </motion.div>
       </div>
     ));
   };
 
   return (
     <div className="SalesBox">
-        {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
+      {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         transition={{ duration: 1 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
       >
-          {/* Sale page Nav bar */}
+        {/* Sale page Nav bar */}
         <div className='forPaddingOfsalesNavBar'>
           <div className='infoFieldOfSalesAndSoOn'>
             <div className='boxOftitleOfActionAndOffers'>
@@ -112,7 +112,7 @@ export default function Sales() {
 
 
 
-{/* // ------------------------------------------------------------------------------------ */}
+      {/* // ------------------------------------------------------------------------------------ */}
 
     </div>
   )

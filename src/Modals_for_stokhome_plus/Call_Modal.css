@@ -1,0 +1,40 @@
+.modal-overlay-storkhome {
+  position: fixed; /* Stay in place */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  z-index: 1000; /* Sit on top */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.modal-overlay-storkhome.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.modal-content-storkhome {
+  background: #000000; /* White background */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  max-width: 500px; /* Maximum width, but can be adjusted */
+  width: 90%; /* Responsive width */
+  z-index: 1001; /* Ensure it sits above overlay */
+  transform: scale(0);
+  transition: transform 0.3s ease;
+  border-style: solid;
+  border-width: 2px;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+}
+
+.scale-up-top-storkhome {
+  transform: scale(1); /* Scale up to full size */
+}
