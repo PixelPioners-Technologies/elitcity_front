@@ -4,50 +4,42 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 // import React from 'react'
-import './Complex.css';
+import "./Complex.css";
 import { motion } from "framer-motion";
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import heartIcon from '../assets/starLogo.svg';
+import heartIcon from "../assets/starLogo.svg";
 
-import heartIconEmpty from '../assets/emptyStarLogo.svg';
-import mapSignLogo from '../assets/mapSignLogoo.svg';
-import dollar from '../assets/dollar-svgrepo-com.svg';
+import heartIconEmpty from "../assets/emptyStarLogo.svg";
+import mapSignLogo from "../assets/mapSignLogoo.svg";
+import dollar from "../assets/dollar-svgrepo-com.svg";
 // import dollar from '../assets/dollar-whitee.svg';
 
-import lari from '../assets/lari-svgrepo-com.svg';
+import lari from "../assets/lari-svgrepo-com.svg";
 // import lari from '../assets/lari-white.svg';
-import arrowDownSorting from '../assets/arrow-down-white.svg';
-import googleMapImage from '../assets/mapImageForFooter.svg';
-
-
-
+import arrowDownSorting from "../assets/arrow-down-white.svg";
+import googleMapImage from "../assets/mapImageForFooter.svg";
 
 // Pagination
 // import * as React from 'react';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-import { Skeleton } from '@mui/material';
-
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import { Skeleton } from "@mui/material";
 
 // ------------------------------------------------------------------------------------
 // for Sorting
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 // ------------------------------------------------------------------------------------
 
-
 // const basess = 'http://localhost:5173';
-const basess = 'https://api.storkhome.ge'
-
-
+const basess = "https://api.storkhome.ge";
 
 // });
-
 
 // eslint-disable-next-line react/prop-types
 export default function Complex({
@@ -66,10 +58,8 @@ export default function Complex({
   selectedPharentDistricts,
   selectedDistricts,
   searchButton,
-  selectedStatuses
-
+  selectedStatuses,
 }) {
-
   const [homes, setHomes] = useState([]);
   // console.log('-----',homes)
   // console.log('1111111',homes)
@@ -79,18 +69,20 @@ export default function Complex({
   const [isLoading, setIsLoading] = useState(true);
   const [forPriceDecrease, setForPriceDecrease] = useState(null);
   const [sortedHomes, setSortedHomes] = useState(null); // Initialize sortedHomes state
-  const [ascendentPrice, setAscendentPrice] = useState('');
+  const [ascendentPrice, setAscendentPrice] = useState("");
 
+  const navigate = useNavigate();
 
-
+  // Assuming `complex` is an object representing each house
+  const handleHouseClick = (complexId) => {
+    navigate(`/eachComplex/${complexId}`);
+  };
 
   // 1111111111111111111111111111111111
   // for toggle DOllar AND LARI ---==---(START)
   const [isOn, setIsOn] = useState(false);
   const toggleSwitch = () => setIsOn(!isOn);
   // -----===--------(END)
-
-
 
   // ------------------------------------------------------------------------------------
   // for Sorting
@@ -104,14 +96,10 @@ export default function Complex({
   };
   // ------------------------------------------------------------------------------------
 
-
-
-
   // ცვლადი ქვერი სტრინგი სადაც შევინახავ მონაცემებს, კლიკის დროს სორტირებაზე, ქუერი სტრინგში უნდა დაემატოს სორტირების ნაწილი sort = price
   // get-
   // const response = await axiosInstance.get(`/complex/? ქუერი სტრინგის ცვლადი `);
   // მოკლედ ქუერი სტრინგი სანახავია
-
 
   // // ------------------------------------------------------------------------------------
   // // first useEffect sorting
@@ -151,24 +139,25 @@ export default function Complex({
   //   }, [currentPage, forPriceDecrease]);
   // // ------------------------------------------------------------------------------------
 
-
   const normalizeComplexData = (data, lang) => {
     // Check if data is undefined or null
     if (!data) {
-      console.error('Data is undefined or null.');
+      console.error("Data is undefined or null.");
       return [];
     }
 
     // Check if data is an array
     if (!Array.isArray(data)) {
-      console.error('Data is not an array.');
+      console.error("Data is not an array.");
       return [];
     }
 
-    return data.map(item => ({
+    return data.map((item) => ({
       id: item.id,
       complexName: item[`complex_name_${lang}`],
-      internalComplexName: item.internal_complex_name ? item.internal_complex_name.internal_complex_name : '',
+      internalComplexName: item.internal_complex_name
+        ? item.internal_complex_name.internal_complex_name
+        : "",
       typeOfRoof: item[`type_of_roof_${lang}`],
       address: {
         street: item[`address_${lang}`]?.[`address_${lang}`],
@@ -213,7 +202,6 @@ export default function Complex({
     }));
   };
 
-
   // ------------------------------------------------------------------------------------
 
   // (START)---- აქ სამივეა: ფასი, გამოქვეყნების თარიღი და რეიტინგის მიხედვითაც სორტირებული
@@ -241,36 +229,35 @@ export default function Complex({
   // };
   // -(END)-----------------------------------------------------------
 
-
-
   // (START)-----  აქ კიდე ესაა გასაწერი, რომ კონკრეტულ ღილაკზე დაჭერისას რა ქნას... მაგიტომაცაა მითითებული
   // ესენი:  setSortBy('price');, setSortBy('publishedTime'), setSortBy('rating');
 
-  {/* <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('price'); }}>ფასი კლებადობით</MenuItem>
+  {
+    /* <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('price'); }}>ფასი კლებადობით</MenuItem>
 <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('price'); }}>ფასი ზრდადობით</MenuItem>
 
 <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('publishedTime'); }}>თარიღი კლებადობით</MenuItem>
 <MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('publishedTime'); }}>თარიღი ზრდადობით</MenuItem>
 
 <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('rating'); }}>რეიტინგი კლებადობით</MenuItem>
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('rating'); }}>რეიტინგი ზრდადობით</MenuItem> */}
+<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('rating'); }}>რეიტინგი ზრდადობით</MenuItem> */
+  }
   // -(END)----------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-  // second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული); ეს აღარაა საჭირო, რადგან გაკეთდა უვკე სორტირება !!!!!!!! 
-  // (თუმცა ჯერ 
+  // second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული); ეს აღარაა საჭირო, რადგან გაკეთდა უვკე სორტირება !!!!!!!!
+  // (თუმცა ჯერ
   // ეწეროს მაინც)
   const sortHomes = (data, sortOrder) => {
-    if (sortOrder === 'decrease') {
-      return [...data].sort((a, b) => parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter));
-    } else if (sortOrder === 'increase') {
-      return [...data].sort((a, b) => parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter));
+    if (sortOrder === "decrease") {
+      return [...data].sort(
+        (a, b) =>
+          parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter)
+      );
+    } else if (sortOrder === "increase") {
+      return [...data].sort(
+        (a, b) =>
+          parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter)
+      );
     } else {
       return data;
     }
@@ -279,12 +266,11 @@ export default function Complex({
   const pharentdistrictParams = `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
   const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
 
-
   // Create a URLSearchParams object
   let queryParams = new URLSearchParams({
     [cityParam]: selectedCity,
-    [pharentdistrictParams]: selectedPharentDistricts.join(','),
-    [districtParams]: selectedDistricts.join(','),
+    [pharentdistrictParams]: selectedPharentDistricts.join(","),
+    [districtParams]: selectedDistricts.join(","),
     min_price_per_sq_meter: minPricePerSquareMeter,
     max_price_per_sq_meter: maxPricePerSquareMeter,
     min_full_price: minFullPrice,
@@ -292,16 +278,14 @@ export default function Complex({
     min_space: min_space,
     max_space: max_space,
     // status: selectedStatuses,
-    ordering: ascendentPrice
-
+    ordering: ascendentPrice,
   });
 
   if (selectedStatuses && selectedStatuses.length > 0) {
-    selectedStatuses.forEach(status => {
-      queryParams.append('status', status);
-    })
+    selectedStatuses.forEach((status) => {
+      queryParams.append("status", status);
+    });
   }
-
 
   const queryString = queryParams.toString();
   const requestUrl = `${selectedLanguage}/?${queryString}`;
@@ -314,21 +298,21 @@ export default function Complex({
         const response = await axios.get(`${basess}/complex/${requestUrl}`);
 
         // const { results } = response.data.results[0];
-        const normalData = normalizeComplexData(response.data.results, selectedLanguage);
+        const normalData = normalizeComplexData(
+          response.data.results,
+          selectedLanguage
+        );
         setHomes(normalData);
         setIsLoading(false);
-        setTotalCount(response.data.total_items)
-
+        setTotalCount(response.data.total_items);
       } catch (error) {
         setIsLoading(false);
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-
   }, [currentPage, ascendentPrice, selectedLanguage, searchButton]);
-
 
   useEffect(() => {
     const sortedResults = sortHomes(homes, forPriceDecrease);
@@ -337,69 +321,79 @@ export default function Complex({
 
   // ------------------------------------------------------------------------------------
 
-
   // Pagination logic
   const itemsPerPage = 12;
   const totalPageCount = Math.ceil(totalCount / itemsPerPage);
-  const currentSortedHomes = sortedHomes ? sortedHomes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : [];
+  const currentSortedHomes = sortedHomes
+    ? sortedHomes.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      )
+    : [];
 
-
-
-
-
-
-
-  // 
+  //
 
   // console.log('images: ', images);
   // console.log('homes all: ', homes);
 
-
-
   // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
-  }
+  };
 
   // Maping variable
   // ------------------------------------------------------------------------------------
   const homeMaping = currentSortedHomes.map((complex, index) => (
-
-
-    <div className='card' key={index}>
+    <div
+      className="card"
+      key={complex.id}
+      onClick={() => handleHouseClick(complex.id)}
+    >
       <motion.div
         initial={{ x: -50, opacity: 0 }}
         transition={{ duration: 1 }}
         whileInView={{ x: 0, opacity: 1 }}
         viewport={{ once: true }}
       >
-
-        <div className='heartbuttonAndImageBox'>
-          <div className='heartButtonBox'>
-            <button onClick={() => favoriteHandler(complex)} key={complex.id} className='heartButtons' >
-              {favorites.some(fav => fav.id === complex.id) ? (
-                <img src={heartIcon} alt='Logo of heart' />
+        <div className="heartbuttonAndImageBox">
+          <div className="heartButtonBox">
+            <button
+              onClick={() => favoriteHandler(complex)}
+              key={complex.id}
+              className="heartButtons"
+            >
+              {favorites.some((fav) => fav.id === complex.id) ? (
+                <img src={heartIcon} alt="Logo of heart" />
               ) : (
-                <img src={heartIconEmpty} alt='Logo of empty heart' style={{ width: '30px', height: '30px', }} />
+                <img
+                  src={heartIconEmpty}
+                  alt="Logo of empty heart"
+                  style={{ width: "30px", height: "30px" }}
+                />
               )}
             </button>
           </div>
-          <img src={complex.images[0]} alt={complex.name} style={styles.imageStyles} />
+          <img
+            src={complex.images[0]}
+            alt={complex.name}
+            style={styles.imageStyles}
+          />
         </div>
         <p style={styles.companyTitle}>{complex.name}</p>
-        <div className='textInfo'>
-          <p style={styles.complexInfo}>{complex.address.city}, {complex.address.street}</p>
-          <p style={styles.complexInfo}>Price per sq meter: {complex.price_per_sq_meter}</p>
+        <div className="textInfo">
+          <p style={styles.complexInfo}>
+            {complex.address.city}, {complex.address.street}
+          </p>
+          <p style={styles.complexInfo}>
+            Price per sq meter: {complex.price_per_sq_meter}
+          </p>
           {/* Update the line below with the actual date property */}
           <p style={styles.complexFinished}>Date: {complex.date}</p>
         </div>
       </motion.div>
     </div>
-
-
-  ))
+  ));
   // ------------------------------------------------------------------------------------
-
 
   // სკროლისთვის და ასევე ინტერვალისთვის რომ, ერთიანად არ აისქორლოს..
   // const scrollToTop = () => {
@@ -414,64 +408,73 @@ export default function Complex({
   //   }, 15);
   // };
 
-
-
   return (
-    <div className='ComplexBodyBox'>
+    <div className="ComplexBodyBox">
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         transition={{ duration: 1 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
-        className='motionBox'
+        className="motionBox"
       >
-        <div className='forPaddingOfInfoFieldOfComplexsPlansMaps'>
-          <div className='infoFieldOfComplexsPlansMaps'>
-            <div className='complexInfoAndCountShowBox'>
-              <p style={{ color: 'white' }}>კომპლექსები {totalCount}</p>
+        <div className="forPaddingOfInfoFieldOfComplexsPlansMaps">
+          <div className="infoFieldOfComplexsPlansMaps">
+            <div className="complexInfoAndCountShowBox">
+              <p style={{ color: "white" }}>კომპლექსები {totalCount}</p>
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
-            <div className='projectsPlansMapsSortingAndDollarBox'>
-              <Link to='/complex' >
+            <div className="projectsPlansMapsSortingAndDollarBox">
+              <Link to="/complex">
                 <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <div className='mapAndLogoImg'>
-                    <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                    <button className='textButton'>პროექტები</button>
+                  <div className="mapAndLogoImg">
+                    <img
+                      src={mapSignLogo}
+                      alt="mapSignLogo"
+                      className="mapSignLogo"
+                    />
+                    <button className="textButton">პროექტები</button>
                   </div>
                 </motion.div>
               </Link>
 
-              <Link to='/complex/apartmentList' >
+              <Link to="/complex/apartmentList">
                 <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <div className='mapAndLogoImg'>
-                    <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                    <button className='textButton'>გეგმარებები</button>
+                  <div className="mapAndLogoImg">
+                    <img
+                      src={mapSignLogo}
+                      alt="mapSignLogo"
+                      className="mapSignLogo"
+                    />
+                    <button className="textButton">გეგმარებები</button>
                   </div>
                 </motion.div>
               </Link>
 
-
-              <Link to='/map' >
+              <Link to="/map">
                 <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <div className='mapAndLogoImg'>
-                    <img src={mapSignLogo} alt='mapSignLogo' className='mapSignLogo' />
-                    <button className='textButton'>რუკა</button>
+                  <div className="mapAndLogoImg">
+                    <img
+                      src={mapSignLogo}
+                      alt="mapSignLogo"
+                      className="mapSignLogo"
+                    />
+                    <button className="textButton">რუკა</button>
                   </div>
                 </motion.div>
               </Link>
@@ -480,16 +483,15 @@ export default function Complex({
                 რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
               <Button
                 id="basic-button"
-                aria-controls={open ? 'basic-menu' : undefined}
+                aria-controls={open ? "basic-menu" : undefined}
                 aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
+                aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
-                style={{ color: 'white', fontSize: '16px' }}
-
+                style={{ color: "white", fontSize: "16px" }}
               >
-                <div className='sortAndArrowDownImgBox'>
+                <div className="sortAndArrowDownImgBox">
                   სორტირება
-                  <img src={arrowDownSorting} style={{ width: '20px', }} />
+                  <img src={arrowDownSorting} style={{ width: "20px" }} />
                 </div>
               </Button>
 
@@ -503,9 +505,8 @@ export default function Complex({
                     backgroundColor: "black",
                     width: "270px",
                   },
-                  'aria-labelledby': 'basic-button',
+                  "aria-labelledby": "basic-button",
                 }}
-
                 //
                 component={motion.div}
                 variants={{
@@ -513,102 +514,133 @@ export default function Complex({
                   visible: { opacity: 1, scale: 1 },
                 }}
                 initial="hidden"
-                animate={open ? 'visible' : 'hidden'}
+                animate={open ? "visible" : "hidden"}
                 transition={{ duration: 0.6 }}
               >
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    style={{
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      padding: "8px 16px",
+                    }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice('-created_at');
-                    }}>თარიღი კლებადობით
+                      setAscendentPrice("-created_at");
+                    }}
+                  >
+                    თარიღი კლებადობით
                   </MenuItem>
                 </motion.div>
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    style={{
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      padding: "8px 16px",
+                    }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice('created_at');
-                    }}>თარიღი ზრდადობით
+                      setAscendentPrice("created_at");
+                    }}
+                  >
+                    თარიღი ზრდადობით
                   </MenuItem>
                 </motion.div>
-
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    style={{
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      padding: "8px 16px",
+                    }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice('-price_per_sq_meter');
-                    }}>ფასი კლებადობით
+                      setAscendentPrice("-price_per_sq_meter");
+                    }}
+                  >
+                    ფასი კლებადობით
                   </MenuItem>
                 </motion.div>
-
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    style={{
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      padding: "8px 16px",
+                    }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice('price_per_sq_meter');
-                    }}>ფასი ზრდადობით
+                      setAscendentPrice("price_per_sq_meter");
+                    }}
+                  >
+                    ფასი ზრდადობით
                   </MenuItem>
                 </motion.div>
-
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    style={{
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      padding: "8px 16px",
+                    }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice('-rank');
-                    }}>რანკი კლებადობით
+                      setAscendentPrice("-rank");
+                    }}
+                  >
+                    რანკი კლებადობით
                   </MenuItem>
                 </motion.div>
-
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
-                    style={{ backgroundColor: '#000', color: '#fff', padding: '8px 16px' }}
+                    style={{
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      padding: "8px 16px",
+                    }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice('rank');
-                    }}>რანკი ზრდადობით
+                      setAscendentPrice("rank");
+                    }}
+                  >
+                    რანკი ზრდადობით
                   </MenuItem>
                 </motion.div>
-
               </Menu>
               {/* ---------------------------------- */}
 
               {/* ----Dollar and Lari Toggle button */}
-              <div className='currencyBox'>
+              <div className="currencyBox">
                 <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
                   <motion.div className="handle" layout transition={spring}>
                     <img
@@ -626,33 +658,55 @@ export default function Complex({
               </div>
               {/* ---------------- */}
             </div>
-
           </div>
         </div>
       </motion.div>
 
       {/* // ------------------------------------------------------------------------------------ */}
 
-
-
-
-      <div className='allCards'>
-        {isLoading ? (
-          Array.from({ length: 10 }, (_, index) => (
-            <div className='card' key={index}>
-              <Skeleton variant='rectangle' animation='wave' width={styles.imageStyles.width} height={styles.imageStyles.height} />
-              <Skeleton variant='text' animation='wave' width={150} height={20} style={styles.companyTitle} />
-              <div className='textInfo'>
-                <Skeleton variant='text' animation='wave' width={120} height={15} style={styles.complexInfo} />
-                <Skeleton variant='text' animation='wave' width={180} height={15} style={styles.complexInfo} />
-                <Skeleton variant='text' animation='wave' width={100} height={15} style={styles.complexFinished} />
+      <div className="allCards">
+        {isLoading
+          ? Array.from({ length: 10 }, (_, index) => (
+              <div className="card" key={index}>
+                <Skeleton
+                  variant="rectangle"
+                  animation="wave"
+                  width={styles.imageStyles.width}
+                  height={styles.imageStyles.height}
+                />
+                <Skeleton
+                  variant="text"
+                  animation="wave"
+                  width={150}
+                  height={20}
+                  style={styles.companyTitle}
+                />
+                <div className="textInfo">
+                  <Skeleton
+                    variant="text"
+                    animation="wave"
+                    width={120}
+                    height={15}
+                    style={styles.complexInfo}
+                  />
+                  <Skeleton
+                    variant="text"
+                    animation="wave"
+                    width={180}
+                    height={15}
+                    style={styles.complexInfo}
+                  />
+                  <Skeleton
+                    variant="text"
+                    animation="wave"
+                    width={100}
+                    height={15}
+                    style={styles.complexFinished}
+                  />
+                </div>
               </div>
-            </div>
-          ))
-        ) : (
-
-          homeMaping
-        )}
+            ))
+          : homeMaping}
       </div>
 
       {/* for scroll UP */}
@@ -660,9 +714,8 @@ export default function Complex({
         <img src={scrollUp} alt='logo' style={{ width: '40px' }} />
       </button> */}
 
-
       {/* Pagination for user to select some page */}
-      <div className='pagination'>
+      <div className="pagination">
         <Stack spacing={2}>
           <Pagination
             count={totalPageCount}
@@ -671,14 +724,14 @@ export default function Complex({
             onChange={(event, value) => setCurrentPage(value)}
             onClick={pagiHandler}
             sx={{
-              '& .MuiPaginationItem-root': {
-                color: 'black', // Change the color to your desired color
+              "& .MuiPaginationItem-root": {
+                color: "black", // Change the color to your desired color
               },
-              '& .Mui-selected': {
-                backgroundColor: 'green', // Change the selected page background color
-                color: 'white', // Change the selected page text color
-                '&:hover': {
-                  backgroundColor: 'green', // Change the background color on hover
+              "& .Mui-selected": {
+                backgroundColor: "green", // Change the selected page background color
+                color: "white", // Change the selected page text color
+                "&:hover": {
+                  backgroundColor: "green", // Change the background color on hover
                 },
               },
             }}
@@ -686,31 +739,32 @@ export default function Complex({
         </Stack>
       </div>
       {/* ---------------------------------------------------------------- */}
-      <div className='googleMapImageBox'>
-        <Link to='/map' >
+      <div className="googleMapImageBox">
+        <Link to="/map">
           <motion.div
             initial={{ x: -150, opacity: 0 }}
             transition={{ duration: 1.5 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
           >
-            <img src={googleMapImage} alt='googleMapImage' className='googleMapImage' />
+            <img
+              src={googleMapImage}
+              alt="googleMapImage"
+              className="googleMapImage"
+            />
           </motion.div>
         </Link>
       </div>
-
     </div>
-  )
+  );
 }
-
-
 
 const styles = {
   imageStyles: {
-    width: '278px',
-    height: '229px',
-    overflow: 'hidden',
-    borderRadius: '20px',
+    width: "278px",
+    height: "229px",
+    overflow: "hidden",
+    borderRadius: "20px",
   },
   companyTitle: {
     // position: 'absolute',
@@ -718,10 +772,10 @@ const styles = {
     // paddingLeft: '20px'
   },
   complexInfo: {
-    color: 'white',
+    color: "white",
   },
   complexFinished: {
-    color: 'white',
+    color: "white",
   },
 };
 
