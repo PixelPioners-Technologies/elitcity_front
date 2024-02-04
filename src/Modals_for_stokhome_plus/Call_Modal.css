@@ -33,6 +33,7 @@
   border-style: solid;
   border-width: 2px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  height: 500px;
 }
 
 .scale-up-top-storkhome {

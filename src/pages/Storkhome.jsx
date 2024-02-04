@@ -9,7 +9,6 @@ import { motion } from 'framer-motion';
 
 
 
-
 export default function Storkhome({
   selectedLanguage,
   handleCallButtonClick,
@@ -32,7 +31,7 @@ export default function Storkhome({
         break;
 
       case "ka":
-        languageInfo.header = "ტოპ დეველუპერული ცომპანიები"
+        languageInfo.header = "ტოპ დეველუპერული კომპანიები"
 
         break
 
@@ -103,24 +102,6 @@ export default function Storkhome({
         </div>
 
         <div className='kit_settings_cont' >
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
           <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
           <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
           <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
