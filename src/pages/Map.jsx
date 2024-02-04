@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect  } from 'react';
 import axios from 'axios';
 import './Map.css';
 import { GoogleMap, Marker, InfoWindow, useJsApiLoader } from '@react-google-maps/api';
