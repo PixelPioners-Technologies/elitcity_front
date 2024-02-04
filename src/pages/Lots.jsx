@@ -7,25 +7,28 @@ import "./Physical.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import P_Modal from "../modals for private page/P_Modal";
-import P_PriceModal from "../modals for private page/P_PriceModal";
-import P_SpaceModal from "../modals for private page/P_SpaceModal";
-import P_StatusModal from "../modals for private page/P_StatusModa";
-import { motion } from "framer-motion";
-import button_icon from "../icons/Vector.svg";
-import { Link, useNavigate } from "react-router-dom";
-import mapSignLogo from "../assets/mapSignLogoo.svg";
-import Button from "@mui/material/Button";
-import arrowDownSorting from "../assets/arrow-down-white.svg";
-import Menu from "@mui/material/Menu";
-import loupe from "../icons/loupe.png";
-import MenuItem from "@mui/material/MenuItem";
-import lari from "../assets/lari-svgrepo-com.svg";
-import dollar from "../assets/dollar-svgrepo-com.svg";
-import Stack from "@mui/material/Stack";
-import Pagination from "@mui/material/Pagination";
-import heartIcon from "../assets/starLogo.svg";
-import heartIconEmpty from "../assets/emptyStarLogo.svg";
-import googleMapImage from "../assets/mapImageForFooter.svg";
+import P_PriceModal from '../modals for private page/P_PriceModal';
+import P_SpaceModal from '../modals for private page/P_SpaceModal';
+import P_StatusModal from '../modals for private page/P_StatusModa';
+import { motion } from 'framer-motion';
+import button_icon from '../icons/Vector.svg';
+import { Link } from "react-router-dom";
+import mapSignLogo from '../assets/mapSignLogoo.svg';
+import Button from '@mui/material/Button';
+import arrowDownSorting from '../assets/arrow-down-white.svg';
+import Menu from '@mui/material/Menu';
+import loupe from '../icons/loupe.png'
+import MenuItem from '@mui/material/MenuItem';
+import lari from '../assets/lari-svgrepo-com.svg';
+import dollar from '../assets/dollar-svgrepo-com.svg';
+import Stack from '@mui/material/Stack';
+import Pagination from '@mui/material/Pagination';
+import heartIcon from '../assets/starLogo.svg';
+import heartIconEmpty from '../assets/emptyStarLogo.svg';
+import googleMapImage from '../assets/mapImageForFooter.svg';
+import { BaseURLs } from '../App';
+import { useNavigate } from "react-router-dom";
+
 
 const normalizeGroundData = (data, lang) => {
   return data.map((item) => ({
@@ -129,9 +132,6 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
-  // const BaseURL_Private = 'http://127.0.0.1:8000/ground/'
-  const BaseURL_Private = "https://api.storkhome.ge/ground/";
-
   useEffect(() => {
     const fetcPrivateApartments = async () => {
       // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
@@ -168,7 +168,7 @@ export default function Physical({ selectedLanguage, favorites }) {
       }
 
       const queryString = queryParams.toString();
-      const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
+      const requestUrl = `${BaseURLs.ground}${selectedLanguage}/?${queryString}`;
 
       const response = await axios.get(requestUrl);
       const data = response.data.results;
@@ -204,20 +204,14 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
-  // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
-  const base_URL_for_location = "https://api.storkhome.ge/map/";
 
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await axios.get(
-          `${base_URL_for_location}${selectedLanguage}`
-        );
-        const normalisedLocationData = normalizeLocationData(
-          response.data,
-          selectedLanguage
-        );
-        setLocations(normalisedLocationData);
+        const response = await axios.get(`${BaseURLs.map}${selectedLanguage}`);
+        const normalisedLocationData = normalizeLocationData(response.data, selectedLanguage)
+        setLocations(normalisedLocationData)
+
       } catch (error) {
         console.error("error fetching on locations =>> ", error);
       }
@@ -1233,7 +1227,7 @@ export default function Physical({ selectedLanguage, favorites }) {
         {privateApartments.map((prev_apartments, index) => (
           <div
             className="card_physical"
-            key={index}
+            key={prev_apartments.id}
             onClick={() => handleLotsClick(prev_apartments.id)}
           >
             <motion.div

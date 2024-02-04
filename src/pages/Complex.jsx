@@ -36,8 +36,15 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 // ------------------------------------------------------------------------------------
 
+import { BaseURLs } from '../App';
+
+
+
+
 // const basess = 'http://localhost:5173';
-const basess = "https://api.storkhome.ge";
+// const basess = 'https://api.storkhome.ge'
+
+
 
 // });
 
@@ -295,7 +302,7 @@ export default function Complex({
       try {
         setIsLoading(true);
         // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
-        const response = await axios.get(`${basess}/complex/${requestUrl}`);
+        const response = await axios.get(`${BaseURLs.complex}${requestUrl}`);
 
         // const { results } = response.data.results[0];
         const normalData = normalizeComplexData(

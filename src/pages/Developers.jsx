@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import loupe from '../icons/loupe.png'
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-
+import { BaseURLs } from '../App';
 
 
 const normalizeCompanyData = (data, lang) => {
@@ -43,8 +43,6 @@ export default function Developers({ favorites, selectedLanguage }) {
 
   // --------------------------------------function for fetching company data-------------------------------------------
 
-  // const baseURL_Comany = "http://127.0.0.1:8000/company/"
-  const baseURL_Comany = "https://api.storkhome.ge/company/"
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -60,7 +58,7 @@ export default function Developers({ favorites, selectedLanguage }) {
       });
 
       const querystring = queryParams.toString();
-      const requestUrl = `${baseURL_Comany}${selectedLanguage}/?${querystring}`;
+      const requestUrl = `${BaseURLs.company}${selectedLanguage}/?${querystring}`;
 
 
       const response = await axios.get(requestUrl);

@@ -18,9 +18,66 @@ import Storkhome from "./pages/Storkhome";
 import axios from "axios";
 import EachComplex from "./pages/EachComplex";
 import Call_Modal from "./Modals_for_stokhome_plus/Call_Modal";
+import headphone_icon from './icons/headphones.png'
+import { color } from "framer-motion";
+import { motion } from 'framer-motion';
+import cancel_icon from './icons/cancel.png'
+import ReactGA from 'react-ga';
+import { useLocation } from 'react-router-dom';
 
-// const Base_URL = "http://127.0.0.1:8000/complex/";
-const Base_URL = "https://api.storkhome.ge/complex/";
+
+
+
+// function usePageViews() {
+//   let location = useLocation();
+  
+//   useEffect(() => {
+//     ReactGA.pageview(location.pathname + location.search);
+//   }, [location]);
+// }
+
+
+function trackButtonClick(buttonName) {
+  ReactGA.event({
+    category: 'Header',
+    action: 'Click',
+    label: buttonName
+  });
+}
+
+
+
+
+const BaseURLs = {
+  // storkhome
+
+  complex: "https://api.storkhome.ge/complex/",
+  company: "https://api.storkhome.ge/company/",
+  apartment: "https://api.storkhome.ge/apartment/",
+  private_apartment: "https://api.storkhome.ge/privateapartments/",
+  ground: "https://api.storkhome.ge/ground/",
+  promotion: "https://api.storkhome.ge/promotions/",
+  blog: "https://api.storkhome.ge/blog/",
+  map: "https://api.storkhome.ge/map/",
+  complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+
+  // local
+
+  // complex: "http://127.0.0.1:8000/complex/",
+  // company: "http://127.0.0.1:8000/company/",
+  // apartment: "http://127.0.0.1:8000/apartment/",
+  // private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  // ground: "http://127.0.0.1:8000/ground/",
+  // promotion: "http://127.0.0.1:8000/promotions/",
+  // blog: "http://127.0.0.1:8000/blog/",
+  // map: "http://127.0.0.1:8000/map/",
+  // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+}
+
+
+export { BaseURLs };
+
+
 
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
 
@@ -96,6 +153,19 @@ const normalizeLocationData = (data, lang) => {
 };
 
 function App() {
+
+  const location = useLocation();
+
+  // Track page views when the route changes
+  useEffect(() => {
+    // Your tracking ID
+    const TRACKING_ID = "G-FFTZPPMQNZ";
+    ReactGA.initialize(TRACKING_ID);
+
+    ReactGA.pageview(location.pathname + location.search);
+  }, [location]);
+
+
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [favorites, setFavorites] = useState([]);
@@ -194,7 +264,7 @@ function App() {
 
       // Construct the full URL with query parameters
       const queryString = queryParams.toString();
-      const requestUrl = `${Base_URL}${selectedLanguage}/?${queryString}`;
+      const requestUrl = `${BaseURLs.complex}${selectedLanguage}/?${queryString}`;
 
       //////////////////////    T  E  S  T  ///////////////////////////
       // local_url = 'http://127.0.0.1:8000'
@@ -312,13 +382,13 @@ function App() {
     // First timer to open the modal after 10 seconds
     const timer1 = setTimeout(() => {
       setIsCallModalOpen(true);
-    }, 1000); // 10 seconds
+    }, 60000); // 10 seconds
 
     // Second timer to close and then reopen the modal after 20 seconds
     const timer2 = setTimeout(() => {
       setIsCallModalOpen(false); // Close the modal first to create a noticeable effect
       setTimeout(() => setIsCallModalOpen(true), 200); // Reopen it shortly after closing for user notice
-    }, 2000); // 20 seconds
+    }, 120000); // 20 seconds
 
     // Cleanup function to clear both timers if the component unmounts
     return () => {
@@ -336,6 +406,82 @@ function App() {
   };
 
   // ------------------------------------------------------------------------------------------
+  // ----------------------------static buttons and input language translation----------------------------------------
+
+  const languageTranslationForCheetModal = (lang) => {
+    var languageInfo = {
+      name: "Name",
+      phone_number: 'Phone number',
+      please_choose: "Please choose",
+      salse_Department: "Sales department",
+      storkhome_plus: "Storkhome +",
+      other: 'Other',
+      send: "Send"
+    }
+
+    switch (lang) {
+      case "en":
+        languageInfo.name = "Name"
+        languageInfo.phone_number = 'Phone number'
+        languageInfo.please_choose = "Please choose"
+        languageInfo.salse_Department = "Sales department"
+        languageInfo.storkhome_plus = "Storkhome +"
+        languageInfo.other = 'Other'
+        languageInfo.send = "Send"
+
+        break;
+
+      case "ka":
+        languageInfo.name = "სახელი"
+        languageInfo.phone_number = 'ტელეფონის ნომერი'
+        languageInfo.please_choose = "გთხოვთ აირჩიეთ"
+        languageInfo.salse_Department = "გაყიდვების განყოფილება"
+        languageInfo.storkhome_plus = "Storkhome +"
+        languageInfo.other = 'სხვა'
+        languageInfo.send = "გაგზავნა"
+        break
+
+      case "ru":
+        languageInfo.name = "Имя"
+        languageInfo.phone_number = 'Номер телефона'
+        languageInfo.please_choose = "Пожалуйста, выбери"
+        languageInfo.salse_Department = "Отдел продаж"
+        languageInfo.storkhome_plus = "Storkhome +"
+        languageInfo.other = 'Другой'
+        languageInfo.send = "Отправлять"
+        break
+    }
+    return languageInfo
+  }
+  // ------------------------------------------------------------------------------------------
+
+  // ------------------------------------------------------------------------------------------
+  // -------------------------------functions for google analitics-----------------------------
+  // ------------------------------------------------------------------------------------------
+
+
+  const TRACKING_ID = "G-S2FEW89VQE"; // Replace with your Google Analytics tracking ID
+  ReactGA.initialize(TRACKING_ID);
+  
+
+
+
+
+  // ------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="App">
@@ -345,6 +491,7 @@ function App() {
           <Header
             favorites={favorites}
             handleLanguageChange={handleLanguageChange}
+            onButtonClick={trackButtonClick} 
           />
         </div>
       ) : null}
@@ -452,16 +599,17 @@ function App() {
           element={
             <Storkhome
               selectedLanguage={selectedLanguage}
-              handleCloseCallModal={handleCloseCallModal}
               handleCallButtonClick={handleCallButtonClick}
-              isCallModalOpen={isCallModalOpen}
             />
           }
         />
 
         <Route
           path="eachComplex/:complexId"
-          element={<EachComplex selectedLanguage={selectedLanguage} />}
+          element={<EachComplex
+            selectedLanguage={selectedLanguage}
+            handleCallButtonClick={handleCallButtonClick}
+          />}
         />
 
         <Route
@@ -472,10 +620,69 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-        onClick={(e) => e.stopPropagation()}
+        // onClick={(e) => e.stopPropagation()}
       >
-        <p className="call_modal_content">this is call modal</p>
-        <div className="call_modal"></div>
+        <div className="call_modal_containerr" >
+          <div className="cancel_icon_container" >
+            <img src={cancel_icon} alt="cencel icon" className="cansel_button" onClick={handleCloseCallModal} />
+          </div>
+          <div>
+            <div className="headphone_icon_container">
+              <img className="headphone_icon" src={headphone_icon} alt="headphone icon" />
+            </div>
+            <div className="call_input_container">
+              <input type="text" className="call_input" placeholder={languageTranslationForCheetModal(selectedLanguage).name} />
+            </div>
+            <div className="call_input_container">
+              <input type="number" className="call_input" placeholder={languageTranslationForCheetModal(selectedLanguage).phone_number} />
+            </div>
+          </div>
+          <div className="choose_container" >
+            <div className="department_choices"> <p className="choose">{languageTranslationForCheetModal(selectedLanguage).please_choose}</p>    </div>
+          </div>
+          {/* departamentis chekmarkebi */}
+          <div className="call_checkmark_container" >
+
+            {/* 1 chekmark konteineri  tavisi saxelit */}
+            <div className="little_checkmark_container">
+              <label>
+                <input type="checkbox" className="input" />
+                <span className="custom-checkbox"></span>
+              </label>
+              <p style={{ color: 'white' }}  >{languageTranslationForCheetModal(selectedLanguage).salse_Department}</p>
+            </div>
+
+            {/* 2 chekmark konteineri  tavisi saxelit */}
+            <div className="little_checkmark_container">
+              <label>
+                <input type="checkbox" className="input" />
+                <span className="custom-checkbox"></span>
+              </label>
+              <p style={{ color: 'white' }}  >{languageTranslationForCheetModal(selectedLanguage).storkhome_plus}</p>
+            </div>
+
+            {/* 3 chekmark konteineri  tavisi saxelit */}
+            <div className="little_checkmark_container">
+              <label>
+                <input type="checkbox" className="input" />
+                <span className="custom-checkbox"></span>
+              </label>
+              <p style={{ color: 'white' }}  >{languageTranslationForCheetModal(selectedLanguage).other}</p>
+            </div>
+
+          </div>
+          <div className="send_container" >
+            <motion.div
+              className="textButtonContainer send_sheet_button_container"
+              whileHover={{ scale: 1.05 }}
+              // whileTap={{ scale: 0.9 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <button className="senc_to_sheet"> {languageTranslationForCheetModal(selectedLanguage).send} </button>
+            </motion.div>
+          </div>
+
+        </div>
       </Call_Modal>
     </div>
   );
