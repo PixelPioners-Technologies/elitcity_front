@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 
 
 
-export default function Header({favorites, handleLanguageChange }) {
+export default function Header({favorites, handleLanguageChange , onButtonClick}) {
 
 
 
@@ -35,7 +35,7 @@ export default function Header({favorites, handleLanguageChange }) {
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
-                  <button className='buttonItemsOfList'>კომპლესები</button>
+                  <button    onClick={() => onButtonClick('ComplexButton')}  className='buttonItemsOfList'>კომპლესები</button>
                 </motion.div>
               </Link>
             </li>

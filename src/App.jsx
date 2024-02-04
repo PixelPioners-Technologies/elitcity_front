@@ -22,7 +22,33 @@ import headphone_icon from './icons/headphones.png'
 import { color } from "framer-motion";
 import { motion } from 'framer-motion';
 import cancel_icon from './icons/cancel.png'
+import ReactGA from 'react-ga';
+import { useLocation } from 'react-router-dom';
 
+
+
+
+// This function assumes you've already initialized GA as shown in your index.html
+const usePageTracking = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const pagePath = location.pathname + location.search;
+
+    // Here we're using the gtag function directly as it's globally available from the index.html script
+    window.gtag('config', 'G-FFTZPPMQNZ', {
+      page_path: pagePath,
+    });
+  }, [location]);
+};
+
+function trackButtonClick(buttonName) {
+  ReactGA.event({
+    category: 'Header',
+    action: 'Click',
+    label: buttonName
+  });
+}
 
 
 const BaseURLs = {
@@ -60,6 +86,16 @@ const BaseURLs = {
   // map: "http://127.0.0.1:8000/map/",
   // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
 }
+  complex: "http://127.0.0.1:8000/complex/",
+  company: "http://127.0.0.1:8000/company/",
+  apartment: "http://127.0.0.1:8000/apartment/",
+  private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  ground: "http://127.0.0.1:8000/ground/",
+  promotion: "http://127.0.0.1:8000/promotions/",
+  blog: "http://127.0.0.1:8000/blog/",
+  map: "http://127.0.0.1:8000/map/",
+  complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+}  
 
 
 export { BaseURLs };
@@ -140,6 +176,8 @@ const normalizeLocationData = (data, lang) => {
 };
 
 function App() {
+  usePageTracking()
+
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [favorites, setFavorites] = useState([]);
@@ -429,7 +467,7 @@ function App() {
   }
   // ------------------------------------------------------------------------------------------
 
-
+ 
 
 
   return (
@@ -440,6 +478,7 @@ function App() {
           <Header
             favorites={favorites}
             handleLanguageChange={handleLanguageChange}
+            onButtonClick={trackButtonClick} 
           />
         </div>
       ) : null}
