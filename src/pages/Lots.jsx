@@ -126,9 +126,10 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   const navigate = useNavigate();
   // Assuming `complex` is an object representing each house
-  const handleLotsClick = (complexId) => {
-    navigate(`/eachComplex/${complexId}`);
+  const handleLotsClick = (prev_apartments) => {
+    navigate(`/eachground/${prev_apartments}`,{ state: { prev_apartments } });
   };
+
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 

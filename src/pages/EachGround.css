@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;500&display=swap');
+
+
+.ground_settings {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  width: 500px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.ground_all_settind {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 10px;
+  
+}
+
+
+
+.carusel_buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+
+/* ----------------------------next and previous buttons styles ------------------------------------------ */
+.Btn {
+  width: 130px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(15, 15, 15);
+  border: none;
+  color: white;
+  font-weight: 600;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+  border: 1px solid white;
+  /* border-radius: 20px; */
+  overflow: hidden;
+  padding: 20px 20px;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+
+}
+
+.Btn::before {
+  width: 130px;
+  height: 130px;
+  position: absolute;
+  content: "";
+  background-color: white;
+  border-radius: 50%;
+  left: -100%;
+  top: 0;
+  transition-duration: .3s;
+  mix-blend-mode: difference;
+}
+
+.Btn:hover::before {
+  transition-duration: .3s;
+  transform: translate(100%, -50%);
+  border-radius: 0;
+}
+
+.Btn:active {
+  transform: translate(5px, 5px);
+  transition-duration: .3s;
+}
+
+/* -------------------------------------------------------------------------------------------------- */
+
+.callRequestBox {
+  cursor: pointer;
+  height: 63px;
+}
+
