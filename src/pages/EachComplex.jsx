@@ -13,7 +13,7 @@ import heartIcon from "../assets/starLogo.svg";
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import arrowDown from "../assets/arrow-down.svg";
 import arrowUp from "../assets/arrow-up.svg";
-
+import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
 
 // ------------------
@@ -24,6 +24,10 @@ import P_PriceModal from "../modals for private page/P_PriceModal";
 import P_SpaceModal from "../modals for private page/P_SpaceModal";
 import P_StatusModal from "../modals for private page/P_StatusModa";
 import button_icon from "../icons/Vector.svg";
+
+import { useLocation } from 'react-router-dom';
+
+
 
 const normalizePrivateApartmentData = (data, lang) => {
   return data.map((item) => ({
@@ -65,6 +69,7 @@ export default function EachComplex({
   selectedLanguage,
   favorites,
   favoriteHandler,
+
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
@@ -102,6 +107,10 @@ export default function EachComplex({
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
 
+  const location = useLocation();
+  const { complexId } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
+
+
   useEffect(() => {
     setSelectedCity("");
     setMin_area("");
@@ -124,7 +133,6 @@ export default function EachComplex({
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
-  const BaseURL_Private = "https://api.storkhome.ge/privateapartments/";
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
@@ -137,17 +145,17 @@ export default function EachComplex({
       const limit = 12; // Define the limit or make it dynamic as per your requirement
       const offset = (currentPage - 1) * limit;
 
-      let queryParams = new URLSearchParams({
-        [cityParam]: selectedCity,
-        min_square_price: min_square_price,
-        max_square_price: max_square_price,
-        min_full_price: minFullPrice,
-        max_full_price: maxFullPrice,
-        min_area: min_area,
-        max_area: max_area,
-        limit: limit,
-        offset: offset,
-      });
+      // let queryParams = new URLSearchParams({
+      //   [cityParam]: selectedCity,
+      //   min_square_price: min_square_price,
+      //   max_square_price: max_square_price,
+      //   min_full_price: minFullPrice,
+      //   max_full_price: maxFullPrice,
+      //   min_area: min_area,
+      //   max_area: max_area,
+      //   limit: limit,
+      //   offset: offset,
+      // });
 
       if (selectedStatuses && selectedStatuses.length > 0) {
         selectedStatuses.forEach((status) => {
@@ -155,18 +163,18 @@ export default function EachComplex({
         });
       }
 
-      const queryString = queryParams.toString();
-      const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
-
+      // const queryString = queryParams.toString();
+      const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${complexId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
+      console.log(response.data)
       const data = response.data.results;
       const normalised_Data = normalizePrivateApartmentData(
         data,
         selectedLanguage
       );
       setPrivateApartments(normalised_Data);
-      setTotalCount(response.data.total_items);
-      setCorrentPage(response.data.current_page);
+      // setTotalCount(response.data.total_items);
+      // setCorrentPage(response.data.current_page);
     };
     fetcPrivateApartments();
   }, [
@@ -180,11 +188,14 @@ export default function EachComplex({
     max_area,
     min_area,
     currentPage,
+    complexId,
   ]);
+
+console.log("1231231231312" , privateApartments)
 
   useEffect(() => {
     console.log("aq unda iyos suratebi", privateApartments);
-  }, [totalCount, selectedLanguage]);
+  }, [totalCount, selectedLanguage,complexId]);
 
   // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
