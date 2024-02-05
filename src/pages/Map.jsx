@@ -230,6 +230,22 @@ export default function Map({ selectedLanguage }) {
 
   // --------------------------------------------------------------------------
 
+
+
+
+  const navigate = useNavigate();
+
+  // Assuming `complex` is an object representing each house
+  const handleHouseClick = (complexId) => {
+    navigate(`/eachComplex/${complexId}`);
+  };
+
+
+
+
+
+
+
   useEffect(() => {
     setSelectedCity('')
     setSelectedPharentDistricts([])
@@ -1410,12 +1426,12 @@ export default function Map({ selectedLanguage }) {
                 }}
                 onCloseClick={() => setSelectedComplex(null)}
               >
-                <div>
+                <div className='infowindow_container' >
                   <h2>{selectedComplex.complexName}</h2>
                   <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p>
                   {/* Add more details and the image if available */}
                   {selectedComplex.images && selectedComplex.images.length > 0 && (
-                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
+                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img'  onClick={() => handleHouseClick(selectedComplex.id)} />
                   )}
                 </div>
               </InfoWindow>
@@ -1544,7 +1560,7 @@ export default function Map({ selectedLanguage }) {
                 }}
                 onCloseClick={() => setSelectedComplex(null)}
               >
-                <div>
+                <div className='infowindow_container' >
                   <h2>{selectedComplex.complexName}</h2>
                   <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p>
                   {/* Add more details and the image if available */}
