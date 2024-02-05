@@ -156,3 +156,7 @@
   justify-content: space-between;
   
 }
+
+.paddingForEachComplexCardBox {
+  padding: 0 50px;
+}

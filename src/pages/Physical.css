@@ -234,9 +234,10 @@ input[type="checkbox"] {
   /* background-color: #C1D6CC; */
   background-color: black;
   border: 1px solid white;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   overflow: hidden;
   padding: 20px 20px;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
 
   transition: transform 0.3s ease-in-out;
 
