@@ -678,8 +678,7 @@ function App() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <button className="senc_to_sheet">
-                {" "}
-                {languageTranslationForCheetModal(selectedLanguage).send}{" "}
+                {languageTranslationForCheetModal(selectedLanguage).send}
               </button>
             </motion.div>
           </div>
