@@ -6,29 +6,27 @@ import "./Physical.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import P_Modal from "../modals for private page/P_Modal";
-import P_PriceModal from '../modals for private page/P_PriceModal';
-import P_SpaceModal from '../modals for private page/P_SpaceModal';
-import P_StatusModal from '../modals for private page/P_StatusModa';
-import { motion } from 'framer-motion';
-import button_icon from '../icons/Vector.svg';
+import P_PriceModal from "../modals for private page/P_PriceModal";
+import P_SpaceModal from "../modals for private page/P_SpaceModal";
+import P_StatusModal from "../modals for private page/P_StatusModa";
+import { motion } from "framer-motion";
+import button_icon from "../icons/Vector.svg";
 import { Link } from "react-router-dom";
-import mapSignLogo from '../assets/mapSignLogoo.svg';
-import Button from '@mui/material/Button';
-import arrowDownSorting from '../assets/arrow-down-white.svg';
-import Menu from '@mui/material/Menu';
-import loupe from '../icons/loupe.png'
-import MenuItem from '@mui/material/MenuItem';
-import lari from '../assets/lari-svgrepo-com.svg';
-import dollar from '../assets/dollar-svgrepo-com.svg';
-import Stack from '@mui/material/Stack';
-import Pagination from '@mui/material/Pagination';
-import heartIcon from '../assets/starLogo.svg';
-import heartIconEmpty from '../assets/emptyStarLogo.svg';
-import googleMapImage from '../assets/mapImageForFooter.svg';
-import { BaseURLs } from '../App';
+import mapSignLogo from "../assets/mapSignLogoo.svg";
+import Button from "@mui/material/Button";
+import arrowDownSorting from "../assets/arrow-down-white.svg";
+import Menu from "@mui/material/Menu";
+import loupe from "../icons/loupe.png";
+import MenuItem from "@mui/material/MenuItem";
+import lari from "../assets/lari-svgrepo-com.svg";
+import dollar from "../assets/dollar-svgrepo-com.svg";
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
+import heartIcon from "../assets/starLogo.svg";
+import heartIconEmpty from "../assets/emptyStarLogo.svg";
+import googleMapImage from "../assets/mapImageForFooter.svg";
+import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
-
-
 
 const normalizePrivateApartmentData = (data, lang) => {
   return data.map((item) => ({
@@ -83,7 +81,11 @@ const normalizeLocationData = (data, lang) => {
   });
 };
 
-export default function Physical({ selectedLanguage, favorites }) {
+export default function Physical({
+  selectedLanguage,
+  favorites,
+  favoriteHandler,
+}) {
   const [privateApartments, setPrivateApartments] = useState([]);
 
   const [is_P_ModalOpen, setIs_P_ModalOpen] = useState("");
@@ -133,8 +135,8 @@ export default function Physical({ selectedLanguage, favorites }) {
   const navigate = useNavigate();
 
   // Assuming `complex` is an object representing each house
-  const handleAppartmentClick = (complexId) => {
-    navigate(`/eachComplex/${complexId}`);
+  const handleAppartmentClick = (p_apartment_id) => {
+    navigate(`/eachprivateappartment/${p_apartment_id}`,{ state: { p_apartment_id } });
   };
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
@@ -212,18 +214,16 @@ export default function Physical({ selectedLanguage, favorites }) {
     selectedRoomNumbers,
   ]);
 
-  useEffect(() => {
-    console.log("aq unda iyos suratebi", privateApartments);
-  }, [totalCount, selectedLanguage]);
-
   //-----------------------------------fetch ionly locations --------------------------------------
   useEffect(() => {
     const fetchLocations = async () => {
       try {
         const response = await axios.get(`${BaseURLs.map}${selectedLanguage}`);
-        const normalisedLocationData = normalizeLocationData(response.data, selectedLanguage)
-        setLocations(normalisedLocationData)
-
+        const normalisedLocationData = normalizeLocationData(
+          response.data,
+          selectedLanguage
+        );
+        setLocations(normalisedLocationData);
       } catch (error) {
         console.error("error fetching on locations =>> ", error);
       }

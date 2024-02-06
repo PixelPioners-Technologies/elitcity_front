@@ -9,6 +9,12 @@ import star from "../assets/Star for Each Complex Page.svg";
 import share from "../assets/ShareImage.svg";
 import phoneImage from "../assets/🦆 icon _phone_.svg";
 import headSetImage from "../assets/🦆 icon _headset_.svg";
+import heartIcon from "../assets/starLogo.svg";
+import heartIconEmpty from "../assets/emptyStarLogo.svg";
+import arrowDown from "../assets/arrow-down.svg";
+import arrowUp from "../assets/arrow-up.svg";
+import { BaseURLs } from "../App";
+import { useNavigate } from "react-router-dom";
 
 // ------------------
 import "./Physical.css";
@@ -18,6 +24,10 @@ import P_PriceModal from "../modals for private page/P_PriceModal";
 import P_SpaceModal from "../modals for private page/P_SpaceModal";
 import P_StatusModal from "../modals for private page/P_StatusModa";
 import button_icon from "../icons/Vector.svg";
+
+import { useLocation } from 'react-router-dom';
+
+
 
 const normalizePrivateApartmentData = (data, lang) => {
   return data.map((item) => ({
@@ -55,7 +65,12 @@ import img4 from "../assets/ComplexesPhotos/3zz.jpg";
 import img5 from "../assets/ComplexesPhotos/4zz.jpg";
 import img6 from "../assets/ComplexesPhotos/5zz.jpg";
 
-export default function EachComplex({ selectedLanguage }) {
+export default function EachComplex({
+  selectedLanguage,
+  favorites,
+  favoriteHandler,
+
+}) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
   const sliderImages = [
@@ -92,6 +107,10 @@ export default function EachComplex({ selectedLanguage }) {
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
 
+  const location = useLocation();
+  const { complexId } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
+
+
   useEffect(() => {
     setSelectedCity("");
     setMin_area("");
@@ -103,9 +122,17 @@ export default function EachComplex({ selectedLanguage }) {
     setSelectedStatuses([]);
   }, [selectedLanguage]);
 
+  console.log("hello");
+
+  // Assuming this is inside a functional component
+  const [showApartments, setShowApartments] = useState(false);
+
+  const handleShowHideClick = () => {
+    setShowApartments(!showApartments);
+  };
+
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
-  const BaseURL_Private = "https://api.storkhome.ge/privateapartments/";
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
@@ -118,17 +145,17 @@ export default function EachComplex({ selectedLanguage }) {
       const limit = 12; // Define the limit or make it dynamic as per your requirement
       const offset = (currentPage - 1) * limit;
 
-      let queryParams = new URLSearchParams({
-        [cityParam]: selectedCity,
-        min_square_price: min_square_price,
-        max_square_price: max_square_price,
-        min_full_price: minFullPrice,
-        max_full_price: maxFullPrice,
-        min_area: min_area,
-        max_area: max_area,
-        limit: limit,
-        offset: offset,
-      });
+      // let queryParams = new URLSearchParams({
+      //   [cityParam]: selectedCity,
+      //   min_square_price: min_square_price,
+      //   max_square_price: max_square_price,
+      //   min_full_price: minFullPrice,
+      //   max_full_price: maxFullPrice,
+      //   min_area: min_area,
+      //   max_area: max_area,
+      //   limit: limit,
+      //   offset: offset,
+      // });
 
       if (selectedStatuses && selectedStatuses.length > 0) {
         selectedStatuses.forEach((status) => {
@@ -136,18 +163,18 @@ export default function EachComplex({ selectedLanguage }) {
         });
       }
 
-      const queryString = queryParams.toString();
-      const requestUrl = `${BaseURL_Private}${selectedLanguage}/?${queryString}`;
-
+      // const queryString = queryParams.toString();
+      const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${complexId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
+      console.log(response.data)
       const data = response.data.results;
       const normalised_Data = normalizePrivateApartmentData(
         data,
         selectedLanguage
       );
       setPrivateApartments(normalised_Data);
-      setTotalCount(response.data.total_items);
-      setCorrentPage(response.data.current_page);
+      // setTotalCount(response.data.total_items);
+      // setCorrentPage(response.data.current_page);
     };
     fetcPrivateApartments();
   }, [
@@ -161,11 +188,14 @@ export default function EachComplex({ selectedLanguage }) {
     max_area,
     min_area,
     currentPage,
+    complexId,
   ]);
+
+console.log("1231231231312" , privateApartments)
 
   useEffect(() => {
     console.log("aq unda iyos suratebi", privateApartments);
-  }, [totalCount, selectedLanguage]);
+  }, [totalCount, selectedLanguage,complexId]);
 
   // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
@@ -348,7 +378,76 @@ export default function EachComplex({ selectedLanguage }) {
     return languageInfo;
   };
 
-  // სტილების მაგივრად
+  // --------------------------------------------language change for card status setting and content ---------------------------------------------------
+  const cardStatusSettingLanguage = (lang, status) => {
+    const statusLanguageInfo = {
+      en: {
+        1: "Newly renovated",
+        2: "With old repairs",
+        3: "To be repaired",
+      },
+      ka: {
+        // Assuming 'ka' stands for another language, e.g., Georgian
+        1: "ახალი რემონტი",
+        2: "ძველი რემონტით",
+        3: "სარემონტო",
+      },
+      ru: {
+        // Assuming 'ru' stands for Russian
+        1: "Недавно отремонтированный",
+        2: "Со старым ремонтом",
+        3: "Требует ремонта",
+      },
+      // Add more languages as needed
+    };
+
+    // Get the status descriptions for the current language
+    const currentLanguageStatusInfo = statusLanguageInfo[lang];
+
+    // Return the status description based on the status value
+    return currentLanguageStatusInfo[status];
+  };
+
+  // --------------------------------------card settings language change function ---------------------------------------------
+
+  const squareSymbol = "\u00B2";
+
+  const car_settings_language_change = (lang) => {
+    var languageInfo = {
+      city: "City",
+      square_from: `M${squareSymbol} - from`,
+    };
+
+    switch (lang) {
+      case "en":
+        languageInfo.city = "City";
+        languageInfo.square_from = `M${squareSymbol} - from`;
+
+        break;
+
+      case "ka":
+        languageInfo.city = "ქალაქი";
+        languageInfo.square_from = `მ${squareSymbol} - დან`;
+
+        break;
+
+      case "ru":
+        languageInfo.city = "Город";
+        languageInfo.square_from = `М${squareSymbol} от`;
+
+        break;
+    }
+    return languageInfo;
+  };
+
+  //
+
+  const navigate = useNavigate();
+
+  // Assuming `complex` is an object representing each house
+  const handleAppartmentClick = (complexId) => {
+    navigate(`/eachComplex/${complexId}`);
+  };
 
   return (
     <div className="eachComplexBox">
@@ -495,7 +594,14 @@ export default function EachComplex({ selectedLanguage }) {
         {/* ბინები და ყველა აპარტამენტის ტექსტი და ბათონი */}
         <div className="firstBoxOfBinebi">
           <p style={{ color: "#FFFFFF" }}>ბინები და გეგმარება</p>
-          <button className="numberSHowButton">All appartments(12) </button>
+          <button className="numberSHowButton" onClick={handleShowHideClick}>
+            All appartments(12)
+            {showApartments ? (
+              <img src={arrowUp} style={{ width: "20px", marginLeft: "5px" }} />
+            ) : (
+              <img src={arrowDown} style={{ width: "30px" }} />
+            )}
+          </button>
         </div>
         {/* ფილტრაცია (start) */}
         <div className="private_filter_conteiner">
@@ -647,12 +753,121 @@ export default function EachComplex({ selectedLanguage }) {
             </div>
           </motion.div>
         </div>
-
         {/* ---------- (end ფილტრაცია ბოქსი) */}
+
+        {/* ეს დივი არის გეგმარებები რომ ჩამოიშალოს... */}
+        {showApartments && (
+          <div className="allCards_physical paddingForEachComplexCardBox">
+            {privateApartments.map((prev_apartments, index) => (
+              <div
+                className="card_physical"
+                key={index}
+                onClick={() => handleAppartmentClick(prev_apartments.id)}
+              >
+                <motion.div
+                  key={currentPage}
+                  initial={{ x: -50, opacity: 0 }}
+                  transition={{ duration: 1 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="heartbuttonAndImageBox_physical">
+                    <div className="heartButtonBox_physical">
+                      <button
+                        onClick={() => favoriteHandler(prev_apartments)}
+                        key={prev_apartments.id}
+                        className="heartButtons_physical"
+                      >
+                        {favorites.some(
+                          (fav) => fav.id === prev_apartments.id
+                        ) ? (
+                          <img src={heartIcon} alt="Logo of heart" />
+                        ) : (
+                          <img
+                            src={heartIconEmpty}
+                            alt="Logo of empty heart"
+                            style={{ width: "30px", height: "30px" }}
+                          />
+                        )}
+                      </button>
+                    </div>
+                    <img
+                      src={prev_apartments.images[0]}
+                      alt={prev_apartments.name}
+                      style={styles.imageStyles}
+                    />
+                  </div>
+                  {/* --------------card details------------------- */}
+                  <h1 className="company_title" style={styles.companyTitle}>
+                    {prev_apartments.privateApartmentName}
+                  </h1>
+                  <div className="textInfo_physical">
+                    <p className="city_settings" style={styles.complexInfo}>
+                      {car_settings_language_change(selectedLanguage).city} :{" "}
+                      {prev_apartments.address.city}
+                    </p>
+                    <p className="price_settings" style={styles.complexInfo}>
+                      {prev_apartments.squarePrice}{" "}
+                      {
+                        car_settings_language_change(selectedLanguage)
+                          .square_from
+                      }
+                    </p>
+                    <div className="status_and_rank">
+                      <p className="status_settings">
+                        {" "}
+                        {cardStatusSettingLanguage(
+                          selectedLanguage,
+                          prev_apartments.status
+                        )}
+                      </p>
+                      <p className="private_apartment_rank">
+                        {prev_apartments.rank}{" "}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            ))}
+          </div>
+        )}
+        {/* ------------ */}
+
+        {/* ეს დივი არის ..კომპლექსის შესახებ'' ესეთი წარწერა რომაა და true/false-ის მეშვეობით
+        რომ ვფილტრავთ, მაგალითად სართულების ოდენობა, კამერა, ოთახები და ა.შ. */}
+        <div style={{ height: "300px", backgroundColor: "gray" }}>
+          <p>hi</p>
+          <p>hi</p>
+          <p>hi</p>
+          <p>hi</p>
+        </div>
+        {/* ----------- */}
       </div>
     </div>
   );
 }
+
+const styles = {
+  imageStyles: {
+    width: "278px",
+    height: "229px",
+    overflow: "hidden",
+    borderRadius: "20px",
+  },
+  companyTitle: {
+    // position: 'absolute',
+    // top: '262px',
+    // paddingLeft: '20px'
+    color: "white",
+    fontSize: "16px",
+  },
+  complexInfo: {
+    color: "white",
+  },
+  complexFinished: {
+    color: "white",
+  },
+};
 
 const spring = {
   type: "spring",

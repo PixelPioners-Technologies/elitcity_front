@@ -81,9 +81,18 @@ export default function Complex({
   const navigate = useNavigate();
 
   // Assuming `complex` is an object representing each house
+  // const handleHouseClick = (complexId) => {
+  //   navigate(`/eachComplex/${complexId}`);
+  // };
+
   const handleHouseClick = (complexId) => {
-    navigate(`/eachComplex/${complexId}`);
+    navigate(`/eachComplex/${complexId}`, { state: { complexId } });
   };
+
+
+
+
+
 
   // 1111111111111111111111111111111111
   // for toggle DOllar AND LARI ---==---(START)

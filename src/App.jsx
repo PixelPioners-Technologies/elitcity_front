@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import "./App.css";
 import Header from "./Components/Header/Header";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import Complex from "./pages/Complex";
@@ -17,38 +17,60 @@ import Articles from "./pages/Articles";
 import Storkhome from "./pages/Storkhome";
 import axios from "axios";
 import EachComplex from "./pages/EachComplex";
+import EachGround from "./pages/EachGround";
+import EachPrivateAppartment from "./pages/EachPrivateAppartment";
 import Call_Modal from "./Modals_for_stokhome_plus/Call_Modal";
-import headphone_icon from './icons/headphones.png'
-import { color } from "framer-motion";
-import { motion } from 'framer-motion';
-import cancel_icon from './icons/cancel.png'
-import ReactGA from 'react-ga';
-import { useLocation } from 'react-router-dom';
-
-
-
+import headphone_icon from "./icons/headphones.png";
+// import { color } from "framer-motion";
+import { motion } from "framer-motion";
+import cancel_icon from "./icons/cancel.png";
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
   const location = useLocation();
 
-  useEffect(() => {
-    const pagePath = location.pathname + location.search;
-
-    // Here we're using the gtag function directly as it's globally available from the index.html script
-    window.gtag('config', 'G-FFTZPPMQNZ', {
-      page_path: pagePath,
-    });
-  }, [location]);
+useEffect(() => {
+  const pagePath = location.pathname + location.search;
+  
+  // Here we're using the gtag function directly as it's globally available from the index.html script
+  window.gtag("config", "G-FFTZPPMQNZ", {
+    page_path: pagePath,
+  });
+}, [location]);
 };
 
 function trackButtonClick(buttonName) {
-  ReactGA.event({
-    category: 'Header',
-    action: 'Click',
-    label: buttonName
+  // Updated to use gtag directly
+  window.gtag('event', 'click', {
+    'event_category': 'Header',
+    'event_label': buttonName,
   });
 }
+
+
+//   useEffect(() => {
+//     const pagePath = location.pathname + location.search;
+
+//     // Here we're using the gtag function directly as it's globally available from the index.html script
+//     window.gtag("config", "G-FFTZPPMQNZ", {
+//       page_path: pagePath,
+//     });
+//   }, [location]);
+// };
+
+// function trackButtonClick(buttonName) {
+//   ReactGA.event({
+//     category: "Header",
+//     action: "Click",
+//     label: buttonName,
+//   });
+// }
+
+
+
+
+
+
 
 
 const BaseURLs = {
@@ -78,8 +100,6 @@ const BaseURLs = {
 }
 
 export { BaseURLs };
-
-
 
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
 
@@ -155,7 +175,7 @@ const normalizeLocationData = (data, lang) => {
 };
 
 function App() {
-  usePageTracking()
+  usePageTracking();
 
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
@@ -280,15 +300,13 @@ function App() {
   // console.log(complexes)
   //-----------------------------------fetch ionly locations --------------------------------------
 
-  const base_URL_for_location = "https://api.storkhome.ge/map/";
+  // const base_URL_for_location = "https://api.storkhome.ge/map/";
   // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
 
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await axios.get(
-          `${base_URL_for_location}${selectedLanguage}`
-        );
+        const response = await axios.get(`${BaseURLs.map}${selectedLanguage}`);
         const normalisedLocationData = normalizeLocationData(
           response.data,
           selectedLanguage
@@ -402,52 +420,49 @@ function App() {
   const languageTranslationForCheetModal = (lang) => {
     var languageInfo = {
       name: "Name",
-      phone_number: 'Phone number',
+      phone_number: "Phone number",
       please_choose: "Please choose",
       salse_Department: "Sales department",
       storkhome_plus: "Storkhome +",
-      other: 'Other',
-      send: "Send"
-    }
+      other: "Other",
+      send: "Send",
+    };
 
     switch (lang) {
       case "en":
-        languageInfo.name = "Name"
-        languageInfo.phone_number = 'Phone number'
-        languageInfo.please_choose = "Please choose"
-        languageInfo.salse_Department = "Sales department"
-        languageInfo.storkhome_plus = "Storkhome +"
-        languageInfo.other = 'Other'
-        languageInfo.send = "Send"
+        languageInfo.name = "Name";
+        languageInfo.phone_number = "Phone number";
+        languageInfo.please_choose = "Please choose";
+        languageInfo.salse_Department = "Sales department";
+        languageInfo.storkhome_plus = "Storkhome +";
+        languageInfo.other = "Other";
+        languageInfo.send = "Send";
 
         break;
 
       case "ka":
-        languageInfo.name = "სახელი"
-        languageInfo.phone_number = 'ტელეფონის ნომერი'
-        languageInfo.please_choose = "გთხოვთ აირჩიეთ"
-        languageInfo.salse_Department = "გაყიდვების განყოფილება"
-        languageInfo.storkhome_plus = "Storkhome +"
-        languageInfo.other = 'სხვა'
-        languageInfo.send = "გაგზავნა"
-        break
+        languageInfo.name = "სახელი";
+        languageInfo.phone_number = "ტელეფონის ნომერი";
+        languageInfo.please_choose = "გთხოვთ აირჩიეთ";
+        languageInfo.salse_Department = "გაყიდვების განყოფილება";
+        languageInfo.storkhome_plus = "Storkhome +";
+        languageInfo.other = "სხვა";
+        languageInfo.send = "გაგზავნა";
+        break;
 
       case "ru":
-        languageInfo.name = "Имя"
-        languageInfo.phone_number = 'Номер телефона'
-        languageInfo.please_choose = "Пожалуйста, выбери"
-        languageInfo.salse_Department = "Отдел продаж"
-        languageInfo.storkhome_plus = "Storkhome +"
-        languageInfo.other = 'Другой'
-        languageInfo.send = "Отправлять"
-        break
+        languageInfo.name = "Имя";
+        languageInfo.phone_number = "Номер телефона";
+        languageInfo.please_choose = "Пожалуйста, выбери";
+        languageInfo.salse_Department = "Отдел продаж";
+        languageInfo.storkhome_plus = "Storkhome +";
+        languageInfo.other = "Другой";
+        languageInfo.send = "Отправлять";
+        break;
     }
-    return languageInfo
-  }
+    return languageInfo;
+  };
   // ------------------------------------------------------------------------------------------
-
- 
-
 
   return (
     <div className="App">
@@ -457,7 +472,7 @@ function App() {
           <Header
             favorites={favorites}
             handleLanguageChange={handleLanguageChange}
-            onButtonClick={trackButtonClick} 
+            onButtonClick={trackButtonClick}
           />
         </div>
       ) : null}
@@ -556,6 +571,7 @@ function App() {
             <Physical
               favorites={favorites}
               selectedLanguage={selectedLanguage}
+              favoriteHandler={favoriteHandler}
             />
           }
         />
@@ -572,10 +588,38 @@ function App() {
 
         <Route
           path="eachComplex/:complexId"
-          element={<EachComplex
-            selectedLanguage={selectedLanguage}
-            handleCallButtonClick={handleCallButtonClick}
-          />}
+          element={
+            <EachComplex
+              selectedLanguage={selectedLanguage}
+              favorites={favorites}
+              favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
+            />
+          }
+        />
+
+        <Route
+          path="eachground/:groundId"
+          element={
+            <EachGround
+              selectedLanguage={selectedLanguage}
+              favorites={favorites}
+              favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
+            />
+          }
+        />
+
+        <Route
+          path="eachprivateappartment/:privateappartmentid"
+          element={
+            <EachPrivateAppartment
+              selectedLanguage={selectedLanguage}
+              favorites={favorites}
+              favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
+            />
+          }
         />
 
         <Route
@@ -586,36 +630,70 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-        // onClick={(e) => e.stopPropagation()}
+      // onClick={(e) => e.stopPropagation()}
       >
-        <div className="call_modal_containerr" >
-          <div className="cancel_icon_container" >
-            <img src={cancel_icon} alt="cencel icon" className="cansel_button" onClick={handleCloseCallModal} />
+        <div className="call_modal_containerr">
+          <div className="cancel_icon_container">
+            <img
+              src={cancel_icon}
+              alt="cencel icon"
+              className="cansel_button"
+              onClick={handleCloseCallModal}
+            />
           </div>
           <div>
             <div className="headphone_icon_container">
-              <img className="headphone_icon" src={headphone_icon} alt="headphone icon" />
+              <img
+                className="headphone_icon"
+                src={headphone_icon}
+                alt="headphone icon"
+              />
             </div>
             <div className="call_input_container">
-              <input type="text" className="call_input" placeholder={languageTranslationForCheetModal(selectedLanguage).name} />
+              <input
+                type="text"
+                className="call_input"
+                placeholder={
+                  languageTranslationForCheetModal(selectedLanguage).name
+                }
+              />
             </div>
             <div className="call_input_container">
-              <input type="number" className="call_input" placeholder={languageTranslationForCheetModal(selectedLanguage).phone_number} />
+              <input
+                type="number"
+                className="call_input"
+                placeholder={
+                  languageTranslationForCheetModal(selectedLanguage)
+                    .phone_number
+                }
+              />
             </div>
           </div>
-          <div className="choose_container" >
-            <div className="department_choices"> <p className="choose">{languageTranslationForCheetModal(selectedLanguage).please_choose}</p>    </div>
+          <div className="choose_container">
+            <div className="department_choices">
+              {" "}
+              <p className="choose">
+                {
+                  languageTranslationForCheetModal(selectedLanguage)
+                    .please_choose
+                }
+              </p>{" "}
+            </div>
           </div>
           {/* departamentis chekmarkebi */}
-          <div className="call_checkmark_container" >
-
+          <div className="call_checkmark_container">
             {/* 1 chekmark konteineri  tavisi saxelit */}
             <div className="little_checkmark_container">
               <label>
                 <input type="checkbox" className="input" />
                 <span className="custom-checkbox"></span>
               </label>
-              <p style={{ color: 'white' }}  >{languageTranslationForCheetModal(selectedLanguage).salse_Department}</p>
+              <p style={{ color: "white" }}>
+                {
+                  languageTranslationForCheetModal(selectedLanguage)
+                    .salse_Department
+                }
+              </p>
             </div>
 
             {/* 2 chekmark konteineri  tavisi saxelit */}
@@ -624,7 +702,12 @@ function App() {
                 <input type="checkbox" className="input" />
                 <span className="custom-checkbox"></span>
               </label>
-              <p style={{ color: 'white' }}  >{languageTranslationForCheetModal(selectedLanguage).storkhome_plus}</p>
+              <p style={{ color: "white" }}>
+                {
+                  languageTranslationForCheetModal(selectedLanguage)
+                    .storkhome_plus
+                }
+              </p>
             </div>
 
             {/* 3 chekmark konteineri  tavisi saxelit */}
@@ -633,21 +716,24 @@ function App() {
                 <input type="checkbox" className="input" />
                 <span className="custom-checkbox"></span>
               </label>
-              <p style={{ color: 'white' }}  >{languageTranslationForCheetModal(selectedLanguage).other}</p>
+              <p style={{ color: "white" }}>
+                {languageTranslationForCheetModal(selectedLanguage).other}
+              </p>
             </div>
-
           </div>
-          <div className="send_container" >
+          <div className="send_container">
             <motion.div
               className="textButtonContainer send_sheet_button_container"
               whileHover={{ scale: 1.05 }}
               // whileTap={{ scale: 0.9 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <button className="senc_to_sheet"> {languageTranslationForCheetModal(selectedLanguage).send} </button>
+              <button className="senc_to_sheet">
+                {" "}
+                {languageTranslationForCheetModal(selectedLanguage).send}{" "}
+              </button>
             </motion.div>
           </div>
-
         </div>
       </Call_Modal>
     </div>
