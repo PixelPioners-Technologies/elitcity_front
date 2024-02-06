@@ -356,7 +356,7 @@ export default function Map({ selectedLanguage,
 
 
         {/* axali divebi butonebis magivrad filtraciistvis */}
-        <div className='filter_cont'>
+        <div className='filter_cont' id='black_cont'>
 
           {/* button for filtering space */}
           <div className="button-modal-container ">
