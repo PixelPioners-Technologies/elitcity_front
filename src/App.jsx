@@ -24,54 +24,79 @@ import headphone_icon from "./icons/headphones.png";
 // import { color } from "framer-motion";
 import { motion } from "framer-motion";
 import cancel_icon from "./icons/cancel.png";
-import ReactGA from "react-ga";
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
   const location = useLocation();
 
-  useEffect(() => {
-    const pagePath = location.pathname + location.search;
-
-    // Here we're using the gtag function directly as it's globally available from the index.html script
-    window.gtag("config", "G-FFTZPPMQNZ", {
-      page_path: pagePath,
-    });
-  }, [location]);
+useEffect(() => {
+  const pagePath = location.pathname + location.search;
+  
+  // Here we're using the gtag function directly as it's globally available from the index.html script
+  window.gtag("config", "G-FFTZPPMQNZ", {
+    page_path: pagePath,
+  });
+}, [location]);
 };
 
 function trackButtonClick(buttonName) {
-  ReactGA.event({
-    category: "Header",
-    action: "Click",
-    label: buttonName,
+  // Updated to use gtag directly
+  window.gtag('event', 'click', {
+    'event_category': 'Header',
+    'event_label': buttonName,
   });
 }
+
+
+//   useEffect(() => {
+//     const pagePath = location.pathname + location.search;
+
+//     // Here we're using the gtag function directly as it's globally available from the index.html script
+//     window.gtag("config", "G-FFTZPPMQNZ", {
+//       page_path: pagePath,
+//     });
+//   }, [location]);
+// };
+
+// function trackButtonClick(buttonName) {
+//   ReactGA.event({
+//     category: "Header",
+//     action: "Click",
+//     label: buttonName,
+//   });
+// }
+
+
+
+
+
+
+
 
 const BaseURLs = {
   // storkhome
 
-  complex: "https://api.storkhome.ge/complex/",
-  company: "https://api.storkhome.ge/company/",
-  apartment: "https://api.storkhome.ge/apartment/",
-  private_apartment: "https://api.storkhome.ge/privateapartments/",
-  ground: "https://api.storkhome.ge/ground/",
-  promotion: "https://api.storkhome.ge/promotions/",
-  blog: "https://api.storkhome.ge/blog/",
-  map: "https://api.storkhome.ge/map/",
-  complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+  // complex: "https://api.storkhome.ge/complex/",
+  // company: "https://api.storkhome.ge/company/",
+  // apartment: "https://api.storkhome.ge/apartment/",
+  // private_apartment: "https://api.storkhome.ge/privateapartments/",
+  // ground: "https://api.storkhome.ge/ground/",
+  // promotion: "https://api.storkhome.ge/promotions/",
+  // blog: "https://api.storkhome.ge/blog/",
+  // map: "https://api.storkhome.ge/map/",
+  // complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
 
   // local
 
-  // complex: "http://127.0.0.1:8000/complex/",
-  // company: "http://127.0.0.1:8000/company/",
-  // apartment: "http://127.0.0.1:8000/apartment/",
-  // private_apartment: "http://127.0.0.1:8000/privateapartments/",
-  // ground: "http://127.0.0.1:8000/ground/",
-  // promotion: "http://127.0.0.1:8000/promotions/",
-  // blog: "http://127.0.0.1:8000/blog/",
-  // map: "http://127.0.0.1:8000/map/",
-  // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+  complex: "http://127.0.0.1:8000/complex/",
+  company: "http://127.0.0.1:8000/company/",
+  apartment: "http://127.0.0.1:8000/apartment/",
+  private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  ground: "http://127.0.0.1:8000/ground/",
+  promotion: "http://127.0.0.1:8000/promotions/",
+  blog: "http://127.0.0.1:8000/blog/",
+  map: "http://127.0.0.1:8000/map/",
+  complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
 };
 
 export { BaseURLs };
