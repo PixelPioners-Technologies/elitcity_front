@@ -17,6 +17,8 @@ import Articles from "./pages/Articles";
 import Storkhome from "./pages/Storkhome";
 import axios from "axios";
 import EachComplex from "./pages/EachComplex";
+import EachGround from "./pages/EachGround";
+import EachPrivateAppartment from "./pages/EachPrivateAppartment";
 import Call_Modal from "./Modals_for_stokhome_plus/Call_Modal";
 import headphone_icon from "./icons/headphones.png";
 // import { color } from "framer-motion";
@@ -572,6 +574,30 @@ function App() {
         />
 
         <Route
+          path="eachground/:groundId"
+          element={
+            <EachGround
+              selectedLanguage={selectedLanguage}
+              favorites={favorites}
+              favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
+            />
+          }
+        />
+
+        <Route
+          path="eachprivateappartment/:privateappartmentid"
+          element={
+            <EachPrivateAppartment
+              selectedLanguage={selectedLanguage}
+              favorites={favorites}
+              favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
+            />
+          }
+        />
+
+        <Route
           path="favoriteComplex"
           element={<FavoriteComplex favorites={favorites} />}
         />
@@ -579,7 +605,7 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-        // onClick={(e) => e.stopPropagation()}
+      // onClick={(e) => e.stopPropagation()}
       >
         <div className="call_modal_containerr">
           <div className="cancel_icon_container">

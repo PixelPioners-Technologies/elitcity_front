@@ -135,10 +135,15 @@ export default function Physical({
   const navigate = useNavigate();
 
   // Assuming `complex` is an object representing each house
-  const handleAppartmentClick = (complexId) => {
-    navigate(`/eachComplex/${complexId}`);
+  const handleAppartmentClick = (p_apartment_id) => {
+    navigate(`/eachprivateappartment/${p_apartment_id}`,{ state: { p_apartment_id } });
   };
 
+  useEffect(()=> {
+
+    console.log(privateApartments.id)
+  },[privateApartments])
+  
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
   useEffect(() => {
@@ -213,10 +218,6 @@ export default function Physical({
     stringFilterValue,
     selectedRoomNumbers,
   ]);
-
-  useEffect(() => {
-    console.log("aq unda iyos suratebi", privateApartments);
-  }, [totalCount, selectedLanguage]);
 
   //-----------------------------------fetch ionly locations --------------------------------------
   useEffect(() => {
