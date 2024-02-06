@@ -75,7 +75,6 @@ function trackButtonClick(buttonName) {
 
 const BaseURLs = {
   // storkhome
-  
   complex: "https://api.storkhome.ge/complex/",
   company: "https://api.storkhome.ge/company/",
   apartment: "https://api.storkhome.ge/apartment/",
@@ -97,7 +96,7 @@ const BaseURLs = {
   // blog: "http://127.0.0.1:8000/blog/",
   // map: "http://127.0.0.1:8000/map/",
   // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
-}
+};
 
 export { BaseURLs };
 

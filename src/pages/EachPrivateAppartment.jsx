@@ -48,19 +48,19 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
   const [private_apartment, setPrivate_apartment] = useState({});
   const [sliderImages, setSliderImages] = useState([]);
 
-
+  const [wordData, setWordData] = useState(null);
+  const [val, setVal] = useState(0);
+  const [clickedIndex, setClickedIndex] = useState(null);
 
   // ---------------------------------  id  --------------------------------------------------
   const location = useLocation();
   const { p_apartment_id } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
   // ---------------------------------------------------------------------------------------------------------------
-  const [wordData, setWordData] = useState(null);
-  const [val, setVal] = useState(0);
-  const [clickedIndex, setClickedIndex] = useState(null);
-
+  
+  
+  
+  
   // ------------------------------------axios for fetching private apartments -----------------------------------------
-
-
   useEffect(() => {
     const fetcPrivateApartments = async () => {
       const requestUrl = `${BaseURLs.private_apartment}${selectedLanguage}/${p_apartment_id}`;
