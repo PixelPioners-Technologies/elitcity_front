@@ -247,8 +247,8 @@ export default function Map({ selectedLanguage }) {
   };
 
 
-const handelGroundClick = (groundId) => {
-  navigate(`/eachground/${groundId}` ,{ state: { groundId }});
+const handelGroundClick = (prev_apartments) => {
+  navigate(`/eachground/${prev_apartments}` ,{ state: { prev_apartments }});
 }
 
 
@@ -923,7 +923,8 @@ const handelGroundClick = (groundId) => {
       complexes: "Complexes",
       private_apartments: "Private Appartments",
       lands: "Lands",
-      show_all: "Show All"
+      show_all: "Show All",
+      rank : "Rank",
     }
 
     switch (lang) {
@@ -943,6 +944,7 @@ const handelGroundClick = (groundId) => {
         languageInfo.private_apartments = "Private Appartments"
         languageInfo.lands = "Lands"
         languageInfo.show_all = "Show All"
+        languageInfo.rank = "Rank"
         break;
 
       case "ka":
@@ -961,6 +963,7 @@ const handelGroundClick = (groundId) => {
         languageInfo.private_apartments = "კერძო ბინები"
         languageInfo.lands = "ნაკვეთები"
         languageInfo.show_all = "აჩვენე ყველა"
+        languageInfo.rank = "რანკი"
         break
 
       case "ru":
@@ -979,6 +982,7 @@ const handelGroundClick = (groundId) => {
         languageInfo.private_apartments = "Частные апартаменты"
         languageInfo.lands = "Участки"
         languageInfo.show_all = "Показать все"
+        languageInfo.rank = "Классифицировать"
         break
     }
     return languageInfo
@@ -1468,7 +1472,7 @@ const handelGroundClick = (groundId) => {
                     <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p>
                     <p> {selectedComplex.address.street} </p>
                     <div id="rank_container">
-                      <p id='rank_p_tag' > {selectedComplex.complexDetails.complexRank} </p>
+                      <p id='rank_p_tag' >{handleStatusButtonLanguageChange(selectedLanguage).rank}: {selectedComplex.complexDetails.complexRank} </p>
                     </div>
                   </div>
                 </div>
@@ -1516,7 +1520,7 @@ const handelGroundClick = (groundId) => {
                     <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusTextfor_P(selectedPrivateApartments.status, selectedLanguage)}</p>
                     <p> {selectedPrivateApartments.address.address} </p>
                     <div id="rank_container">
-                      <p id='rank_p_tag' > {selectedPrivateApartments.rank} </p>
+                      <p id='rank_p_tag' >{handleStatusButtonLanguageChange(selectedLanguage).rank}:{selectedPrivateApartments.rank} </p>
                     </div>
                   </div>
                 </div>
@@ -1556,7 +1560,7 @@ const handelGroundClick = (groundId) => {
                 onCloseClick={() => setSelectedGrounds(null)}
               >
                 <div className='infowindow_container'  >
-                  <h2>{selectedGrounds.privateApartmentName}</h2>
+                  <h2>{selectedGrounds.groundName.length > 15 ? `${selectedGrounds.groundName.substring(0, 15)}...` : selectedGrounds.groundName}</h2>
 
                   {selectedGrounds.images && selectedGrounds.images.length > 0 && (
                     <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} onClick={() => handelGroundClick(selectedGrounds.id)}  className='infowindow_img' />
@@ -1565,7 +1569,7 @@ const handelGroundClick = (groundId) => {
                     <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusTextfor_Grounds(selectedGrounds.status, selectedLanguage)}</p>
                     <p> {selectedGrounds.address.address} </p>
                     <div id="rank_container">
-                      <p id='rank_p_tag' > {selectedGrounds.rank} </p>
+                      <p id='rank_p_tag' > {handleStatusButtonLanguageChange(selectedLanguage).rank}:{selectedGrounds.rank} </p>
                     </div>
                   </div>
                 </div>
@@ -1611,12 +1615,17 @@ const handelGroundClick = (groundId) => {
                 onCloseClick={() => setSelectedComplex(null)}
               >
                 <div className='infowindow_container' >
-                  <h2>{selectedComplex.complexName}</h2>
-                  <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p>
-                  {/* Add more details and the image if available */}
+                  <h2>{selectedComplex.complexName.length > 17 ? `${selectedComplex.complexName.substring(0, 17)}...` : selectedComplex.complexName}</h2>
                   {selectedComplex.images && selectedComplex.images.length > 0 && (
-                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
+                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' onClick={() => handleHouseClick(selectedComplex.id)} />
                   )}
+                  <div className="infowindow_settings">
+                    <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p>
+                    <p> {selectedComplex.address.street} </p>
+                    <div id="rank_container">
+                      <p id='rank_p_tag' >{handleStatusButtonLanguageChange(selectedLanguage).rank}: {selectedComplex.complexDetails.complexRank} </p>
+                    </div>
+                  </div>
                 </div>
               </InfoWindow>
             )}
@@ -1649,12 +1658,18 @@ const handelGroundClick = (groundId) => {
                 onCloseClick={() => setSelectedPrivateApartments(null)}
               >
                 <div className='infowindow_container'  >
-                  <h2>{selectedPrivateApartments.privateApartmentName}</h2>
-                  <p>{getStatusTextfor_P(selectedPrivateApartments.status, selectedLanguage)}</p>
-                  {/* Add more details and the image if available */}
+                  <h2>{selectedPrivateApartments.privateApartmentName.length > 15 ? `${selectedPrivateApartments.privateApartmentName.substring(0, 15)}...` : selectedPrivateApartments.privateApartmentName}</h2>
+
                   {selectedPrivateApartments.images && selectedPrivateApartments.images.length > 0 && (
-                    <img src={selectedPrivateApartments.images[0]} alt={selectedPrivateApartments.privateApartmentName} className='infowindow_img' />
+                    <img src={selectedPrivateApartments.images[0]} alt={selectedPrivateApartments.privateApartmentName} onClick={() => handlePrivateApartmentClick(selectedPrivateApartments.id)} className='infowindow_img' />
                   )}
+                  <div className="infowindow_settings">
+                    <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusTextfor_P(selectedPrivateApartments.status, selectedLanguage)}</p>
+                    <p> {selectedPrivateApartments.address.address} </p>
+                    <div id="rank_container">
+                      <p id='rank_p_tag' >{handleStatusButtonLanguageChange(selectedLanguage).rank}: {selectedPrivateApartments.rank} </p>
+                    </div>
+                  </div>
                 </div>
               </InfoWindow>
             )}
@@ -1687,12 +1702,17 @@ const handelGroundClick = (groundId) => {
                 onCloseClick={() => setSelectedGrounds(null)}
               >
                 <div className='infowindow_container'  >
-                  <h2>{selectedGrounds.privateApartmentName}</h2>
-                  <p>{getStatusTextfor_P(selectedGrounds.status, selectedLanguage)}</p>
-                  {/* Add more details and the image if available */}
+                  <h2>{selectedGrounds.groundName.length > 15 ? `${selectedGrounds.groundName.substring(0, 15)}...` : selectedGrounds.groundName}</h2>
                   {selectedGrounds.images && selectedGrounds.images.length > 0 && (
-                    <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} className='infowindow_img' />
+                    <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} onClick={() => handelGroundClick(selectedGrounds.id)}  className='infowindow_img' />
                   )}
+                  <div className="infowindow_settings">
+                    <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusTextfor_Grounds(selectedGrounds.status, selectedLanguage)}</p>
+                    <p> {selectedGrounds.address.address} </p>
+                    <div id="rank_container">
+                      <p id='rank_p_tag' > {handleStatusButtonLanguageChange(selectedLanguage).rank}: {selectedGrounds.rank} </p>
+                    </div>
+                  </div>
                 </div>
               </InfoWindow>
             )}

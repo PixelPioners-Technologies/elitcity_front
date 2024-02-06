@@ -46,7 +46,7 @@ export default function EachGround({ selectedLanguage, favorites, favoriteHandle
 
   // ---------------------------------  id  --------------------------------------------------
   const location = useLocation();
-  const { groundId } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
+  const { prev_apartments } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
   // --------------------------------------------------------------------------------------
 
   const [wordData, setWordData] = useState(null);
@@ -59,7 +59,7 @@ export default function EachGround({ selectedLanguage, favorites, favoriteHandle
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
-      const requestUrl = `${BaseURLs.ground}${selectedLanguage}/${groundId}`;
+      const requestUrl = `${BaseURLs.ground}${selectedLanguage}/${prev_apartments}`;
       const response = await axios.get(requestUrl);
       const data = response.data;
       const normadata = normalizeGroundData(data, selectedLanguage)

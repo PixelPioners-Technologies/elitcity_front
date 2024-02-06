@@ -467,12 +467,13 @@
   font-size: 13px;
   font-weight: 600;
   color: #FFF;
-  padding-left: 90%;
+  padding-left: 50%;
 }
 
 #rank_container{
-  display: contents !important;
+  display: flex !important;
   justify-content: flex-end !important;
+  
 }
 
 /* ----------------------------------------------------------------------- */
