@@ -139,11 +139,6 @@ export default function Physical({
     navigate(`/eachprivateappartment/${p_apartment_id}`,{ state: { p_apartment_id } });
   };
 
-  useEffect(()=> {
-
-    console.log(privateApartments.id)
-  },[privateApartments])
-  
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
   useEffect(() => {
