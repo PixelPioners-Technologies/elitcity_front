@@ -1,6 +1,8 @@
-
 .main_foto {
-  background-image: url('https://www.theconstructionindex.co.uk/assets/news_articles/2022/05/1653284938_southwark-over-station-development---image-1---credit---hayes-davidson.jpg');
+  background-image: url('../icons/613.jpg');
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
 }
 
 .adgilicomportistvis {
@@ -16,4 +18,8 @@
 .container {
   display: flex;
   gap: 15px;
+}
+
+#black_cont{
+  color: black;
 }
