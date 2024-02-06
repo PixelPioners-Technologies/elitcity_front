@@ -51,7 +51,8 @@
 }
 
 .homepage_map_link:hover, .homepage_serch_button:hover {
-  background-color: #e0e0e0; /* Color when hovered, adjust as needed */
+  background-color: transparent; /* Color when hovered, adjust as needed */
+  color: black
 }
 
 .button-container {
