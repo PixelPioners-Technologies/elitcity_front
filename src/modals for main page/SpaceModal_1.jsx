@@ -4,7 +4,7 @@ import './SpaceModal_1.css';
 const SpaceModal_1 = ({ isOpen, close, children }) => {
   useEffect(() => {
     const handleDocumentClick = (e) => {
-      if (isOpen && e.target.closest('.modal-overlay') === null) {
+      if (isOpen && e.target.closest('.modal-overlay1') === null) {
         close();
       }
     };
@@ -19,7 +19,7 @@ const SpaceModal_1 = ({ isOpen, close, children }) => {
 
   return (
     <div className={`modal-overlay ${openClass}`} onClick={close}>
-      <div className="modal-content scale-up-tl" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content1 scale-up-tl" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>
