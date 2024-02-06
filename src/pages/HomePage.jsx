@@ -345,19 +345,24 @@ export default function Map({ selectedLanguage,
 
   // ---------------------------------------------------------------------------------------------------------------------
   return (
-    <div className='main_map main_foto'>
+    <div className='hhh'>
+      <>
+      <div className='main_map main_foto '>
       <motion.div
-        initial={{ y: 100, opacity: 0 }}
+        initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 2 }}
       >
-        <h1 className='adgilicomportistvis'>ადგილი შენი კომფორტისთვის</h1>
+        <div className='for_comfort'>
+        <div className='adgilicomportistvis'>
+          ადგილი შენი კომფორტისთვის
+        </div>
         {/* <SliderTitle>The History of Phipino</SliderTitle> */}
+        
 
-
-        {/* axali divebi butonebis magivrad filtraciistvis */}
 
         <div className='filter_cont_for_homepage'>
+          
           {/*<div className='filter_cont' id='black_cont'>*/}
 
 
@@ -462,9 +467,16 @@ export default function Map({ selectedLanguage,
             />
             <img src="/src/icons/loupe.png" alt="button dropdown icon" class="dropdown"></img>
           </div>
+          </div>
 
         </div>
       </motion.div>
+
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 2 }}
+      >
 
       {/* Map button link */}
         <div class="button-container">
@@ -477,6 +489,9 @@ export default function Map({ selectedLanguage,
             </button>
           </Link>
           </div>
+      </motion.div>
+      </div>
+      </>
     </div>
 
   );

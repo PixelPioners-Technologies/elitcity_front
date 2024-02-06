@@ -1,8 +1,16 @@
+
+
+
 .main_foto {
   background-image: url('../icons/613.jpg');
   background-size: cover;
   background-position: center; 
   background-repeat: no-repeat;
+
+}
+
+.for_comfort {
+  margin-top: 0px;
 }
 
 .adgilicomportistvis {
@@ -13,6 +21,7 @@
   line-height: 52.22px;
   letter-spacing: 10%;
   color: #FFFFFF;
+  padding-top: 150px;
 }
 
 .container {
@@ -38,6 +47,7 @@
   transition: background-color 0.3s ease; /* For a hover effect */
   align-items: end;
   margin: 0 5px; /* Adds space between the buttons */
+  margin-top: 0px;
 }
 
 .homepage_map_link:hover, .homepage_serch_button:hover {
@@ -59,6 +69,7 @@
   align-items: center;
   padding-top: 70px;
   gap: 13px;
+  padding-top: 65px;
 }
 
 #black_cont{
