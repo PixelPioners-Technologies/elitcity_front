@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import "./EachComplex.css";
@@ -25,9 +27,7 @@ import P_SpaceModal from "../modals for private page/P_SpaceModal";
 import P_StatusModal from "../modals for private page/P_StatusModa";
 import button_icon from "../icons/Vector.svg";
 
-import { useLocation } from 'react-router-dom';
-
-
+import { useLocation } from "react-router-dom";
 
 const normalizePrivateApartmentData = (data, lang) => {
   return data.map((item) => ({
@@ -69,7 +69,6 @@ export default function EachComplex({
   selectedLanguage,
   favorites,
   favoriteHandler,
-
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
@@ -107,9 +106,10 @@ export default function EachComplex({
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
 
+  const [eachPrivateApartment, setEachPrivateApartment] = useState([]);
+
   const location = useLocation();
   const { complexId } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
-
 
   useEffect(() => {
     setSelectedCity("");
@@ -132,7 +132,6 @@ export default function EachComplex({
   };
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
-
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
@@ -166,8 +165,9 @@ export default function EachComplex({
       // const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${complexId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
-      console.log(response.data)
-      const data = response.data.results;
+      // console.log("ssssssss", response.data.results[0];
+      const data = response.data;
+      setEachPrivateApartment(data);
       const normalised_Data = normalizePrivateApartmentData(
         data,
         selectedLanguage
@@ -191,11 +191,11 @@ export default function EachComplex({
     complexId,
   ]);
 
-console.log("1231231231312" , privateApartments)
+  console.log("eachPrivateApartment DATA: ", eachPrivateApartment);
 
   useEffect(() => {
     console.log("aq unda iyos suratebi", privateApartments);
-  }, [totalCount, selectedLanguage,complexId]);
+  }, [totalCount, selectedLanguage, complexId]);
 
   // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
@@ -588,6 +588,35 @@ console.log("1231231231312" , privateApartments)
         ))}
       </div>
       {/* ---------- */}
+      {console.log(
+        "eachPrivateApartment",
+        eachPrivateApartment.internal_complex_name?.rank
+      )}
+      {/* ახალი mapping ბექიდან */}
+      <div style={{ color: "red" }}>
+        <h2>Internal Complex Name:</h2>
+        <ul>
+          <li>ID: {eachPrivateApartment.internal_complex_name?.id}</li>
+          <li>
+            Created At: {eachPrivateApartment.internal_complex_name?.created_at}
+          </li>
+          <li>
+            Internal Complex Name:{" "}
+            {eachPrivateApartment.internal_complex_name?.internal_complex_name}
+          </li>
+          <li>
+            Full Price: {eachPrivateApartment.internal_complex_name?.full_price}
+          </li>
+          <li>
+            Price per Sq Meter:{" "}
+            {eachPrivateApartment.internal_complex_name?.price_per_sq_meter}
+          </li>
+          {/* Render other properties as needed */}
+          <li>Rank: {eachPrivateApartment.internal_complex_name?.rank}</li>
+        </ul>
+      </div>
+
+      {/* ------------------ */}
 
       {/* ბინების და გეგმარებების ცამოსაშლელი ბოქსი */}
       <div className="binebiDaGegmarebaFullBox">
