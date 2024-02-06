@@ -28,35 +28,61 @@ import P_StatusModal from "../modals for private page/P_StatusModa";
 import button_icon from "../icons/Vector.svg";
 
 import { useLocation } from "react-router-dom";
-
-const normalizePrivateApartmentData = (data, lang) => {
-  return data.map((item) => ({
+function normalizeData(item, lang) {
+  return {
     id: item.id,
-    internalName:
-      item.internal_private_apartment_name.internal_private_apartment_name,
-    numberOfRooms: item.internal_private_apartment_name.number_of_rooms,
-    status: item.internal_private_apartment_name.status,
-    area: item.internal_private_apartment_name.area,
-    fullPrice: item.internal_private_apartment_name.full_price,
-    squarePrice: item.internal_private_apartment_name.square_price,
-    floorNumber: item.internal_private_apartment_name.floor_number,
-    isAvailable: item.internal_private_apartment_name.is_available,
-    visibility: item.internal_private_apartment_name.visibiliti,
-    address: {
-      city: item[`private_apartment_address_${lang}`].city_en,
-      pharentDistrict:
-        item[`private_apartment_address_${lang}`].pharentDistrict_en,
-      district: item[`private_apartment_address_${lang}`].district_en,
-      streetName: item[`private_apartment_address_${lang}`].street_name_en,
-      address: item[`private_apartment_address_${lang}`].address_en,
-      latitude: item[`private_apartment_address_${lang}`].latitude,
-      longitude: item[`private_apartment_address_${lang}`].longitude,
+    complexName: item[`complex_name_${lang}`],
+    internalComplexName: item.internal_complex_name.internal_complex_name,
+    fullPrice: item.internal_complex_name.full_price,
+    pricePerSqMeter: item.internal_complex_name.price_per_sq_meter,
+    finishYear: item.internal_complex_name.finish_year,
+    finishMonth: item.internal_complex_name.finish_month,
+    status: item.internal_complex_name.status,
+    visibility: item.internal_complex_name.visibiliti,
+    vipComplex: item.internal_complex_name.vipComplex,
+    floorNumber: item.internal_complex_name.floor_number,
+    space: item.internal_complex_name.space,
+    numberOfApartments: item.internal_complex_name.number_of_apartments,
+    numberOfFloors: item.internal_complex_name.number_of_floors,
+    phoneNumber: item.internal_complex_name.phone_number,
+    // Add other fields from internal_complex_name as needed
+    complexImages: item.complex_images.images,
+    apartments: item[`appartment_name_${lang}`].map((apartment) => ({
+      id: apartment.id,
+      apartmentName: apartment[`appartment_name_${lang}`],
+      testField: apartment[`test_field_${lang}`],
+      internalApartmentName: apartment.internal_apartment_name,
+      images: apartment.appartment_images.images,
+      address: {
+        city: apartment[`appartment_address_${lang}`][`city_${lang}`], // Correctly dynamic
+        parentDistrict:
+          apartment[`appartment_address_${lang}`][`pharentDistrict_${lang}`], // Corrected field name dynamically
+        district: apartment[`appartment_address_${lang}`][`district_${lang}`], // Correctly dynamic
+        streetName:
+          apartment[`appartment_address_${lang}`][`street_name_${lang}`], // Correctly dynamic
+        address: apartment[`appartment_address_${lang}`][`address_${lang}`], // Correctly dynamic
+        latitude: apartment[`appartment_address_${lang}`].latitude,
+        longitude: apartment[`appartment_address_${lang}`].longitude,
+      },
+    })),
+    company: {
+      id: item[`company_${lang}`].id,
+      name: item[`company_${lang}`][`name_${lang}`], // Correctly dynamic
+      mobile: item[`company_${lang}`].Mobile,
+      mobileHome: item[`company_${lang}`].Mobile_Home,
+      email: item[`company_${lang}`].email,
+      website: item[`company_${lang}`].companyweb,
+      facebookPage: item[`company_${lang}`].facebook_page,
+      logo: item[`company_${lang}`].logocompany,
+      backgroundImage: item[`company_${lang}`].background_image,
+      topCompany: item[`company_${lang}`].topCompany,
+      visibility: item[`company_${lang}`].visibility,
+      address: item[`company_${lang}`][`address_${lang}`], // Correctly dynamic
+      aboutCompany: item[`company_${lang}`][`aboutcompany_${lang}`], // Correctly dynamic
     },
-    images: item.private_apartment_images,
-    privateApartmentName: item[`private_apartment_name_${lang}`],
-    testPrivateField: item[`test_private_field_${lang}`],
-  }));
-};
+    // Add other top-level fields like typeOfRoof, constructionType, etc., as needed, dynamically using the lang parameter
+  };
+}
 
 import img1 from "../assets/ComplexesPhotos/0zzz.jpg";
 import img2 from "../assets/ComplexesPhotos/1zz.jpg";
@@ -167,12 +193,11 @@ export default function EachComplex({
       const response = await axios.get(requestUrl);
       // console.log("ssssssss", response.data.results[0];
       const data = response.data;
-      setEachPrivateApartment(data);
-      const normalised_Data = normalizePrivateApartmentData(
-        data,
-        selectedLanguage
-      );
+      const normalised_Data = normalizeData(data, selectedLanguage);
+      console.log("----111---,", normalised_Data);
+      setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
+
       // setTotalCount(response.data.total_items);
       // setCorrentPage(response.data.current_page);
     };
@@ -555,11 +580,37 @@ export default function EachComplex({
               </div>
 
               <div className="eachTextOnListTextsTwo">
+                <p style={{ color: "#FFFFFF" }}>
+                  {eachPrivateApartment?.finishYear}
+                  {/* 
+                  es
+                  es
+                  es
+                  es
+                  es
+                  
+                  
+                  
+                  */}
+                </p>
                 <p style={{ color: "#FFFFFF" }}> {complex.city}</p>
-                <p style={{ color: "#FFFFFF" }}> {complex.city}</p>
-                <p style={{ color: "#FFFFFF" }}> {complex.city}</p>
-                <p style={{ color: "#FFFFFF" }}> {complex.city}</p>
-                <p style={{ color: "#FFFFFF" }}> {complex.city}</p>
+                <p style={{ color: "#FFFFFF" }}>
+                  {" "}
+                  {
+                    eachPrivateApartment.internal_complex_name
+                      ?.number_of_apartments
+                  }
+                </p>
+                <p style={{ color: "#FFFFFF" }}>
+                  {/* {
+                    eachPrivateApartment.internal_complex_name
+                      ?.number_of_buildingss
+                  } */}
+                  null
+                </p>
+                <p style={{ color: "#FFFFFF" }}>
+                  {eachPrivateApartment.internal_complex_name?.number_of_floors}
+                </p>
               </div>
             </div>
             {/* დარეკვისა და ნომრის ჩვენების სექცია */}
