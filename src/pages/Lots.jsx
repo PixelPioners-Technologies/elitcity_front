@@ -197,11 +197,10 @@ export default function Physical({ selectedLanguage, favorites }) {
     graundStatus,
   ]);
 
-  console.log(privateApartments);
 
-  useEffect(() => {
-    console.log("aq unda iyos suratebi", privateApartments);
-  }, [totalCount, selectedLanguage]);
+  // useEffect(() => {
+  //   console.log("aq unda iyos suratebi", privateApartments);
+  // }, [totalCount, selectedLanguage]);
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
