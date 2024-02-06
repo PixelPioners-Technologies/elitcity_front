@@ -356,7 +356,7 @@ export default function Map({ selectedLanguage,
 
 
         {/* axali divebi butonebis magivrad filtraciistvis */}
-        <div className='filter_cont'>
+        <div className='filter_cont_for_homepage'>
 
           {/* button for filtering space */}
           <div className="button-modal-container ">
@@ -450,39 +450,30 @@ export default function Map({ selectedLanguage,
             </StatusModal_1>
           </div>
           {/* Button For find word (sityvit dzebna) */}
-          <div className="button-modal-container" >
-            <input
+          <div className="lacation_button" >
+            <input className='string_filter_input'
               type="text"
               placeholder='Search Input'
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-          </div>
-
-          {/* Map button link */}
-          <div>
-            {/* Other content in your component */}
-
-            {/* Button to navigate to the map page */}
-            <Link to="/map">
-              <button className='modal_close_button'>Go to Map</button>
-            </Link>
-          </div>
-          {/* button for search */}
-          <div>
-            <Link to="/complex">
-              <button className='modal_close_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
-                ძიება
-              </button>
-            </Link>
+            <img src="/src/icons/loupe.png" alt="button dropdown icon" class="dropdown"></img>
           </div>
 
         </div>
       </motion.div>
 
-
-
-
+      {/* Map button link */}
+        <div class="button-container">
+          <Link to="/map">
+            <button className='homepage_map_link'>რუკაზე ძიება</button>
+          </Link>
+          <Link to="/complex">
+            <button className='homepage_serch_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
+            ძიება
+            </button>
+          </Link>
+          </div>
     </div>
 
   );
