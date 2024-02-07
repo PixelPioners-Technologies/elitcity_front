@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 
 .ground_settings {
   display: flex;
@@ -23,16 +23,21 @@
 
 .carusel_buttons {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  position: absolute;
+  margin-left: 15px;
+  gap: 530px;
+  margin-top: 400px;
+  z-index: 3;
 }
 
 
 /* ----------------------------next and previous buttons styles ------------------------------------------ */
 .Btn {
-  width: 130px;
-  height: 40px;
+  width: 77px;
+  height: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,16 +51,14 @@
   position: relative;
   overflow: hidden;
   transition-duration: .3s;
-  border: 1px solid white;
-  /* border-radius: 20px; */
+  /* border: 1px solid white;
   overflow: hidden;
-  padding: 20px 20px;
-  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1; */
 
 }
 
 .Btn::before {
-  width: 130px;
+  width: 77px;
   height: 130px;
   position: absolute;
   content: "";
@@ -85,3 +88,31 @@
   height: 63px;
 }
 
+.about_and_map{
+  margin-top: 50px;
+  color: aliceblue;
+}
+
+.aboud_and_map_child_container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.about_land_header{
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+.about_land{
+  max-width: 600px;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+.child_map_container{
+  width: 800px;
+  height: 200px;
+  
+}
