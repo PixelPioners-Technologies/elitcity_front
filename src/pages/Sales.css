@@ -1,8 +1,9 @@
 .SalesBox {
   margin-top: 50px;
-  min-height: 100vh; /* Ensure the component covers at least the viewport height */
+  /* min-height: 100vh; Ensure the component covers at least the viewport height */
   background-color: black; /* Set your desired background color */
   /* padding: 20px; */
+  overflow: hidden;
 }
 
 .forPaddingOfsalesNavBar {
@@ -68,25 +69,42 @@
 
 .saleArticlesBox {
   display: flex;
+  flex-direction: row;
   margin-top: 50px;
   padding: 40px;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content:space-around;
 }
 
+
+/* ------------------------------------------------------------- */
 .eachSaleArticleBox {
   border: 1px solid white;
   padding: 20px;
   display: flex;
   gap: 10px;
   color: white;
+  width: 700px;
 }
 
+.eachSaleArticleBox2{
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+  color: white;
+  width: 700px;
+}
 .saleArticleInfoText {
-  width: 300px;
+  width: 400px;
 }
 .timeAndCompanyLogo {
   display: flex;
   justify-content: space-between;
+}
+
+
+.company_logo{
+  width: 27px;
 }
 
 .saleTimeBox {
@@ -100,9 +118,9 @@
   gap: 5px;
 }
 
-/* .SaleArticleImageBox {
-
-} */
+.SaleArticleImageBox {
+margin-left: 34px;
+}
 
 .microphoneAndItsInfoText {
   display: flex;
@@ -120,5 +138,7 @@
 
 
 .imageOfSaleComplex {
-  width: 300px;
+  width: 200px;
 }
+
+/* ----------------------------------------------------------------------------------- */
