@@ -45,6 +45,22 @@ function normalizeData(item, lang) {
     numberOfApartments: item.internal_complex_name.number_of_apartments,
     numberOfFloors: item.internal_complex_name.number_of_floors,
     phoneNumber: item.internal_complex_name.phone_number,
+    numberOfBuildings: item.internal_complex_name.number_of_buildings,
+    flooring: item.internal_complex_name.flooring,
+    parkingQuantity: item.internal_complex_name.parking_quantity,
+    roomsQuantity: item.internal_complex_name.rooms_quantity,
+    lightPercentage: item.internal_complex_name.light_percentage,
+    humidityPercentage: item.internal_complex_name.humidity_percentage,
+    areaSquareness: item.internal_complex_name.area_squareness,
+    ceilingHeightMeters: item.internal_complex_name.ceiling_height_meters,
+    cateringFacility: item.internal_complex_name.catering_facility,
+    elevatorType: item.internal_complex_name.elevator_type,
+    schlangbaum: item.internal_complex_name.schlangbaum,
+    conciergeService: item.internal_complex_name.concierge_service,
+    yardDescription: item.internal_complex_name.yard_description,
+    plotArea: item.internal_complex_name.plot_area,
+    rank: item.internal_complex_name.rank,
+
     // Add other fields from internal_complex_name as needed
     complexImages: item.complex_images.images,
     apartments: item[`appartment_name_${lang}`].map((apartment) => ({
@@ -95,19 +111,20 @@ export default function EachComplex({
   selectedLanguage,
   favorites,
   favoriteHandler,
+  handleCallButtonClick,
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
-  const sliderImages = [
-    { id: 1, value: img1 },
-    { id: 2, value: img2 },
-    { id: 3, value: img3 },
-    { id: 4, value: img4 },
-    { id: 5, value: img5 },
-    { id: 6, value: img6 },
-  ];
+  // const sliderImages = [
+  //   { id: 1, value: img1 },
+  //   { id: 2, value: img2 },
+  //   { id: 3, value: img3 },
+  //   { id: 4, value: img4 },
+  //   { id: 5, value: img5 },
+  //   { id: 6, value: img6 },
+  // ];
 
-  const [wordData, setWordData] = useState(sliderImages[0]);
+  const [wordData, setWordData] = useState(null);
   const [val, setVal] = useState(0);
   const [clickedIndex, setClickedIndex] = useState(null);
 
@@ -132,6 +149,9 @@ export default function EachComplex({
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
 
+  // const [sliderMiniImages, setSliderMiniImages] = useState([]);
+  const [sliderImages, setSliderImages] = useState([]);
+
   const [eachPrivateApartment, setEachPrivateApartment] = useState([]);
 
   const location = useLocation();
@@ -148,7 +168,15 @@ export default function EachComplex({
     setSelectedStatuses([]);
   }, [selectedLanguage]);
 
-  console.log("hello");
+  // console.log("hello");
+
+  // ეს ნომრის ჩვენებისთვის
+  const [showFullNumber, setShowFullNumber] = useState(false);
+  const phoneNumber = eachPrivateApartment?.phoneNumber;
+
+  const handleToggleNumberDisplay = () => {
+    setShowFullNumber(true);
+  };
 
   // Assuming this is inside a functional component
   const [showApartments, setShowApartments] = useState(false);
@@ -198,6 +226,14 @@ export default function EachComplex({
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
 
+      // Update sliderImages state with all images from the fetched data
+      const sliderImagesFromData = normadata.images.map((imgUrl, index) => ({
+        id: index,
+        value: imgUrl, // Directly using the URL from the JSON data
+      }));
+      setSliderImages(sliderImagesFromData); // Update the state
+      setWordData(sliderImagesFromData[0] || null); // Initialize with the first image or null if empty
+
       // setTotalCount(response.data.total_items);
       // setCorrentPage(response.data.current_page);
     };
@@ -215,6 +251,8 @@ export default function EachComplex({
     currentPage,
     complexId,
   ]);
+
+  console.log("imagesss;:::::;", sliderImages);
 
   console.log("eachPrivateApartment DATA: ", eachPrivateApartment);
 
@@ -265,9 +303,9 @@ export default function EachComplex({
   };
 
   const handleNext = () => {
-    let index = val < sliderImages.length - 1 ? val + 1 : val;
-    setVal(index);
-    const wordSlider = sliderImages[index];
+    const newIndex = val < sliderImages.length - 1 ? val + 1 : 0; // Cycle to the start if at the end
+    setVal(newIndex);
+    const wordSlider = sliderImages[newIndex];
     setWordData(wordSlider);
     setCarouselPosition(
       (prevPosition) => (prevPosition + 1) % sliderImages.length
@@ -275,9 +313,9 @@ export default function EachComplex({
   };
 
   const handlePrevious = () => {
-    let index = val <= sliderImages.length - 1 && val > 0 ? val - 1 : val;
-    setVal(index);
-    const wordSlider = sliderImages[index];
+    const newIndex = val > 0 ? val - 1 : sliderImages.length - 1; // Cycle to the end if at the start
+    setVal(newIndex);
+    const wordSlider = sliderImages[newIndex];
     setWordData(wordSlider);
     setCarouselPosition(
       (prevPosition) =>
@@ -483,13 +521,15 @@ export default function EachComplex({
             <button className="btns" onClick={handlePrevious}>
               P
             </button>
-            <img
-              src={wordData.value}
-              alt={`Complex ${wordData.id}`}
-              height="450"
-              width="711"
-              className={clickedIndex !== null ? "clicked" : ""}
-            />
+            {wordData && ( // Check if wordData is not null/undefined before rendering
+              <img
+                src={wordData.value}
+                alt={`Complex ${wordData.id}`}
+                height="450"
+                width="711"
+                className={clickedIndex !== null ? "clicked" : ""}
+              />
+            )}
             <button className="btns" onClick={handleNext}>
               N
             </button>
@@ -560,12 +600,27 @@ export default function EachComplex({
             <div className="companyAdressPriceTextBox">
               <p style={{ color: "#ccc", fontSize: "20px" }}>
                 {" "}
-                {complex.title}
+                {eachPrivateApartment?.internalComplexName}
               </p>
-              <p style={{ color: "#838289" }}> {complex.city}</p>
-              <p style={{ color: "#838282" }}> {complex.adress}</p>
+              <p style={{ color: "#838289" }}>
+                {eachPrivateApartment &&
+                  eachPrivateApartment.apartments &&
+                  eachPrivateApartment.apartments.length > 0 &&
+                  eachPrivateApartment.apartments[0]?.address.city}
+              </p>
+              <p style={{ color: "#838289" }}>
+                {eachPrivateApartment &&
+                  eachPrivateApartment.apartments &&
+                  eachPrivateApartment.apartments.length > 0 &&
+                  `${eachPrivateApartment.apartments[0]?.address.streetName}, ${eachPrivateApartment.apartments[0]?.address.city}`}
+              </p>
+
+              <p style={{ color: "#838282" }}>
+                {" "}
+                {eachPrivateApartment?.adress}
+              </p>
               <p style={{ color: "#ccc", fontSize: "20px" }}>
-                m²-ის ფასი {complex.price}$-დან
+                m²-ის ფასი {eachPrivateApartment?.pricePerSqMeter}$-დან
               </p>
             </div>
 
@@ -582,34 +637,21 @@ export default function EachComplex({
               <div className="eachTextOnListTextsTwo">
                 <p style={{ color: "#FFFFFF" }}>
                   {eachPrivateApartment?.finishYear}
-                  {/* 
-                  es
-                  es
-                  es
-                  es
-                  es
-                  
-                  
-                  
-                  */}
                 </p>
-                <p style={{ color: "#FFFFFF" }}> {complex.city}</p>
                 <p style={{ color: "#FFFFFF" }}>
                   {" "}
-                  {
-                    eachPrivateApartment.internal_complex_name
-                      ?.number_of_apartments
-                  }
+                  {eachPrivateApartment?.space}
                 </p>
                 <p style={{ color: "#FFFFFF" }}>
-                  {/* {
-                    eachPrivateApartment.internal_complex_name
-                      ?.number_of_buildingss
-                  } */}
+                  {eachPrivateApartment?.numberOfApartments}
+                </p>
+                <p style={{ color: "#FFFFFF" }}>
+                  {/* აქ, ბაზაში ნull არის მითითებული და ჯერ ჩავაკომენტარე რო ფრონტისთვის მეჩვენებინა */}
+                  {/* {eachPrivateApartment?.numberOfBuildings} */}
                   null
                 </p>
                 <p style={{ color: "#FFFFFF" }}>
-                  {eachPrivateApartment.internal_complex_name?.number_of_floors}
+                  {eachPrivateApartment?.numberOfFloors}
                 </p>
               </div>
             </div>
@@ -617,8 +659,17 @@ export default function EachComplex({
             <div className="numberAndCallRequestBox">
               <div className="numberBox">
                 <img src={phoneImage} style={{ width: "40px" }} alt="phone" />
-                <p style={{ color: "#FFFFFF" }}>032 22 23 **</p>
-                <button className="numberSHowButton">
+                <p style={{ color: "#FFFFFF" }}>
+                  {phoneNumber && showFullNumber
+                    ? phoneNumber
+                    : phoneNumber
+                        ?.slice(0, -2)
+                        .padEnd(phoneNumber?.length, "*")}
+                </p>
+                <button
+                  onClick={handleToggleNumberDisplay}
+                  className="numberSHowButton"
+                >
                   ნომრის
                   <br /> ჩვენება
                 </button>
@@ -629,7 +680,10 @@ export default function EachComplex({
                   style={{ width: "40px" }}
                   alt="headset"
                 />
-                <button className="numberSHowButton">
+                <button
+                  onClick={handleCallButtonClick}
+                  className="numberSHowButton"
+                >
                   ზარის
                   <br /> მოთხოვნა
                 </button>
@@ -643,31 +697,6 @@ export default function EachComplex({
         "eachPrivateApartment",
         eachPrivateApartment.internal_complex_name?.rank
       )}
-      {/* ახალი mapping ბექიდან */}
-      <div style={{ color: "red" }}>
-        <h2>Internal Complex Name:</h2>
-        <ul>
-          <li>ID: {eachPrivateApartment.internal_complex_name?.id}</li>
-          <li>
-            Created At: {eachPrivateApartment.internal_complex_name?.created_at}
-          </li>
-          <li>
-            Internal Complex Name:{" "}
-            {eachPrivateApartment.internal_complex_name?.internal_complex_name}
-          </li>
-          <li>
-            Full Price: {eachPrivateApartment.internal_complex_name?.full_price}
-          </li>
-          <li>
-            Price per Sq Meter:{" "}
-            {eachPrivateApartment.internal_complex_name?.price_per_sq_meter}
-          </li>
-          {/* Render other properties as needed */}
-          <li>Rank: {eachPrivateApartment.internal_complex_name?.rank}</li>
-        </ul>
-      </div>
-
-      {/* ------------------ */}
 
       {/* ბინების და გეგმარებების ცამოსაშლელი ბოქსი */}
       <div className="binebiDaGegmarebaFullBox">
