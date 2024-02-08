@@ -40,10 +40,10 @@ import { BaseURLs } from '../App';
 
 import button_icon from '../icons/Vector.svg';
 
-import Modal_1 from '../modals for main page/Modal_1';
-import PriceModal_1 from '../modals for main page/PriceModal_1';
-import SpaceModal_1 from '../modals for main page/SpaceModal_1';
-import StatusModal_1 from '../modals for main page/StatusModa_1';
+import Modal_main from '../modals_for_complex/Modal_main';
+import PriceModal_complex from '../modals_for_complex/PriceModal_complex';
+import SpaceModal_complex from '../modals_for_complex/SpaceModal_complex';
+import StatusModal_complex from '../modals_for_complex/StatusModa_complex';
 
 import loupe from '../icons/loupe.png'
 
@@ -652,7 +652,7 @@ export default function Complex({
             <div className='adgilicomportistvis'>
               ადგილი შენი კომფორტისთვის
             </div>
-            <div className='filter_cont_for_homepage'>
+            <div className='filter_cont_for_complex'>
 
               {/* button for filtering space */}
               <div className="button-modal-container ">
@@ -661,7 +661,7 @@ export default function Complex({
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                 </div>
 
-                <SpaceModal_1 isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                <SpaceModal_complex isOpen={isSpaceModalOpen} close={closeSpaceModal}>
                   <div>
                     <input
                       type="number"
@@ -680,7 +680,7 @@ export default function Complex({
                   <button className='modal_close_button' onClick={closeSpaceModal}>
                     {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
-                </SpaceModal_1>
+                </SpaceModal_complex>
               </div>
               {/* button for filtering price  */}
               <div className="button-modal-container">
@@ -688,7 +688,7 @@ export default function Complex({
                   {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                 </div>
-                <PriceModal_1 isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                <PriceModal_complex isOpen={isPriceModalOpen} close={handleClosePriceModal} >
                   <div>
                     <input
                       type="number"
@@ -721,7 +721,7 @@ export default function Complex({
                   <button className='modal_close_button' onClick={handleClosePriceModal}>
                     {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
-                </PriceModal_1>
+                </PriceModal_complex>
               </div>
 
               {/* button for locations */}
@@ -730,9 +730,9 @@ export default function Complex({
                   {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                 </div>
-                <Modal_1 isOpen={isModalOpen} >
+                <Modal_main isOpen={isModalOpen} >
                   {renderModalContent()}
-                </Modal_1>
+                </Modal_main>
               </div>
 
               {/* button for status */}
@@ -741,12 +741,12 @@ export default function Complex({
                   {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                 </div>
-                <StatusModal_1 isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+                <StatusModal_complex isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
                   {renderStatusOptions()}
                   <button className='modal_close_button' onClick={handleCloseStatusModal}>
                     {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
-                </StatusModal_1>
+                </StatusModal_complex>
               </div>
               {/* Button For find word (sityvit dzebna) */}
               <div className="lacation_button" >

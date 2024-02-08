@@ -403,8 +403,8 @@ export default function Map({ selectedLanguage,
               <div className='filter_cont_for_homepage'>
 
                 {/* button for filtering space */}
-                <div className="button-modal-container ">
-                  <div onClick={handleSpaceButtonClick} className='space_button'  >
+                <div className="button-modal-container-homepage">
+                  <div onClick={handleSpaceButtonClick} className='space_button_homepage'  >
                     {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
@@ -437,8 +437,8 @@ export default function Map({ selectedLanguage,
                 </div>
 
                 {/* button for filtering price  */}
-                <div className="button-modal-container">
-                  <div onClick={handlePriceButtonClick} className='space_button'  >
+                <div className="button-modal-container-homepage">
+                  <div onClick={handlePriceButtonClick} className='space_button_homepage'  >
                     {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
@@ -486,8 +486,8 @@ export default function Map({ selectedLanguage,
                 </div>
 
                 {/* button for locations */}
-                <div className="button-modal-container" >
-                  <div onClick={handleShowModal} className='lacation_button'   >
+                <div className="button-modal-container-homepage" >
+                  <div onClick={handleShowModal} className='lacation_button_homepage'   >
                     {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
@@ -497,8 +497,8 @@ export default function Map({ selectedLanguage,
                 </div>
 
                 {/* button for status */}
-                <div className="button-modal-container" >
-                  <div onClick={handleStatusButtonClick} className='lacation_button'   >
+                <div className="button-modal-container-homepage" >
+                  <div onClick={handleStatusButtonClick} className='lacation_button_homepage'   >
                     {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
