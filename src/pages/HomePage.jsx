@@ -483,7 +483,7 @@ export default function Map({ selectedLanguage,
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <img src="./src/icons/loupe.png" alt="search icon" class="dropdown"></img>
+            <img src="../src/icons/loupe.png" alt="search icon" class="dropdown"></img>
           </div>
           </div>
 
