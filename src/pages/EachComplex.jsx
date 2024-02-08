@@ -536,8 +536,14 @@ export default function EachComplex({
   const navigate = useNavigate();
 
   // Assuming `complex` is an object representing each house
-  const handleAppartmentClick = (complexId) => {
-    navigate(`/eachComplex/${complexId}`);
+  // const handleAppartmentClick = (complexId) => {
+  //   navigate(`/eachComplex/${complexId},`);
+  // };
+
+  // const navigate = useNavigate();
+
+  const handleAppartmentClick = (apartmentId) => {
+    navigate(`/eachapartment/${apartmentId}`, { state: { apartmentId } });
   };
 
   return (

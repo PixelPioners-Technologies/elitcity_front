@@ -41,95 +41,75 @@ import ezo from "../assets/ezo.svg";
 import "./Physical.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import P_PriceModal from "../modals for private page/P_PriceModal";
-import P_SpaceModal from "../modals for private page/P_SpaceModal";
-import P_StatusModal from "../modals for private page/P_StatusModa";
-import button_icon from "../icons/Vector.svg";
 
 import { useLocation } from "react-router-dom";
-function normalizeData(item, lang) {
+const normalizeApartmentData = (data, lang) => {
   return {
-    id: item.id,
-    construction: item[`construction_type_${lang}`],
-    protectionType: item[`protection_type_${lang}`],
-    submissionType: item[`submission_type_${lang}`],
-
-    complexName: item[`complex_name_${lang}`],
-    internalComplexName: item.internal_complex_name.internal_complex_name,
-    fullPrice: item.internal_complex_name.full_price,
-    pricePerSqMeter: item.internal_complex_name.price_per_sq_meter,
-    finishYear: item.internal_complex_name.finish_year,
-    finishMonth: item.internal_complex_name.finish_month,
-    status: item.internal_complex_name.status,
-    visibility: item.internal_complex_name.visibiliti,
-    vipComplex: item.internal_complex_name.vipComplex,
-    floorNumber: item.internal_complex_name.floor_number,
-    space: item.internal_complex_name.space,
-    numberOfApartments: item.internal_complex_name.number_of_apartments,
-    numberOfFloors: item.internal_complex_name.number_of_floors,
-    phoneNumber: item.internal_complex_name.phone_number,
-    numberOfBuildings: item.internal_complex_name.number_of_buildings,
-    flooring: item.internal_complex_name.flooring,
-    parkingQuantity: item.internal_complex_name.parking_quantity,
-    roomsQuantity: item.internal_complex_name.rooms_quantity,
-    lightPercentage: item.internal_complex_name.light_percentage,
-    humidityPercentage: item.internal_complex_name.humidity_percentage,
-    areaSquareness: item.internal_complex_name.area_squareness,
-    ceilingHeightMeters: item.internal_complex_name.ceiling_height_meters,
-    cateringFacility: item.internal_complex_name.catering_facility,
-    elevatorType: item.internal_complex_name.elevator_type,
-    schlangbaum: item.internal_complex_name.schlangbaum,
-    conciergeService: item.internal_complex_name.concierge_service,
-    yardDescription: item.internal_complex_name.yard_description,
-    plotArea: item.internal_complex_name.plot_area,
-    rank: item.internal_complex_name.rank,
-
-    // Add other fields from internal_complex_name as needed
-    complexImages: item.complex_images.images,
-    apartments: item[`appartment_name_${lang}`].map((apartment) => ({
-      id: apartment.id,
-      apartmentName: apartment[`appartment_name_${lang}`],
-      testField: apartment[`test_field_${lang}`],
-      internalApartmentName: apartment.internal_apartment_name,
-      images: apartment.appartment_images.images,
-      address: {
-        city: apartment[`appartment_address_${lang}`][`city_${lang}`], // Correctly dynamic
-        parentDistrict:
-          apartment[`appartment_address_${lang}`][`pharentDistrict_${lang}`], // Corrected field name dynamically
-        district: apartment[`appartment_address_${lang}`][`district_${lang}`], // Correctly dynamic
-        streetName:
-          apartment[`appartment_address_${lang}`][`street_name_${lang}`], // Correctly dynamic
-        address: apartment[`appartment_address_${lang}`][`address_${lang}`], // Correctly dynamic
-        latitude: apartment[`appartment_address_${lang}`].latitude,
-        longitude: apartment[`appartment_address_${lang}`].longitude,
+    id: data.id,
+    complex: {
+      id: data[`complex_${lang}`].id,
+      complexName: data[`complex_${lang}`][`complex_name_${lang}`],
+      internalComplexName:
+        data[`complex_${lang}`].internal_complex_name.internal_complex_name,
+      fullPrice: data[`complex_${lang}`].internal_complex_name.full_price,
+      pricePerSqMeter:
+        data[`complex_${lang}`].internal_complex_name.price_per_sq_meter,
+      finishYear: data[`complex_${lang}`].internal_complex_name.finish_year,
+      finishMonth: data[`complex_${lang}`].internal_complex_name.finish_month,
+      isFinished: data[`complex_${lang}`].internal_complex_name.status,
+      isVisible: data[`complex_${lang}`].internal_complex_name.visibiliti,
+      isVipComplex: data[`complex_${lang}`].internal_complex_name.vipComplex,
+      floorNumber: data[`complex_${lang}`].internal_complex_name.floor_number,
+      space: data[`complex_${lang}`].internal_complex_name.space,
+      numberOfApartments:
+        data[`complex_${lang}`].internal_complex_name.number_of_apartments,
+      numberOfFloors:
+        data[`complex_${lang}`].internal_complex_name.number_of_floors,
+      phoneNumber: data[`complex_${lang}`].internal_complex_name.phone_number,
+      plotArea: data[`complex_${lang}`].internal_complex_name.plot_area,
+      typeOfRoof: data[`complex_${lang}`][`type_of_roof_${lang}`],
+      images: data[`complex_${lang}`].image_urls,
+      company: {
+        id: data[`complex_${lang}`].company_en.id,
+        name: data[`complex_${lang}`].company_en[`name_${lang}`],
+        mobile: data[`complex_${lang}`].company_en.Mobile,
+        mobileHome: data[`complex_${lang}`].company_en.Mobile_Home,
+        email: data[`complex_${lang}`].company_en.email,
+        website: data[`complex_${lang}`].company_en.companyweb,
+        facebookPage: data[`complex_${lang}`].company_en.facebook_page,
+        logo: data[`complex_${lang}`].company_en.logocompany,
+        backgroundImage: data[`complex_${lang}`].company_en.background_image,
+        isTopCompany: data[`complex_${lang}`].company_en.topCompany,
+        isVisible: data[`complex_${lang}`].company_en.visibility,
+        about: data[`complex_${lang}`].company_en[`aboutcompany_${lang}`],
+        address: data[`complex_${lang}`].company_en[`address_${lang}`],
       },
-    })),
-    company: {
-      id: item[`company_${lang}`].id,
-      name: item[`company_${lang}`][`name_${lang}`], // Correctly dynamic
-      mobile: item[`company_${lang}`].Mobile,
-      mobileHome: item[`company_${lang}`].Mobile_Home,
-      email: item[`company_${lang}`].email,
-      website: item[`company_${lang}`].companyweb,
-      facebookPage: item[`company_${lang}`].facebook_page,
-      logo: item[`company_${lang}`].logocompany,
-      backgroundImage: item[`company_${lang}`].background_image,
-      topCompany: item[`company_${lang}`].topCompany,
-      visibility: item[`company_${lang}`].visibility,
-      address: item[`company_${lang}`][`address_${lang}`], // Correctly dynamic
-      aboutCompany: item[`company_${lang}`][`aboutcompany_${lang}`], // Correctly dynamic
     },
-    // Add other top-level fields like typeOfRoof, constructionType, etc., as needed, dynamically using the lang parameter
+    apartmentDetails: {
+      internalApartmentName:
+        data.internal_apartment_name.internal_apartment_name,
+      numberOfRooms: data.internal_apartment_name.number_of_rooms,
+      area: data.internal_apartment_name.area,
+      fullPrice: data.internal_apartment_name.full_price,
+      squarePrice: data.internal_apartment_name.square_price,
+      floorNumber: data.internal_apartment_name.floor_number,
+      isAvailable: data.internal_apartment_name.is_available,
+      isVisible: data.internal_apartment_name.visibiliti,
+    },
+    apartmentAddress: {
+      city: data[`appartment_address_${lang}`][`city_${lang}`],
+      district: data[`appartment_address_${lang}`][`district_${lang}`],
+      pharentDistrict:
+        data[`appartment_address_${lang}`][`pharentDistrict_${lang}`],
+      streetName: data[`appartment_address_${lang}`][`street_name_${lang}`],
+      address: data[`appartment_address_${lang}`][`address_${lang}`],
+      latitude: data[`appartment_address_${lang}`].latitude,
+      longitude: data[`appartment_address_${lang}`].longitude,
+    },
+    images: data.appartment_images,
+    testField: data[`test_field_${lang}`],
   };
-}
-
-import img1 from "../assets/ComplexesPhotos/0zzz.jpg";
-import img2 from "../assets/ComplexesPhotos/1zz.jpg";
-import img3 from "../assets/ComplexesPhotos/2zz.jpg";
-import img4 from "../assets/ComplexesPhotos/3zz.jpg";
-import img5 from "../assets/ComplexesPhotos/4zz.jpg";
-import img6 from "../assets/ComplexesPhotos/5zz.jpg";
-
+};
 export default function EachApartment({
   selectedLanguage,
   favorites,
@@ -150,11 +130,18 @@ export default function EachApartment({
   const [eachComplexAllAppartments, seteachComplexAllAppartments] = useState(
     []
   );
+  useEffect(() => {
+    console.log(
+      "---------------------------------------",
+      eachComplexAllAppartments
+    );
+  }, [eachComplexAllAppartments]);
   const [wordData, setWordData] = useState(null);
   const [val, setVal] = useState(0);
   const [clickedIndex, setClickedIndex] = useState(null);
 
   const [privateApartments, setPrivateApartments] = useState([]);
+  console.log("privateApartmentssssssssssss", privateApartments);
 
   const [is_P_PriceModalOpen, setIs_P_PriceModalOpen] = useState(false);
   const [is_P_SpaceModalOpen, setIs_P_SpaceModalOpen] = useState(false);
@@ -221,10 +208,10 @@ export default function EachApartment({
       // const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
       // const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
 
-      const cityParam = `city`;
+      // const cityParam = `city`;
 
-      const limit = 12; // Define the limit or make it dynamic as per your requirement
-      const offset = (currentPage - 1) * limit;
+      // const limit = 12; // Define the limit or make it dynamic as per your requirement
+      // const offset = (currentPage - 1) * limit;
 
       // let queryParams = new URLSearchParams({
       //   [cityParam]: selectedCity,
@@ -238,27 +225,28 @@ export default function EachApartment({
       //   offset: offset,
       // });
 
-      if (selectedStatuses && selectedStatuses.length > 0) {
-        selectedStatuses.forEach((status) => {
-          queryParams.append("status", status);
-        });
-      }
+      // if (selectedStatuses && selectedStatuses.length > 0) {
+      //   selectedStatuses.forEach((status) => {
+      //     queryParams.append("status", status);
+      //   });
+      // }
 
       // const queryString = queryParams.toString();
-      const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${apartmentId}`; // /?${queryString}
+      const requestUrl = `${BaseURLs.apartment}${selectedLanguage}/${apartmentId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
       // console.log("ssssssss", response.data.results[0];
       const data = response.data;
-      const normalised_Data = normalizeData(data, selectedLanguage);
-      console.log("----111---,", normalised_Data);
-      setEachPrivateApartment(normalised_Data);
-      setPrivateApartments(normalised_Data);
+      const normalised_Data = normalizeApartmentData(data, selectedLanguage);
+      console.log("----11111111111-------------------,", normalised_Data);
+      seteachComplexAllAppartments(normalised_Data);
 
       // Update sliderImages state with all images from the fetched data
-      const sliderImagesFromData = normadata.images.map((imgUrl, index) => ({
-        id: index,
-        value: imgUrl, // Directly using the URL from the JSON data
-      }));
+      const sliderImagesFromData = data.appartment_images.map(
+        (imgUrl, index) => ({
+          id: index,
+          value: imgUrl, // Directly using the URL from the JSON data
+        })
+      );
       setSliderImages(sliderImagesFromData); // Update the state
       setWordData(sliderImagesFromData[0] || null); // Initialize with the first image or null if empty
 
@@ -277,7 +265,7 @@ export default function EachApartment({
     max_area,
     min_area,
     currentPage,
-    complexId,
+    apartmentId,
   ]);
 
   console.log("imagesss;:::::;", sliderImages);
@@ -286,7 +274,7 @@ export default function EachApartment({
 
   useEffect(() => {
     console.log("aq unda iyos suratebi", privateApartments);
-  }, [totalCount, selectedLanguage, complexId]);
+  }, [totalCount, selectedLanguage, apartmentId]);
 
   // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
@@ -533,13 +521,6 @@ export default function EachApartment({
 
   //
 
-  const navigate = useNavigate();
-
-  // Assuming `complex` is an object representing each house
-  const handleAppartmentClick = (complexId) => {
-    navigate(`/eachComplex/${complexId}`);
-  };
-
   return (
     <div className="eachComplexBox">
       <div className="imageAndTextInfos">
@@ -584,141 +565,6 @@ export default function EachApartment({
         {/* --------- */}
 
         {/* complex text info */}
-        {DATA.map((complex, index) => (
-          <div key={index} className="complexTextsBox">
-            <div className="seenIdFavouriteAndOthersBox">
-              <div className="seenAndIdBox">
-                <p style={{ color: "#838282" }}>Seen: {complex.seen}</p>
-                <p style={{ color: "#838282" }}>ID: {complex.ID}</p>
-              </div>
-
-              <div className="favouriteDollarAndShareBox">
-                {/* Star favourite box */}
-                <button className="heartButtons">
-                  <img src={star} style={{ width: "30px", height: "30px" }} />
-                </button>
-                {/* ----Dollar and Lari Toggle button */}
-                <div className="currencyBox">
-                  <div
-                    className="switch"
-                    data-ison={isOn}
-                    onClick={toggleSwitch}
-                  >
-                    <motion.div className="handle" layout transition={spring}>
-                      <img
-                        src={lari}
-                        alt="Lari Sign"
-                        className={`currency-sign ${isOn ? "active" : ""}`}
-                      />
-                      <img
-                        src={dollar}
-                        alt="Dollar Sign"
-                        className={`currency-sign ${!isOn ? "active" : ""}`}
-                      />
-                    </motion.div>
-                  </div>
-                </div>
-                {/* Share Button */}
-                <button className="heartButtons">
-                  <img src={share} style={{ width: "30px", height: "30px" }} />
-                </button>
-              </div>
-            </div>
-            {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}
-            <div className="companyAdressPriceTextBox">
-              <p style={{ color: "#ccc", fontSize: "20px" }}>
-                {" "}
-                {eachPrivateApartment?.internalComplexName}
-              </p>
-              <p style={{ color: "#838289" }}>
-                {eachPrivateApartment &&
-                  eachPrivateApartment.apartments &&
-                  eachPrivateApartment.apartments.length > 0 &&
-                  eachPrivateApartment.apartments[0]?.address.city}
-              </p>
-              <p style={{ color: "#838289" }}>
-                {eachPrivateApartment &&
-                  eachPrivateApartment.apartments &&
-                  eachPrivateApartment.apartments.length > 0 &&
-                  `${eachPrivateApartment.apartments[0]?.address.streetName}, ${eachPrivateApartment.apartments[0]?.address.city}`}
-              </p>
-
-              <p style={{ color: "#838282" }}>
-                {" "}
-                {eachPrivateApartment?.adress}
-              </p>
-              <p style={{ color: "#ccc", fontSize: "20px" }}>
-                m²-ის ფასი {eachPrivateApartment?.pricePerSqMeter}$-დან
-              </p>
-            </div>
-
-            <div className="chabarebaPartebiKorpusebi">
-              {/* ქვედა, მეორე ტექსტია.. ჩაბარება, Fართები... სართულიანობა */}
-              <div className="eachTextOnListTexts">
-                <p style={{ color: "#C2BFBF" }}> ჩაბარება </p>
-                <p style={{ color: "#C2BFBF" }}> ფართები</p>
-                <p style={{ color: "#C2BFBF" }}> ბინების რ-ობა</p>
-                <p style={{ color: "#C2BFBF" }}> კორპუსები</p>
-                <p style={{ color: "#C2BFBF" }}> სართულიანობა</p>
-              </div>
-
-              <div className="eachTextOnListTextsTwo">
-                <p style={{ color: "#FFFFFF" }}>
-                  {eachPrivateApartment?.finishYear}
-                </p>
-                <p style={{ color: "#FFFFFF" }}>
-                  {" "}
-                  {eachPrivateApartment?.space}
-                </p>
-                <p style={{ color: "#FFFFFF" }}>
-                  {eachPrivateApartment?.numberOfApartments}
-                </p>
-                <p style={{ color: "#FFFFFF" }}>
-                  {/* აქ, ბაზაში ნull არის მითითებული და ჯერ ჩავაკომენტარე რო ფრონტისთვის მეჩვენებინა */}
-                  {/* {eachPrivateApartment?.numberOfBuildings} */}
-                  null
-                </p>
-                <p style={{ color: "#FFFFFF" }}>
-                  {eachPrivateApartment?.numberOfFloors}
-                </p>
-              </div>
-            </div>
-            {/* დარეკვისა და ნომრის ჩვენების სექცია */}
-            <div className="numberAndCallRequestBox">
-              <div className="numberBox">
-                <img src={phoneImage} style={{ width: "40px" }} alt="phone" />
-                <p style={{ color: "#FFFFFF" }}>
-                  {phoneNumber && showFullNumber
-                    ? phoneNumber
-                    : phoneNumber
-                        ?.slice(0, -2)
-                        .padEnd(phoneNumber?.length, "*")}
-                </p>
-                <button
-                  onClick={handleToggleNumberDisplay}
-                  className="numberSHowButton"
-                >
-                  ნომრის
-                  <br /> ჩვენება
-                </button>
-              </div>
-              <div className="callRequestBox">
-                <img
-                  src={headSetImage}
-                  style={{ width: "40px" }}
-                  alt="headset"
-                />
-                <button
-                  onClick={handleCallButtonClick}
-                  className="numberSHowButton"
-                >
-                  ზარის
-                  <br /> მოთხოვნა
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
       </div>
       {/* ---------- */}
       {console.log(
@@ -728,125 +574,6 @@ export default function EachApartment({
 
       {/* ბინების და გეგმარებების ცამოსაშლელი ბოქსი */}
       <div className="binebiDaGegmarebaFullBox">
-        {/* ბინები და ყველა აპარტამენტის ტექსტი და ბათონი */}
-        <div className="firstBoxOfBinebi">
-          <p style={{ color: "#FFFFFF" }}>ბინები და გეგმარება</p>
-          <button className="numberSHowButton" onClick={handleShowHideClick}>
-            All appartments(12)
-            {showApartments ? (
-              <img src={arrowUp} style={{ width: "20px", marginLeft: "5px" }} />
-            ) : (
-              <img src={arrowDown} style={{ width: "30px" }} />
-            )}
-          </button>
-        </div>
-        {/* ფილტრაცია (start) */}
-
-        {/* ---------- (end ფილტრაცია ბოქსი) */}
-
-        {/* ეს დივი არის გეგმარებები რომ ჩამოიშალოს... */}
-        {showApartments && (
-          <div className="allCards_physical paddingForEachComplexCardBox">
-            {privateApartments.apartments.map((prev_apartments, index) => (
-              <div
-                className="card_physical"
-                key={index}
-                onClick={() => handleAppartmentClick(prev_apartments.id)}
-              >
-                <motion.div
-                  key={currentPage}
-                  initial={{ x: -50, opacity: 0 }}
-                  transition={{ duration: 1 }}
-                  whileInView={{ x: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="heartbuttonAndImageBox_physical">
-                    <div className="heartButtonBox_physical">
-                      <button
-                        onClick={() => favoriteHandler(prev_apartments)}
-                        key={prev_apartments.id}
-                        className="heartButtons_physical"
-                      >
-                        {favorites.some(
-                          (fav) => fav.id === prev_apartments.id
-                        ) ? (
-                          <img src={heartIcon} alt="Logo of heart" />
-                        ) : (
-                          <img
-                            src={heartIconEmpty}
-                            alt="Logo of empty heart"
-                            style={{ width: "30px", height: "30px" }}
-                          />
-                        )}
-                      </button>
-                    </div>
-                    <img
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      src={prev_apartments.images}
-                      alt={prev_apartments.name}
-                      style={styles.imageStyles}
-                    />
-                  </div>
-                  {/* --------------card details------------------- */}
-                  <h1 className="company_title" style={styles.companyTitle}>
-                    {prev_apartments.privateApartmentName}
-                  </h1>
-                  <div className="textInfo_physical">
-                    <p className="city_settings" style={styles.complexInfo}>
-                      {car_settings_language_change(selectedLanguage).city} :{" "}
-                      {prev_apartments.address.city}
-                    </p>
-                    <p className="price_settings" style={styles.complexInfo}>
-                      {prev_apartments.squarePrice}{" "}
-                      {
-                        car_settings_language_change(selectedLanguage)
-                          .square_from
-                      }
-                    </p>
-                    <div className="status_and_rank">
-                      <p className="status_settings">
-                        {" "}
-                        {cardStatusSettingLanguage(
-                          selectedLanguage,
-                          prev_apartments.status
-                        )}
-                      </p>
-                      <p className="private_apartment_rank">
-                        {prev_apartments.rank}{" "}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            ))}
-          </div>
-        )}
-        {/* ------------ */}
-
         {/* ეს დივი არის ..კომპლექსის შესახებ'' ესეთი წარწერა რომაა და true/false-ის მეშვეობით
         რომ ვფილტრავთ, მაგალითად სართულების ოდენობა, კამერა, ოთახები და ა.შ. */}
         <div>

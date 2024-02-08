@@ -1,0 +1,200 @@
+.eachComplexBox {
+  height: 100vh;
+  width: 99vw;
+  padding: 0 42px;
+  
+}
+
+.imageAndTextInfos {
+  display: flex;
+  gap: 50px;
+}
+
+.imageSliderBox {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.bigImageBox {
+  width: 711px;
+  position: relative;
+}
+
+.miniImagesBox {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  position: absolute;
+  top: 371px;
+  left: 136px;
+  background-color: lightblue; /* Add a background color */
+}
+
+
+
+.thumbnail {
+  border: 2px solid white;
+}
+
+.thumbnail:hover {
+  cursor: pointer;
+}
+
+.enlarge {
+  border: 2px solid white;
+  transform: scale(1.2); /* Increase the size of the image when the "enlarge" class is applied */
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
+}
+
+/* .clicked {
+  scale: 1.1;
+} */
+
+
+.complexTextsBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 40px;
+  
+}
+
+.seenIdFavouriteAndOthersBox {
+  /* color: white; */
+  display: flex;
+  /* justify-content: space-around; */
+  /* gap: 50px; */
+  justify-content: space-between;
+  
+
+}
+
+.seenAndIdBox {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.favouriteDollarAndShareBox {
+  display: flex;
+  gap: 20px;
+}
+
+.chabarebaPartebiKorpusebi {
+  width: 100px;
+  display: flex;
+  gap: 30px;
+}
+
+.eachTextOnListTextsOne {
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.eachTextOnListTextsTwo {
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.numberAndCallRequestBox {
+  display: flex;
+  gap: 20px;
+}
+
+.numberBox {
+  border: 1px solid white;
+  padding: 11px 10px;
+  /* width: 274px; */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 20px;
+
+
+}
+
+.numberSHowButton {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: white;
+  appearance: none;
+  display: flex;
+  align-items: center;
+}
+
+.numberSHowButton:hover {
+  cursor: pointer;
+}
+
+.callRequestBox {
+  border: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 20px;
+  padding: 11px 10px;
+
+
+}
+
+.binebiDaGegmarebaFullBox {
+  padding: 0 30px;
+}
+
+.firstBoxOfBinebi {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.paddingForEachComplexCardBox {
+  padding: 0 50px;
+}
+
+
+
+
+
+
+.shidaInformaciaIconebisBox {
+  padding: 30px 80px;
+  background-color: rgb(182, 175, 175);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+.eachDivBoxOfIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.stylesOfIconsOnEachComplex {
+  width: 40px;
+}
+
+.inprastruqturisIconsBigBox {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.inprastruqturisIconsBox {
+  margin-top: 20px;
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 30px;
+}
