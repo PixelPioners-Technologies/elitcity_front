@@ -81,6 +81,9 @@ export default function Complex({
   selectedDistrictsChangeHandler,
   selectedPharentDistrictsChangeHandler,
   selectedCityChangeHandler,
+  searchInput,
+  setSearchInput,
+
 
 }) {
   const [homes, setHomes] = useState([]);
@@ -604,19 +607,33 @@ export default function Complex({
   ));
   // ------------------------------------------------------------------------------------
 
-  // სკროლისთვის და ასევე ინტერვალისთვის რომ, ერთიანად არ აისქორლოს..
-  // const scrollToTop = () => {
-  //   const scrollStep = -window.scrollY / (500 / 15);
+  // ------------------------render status option--------------------------------------------
 
-  //   const scrollInterval = setInterval(() => {
-  //     if (window.scrollY !== 0) {
-  //       window.scrollBy(0, scrollStep);
-  //     } else {
-  //       clearInterval(scrollInterval);
-  //     }
-  //   }, 15);
-  // };
+  const statusTranslations = {
+    1: { en: 'Planned', ka: 'დაგეგმილი', ru: 'Запланировано' },
+    2: { en: 'Under Construction', ka: 'მშენებარე', ru: 'Строится' },
+    3: { en: 'Completed', ka: 'დასრულებული', ru: 'Завершено' }
+    // Add more statuses and translations if needed
+  };
 
+  const renderStatusOptions = () => {
+    return Object.entries(statusTranslations).map(([value, labels]) => (
+      <div className='status_chackboxes' key={value}>
+
+        <label className="container" style={{ display: 'flex', gap: '15px' }}>
+          <input
+            type="checkbox"
+            checked={selectedStatuses.includes(value)}
+            value={value}
+            onChange={(e) => handleStatusChange(e, value)}
+          />
+          <div className="checkmark"></div>
+          <p className='text_modal_color' >{labels[selectedLanguage]}</p>
+        </label>
+      </div>
+    ));
+  };
+// -----------------------------------------------------------------------------
 
 
 
@@ -761,7 +778,7 @@ export default function Complex({
               </div>
 
               {/* button for status */}
-              {/* <div className="button-modal-container" >
+              <div className="button-modal-container" >
                 <div onClick={handleStatusButtonClick} className='lacation_button'   >
                   {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
@@ -772,9 +789,9 @@ export default function Complex({
                   {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
                   </StatusModal_1>
-                </div> */}
+                </div>
               {/* Button For find word (sityvit dzebna) */}
-              {/* <div className="lacation_button" >
+              <div className="lacation_button" >
                 <input className='string_filter_input'
                 type="text"
                 placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
@@ -782,7 +799,7 @@ export default function Complex({
                 onChange={(e) => setSearchInput(e.target.value)}
                 />
                 <img src="./src/icons/loupe.png" alt="search icon" className="dropdown"></img>
-              </div> */}
+              </div>
               <div className="button-modal-container ">
                 <div onClick={handleSearchButtonClick} className='space_button'  >
                   <button className='homepage_serch_button_complexpage' style={{ color: 'white' }} onClick={() => searchButtonhangeHandler(!searchButton)}> Search</button>

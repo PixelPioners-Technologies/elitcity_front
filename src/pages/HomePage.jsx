@@ -53,7 +53,9 @@ export default function Map({ selectedLanguage,
   searchButton,
   selectedCity,
   selectedPharentDistricts,
-  selectedDistricts
+  selectedDistricts,
+  searchInput,
+  setSearchInput,
 
 }) {
 
@@ -73,7 +75,7 @@ export default function Map({ selectedLanguage,
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
 
 
-  const [searchInput, setSearchInput] = useState('');
+  // const [searchInput, setSearchInput] = useState('');
   // const [searchButton , setSearchButton] = useState(false);
 
   // const searchButtonHandler = () => {

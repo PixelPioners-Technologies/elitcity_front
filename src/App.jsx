@@ -29,14 +29,14 @@ import cancel_icon from "./icons/cancel.png";
 const usePageTracking = () => {
   const location = useLocation();
 
-useEffect(() => {
-  const pagePath = location.pathname + location.search;
-  
-  // Here we're using the gtag function directly as it's globally available from the index.html script
-  window.gtag("config", "G-FFTZPPMQNZ", {
-    page_path: pagePath,
-  });
-}, [location]);
+  useEffect(() => {
+    const pagePath = location.pathname + location.search;
+
+    // Here we're using the gtag function directly as it's globally available from the index.html script
+    window.gtag("config", "G-FFTZPPMQNZ", {
+      page_path: pagePath,
+    });
+  }, [location]);
 };
 
 function trackButtonClick(buttonName) {
@@ -204,9 +204,16 @@ function App() {
 
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
 
+  const [searchInput, setSearchInput] = useState('');
+
   // -----------------------------------------------------------------------------------------------------
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
+
+  const stringSearchHeandles = (data) => {
+    setSearchInput(data)
+  }
+
   const complexChangeHandler = (data) => {
     setComplexes(data);
   };
@@ -294,7 +301,7 @@ function App() {
     };
 
     fetchComplexes();
-  }, [searchButton, min_space , max_space]);
+  }, [searchButton,]);
 
   // console.log(complexes)
   //-----------------------------------fetch ionly locations --------------------------------------
@@ -483,6 +490,8 @@ function App() {
           path="homePage"
           element={
             <HomePage
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
               favoriteHandler={favoriteHandler}
               favorites={favorites}
               selectedLanguage={selectedLanguage}
@@ -532,7 +541,7 @@ function App() {
 
                 selectedStatuses={selectedStatuses}
                 selectedStatusesChangeHandler={selectedStatusesChangeHandler}
-                
+
                 locations={locations}
 
                 min_space={min_space}
@@ -543,7 +552,7 @@ function App() {
 
                 minPricePerSquareMeter={minPricePerSquareMeter}
                 minPricePerSquareMeterChangeHandler={minPricePerSquareMeterChangeHandler}
-                
+
                 maxPricePerSquareMeter={maxPricePerSquareMeter}
                 maxPricePerSquareMeterChangeHandler={maxPricePerSquareMeterChangeHandler}
 
@@ -553,6 +562,8 @@ function App() {
                 maxFullPrice={maxFullPrice}
                 maxFullPriceChangeHandler={maxFullPriceChangeHandler}
 
+                searchInput={searchInput}
+                setSearchInput={setSearchInput}
 
                 selectedCity={selectedCity}
                 selectedPharentDistricts={selectedPharentDistricts}
@@ -590,7 +601,7 @@ function App() {
           path="map"
           element={<Map selectedLanguage={selectedLanguage} />}
         />
-        <Route path="sales" element={<Sales  selectedLanguage={selectedLanguage} handleCallButtonClick={handleCallButtonClick}/>} />
+        <Route path="sales" element={<Sales selectedLanguage={selectedLanguage} handleCallButtonClick={handleCallButtonClick} />} />
         <Route
           path="physical"
           element={
