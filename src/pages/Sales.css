@@ -297,6 +297,7 @@ margin-bottom: 20px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
   width: 230px;
   height: 56px;
+  cursor: pointer;
 }
 
 .hedaphone_ico_sale_modaln{

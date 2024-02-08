@@ -43,7 +43,7 @@ const normalizePromotionData = (data, lang) => {
 
 
 
-export default function Sales({ selectedLanguage }) {
+export default function Sales({ selectedLanguage, handleCallButtonClick }) {
   const [promotions, setPromotions] = useState([]);
   const [gift, setGift] = useState('');
   const [discount, setDiscount] = useState('');
@@ -305,63 +305,62 @@ export default function Sales({ selectedLanguage }) {
 
 
       {/* // ------------------------------------------------------------------------------------ */}
-      <SaleModal isOpen={isModalOpen} onClose={handleCloseModal} >
-        <div style={{ color: 'white' }} className="sale_modal_container_main"  >
-          <div className="close_sale_modal" >
-            <img src={canse_iconl} alt="" className="close_icon_sale" onClick={handleCloseModal} />
-          </div>
-          {selectedPromotion && (
-            <div className="whole_sale_omdal_content" >
-              <div className="image_container_for_sale_modal">
-                <img src={selectedPromotion.images} alt="" className="image_for_sale_modal" />
-              </div>
-              <div className="sale_settings_and_companylogo">
-                <div>
-                  <div className="microfon_logo_and_alert">
-                    <img src={microphoneLogo} alt="Microphone" />
-                    {/* <p className="selected_promotion_alert" >{selectedPromotion.alert}</p> */}
-                    <p className="selected_promotion_alert" >Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-
-                  </div>
-                  <div className="microfon_logo_and_alert">
-                    <img src={navigateLogo} alt="Microphone" />
-                    <p className="selected_promotion_alert" >{selectedPromotion.alert}</p>
-                  </div>
-                  <div className="address_and_address" >
-                    <p className="selected_promotion_alert" >{LanguageChangeForSales(selectedLanguage).address}:</p>
-                    <p>{selectedPromotion.company_address}</p>
-                  </div>
-                </div>
-
-                <div className="company_image_little_container" >
-                  <img src={selectedPromotion.details.company_Logo?.logocompany} className="image_company_for_sale_modal" />
-                </div>
-              </div>
-              <div className="all_call_modal_buttons">
-                <div className="call_and_number_on_saleModal">
-                  <div className="show_number_sale_modal" onClick={() => handleShowNumberClick()} >
-                    <img src={phoneImage} alt="phone icon" />
-                    {/* <p>{truncateText(selectedPromotion.company_mobile, 10)}</p>
-                    <p className='call_sale_modal' > {LanguageChangeForSales(selectedLanguage).show_number} </p> */}
-
-                    {/* Conditionally render the full phone number or truncate it based on showFullNumber state */}
-                    <p>{showFullNumber ? selectedPromotion.company_mobile : truncateText(selectedPromotion.company_mobile, 10)}</p>
-                    {/* Only show the "Show Number" text if the full number isn't being shown */}
-                    {!showFullNumber && <p className='call_sale_modal'>{LanguageChangeForSales(selectedLanguage).show_number}</p>}
-                  </div>
-
-
-                  <div className="make_call_Sale_modal">
-                    <img className='hedaphone_ico_sale_modaln' src={headphone_icon} rel='headphone icon' />
-                    <p className='call_sale_modal' > {LanguageChangeForSales(selectedLanguage).make_call} </p>
-                  </div>
-                </div>
-              </div>
+        <SaleModal isOpen={isModalOpen} onClose={handleCloseModal} >
+          <div style={{ color: 'white' }} className="sale_modal_container_main"  >
+            <div className="close_sale_modal" >
+              <img src={canse_iconl} alt="" className="close_icon_sale" onClick={handleCloseModal} />
             </div>
+            {selectedPromotion && (
+              <div className="whole_sale_omdal_content" >
+                <div className="image_container_for_sale_modal">
+                  <img src={selectedPromotion.images} alt="" className="image_for_sale_modal" />
+                </div>
+                <div className="sale_settings_and_companylogo">
+                  <div>
+                    <div className="microfon_logo_and_alert">
+                      <img src={microphoneLogo} alt="Microphone" />
+                      <p className="selected_promotion_alert" >{selectedPromotion.alert}</p>
 
-          )}
-        </div>
-      </SaleModal>
+                    </div>
+                    <div className="microfon_logo_and_alert">
+                      <img src={navigateLogo} alt="Microphone" />
+                      <p className="selected_promotion_alert" >{selectedPromotion.alert}</p>
+                    </div>
+                    <div className="address_and_address" >
+                      <p className="selected_promotion_alert" >{LanguageChangeForSales(selectedLanguage).address}:</p>
+                      <p>{selectedPromotion.company_address}</p>
+                    </div>
+                  </div>
+
+                  <div className="company_image_little_container" >
+                    <img src={selectedPromotion.details.company_Logo?.logocompany} className="image_company_for_sale_modal" />
+                  </div>
+                </div>
+                <div className="all_call_modal_buttons">
+                  <div className="call_and_number_on_saleModal">
+                    <div className="show_number_sale_modal" onClick={() => handleShowNumberClick()} >
+                      <img src={phoneImage} alt="phone icon" />
+                      <p>{showFullNumber ? selectedPromotion.company_mobile : truncateText(selectedPromotion.company_mobile, 10)}</p>
+                      {!showFullNumber && <p className='call_sale_modal'>{LanguageChangeForSales(selectedLanguage).show_number}</p>}
+                    </div>
+
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <div className="make_call_Sale_modal" onClick={handleCallButtonClick}>
+                        <img className='hedaphone_ico_sale_modaln' src={headphone_icon} rel='headphone icon' />
+                        <p className='call_sale_modal' > {LanguageChangeForSales(selectedLanguage).make_call} </p>
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
+              </div>
+
+            )}
+          </div>
+        </SaleModal>
     </div>
   )
 }
