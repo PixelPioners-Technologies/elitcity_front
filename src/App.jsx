@@ -66,6 +66,7 @@ function trackButtonClick(buttonName) {
 //   });
 // }
 
+
 const BaseURLs = {
   // storkhome
 
@@ -203,6 +204,8 @@ function App() {
 
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
+  const [total_item_number, setTotal_item_number] = useState('');
+
 
   const [homes, setHomes] = useState([]);
 
@@ -264,11 +267,15 @@ function App() {
   const handleSetTodalPageCount = (data) => {
     setTotalPageCount(data)
   }
+
+  const handleSetAllItems = (data) => {
+    setTotal_item_number(data)
+  }
   // -----------------------------------------------------------------------------------------------------
 
-useEffect(()=> {
- console.log('corrent page on app' , currentPage) 
-},[currentPage])
+  useEffect(() => {
+    console.log('total_item_number on app', total_item_number)
+  }, [total_item_number])
 
   useEffect(() => {
     const fetchComplexes = async () => {
@@ -310,7 +317,7 @@ useEffect(()=> {
 
         handleSetTodalPageCount(response.data.total_pages); // Set total number of pages
         handleCorrentPageHandler(response.data.current_page); // Set current page
-
+        handleSetAllItems(response.data.total_items)
 
       } catch (error) {
         console.error("Error fetching complexes:", error);
@@ -320,7 +327,7 @@ useEffect(()=> {
     fetchComplexes();
   }, [searchButton]);
 
-console.log("complexes ----",complexes)
+  console.log("complexes ----", complexes)
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
@@ -592,6 +599,7 @@ console.log("complexes ----",complexes)
 
                 complexes={complexes}
 
+                total_item_number={total_item_number}
               />
             }
           />

@@ -84,6 +84,7 @@ export default function Complex({
   currentPage,
   handleCorrentPageHandler,
   complexes,
+  total_item_number,
 }) {
   const [homes, setHomes] = useState([]);
 
@@ -131,8 +132,8 @@ export default function Complex({
   // }, [totalPageCount,currentPage ])
 
   useEffect(()=> {
-    console.log('corrent page on complex' , currentPage) 
-   },[currentPage])
+    console.log('total_item_number on complex' , total_item_number) 
+   },[total_item_number])
    
 
   // 1111111111111111111111111111111111
@@ -783,7 +784,7 @@ export default function Complex({
         <div className="forPaddingOfInfoFieldOfComplexsPlansMaps">
           <div className="infoFieldOfComplexsPlansMaps">
             <div className="complexInfoAndCountShowBox">
-              <p style={{ color: "white" }}>კომპლექსები {totalPageCount}</p>
+              <p style={{ color: "white" }}>კომპლექსები {total_item_number}</p>
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
             <div className="projectsPlansMapsSortingAndDollarBox">
