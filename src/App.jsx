@@ -207,6 +207,16 @@ function App() {
 
   const [searchInput, setSearchInput] = useState('');
 
+
+  const [totalPageCount, setTotalPageCount] = useState(0);
+  const [currentPage, setCorrentPage] = useState(0);
+
+  const [homes, setHomes] = useState([]);
+
+
+
+  const [complex_homes, setComplex_homes] = useState([]);
+
   // -----------------------------------------------------------------------------------------------------
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
@@ -254,8 +264,18 @@ function App() {
   const searchButtonhangeHandler = (data) => {
     setSearchButton(data);
   };
+  const handleCorrentPageHandler = (data) => {
+    setCorrentPage(data)
+  }
 
+  const handleSetTodalPageCount = (data) => {
+    setTotalPageCount(data)
+  }
   // -----------------------------------------------------------------------------------------------------
+
+useEffect(()=> {
+ console.log('corrent page on app' , currentPage) 
+},[currentPage])
 
   useEffect(() => {
     const fetchComplexes = async () => {
@@ -263,6 +283,11 @@ function App() {
       const pharentdistrictParams = `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
       const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
       // Create a URLSearchParams object
+
+      const limit = 12; // Define the limit or make it dynamic as per your requirement
+      const offset = (currentPage - 1) * limit;
+
+
       let queryParams = new URLSearchParams({
         [cityParam]: selectedCity,
         [pharentdistrictParams]: selectedPharentDistricts.join(","),
@@ -273,6 +298,8 @@ function App() {
         max_full_price: maxFullPrice,
         min_space: min_space,
         max_space: max_space,
+        limit: limit,
+        offset: offset,
       });
 
       // Append each status as a separate parameter
@@ -283,19 +310,15 @@ function App() {
       // Construct the full URL with query parameters
       const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.complex}${selectedLanguage}/?${queryString}`;
-
-      //////////////////////    T  E  S  T  ///////////////////////////
-      // local_url = 'http://127.0.0.1:8000'
-      // const requestUrl = `${local_url}${selectedLanguage}/?${queryString}`;
-      /////////////// Can Erase if not need////////////////////////////
-
       try {
         const response = await axios.get(requestUrl);
-        const normalData = normalizeComplexData(
-          response.data.results,
-          selectedLanguage
-        );
+        const normalData = normalizeComplexData(response.data.results, selectedLanguage);
         setComplexes(normalData);
+
+        handleSetTodalPageCount(response.data.total_pages); // Set total number of pages
+        handleCorrentPageHandler(response.data.current_page); // Set current page
+
+
       } catch (error) {
         console.error("Error fetching complexes:", error);
       }
@@ -304,11 +327,10 @@ function App() {
     fetchComplexes();
   }, [searchButton,]);
 
-  // console.log(complexes)
+console.log("complexes ----",complexes)
+
   //-----------------------------------fetch ionly locations --------------------------------------
 
-  // const base_URL_for_location = "https://api.storkhome.ge/map/";
-  // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -579,6 +601,12 @@ function App() {
 
                 selectedPharentDistrictsChangeHandler={selectedPharentDistrictsChangeHandler}
 
+                totalPageCount={totalPageCount}
+                currentPage={currentPage}
+                handleCorrentPageHandler={handleCorrentPageHandler}
+                handleSetTodalPageCount={handleSetTodalPageCount}
+
+                complexes={complexes}
               />
             }
           />
