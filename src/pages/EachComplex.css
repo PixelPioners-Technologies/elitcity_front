@@ -160,3 +160,41 @@
 .paddingForEachComplexCardBox {
   padding: 0 50px;
 }
+
+
+
+
+
+
+.shidaInformaciaIconebisBox {
+  padding: 30px 80px;
+  background-color: rgb(182, 175, 175);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+.eachDivBoxOfIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.stylesOfIconsOnEachComplex {
+  width: 40px;
+}
+
+.inprastruqturisIconsBigBox {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.inprastruqturisIconsBox {
+  margin-top: 20px;
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 30px;
+}

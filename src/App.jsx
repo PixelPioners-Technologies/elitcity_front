@@ -24,6 +24,7 @@ import headphone_icon from "./icons/headphones.png";
 // import { color } from "framer-motion";
 import { motion } from "framer-motion";
 import cancel_icon from "./icons/cancel.png";
+import EachApartment from "./pages/EachApartment";
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
@@ -41,12 +42,11 @@ const usePageTracking = () => {
 
 function trackButtonClick(buttonName) {
   // Updated to use gtag directly
-  window.gtag('event', 'click', {
-    'event_category': 'Header',
-    'event_label': buttonName,
+  window.gtag("event", "click", {
+    event_category: "Header",
+    event_label: buttonName,
   });
 }
-
 
 //   useEffect(() => {
 //     const pagePath = location.pathname + location.search;
@@ -65,13 +65,6 @@ function trackButtonClick(buttonName) {
 //     label: buttonName,
 //   });
 // }
-
-
-
-
-
-
-
 
 const BaseURLs = {
   // storkhome
@@ -205,15 +198,15 @@ function App() {
 
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
 
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
 
   // -----------------------------------------------------------------------------------------------------
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
 
   const stringSearchHeandles = (data) => {
-    setSearchInput(data)
-  }
+    setSearchInput(data);
+  };
 
   const complexChangeHandler = (data) => {
     setComplexes(data);
@@ -302,7 +295,7 @@ function App() {
     };
 
     fetchComplexes();
-  }, [searchButton,]);
+  }, [searchButton]);
 
   // console.log(complexes)
   //-----------------------------------fetch ionly locations --------------------------------------
@@ -537,48 +530,38 @@ function App() {
               <Complex
                 favoriteHandler={favoriteHandler}
                 favorites={favorites}
-
                 selectedLanguage={selectedLanguage}
-
                 selectedStatuses={selectedStatuses}
                 selectedStatusesChangeHandler={selectedStatusesChangeHandler}
-
                 locations={locations}
-
                 min_space={min_space}
                 min_spacehangeHandler={min_spacehangeHandler}
-
                 max_space={max_space}
                 max_spacehangeHandler={max_spacehangeHandler}
-
                 minPricePerSquareMeter={minPricePerSquareMeter}
-                minPricePerSquareMeterChangeHandler={minPricePerSquareMeterChangeHandler}
-
+                minPricePerSquareMeterChangeHandler={
+                  minPricePerSquareMeterChangeHandler
+                }
                 maxPricePerSquareMeter={maxPricePerSquareMeter}
-                maxPricePerSquareMeterChangeHandler={maxPricePerSquareMeterChangeHandler}
-
+                maxPricePerSquareMeterChangeHandler={
+                  maxPricePerSquareMeterChangeHandler
+                }
                 minFullPrice={minFullPrice}
                 minFullPriceChangeHandler={minFullPriceChangeHandler}
-
                 maxFullPrice={maxFullPrice}
                 maxFullPriceChangeHandler={maxFullPriceChangeHandler}
-
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
-
                 selectedCity={selectedCity}
                 selectedPharentDistricts={selectedPharentDistricts}
                 selectedDistrictsChangeHandler={selectedDistrictsChangeHandler}
-
                 selectedDistricts={selectedDistricts}
                 searchButton={searchButton}
-
                 searchButtonhangeHandler={searchButtonhangeHandler}
-
                 selectedCityChangeHandler={selectedCityChangeHandler}
-
-                selectedPharentDistrictsChangeHandler={selectedPharentDistrictsChangeHandler}
-
+                selectedPharentDistrictsChangeHandler={
+                  selectedPharentDistrictsChangeHandler
+                }
               />
             }
           />
@@ -602,7 +585,15 @@ function App() {
           path="map"
           element={<Map selectedLanguage={selectedLanguage} />}
         />
-        <Route path="sales" element={<Sales selectedLanguage={selectedLanguage} handleCallButtonClick={handleCallButtonClick} />} />
+        <Route
+          path="sales"
+          element={
+            <Sales
+              selectedLanguage={selectedLanguage}
+              handleCallButtonClick={handleCallButtonClick}
+            />
+          }
+        />
         <Route
           path="physical"
           element={
@@ -662,6 +653,18 @@ function App() {
         />
 
         <Route
+          path="eachapartment/:apartmentId"
+          element={
+            <EachApartment
+              selectedLanguage={selectedLanguage}
+              favorites={favorites}
+              favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
+            />
+          }
+        />
+
+        <Route
           path="favoriteComplex"
           element={<FavoriteComplex favorites={favorites} />}
         />
@@ -669,7 +672,7 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-      // onClick={(e) => e.stopPropagation()}
+        // onClick={(e) => e.stopPropagation()}
       >
         <div className="call_modal_containerr">
           <div className="cancel_icon_container">
