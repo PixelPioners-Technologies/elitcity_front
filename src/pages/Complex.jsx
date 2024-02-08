@@ -38,8 +38,12 @@ import MenuItem from "@mui/material/MenuItem";
 
 import { BaseURLs } from '../App';
 
+import button_icon from '../icons/Vector.svg';
 
-
+import Modal_1 from '../modals for main page/Modal_1';
+import PriceModal_1 from '../modals for main page/PriceModal_1';
+import SpaceModal_1 from '../modals for main page/SpaceModal_1';
+import StatusModal_1 from '../modals for main page/StatusModa_1';
 
 // const basess = 'http://localhost:5173';
 // const basess = 'https://api.storkhome.ge'
@@ -52,20 +56,35 @@ import { BaseURLs } from '../App';
 export default function Complex({
   favoriteHandler,
   favorites,
-  selectedLanguage,
   // selectedStatuses,
-  // locations,
+  selectedLanguage,
+  locations,
   min_space,
   max_space,
+  min_spacehangeHandler,
+  max_spacehangeHandler,
   minPricePerSquareMeter,
   maxPricePerSquareMeter,
+  minPricePerSquareMeterChangeHandler,
+  maxPricePerSquareMeterChangeHandler,
   minFullPrice,
   maxFullPrice,
+  minFullPriceChangeHandler,
+  maxFullPriceChangeHandler,
   selectedCity,
   selectedPharentDistricts,
   selectedDistricts,
   searchButton,
   selectedStatuses,
+  selectedStatusesChangeHandler,
+  searchButtonhangeHandler,
+  selectedDistrictsChangeHandler,
+  selectedPharentDistrictsChangeHandler,
+  selectedCityChangeHandler,
+  searchInput,
+  setSearchInput,
+
+
 }) {
   const [homes, setHomes] = useState([]);
   // console.log('-----',homes)
@@ -77,6 +96,27 @@ export default function Complex({
   const [forPriceDecrease, setForPriceDecrease] = useState(null);
   const [sortedHomes, setSortedHomes] = useState(null); // Initialize sortedHomes state
   const [ascendentPrice, setAscendentPrice] = useState("");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+
+  const [modalContent, setModalContent] = useState('');
+
+
+
+  // const [status, setStatus] = useState('');
+
+  // const [mapCenter, setMapCenter] = useState(initialCenter);
+  // const [zoomLevel, setZoomLevel] = useState(13);
+
+  // const [mapInstance, setMapInstance] = useState(null);
+
+
+
+
+
 
   const navigate = useNavigate();
 
@@ -219,45 +259,130 @@ export default function Complex({
   };
 
   // ------------------------------------------------------------------------------------
+  //--------------------------------------modal and logic for opening filtration window --------------------------------------
 
-  // (START)---- აქ სამივეა: ფასი, გამოქვეყნების თარიღი და რეიტინგის მიხედვითაც სორტირებული
-  // const sortHomes = (data, sortOrder, sortBy) => {
-  //   if (sortBy === 'price') {
-  //     if (sortOrder === 'decrease') {
-  //       return [...data].sort((a, b) => parseFloat(b.complexDetails.pricePerSqMeter) - parseFloat(a.complexDetails.pricePerSqMeter));
-  //     } else if (sortOrder === 'increase') {
-  //       return [...data].sort((a, b) => parseFloat(a.complexDetails.pricePerSqMeter) - parseFloat(b.complexDetails.pricePerSqMeter));
-  //     }
-  //   } else if (sortBy === 'publishedTime') {
-  //     if (sortOrder === 'decrease') {
-  //       return [...data].sort((a, b) => new Date(b.publishedTime) - new Date(a.publishedTime));
-  //     } else if (sortOrder === 'increase') {
-  //       return [...data].sort((a, b) => new Date(a.publishedTime) - new Date(b.publishedTime));
-  //     }
-  //   } else if (sortBy === 'rating') {
-  //     if (sortOrder === 'decrease') {
-  //       return [...data].sort((a, b) => b.rating - a.rating);
-  //     } else if (sortOrder === 'increase') {
-  //       return [...data].sort((a, b) => a.rating - b.rating);
-  //     }
-  //   }
-  //   return data;
-  // };
-  // -(END)-----------------------------------------------------------
+  const renderModalContent = () => {
+    switch (modalContent) {
+      case 'cities':
+        return <div>
+          {locations.map((cityItem, index) => (
+            <button key={index} onClick={() => handleCityClick(cityItem.city)} className='city_button'>
+              <span>{cityItem.city}</span>
+            </button>
+          ))}
+          <button className='modal_close_button' onClick={closeModal} >close</button>
+        </div>
+      case "pharentdistricts":
+        // Find the city object from the locations array
+        const city = locations.find(loc => loc.city === selectedCity);
+        if (!city) return null;
 
-  // (START)-----  აქ კიდე ესაა გასაწერი, რომ კონკრეტულ ღილაკზე დაჭერისას რა ქნას... მაგიტომაცაა მითითებული
-  // ესენი:  setSortBy('price');, setSortBy('publishedTime'), setSortBy('rating');
+        return (
+          <div className='location_modal_container' >
+            <div className='districts_and_pharentdostricts'>
+              {city.pharentDistricts.map((parentDistrict, index) => (
+                <ul key={index} >
 
-  {
-    /* <MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('price'); }}>ფასი კლებადობით</MenuItem>
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('price'); }}>ფასი ზრდადობით</MenuItem>
+                  <div className='pharent_district_chackmarks' >
+                    <label className="container">
+                      <input
+                        type="checkbox"
+                        checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
+                        onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
+                      />
+                      <div className="checkmark"></div>
+                    </label>
+                    <p>{parentDistrict.pharentDistrict}</p>
+                  </div>
 
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('publishedTime'); }}>თარიღი კლებადობით</MenuItem>
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('publishedTime'); }}>თარიღი ზრდადობით</MenuItem>
+                  <div className='district_checkmarks' >
+                    {parentDistrict.districts.map((district, districtIndex) => (
+                      <li key={districtIndex} className='child_district_checkmarks' >
+                        <label className="container">
+                          <input
+                            type="checkbox"
+                            checked={selectedDistricts.includes(district)}
+                            onChange={(e) => handleDistrictChange(e, district)}
+                          />
+                          <div className="checkmark"></div>
+                        </label>
 
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('decrease'); setSortBy('rating'); }}>რეიტინგი კლებადობით</MenuItem>
-<MenuItem onClick={() => { handleClose(); setForPriceDecrease('increase'); setSortBy('rating'); }}>რეიტინგი ზრდადობით</MenuItem> */
+                        <p>{district}</p>
+                      </li>
+                    ))}
+                  </div>
+                </ul>
+              ))}
+            </div>
+            <button className='modal_close_button' onClick={closeModal}>Close</button>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  const handleShowModal = () => {
+    setModalContent('cities')
+    setIsModalOpen(true)
+    setIsSpaceModalOpen(false);
+    setIsPriceModalOpen(false)
+    setIsStatusModalOpen(false)
   }
+
+  const handleCityClick = (city) => {
+    setModalContent("pharentdistricts")
+    selectedCityChangeHandler(city)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const handleParentDistrictChange = (e, parentDistrict) => {
+
+    selectedPharentDistrictsChangeHandler(prevSelected => {
+      if (e.target.checked) {
+        return [...prevSelected, parentDistrict];
+      } else {
+        return prevSelected.filter(pd => pd !== parentDistrict);
+      }
+    });
+    // Find the city object from the locations array
+    const city = locations.find(loc => loc.city === selectedCity);
+    if (!city) return;
+
+    // Find the specific parent district object
+    const parentDistrictObj = city.pharentDistricts.find(pd => pd.pharentDistrict === parentDistrict);
+    if (!parentDistrictObj) return;
+
+    selectedDistrictsChangeHandler(prevSelected => {
+      if (e.target.checked) {
+        // Add all districts of the parent district to the selected list
+        // Ensure no duplicates are added
+        const updatedDistricts = new Set([...prevSelected, ...parentDistrictObj.districts]);
+        return Array.from(updatedDistricts);
+      } else {
+        // Remove all districts of the parent district from the selected list
+        return prevSelected.filter(d => !parentDistrictObj.districts.includes(d));
+      }
+    });
+  };
+
+  const handleDistrictChange = (e, district) => {
+    selectedDistrictsChangeHandler(prevSelected => {
+      if (e.target.checked) {
+        return [...prevSelected, district];
+      } else {
+        return prevSelected.filter(d => d !== district);
+      }
+    });
+  };
+
+
+
   // -(END)----------------------------------------------------------------------------
 
   // second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული); ეს აღარაა საჭირო, რადგან გაკეთდა უვკე სორტირება !!!!!!!!
@@ -333,18 +458,89 @@ export default function Complex({
   useEffect(() => {
     const sortedResults = sortHomes(homes, forPriceDecrease);
     setSortedHomes(sortedResults);
-  }, [forPriceDecrease, homes]);
+  }, [forPriceDecrease, homes, min_space, max_space]);
+
 
   // ------------------------------------------------------------------------------------
+  // --------ffunction for changing status button content language change and also select city button language change -------------
+
+  const handleStatusButtonLanguageChange = (lang) => {
+    var languageInfo = {
+      statusInfoLanguage: "en",
+      cityButtonLanguage: "Select City ",
+      spaceButtonLanguage: "Space",
+      priceButtonLanguage: "Price",
+      allStatusLanguage: "All",
+      findMapButtonLanguage: "Find Map",
+      allFindButtonLanguage: "Find",
+      spaceButtonClose: "Close"
+    }
+
+    switch (lang) {
+      case "en":
+        languageInfo.statusInfoLanguage = "Select Status"
+        languageInfo.cityButtonLanguage = "Location"
+        languageInfo.spaceButtonLanguage = "Space"
+        languageInfo.priceButtonLanguage = "Price"
+        languageInfo.allStatusLanguage = "All"
+        languageInfo.findMapButtonLanguage = "Find Map"
+        languageInfo.allFindButtonLanguage = "Find"
+        languageInfo.spaceButtonClose = "Close"
+        break;
+
+      case "ka":
+        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
+        languageInfo.cityButtonLanguage = "მდებარეობა"
+        languageInfo.spaceButtonLanguage = "ფართი"
+        languageInfo.priceButtonLanguage = "ფასი"
+        languageInfo.allStatusLanguage = "ყველა"
+        languageInfo.findMapButtonLanguage = "რუკაზე ძიება"
+        languageInfo.allFindButtonLanguage = "ძიება"
+        languageInfo.spaceButtonClose = "დახურვა"
+        break
+
+      case "ru":
+        languageInfo.statusInfoLanguage = "выберите статус"
+        languageInfo.cityButtonLanguage = "Местоположение"
+        languageInfo.spaceButtonLanguage = "Площадь"
+        languageInfo.priceButtonLanguage = "Цена"
+        languageInfo.allStatusLanguage = "Все"
+        languageInfo.findMapButtonLanguage = "Карта"
+        languageInfo.allFindButtonLanguage = "Натдти"
+        languageInfo.spaceButtonClose = "закрить"
+        break
+    }
+    return languageInfo
+  }
+
+
+  // ------------------------------------------------------------------------------------
+
+  // --------------------------function for selecting status for filtration -----------------------------------------------
+
+  const handleStatusChange = (e, value) => {
+    selectedStatusesChangeHandler((prevSelectedStatuses) => {
+      const newSelectedStatuses = e.target.checked
+        ? [...prevSelectedStatuses, value]
+        : prevSelectedStatuses.filter((status) => status !== value);
+
+      console.log("Updated Selected Statuses:", newSelectedStatuses); // Log the new state
+      return newSelectedStatuses;
+    });
+  };
+
+  // -----------------------------------------------------------------------------------------------------------------------------
+
+
 
   // Pagination logic
   const itemsPerPage = 12;
   const totalPageCount = Math.ceil(totalCount / itemsPerPage);
   const currentSortedHomes = sortedHomes
     ? sortedHomes.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-      )
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    )
     : [];
 
   //
@@ -411,21 +607,213 @@ export default function Complex({
   ));
   // ------------------------------------------------------------------------------------
 
-  // სკროლისთვის და ასევე ინტერვალისთვის რომ, ერთიანად არ აისქორლოს..
-  // const scrollToTop = () => {
-  //   const scrollStep = -window.scrollY / (500 / 15);
+  // ------------------------render status option--------------------------------------------
 
-  //   const scrollInterval = setInterval(() => {
-  //     if (window.scrollY !== 0) {
-  //       window.scrollBy(0, scrollStep);
-  //     } else {
-  //       clearInterval(scrollInterval);
-  //     }
-  //   }, 15);
-  // };
+  const statusTranslations = {
+    1: { en: 'Planned', ka: 'დაგეგმილი', ru: 'Запланировано' },
+    2: { en: 'Under Construction', ka: 'მშენებარე', ru: 'Строится' },
+    3: { en: 'Completed', ka: 'დასრულებული', ru: 'Завершено' }
+    // Add more statuses and translations if needed
+  };
+
+  const renderStatusOptions = () => {
+    return Object.entries(statusTranslations).map(([value, labels]) => (
+      <div className='status_chackboxes' key={value}>
+
+        <label className="container" style={{ display: 'flex', gap: '15px' }}>
+          <input
+            type="checkbox"
+            checked={selectedStatuses.includes(value)}
+            value={value}
+            onChange={(e) => handleStatusChange(e, value)}
+          />
+          <div className="checkmark"></div>
+          <p className='text_modal_color' >{labels[selectedLanguage]}</p>
+        </label>
+      </div>
+    ));
+  };
+// -----------------------------------------------------------------------------
+
+
+
+  const handleSpaceButtonClick = () => {
+    setIsSpaceModalOpen(true);
+    setIsPriceModalOpen(false);
+    setIsStatusModalOpen(false);
+    setIsModalOpen(false);
+  };
+
+  const closeSpaceModal = () => {
+    setIsSpaceModalOpen(false);
+  };
+
+  const handlePriceButtonClick = () => {
+    setIsPriceModalOpen(true);
+    setIsSpaceModalOpen(false);
+    setIsModalOpen(false);
+    setIsStatusModalOpen(false);
+  }
+
+  const handleClosePriceModal = () => {
+    setIsPriceModalOpen(false)
+  }
+
+  const handleStatusButtonClick = () => {
+    setIsStatusModalOpen(true);
+    setIsSpaceModalOpen(false);
+    setIsPriceModalOpen(false);
+    setIsModalOpen(false);
+  }
+
+  const handleCloseStatusModal = () => {
+    setIsStatusModalOpen(false);
+  }
+
+
+  const handleSearchButtonClick = () => {
+    setIsStatusModalOpen(false);
+    setIsSpaceModalOpen(false);
+    setIsPriceModalOpen(false);
+    setIsModalOpen(false);
+  }
+
+
+
 
   return (
     <div className="ComplexBodyBox">
+
+      <div className="filter_cont_for_complexes" >
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 2 }}
+        >
+          <div className='for_comfort'>
+            <div className='adgilicomportistvis'>
+              ადგილი შენი კომფორტისთვის
+            </div>
+            <div className='filter_cont_for_homepage'>
+
+              {/* button for filtering space */}
+              <div className="button-modal-container ">
+                <div onClick={handleSpaceButtonClick} className='space_button'  >
+                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                </div>
+
+                <SpaceModal_1 isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                  <div>
+                    <input
+                      type="number"
+                      placeholder='Min Price Per Square Meter'
+                      value={min_space}
+                      onChange={(e) => max_spacehangeHandler(e.target.value)}
+                    />
+
+                    <input
+                      type="number"
+                      placeholder='Max Price Per Square Meter'
+                      value={max_space}
+                      onChange={(e) => min_spacehangeHandler(e.target.value)}
+                    />
+                  </div>
+                  <button className='modal_close_button' onClick={closeSpaceModal}>
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                  </button>
+                </SpaceModal_1>
+              </div>
+              {/* button for filtering price  */}
+              <div className="button-modal-container">
+                <div onClick={handlePriceButtonClick} className='space_button'  >
+                  {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                </div>
+                <PriceModal_1 isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                  <div>
+                    <input
+                      type="number"
+                      placeholder='Min Price Per Square Meter'
+                      value={minPricePerSquareMeter}
+                      onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
+                    />
+
+                    <input
+                      type="number"
+                      placeholder='Max Price Per Square Meter'
+                      value={maxPricePerSquareMeter}
+                      onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
+                    />
+
+                    <input
+                      type="number"
+                      placeholder='Min Full Price'
+                      value={minFullPrice}
+                      onChange={(e) => minFullPriceChangeHandler(e.target.value)}
+                    />
+
+                    <input
+                      type="number"
+                      placeholder='Max Full Price'
+                      value={maxFullPrice}
+                      onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
+                    />
+                  </div>
+                  <button className='modal_close_button' onClick={handleClosePriceModal}>
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                  </button>
+                </PriceModal_1>
+              </div>
+
+              {/* button for locations */}
+              <div className="button-modal-container" >
+                <div onClick={handleShowModal} className='lacation_button'   >
+                  {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
+                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                </div>
+                <Modal_1 isOpen={isModalOpen} >
+                  {renderModalContent()}
+                </Modal_1>
+              </div>
+
+              {/* button for status */}
+              <div className="button-modal-container" >
+                <div onClick={handleStatusButtonClick} className='lacation_button'   >
+                  {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
+                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                  </div>
+                  <StatusModal_1 isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+                  {renderStatusOptions()}
+                  <button className='modal_close_button' onClick={handleCloseStatusModal}>
+                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                  </button>
+                  </StatusModal_1>
+                </div>
+              {/* Button For find word (sityvit dzebna) */}
+              <div className="lacation_button" >
+                <input className='string_filter_input'
+                type="text"
+                placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                />
+                <img src="./src/icons/loupe.png" alt="search icon" className="dropdown"></img>
+              </div>
+              <div className="button-modal-container ">
+                <div onClick={handleSearchButtonClick} className='space_button'  >
+                  <button className='homepage_serch_button_complexpage' style={{ color: 'white' }} onClick={() => searchButtonhangeHandler(!searchButton)}> Search</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </motion.div>
+      </div>
+
+
+
+
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
       <motion.div
         initial={{ y: -50, opacity: 0 }}
@@ -683,45 +1071,45 @@ export default function Complex({
       <div className="allCards">
         {isLoading
           ? Array.from({ length: 10 }, (_, index) => (
-              <div className="card" key={index}>
+            <div className="card" key={index}>
+              <Skeleton
+                variant="rectangle"
+                animation="wave"
+                width={styles.imageStyles.width}
+                height={styles.imageStyles.height}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width={150}
+                height={20}
+                style={styles.companyTitle}
+              />
+              <div className="textInfo">
                 <Skeleton
-                  variant="rectangle"
+                  variant="text"
                   animation="wave"
-                  width={styles.imageStyles.width}
-                  height={styles.imageStyles.height}
+                  width={120}
+                  height={15}
+                  style={styles.complexInfo}
                 />
                 <Skeleton
                   variant="text"
                   animation="wave"
-                  width={150}
-                  height={20}
-                  style={styles.companyTitle}
+                  width={180}
+                  height={15}
+                  style={styles.complexInfo}
                 />
-                <div className="textInfo">
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    width={120}
-                    height={15}
-                    style={styles.complexInfo}
-                  />
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    width={180}
-                    height={15}
-                    style={styles.complexInfo}
-                  />
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    width={100}
-                    height={15}
-                    style={styles.complexFinished}
-                  />
-                </div>
+                <Skeleton
+                  variant="text"
+                  animation="wave"
+                  width={100}
+                  height={15}
+                  style={styles.complexFinished}
+                />
               </div>
-            ))
+            </div>
+          ))
           : homeMaping}
       </div>
 
@@ -770,7 +1158,10 @@ export default function Complex({
             />
           </motion.div>
         </Link>
+
       </div>
+
+
     </div>
   );
 }
