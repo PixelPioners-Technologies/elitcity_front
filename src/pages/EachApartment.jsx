@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import "./EachComplex.css";
+import "./EachApartment.css";
 import DATA from "../EachComplexDATA.json";
 import { motion } from "framer-motion";
 import lari from "../assets/lari-svgrepo-com.svg";
@@ -130,7 +130,7 @@ import img4 from "../assets/ComplexesPhotos/3zz.jpg";
 import img5 from "../assets/ComplexesPhotos/4zz.jpg";
 import img6 from "../assets/ComplexesPhotos/5zz.jpg";
 
-export default function EachComplex({
+export default function EachApartment({
   selectedLanguage,
   favorites,
   favoriteHandler,
@@ -181,7 +181,7 @@ export default function EachComplex({
   const [eachPrivateApartment, setEachPrivateApartment] = useState([]);
 
   const location = useLocation();
-  const { complexId } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
+  const { apartmentId } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
 
   useEffect(() => {
     setSelectedCity("");
@@ -245,7 +245,7 @@ export default function EachComplex({
       }
 
       // const queryString = queryParams.toString();
-      const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${complexId}`; // /?${queryString}
+      const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${apartmentId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
       // console.log("ssssssss", response.data.results[0];
       const data = response.data;
