@@ -1,0 +1,25 @@
+.modal-backdrop_sale {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.modal-content_sale {
+  background-color: rgb(0, 0, 0);
+  padding: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1.5px solid white;
+  /* border-radius: 20px; */
+  overflow: hidden;
+  padding: 20px 20px;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+
+}
