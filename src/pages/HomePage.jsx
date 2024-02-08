@@ -320,7 +320,11 @@ export default function Map({ selectedLanguage,
       spaceButtonClose: "Close",
       minPrice: "From m²",
       maxPrice: "To m²",
-      roomStudio: "Studio"
+      roomStudio: "Studio",
+      fullPriceHomePage: "Full price",
+      meterPriceHomePage: "The price of m²",
+      dan: "from",
+      mde: "to"
     }
 
     switch (lang) {
@@ -336,6 +340,10 @@ export default function Map({ selectedLanguage,
         languageInfo.minPrice = "From m²"
         languageInfo.maxPrice = "To m²"
         languageInfo.roomStudio = "Studio"
+        languageInfo.fullPriceHomePage = "Full price"
+        languageInfo.meterPriceHomePage = "The price of m²"
+        languageInfo.dan = "from"
+        languageInfo.mde = "to"
         break;
 
       case "ka":
@@ -350,6 +358,10 @@ export default function Map({ selectedLanguage,
         languageInfo.minPrice = "დან მ²"
         languageInfo.maxPrice = "მდე მ²"
         languageInfo.roomStudio = "სტუდიო"
+        languageInfo.fullPriceHomePage = "სრული ფასი"
+        languageInfo.meterPriceHomePage = "მ² - ის ფასი"
+        languageInfo.dan = "დან"
+        languageInfo.mde = "მდე"
         break
 
       case "ru":
@@ -364,6 +376,10 @@ export default function Map({ selectedLanguage,
         languageInfo.minPrice = "из м²"
         languageInfo.maxPrice = "до м²"
         languageInfo.roomStudio = "Студия"
+        languageInfo.fullPriceHomePage = "Полная стоимость"
+        languageInfo.meterPriceHomePage = "Цена м²"
+        languageInfo.dan = "из"
+        languageInfo.mde = "до"
         break
     }
     return languageInfo
@@ -427,31 +443,38 @@ export default function Map({ selectedLanguage,
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
                   <PriceModal_1 isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                    <div className='fullPriceHomePage'>
+                      {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+                    </div>
                     <div>
                       <input className='min_price_homePage'
                         type="number"
-                        placeholder='Min Price Per Square Meter'
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                         value={minPricePerSquareMeter}
                         onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
                       />
 
                       <input className='min_price_homePage'
                         type="number"
-                        placeholder='Max Price Per Square Meter'
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                         value={maxPricePerSquareMeter}
                         onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
                       />
 
+                      <div className='meterPriceHomePage'>
+                        {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
+                      </div>
+
                       <input className='min_price_homePage'
                         type="number"
-                        placeholder='Min Full Price'
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                         value={minFullPrice}
                         onChange={(e) => minFullPriceChangeHandler(e.target.value)}
                       />
 
                       <input className='min_price_homePage'
                         type="number"
-                        placeholder='Max Full Price'
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                         value={maxFullPrice}
                         onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
                       />
