@@ -14,6 +14,9 @@ import StatusModal_1 from '../modals for main page/StatusModa_1';
 import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
 
+import loupe from '../icons/loupe.png'
+
+
 import './HomePage.css'
 import { Data } from '@react-google-maps/api';
 // const initialCenter = {
@@ -359,148 +362,148 @@ export default function Map({ selectedLanguage,
   return (
     <div className='hhh'>
       <>
-      <div className='main_map main_foto '>
-      <motion.div
-        initial={{ y: 50, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 2 }}
-      >
-        <div className='for_comfort'>
-        <div className='adgilicomportistvis'>
-          ადგილი შენი კომფორტისთვის
-        </div>
-        <div className='filter_cont_for_homepage'>
-
-          {/* button for filtering space */}
-          <div className="button-modal-container ">
-            <div onClick={handleSpaceButtonClick} className='space_button'  >
-              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
-              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-            </div>
-
-            <SpaceModal_1 isOpen={isSpaceModalOpen} close={closeSpaceModal}>
-              <div>
-                <input
-                  type="number"
-                  placeholder='Min Price Per Square Meter'
-                  value={min_space}
-                  onChange={(e) => max_spacehangeHandler(e.target.value)}
-                />
-
-                <input
-                  type="number"
-                  placeholder='Max Price Per Square Meter'
-                  value={max_space}
-                  onChange={(e) => min_spacehangeHandler(e.target.value)}
-                />
+        <div className='main_map main_foto '>
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 2 }}
+          >
+            <div className='for_comfort'>
+              <div className='adgilicomportistvis'>
+                ადგილი შენი კომფორტისთვის
               </div>
-              <button className='modal_close_button' onClick={closeSpaceModal}>
-              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
-              </button>
-            </SpaceModal_1>
+              <div className='filter_cont_for_homepage'>
 
-          </div>
+                {/* button for filtering space */}
+                <div className="button-modal-container ">
+                  <div onClick={handleSpaceButtonClick} className='space_button'  >
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+                    <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                  </div>
 
-          {/* button for filtering price  */}
-          <div className="button-modal-container">
-            <div onClick={handlePriceButtonClick} className='space_button'  >
-              {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
-              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-            </div>
-            <PriceModal_1 isOpen={isPriceModalOpen} close={handleClosePriceModal} >
-              <div>
-                <input
-                  type="number"
-                  placeholder='Min Price Per Square Meter'
-                  value={minPricePerSquareMeter}
-                  onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
-                />
+                  <SpaceModal_1 isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                    <div>
+                      <input
+                        type="number"
+                        placeholder='Min Price Per Square Meter'
+                        value={min_space}
+                        onChange={(e) => max_spacehangeHandler(e.target.value)}
+                      />
 
-                <input
-                  type="number"
-                  placeholder='Max Price Per Square Meter'
-                  value={maxPricePerSquareMeter}
-                  onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
-                />
+                      <input
+                        type="number"
+                        placeholder='Max Price Per Square Meter'
+                        value={max_space}
+                        onChange={(e) => min_spacehangeHandler(e.target.value)}
+                      />
+                    </div>
+                    <button className='modal_close_button' onClick={closeSpaceModal}>
+                      {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                    </button>
+                  </SpaceModal_1>
 
-                <input
-                  type="number"
-                  placeholder='Min Full Price'
-                  value={minFullPrice}
-                  onChange={(e) => minFullPriceChangeHandler(e.target.value)}
-                />
+                </div>
 
-                <input
-                  type="number"
-                  placeholder='Max Full Price'
-                  value={maxFullPrice}
-                  onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
-                />
+                {/* button for filtering price  */}
+                <div className="button-modal-container">
+                  <div onClick={handlePriceButtonClick} className='space_button'  >
+                    {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+                    <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                  </div>
+                  <PriceModal_1 isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                    <div>
+                      <input
+                        type="number"
+                        placeholder='Min Price Per Square Meter'
+                        value={minPricePerSquareMeter}
+                        onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
+                      />
+
+                      <input
+                        type="number"
+                        placeholder='Max Price Per Square Meter'
+                        value={maxPricePerSquareMeter}
+                        onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
+                      />
+
+                      <input
+                        type="number"
+                        placeholder='Min Full Price'
+                        value={minFullPrice}
+                        onChange={(e) => minFullPriceChangeHandler(e.target.value)}
+                      />
+
+                      <input
+                        type="number"
+                        placeholder='Max Full Price'
+                        value={maxFullPrice}
+                        onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
+                      />
+                    </div>
+                    <button className='modal_close_button' onClick={handleClosePriceModal}>
+                      {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                    </button>
+                  </PriceModal_1>
+                </div>
+
+                {/* button for locations */}
+                <div className="button-modal-container" >
+                  <div onClick={handleShowModal} className='lacation_button'   >
+                    {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
+                    <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                  </div>
+                  <Modal_1 isOpen={isModalOpen} >
+                    {renderModalContent()}
+                  </Modal_1>
+                </div>
+
+                {/* button for status */}
+                <div className="button-modal-container" >
+                  <div onClick={handleStatusButtonClick} className='lacation_button'   >
+                    {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
+                    <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                  </div>
+                  <StatusModal_1 isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+                    {renderStatusOptions()}
+                    <button className='modal_close_button' onClick={handleCloseStatusModal}>
+                      {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                    </button>
+                  </StatusModal_1>
+                </div>
+                {/* Button For find word (sityvit dzebna) */}
+                <div className="lacation_button" >
+                  <input className='string_filter_input'
+                    type="text"
+                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                  />
+                  <img src={loupe} alt="search icon" className="dropdown" />
+                </div>
               </div>
-              <button className='modal_close_button' onClick={handleClosePriceModal}>
-              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
-              </button>
-            </PriceModal_1>
-          </div>
 
-          {/* button for locations */}
-          <div className="button-modal-container" >
-            <div onClick={handleShowModal} className='lacation_button'   >
-              {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
-              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
             </div>
-            <Modal_1 isOpen={isModalOpen} >
-              {renderModalContent()}
-            </Modal_1>
-          </div>
+          </motion.div>
 
-          {/* button for status */}
-          <div className="button-modal-container" >
-            <div onClick={handleStatusButtonClick} className='lacation_button'   >
-              {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
-              <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 2 }}
+          >
+
+            {/* Map button link */}
+            <div className="button-container">
+              <Link to="/map">
+                <button className='homepage_map_link'>{handleStatusButtonLanguageChange(selectedLanguage).findMapButtonLanguage}</button>
+              </Link>
+              <Link to="/complex">
+                <button className='homepage_serch_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
+                  {handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+                </button>
+              </Link>
             </div>
-            <StatusModal_1 isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
-              {renderStatusOptions()}
-              <button className='modal_close_button' onClick={handleCloseStatusModal}>
-                {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
-              </button>
-            </StatusModal_1>
-          </div>
-          {/* Button For find word (sityvit dzebna) */}
-          <div className="lacation_button" >
-            <input className='string_filter_input'
-              type="text"
-              placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <img src="./src/icons/loupe.png" alt="search icon" className="dropdown"></img>
-          </div>
-          </div>
-
+          </motion.div>
         </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 2 }}
-      >
-
-      {/* Map button link */}
-        <div className="button-container">
-          <Link to="/map">
-            <button className='homepage_map_link'>{handleStatusButtonLanguageChange(selectedLanguage).findMapButtonLanguage}</button>
-          </Link>
-          <Link to="/complex">
-            <button className='homepage_serch_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
-            {handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
-            </button>
-          </Link>
-          </div>
-      </motion.div>
-      </div>
       </>
     </div>
 
