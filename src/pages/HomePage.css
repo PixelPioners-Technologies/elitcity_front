@@ -1,6 +1,16 @@
 
+
+
 .main_foto {
-  background-image: url('https://www.theconstructionindex.co.uk/assets/news_articles/2022/05/1653284938_southwark-over-station-development---image-1---credit---hayes-davidson.jpg');
+  background-image: url('../icons/613.jpg');
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
+
+}
+
+.for_comfort {
+  margin-top: 0px;
 }
 
 .adgilicomportistvis {
@@ -11,9 +21,58 @@
   line-height: 52.22px;
   letter-spacing: 10%;
   color: #FFFFFF;
+  padding-top: 150px;
 }
 
 .container {
   display: flex;
   gap: 15px;
+
+
+  justify-content: center; /* Align buttons as in the photo */
+  align-items: center;
+}
+
+.homepage_map_link, .homepage_serch_button {
+  background-color: transparent; 
+  color: #f1eeee; /* Change to the color you need */
+  border: none;
+  padding: 10px 20px; /* Adjust padding to match the size in the photo */
+  text-transform: uppercase; /* If the text is meant to be uppercase */
+  font-weight: bold; /* If the font is bold in the photo */
+  border-radius: 5px; /* Adjust the border-radius to match the button corners in the photo */
+  font-size: 16px; /* Adjust font size to match the photo */
+  cursor: pointer;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Adjust or remove shadow as needed */
+  transition: background-color 0.3s ease; /* For a hover effect */
+  align-items: end;
+  margin: 0 5px; /* Adds space between the buttons */
+  margin-top: 0px;
+}
+
+.homepage_map_link:hover, .homepage_serch_button:hover {
+  background-color: transparent; /* Color when hovered, adjust as needed */
+  color: black
+}
+
+.button-container {
+  width: 100%; /* Take full width of its parent */
+  display: flex;
+  justify-content: center; /* Center the buttons if needed */
+  margin-top: 40px; /* Add space above the button container */
+  padding-left: 40%;
+}
+
+.filter_cont_for_homepage {
+  /* color: black!important; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 70px;
+  gap: 13px;
+  padding-top: 65px;
+}
+
+#black_cont{
+  color: black;
 }

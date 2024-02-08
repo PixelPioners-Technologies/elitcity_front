@@ -1,4 +1,4 @@
-import './EachGround.css'
+import './EachPrivateAppartment.css'
 import "./EachComplex.css";
 import { motion } from "framer-motion";
 import lari from "../assets/lari-svgrepo-com.svg";
@@ -11,6 +11,10 @@ import { BaseURLs } from "../App";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import private_apartment_location_icon from '../location_icons/private_apartment2.png'
+
+
 
 
 const normalizePrivateApartmentData = (data, lang) => {
@@ -48,19 +52,19 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
   const [private_apartment, setPrivate_apartment] = useState({});
   const [sliderImages, setSliderImages] = useState([]);
 
-
+  const [wordData, setWordData] = useState(null);
+  const [val, setVal] = useState(0);
+  const [clickedIndex, setClickedIndex] = useState(null);
 
   // ---------------------------------  id  --------------------------------------------------
   const location = useLocation();
   const { p_apartment_id } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
   // ---------------------------------------------------------------------------------------------------------------
-  const [wordData, setWordData] = useState(null);
-  const [val, setVal] = useState(0);
-  const [clickedIndex, setClickedIndex] = useState(null);
-
+  
+  
+  
+  
   // ------------------------------------axios for fetching private apartments -----------------------------------------
-
-
   useEffect(() => {
     const fetcPrivateApartments = async () => {
       const requestUrl = `${BaseURLs.private_apartment}${selectedLanguage}/${p_apartment_id}`;
@@ -144,7 +148,8 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
       show_mobile_number: "Show nuber",
       request_call: "Call request",
       status: "Status",
-      views: "Views"
+      views: "Views",
+      description: 'Description'
     };
 
     switch (lang) {
@@ -159,6 +164,7 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
         languageInfo.request_call = "Call request";
         languageInfo.status = "Status";
         languageInfo.views = "Views";
+        languageInfo.description = "Description";
         break;
 
       case "ka":
@@ -172,6 +178,7 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
         languageInfo.request_call = "ზარის მოთხოვნა";
         languageInfo.status = "სტატუსი";
         languageInfo.views = "ნახვები";
+        languageInfo.description = "აღწერილობა";
         break;
 
       case "ru":
@@ -185,6 +192,7 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
         languageInfo.request_call = "Запрос на звонок";
         languageInfo.status = "Положение дел";
         languageInfo.views = "Взгляды";
+        languageInfo.description = "Описание";
         break;
     }
     return languageInfo;
@@ -223,6 +231,25 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
 
   const squareSymbol = "\u00B2";
 
+  const mapcenter = {
+    lat: ground.address?.latitude,
+    lng: ground.address?.longitude,
+  }
+
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
+  });
+
+  if (loadError) {
+    return <div>Error loading maps</div>;
+  }
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
+  const scalesize = new window.google.maps.Size(40, 40)
+
 
 
   return (
@@ -230,6 +257,15 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
       <div className="imageAndTextInfos">
         {/* Complexes photos info */}
         <div className="imageSliderBox">
+            <div className="carusel_buttons">
+              <button className="Btn" onClick={handlePrevious} >
+                {handleStaticTextLanguageChange(selectedLanguage).previous_button}
+              </button>
+              <button className="Btn" onClick={handleNext} >
+                {handleStaticTextLanguageChange(selectedLanguage).nex_button}
+              </button>
+            </div>
+          </div>
           <div className="bigImageBox">
             {wordData && ( // Check if wordData is not null/undefined before rendering
               <img
@@ -240,15 +276,6 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
                 className={clickedIndex !== null ? "clicked" : ""}
               />
             )}
-            <div className="carusel_buttons">
-              <button className="Btn" onClick={handlePrevious} >
-                {handleStaticTextLanguageChange(selectedLanguage).previous_button}
-              </button>
-              <button className="Btn" onClick={handleNext} >
-                {handleStaticTextLanguageChange(selectedLanguage).nex_button}
-              </button>
-            </div>
-          </div>
 
           <div className="miniImagesBox">
             {sliderImages
@@ -354,7 +381,58 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
 
       </div>
       {/* ---------- */}
+      {/* ---------- */}
+      <div className='about_and_map_P' >
+        <div className='aboud_and_map_child_container_P' >
+          {/* about container  */}
+          <div>
+            <h1 className='about_land_header_P' > {handleStaticTextLanguageChange(selectedLanguage).description} </h1>
+            <p className='about_land_P' >
+              What is Lorem Ipsum?
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+              when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+              It has survived not only five centuries, but also the leap into electronic typesetting,
+              remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+              Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+          </div>
 
+          {/* map container */}
+          <div className='child_map_container_P' >
+            <GoogleMap
+              mapContainerStyle={{ height: '300px' }}
+              center={mapcenter}
+              zoom={16}
+              options={{
+                gestureHandling: "none",
+                zoomControl: false,
+                scrollwheel: false,
+                disableDoubleClickZoom: true,
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false,
+              }}
+            >
+              <Marker
+                key={ground.id}
+                position={{
+                  lat: ground.address?.latitude,
+                  lng: ground.address?.longitude,
+                }}
+                icon={{
+                  url: private_apartment_location_icon,
+                  scaledSize: scalesize
+                }}
+              />
+            </GoogleMap>
+          </div>
+
+        </div>
+
+
+      </div>
     </div>
   );
 }

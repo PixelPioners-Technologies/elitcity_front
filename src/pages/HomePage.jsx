@@ -311,7 +311,10 @@ export default function Map({ selectedLanguage,
       cityButtonLanguage: "Select City ",
       spaceButtonLanguage: "Space",
       priceButtonLanguage: "Price",
-      allStatusLanguage: "All"
+      allStatusLanguage: "All",
+      findMapButtonLanguage: "Find Map",
+      allFindButtonLanguage: "Find",
+      spaceButtonClose: "Close"
     }
 
     switch (lang) {
@@ -321,6 +324,9 @@ export default function Map({ selectedLanguage,
         languageInfo.spaceButtonLanguage = "Space"
         languageInfo.priceButtonLanguage = "Price"
         languageInfo.allStatusLanguage = "All"
+        languageInfo.findMapButtonLanguage = "Find Map"
+        languageInfo.allFindButtonLanguage = "Find"
+        languageInfo.spaceButtonClose = "Close"
         break;
 
       case "ka":
@@ -329,6 +335,9 @@ export default function Map({ selectedLanguage,
         languageInfo.spaceButtonLanguage = "ფართი"
         languageInfo.priceButtonLanguage = "ფასი"
         languageInfo.allStatusLanguage = "ყველა"
+        languageInfo.findMapButtonLanguage = "რუკაზე ძიება"
+        languageInfo.allFindButtonLanguage = "ძიება"
+        languageInfo.spaceButtonClose = "დახურვა"
         break
 
       case "ru":
@@ -337,6 +346,9 @@ export default function Map({ selectedLanguage,
         languageInfo.spaceButtonLanguage = "Площадь"
         languageInfo.priceButtonLanguage = "Цена"
         languageInfo.allStatusLanguage = "Все"
+        languageInfo.findMapButtonLanguage = "Карта"
+        languageInfo.allFindButtonLanguage = "Натдти"
+        languageInfo.spaceButtonClose = "закрить"
         break
     }
     return languageInfo
@@ -345,18 +357,26 @@ export default function Map({ selectedLanguage,
 
   // ---------------------------------------------------------------------------------------------------------------------
   return (
-    <div className='main_map main_foto'>
+    <div className='hhh'>
+      <>
+      <div className='main_map main_foto '>
       <motion.div
-        initial={{ y: 100, opacity: 0 }}
+        initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 2 }}
       >
-        <h1 className='adgilicomportistvis'>ადგილი შენი კომფორტისთვის</h1>
+        <div className='for_comfort'>
+        <div className='adgilicomportistvis'>
+          ადგილი შენი კომფორტისთვის
+        </div>
         {/* <SliderTitle>The History of Phipino</SliderTitle> */}
+        
 
 
-        {/* axali divebi butonebis magivrad filtraciistvis */}
-        <div className='filter_cont'>
+        <div className='filter_cont_for_homepage'>
+          
+          {/*<div className='filter_cont' id='black_cont'>*/}
+
 
           {/* button for filtering space */}
           <div className="button-modal-container ">
@@ -382,7 +402,9 @@ export default function Map({ selectedLanguage,
                 />
                 <p>otaxebis filtraciac unda iyos aq</p>
               </div>
-              <button className='modal_close_button' onClick={closeSpaceModal}>Close</button>
+              <button className='modal_close_button' onClick={closeSpaceModal}>
+              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+              </button>
             </SpaceModal_1>
 
           </div>
@@ -423,7 +445,9 @@ export default function Map({ selectedLanguage,
                   onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
                 />
               </div>
-              <button className='modal_close_button' onClick={handleClosePriceModal}>Close</button>
+              <button className='modal_close_button' onClick={handleClosePriceModal}>
+              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+              </button>
             </PriceModal_1>
           </div>
 
@@ -446,43 +470,46 @@ export default function Map({ selectedLanguage,
             </div>
             <StatusModal_1 isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
               {renderStatusOptions()}
-              <button className='modal_close_button' onClick={handleCloseStatusModal}>Close</button>
+              <button className='modal_close_button' onClick={handleCloseStatusModal}>
+                {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+              </button>
             </StatusModal_1>
           </div>
           {/* Button For find word (sityvit dzebna) */}
-          <div className="button-modal-container" >
-            <input
+          <div className="lacation_button" >
+            <input className='string_filter_input'
               type="text"
-              placeholder='Search Input'
+              placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
+            <img src="./src/icons/loupe.png" alt="search icon" class="dropdown"></img>
           </div>
-
-          {/* Map button link */}
-          <div>
-            {/* Other content in your component */}
-
-            {/* Button to navigate to the map page */}
-            <Link to="/map">
-              <button className='modal_close_button'>Go to Map</button>
-            </Link>
-          </div>
-          {/* button for search */}
-          <div>
-            <Link to="/complex">
-              <button className='modal_close_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
-                ძიება
-              </button>
-            </Link>
           </div>
 
         </div>
       </motion.div>
 
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 2 }}
+      >
 
-
-
+      {/* Map button link */}
+        <div class="button-container">
+          <Link to="/map">
+            <button className='homepage_map_link'>{handleStatusButtonLanguageChange(selectedLanguage).findMapButtonLanguage}</button>
+          </Link>
+          <Link to="/complex">
+            <button className='homepage_serch_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
+            {handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+            </button>
+          </Link>
+          </div>
+      </motion.div>
+      </div>
+      </>
     </div>
 
   );

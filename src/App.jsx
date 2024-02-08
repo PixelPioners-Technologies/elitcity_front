@@ -24,33 +24,57 @@ import headphone_icon from "./icons/headphones.png";
 // import { color } from "framer-motion";
 import { motion } from "framer-motion";
 import cancel_icon from "./icons/cancel.png";
-import ReactGA from "react-ga";
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
   const location = useLocation();
 
-  useEffect(() => {
-    const pagePath = location.pathname + location.search;
-
-    // Here we're using the gtag function directly as it's globally available from the index.html script
-    window.gtag("config", "G-FFTZPPMQNZ", {
-      page_path: pagePath,
-    });
-  }, [location]);
+useEffect(() => {
+  const pagePath = location.pathname + location.search;
+  
+  // Here we're using the gtag function directly as it's globally available from the index.html script
+  window.gtag("config", "G-FFTZPPMQNZ", {
+    page_path: pagePath,
+  });
+}, [location]);
 };
 
 function trackButtonClick(buttonName) {
-  ReactGA.event({
-    category: "Header",
-    action: "Click",
-    label: buttonName,
+  // Updated to use gtag directly
+  window.gtag('event', 'click', {
+    'event_category': 'Header',
+    'event_label': buttonName,
   });
 }
 
+
+//   useEffect(() => {
+//     const pagePath = location.pathname + location.search;
+
+//     // Here we're using the gtag function directly as it's globally available from the index.html script
+//     window.gtag("config", "G-FFTZPPMQNZ", {
+//       page_path: pagePath,
+//     });
+//   }, [location]);
+// };
+
+// function trackButtonClick(buttonName) {
+//   ReactGA.event({
+//     category: "Header",
+//     action: "Click",
+//     label: buttonName,
+//   });
+// }
+
+
+
+
+
+
+
+
 const BaseURLs = {
   // storkhome
-
   complex: "https://api.storkhome.ge/complex/",
   company: "https://api.storkhome.ge/company/",
   apartment: "https://api.storkhome.ge/apartment/",
@@ -366,13 +390,13 @@ function App() {
     // First timer to open the modal after 10 seconds
     const timer1 = setTimeout(() => {
       setIsCallModalOpen(true);
-    }, 60000); // 10 seconds
+    }, 6000000); // 10 seconds
 
     // Second timer to close and then reopen the modal after 20 seconds
     const timer2 = setTimeout(() => {
       setIsCallModalOpen(false); // Close the modal first to create a noticeable effect
       setTimeout(() => setIsCallModalOpen(true), 200); // Reopen it shortly after closing for user notice
-    }, 120000); // 20 seconds
+    }, 12000000); // 20 seconds
 
     // Cleanup function to clear both timers if the component unmounts
     return () => {
@@ -539,7 +563,7 @@ function App() {
           path="map"
           element={<Map selectedLanguage={selectedLanguage} />}
         />
-        <Route path="sales" element={<Sales />} />
+        <Route path="sales" element={<Sales  selectedLanguage={selectedLanguage} handleCallButtonClick={handleCallButtonClick}/>} />
         <Route
           path="physical"
           element={
@@ -547,6 +571,7 @@ function App() {
               favorites={favorites}
               selectedLanguage={selectedLanguage}
               favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
             />
           }
         />

@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Map.css';
 import { GoogleMap, Marker, InfoWindow, useJsApiLoader } from '@react-google-maps/api';
@@ -80,6 +80,7 @@ const normalizeComplexData = (data, lang) => {
       space: item.internal_complex_name.space,
       isVipComplex: item.internal_complex_name.vipComplex,
       isVisible: item.internal_complex_name.visibiliti,
+      complexRank: item.internal_complex_name.rank
     }
   }));
 };
@@ -116,14 +117,16 @@ const normalizePrivateApartmentData = (data, lang) => {
     floorNumber: item.internal_private_apartment_name.floor_number,
     isAvailable: item.internal_private_apartment_name.is_available,
     visibility: item.internal_private_apartment_name.visibiliti,
+    rank: item.internal_private_apartment_name.rank,
     address: {
-      city: item[`private_apartment_address_${lang}`].city_en,
-      pharentDistrict: item[`private_apartment_address_${lang}`].pharentDistrict_en,
-      district: item[`private_apartment_address_${lang}`].district_en,
-      streetName: item[`private_apartment_address_${lang}`].street_name_en,
-      address: item[`private_apartment_address_${lang}`].address_en,
+      city: item[`private_apartment_address_${lang}`][`city_${lang}`],
+      pharentDistrict: item[`private_apartment_address_${lang}`][`pharentDistrict_${lang}`], 
+      district: item[`private_apartment_address_${lang}`][`district_${lang}`],
+      streetName: item[`private_apartment_address_${lang}`][`street_name_${lang}`], 
+      address: item[`private_apartment_address_${lang}`][`address_${lang}`],
       latitude: item[`private_apartment_address_${lang}`].latitude,
       longitude: item[`private_apartment_address_${lang}`].longitude,
+
     },
     images: item.private_apartment_images,
     privateApartmentName: item[`private_apartment_name_${lang}`],
@@ -143,13 +146,14 @@ const normalizeGroundData = (data, lang) => {
     isAvailable: item.internal_ground_name.is_available,
     visibility: item.internal_ground_name.visibiliti,
     address: {
-      city: item[`ground_address_${lang}`].city_en,
-      parentDistrict: item[`ground_address_${lang}`].pharentDistrict_en,
-      district: item[`ground_address_${lang}`].district_en,
-      streetName: item[`ground_address_${lang}`].street_name_en,
-      address: item[`ground_address_${lang}`].address_en,
+      city: item[`ground_address_${lang}`][`city_${lang}`],
+      parentDistrict: item[`ground_address_${lang}`][`parentDistrict_${lang}`], 
+      district: item[`ground_address_${lang}`][`district_${lang}`],
+      streetName: item[`ground_address_${lang}`][`street_name_${lang}`],
+      address: item[`ground_address_${lang}`][`address_${lang}`],
       latitude: item[`ground_address_${lang}`].latitude,
       longitude: item[`ground_address_${lang}`].longitude,
+
     },
     images: item.ground_images,
     groundName: item[`ground_name_${lang}`]
@@ -237,12 +241,17 @@ export default function Map({ selectedLanguage }) {
 
   // Assuming `complex` is an object representing each house
   const handleHouseClick = (complexId) => {
-    navigate(`/eachComplex/${complexId}`);
+    navigate(`/eachComplex/${complexId}`,{ state: { complexId }});
+  };
+
+  const handlePrivateApartmentClick = (p_apartment_id) => {
+    navigate(`/eachprivateappartment/${p_apartment_id}` ,{ state: { p_apartment_id }});
   };
 
 
-
-
+const handelGroundClick = (prev_apartments) => {
+  navigate(`/eachground/${prev_apartments}` ,{ state: { prev_apartments }});
+}
 
 
 
@@ -315,6 +324,7 @@ export default function Map({ selectedLanguage }) {
       try {
         const response = await axios.get(requestUrl);
         const normalData = normalizeComplexData(response.data.results, selectedLanguage);
+        console.log(normalData)
         setComplexes(normalData);
       } catch (error) {
         console.error('Error fetching complexes:', error);
@@ -572,6 +582,7 @@ export default function Map({ selectedLanguage }) {
     2: { en: 'Land for settlement', ka: 'სამოსახლო', ru: 'Земля для поселения' },
     3: { en: 'Commercial', ka: 'კომერციული', ru: 'Коммерческий' }
   };
+  
   const render_Ground_StatusOption = () => {
     return Object.entries(statusTranslationFor_Ground).map(([value, labels]) => (
       <div className='status_chackboxes' key={value}>
@@ -588,6 +599,30 @@ export default function Map({ selectedLanguage }) {
       </div>
     ));
   };
+
+
+  const getStatusTextfor_Grounds = (status, lang) => {
+    const statusTexts = {
+      en: {
+        1: "Agricultural",
+        2: "Land for settlement",
+        3: "Commercial"
+      },
+      ka: {
+        1: "'სასოფლო-სამეურნეო",
+        2: "სამოსახლო",
+        3: "კომერციული"
+      },
+      ru: {
+        1: "Сельскохозяйственный",
+        2: "Земля для поселения",
+        3: "Коммерческий"
+      }
+    };
+
+    return statusTexts[lang][status] || `unknown status`;
+  };
+
 
 
 
@@ -890,7 +925,8 @@ export default function Map({ selectedLanguage }) {
       complexes: "Complexes",
       private_apartments: "Private Appartments",
       lands: "Lands",
-      show_all: "Show All"
+      show_all: "Show All",
+      rank : "Rank",
     }
 
     switch (lang) {
@@ -910,6 +946,7 @@ export default function Map({ selectedLanguage }) {
         languageInfo.private_apartments = "Private Appartments"
         languageInfo.lands = "Lands"
         languageInfo.show_all = "Show All"
+        languageInfo.rank = "Rank"
         break;
 
       case "ka":
@@ -928,6 +965,7 @@ export default function Map({ selectedLanguage }) {
         languageInfo.private_apartments = "კერძო ბინები"
         languageInfo.lands = "ნაკვეთები"
         languageInfo.show_all = "აჩვენე ყველა"
+        languageInfo.rank = "რანკი"
         break
 
       case "ru":
@@ -946,6 +984,7 @@ export default function Map({ selectedLanguage }) {
         languageInfo.private_apartments = "Частные апартаменты"
         languageInfo.lands = "Участки"
         languageInfo.show_all = "Показать все"
+        languageInfo.rank = "Классифицировать"
         break
     }
     return languageInfo
@@ -1427,12 +1466,17 @@ export default function Map({ selectedLanguage }) {
                 onCloseClick={() => setSelectedComplex(null)}
               >
                 <div className='infowindow_container' >
-                  <h2>{selectedComplex.complexName}</h2>
-                  <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p>
-                  {/* Add more details and the image if available */}
+                  <h2>{selectedComplex.complexName.length > 17 ? `${selectedComplex.complexName.substring(0, 17)}...` : selectedComplex.complexName}</h2>
                   {selectedComplex.images && selectedComplex.images.length > 0 && (
-                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img'  onClick={() => handleHouseClick(selectedComplex.id)} />
+                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' onClick={() => handleHouseClick(selectedComplex.id)} />
                   )}
+                  <div className="infowindow_settings">
+                    <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p>
+                    <p> {selectedComplex.address.street} </p>
+                    <div id="rank_container">
+                      <p id='rank_p_tag' >{handleStatusButtonLanguageChange(selectedLanguage).rank}: {selectedComplex.complexDetails.complexRank} </p>
+                    </div>
+                  </div>
                 </div>
               </InfoWindow>
             )}
@@ -1469,12 +1513,18 @@ export default function Map({ selectedLanguage }) {
                 onCloseClick={() => setSelectedPrivateApartments(null)}
               >
                 <div className='infowindow_container'  >
-                  <h2>{selectedPrivateApartments.privateApartmentName}</h2>
-                  <p>{getStatusTextfor_P(selectedPrivateApartments.status, selectedLanguage)}</p>
-                  {/* Add more details and the image if available */}
+                  <h2>{selectedPrivateApartments.privateApartmentName.length > 15 ? `${selectedPrivateApartments.privateApartmentName.substring(0, 15)}...` : selectedPrivateApartments.privateApartmentName}</h2>
+
                   {selectedPrivateApartments.images && selectedPrivateApartments.images.length > 0 && (
-                    <img src={selectedPrivateApartments.images[0]} alt={selectedPrivateApartments.privateApartmentName} className='infowindow_img' />
+                    <img src={selectedPrivateApartments.images[0]} alt={selectedPrivateApartments.privateApartmentName} onClick={() => handlePrivateApartmentClick(selectedPrivateApartments.id)} className='infowindow_img' />
                   )}
+                  <div className="infowindow_settings">
+                    <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusTextfor_P(selectedPrivateApartments.status, selectedLanguage)}</p>
+                    <p> {selectedPrivateApartments.address.address} </p>
+                    <div id="rank_container">
+                      <p id='rank_p_tag' >{handleStatusButtonLanguageChange(selectedLanguage).rank}:{selectedPrivateApartments.rank} </p>
+                    </div>
+                  </div>
                 </div>
               </InfoWindow>
             )}
@@ -1512,12 +1562,18 @@ export default function Map({ selectedLanguage }) {
                 onCloseClick={() => setSelectedGrounds(null)}
               >
                 <div className='infowindow_container'  >
-                  <h2>{selectedGrounds.privateApartmentName}</h2>
-                  <p>{getStatusTextfor_P(selectedGrounds.status, selectedLanguage)}</p>
-                  {/* Add more details and the image if available */}
+                  <h2>{selectedGrounds.groundName.length > 15 ? `${selectedGrounds.groundName.substring(0, 15)}...` : selectedGrounds.groundName}</h2>
+
                   {selectedGrounds.images && selectedGrounds.images.length > 0 && (
-                    <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} className='infowindow_img' />
+                    <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} onClick={() => handelGroundClick(selectedGrounds.id)}  className='infowindow_img' />
                   )}
+                  <div className="infowindow_settings">
+                    <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusTextfor_Grounds(selectedGrounds.status, selectedLanguage)}</p>
+                    <p> {selectedGrounds.address.address} </p>
+                    <div id="rank_container">
+                      <p id='rank_p_tag' > {handleStatusButtonLanguageChange(selectedLanguage).rank}:{selectedGrounds.rank} </p>
+                    </div>
+                  </div>
                 </div>
               </InfoWindow>
             )}
@@ -1561,12 +1617,17 @@ export default function Map({ selectedLanguage }) {
                 onCloseClick={() => setSelectedComplex(null)}
               >
                 <div className='infowindow_container' >
-                  <h2>{selectedComplex.complexName}</h2>
-                  <p>{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p>
-                  {/* Add more details and the image if available */}
+                  <h2>{selectedComplex.complexName.length > 17 ? `${selectedComplex.complexName.substring(0, 17)}...` : selectedComplex.complexName}</h2>
                   {selectedComplex.images && selectedComplex.images.length > 0 && (
-                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' />
+                    <img src={selectedComplex.images[0]} alt={selectedComplex.complexName} className='infowindow_img' onClick={() => handleHouseClick(selectedComplex.id)} />
                   )}
+                  <div className="infowindow_settings">
+                    <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusText(selectedComplex.complexDetails.isFinished, selectedLanguage)}</p>
+                    <p> {selectedComplex.address.street} </p>
+                    <div id="rank_container">
+                      <p id='rank_p_tag' >{handleStatusButtonLanguageChange(selectedLanguage).rank}: {selectedComplex.complexDetails.complexRank} </p>
+                    </div>
+                  </div>
                 </div>
               </InfoWindow>
             )}
@@ -1599,12 +1660,18 @@ export default function Map({ selectedLanguage }) {
                 onCloseClick={() => setSelectedPrivateApartments(null)}
               >
                 <div className='infowindow_container'  >
-                  <h2>{selectedPrivateApartments.privateApartmentName}</h2>
-                  <p>{getStatusTextfor_P(selectedPrivateApartments.status, selectedLanguage)}</p>
-                  {/* Add more details and the image if available */}
+                  <h2>{selectedPrivateApartments.privateApartmentName.length > 15 ? `${selectedPrivateApartments.privateApartmentName.substring(0, 15)}...` : selectedPrivateApartments.privateApartmentName}</h2>
+
                   {selectedPrivateApartments.images && selectedPrivateApartments.images.length > 0 && (
-                    <img src={selectedPrivateApartments.images[0]} alt={selectedPrivateApartments.privateApartmentName} className='infowindow_img' />
+                    <img src={selectedPrivateApartments.images[0]} alt={selectedPrivateApartments.privateApartmentName} onClick={() => handlePrivateApartmentClick(selectedPrivateApartments.id)} className='infowindow_img' />
                   )}
+                  <div className="infowindow_settings">
+                    <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusTextfor_P(selectedPrivateApartments.status, selectedLanguage)}</p>
+                    <p> {selectedPrivateApartments.address.address} </p>
+                    <div id="rank_container">
+                      <p id='rank_p_tag' >{handleStatusButtonLanguageChange(selectedLanguage).rank}: {selectedPrivateApartments.rank} </p>
+                    </div>
+                  </div>
                 </div>
               </InfoWindow>
             )}
@@ -1637,12 +1704,17 @@ export default function Map({ selectedLanguage }) {
                 onCloseClick={() => setSelectedGrounds(null)}
               >
                 <div className='infowindow_container'  >
-                  <h2>{selectedGrounds.privateApartmentName}</h2>
-                  <p>{getStatusTextfor_P(selectedGrounds.status, selectedLanguage)}</p>
-                  {/* Add more details and the image if available */}
+                  <h2>{selectedGrounds.groundName.length > 15 ? `${selectedGrounds.groundName.substring(0, 15)}...` : selectedGrounds.groundName}</h2>
                   {selectedGrounds.images && selectedGrounds.images.length > 0 && (
-                    <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} className='infowindow_img' />
+                    <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} onClick={() => handelGroundClick(selectedGrounds.id)}  className='infowindow_img' />
                   )}
+                  <div className="infowindow_settings">
+                    <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusTextfor_Grounds(selectedGrounds.status, selectedLanguage)}</p>
+                    <p> {selectedGrounds.address.address} </p>
+                    <div id="rank_container">
+                      <p id='rank_p_tag' > {handleStatusButtonLanguageChange(selectedLanguage).rank}: {selectedGrounds.rank} </p>
+                    </div>
+                  </div>
                 </div>
               </InfoWindow>
             )}

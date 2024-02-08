@@ -18,7 +18,7 @@
 
 .bigImageBox {
   width: 711px;
-
+  position: relative;
 }
 
 .miniImagesBox {
