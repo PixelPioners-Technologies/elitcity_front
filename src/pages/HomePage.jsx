@@ -13,7 +13,6 @@ import SpaceModal_1 from '../modals for main page/SpaceModal_1';
 import StatusModal_1 from '../modals for main page/StatusModa_1';
 import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
-import loupe from "../icons/loupe.png";
 
 import './HomePage.css'
 import { Data } from '@react-google-maps/api';
@@ -72,8 +71,6 @@ export default function Map({ selectedLanguage,
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
-
-
 
 
   const [searchInput, setSearchInput] = useState('');
@@ -370,14 +367,7 @@ export default function Map({ selectedLanguage,
         <div className='adgilicomportistvis'>
           ადგილი შენი კომფორტისთვის
         </div>
-        {/* <SliderTitle>The History of Phipino</SliderTitle> */}
-        
-
-
         <div className='filter_cont_for_homepage'>
-          
-          {/*<div className='filter_cont' id='black_cont'>*/}
-
 
           {/* button for filtering space */}
           <div className="button-modal-container ">
@@ -401,7 +391,6 @@ export default function Map({ selectedLanguage,
                   value={max_space}
                   onChange={(e) => min_spacehangeHandler(e.target.value)}
                 />
-                <p>otaxebis filtraciac unda iyos aq</p>
               </div>
               <button className='modal_close_button' onClick={closeSpaceModal}>
               {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
@@ -484,7 +473,7 @@ export default function Map({ selectedLanguage,
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <img src={loupe} alt="search icon" class="dropdown"></img>
+            <img src="./src/icons/loupe.png" alt="search icon" className="dropdown"></img>
           </div>
           </div>
 
@@ -498,7 +487,7 @@ export default function Map({ selectedLanguage,
       >
 
       {/* Map button link */}
-        <div class="button-container">
+        <div className="button-container">
           <Link to="/map">
             <button className='homepage_map_link'>{handleStatusButtonLanguageChange(selectedLanguage).findMapButtonLanguage}</button>
           </Link>

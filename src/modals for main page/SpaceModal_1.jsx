@@ -4,7 +4,8 @@ import './SpaceModal_1.css';
 const SpaceModal_1 = ({ isOpen, close, children }) => {
   useEffect(() => {
     const handleDocumentClick = (e) => {
-      if (isOpen && e.target.closest('.modal-overlay1') === null) {
+      // Make sure this matches your outer div's class name
+      if (isOpen && e.target.closest('.modal-overlay') === null) {
         close();
       }
     };
