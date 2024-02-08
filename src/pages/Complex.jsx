@@ -45,12 +45,9 @@ import PriceModal_1 from '../modals for main page/PriceModal_1';
 import SpaceModal_1 from '../modals for main page/SpaceModal_1';
 import StatusModal_1 from '../modals for main page/StatusModa_1';
 
-// const basess = 'http://localhost:5173';
-// const basess = 'https://api.storkhome.ge'
+import loupe from '../icons/loupe.png'
 
 
-
-// });
 
 // eslint-disable-next-line react/prop-types
 export default function Complex({
@@ -151,49 +148,6 @@ export default function Complex({
     setAnchorEl(null);
   };
   // ------------------------------------------------------------------------------------
-
-  // ცვლადი ქვერი სტრინგი სადაც შევინახავ მონაცემებს, კლიკის დროს სორტირებაზე, ქუერი სტრინგში უნდა დაემატოს სორტირების ნაწილი sort = price
-  // get-
-  // const response = await axiosInstance.get(`/complex/? ქუერი სტრინგის ცვლადი `);
-  // მოკლედ ქუერი სტრინგი სანახავია
-
-  // // ------------------------------------------------------------------------------------
-  // // first useEffect sorting
-  //   useEffect(() => {
-  //     const fetchData = async (sortOrder) => {
-  //       try {
-  //         setIsLoading(true);
-  //         const response = await axiosInstance.get(`/complex/?limit=10&offset=${(currentPage - 1) * 10}`);
-  //         const { results, count } = response.data;
-
-  //         let sortedResults;
-
-  //         // Sort the results based on sortOrder
-  //         if (sortOrder === 'decrease') {
-  //           sortedResults = results.slice().sort((a, b) => {
-  //             return parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter);
-  //           });
-  //         } else if (sortOrder === 'increase') {
-  //           sortedResults = results.slice().sort((a, b) => {
-  //             return parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter);
-  //           });
-  //         } else {
-  //           sortedResults = results; // Default: no sorting
-  //         }
-
-  //         setHomes(sortedResults); // Default complex(without sorting)
-  //         setTotalCount(count); // Total amount of complexes
-  //         setIsLoading(false); // for Loader, like a youtube video slider (wave style)
-  //       } catch (error) {
-  //         setIsLoading(false);
-  //         console.error('Error fetching data:', error);
-  //       }
-  //     };
-
-  //     // Fetch data based on the currentPage and sortOrder
-  //     fetchData(forPriceDecrease);
-  //   }, [currentPage, forPriceDecrease]);
-  // // ------------------------------------------------------------------------------------
 
   const normalizeComplexData = (data, lang) => {
     // Check if data is undefined or null
@@ -798,7 +752,8 @@ export default function Complex({
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 />
-                <img src="./src/icons/loupe.png" alt="search icon" className="dropdown"></img>
+                <img src={loupe} alt="search icon" className="dropdown"/>
+                {/* ------------------------- */}
               </div>
               <div className="button-modal-container ">
                 <div onClick={handleSearchButtonClick} className='space_button'  >
