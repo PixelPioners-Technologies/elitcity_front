@@ -73,8 +73,6 @@ export default function Map({ selectedLanguage,
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
 
 
-
-
   const [searchInput, setSearchInput] = useState('');
   // const [searchButton , setSearchButton] = useState(false);
 
@@ -369,14 +367,7 @@ export default function Map({ selectedLanguage,
         <div className='adgilicomportistvis'>
           ადგილი შენი კომფორტისთვის
         </div>
-        {/* <SliderTitle>The History of Phipino</SliderTitle> */}
-        
-
-
         <div className='filter_cont_for_homepage'>
-          
-          {/*<div className='filter_cont' id='black_cont'>*/}
-
 
           {/* button for filtering space */}
           <div className="button-modal-container ">
@@ -400,7 +391,6 @@ export default function Map({ selectedLanguage,
                   value={max_space}
                   onChange={(e) => min_spacehangeHandler(e.target.value)}
                 />
-                <p>otaxebis filtraciac unda iyos aq</p>
               </div>
               <button className='modal_close_button' onClick={closeSpaceModal}>
               {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
