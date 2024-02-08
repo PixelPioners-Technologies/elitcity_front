@@ -4,7 +4,8 @@ import './PriceModal_1.css';
 const PriceModal_1 = ({ isOpen, close, children }) => {
   useEffect(() => {
     const handleDocumentClick = (e) => {
-      if (isOpen && e.target.closest('.modal-overlay1') === null) {
+      // Ensure this class name matches your modal's outer div class name
+      if (isOpen && e.target.closest('.modal-overlay') === null) {
         close();
       }
     };

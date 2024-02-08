@@ -4,7 +4,7 @@ import './StatusModal_1.css';
 const StatusModal_1 = ({ isOpen, close, children }) => {
   useEffect(() => {
     const handleDocumentClick = (e) => {
-      if (isOpen && e.target.closest('.modal-overlay1') === null) {
+      if (isOpen && e.target.closest('.modal-overlay') === null) {
         close();
       }
     };

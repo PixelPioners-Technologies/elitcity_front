@@ -68,6 +68,7 @@ function trackButtonClick(buttonName) {
 
 const BaseURLs = {
   // storkhome
+
   complex: "https://api.storkhome.ge/complex/",
   company: "https://api.storkhome.ge/company/",
   apartment: "https://api.storkhome.ge/apartment/",
@@ -197,9 +198,16 @@ function App() {
 
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
 
+  const [searchInput, setSearchInput] = useState("");
+
   // -----------------------------------------------------------------------------------------------------
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
+
+  const stringSearchHeandles = (data) => {
+    setSearchInput(data);
+  };
+
   const complexChangeHandler = (data) => {
     setComplexes(data);
   };
@@ -476,6 +484,8 @@ function App() {
           path="homePage"
           element={
             <HomePage
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
               favoriteHandler={favoriteHandler}
               favorites={favorites}
               selectedLanguage={selectedLanguage}
@@ -522,17 +532,36 @@ function App() {
                 favorites={favorites}
                 selectedLanguage={selectedLanguage}
                 selectedStatuses={selectedStatuses}
+                selectedStatusesChangeHandler={selectedStatusesChangeHandler}
                 locations={locations}
                 min_space={min_space}
+                min_spacehangeHandler={min_spacehangeHandler}
                 max_space={max_space}
+                max_spacehangeHandler={max_spacehangeHandler}
                 minPricePerSquareMeter={minPricePerSquareMeter}
+                minPricePerSquareMeterChangeHandler={
+                  minPricePerSquareMeterChangeHandler
+                }
                 maxPricePerSquareMeter={maxPricePerSquareMeter}
+                maxPricePerSquareMeterChangeHandler={
+                  maxPricePerSquareMeterChangeHandler
+                }
                 minFullPrice={minFullPrice}
+                minFullPriceChangeHandler={minFullPriceChangeHandler}
                 maxFullPrice={maxFullPrice}
+                maxFullPriceChangeHandler={maxFullPriceChangeHandler}
+                searchInput={searchInput}
+                setSearchInput={setSearchInput}
                 selectedCity={selectedCity}
                 selectedPharentDistricts={selectedPharentDistricts}
+                selectedDistrictsChangeHandler={selectedDistrictsChangeHandler}
                 selectedDistricts={selectedDistricts}
                 searchButton={searchButton}
+                searchButtonhangeHandler={searchButtonhangeHandler}
+                selectedCityChangeHandler={selectedCityChangeHandler}
+                selectedPharentDistrictsChangeHandler={
+                  selectedPharentDistrictsChangeHandler
+                }
               />
             }
           />
