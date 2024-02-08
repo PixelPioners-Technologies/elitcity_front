@@ -294,7 +294,7 @@ function App() {
     };
 
     fetchComplexes();
-  }, [searchButton]);
+  }, [searchButton, min_space , max_space]);
 
   // console.log(complexes)
   //-----------------------------------fetch ionly locations --------------------------------------
@@ -527,19 +527,46 @@ function App() {
               <Complex
                 favoriteHandler={favoriteHandler}
                 favorites={favorites}
+
                 selectedLanguage={selectedLanguage}
+
                 selectedStatuses={selectedStatuses}
+                selectedStatusesChangeHandler={selectedStatusesChangeHandler}
+                
                 locations={locations}
+
                 min_space={min_space}
+                min_spacehangeHandler={min_spacehangeHandler}
+
                 max_space={max_space}
+                max_spacehangeHandler={max_spacehangeHandler}
+
                 minPricePerSquareMeter={minPricePerSquareMeter}
+                minPricePerSquareMeterChangeHandler={minPricePerSquareMeterChangeHandler}
+                
                 maxPricePerSquareMeter={maxPricePerSquareMeter}
+                maxPricePerSquareMeterChangeHandler={maxPricePerSquareMeterChangeHandler}
+
                 minFullPrice={minFullPrice}
+                minFullPriceChangeHandler={minFullPriceChangeHandler}
+
                 maxFullPrice={maxFullPrice}
+                maxFullPriceChangeHandler={maxFullPriceChangeHandler}
+
+
                 selectedCity={selectedCity}
                 selectedPharentDistricts={selectedPharentDistricts}
+                selectedDistrictsChangeHandler={selectedDistrictsChangeHandler}
+
                 selectedDistricts={selectedDistricts}
                 searchButton={searchButton}
+
+                searchButtonhangeHandler={searchButtonhangeHandler}
+
+                selectedCityChangeHandler={selectedCityChangeHandler}
+
+                selectedPharentDistrictsChangeHandler={selectedPharentDistrictsChangeHandler}
+
               />
             }
           />
