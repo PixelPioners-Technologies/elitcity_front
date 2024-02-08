@@ -1,8 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+
+
 .SalesBox {
   margin-top: 50px;
-  min-height: 100vh; /* Ensure the component covers at least the viewport height */
+  /* min-height: 100vh; Ensure the component covers at least the viewport height */
   background-color: black; /* Set your desired background color */
   /* padding: 20px; */
+  overflow: hidden;
 }
 
 .forPaddingOfsalesNavBar {
@@ -68,25 +73,43 @@
 
 .saleArticlesBox {
   display: flex;
+  flex-direction: row;
   margin-top: 50px;
   padding: 40px;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content:space-around;
 }
 
+
+/* ------------------------------------------------------------- */
 .eachSaleArticleBox {
   border: 1px solid white;
   padding: 20px;
   display: flex;
   gap: 10px;
   color: white;
+  width: 700px;
 }
 
+.eachSaleArticleBox2{
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+  color: white;
+  width: 700px;
+}
 .saleArticleInfoText {
-  width: 300px;
+  width: 400px;
 }
 .timeAndCompanyLogo {
   display: flex;
   justify-content: space-between;
+}
+
+
+.company_logo_sales{
+  width: 28px;
+  border-radius: 50%;
 }
 
 .saleTimeBox {
@@ -100,9 +123,9 @@
   gap: 5px;
 }
 
-/* .SaleArticleImageBox {
-
-} */
+.SaleArticleImageBox {
+margin-left: 34px;
+}
 
 .microphoneAndItsInfoText {
   display: flex;
@@ -120,5 +143,163 @@
 
 
 .imageOfSaleComplex {
-  width: 300px;
+  width: 200px;
+}
+
+/* ----------------------------modal styles---------------------------------------- */
+.close_sale_modal{
+width: 100%;
+display: flex;
+justify-content: flex-end;
+margin-bottom: 20px;
+}
+
+
+.close_icon_sale{
+  width: 40px;
+  cursor: pointer;
+}
+
+.sale_modal_container_main {
+  /* height: 600px; */
+  /* width: 500px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  padding: 10px;
+}
+
+.image_for_sale_modal{
+  width: 500px;
+}
+
+.image_company_for_sale_modal{
+  width: 80px;
+  border-radius: 50%;
+}
+
+.address_and_address{
+  display: flex;
+}
+
+.selected_promotion_alert{
+  max-width: 350px;
+  margin-bottom: 30px;
+  margin-right: 10px;
+}
+
+.microfon_logo_and_alert{
+  display: flex;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: flex-start;
+  gap: 10px;
+  max-height: 100px; /* Adjust this value to fit your design */
+  overflow-y: auto; /* Enables vertical scrolling */
+  margin-bottom: 15px;
+  margin-right: 10px;
+}
+
+/* ----------------------------scroll style---------------------------- */
+/* Style the scrollbar itself (in webkit browsers) */
+.microfon_logo_and_alert::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  background-color: #2e2e2e; /* Background color of the scrollbar */
+}
+
+/* Style the track of the scrollbar */
+.microfon_logo_and_alert::-webkit-scrollbar-track {
+  background-color: #2e2e2e; /* Background color of the track */
+}
+
+/* Style the handle of the scrollbar */
+.microfon_logo_and_alert::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 6px; /* Rounded corners of the scrollbar thumb */
+  border: 3px solid #2e2e2e; /* Creates a padding around the scroll thumb */
+}
+
+/* Handle on hover */
+.microfon_logo_and_alert::-webkit-scrollbar-thumb:hover {
+  background-color: #3d3c3c; /* Color of the scrollbar thumb on hover */
+}
+
+/* ---------------------------------------------------------------------- */
+
+.sale_settings_and_companylogo{
+  display: flex;
+  justify-content: space-between;
+  align-items: self-start;
+  margin-top: 30px;
+}
+
+.company_image_little_container{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* .call_and_number_on_saleModal{
+  
+} */
+
+
+.all_call_modal_buttons{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 400;
+}
+
+
+.call_and_number_on_saleModal{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+
+}
+
+
+
+
+
+
+.show_number_sale_modal{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1.5px solid white;
+  overflow: hidden;
+  padding: 5px;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  width: 256px;
+  height: 56px;
+}
+
+
+.call_sale_modal{
+  font-size: small;
+
+}
+
+
+.make_call_Sale_modal{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1.5px solid white;
+  overflow: hidden;
+  padding: 5px;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  width: 230px;
+  height: 56px;
+  cursor: pointer;
+}
+
+.hedaphone_ico_sale_modaln{
+  width: 50px;
 }

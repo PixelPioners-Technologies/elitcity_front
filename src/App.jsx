@@ -390,13 +390,13 @@ function App() {
     // First timer to open the modal after 10 seconds
     const timer1 = setTimeout(() => {
       setIsCallModalOpen(true);
-    }, 60000); // 10 seconds
+    }, 6000000); // 10 seconds
 
     // Second timer to close and then reopen the modal after 20 seconds
     const timer2 = setTimeout(() => {
       setIsCallModalOpen(false); // Close the modal first to create a noticeable effect
       setTimeout(() => setIsCallModalOpen(true), 200); // Reopen it shortly after closing for user notice
-    }, 120000); // 20 seconds
+    }, 12000000); // 20 seconds
 
     // Cleanup function to clear both timers if the component unmounts
     return () => {
@@ -563,7 +563,7 @@ function App() {
           path="map"
           element={<Map selectedLanguage={selectedLanguage} />}
         />
-        <Route path="sales" element={<Sales />} />
+        <Route path="sales" element={<Sales  selectedLanguage={selectedLanguage} handleCallButtonClick={handleCallButtonClick}/>} />
         <Route
           path="physical"
           element={
@@ -571,6 +571,7 @@ function App() {
               favorites={favorites}
               selectedLanguage={selectedLanguage}
               favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
             />
           }
         />

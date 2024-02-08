@@ -22,21 +22,25 @@ export default function Storkhome({
   const LanguageChangeForStorkhomePage = (lang) => {
     var languageInfo = {
       header: "For more comfort",
+      make_call: "Call request"
     }
 
     switch (lang) {
       case "en":
         languageInfo.header = "For more comfort"
+        languageInfo.make_call = "Call request"
 
         break;
 
       case "ka":
         languageInfo.header = "ტოპ დეველუპერული კომპანიები"
+        languageInfo.make_call = "ზარის მოთხოვნა"
 
         break
 
       case "ru":
         languageInfo.header = "Для большего комфорта"
+        languageInfo.make_call = "Запросить звонок"
 
         break
     }
@@ -139,7 +143,7 @@ export default function Storkhome({
         <div className='big_call_cont' onClick={handleCallButtonClick} >
           <div className="make_call">
             <img className='hedaphone_icon' src={headphone_icon} rel='headphone icon' />
-            <p className='call' > zaris motxovna </p>
+            <p className='call' >{LanguageChangeForStorkhomePage(selectedLanguage).make_call}</p>
           </div>
         </div>
       </motion.div>
