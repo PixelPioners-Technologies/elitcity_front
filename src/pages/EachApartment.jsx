@@ -49,67 +49,107 @@ const normalizeApartmentData = (data, lang) => {
     complex: {
       id: data[`complex_${lang}`].id,
       complexName: data[`complex_${lang}`][`complex_name_${lang}`],
-      internalComplexName:
-        data[`complex_${lang}`].internal_complex_name.internal_complex_name,
-      fullPrice: data[`complex_${lang}`].internal_complex_name.full_price,
-      pricePerSqMeter:
-        data[`complex_${lang}`].internal_complex_name.price_per_sq_meter,
-      finishYear: data[`complex_${lang}`].internal_complex_name.finish_year,
-      finishMonth: data[`complex_${lang}`].internal_complex_name.finish_month,
-      isFinished: data[`complex_${lang}`].internal_complex_name.status,
-      isVisible: data[`complex_${lang}`].internal_complex_name.visibiliti,
-      isVipComplex: data[`complex_${lang}`].internal_complex_name.vipComplex,
-      floorNumber: data[`complex_${lang}`].internal_complex_name.floor_number,
-      space: data[`complex_${lang}`].internal_complex_name.space,
-      numberOfApartments:
-        data[`complex_${lang}`].internal_complex_name.number_of_apartments,
-      numberOfFloors:
-        data[`complex_${lang}`].internal_complex_name.number_of_floors,
-      phoneNumber: data[`complex_${lang}`].internal_complex_name.phone_number,
-      plotArea: data[`complex_${lang}`].internal_complex_name.plot_area,
+      internalComplex: {
+        id: data[`complex_${lang}`].internal_complex_name.id,
+        createdAt: data[`complex_${lang}`].internal_complex_name.created_at,
+        internalComplexName:
+          data[`complex_${lang}`].internal_complex_name.internal_complex_name,
+        fullPrice: data[`complex_${lang}`].internal_complex_name.full_price,
+        roomsQuantity:
+          data[`complex_${lang}`].internal_complex_name.rooms_quantity,
+
+        pricePerSqMeter:
+          data[`complex_${lang}`].internal_complex_name.price_per_sq_meter,
+        parkingQuantity:
+          data[`complex_${lang}`].internal_complex_name.parking_quantity,
+        lightPercentage:
+          data[`complex_${lang}`].internal_complex_name.light_percentage,
+        humidityPercentage:
+          data[`complex_${lang}`].internal_complex_name.humidity_percentage,
+        cateringFacility:
+          data[`complex_${lang}`].internal_complex_name.catering_facility,
+        elevatorType:
+          data[`complex_${lang}`].internal_complex_name.elevator_type,
+        schlangbaum: data[`complex_${lang}`].internal_complex_name.schlangbaum,
+        conciergeService:
+          data[`complex_${lang}`].internal_complex_name.concierge_service,
+        yardDescription:
+          data[`complex_${lang}`].internal_complex_name.yard_description,
+        finishYear: data[`complex_${lang}`].internal_complex_name.finish_year,
+        finishMonth: data[`complex_${lang}`].internal_complex_name.finish_month,
+        status: data[`complex_${lang}`].internal_complex_name.status,
+        visibility: data[`complex_${lang}`].internal_complex_name.visibiliti,
+        vipComplex: data[`complex_${lang}`].internal_complex_name.vipComplex,
+        floorNumber: data[`complex_${lang}`].internal_complex_name.floor_number,
+        space: data[`complex_${lang}`].internal_complex_name.space,
+        ceilingHeightMeters:
+          data[`complex_${lang}`].internal_complex_name.ceiling_height_meters,
+
+        numberOfApartments:
+          data[`complex_${lang}`].internal_complex_name.number_of_apartments,
+        numberOfBuildings:
+          data[`complex_${lang}`].internal_complex_name.number_of_buildings,
+        flooring: data[`complex_${lang}`].internal_complex_name.flooring,
+
+        numberOfFloors:
+          data[`complex_${lang}`].internal_complex_name.number_of_floors,
+        phoneNumber: data[`complex_${lang}`].internal_complex_name.phone_number,
+        plotArea: data[`complex_${lang}`].internal_complex_name.plot_area,
+        rank: data[`complex_${lang}`].internal_complex_name.rank,
+      },
       typeOfRoof: data[`complex_${lang}`][`type_of_roof_${lang}`],
       images: data[`complex_${lang}`].image_urls,
       company: {
-        id: data[`complex_${lang}`].company_en.id,
-        name: data[`complex_${lang}`].company_en[`name_${lang}`],
-        mobile: data[`complex_${lang}`].company_en.Mobile,
-        mobileHome: data[`complex_${lang}`].company_en.Mobile_Home,
-        email: data[`complex_${lang}`].company_en.email,
-        website: data[`complex_${lang}`].company_en.companyweb,
-        facebookPage: data[`complex_${lang}`].company_en.facebook_page,
-        logo: data[`complex_${lang}`].company_en.logocompany,
-        backgroundImage: data[`complex_${lang}`].company_en.background_image,
-        isTopCompany: data[`complex_${lang}`].company_en.topCompany,
-        isVisible: data[`complex_${lang}`].company_en.visibility,
-        about: data[`complex_${lang}`].company_en[`aboutcompany_${lang}`],
-        address: data[`complex_${lang}`].company_en[`address_${lang}`],
+        id: data[`complex_${lang}`][`company_${lang}`].id,
+        recordId: data[`complex_${lang}`][`company_${lang}`].record_id,
+        internalName: data[`complex_${lang}`][`company_${lang}`].internal_name,
+        mobile: data[`complex_${lang}`][`company_${lang}`].Mobile,
+        mobileHome: data[`complex_${lang}`][`company_${lang}`].Mobile_Home,
+        email: data[`complex_${lang}`][`company_${lang}`].email,
+        companyWeb: data[`complex_${lang}`][`company_${lang}`].companyweb,
+        facebookPage: data[`complex_${lang}`][`company_${lang}`].facebook_page,
+        logoCompany: data[`complex_${lang}`][`company_${lang}`].logocompany,
+        backgroundImage:
+          data[`complex_${lang}`][`company_${lang}`].background_image,
+        topCompany: data[`complex_${lang}`][`company_${lang}`].topCompany,
+        visibility: data[`complex_${lang}`][`company_${lang}`].visibility,
+        name: data[`complex_${lang}`][`company_${lang}`][`name_${lang}`],
+        address: data[`complex_${lang}`][`company_${lang}`][`address_${lang}`],
+        aboutCompany:
+          data[`complex_${lang}`][`company_${lang}`][`aboutcompany_${lang}`],
       },
+      address: {
+        city: data[`complex_${lang}`][`address_${lang}`][`city_${lang}`],
+        pharentDistrict:
+          data[`complex_${lang}`][`address_${lang}`][`pharentDistrict_${lang}`],
+        district:
+          data[`complex_${lang}`][`address_${lang}`][`district_${lang}`],
+        streetName:
+          data[`complex_${lang}`][`address_${lang}`][`street_name_${lang}`],
+        address: data[`complex_${lang}`][`address_${lang}`][`address_${lang}`],
+        longitude: data[`complex_${lang}`][`address_${lang}`].longitude,
+        latitude: data[`complex_${lang}`][`address_${lang}`].latitude,
+      },
+      construction: data[`complex_${lang}`][`construction_type_${lang}`],
+      protectionType: data[`complex_${lang}`][`protection_type_${lang}`],
+      submissionType: data[`complex_${lang}`][`submission_type_${lang}`],
     },
-    apartmentDetails: {
-      internalApartmentName:
-        data.internal_apartment_name.internal_apartment_name,
-      numberOfRooms: data.internal_apartment_name.number_of_rooms,
-      area: data.internal_apartment_name.area,
-      fullPrice: data.internal_apartment_name.full_price,
-      squarePrice: data.internal_apartment_name.square_price,
-      floorNumber: data.internal_apartment_name.floor_number,
-      isAvailable: data.internal_apartment_name.is_available,
-      isVisible: data.internal_apartment_name.visibiliti,
-    },
+    internalApartmentName: data.internal_apartment_name,
     apartmentAddress: {
       city: data[`appartment_address_${lang}`][`city_${lang}`],
-      district: data[`appartment_address_${lang}`][`district_${lang}`],
       pharentDistrict:
         data[`appartment_address_${lang}`][`pharentDistrict_${lang}`],
+      district: data[`appartment_address_${lang}`][`district_${lang}`],
       streetName: data[`appartment_address_${lang}`][`street_name_${lang}`],
       address: data[`appartment_address_${lang}`][`address_${lang}`],
-      latitude: data[`appartment_address_${lang}`].latitude,
       longitude: data[`appartment_address_${lang}`].longitude,
+      latitude: data[`appartment_address_${lang}`].latitude,
     },
-    images: data.appartment_images,
+    apartmentImages: data.appartment_images,
     testField: data[`test_field_${lang}`],
   };
 };
+
 export default function EachApartment({
   selectedLanguage,
   favorites,
@@ -130,18 +170,18 @@ export default function EachApartment({
   const [eachComplexAllAppartments, seteachComplexAllAppartments] = useState(
     []
   );
-  useEffect(() => {
+  {
     console.log(
       "---------------------------------------",
-      eachComplexAllAppartments
+      eachComplexAllAppartments?.complex?.adress?.city
     );
-  }, [eachComplexAllAppartments]);
+  }
+
   const [wordData, setWordData] = useState(null);
   const [val, setVal] = useState(0);
   const [clickedIndex, setClickedIndex] = useState(null);
 
   const [privateApartments, setPrivateApartments] = useState([]);
-  console.log("privateApartmentssssssssssss", privateApartments);
 
   const [is_P_PriceModalOpen, setIs_P_PriceModalOpen] = useState(false);
   const [is_P_SpaceModalOpen, setIs_P_SpaceModalOpen] = useState(false);
@@ -187,7 +227,8 @@ export default function EachApartment({
 
   // ეს ნომრის ჩვენებისთვის
   const [showFullNumber, setShowFullNumber] = useState(false);
-  const phoneNumber = eachPrivateApartment?.phoneNumber;
+  const phoneNumbers =
+    eachComplexAllAppartments?.complex?.internalComplex?.phoneNumber;
 
   const handleToggleNumberDisplay = () => {
     setShowFullNumber(true);
@@ -236,9 +277,10 @@ export default function EachApartment({
       const response = await axios.get(requestUrl);
       // console.log("ssssssss", response.data.results[0];
       const data = response.data;
+      // console.log(data);
       const normalised_Data = normalizeApartmentData(data, selectedLanguage);
-      console.log("----11111111111-------------------,", normalised_Data);
       seteachComplexAllAppartments(normalised_Data);
+      console.log("zzzzzz", normalised_Data);
 
       // Update sliderImages state with all images from the fetched data
       const sliderImagesFromData = data.appartment_images.map(
@@ -267,14 +309,6 @@ export default function EachApartment({
     currentPage,
     apartmentId,
   ]);
-
-  console.log("imagesss;:::::;", sliderImages);
-
-  console.log("eachPrivateApartment DATA: ", eachPrivateApartment);
-
-  useEffect(() => {
-    console.log("aq unda iyos suratebi", privateApartments);
-  }, [totalCount, selectedLanguage, apartmentId]);
 
   // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
@@ -312,7 +346,6 @@ export default function EachApartment({
 
   const handleClick = (index) => {
     setClickedIndex(index);
-    console.log(index);
     setVal(index);
     const wordSlider = sliderImages[index];
     setWordData(wordSlider);
@@ -355,7 +388,6 @@ export default function EachApartment({
         ? [...prevSelectedStatuses, value]
         : prevSelectedStatuses.filter((status) => status !== value);
 
-      console.log("Updated Selected Statuses:", newSelectedStatuses); // Log the new state
       return newSelectedStatuses;
     });
   };
@@ -565,15 +597,151 @@ export default function EachApartment({
         {/* --------- */}
 
         {/* complex text info */}
+        {DATA.map((complex, index) => (
+          <div key={index} className="complexTextsBox">
+            <div className="seenIdFavouriteAndOthersBox">
+              <div className="seenAndIdBox">
+                <p style={{ color: "#838282" }}>Seen: {complex.seen}</p>
+                <p style={{ color: "#838282" }}>ID: {complex.ID}</p>
+              </div>
+
+              <div className="favouriteDollarAndShareBox">
+                {/* Star favourite box */}
+                <button className="heartButtons">
+                  <img src={star} style={{ width: "30px", height: "30px" }} />
+                </button>
+                {/* ----Dollar and Lari Toggle button */}
+                <div className="currencyBox">
+                  <div
+                    className="switch"
+                    data-ison={isOn}
+                    onClick={toggleSwitch}
+                  >
+                    <motion.div className="handle" layout transition={spring}>
+                      <img
+                        src={lari}
+                        alt="Lari Sign"
+                        className={`currency-sign ${isOn ? "active" : ""}`}
+                      />
+                      <img
+                        src={dollar}
+                        alt="Dollar Sign"
+                        className={`currency-sign ${!isOn ? "active" : ""}`}
+                      />
+                    </motion.div>
+                  </div>
+                </div>
+                {/* Share Button */}
+                <button className="heartButtons">
+                  <img src={share} style={{ width: "30px", height: "30px" }} />
+                </button>
+              </div>
+            </div>
+            {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}
+            <div className="companyAdressPriceTextBox">
+              <p style={{ color: "#838289" }}>
+                {eachComplexAllAppartments?.apartmentAddress?.city}
+              </p>
+
+              <p style={{ color: "#838289" }}>
+                {eachComplexAllAppartments?.apartmentAddress?.streetName}
+              </p>
+
+              {eachComplexAllAppartments &&
+                eachComplexAllAppartments.complex && (
+                  <p style={{ color: "#ccc", fontSize: "20px" }}>
+                    m²-ის ფასი:{" "}
+                    {
+                      eachComplexAllAppartments?.complex?.internalComplex
+                        ?.pricePerSqMeter
+                    }
+                    $
+                  </p>
+                )}
+            </div>
+
+            <div className="chabarebaPartebiKorpusebi">
+              {/* ქვედა, მეორე ტექსტია.. bathroom,bedroom,balcony  Fართები... სართულიანობა */}
+              <div className="eachTextOnListTexts">
+                <p style={{ color: "#C2BFBF" }}> rooms </p>
+                <p style={{ color: "#C2BFBF" }}> kitchen</p>
+                <p style={{ color: "#C2BFBF" }}> bathroom</p>
+                <p style={{ color: "#C2BFBF" }}> bedroom</p>
+                <p style={{ color: "#C2BFBF" }}> balcony</p>
+              </div>
+
+              <div className="eachTextOnListTextsTwo">
+                {eachComplexAllAppartments &&
+                  eachComplexAllAppartments.apartmentDetails && (
+                    <p style={{ color: "white" }}>
+                      {eachComplexAllAppartments.apartmentDetails.numberOfRooms}
+                    </p>
+                  )}
+                <p style={{ color: "#FFFFFF" }}>
+                  {" "}
+                  {eachPrivateApartment?.space}
+                </p>
+                <p style={{ color: "#FFFFFF" }}>
+                  {eachPrivateApartment?.numberOfApartments}
+                </p>
+                <p style={{ color: "#FFFFFF" }}>
+                  {/* აქ, ბაზაში ნull არის მითითებული და ჯერ ჩავაკომენტარე რო ფრონტისთვის მეჩვენებინა */}
+                  {/* {eachPrivateApartment?.numberOfBuildings} */}
+                  null
+                </p>
+                <p style={{ color: "#FFFFFF" }}>
+                  {eachPrivateApartment?.numberOfFloors}
+                </p>
+              </div>
+            </div>
+            {/* დარეკვისა და ნომრის ჩვენების სექცია */}
+            <div className="numberAndCallRequestBox">
+              <div className="numberBox">
+                <img src={phoneImage} style={{ width: "40px" }} alt="phone" />
+                <p style={{ color: "#FFFFFF" }}>
+                  {phoneNumbers && showFullNumber
+                    ? phoneNumbers
+                    : phoneNumbers
+                        ?.slice(0, -2)
+                        .padEnd(phoneNumbers?.length, "*")}
+                </p>
+                <button
+                  onClick={handleToggleNumberDisplay}
+                  className="numberSHowButton"
+                >
+                  ნომრის
+                  <br /> ჩვენება
+                </button>
+              </div>
+              <div className="callRequestBox">
+                <img
+                  src={headSetImage}
+                  style={{ width: "40px" }}
+                  alt="headset"
+                />
+                <button
+                  onClick={handleCallButtonClick}
+                  className="numberSHowButton"
+                >
+                  ზარის
+                  <br /> მოთხოვნა
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
       {/* ---------- */}
-      {console.log(
-        "eachPrivateApartment",
-        eachPrivateApartment.internal_complex_name?.rank
-      )}
 
-      {/* ბინების და გეგმარებების ცამოსაშლელი ბოქსი */}
       <div className="binebiDaGegmarebaFullBox">
+        <h4 style={{ color: "white" }}>აღწერილობა</h4>
+        <p style={{ color: "white", marginTop: "10px" }}>
+          {eachComplexAllAppartments.testField}
+        </p>
+
+        <h4 style={{ color: "white", marginTop: "20px", marginBottom: "10px" }}>
+          კომპლექსის შესახებ
+        </h4>
         {/* ეს დივი არის ..კომპლექსის შესახებ'' ესეთი წარწერა რომაა და true/false-ის მეშვეობით
         რომ ვფილტრავთ, მაგალითად სართულების ოდენობა, კამერა, ოთახები და ა.შ. */}
         <div>
@@ -588,12 +756,15 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>ბინების რაოდენობა</p>
                 <p>
-                  {eachPrivateApartment.numberOfApartments !== null
-                    ? eachPrivateApartment.numberOfApartments
-                    : "---"}
+                  {eachComplexAllAppartments?.complex?.internalComplex
+                    ?.numberOfApartments !== null
+                    ? eachComplexAllAppartments?.complex?.internalComplex
+                        ?.numberOfApartments
+                    : "---"}{" "}
                 </p>
               </div>
             </div>
+
             {/* ----- */}
 
             {/* სათითაო icons და ტექსტი */}
@@ -606,8 +777,10 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>კორპუსების რაოდენობა</p>
                 <p>
-                  {eachPrivateApartment.numberOfBuildings !== null
-                    ? eachPrivateApartment.numberOfBuildings
+                  {eachComplexAllAppartments?.complex?.internalComplex
+                    ?.numberOfBuildings !== null
+                    ? eachComplexAllAppartments?.complex?.internalComplex
+                        ?.numberOfBuildings
                     : "---"}
                 </p>{" "}
               </div>
@@ -624,8 +797,9 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>ფართი</p>
                 <p>
-                  {eachPrivateApartment.space !== null
-                    ? eachPrivateApartment.space
+                  {eachComplexAllAppartments?.complex?.internalComplex
+                    ?.space !== null
+                    ? eachComplexAllAppartments?.complex?.internalComplex?.space
                     : "---"}
                 </p>
               </div>
@@ -642,8 +816,10 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>ჭერის სიმაღლე</p>
                 <p>
-                  {eachPrivateApartment.ceilingHeightMeters !== null
-                    ? eachPrivateApartment.ceilingHeightMeters
+                  {eachComplexAllAppartments?.complex?.internalComplex
+                    .ceilingHeightMeters !== null
+                    ? eachComplexAllAppartments?.complex?.internalComplex
+                        .ceilingHeightMeters
                     : "---"}
                 </p>
               </div>
@@ -660,8 +836,10 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>სართულიანობა</p>
                 <p>
-                  {eachPrivateApartment.flooring !== null
-                    ? eachPrivateApartment.flooring
+                  {eachComplexAllAppartments?.complex?.internalComplex
+                    ?.flooring !== null
+                    ? eachComplexAllAppartments?.complex?.internalComplex
+                        ?.flooring
                     : "---"}
                 </p>
               </div>
@@ -678,8 +856,8 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>კონსტრუქცია</p>
                 <p>
-                  {eachPrivateApartment.construction !== null
-                    ? eachPrivateApartment.construction
+                  {eachComplexAllAppartments?.complex?.construction !== null
+                    ? eachComplexAllAppartments?.complex?.construction
                     : "---"}
                 </p>
               </div>
@@ -696,8 +874,10 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>პარკინგი</p>
                 <p>
-                  {eachPrivateApartment.parkingQuantity !== null
-                    ? eachPrivateApartment.parkingQuantity
+                  {eachComplexAllAppartments?.complex?.internalComplex
+                    ?.parkingQuantity !== null
+                    ? eachComplexAllAppartments?.complex?.internalComplex
+                        ?.parkingQuantity
                     : "---"}
                 </p>
               </div>
@@ -714,8 +894,8 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>დაცვა</p>
                 <p>
-                  {eachPrivateApartment.protectionType !== null
-                    ? eachPrivateApartment.protectionType
+                  {eachComplexAllAppartments?.complex?.protectionType !== null
+                    ? eachComplexAllAppartments?.complex?.protectionType
                     : "---"}
                 </p>
               </div>
@@ -732,8 +912,10 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>ოთახები</p>
                 <p>
-                  {eachPrivateApartment.roomsQuantity !== null
-                    ? eachPrivateApartment.roomsQuantity
+                  {eachComplexAllAppartments?.complex?.internalComplex
+                    ?.roomsQuantity !== null
+                    ? eachComplexAllAppartments?.complex?.internalComplex
+                        ?.roomsQuantity
                     : "---"}
                 </p>
               </div>
@@ -750,8 +932,8 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>ჩაბარება</p>
                 <p>
-                  {eachPrivateApartment.submissionType !== null
-                    ? eachPrivateApartment.submissionType
+                  {eachComplexAllAppartments?.complex?.submissionType !== null
+                    ? eachComplexAllAppartments?.complex?.submissionType
                     : "---"}
                 </p>
               </div>
@@ -768,8 +950,10 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>სინათლე</p>
                 <p>
-                  {eachPrivateApartment.lightPercentage !== null
-                    ? eachPrivateApartment.lightPercentage
+                  {eachComplexAllAppartments?.complex?.internalComplex
+                    ?.lightPercentage !== null
+                    ? eachComplexAllAppartments?.complex?.internalComplex
+                        ?.lightPercentage
                     : "---"}
                 </p>
               </div>
@@ -786,8 +970,10 @@ export default function EachApartment({
               <div className="eachDivBoxOfTextOfIcons">
                 <p>ტენიანობა</p>
                 <p>
-                  {eachPrivateApartment.humidityPercentage !== null
-                    ? eachPrivateApartment.humidityPercentage
+                  {eachComplexAllAppartments?.complex?.internalComplex
+                    ?.humidityPercentage !== null
+                    ? eachComplexAllAppartments?.complex?.internalComplex
+                        ?.humidityPercentage
                     : "---"}
                 </p>
               </div>
@@ -799,7 +985,8 @@ export default function EachApartment({
               <h2>ინფრასტრუქტურა</h2>
               <div className="inprastruqturisIconsBox">
                 {/* სათითაო icons და ტექსტი */}
-                {eachPrivateApartment.cateringFacility && (
+                {eachComplexAllAppartments?.complex?.internalComplex
+                  ?.cateringFacility && (
                   <div className="eachDivBoxOfIcons">
                     <img
                       src={kvebisObieqti}
@@ -808,7 +995,12 @@ export default function EachApartment({
                     />
                     <div className="eachDivBoxOfTextOfIcons">
                       <p>კვების ობიექტი</p>
-                      <p>{eachPrivateApartment.cateringFacility}</p>
+                      <p>
+                        {
+                          eachComplexAllAppartments?.complex?.internalComplex
+                            ?.cateringFacility
+                        }
+                      </p>
                     </div>
                   </div>
                 )}
@@ -816,7 +1008,8 @@ export default function EachApartment({
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
-                {eachPrivateApartment.elevatorType && (
+                {eachComplexAllAppartments?.complex?.internalComplex
+                  ?.elevatorType && (
                   <div className="eachDivBoxOfIcons">
                     <img
                       src={lipti}
@@ -825,7 +1018,12 @@ export default function EachApartment({
                     />
                     <div className="eachDivBoxOfTextOfIcons">
                       <p>ლიფტი</p>
-                      <p>{eachPrivateApartment.elevatorType}</p>
+                      <p>
+                        {
+                          eachComplexAllAppartments?.complex?.internalComplex
+                            ?.elevatorType
+                        }
+                      </p>
                     </div>
                   </div>
                 )}
@@ -833,7 +1031,8 @@ export default function EachApartment({
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
-                {eachPrivateApartment.schlangbaum && (
+                {eachComplexAllAppartments?.complex?.internalComplex
+                  ?.schlangbaum && (
                   <div className="eachDivBoxOfIcons">
                     <img
                       src={shlagbaumi}
@@ -842,7 +1041,12 @@ export default function EachApartment({
                     />
                     <div className="eachDivBoxOfTextOfIcons">
                       <p>შლანგბაუმი</p>
-                      <p>{eachPrivateApartment.schlangbaum}</p>
+                      <p>
+                        {
+                          eachComplexAllAppartments?.complex?.internalComplex
+                            ?.schlangbaum
+                        }
+                      </p>
                     </div>
                   </div>
                 )}
@@ -850,7 +1054,8 @@ export default function EachApartment({
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
-                {eachPrivateApartment.conciergeService && (
+                {eachComplexAllAppartments?.complex?.internalComplex
+                  ?.conciergeService && (
                   <div className="eachDivBoxOfIcons">
                     <img
                       src={konsierji}
@@ -859,7 +1064,12 @@ export default function EachApartment({
                     />
                     <div className="eachDivBoxOfTextOfIcons">
                       <p>კონსიერჟი</p>
-                      <p>{eachPrivateApartment.conciergeService}</p>
+                      <p>
+                        {
+                          eachComplexAllAppartments?.complex?.internalComplex
+                            ?.conciergeService
+                        }
+                      </p>
                     </div>
                   </div>
                 )}
@@ -867,7 +1077,8 @@ export default function EachApartment({
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
-                {eachPrivateApartment.yardDescription && (
+                {eachComplexAllAppartments?.complex?.internalComplex
+                  ?.yardDescription && (
                   <div className="eachDivBoxOfIcons">
                     <img
                       src={ezo}
@@ -876,7 +1087,12 @@ export default function EachApartment({
                     />
                     <div className="eachDivBoxOfTextOfIcons">
                       <p>ეზო</p>
-                      <p>{eachPrivateApartment.yardDescription}</p>
+                      <p>
+                        {
+                          eachComplexAllAppartments?.complex?.internalComplex
+                            ?.yardDescription
+                        }
+                      </p>
                     </div>
                   </div>
                 )}
