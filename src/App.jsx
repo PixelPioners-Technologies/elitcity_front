@@ -25,6 +25,8 @@ import headphone_icon from "./icons/headphones.png";
 import { motion } from "framer-motion";
 import cancel_icon from "./icons/cancel.png";
 import EachApartment from "./pages/EachApartment";
+import EachBlog from "./pages/EachBlog";
+
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
@@ -273,9 +275,9 @@ function App() {
   }
   // -----------------------------------------------------------------------------------------------------
 
-  useEffect(() => {
-    console.log('total_item_number on app', total_item_number)
-  }, [total_item_number])
+  // useEffect(() => {
+  //   console.log('total_item_number on app', total_item_number)
+  // }, [total_item_number])
 
   useEffect(() => {
     const fetchComplexes = async () => {
@@ -327,7 +329,6 @@ function App() {
     fetchComplexes();
   }, [searchButton]);
 
-  console.log("complexes ----", complexes)
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
@@ -643,7 +644,7 @@ function App() {
             />
           }
         />
-        <Route path="articles" element={<Articles />} />
+        <Route path="articles" element={<Articles selectedLanguage={selectedLanguage} />} />
         <Route
           path="storkhome"
           element={
@@ -703,6 +704,16 @@ function App() {
         />
 
         <Route
+          path="eachblog/:blogId"
+          element={
+            <EachBlog
+              selectedLanguage={selectedLanguage}
+              // handleCallButtonClick={handleCallButtonClick}
+            />
+          }
+        />
+
+        <Route
           path="favoriteComplex"
           element={<FavoriteComplex favorites={favorites} />}
         />
@@ -710,7 +721,7 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-        // onClick={(e) => e.stopPropagation()}
+      // onClick={(e) => e.stopPropagation()}
       >
         <div className="call_modal_containerr">
           <div className="cancel_icon_container">
