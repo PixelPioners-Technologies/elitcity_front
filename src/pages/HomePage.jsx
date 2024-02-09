@@ -98,11 +98,11 @@ export default function Map({ selectedLanguage,
       case 'cities':
         return <div>
           {locations.map((cityItem, index) => (
-            <button key={index} onClick={() => handleCityClick(cityItem.city)} className='button-19'>
-              {cityItem.city}
+            <button key={index} onClick={() => handleCityClick(cityItem.city)} className='city_button'>
+              <span>{cityItem.city}</span>
             </button>
           ))}
-          <button className='modal_close_button' onClick={closeModal} >close</button>
+          <button className='modal_close_button_homePage' onClick={closeModal} >close</button>
         </div>
       case "pharentdistricts":
         // Find the city object from the locations array
@@ -110,32 +110,43 @@ export default function Map({ selectedLanguage,
         if (!city) return null;
 
         return (
-          <div className='location_modal_container' >
-            {city.pharentDistricts.map((parentDistrict, index) => (
-              <div key={index}>
-                <div>
-                  <input
-                    type="checkbox"
-                    checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
-                    onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
-                  />
-                  {parentDistrict.pharentDistrict}
-                </div>
-                <div style={{ marginLeft: '20px' }}>
-                  {parentDistrict.districts.map((district, districtIndex) => (
-                    <div key={districtIndex}>
+          <div className='location_modal_container-homepage' >
+            <div className='districts_and_pharentdostricts-homepage'>
+              {city.pharentDistricts.map((parentDistrict, index) => (
+                <ul key={index} >
+
+                  <div className='pharent_district_chackmarks-homepage' >
+                    <label className="container-homepage">
                       <input
                         type="checkbox"
-                        checked={selectedDistricts.includes(district)}
-                        onChange={(e) => handleDistrictChange(e, district)}
+                        checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
+                        onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
                       />
-                      {district}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-            <button className='modal_close_button' onClick={closeModal}>Close</button>
+                      <div className="checkmark-homepage"></div>
+                    </label>
+                    <p>{parentDistrict.pharentDistrict}</p>
+                  </div>
+
+                  <div className='district_checkmarks-homepage' >
+                    {parentDistrict.districts.map((district, districtIndex) => (
+                      <li key={districtIndex} className='child_district_checkmarks-homepage' >
+                        <label className="container-homepage">
+                          <input
+                            type="checkbox"
+                            checked={selectedDistricts.includes(district)}
+                            onChange={(e) => handleDistrictChange(e, district)}
+                          />
+                          <div className="checkmark-homepage"></div>
+                        </label>
+
+                        <p>{district}</p>
+                      </li>
+                    ))}
+                  </div>
+                </ul>
+              ))}
+            </div>
+            <button className='modal_close_button_homePage' onClick={closeModal}>Close</button>
           </div>
         );
 
@@ -317,7 +328,14 @@ export default function Map({ selectedLanguage,
       allStatusLanguage: "All",
       findMapButtonLanguage: "Find Map",
       allFindButtonLanguage: "Find",
-      spaceButtonClose: "Close"
+      spaceButtonClose: "Close",
+      minPrice: "From m²",
+      maxPrice: "To m²",
+      roomStudio: "Studio",
+      fullPriceHomePage: "Full price",
+      meterPriceHomePage: "The price of m²",
+      dan: "from",
+      mde: "to"
     }
 
     switch (lang) {
@@ -330,6 +348,13 @@ export default function Map({ selectedLanguage,
         languageInfo.findMapButtonLanguage = "Find Map"
         languageInfo.allFindButtonLanguage = "Find"
         languageInfo.spaceButtonClose = "Close"
+        languageInfo.minPrice = "From m²"
+        languageInfo.maxPrice = "To m²"
+        languageInfo.roomStudio = "Studio"
+        languageInfo.fullPriceHomePage = "Full price"
+        languageInfo.meterPriceHomePage = "The price of m²"
+        languageInfo.dan = "from"
+        languageInfo.mde = "to"
         break;
 
       case "ka":
@@ -341,6 +366,13 @@ export default function Map({ selectedLanguage,
         languageInfo.findMapButtonLanguage = "რუკაზე ძიება"
         languageInfo.allFindButtonLanguage = "ძიება"
         languageInfo.spaceButtonClose = "დახურვა"
+        languageInfo.minPrice = "დან მ²"
+        languageInfo.maxPrice = "მდე მ²"
+        languageInfo.roomStudio = "სტუდიო"
+        languageInfo.fullPriceHomePage = "სრული ფასი"
+        languageInfo.meterPriceHomePage = "მ² - ის ფასი"
+        languageInfo.dan = "დან"
+        languageInfo.mde = "მდე"
         break
 
       case "ru":
@@ -352,6 +384,13 @@ export default function Map({ selectedLanguage,
         languageInfo.findMapButtonLanguage = "Карта"
         languageInfo.allFindButtonLanguage = "Натдти"
         languageInfo.spaceButtonClose = "закрить"
+        languageInfo.minPrice = "из м²"
+        languageInfo.maxPrice = "до м²"
+        languageInfo.roomStudio = "Студия"
+        languageInfo.fullPriceHomePage = "Полная стоимость"
+        languageInfo.meterPriceHomePage = "Цена м²"
+        languageInfo.dan = "из"
+        languageInfo.mde = "до"
         break
     }
     return languageInfo
@@ -375,29 +414,33 @@ export default function Map({ selectedLanguage,
               <div className='filter_cont_for_homepage'>
 
                 {/* button for filtering space */}
-                <div className="button-modal-container ">
-                  <div onClick={handleSpaceButtonClick} className='space_button'  >
+                <div className="button-modal-container-homepage">
+                  <div onClick={handleSpaceButtonClick} className='space_button_homepage'  >
                     {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
 
                   <SpaceModal_1 isOpen={isSpaceModalOpen} close={closeSpaceModal}>
                     <div>
-                      <input
-                        type="number"
-                        placeholder='Min Price Per Square Meter'
+                      <div>
+                        <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
+                      </div>
+                      <input className='min_price_homePage'
+                        type='number'
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
                         value={min_space}
                         onChange={(e) => max_spacehangeHandler(e.target.value)}
                       />
 
-                      <input
+                      <input className='min_price_homePage'
                         type="number"
-                        placeholder='Max Price Per Square Meter'
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
                         value={max_space}
                         onChange={(e) => min_spacehangeHandler(e.target.value)}
                       />
                     </div>
-                    <button className='modal_close_button' onClick={closeSpaceModal}>
+
+                    <button className='modal_close_button_homePage' onClick={closeSpaceModal}>
                       {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                     </button>
                   </SpaceModal_1>
@@ -405,50 +448,57 @@ export default function Map({ selectedLanguage,
                 </div>
 
                 {/* button for filtering price  */}
-                <div className="button-modal-container">
-                  <div onClick={handlePriceButtonClick} className='space_button'  >
+                <div className="button-modal-container-homepage">
+                  <div onClick={handlePriceButtonClick} className='space_button_homepage'  >
                     {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
                   <PriceModal_1 isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                    <div className='fullPriceHomePage'>
+                      {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+                    </div>
                     <div>
-                      <input
+                      <input className='min_price_homePage'
                         type="number"
-                        placeholder='Min Price Per Square Meter'
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                         value={minPricePerSquareMeter}
                         onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
                       />
 
-                      <input
+                      <input className='min_price_homePage'
                         type="number"
-                        placeholder='Max Price Per Square Meter'
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                         value={maxPricePerSquareMeter}
                         onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
                       />
 
-                      <input
+                      <div className='meterPriceHomePage'>
+                        {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
+                      </div>
+
+                      <input className='min_price_homePage'
                         type="number"
-                        placeholder='Min Full Price'
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                         value={minFullPrice}
                         onChange={(e) => minFullPriceChangeHandler(e.target.value)}
                       />
 
-                      <input
+                      <input className='min_price_homePage'
                         type="number"
-                        placeholder='Max Full Price'
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                         value={maxFullPrice}
                         onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
                       />
                     </div>
-                    <button className='modal_close_button' onClick={handleClosePriceModal}>
+                    <button className='modal_close_button_homePage' onClick={handleClosePriceModal}>
                       {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                     </button>
                   </PriceModal_1>
                 </div>
 
                 {/* button for locations */}
-                <div className="button-modal-container" >
-                  <div onClick={handleShowModal} className='lacation_button'   >
+                <div className="button-modal-container-homepage" >
+                  <div onClick={handleShowModal} className='lacation_button_homepage'   >
                     {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
@@ -458,14 +508,14 @@ export default function Map({ selectedLanguage,
                 </div>
 
                 {/* button for status */}
-                <div className="button-modal-container" >
-                  <div onClick={handleStatusButtonClick} className='lacation_button'   >
+                <div className="button-modal-container-homepage" >
+                  <div onClick={handleStatusButtonClick} className='lacation_button_homepage'   >
                     {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
                   <StatusModal_1 isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
                     {renderStatusOptions()}
-                    <button className='modal_close_button' onClick={handleCloseStatusModal}>
+                    <button className='modal_close_button_homePage' onClick={handleCloseStatusModal}>
                       {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                     </button>
                   </StatusModal_1>
@@ -473,7 +523,7 @@ export default function Map({ selectedLanguage,
                 {/* Button For find word (sityvit dzebna) */}
                 <div className="lacation_button" >
                   <input className='string_filter_input'
-                    type="text"
+                    type='search'
                     placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}

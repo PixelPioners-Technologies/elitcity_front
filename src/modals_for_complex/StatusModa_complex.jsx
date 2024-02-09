@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './StatusModal_1.css';
+import './StatusModal_complex.css';
 
 const StatusModal_1 = ({ isOpen, close, children }) => {
   useEffect(() => {
@@ -19,7 +19,7 @@ const StatusModal_1 = ({ isOpen, close, children }) => {
 
   return (
     <div className={`modal-overlay ${openClass}`}>
-      <div className="modal-content1 scale-up-top1" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content-complex scale-up-top" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>

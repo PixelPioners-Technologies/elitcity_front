@@ -81,3 +81,217 @@
 #black_cont{
   color: black;
 }
+
+
+/* close buttons styles for homepage0 */
+
+.modal_close_button_homePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  width: 100px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: whitesmoke;
+  padding: 15px;
+  /* box-shadow: 0 0.7065919983928324px 0.7065919983928324px -0.625px #00000026,
+    0 1.8065619053231785px 1.8065619053231785px -1.25px #00000025,
+    0 3.6217592146567767px 3.6217592146567767px -1.875px #00000023,
+    0 6.8655999097303715px 6.8655999097303715px -2.5px #00000020,
+    0 13.646761411524492px 13.646761411524492px -3.125px #0000001b,
+    0 30px 30px -3.75px #0000000d; */
+  font-weight: bold;
+  font-family: Montserrat;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: 150ms ease-in-out;
+  border-style: solid; /* This line is necessary */
+  border-color: aliceblue;
+  border-width: 1px;
+  margin-top: 30px;
+}
+
+.modal_close_button_homePage:hover {
+  scale: 0.95;
+  background: transparent;
+  color: rgb(255, 255, 255);
+  /* box-shadow: rgba(41, 165, 16, 0.26) 0px 0.637473px 1.14745px -1.125px,
+    rgba(0, 0, 0, 0.24) 0px 1.93094px 3.4757px -2.25px,
+    rgba(0, 0, 0, 0.192) 0px 5.10423px 9.18761px -3.375px,
+    rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px; */
+  
+}
+
+.min_price_homePage {
+  color:#FFFFFF;
+  background-color: transparent;
+  border-style: hidden;
+  border: 3px solid transparent;
+  /* Additional styling to ensure the input field blends well with your design */
+  background-color: transparent; /* Light background for visibility */
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.min_price_homePage:focus{
+  outline: none;
+  /* Optionally, change border or add shadow on focus */
+  box-shadow: 0 0 5px rgb(161, 193, 202);
+}
+
+.min_price_homePage::placeholder{
+  font-size: 15px; /* Larger text size */
+  color: #999;
+}
+
+.priceTextHomePage {
+  color: #FFFFFF;
+  
+}
+.fullPriceHomePage{
+  color: #FFFFFF;
+}
+
+.meterPriceHomePage{
+  color: #FFFFFF;
+  padding-top: 25px;
+}
+
+/* -------------------------------space button stules ------------------------------------------- */
+.space_button_homepage{
+  display: flex;
+  width: 159px;
+  height: 33px;
+  padding: 5px 12.928px 5px 7px;
+  align-items: center;
+  gap: 43px;
+  flex-shrink: 0;
+  border: 1.5px solid #ADA9A9;
+  mix-blend-mode: hard-light;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #FFF;
+  position: relative;
+}
+
+.button-modal-container-homepage{
+  position: relative;
+  cursor: pointer;
+}
+
+.lacation_button_homepage{
+  display: flex;
+  width: 210px;
+  height: 33px;
+  padding: 5px 12.928px 5px 7px;
+  align-items: center;
+  gap: 43px;
+  flex-shrink: 0;
+  border: 1.5px solid #ADA9A9;
+  mix-blend-mode: hard-light;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #FFF;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0px; /* 0% */
+  letter-spacing: 1.76px;
+  position: relative;
+}
+
+/* for Location  */
+.location_modal_container-homepage {
+  color: #FFF;
+}
+
+.districts_and_pharentdostricts-homepage {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pharent_district_chackmarks-homepage {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.container-homepage {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+  animation: jello-horizontal 0.9s both;
+  
+}
+
+/* checkmark */
+.checkmark-homepage:hover {
+  animation: jello-horizontal 0.9s both;
+}
+
+/* Create a custom checkbox */
+.checkmark-homepage {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 1em;
+  width: 1em;
+  border-radius: 50%;
+  border: 4px;
+  border-color: #FFF;
+  background-color: #ffffff;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-homepage input:checked ~ .checkmark-homepage {
+  background-color: rgb(0, 0, 0);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container-homepage input:checked ~ .checkmark-homepage:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-homepage .checkmark-homepage:after {
+  left: 0.4em;
+  top: 0.2em;
+  width: 0.2em;
+  height: 0.5em;
+  border: solid rgb(255, 255, 255);
+  border-width: 0 0.15em 0.15em 0;
+  transform: rotate(45deg);
+}
+
+.district_checkmarks-homepage {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.child_district_checkmarks-homepage{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}

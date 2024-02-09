@@ -25,6 +25,8 @@ import headphone_icon from "./icons/headphones.png";
 import { motion } from "framer-motion";
 import cancel_icon from "./icons/cancel.png";
 import EachApartment from "./pages/EachApartment";
+import EachBlog from "./pages/EachBlog";
+
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
@@ -65,6 +67,7 @@ function trackButtonClick(buttonName) {
 //     label: buttonName,
 //   });
 // }
+
 
 const BaseURLs = {
   // storkhome
@@ -200,6 +203,18 @@ function App() {
 
   const [searchInput, setSearchInput] = useState("");
 
+
+  const [totalPageCount, setTotalPageCount] = useState(0);
+  const [currentPage, setCorrentPage] = useState(0);
+  const [total_item_number, setTotal_item_number] = useState('');
+
+
+  const [homes, setHomes] = useState([]);
+
+
+
+  const [complex_homes, setComplex_homes] = useState([]);
+
   // -----------------------------------------------------------------------------------------------------
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
@@ -247,8 +262,22 @@ function App() {
   const searchButtonhangeHandler = (data) => {
     setSearchButton(data);
   };
+  const handleCorrentPageHandler = (data) => {
+    setCorrentPage(data)
+  }
 
+  const handleSetTodalPageCount = (data) => {
+    setTotalPageCount(data)
+  }
+
+  const handleSetAllItems = (data) => {
+    setTotal_item_number(data)
+  }
   // -----------------------------------------------------------------------------------------------------
+
+  // useEffect(() => {
+  //   console.log('total_item_number on app', total_item_number)
+  // }, [total_item_number])
 
   useEffect(() => {
     const fetchComplexes = async () => {
@@ -256,6 +285,11 @@ function App() {
       const pharentdistrictParams = `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
       const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
       // Create a URLSearchParams object
+
+      const limit = 12; // Define the limit or make it dynamic as per your requirement
+      const offset = (currentPage - 1) * limit;
+
+
       let queryParams = new URLSearchParams({
         [cityParam]: selectedCity,
         [pharentdistrictParams]: selectedPharentDistricts.join(","),
@@ -266,6 +300,8 @@ function App() {
         max_full_price: maxFullPrice,
         min_space: min_space,
         max_space: max_space,
+        limit: limit,
+        offset: offset,
       });
 
       // Append each status as a separate parameter
@@ -276,19 +312,15 @@ function App() {
       // Construct the full URL with query parameters
       const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.complex}${selectedLanguage}/?${queryString}`;
-
-      //////////////////////    T  E  S  T  ///////////////////////////
-      // local_url = 'http://127.0.0.1:8000'
-      // const requestUrl = `${local_url}${selectedLanguage}/?${queryString}`;
-      /////////////// Can Erase if not need////////////////////////////
-
       try {
         const response = await axios.get(requestUrl);
-        const normalData = normalizeComplexData(
-          response.data.results,
-          selectedLanguage
-        );
+        const normalData = normalizeComplexData(response.data.results, selectedLanguage);
         setComplexes(normalData);
+
+        handleSetTodalPageCount(response.data.total_pages); // Set total number of pages
+        handleCorrentPageHandler(response.data.current_page); // Set current page
+        handleSetAllItems(response.data.total_items)
+
       } catch (error) {
         console.error("Error fetching complexes:", error);
       }
@@ -297,11 +329,9 @@ function App() {
     fetchComplexes();
   }, [searchButton]);
 
-  // console.log(complexes)
+
   //-----------------------------------fetch ionly locations --------------------------------------
 
-  // const base_URL_for_location = "https://api.storkhome.ge/map/";
-  // const base_URL_for_location = 'http://127.0.0.1:8000/map/'
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -559,9 +589,18 @@ function App() {
                 searchButton={searchButton}
                 searchButtonhangeHandler={searchButtonhangeHandler}
                 selectedCityChangeHandler={selectedCityChangeHandler}
-                selectedPharentDistrictsChangeHandler={
-                  selectedPharentDistrictsChangeHandler
-                }
+
+
+                selectedPharentDistrictsChangeHandler={selectedPharentDistrictsChangeHandler}
+
+                totalPageCount={totalPageCount}
+                currentPage={currentPage}
+                handleCorrentPageHandler={handleCorrentPageHandler}
+                handleSetTodalPageCount={handleSetTodalPageCount}
+
+                complexes={complexes}
+
+                total_item_number={total_item_number}
               />
             }
           />
@@ -605,7 +644,7 @@ function App() {
             />
           }
         />
-        <Route path="articles" element={<Articles />} />
+        <Route path="articles" element={<Articles selectedLanguage={selectedLanguage} />} />
         <Route
           path="storkhome"
           element={
@@ -665,6 +704,16 @@ function App() {
         />
 
         <Route
+          path="eachblog/:blogId"
+          element={
+            <EachBlog
+              selectedLanguage={selectedLanguage}
+              // handleCallButtonClick={handleCallButtonClick}
+            />
+          }
+        />
+
+        <Route
           path="favoriteComplex"
           element={<FavoriteComplex favorites={favorites} />}
         />
@@ -672,7 +721,7 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-        // onClick={(e) => e.stopPropagation()}
+      // onClick={(e) => e.stopPropagation()}
       >
         <div className="call_modal_containerr">
           <div className="cancel_icon_container">

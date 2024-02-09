@@ -258,6 +258,14 @@
   color: black
 }
 
+.filter_cont_for_complex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 70px;
+  gap: 13px;
+  padding-top: 65px;
+}
 
 
 /* ----------------------------------modal close button styles------------------------------------------ */

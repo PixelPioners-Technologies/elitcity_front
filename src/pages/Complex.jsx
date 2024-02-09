@@ -40,10 +40,10 @@ import { BaseURLs } from '../App';
 
 import button_icon from '../icons/Vector.svg';
 
-import Modal_1 from '../modals for main page/Modal_1';
-import PriceModal_1 from '../modals for main page/PriceModal_1';
-import SpaceModal_1 from '../modals for main page/SpaceModal_1';
-import StatusModal_1 from '../modals for main page/StatusModa_1';
+import Modal_main from '../modals_for_complex/Modal_main';
+import PriceModal_complex from '../modals_for_complex/PriceModal_complex';
+import SpaceModal_complex from '../modals_for_complex/SpaceModal_complex';
+import StatusModal_complex from '../modals_for_complex/StatusModa_complex';
 
 import loupe from '../icons/loupe.png'
 
@@ -80,15 +80,14 @@ export default function Complex({
   selectedCityChangeHandler,
   searchInput,
   setSearchInput,
-
-
+  totalPageCount,
+  currentPage,
+  handleCorrentPageHandler,
+  complexes,
+  total_item_number,
 }) {
   const [homes, setHomes] = useState([]);
-  // console.log('-----',homes)
-  // console.log('1111111',homes)
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [forPriceDecrease, setForPriceDecrease] = useState(null);
   const [sortedHomes, setSortedHomes] = useState(null); // Initialize sortedHomes state
@@ -128,8 +127,14 @@ export default function Complex({
 
 
 
+  // useEffect(() => {
+  //   console.log('corrent page----', totalPageCount)
+  // }, [totalPageCount,currentPage ])
 
-
+  useEffect(()=> {
+    console.log('total_item_number on complex' , total_item_number) 
+   },[total_item_number])
+   
 
   // 1111111111111111111111111111111111
   // for toggle DOllar AND LARI ---==---(START)
@@ -342,77 +347,80 @@ export default function Complex({
   // second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული); ეს აღარაა საჭირო, რადგან გაკეთდა უვკე სორტირება !!!!!!!!
   // (თუმცა ჯერ
   // ეწეროს მაინც)
-  const sortHomes = (data, sortOrder) => {
-    if (sortOrder === "decrease") {
-      return [...data].sort(
-        (a, b) =>
-          parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter)
-      );
-    } else if (sortOrder === "increase") {
-      return [...data].sort(
-        (a, b) =>
-          parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter)
-      );
-    } else {
-      return data;
-    }
-  };
-  const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-  const pharentdistrictParams = `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
-  const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
+  // const sortHomes = (data, sortOrder) => {
+  //   if (sortOrder === "decrease") {
+  //     return [...data].sort(
+  //       (a, b) =>
+  //         parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter)
+  //     );
+  //   } else if (sortOrder === "increase") {
+  //     return [...data].sort(
+  //       (a, b) =>
+  //         parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter)
+  //     );
+  //   } else {
+  //     return data;
+  //   }
+  // };
+  // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
+  // const pharentdistrictParams = `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
+  // const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
 
-  // Create a URLSearchParams object
-  let queryParams = new URLSearchParams({
-    [cityParam]: selectedCity,
-    [pharentdistrictParams]: selectedPharentDistricts.join(","),
-    [districtParams]: selectedDistricts.join(","),
-    min_price_per_sq_meter: minPricePerSquareMeter,
-    max_price_per_sq_meter: maxPricePerSquareMeter,
-    min_full_price: minFullPrice,
-    max_full_price: maxFullPrice,
-    min_space: min_space,
-    max_space: max_space,
-    // status: selectedStatuses,
-    ordering: ascendentPrice,
-  });
+  // // Create a URLSearchParams object
+  // let queryParams = new URLSearchParams({
+  //   [cityParam]: selectedCity,
+  //   [pharentdistrictParams]: selectedPharentDistricts.join(","),
+  //   [districtParams]: selectedDistricts.join(","),
+  //   min_price_per_sq_meter: minPricePerSquareMeter,
+  //   max_price_per_sq_meter: maxPricePerSquareMeter,
+  //   min_full_price: minFullPrice,
+  //   max_full_price: maxFullPrice,
+  //   min_space: min_space,
+  //   max_space: max_space,
+  //   // status: selectedStatuses,
+  //   ordering: ascendentPrice,
+  // });
 
-  if (selectedStatuses && selectedStatuses.length > 0) {
-    selectedStatuses.forEach((status) => {
-      queryParams.append("status", status);
-    });
-  }
+  // if (selectedStatuses && selectedStatuses.length > 0) {
+  //   selectedStatuses.forEach((status) => {
+  //     queryParams.append("status", status);
+  //   });
+  // }
 
-  const queryString = queryParams.toString();
-  const requestUrl = `${selectedLanguage}/?${queryString}`;
+  // const queryString = queryParams.toString();
+  // const requestUrl = `${selectedLanguage}/?${queryString}`;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
-        const response = await axios.get(`${BaseURLs.complex}${requestUrl}`);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
+  //       // const response = await axios.get(`${BaseURLs.complex}//${requestUrl}`);
 
-        // const { results } = response.data.results[0];
-        const normalData = normalizeComplexData(
-          response.data.results,
-          selectedLanguage
-        );
-        setHomes(normalData);
-        setIsLoading(false);
-        setTotalCount(response.data.total_items);
-      } catch (error) {
-        setIsLoading(false);
-        console.error("Error fetching data:", error);
-      }
-    };
+  //       // const { results } = response.data.results[0];
+  //       // const normalData = normalizeComplexData(
+  //       //   response.data.results,
+  //       //   selectedLanguage
+  //       // );
+  //       // setHomes(normalData);
+  //       // setIsLoading(false);
+  //       // handleSetTodalPageCount(response.data.total_items);
+  //     } catch (error) {
+  //       setIsLoading(false);
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [currentPage, ascendentPrice, selectedLanguage, searchButton]);
+  //   fetchData();
+  // }, []);
 
-  useEffect(() => {
-    const sortedResults = sortHomes(homes, forPriceDecrease);
-    setSortedHomes(sortedResults);
-  }, [forPriceDecrease, homes, min_space, max_space]);
+
+
+
+  // useEffect(() => {
+  //   const sortedResults = sortHomes(homes, forPriceDecrease);
+  //   setSortedHomes(sortedResults);
+  // }, [forPriceDecrease, homes, min_space, max_space]);
 
 
   // ------------------------------------------------------------------------------------
@@ -485,80 +493,69 @@ export default function Complex({
 
   // -----------------------------------------------------------------------------------------------------------------------------
 
+  // // Pagination logic
+  // const itemsPerPage = 12;
+  // // const totalPageCount = Math.ceil(totalCount / itemsPerPage);
+  // const currentSortedHomes = sortedHomes
+  //   ? sortedHomes.slice(
+  //     (currentPage - 1) * itemsPerPage,
+  //     currentPage * itemsPerPage
+  //   )
+  //   : [];
 
 
-  // Pagination logic
-  const itemsPerPage = 12;
-  const totalPageCount = Math.ceil(totalCount / itemsPerPage);
-  const currentSortedHomes = sortedHomes
-    ? sortedHomes.slice(
-      (currentPage - 1) * itemsPerPage,
-      currentPage * itemsPerPage
-    )
-    : [];
 
-  //
-
-  // console.log('images: ', images);
-  // console.log('homes all: ', homes);
-
-  // This is for scrool up, when user click other Pagination number
-  const pagiHandler = () => {
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
-  };
-
-  // Maping variable
   // ------------------------------------------------------------------------------------
-  const homeMaping = currentSortedHomes.map((complex, index) => (
-    <div
-      className="card"
-      key={complex.id}
-      onClick={() => handleHouseClick(complex.id)}
-    >
-      <motion.div
-        initial={{ x: -50, opacity: 0 }}
-        transition={{ duration: 1 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        viewport={{ once: true }}
-      >
-        <div className="heartbuttonAndImageBox">
-          <div className="heartButtonBox">
-            <button
-              onClick={() => favoriteHandler(complex)}
-              key={complex.id}
-              className="heartButtons"
-            >
-              {favorites.some((fav) => fav.id === complex.id) ? (
-                <img src={heartIcon} alt="Logo of heart" />
-              ) : (
-                <img
-                  src={heartIconEmpty}
-                  alt="Logo of empty heart"
-                  style={{ width: "30px", height: "30px" }}
-                />
-              )}
-            </button>
-          </div>
-          <img
-            src={complex.images[0]}
-            alt={complex.name}
-            style={styles.imageStyles}
-          />
-        </div>
-        <p style={styles.companyTitle}>{complex.name}</p>
-        <div className="textInfo">
-          <p style={styles.complexInfo}>
-            {complex.address.city}, {complex.address.street}
-          </p>
-          <p style={styles.complexInfo}>
-            Price per sq meter: {complex.price_per_sq_meter}
-          </p>
-          {/* Update the line below with the actual date property */}
-          <p style={styles.complexFinished}>Date: {complex.date}</p>
-        </div>
-      </motion.div>
-    </div>
-  ));
+  // const homeMaping = currentSortedHomes.map((complex, index) => (
+  //   <div
+  //     className="card"
+  //     key={complex.id}
+  //     onClick={() => handleHouseClick(complex.id)}
+  //     >
+  //     <motion.div
+  //       initial={{ x: -50, opacity: 0 }}
+  //       transition={{ duration: 1 }}
+  //       whileInView={{ x: 0, opacity: 1 }}
+  //       viewport={{ once: true }}
+  //     >
+  //       <div className="heartbuttonAndImageBox">
+  //         <div className="heartButtonBox">
+  //           <button
+  //             onClick={() => favoriteHandler(complex)}
+  //             key={complex.id}
+  //             className="heartButtons"
+  //           >
+  //             {favorites.some((fav) => fav.id === complex.id) ? (
+  //               <img src={heartIcon} alt="Logo of heart" />
+  //             ) : (
+  //               <img
+  //                 src={heartIconEmpty}
+  //                 alt="Logo of empty heart"
+  //                 style={{ width: "30px", height: "30px" }}
+  //               />
+  //             )}
+  //           </button>
+  //         </div>
+  //         <img
+  //           src={complex.images[0]}
+  //           alt={complex.name}
+  //           style={styles.imageStyles}
+  //         />
+  //       </div>
+  //       <p style={styles.companyTitle}>{complex.name}</p>
+  //       <div className="textInfo">
+  //         <p style={styles.complexInfo}>
+  //           {complex.address.city}, {complex.address.street}
+  //         </p>
+  //         <p style={styles.complexInfo}>
+  //           Price per sq meter: {complex.price_per_sq_meter}
+  //         </p>
+  //         {/* Update the line below with the actual date property */}
+  //         <p style={styles.complexFinished}>Date: {complex.date}</p>
+  //       </div>
+  //     </motion.div>
+  //   </div>
+  // ));
   // ------------------------------------------------------------------------------------
 
   // ------------------------render status option--------------------------------------------
@@ -587,7 +584,7 @@ export default function Complex({
       </div>
     ));
   };
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
 
 
@@ -633,6 +630,13 @@ export default function Complex({
   }
 
 
+  const pagiHandler = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    searchButtonhangeHandler(!searchButton)
+  };
 
 
   return (
@@ -648,7 +652,7 @@ export default function Complex({
             <div className='adgilicomportistvis'>
               ადგილი შენი კომფორტისთვის
             </div>
-            <div className='filter_cont_for_homepage'>
+            <div className='filter_cont_for_complex'>
 
               {/* button for filtering space */}
               <div className="button-modal-container ">
@@ -657,7 +661,7 @@ export default function Complex({
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                 </div>
 
-                <SpaceModal_1 isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                <SpaceModal_complex isOpen={isSpaceModalOpen} close={closeSpaceModal}>
                   <div>
                     <input
                       type="number"
@@ -676,7 +680,7 @@ export default function Complex({
                   <button className='modal_close_button' onClick={closeSpaceModal}>
                     {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
-                </SpaceModal_1>
+                </SpaceModal_complex>
               </div>
               {/* button for filtering price  */}
               <div className="button-modal-container">
@@ -684,7 +688,7 @@ export default function Complex({
                   {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                 </div>
-                <PriceModal_1 isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                <PriceModal_complex isOpen={isPriceModalOpen} close={handleClosePriceModal} >
                   <div>
                     <input
                       type="number"
@@ -717,7 +721,7 @@ export default function Complex({
                   <button className='modal_close_button' onClick={handleClosePriceModal}>
                     {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
-                </PriceModal_1>
+                </PriceModal_complex>
               </div>
 
               {/* button for locations */}
@@ -726,9 +730,9 @@ export default function Complex({
                   {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                 </div>
-                <Modal_1 isOpen={isModalOpen} >
+                <Modal_main isOpen={isModalOpen} >
                   {renderModalContent()}
-                </Modal_1>
+                </Modal_main>
               </div>
 
               {/* button for status */}
@@ -736,23 +740,23 @@ export default function Complex({
                 <div onClick={handleStatusButtonClick} className='lacation_button'   >
                   {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-                  </div>
-                  <StatusModal_1 isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+                </div>
+                <StatusModal_complex isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
                   {renderStatusOptions()}
                   <button className='modal_close_button' onClick={handleCloseStatusModal}>
-                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
-                  </StatusModal_1>
-                </div>
+                </StatusModal_complex>
+              </div>
               {/* Button For find word (sityvit dzebna) */}
               <div className="lacation_button" >
                 <input className='string_filter_input'
-                type="text"
-                placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
+                  type="text"
+                  placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
                 />
-                <img src={loupe} alt="search icon" className="dropdown"/>
+                <img src={loupe} alt="search icon" className="dropdown" />
                 {/* ------------------------- */}
               </div>
               <div className="button-modal-container ">
@@ -780,7 +784,7 @@ export default function Complex({
         <div className="forPaddingOfInfoFieldOfComplexsPlansMaps">
           <div className="infoFieldOfComplexsPlansMaps">
             <div className="complexInfoAndCountShowBox">
-              <p style={{ color: "white" }}>კომპლექსები {totalCount}</p>
+              <p style={{ color: "white" }}>კომპლექსები {total_item_number}</p>
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
             <div className="projectsPlansMapsSortingAndDollarBox">
@@ -1024,54 +1028,63 @@ export default function Complex({
       {/* // ------------------------------------------------------------------------------------ */}
 
       <div className="allCards">
-        {isLoading
-          ? Array.from({ length: 10 }, (_, index) => (
-            <div className="card" key={index}>
-              <Skeleton
-                variant="rectangle"
-                animation="wave"
-                width={styles.imageStyles.width}
-                height={styles.imageStyles.height}
-              />
-              <Skeleton
-                variant="text"
-                animation="wave"
-                width={150}
-                height={20}
-                style={styles.companyTitle}
-              />
-              <div className="textInfo">
-                <Skeleton
-                  variant="text"
-                  animation="wave"
-                  width={120}
-                  height={15}
-                  style={styles.complexInfo}
-                />
-                <Skeleton
-                  variant="text"
-                  animation="wave"
-                  width={180}
-                  height={15}
-                  style={styles.complexInfo}
-                />
-                <Skeleton
-                  variant="text"
-                  animation="wave"
-                  width={100}
-                  height={15}
-                  style={styles.complexFinished}
-                />
-              </div>
+        {complexes.map((complex, index) => (
+            <div
+              className="card"
+              key={complex.id}
+              onClick={() => handleHouseClick(complex.id)}
+              >
+              <motion.div
+                initial={{ x: -50, opacity: 0 }}
+                transition={{ duration: 1 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                <div className="heartbuttonAndImageBox">
+                  <div className="heartButtonBox">
+                    <button
+                      onClick={() => favoriteHandler(complex)}
+                      key={complex.id}
+                      className="heartButtons"
+                    >
+                      {favorites.some((fav) => fav.id === complex.id) ? (
+                        <img src={heartIcon} alt="Logo of heart" />
+                      ) : (
+                        <img
+                          src={heartIconEmpty}
+                          alt="Logo of empty heart"
+                          style={{ width: "30px", height: "30px" }}
+                        />
+                      )}
+                    </button>
+                  </div>
+                  <img
+                    src={complex.images[0]}
+                    alt={complex.name}
+                    style={styles.imageStyles}
+                  />
+                </div>
+                <p style={styles.companyTitle}>{complex.name}</p>
+                <div className="textInfo">
+                  <p style={styles.complexInfo}>
+                    {complex.address.city}, {complex.address.street}
+                  </p>
+                  <p style={styles.complexInfo}>
+                    Price per sq meter: {complex.price_per_sq_meter}
+                  </p>
+                  {/* Update the line below with the actual date property */}
+                  <p style={styles.complexFinished}>Date: {complex.date}</p>
+                </div>
+              </motion.div>
             </div>
-          ))
-          : homeMaping}
+          ))}
       </div>
 
       {/* for scroll UP */}
       {/* <button onClick={scrollToTop} style={{ borderRadius: '30px' }} >
         <img src={scrollUp} alt='logo' style={{ width: '40px' }} />
       </button> */}
+
 
       {/* Pagination for user to select some page */}
       <div className="pagination">
@@ -1080,23 +1093,43 @@ export default function Complex({
             count={totalPageCount}
             shape="rounded"
             page={currentPage}
-            onChange={(event, value) => setCurrentPage(value)}
+            onChange={(event, value) => {
+              handleCorrentPageHandler(value); // Assuming this updates `currentPage`
+            }}
             onClick={pagiHandler}
             sx={{
               "& .MuiPaginationItem-root": {
-                color: "black", // Change the color to your desired color
+                color: "#fff !important", // White text color for unselected items, with increased specificity
+                margin: "3px !important", // Removes margin between buttons, with increased specificity
+                padding: "0 !important", // Removes padding inside buttons, with increased specificity
+                "&:hover": {
+                  backgroundColor: "#f0f0f0 !important", // Background color on hover for unselected items, with increased specificity
+                  color: "#000 !important", // Text color on hover for unselected items, with increased specificity
+                },
               },
               "& .Mui-selected": {
-                backgroundColor: "green", // Change the selected page background color
-                color: "white", // Change the selected page text color
+                backgroundColor: "#fff !important", // White background color for the selected item, with increased specificity
+                color: "#000 !important", // Black text color for the selected item, with increased specificity
                 "&:hover": {
-                  backgroundColor: "green", // Change the background color on hover
+                  backgroundColor: "#fff !important", // Keep the background color on hover for selected item, with increased specificity
+                  color: "#000 !important", // Keep the text color on hover for selected item, with increased specificity
                 },
+              },
+              "& .MuiPaginationItem-ellipsis": {
+                color: "#fff !important", // Color of the ellipsis, with increased specificity
+                margin: "0 !important", // Removes margin around the ellipsis, with increased specificity
+                padding: "0 !important", // Removes padding around the ellipsis, with increased specificity
+              },
+              ".MuiPagination-ul": {
+                justifyContent: "center !important", // Centers the pagination items, with increased specificity
+                flexWrap: "nowrap !important", // Prevents the pagination items from wrapping, with increased specificity
               },
             }}
           />
         </Stack>
       </div>
+
+
       {/* ---------------------------------------------------------------- */}
       <div className="googleMapImageBox">
         <Link to="/map">
