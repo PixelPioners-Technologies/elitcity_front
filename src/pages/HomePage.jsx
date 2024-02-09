@@ -98,8 +98,8 @@ export default function Map({ selectedLanguage,
       case 'cities':
         return <div>
           {locations.map((cityItem, index) => (
-            <button key={index} onClick={() => handleCityClick(cityItem.city)} className='button-19'>
-              {cityItem.city}
+            <button key={index} onClick={() => handleCityClick(cityItem.city)} className='city_button'>
+              <span>{cityItem.city}</span>
             </button>
           ))}
           <button className='modal_close_button' onClick={closeModal} >close</button>
@@ -111,30 +111,41 @@ export default function Map({ selectedLanguage,
 
         return (
           <div className='location_modal_container' >
-            {city.pharentDistricts.map((parentDistrict, index) => (
-              <div key={index}>
-                <div>
-                  <input
-                    type="checkbox"
-                    checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
-                    onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
-                  />
-                  {parentDistrict.pharentDistrict}
-                </div>
-                <div style={{ marginLeft: '20px' }}>
-                  {parentDistrict.districts.map((district, districtIndex) => (
-                    <div key={districtIndex}>
+            <div className='districts_and_pharentdostricts'>
+              {city.pharentDistricts.map((parentDistrict, index) => (
+                <ul key={index} >
+
+                  <div className='pharent_district_chackmarks' >
+                    <label className="container">
                       <input
                         type="checkbox"
-                        checked={selectedDistricts.includes(district)}
-                        onChange={(e) => handleDistrictChange(e, district)}
+                        checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
+                        onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
                       />
-                      {district}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+                      <div className="checkmark"></div>
+                    </label>
+                    <p>{parentDistrict.pharentDistrict}</p>
+                  </div>
+
+                  <div className='district_checkmarks' >
+                    {parentDistrict.districts.map((district, districtIndex) => (
+                      <li key={districtIndex} className='child_district_checkmarks' >
+                        <label className="container">
+                          <input
+                            type="checkbox"
+                            checked={selectedDistricts.includes(district)}
+                            onChange={(e) => handleDistrictChange(e, district)}
+                          />
+                          <div className="checkmark"></div>
+                        </label>
+
+                        <p>{district}</p>
+                      </li>
+                    ))}
+                  </div>
+                </ul>
+              ))}
+            </div>
             <button className='modal_close_button' onClick={closeModal}>Close</button>
           </div>
         );
