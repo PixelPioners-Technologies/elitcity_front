@@ -85,7 +85,7 @@ function normalizeData(item, lang) {
     rank: item.internal_complex_name.rank,
 
     // Add other fields from internal_complex_name as needed
-    complexImages: item.complex_images.images,
+    complexImages: item.complex_images,
     apartments: item[`appartment_name_${lang}`].map((apartment) => ({
       id: apartment.id,
       apartmentName: apartment[`appartment_name_${lang}`],
@@ -177,6 +177,7 @@ export default function EachComplex({
 
   // const [sliderMiniImages, setSliderMiniImages] = useState([]);
   const [sliderImages, setSliderImages] = useState([]);
+  console.log("sliderImages", sliderImages);
 
   const [eachPrivateApartment, setEachPrivateApartment] = useState([]);
 
@@ -197,6 +198,8 @@ export default function EachComplex({
   // ---------
 
   // console.log("hello");
+
+  const [allComplexImages, setAllComplexImages] = useState([]);
 
   // ეს ნომრის ჩვენებისთვის
   const [showFullNumber, setShowFullNumber] = useState(false);
@@ -251,11 +254,12 @@ export default function EachComplex({
       const data = response.data;
       const normalised_Data = normalizeData(data, selectedLanguage);
       console.log("----111---,", normalised_Data);
+      setAllComplexImages(data.complex_images);
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
 
       // Update sliderImages state with all images from the fetched data
-      const sliderImagesFromData = normadata.images.map((imgUrl, index) => ({
+      const sliderImagesFromData = allComplexImages.map((imgUrl, index) => ({
         id: index,
         value: imgUrl, // Directly using the URL from the JSON data
       }));
@@ -268,25 +272,28 @@ export default function EachComplex({
     fetcPrivateApartments();
   }, [
     selectedLanguage,
-    selectedCity,
-    min_square_price,
-    max_square_price,
-    minFullPrice,
-    maxFullPrice,
-    selectedStatuses,
-    max_area,
-    min_area,
-    currentPage,
-    complexId,
+    // selectedCity,
+    // min_square_price,
+    // max_square_price,
+    // minFullPrice,
+    // maxFullPrice,
+    // selectedStatuses,
+    // max_area,
+    // min_area,
+    // currentPage,
+    // complexId,
+    // sliderImages,
+    // wordData,
+    // allComplexImages,
   ]);
 
-  console.log("imagesss;:::::;", sliderImages);
-
-  console.log("eachPrivateApartment DATA: ", eachPrivateApartment);
+  // console.log("eachPrivateApartment DATA: ", eachPrivateApartment);
 
   useEffect(() => {
-    console.log("aq unda iyos suratebi", privateApartments);
-  }, [totalCount, selectedLanguage, complexId]);
+    console.log("sliderImagessliderImages;:::::;", sliderImages);
+
+    // console.log("aq unda iyos suratebi", privateApartments);
+  }, [sliderImages]);
 
   // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
@@ -812,7 +819,10 @@ export default function EachComplex({
                       // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
                       // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
                       // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      src={prev_apartments.images}
+                      src={
+                        prev_apartments?.images?.apartment?.appartment_images
+                          ?.images[0]
+                      }
                       alt={prev_apartments.name}
                       style={styles.imageStyles}
                     />
