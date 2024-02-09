@@ -1,10 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 
-/* EachBlog.css */
+.blog_header{
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+/* first container */
+
 .blog_container {
   margin: 20px;
   text-align: center;
   color: aliceblue;
+  font-family: 'Roboto', sans-serif;
 }
 
 .blog_image {
@@ -17,4 +23,76 @@
 .blog_text {
   text-align: justify;
   font-size: 25px;
+  padding: 15px;
 }
+
+
+/* second container */
+.blog_container_second {
+  margin: 20px;
+  text-align: center;
+  color: aliceblue;
+  font-family: 'Roboto', sans-serif;
+
+
+}
+
+.blog_image_second {
+  float: right;
+  margin-left: 50px;
+  width: 800px;
+  margin-right: 40px;
+
+
+}
+
+.blog_text_second {
+  text-align: justify;
+  font-size: 25px;
+
+
+}
+
+
+/* Mobile Styles */
+@media only screen and (max-width: 768px) {
+  .blog_container {
+    margin: 20px;
+    text-align: center;
+    color: aliceblue;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .blog_image {
+    float: none; /* Remove float */
+    margin: 0 auto; /* Center image */
+    width: 100%; /* Full width */
+    margin-bottom: 20px; /* Add some space between image and text */
+  }
+
+  .blog_text {
+    text-align: justify;
+    font-size: 20px; /* Reduce font size */
+    padding: 15px;
+  }
+
+  .blog_container_second {
+    margin: 20px;
+    text-align: center;
+    color: aliceblue;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .blog_image_second {
+    float: none; /* Remove float */
+    margin: 0 auto; /* Center image */
+    width: 100%; /* Full width */
+    margin-bottom: 20px; /* Add some space between image and text */
+  }
+
+  .blog_text_second {
+    text-align: justify;
+    font-size: 20px; /* Reduce font size */
+  }
+}
+

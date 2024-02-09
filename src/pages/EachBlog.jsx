@@ -43,14 +43,28 @@ export default function EachBlog({ selectedLanguage }) {
   }, [selectedLanguage, blogId]);
 
   return (
-    <div className="blog_container">
-      <h1>{eachBlog?.blogName}</h1>
-      <div>
-        {blogImages.length > 0 && (
-          <img src={blogImages[0]} alt="Blog" className="blog_image" />
+    <div>
+      <div className="blog_container">
+        <h1 className="blog_header" >{eachBlog?.blogName}</h1>
+        <div>
+          {blogImages.length > 0 && (
+            <img src={blogImages[0]} alt="Blog" className="blog_image" />
           )}
           <p className="blog_text">{eachBlog.description}</p>
+        </div>
       </div>
+
+      <div className="blog_container_second">
+        <h1 className="blog_header" >{eachBlog?.blogName}</h1>
+        <div>
+          {blogImages.length > 0 && (
+            <img src={blogImages[1]} alt="Blog" className="blog_image_second" />
+          )}
+          <p className="blog_text_second">{eachBlog.description}</p>
+        </div>
+      </div>
+
+
     </div>
   );
 }
