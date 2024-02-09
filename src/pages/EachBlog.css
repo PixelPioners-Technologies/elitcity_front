@@ -1,98 +1,82 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 
-.blog_header{
+
+.main_blog{
+  padding: 30px;
+}
+
+
+
+.blog_container{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  color: aliceblue;
+  font-family: 'Roboto', sans-serif;
+  gap: 40px;
   margin-top: 60px;
-  margin-bottom: 30px;
 }
-/* first container */
 
-.blog_container {
-  margin: 20px;
-  text-align: center;
+
+.header_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.blog_header{
+  display: flex;
+  gap: 40px;
+
+}
+
+
+.blog_image{
+  width: 500px;
+  height: auto;
+}
+
+/* .blog_text{
+  max-width: 65%;
+} */
+
+.continue{
   color: aliceblue;
-  font-family: 'Roboto', sans-serif;
+  margin-top: 20px;
+  padding-right: 30px;
 }
 
-.blog_image {
-  float: left;
-  margin: 5px;
-  width: 800px;
-  margin-right: 40px;
-}
-
-.blog_text {
-  text-align: justify;
-  font-size: 25px;
-  padding: 15px;
-}
-
-
-/* second container */
-.blog_container_second {
-  margin: 20px;
-  text-align: center;
-  color: aliceblue;
-  font-family: 'Roboto', sans-serif;
-
-
-}
-
-.blog_image_second {
-  float: right;
-  margin-left: 50px;
-  width: 800px;
-  margin-right: 40px;
-
-
-}
-
-.blog_text_second {
-  text-align: justify;
-  font-size: 25px;
-
-
-}
-
-
-/* Mobile Styles */
-@media only screen and (max-width: 768px) {
+/* Responsive adjustments */
+@media (max-width: 1444px) {
   .blog_container {
-    margin: 20px;
-    text-align: center;
-    color: aliceblue;
-    font-family: 'Roboto', sans-serif;
+    flex-direction: column;
+    gap: 20px;
   }
-
-  .blog_image {
-    float: none; /* Remove float */
-    margin: 0 auto; /* Center image */
-    width: 100%; /* Full width */
-    margin-bottom: 20px; /* Add some space between image and text */
+.imagecont{
+  display: flex;
+  justify-content: center;
+}
+  .blog_header, .continue {
+    padding-left: 15px;
+    padding-right: 15px;
   }
+}
 
-  .blog_text {
-    text-align: justify;
-    font-size: 20px; /* Reduce font size */
+@media (max-width: 480px) {
+  .main_blog {
     padding: 15px;
   }
 
-  .blog_container_second {
-    margin: 20px;
-    text-align: center;
-    color: aliceblue;
-    font-family: 'Roboto', sans-serif;
+  .blog_container {
+    gap: 10px;
   }
 
-  .blog_image_second {
-    float: none; /* Remove float */
-    margin: 0 auto; /* Center image */
-    width: 100%; /* Full width */
-    margin-bottom: 20px; /* Add some space between image and text */
+  .blog_image {
+    max-width: 100%;
   }
 
-  .blog_text_second {
-    text-align: justify;
-    font-size: 20px; /* Reduce font size */
+  .blog_text, .continue {
+    padding-right: 15px;
   }
 }
-
