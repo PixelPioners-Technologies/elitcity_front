@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import './StatusModal_1.css';
+import './SpaceModal_complex.css';
 
-const StatusModal_1 = ({ isOpen, close, children }) => {
+const SpaceModal_1 = ({ isOpen, close, children }) => {
   useEffect(() => {
     const handleDocumentClick = (e) => {
+      // Make sure this matches your outer div's class name
       if (isOpen && e.target.closest('.modal-overlay') === null) {
         close();
       }
@@ -18,12 +19,12 @@ const StatusModal_1 = ({ isOpen, close, children }) => {
   const openClass = isOpen ? 'open' : '';
 
   return (
-    <div className={`modal-overlay ${openClass}`}>
-      <div className="modal-content1 scale-up-top1" onClick={(e) => e.stopPropagation()}>
+    <div className={`modal-overlay ${openClass}`} onClick={close}>
+      <div className="modal-content-complex scale-up-tl" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>
   );
 };
 
-export default StatusModal_1;
+export default SpaceModal_1;

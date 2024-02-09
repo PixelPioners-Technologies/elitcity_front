@@ -98,11 +98,11 @@ export default function Map({ selectedLanguage,
       case 'cities':
         return <div>
           {locations.map((cityItem, index) => (
-            <button key={index} onClick={() => handleCityClick(cityItem.city)} className='button-19'>
-              {cityItem.city}
+            <button key={index} onClick={() => handleCityClick(cityItem.city)} className='city_button'>
+              <span>{cityItem.city}</span>
             </button>
           ))}
-          <button className='modal_close_button' onClick={closeModal} >close</button>
+          <button className='modal_close_button_homePage' onClick={closeModal} >close</button>
         </div>
       case "pharentdistricts":
         // Find the city object from the locations array
@@ -110,32 +110,43 @@ export default function Map({ selectedLanguage,
         if (!city) return null;
 
         return (
-          <div className='location_modal_container' >
-            {city.pharentDistricts.map((parentDistrict, index) => (
-              <div key={index}>
-                <div>
-                  <input
-                    type="checkbox"
-                    checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
-                    onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
-                  />
-                  {parentDistrict.pharentDistrict}
-                </div>
-                <div style={{ marginLeft: '20px' }}>
-                  {parentDistrict.districts.map((district, districtIndex) => (
-                    <div key={districtIndex}>
+          <div className='location_modal_container-homepage' >
+            <div className='districts_and_pharentdostricts-homepage'>
+              {city.pharentDistricts.map((parentDistrict, index) => (
+                <ul key={index} >
+
+                  <div className='pharent_district_chackmarks-homepage' >
+                    <label className="container-homepage">
                       <input
                         type="checkbox"
-                        checked={selectedDistricts.includes(district)}
-                        onChange={(e) => handleDistrictChange(e, district)}
+                        checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
+                        onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
                       />
-                      {district}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-            <button className='modal_close_button' onClick={closeModal}>Close</button>
+                      <div className="checkmark-homepage"></div>
+                    </label>
+                    <p>{parentDistrict.pharentDistrict}</p>
+                  </div>
+
+                  <div className='district_checkmarks-homepage' >
+                    {parentDistrict.districts.map((district, districtIndex) => (
+                      <li key={districtIndex} className='child_district_checkmarks-homepage' >
+                        <label className="container-homepage">
+                          <input
+                            type="checkbox"
+                            checked={selectedDistricts.includes(district)}
+                            onChange={(e) => handleDistrictChange(e, district)}
+                          />
+                          <div className="checkmark-homepage"></div>
+                        </label>
+
+                        <p>{district}</p>
+                      </li>
+                    ))}
+                  </div>
+                </ul>
+              ))}
+            </div>
+            <button className='modal_close_button_homePage' onClick={closeModal}>Close</button>
           </div>
         );
 
@@ -403,8 +414,8 @@ export default function Map({ selectedLanguage,
               <div className='filter_cont_for_homepage'>
 
                 {/* button for filtering space */}
-                <div className="button-modal-container ">
-                  <div onClick={handleSpaceButtonClick} className='space_button'  >
+                <div className="button-modal-container-homepage">
+                  <div onClick={handleSpaceButtonClick} className='space_button_homepage'  >
                     {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
@@ -437,8 +448,8 @@ export default function Map({ selectedLanguage,
                 </div>
 
                 {/* button for filtering price  */}
-                <div className="button-modal-container">
-                  <div onClick={handlePriceButtonClick} className='space_button'  >
+                <div className="button-modal-container-homepage">
+                  <div onClick={handlePriceButtonClick} className='space_button_homepage'  >
                     {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
@@ -486,8 +497,8 @@ export default function Map({ selectedLanguage,
                 </div>
 
                 {/* button for locations */}
-                <div className="button-modal-container" >
-                  <div onClick={handleShowModal} className='lacation_button'   >
+                <div className="button-modal-container-homepage" >
+                  <div onClick={handleShowModal} className='lacation_button_homepage'   >
                     {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
@@ -497,8 +508,8 @@ export default function Map({ selectedLanguage,
                 </div>
 
                 {/* button for status */}
-                <div className="button-modal-container" >
-                  <div onClick={handleStatusButtonClick} className='lacation_button'   >
+                <div className="button-modal-container-homepage" >
+                  <div onClick={handleStatusButtonClick} className='lacation_button_homepage'   >
                     {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
