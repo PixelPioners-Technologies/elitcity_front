@@ -25,6 +25,8 @@ import headphone_icon from "./icons/headphones.png";
 import { motion } from "framer-motion";
 import cancel_icon from "./icons/cancel.png";
 import EachApartment from "./pages/EachApartment";
+import EachBlog from "./pages/EachBlog";
+
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
@@ -70,27 +72,27 @@ function trackButtonClick(buttonName) {
 const BaseURLs = {
   // storkhome
 
-  complex: "https://api.storkhome.ge/complex/",
-  company: "https://api.storkhome.ge/company/",
-  apartment: "https://api.storkhome.ge/apartment/",
-  private_apartment: "https://api.storkhome.ge/privateapartments/",
-  ground: "https://api.storkhome.ge/ground/",
-  promotion: "https://api.storkhome.ge/promotions/",
-  blog: "https://api.storkhome.ge/blog/",
-  map: "https://api.storkhome.ge/map/",
-  complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+  // complex: "https://api.storkhome.ge/complex/",
+  // company: "https://api.storkhome.ge/company/",
+  // apartment: "https://api.storkhome.ge/apartment/",
+  // private_apartment: "https://api.storkhome.ge/privateapartments/",
+  // ground: "https://api.storkhome.ge/ground/",
+  // promotion: "https://api.storkhome.ge/promotions/",
+  // blog: "https://api.storkhome.ge/blog/",
+  // map: "https://api.storkhome.ge/map/",
+  // complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
 
   // local
 
-  // complex: "http://127.0.0.1:8000/complex/",
-  // company: "http://127.0.0.1:8000/company/",
-  // apartment: "http://127.0.0.1:8000/apartment/",
-  // private_apartment: "http://127.0.0.1:8000/privateapartments/",
-  // ground: "http://127.0.0.1:8000/ground/",
-  // promotion: "http://127.0.0.1:8000/promotions/",
-  // blog: "http://127.0.0.1:8000/blog/",
-  // map: "http://127.0.0.1:8000/map/",
-  // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+  complex: "http://127.0.0.1:8000/complex/",
+  company: "http://127.0.0.1:8000/company/",
+  apartment: "http://127.0.0.1:8000/apartment/",
+  private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  ground: "http://127.0.0.1:8000/ground/",
+  promotion: "http://127.0.0.1:8000/promotions/",
+  blog: "http://127.0.0.1:8000/blog/",
+  map: "http://127.0.0.1:8000/map/",
+  complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
 };
 
 export { BaseURLs };
@@ -273,9 +275,9 @@ function App() {
   }
   // -----------------------------------------------------------------------------------------------------
 
-  useEffect(() => {
-    console.log('total_item_number on app', total_item_number)
-  }, [total_item_number])
+  // useEffect(() => {
+  //   console.log('total_item_number on app', total_item_number)
+  // }, [total_item_number])
 
   useEffect(() => {
     const fetchComplexes = async () => {
@@ -327,7 +329,6 @@ function App() {
     fetchComplexes();
   }, [searchButton]);
 
-  console.log("complexes ----", complexes)
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
@@ -643,7 +644,7 @@ function App() {
             />
           }
         />
-        <Route path="articles" element={<Articles />} />
+        <Route path="articles" element={<Articles selectedLanguage={selectedLanguage} />} />
         <Route
           path="storkhome"
           element={
@@ -703,6 +704,16 @@ function App() {
         />
 
         <Route
+          path="eachblog/:blogId"
+          element={
+            <EachBlog
+              selectedLanguage={selectedLanguage}
+              // handleCallButtonClick={handleCallButtonClick}
+            />
+          }
+        />
+
+        <Route
           path="favoriteComplex"
           element={<FavoriteComplex favorites={favorites} />}
         />
@@ -710,7 +721,7 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-        // onClick={(e) => e.stopPropagation()}
+      // onClick={(e) => e.stopPropagation()}
       >
         <div className="call_modal_containerr">
           <div className="cancel_icon_container">
