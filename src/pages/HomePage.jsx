@@ -102,7 +102,7 @@ export default function Map({ selectedLanguage,
               <span>{cityItem.city}</span>
             </button>
           ))}
-          <button className='modal_close_button' onClick={closeModal} >close</button>
+          <button className='modal_close_button_homePage' onClick={closeModal} >close</button>
         </div>
       case "pharentdistricts":
         // Find the city object from the locations array
@@ -110,33 +110,33 @@ export default function Map({ selectedLanguage,
         if (!city) return null;
 
         return (
-          <div className='location_modal_container' >
-            <div className='districts_and_pharentdostricts'>
+          <div className='location_modal_container-homepage' >
+            <div className='districts_and_pharentdostricts-homepage'>
               {city.pharentDistricts.map((parentDistrict, index) => (
                 <ul key={index} >
 
-                  <div className='pharent_district_chackmarks' >
-                    <label className="container">
+                  <div className='pharent_district_chackmarks-homepage' >
+                    <label className="container-homepage">
                       <input
                         type="checkbox"
                         checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
                         onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
                       />
-                      <div className="checkmark"></div>
+                      <div className="checkmark-homepage"></div>
                     </label>
                     <p>{parentDistrict.pharentDistrict}</p>
                   </div>
 
-                  <div className='district_checkmarks' >
+                  <div className='district_checkmarks-homepage' >
                     {parentDistrict.districts.map((district, districtIndex) => (
-                      <li key={districtIndex} className='child_district_checkmarks' >
-                        <label className="container">
+                      <li key={districtIndex} className='child_district_checkmarks-homepage' >
+                        <label className="container-homepage">
                           <input
                             type="checkbox"
                             checked={selectedDistricts.includes(district)}
                             onChange={(e) => handleDistrictChange(e, district)}
                           />
-                          <div className="checkmark"></div>
+                          <div className="checkmark-homepage"></div>
                         </label>
 
                         <p>{district}</p>
@@ -146,7 +146,7 @@ export default function Map({ selectedLanguage,
                 </ul>
               ))}
             </div>
-            <button className='modal_close_button' onClick={closeModal}>Close</button>
+            <button className='modal_close_button_homePage' onClick={closeModal}>Close</button>
           </div>
         );
 
