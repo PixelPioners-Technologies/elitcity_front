@@ -85,6 +85,11 @@ export default function Physical({
   selectedLanguage,
   favorites,
   favoriteHandler,
+  getCorrencyRate,
+  HandleStateChange,
+  currenceChangeState,
+  isOn,
+  toggleSwitch,
 }) {
   const [privateApartments, setPrivateApartments] = useState([]);
 
@@ -136,7 +141,7 @@ export default function Physical({
 
   // Assuming `complex` is an object representing each house
   const handleAppartmentClick = (p_apartment_id) => {
-    navigate(`/eachprivateappartment/${p_apartment_id}`,{ state: { p_apartment_id } });
+    navigate(`/eachprivateappartment/${p_apartment_id}`, { state: { p_apartment_id } });
   };
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
@@ -608,9 +613,9 @@ export default function Physical({
   };
 
   // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
+  // const [isOn, setIsOn] = useState(false);
+  // const toggleSwitch = () => setIsOn(!isOn);
+  // // -----===--------(END)
 
   // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
@@ -815,11 +820,10 @@ export default function Physical({
                     {NUMBER_OF_ROOM_CHOICES.map((choice) => (
                       <React.Fragment key={choice.value}>
                         <label
-                          className={`checkbox-label ${
-                            selectedRoomNumbers.includes(choice.value)
+                          className={`checkbox-label ${selectedRoomNumbers.includes(choice.value)
                               ? "selected"
                               : ""
-                          }`}
+                            }`}
                           onClick={() => handleRoomNumberChange(choice.value)}
                         >
                           {choice.label}
@@ -830,7 +834,7 @@ export default function Physical({
                           name="number_of_rooms"
                           value={choice.value}
                           checked={selectedRoomNumbers.includes(choice.value)}
-                          onChange={() => {}}
+                          onChange={() => { }}
                           style={{ display: "none" }}
                         />
                       </React.Fragment>
@@ -1241,7 +1245,7 @@ export default function Physical({
                 <div
                   className="switch_physical"
                   data-ison={isOn}
-                  onClick={toggleSwitch}
+                  onClick={() => { toggleSwitch(); HandleStateChange() }}
                 >
                   <motion.div
                     className="handle_physical"
@@ -1251,16 +1255,14 @@ export default function Physical({
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${
-                        isOn ? "active" : ""
-                      }`}
+                      className={`currency-sign_physical ${isOn ? "active" : ""
+                        }`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${
-                        !isOn ? "active" : ""
-                      }`}
+                      className={`currency-sign_physical ${!isOn ? "active" : ""
+                        }`}
                     />
                   </motion.div>
                 </div>
@@ -1321,7 +1323,9 @@ export default function Physical({
                   {prev_apartments.address.city}
                 </p>
                 <p className="price_settings" style={styles.complexInfo}>
-                  {prev_apartments.squarePrice}{" "}
+                  {currenceChangeState
+                    ? prev_apartments.squarePrice * getCorrencyRate
+                    : prev_apartments.squarePrice}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">

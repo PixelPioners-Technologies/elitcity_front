@@ -77,7 +77,17 @@ const normalizeLocationData = (data, lang) => {
   });
 };
 
-export default function Physical({ selectedLanguage, favorites }) {
+export default function Physical({ selectedLanguage,
+  favorites,
+  getCorrencyRate,
+  HandleStateChange,
+  currenceChangeState,
+  isOn,
+  toggleSwitch,
+
+
+
+}) {
   const [privateApartments, setPrivateApartments] = useState([]);
 
   const [is_P_ModalOpen, setIs_P_ModalOpen] = useState("");
@@ -110,6 +120,8 @@ export default function Physical({ selectedLanguage, favorites }) {
   const [stringFilterValue, setStringFilterValue] = useState("");
   const [graundStatus, setGraundStatus] = useState([]);
 
+
+
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -127,7 +139,7 @@ export default function Physical({ selectedLanguage, favorites }) {
   const navigate = useNavigate();
   // Assuming `complex` is an object representing each house
   const handleLotsClick = (prev_apartments) => {
-    navigate(`/eachground/${prev_apartments}`,{ state: { prev_apartments } });
+    navigate(`/eachground/${prev_apartments}`, { state: { prev_apartments } });
   };
 
 
@@ -580,10 +592,10 @@ export default function Physical({ selectedLanguage, favorites }) {
     setAnchorEl(null);
   };
 
-  // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
+  // // for toggle DOllar AND LARI ---==---(START)
+  // const [isOn, setIsOn] = useState(false);
+  // const toggleSwitch = () => setIsOn(!isOn);
+  // // -----===--------(END)
 
   // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
@@ -1191,7 +1203,7 @@ export default function Physical({ selectedLanguage, favorites }) {
                 <div
                   className="switch_physical"
                   data-ison={isOn}
-                  onClick={toggleSwitch}
+                  onClick={() => { toggleSwitch(); HandleStateChange() }}
                 >
                   <motion.div
                     className="handle_physical"
@@ -1201,16 +1213,14 @@ export default function Physical({ selectedLanguage, favorites }) {
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${
-                        isOn ? "active" : ""
-                      }`}
+                      className={`currency-sign_physical ${isOn ? "active" : ""
+                        }`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${
-                        !isOn ? "active" : ""
-                      }`}
+                      className={`currency-sign_physical ${!isOn ? "active" : ""
+                        }`}
                     />
                   </motion.div>
                 </div>
@@ -1271,7 +1281,10 @@ export default function Physical({ selectedLanguage, favorites }) {
                   {prev_apartments.address.city}
                 </p>
                 <p className="price_settings" style={styles.complexInfo}>
-                  {prev_apartments.squarePrice}{" "}
+                  {/* {prev_apartments.squarePrice *   getCorrencyRate}{" "} */}
+                  {currenceChangeState
+                    ? prev_apartments.squarePrice * getCorrencyRate
+                    : prev_apartments.squarePrice}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">

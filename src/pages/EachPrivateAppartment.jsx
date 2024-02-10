@@ -46,7 +46,18 @@ const normalizePrivateApartmentData = (data, lang) => {
   });
 };
 
-export default function EachPrivateAppartment({ selectedLanguage, favorites, favoriteHandler, handleCallButtonClick }) {
+export default function EachPrivateAppartment({
+  selectedLanguage,
+  favorites,
+  favoriteHandler,
+  handleCallButtonClick,
+  getCorrencyRate,
+  HandleStateChange,
+  currenceChangeState,
+  isOn,
+  toggleSwitch,
+
+}) {
   const [carouselPosition, setCarouselPosition] = useState(0);
   const [ground, setGround] = useState({})
   const [private_apartment, setPrivate_apartment] = useState({});
@@ -60,10 +71,10 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
   const location = useLocation();
   const { p_apartment_id } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
   // ---------------------------------------------------------------------------------------------------------------
-  
-  
-  
-  
+
+
+
+
   // ------------------------------------axios for fetching private apartments -----------------------------------------
   useEffect(() => {
     const fetcPrivateApartments = async () => {
@@ -86,7 +97,7 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
 
 
   useEffect(() => {
-    console.log('Updated ground:' , ground);
+    console.log('Updated ground:', ground);
   }, [ground]); // This effect will run after 'ground' has been updated
 
 
@@ -135,7 +146,7 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
     // Add more statuses and translations if needed
   };
 
-  
+
 
   const handleStaticTextLanguageChange = (lang) => {
     var languageInfo = {
@@ -224,9 +235,9 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
 
 
   // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
+  // const [isOn, setIsOn] = useState(false);
+  // const toggleSwitch = () => setIsOn(!isOn);
+  // // -----===--------(END)
 
 
   const squareSymbol = "\u00B2";
@@ -257,25 +268,25 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
       <div className="imageAndTextInfos">
         {/* Complexes photos info */}
         <div className="imageSliderBox">
-            <div className="carusel_buttons">
-              <button className="Btn" onClick={handlePrevious} >
-                {handleStaticTextLanguageChange(selectedLanguage).previous_button}
-              </button>
-              <button className="Btn" onClick={handleNext} >
-                {handleStaticTextLanguageChange(selectedLanguage).nex_button}
-              </button>
-            </div>
+          <div className="carusel_buttons">
+            <button className="Btn" onClick={handlePrevious} >
+              {handleStaticTextLanguageChange(selectedLanguage).previous_button}
+            </button>
+            <button className="Btn" onClick={handleNext} >
+              {handleStaticTextLanguageChange(selectedLanguage).nex_button}
+            </button>
           </div>
-          <div className="bigImageBox">
-            {wordData && ( // Check if wordData is not null/undefined before rendering
-              <img
-                src={wordData.value}
-                alt={`Complex ${wordData.id}`}
-                height="450"
-                width="711"
-                className={clickedIndex !== null ? "clicked" : ""}
-              />
-            )}
+        </div>
+        <div className="bigImageBox">
+          {wordData && ( // Check if wordData is not null/undefined before rendering
+            <img
+              src={wordData.value}
+              alt={`Complex ${wordData.id}`}
+              height="450"
+              width="711"
+              className={clickedIndex !== null ? "clicked" : ""}
+            />
+          )}
 
           <div className="miniImagesBox">
             {sliderImages
@@ -317,7 +328,7 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
                 <div
                   className="switch"
                   data-ison={isOn}
-                  onClick={toggleSwitch}
+                  onClick={() => { toggleSwitch(); HandleStateChange() }}
                 >
                   <motion.div className="handle" layout transition={spring}>
                     <img
@@ -344,7 +355,11 @@ export default function EachPrivateAppartment({ selectedLanguage, favorites, fav
           <div className="ground_settings">
             <h1 style={{ color: "#ccc", fontSize: "20px" }}>  {ground.privateApartmentName}</h1>
             <p style={{ color: "#838289", width: '300px' }}> {handleStaticTextLanguageChange(selectedLanguage).location} : {ground.address?.city} ,{ground.address?.streetName} </p>
-            <p style={{ color: "#ccc", fontSize: "20px" }}>  {handleStaticTextLanguageChange(selectedLanguage).square_price} : {ground.squarePrice}</p>
+            <p style={{ color: "#ccc", fontSize: "20px" }}>
+              {handleStaticTextLanguageChange(selectedLanguage).square_price}
+              : {currenceChangeState
+                ? ground.squarePrice * getCorrencyRate
+                : ground.squarePrice}</p>
             <p style={{ color: "#C2BFBF" }}>{handleStaticTextLanguageChange(selectedLanguage).status}: {cardStatusSettingLanguage(selectedLanguage, ground.status)}</p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).area} : {ground.area} m²  </p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).rank}: {ground.rank}</p>

@@ -155,6 +155,11 @@ export default function EachApartment({
   favorites,
   favoriteHandler,
   handleCallButtonClick,
+  getCorrencyRate,
+  HandleStateChange,
+  currenceChangeState,
+  isOn,
+  toggleSwitch,
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
@@ -373,9 +378,9 @@ export default function EachApartment({
   };
 
   // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
+  // const [isOn, setIsOn] = useState(false);
+  // const toggleSwitch = () => setIsOn(!isOn);
+  // // -----===--------(END)
 
   // --------------------------function for selecting status for filtration -----------------------------------------------
 
@@ -615,7 +620,8 @@ export default function EachApartment({
                   <div
                     className="switch"
                     data-ison={isOn}
-                    onClick={toggleSwitch}
+                    onClick={() => { toggleSwitch(); HandleStateChange() }}
+
                   >
                     <motion.div className="handle" layout transition={spring}>
                       <img
@@ -651,10 +657,9 @@ export default function EachApartment({
                 eachComplexAllAppartments.complex && (
                   <p style={{ color: "#ccc", fontSize: "20px" }}>
                     m²-ის ფასი:{" "}
-                    {
-                      eachComplexAllAppartments?.complex?.internalComplex
-                        ?.pricePerSqMeter
-                    }
+                    {currenceChangeState
+                ? eachComplexAllAppartments?.complex?.internalComplex?.pricePerSqMeter * getCorrencyRate
+                : eachComplexAllAppartments?.complex?.internalComplex?.pricePerSqMeter}
                     $
                   </p>
                 )}
