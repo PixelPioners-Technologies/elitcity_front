@@ -416,6 +416,22 @@ function App() {
     getExchangeRate();
   }, []);
 
+  // --------------------------------------kursis cvlilebis logika ---------------------------------------------
+
+  const [currenceChangeState, setCurrenceChangeState] = useState(true);
+
+  const HandleStateChange = () => {
+    setCurrenceChangeState(!currenceChangeState)
+    console.log(currenceChangeState)
+  }
+
+
+  // for toggle DOllar AND LARI ---==---(START)
+  const [isOn, setIsOn] = useState(false);
+  const toggleSwitch = () => setIsOn(!isOn);
+  // -----===--------(END)
+
+  // -------------------------------------------------------------- ---------------------------------------------
   // ------------------------function for opening call modal----------------------------------
   useEffect(() => {
     // First timer to open the modal after 10 seconds
@@ -601,6 +617,12 @@ function App() {
                 complexes={complexes}
 
                 total_item_number={total_item_number}
+
+                getCorrencyRate={getCorrencyRate}
+                HandleStateChange={HandleStateChange}
+                currenceChangeState={currenceChangeState}
+                isOn={isOn}
+                toggleSwitch={toggleSwitch}
               />
             }
           />
@@ -608,7 +630,14 @@ function App() {
         <Route
           path="lots"
           element={
-            <Lots favorites={favorites} selectedLanguage={selectedLanguage} />
+            <Lots favorites={favorites}
+              selectedLanguage={selectedLanguage}
+              getCorrencyRate={getCorrencyRate}
+              HandleStateChange={HandleStateChange}
+              currenceChangeState={currenceChangeState}
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
+            />
           }
         />
         <Route
@@ -641,6 +670,12 @@ function App() {
               selectedLanguage={selectedLanguage}
               favoriteHandler={favoriteHandler}
               handleCallButtonClick={handleCallButtonClick}
+
+              getCorrencyRate={getCorrencyRate}
+              HandleStateChange={HandleStateChange}
+              currenceChangeState={currenceChangeState}
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
             />
           }
         />
@@ -663,6 +698,13 @@ function App() {
               favorites={favorites}
               favoriteHandler={favoriteHandler}
               handleCallButtonClick={handleCallButtonClick}
+
+              getCorrencyRate={getCorrencyRate}
+              HandleStateChange={HandleStateChange}
+              currenceChangeState={currenceChangeState}
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
+
             />
           }
         />
@@ -675,6 +717,12 @@ function App() {
               favorites={favorites}
               favoriteHandler={favoriteHandler}
               handleCallButtonClick={handleCallButtonClick}
+
+              getCorrencyRate={getCorrencyRate}
+              HandleStateChange={HandleStateChange}
+              currenceChangeState={currenceChangeState}
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
             />
           }
         />
@@ -687,6 +735,12 @@ function App() {
               favorites={favorites}
               favoriteHandler={favoriteHandler}
               handleCallButtonClick={handleCallButtonClick}
+
+              getCorrencyRate={getCorrencyRate}
+              HandleStateChange={HandleStateChange}
+              currenceChangeState={currenceChangeState}
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
             />
           }
         />
@@ -699,6 +753,12 @@ function App() {
               favorites={favorites}
               favoriteHandler={favoriteHandler}
               handleCallButtonClick={handleCallButtonClick}
+
+              getCorrencyRate={getCorrencyRate}
+              HandleStateChange={HandleStateChange}
+              currenceChangeState={currenceChangeState}
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
             />
           }
         />
@@ -708,14 +768,22 @@ function App() {
           element={
             <EachBlog
               selectedLanguage={selectedLanguage}
-              // handleCallButtonClick={handleCallButtonClick}
+            // handleCallButtonClick={handleCallButtonClick}
             />
           }
         />
 
         <Route
           path="favoriteComplex"
-          element={<FavoriteComplex favorites={favorites} />}
+          element={<FavoriteComplex
+            favorites={favorites}
+            getCorrencyRate={getCorrencyRate}
+            HandleStateChange={HandleStateChange}
+            currenceChangeState={currenceChangeState}
+            isOn={isOn}
+            toggleSwitch={toggleSwitch}
+
+          />}
         />
       </Routes>
       <Call_Modal

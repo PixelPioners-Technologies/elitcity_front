@@ -143,6 +143,11 @@ export default function EachComplex({
   favorites,
   favoriteHandler,
   handleCallButtonClick,
+  getCorrencyRate,
+  HandleStateChange,
+  currenceChangeState,
+  isOn,
+  toggleSwitch,
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
@@ -367,9 +372,9 @@ export default function EachComplex({
   };
 
   // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
+  // const [isOn, setIsOn] = useState(false);
+  // const toggleSwitch = () => setIsOn(!isOn);
+  // // -----===--------(END)
 
   // --------------------------function for selecting status for filtration -----------------------------------------------
 
@@ -757,7 +762,7 @@ export default function EachComplex({
               </button>
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
-                <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
+                <div className="switch" data-ison={isOn} onClick={() => { toggleSwitch(); HandleStateChange() }}>
                   <motion.div className="handle" layout transition={spring}>
                     <img
                       src={lari}
@@ -800,7 +805,9 @@ export default function EachComplex({
             <p style={{ color: "#838282" }}> {eachPrivateApartment?.adress}</p>
             <p style={{ color: "#ccc", fontSize: "20px" }}>
               {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}{" "}
-              {eachPrivateApartment?.pricePerSqMeter}$
+              {currenceChangeState
+                ? eachPrivateApartment.pricePerSqMeter * getCorrencyRate
+                : eachPrivateApartment.pricePerSqMeter}$
               {handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
             </p>
           </div>
