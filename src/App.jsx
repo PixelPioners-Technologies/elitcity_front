@@ -258,6 +258,10 @@ function App() {
   };
   const handleCorrentPageHandler = (data) => {
     setCorrentPage(data);
+      window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
   };
 
   const handleSetTodalPageCount = (data) => {
