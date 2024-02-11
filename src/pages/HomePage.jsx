@@ -502,7 +502,7 @@ export default function Map({ selectedLanguage,
                     {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
-                  <Modal_1 isOpen={isModalOpen} >
+                  <Modal_1 isOpen={isModalOpen} close={closeModal} >
                     {renderModalContent()}
                   </Modal_1>
                 </div>
