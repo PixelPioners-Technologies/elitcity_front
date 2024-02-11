@@ -7,7 +7,6 @@
 .aboud_and_map_child_container_P{
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .about_land_header_P{
@@ -26,5 +25,4 @@
 .child_map_container_P{
   width: 800px;
   height: 200px;
-  
 }

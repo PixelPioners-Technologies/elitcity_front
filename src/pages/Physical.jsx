@@ -55,7 +55,7 @@ const normalizePrivateApartmentData = (data, lang) => {
     },
     images: item.private_apartment_images,
     privateApartmentName: item[`private_apartment_name_${lang}`],
-    testPrivateField: item[`test_private_field_${lang}`],
+    about: item[`about_${lang}`],
   }));
 };
 

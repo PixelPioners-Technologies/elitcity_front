@@ -41,7 +41,8 @@ import aptiaqi from "../assets/Aptiaqi.svg";
 import supermarket from "../assets/Supermarket.svg";
 import skveri from "../assets/skveri.svg";
 import forMapPhoto from "../assets/ComplexesPhotos/1zz.jpg";
-
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import private_apartment_location_icon from '../location_icons/private_apartment2.png'
 // ------------------
 import "./Physical.css";
 import axios from "axios";
@@ -150,10 +151,35 @@ const normalizeApartmentData = (data, lang) => {
       longitude: data[`appartment_address_${lang}`].longitude,
       latitude: data[`appartment_address_${lang}`].latitude,
     },
+
+    internalApartmentDetails: {
+      id: data.internal_apartment_name.id,
+      internalApartmentName: data.internal_apartment_name.internal_apartment_name,
+      numberOfRooms: data.internal_apartment_name.number_of_rooms,
+      area: data.internal_apartment_name.area,
+      fullPrice: data.internal_apartment_name.full_price,
+      squarePrice: data.internal_apartment_name.square_price,
+      floorNumber: data.internal_apartment_name.floor_number,
+      isAvailable: data.internal_apartment_name.is_available,
+      visibility: data.internal_apartment_name.visibiliti,
+      rooms: data.internal_apartment_name.rooms,
+      kitchen: data.internal_apartment_name.kitchen,
+      bathroom: data.internal_apartment_name.Bathroom,
+      bedroom: data.internal_apartment_name.bedroom,
+      balcony: data.internal_apartment_name.Balcony,
+    },
+
+
     apartmentImages: data.appartment_images,
     testField: data[`test_field_${lang}`],
   };
 };
+
+// "rooms": 6,
+// "kitchen": 4,
+// "Bathroom": 7,
+// "bedroom": 8,
+// "Balcony": 3
 
 export default function EachApartment({
   selectedLanguage,
@@ -183,9 +209,11 @@ export default function EachApartment({
   {
     console.log(
       "---------------------------------------",
-      eachComplexAllAppartments?.complex?.adress?.city
+      eachComplexAllAppartments.address?.adress?.city
     );
   }
+
+
 
   const [wordData, setWordData] = useState(null);
   const [val, setVal] = useState(0);
@@ -319,6 +347,15 @@ export default function EachApartment({
     currentPage,
     apartmentId,
   ]);
+
+
+  // lat: eachComplexAllAppartments?.address?.latitude || 41.7151,
+  // lng: eachComplexAllAppartments?.address?.longitude || 44.8271,
+
+// useEffect(()=> {
+//   console.log('esa ==',eachComplexAllAppartments?.address?.latitude)
+// },[eachComplexAllAppartments])
+
 
   // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
@@ -705,7 +742,35 @@ export default function EachApartment({
     return languageInfo;
   };
 
-  //
+
+  
+  
+  const mapcenter = {
+    lat: eachComplexAllAppartments?.apartmentAddress?.latitude || 41.7151,
+    lng: eachComplexAllAppartments?.apartmentAddress?.longitude || 44.8271,
+
+
+  };
+  
+  console.log("longebi da latebi apartm ------------",mapcenter)
+
+
+  const navigate = useNavigate();
+  
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
+  });
+
+  if (loadError) {
+    return <div>Error loading maps</div>;
+  }
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+  const scalesize = new window.google.maps.Size(40, 40)
+
+
+
 
   return (
     <div className="eachComplexBox">
@@ -827,38 +892,22 @@ export default function EachApartment({
             <div className="chabarebaPartebiKorpusebi">
               {/* ქვედა, მეორე ტექსტია.. bathroom,bedroom,balcony  Fართები... სართულიანობა */}
               <div className="eachTextOnListTexts">
-                <p style={{ color: "#C2BFBF" }}>
-                  {" "}
-                  {handle_P_StatusButtonLanguageChange(selectedLanguage).rooms}
-                </p>
-                <p style={{ color: "#C2BFBF" }}>
-                  {" "}
-                  {
-                    handle_P_StatusButtonLanguageChange(selectedLanguage)
-                      .kitchen
-                  }
-                </p>
-                <p style={{ color: "#C2BFBF" }}>
-                  {" "}
-                  {
-                    handle_P_StatusButtonLanguageChange(selectedLanguage)
-                      .bathroom
-                  }
-                </p>
-                <p style={{ color: "#C2BFBF" }}>
-                  {" "}
-                  {
-                    handle_P_StatusButtonLanguageChange(selectedLanguage)
-                      .bedroom
-                  }
-                </p>
-                <p style={{ color: "#C2BFBF" }}>
-                  {" "}
-                  {
-                    handle_P_StatusButtonLanguageChange(selectedLanguage)
-                      .balcony
-                  }
-                </p>
+                <div className="room_details" style={{ color: "#C2BFBF" }}>
+                   <p className="room_details_headers" >{handle_P_StatusButtonLanguageChange(selectedLanguage).rooms} :{eachComplexAllAppartments?.internalApartmentDetails.rooms} </p> 
+                </div>
+                <div className="room_details" style={{ color: "#C2BFBF" }}>
+                  { handle_P_StatusButtonLanguageChange(selectedLanguage).kitchen }: {eachComplexAllAppartments?.internalApartmentDetails?.kitchen}
+                </div>
+                <div className="room_details" style={{ color: "#C2BFBF" }}>
+                { handle_P_StatusButtonLanguageChange(selectedLanguage).bathroom }: {eachComplexAllAppartments?.internalApartmentDetails?.bathroom}
+
+                </div>
+                <div className="room_details" style={{ color: "#C2BFBF" }}>
+                { handle_P_StatusButtonLanguageChange(selectedLanguage).bedroom }: {eachComplexAllAppartments?.internalApartmentDetails?.bedroom}
+                </div>
+                <div className="room_details" style={{ color: "#C2BFBF" }}>
+                { handle_P_StatusButtonLanguageChange(selectedLanguage).balcony }: {eachComplexAllAppartments?.internalApartmentDetails?.balcony}
+                </div>
               </div>
 
               <div className="eachTextOnListTextsTwo">
@@ -1440,12 +1489,35 @@ export default function EachApartment({
           </div>
         </div>
 
-        <div className="boxOfMapOnAxloMdebare">
-          <img
-            src={forMapPhoto}
-            className="googlePhotoOnEachComplexPage"
-            alt="forMapPhoto"
-          />
+        <div className="child_map_container_P">
+        <GoogleMap
+              mapContainerStyle={{ height: '300px' }}
+              center={mapcenter}
+              zoom={16}
+              options={{
+                gestureHandling: "none",
+                zoomControl: true,
+                scrollwheel: false,
+                disableDoubleClickZoom: true,
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false,
+              }}
+            >
+              <Marker
+                key={privateApartments.id}
+                position={{
+                  lat: eachComplexAllAppartments?.apartmentAddress?.latitude,
+                  lng: eachComplexAllAppartments?.apartmentAddress?.longitude,
+            
+            
+                }}
+                icon={{
+                  url: private_apartment_location_icon,
+                  scaledSize: scalesize
+                }}
+              />
+            </GoogleMap>
         </div>
       </div>
       {/* (END) ახლო მდებარე ობიექტები box -------- */}

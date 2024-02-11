@@ -31,6 +31,13 @@ const normalizePrivateApartmentData = (data, lang) => {
     isAvailable: data.internal_private_apartment_name.is_available,
     visibility: data.internal_private_apartment_name.visibiliti,
     rank: data.internal_private_apartment_name.rank,
+
+    rooms: data.internal_private_apartment_name.rooms,
+    kitchen: data.internal_private_apartment_name.kitchen,
+    Bathroom: data.internal_private_apartment_name.Bathroom,
+    bedroom: data.internal_private_apartment_name.bedroom,
+    Balcony: data.internal_private_apartment_name.Balcony,
+
     address: {
       city: data[`private_apartment_address_${lang}`][`city_${lang}`],
       parentDistrict: data[`private_apartment_address_${lang}`][`pharentDistrict_${lang}`],
@@ -42,7 +49,7 @@ const normalizePrivateApartmentData = (data, lang) => {
     },
     images: data.private_apartment_images,
     privateApartmentName: data[`private_apartment_name_${lang}`],
-    testPrivateField: data[`test_private_field_${lang}`],
+    about: data[`about_${lang}`],
   });
 };
 
@@ -160,7 +167,13 @@ export default function EachPrivateAppartment({
       request_call: "Call request",
       status: "Status",
       views: "Views",
-      description: 'Description'
+      description: 'Description',
+
+      rooms : 'Rooms',
+      kitchen  : 'Kitchen'  ,
+      Bathroom  : 'Bathroom'  ,
+      bedroom  : 'Bedroom'   ,
+      Balcony  : 'Balcony'  ,
     };
 
     switch (lang) {
@@ -176,6 +189,14 @@ export default function EachPrivateAppartment({
         languageInfo.status = "Status";
         languageInfo.views = "Views";
         languageInfo.description = "Description";
+
+        languageInfo.rooms = "Rooms";
+        languageInfo.kitchen = "Kitchen";
+        languageInfo.Bathroom = "Bathroom";
+        languageInfo.bedroom = "Bedroom";
+        languageInfo.Balcony = "Balcony";
+
+
         break;
 
       case "ka":
@@ -190,6 +211,13 @@ export default function EachPrivateAppartment({
         languageInfo.status = "სტატუსი";
         languageInfo.views = "ნახვები";
         languageInfo.description = "აღწერილობა";
+        languageInfo.rooms = "ოთახები";
+        languageInfo.kitchen = "სამზარეულო";
+        languageInfo.Bathroom = "საპირფარეშო";
+        languageInfo.bedroom = "საძინებელი";
+        languageInfo.Balcony = "აივანი";
+
+
         break;
 
       case "ru":
@@ -204,6 +232,11 @@ export default function EachPrivateAppartment({
         languageInfo.status = "Положение дел";
         languageInfo.views = "Взгляды";
         languageInfo.description = "Описание";
+        languageInfo.rooms = "Номера";
+        languageInfo.kitchen = "Кухня";
+        languageInfo.Bathroom = "Ванная комната";
+        languageInfo.bedroom = "Спальная комната";
+        languageInfo.Balcony = "Балкон";
         break;
     }
     return languageInfo;
@@ -363,7 +396,11 @@ export default function EachPrivateAppartment({
             <p style={{ color: "#C2BFBF" }}>{handleStaticTextLanguageChange(selectedLanguage).status}: {cardStatusSettingLanguage(selectedLanguage, ground.status)}</p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).area} : {ground.area} m²  </p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).rank}: {ground.rank}</p>
-
+            <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).rooms}     :{ground.rooms}   </p>
+            <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).kitchen}  : {ground.kitchen}   </p>
+            <p style={{ color: "#C2BFBF" }}>  {handleStaticTextLanguageChange(selectedLanguage).Bathroom}  :{ground.Bathroom}   </p>
+            <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).bedroom} : {ground.bedroom}   </p>
+            <p style={{ color: "#C2BFBF" }}>  {handleStaticTextLanguageChange(selectedLanguage).Balcony}  :{ground.Balcony}   </p>
 
           </div>
           {/* დარეკვისა და ნომრის ჩვენების სექცია */}
@@ -403,14 +440,7 @@ export default function EachPrivateAppartment({
           <div>
             <h1 className='about_land_header_P' > {handleStaticTextLanguageChange(selectedLanguage).description} </h1>
             <p className='about_land_P' >
-              What is Lorem Ipsum?
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-              when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-              It has survived not only five centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-              sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-              Aldus PageMaker including versions of Lorem Ipsum.
+              {ground.about}
             </p>
           </div>
 
