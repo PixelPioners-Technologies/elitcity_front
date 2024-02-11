@@ -183,7 +183,7 @@ export default function Physical({ selectedLanguage,
       const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.ground}${selectedLanguage}/?${queryString}`;
 
-      const response = await axios.get(requestUrl);
+      const response = await axios.get(requestUrl , { withCredentials: true });
       const data = response.data.results;
       const normalised_Data = normalizeGroundData(data, selectedLanguage);
       setPrivateApartments(normalised_Data);
@@ -479,6 +479,7 @@ export default function Physical({ selectedLanguage,
       stringFiltrationButtonLanguage: "Search by word",
       complexes: "Complexes",
       private_apartments: "Private Appartments",
+      allFindButtonLanguage : "Search"
     };
 
     switch (lang) {
@@ -494,6 +495,8 @@ export default function Physical({ selectedLanguage,
         languageInfo.stringFiltrationButtonLanguage = "Search by word";
         languageInfo.complexes = "Complexes";
         languageInfo.private_apartments = "Private Appartments";
+        languageInfo.allFindButtonLanguage = "Search";
+
         break;
 
       case "ka":
@@ -508,6 +511,8 @@ export default function Physical({ selectedLanguage,
         languageInfo.stringFiltrationButtonLanguage = "იპოვე სიტყვით";
         languageInfo.complexes = "კომპლექსები";
         languageInfo.private_apartments = "კერძო ბინები";
+        languageInfo.allFindButtonLanguage = "Search";
+
         break;
 
       case "ru":
@@ -522,6 +527,7 @@ export default function Physical({ selectedLanguage,
         languageInfo.stringFiltrationButtonLanguage = "Поиск по слову";
         languageInfo.complexes = "Комплексы";
         languageInfo.private_apartments = "Частные апартаменты";
+        
         break;
     }
     return languageInfo;
@@ -616,6 +622,7 @@ export default function Physical({ selectedLanguage,
       sortingButtonAscendantFullPrice: "Ascendant full price ",
       sortingButtonDescendentFullPrice: "Descendant full price",
       studio: "Studio",
+      allFindButtonLanguage : "Search by word "
     };
 
     switch (lang) {
@@ -636,8 +643,7 @@ export default function Physical({ selectedLanguage,
         languageInfo.sortingButtonAscendantTime = "თარიღი ზრდადობით";
         languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით";
         languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით";
-        languageInfo.sortingButtonDescendentFullPrice =
-          "მთლიანი ფასი კლებადობით";
+        languageInfo.sortingButtonDescendentFullPrice ="მთლიანი ფასი კლებადობით";
         languageInfo.studio = "სტუდიო";
 
         break;
@@ -937,6 +943,17 @@ export default function Physical({ selectedLanguage,
                 />
               </div>
             </div>
+            {/* Button For find word (sityvit dzebna) */}
+            <div className="lacation_button" >
+                <input className='string_filter_input'
+                  type="text"
+                  placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+                  value={stringFilterValue}
+                  onChange={(e) => setStringFilterValue(e.target.value)}
+                />
+                <img src={loupe} alt="search icon" className="dropdown" />
+                {/* ------------------------- */}
+              </div>
           </div>
         </motion.div>
       </div>
