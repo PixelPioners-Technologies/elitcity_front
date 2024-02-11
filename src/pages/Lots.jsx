@@ -114,6 +114,10 @@ export default function Physical({
   const [stringFilterValue, setStringFilterValue] = useState("");
   const [graundStatus, setGraundStatus] = useState([]);
 
+  const [search, setSearch] = useState(false);
+
+
+
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -185,20 +189,27 @@ export default function Physical({
     fetcPrivateApartments();
   }, [
     selectedLanguage,
-    selectedCity,
-    selectedPharentDistricts,
-    selectedDistricts,
-    min_square_price,
-    max_square_price,
-    minFullPrice,
-    maxFullPrice,
-    max_area,
-    min_area,
-    currentPage,
-    ascendentPrice,
-    stringFilterValue,
-    graundStatus,
+    search,
+    // selectedCity,
+    // selectedPharentDistricts,
+    // selectedDistricts,
+    // min_square_price,
+    // max_square_price,
+    // minFullPrice,
+    // maxFullPrice,
+    // max_area,
+    // min_area,
+    // currentPage,
+    // ascendentPrice,
+    // stringFilterValue,
+    // graundStatus,
   ]);
+
+
+  const habdle_Search_Button_Click = () => {
+    setSearch(!search)
+  }
+
 
   // useEffect(() => {
   //   console.log("aq unda iyos suratebi", privateApartments);
@@ -756,9 +767,11 @@ export default function Physical({
 
   // ------------------------------------------------------------------------------------------------------------------------
 
-const handle_Search_Burron_Click = () => {
+// const handle_Search_Burron_Click = () => {
   
-}
+
+
+// }
 
 
 
@@ -943,8 +956,8 @@ const handle_Search_Burron_Click = () => {
                 />
               </div>
             </div>
-            {/* Button For find word (sityvit dzebna) */}
-            <div className="all_search_button" >
+            {/*serach  Button */}
+            <div className="all_search_button" onClick={habdle_Search_Button_Click} >
                   {handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
               </div>
           </div>
