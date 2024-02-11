@@ -479,20 +479,26 @@
 /* ----------------------------------------------------------------------- */
 
 .filter_inputs {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
-  font-weight: 500;
-  font-size: .8vw;
-  color: #fff;
-  background-color: rgb(28,28,30);
-  box-shadow: 0 0 .4vw rgba(0,0,0,0.5), 0 0 0 .15vw transparent;
-  border: none;
+  color:#FFFFFF;
+  background-color: transparent;
+  border-style: hidden;
+  border: 3px solid transparent;
+  /* Additional styling to ensure the input field blends well with your design */
+  background-color: transparent; /* Light background for visibility */
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.filter_inputs:focus{
   outline: none;
-  padding: 0.4vw;
-  max-width: 190px;
-  transition: .4s;
-  margin-bottom: 10px;
-  width: 400px;
-  height: 30px;
+  /* Optionally, change border or add shadow on focus */
+  box-shadow: 0 0 5px rgb(161, 193, 202);
+}
+
+.filter_inputs::placeholder{
+  font-size: 15px; /* Larger text size */
+  color: #999;
 }
 
 /* demove default arrows from input */
@@ -500,6 +506,19 @@
 .filter_inputs::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* Remove spin buttons for MS Edge */
+.filter_inputs::-ms-clear,
+.filter_inputs::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Remove spin buttons and clear button for Internet Explorer */
+.filter_inputs::-ms-clear {
+  display: none;
 }
 
 /* ----------------------------------------------------------------------- */

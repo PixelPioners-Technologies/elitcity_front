@@ -25,7 +25,7 @@ const Modal_1 = ({ isOpen, close, children }) => {
 
   // Use `openClass` to control the visibility of the modal overlay based on `isOpen`
   const openClass = isOpen ? 'open' : '';
- 
+
   return (
     <div className={`modal-overlay ${openClass}`} onClick={close}>
       <div className="modal-content1 scale-up-top1" onClick={(e) => e.stopPropagation()}>
