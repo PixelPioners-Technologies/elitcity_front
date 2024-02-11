@@ -1,9 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-case-declarations */
-/* eslint-disable react/prop-types */
 import "./Physical.css";
+import './Lots.css'
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import P_Modal from "../modals for private page/P_Modal";
@@ -183,7 +179,7 @@ export default function Physical({ selectedLanguage,
       const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.ground}${selectedLanguage}/?${queryString}`;
 
-      const response = await axios.get(requestUrl , { withCredentials: true });
+      const response = await axios.get(requestUrl);
       const data = response.data.results;
       const normalised_Data = normalizeGroundData(data, selectedLanguage);
       setPrivateApartments(normalised_Data);
@@ -622,7 +618,7 @@ export default function Physical({ selectedLanguage,
       sortingButtonAscendantFullPrice: "Ascendant full price ",
       sortingButtonDescendentFullPrice: "Descendant full price",
       studio: "Studio",
-      allFindButtonLanguage : "Search by word "
+      allFindButtonLanguage : "Search"
     };
 
     switch (lang) {
@@ -634,6 +630,7 @@ export default function Physical({ selectedLanguage,
         languageInfo.sortingButtonAscendantFullPrice = "Ascendant full price ";
         languageInfo.sortingButtonDescendentFullPrice = "Decendent full price";
         languageInfo.studio = "Studio";
+        languageInfo.allFindButtonLanguage = "Search";
 
         break;
 
@@ -645,6 +642,7 @@ export default function Physical({ selectedLanguage,
         languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით";
         languageInfo.sortingButtonDescendentFullPrice ="მთლიანი ფასი კლებადობით";
         languageInfo.studio = "სტუდიო";
+        languageInfo.allFindButtonLanguage = "ძებნა";
 
         break;
 
@@ -658,6 +656,7 @@ export default function Physical({ selectedLanguage,
         languageInfo.sortingButtonDescendentFullPrice =
           "Полная стоимость потомка";
         languageInfo.studio = "Студия";
+        languageInfo.allFindButtonLanguage = "Поиск";
 
         break;
     }
@@ -761,6 +760,12 @@ export default function Physical({ selectedLanguage,
   };
 
   // ------------------------------------------------------------------------------------------------------------------------
+
+const handle_Search_Burron_Click = () => {
+  
+}
+
+
 
   return (
     <div className="ComplexBodyBox_physical">
@@ -944,15 +949,8 @@ export default function Physical({ selectedLanguage,
               </div>
             </div>
             {/* Button For find word (sityvit dzebna) */}
-            <div className="lacation_button" >
-                <input className='string_filter_input'
-                  type="text"
-                  placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
-                  value={stringFilterValue}
-                  onChange={(e) => setStringFilterValue(e.target.value)}
-                />
-                <img src={loupe} alt="search icon" className="dropdown" />
-                {/* ------------------------- */}
+            <div className="all_search_button" >
+                  {handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
               </div>
           </div>
         </motion.div>

@@ -15,7 +15,6 @@ import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
 
 import loupe from '../icons/loupe.png'
-import ViewValuesComponent from '../googleAnalitycs';
 
 
 import './HomePage.css'
