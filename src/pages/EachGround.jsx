@@ -40,7 +40,18 @@ const normalizeGroundData = (data, lang) => {
   });
 };
 
-export default function EachGround({ selectedLanguage, favorites, favoriteHandler, handleCallButtonClick }) {
+export default function EachGround({
+  selectedLanguage,
+  favorites,
+  favoriteHandler,
+  handleCallButtonClick,
+  getCorrencyRate,
+  HandleStateChange,
+  currenceChangeState,
+  isOn,
+  toggleSwitch,
+
+}) {
   const [carouselPosition, setCarouselPosition] = useState(0);
   const [ground, setGround] = useState({})
   const [sliderImages, setSliderImages] = useState([]);
@@ -203,9 +214,9 @@ export default function EachGround({ selectedLanguage, favorites, favoriteHandle
 
 
   // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
+  // const [isOn, setIsOn] = useState(false);
+  // const toggleSwitch = () => setIsOn(!isOn);
+  // // -----===--------(END)
 
 
   // const squareSymbol = "\u00B2";
@@ -294,7 +305,7 @@ export default function EachGround({ selectedLanguage, favorites, favoriteHandle
                 <div
                   className="switch"
                   data-ison={isOn}
-                  onClick={toggleSwitch}
+                  onClick={() => { toggleSwitch(); HandleStateChange() }}
                 >
                   <motion.div className="handle" layout transition={spring}>
                     <img
@@ -321,7 +332,10 @@ export default function EachGround({ selectedLanguage, favorites, favoriteHandle
           <div className="ground_settings">
             <h1 style={{ color: "#ccc", fontSize: "20px" }}>  {ground.groundName}</h1>
             <p style={{ color: "#838289", width: '300px' }}> {handleStaticTextLanguageChange(selectedLanguage).location} : {ground.address?.city} ,{ground.address?.streetName} </p>
-            <p style={{ color: "#ccc", fontSize: "20px" }}>  {handleStaticTextLanguageChange(selectedLanguage).square_price} : {ground.squarePrice}</p>
+            <p style={{ color: "#ccc", fontSize: "20px" }}>
+              {handleStaticTextLanguageChange(selectedLanguage).square_price}:{currenceChangeState
+                ? ground.squarePrice * getCorrencyRate
+                : ground.squarePrice}</p>
             <p style={{ color: "#C2BFBF" }}>{handleStaticTextLanguageChange(selectedLanguage).status}: {cardStatusSettingLanguage(selectedLanguage, ground.status)}</p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).area} : {ground.area} m²  </p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).rank}: {ground.rank}</p>

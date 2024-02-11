@@ -64,7 +64,8 @@ export default function Articles({ selectedLanguage }) {
     <div className='ArticlesPageBox'>
 
       {articles.map((article, index) => (
-        <motion.div
+        <motion.div 
+          
           key={article.id}
           initial={index % 2 === 0 ? { x: -50, opacity: 0 } : { x: 50, opacity: 0 }}
           transition={{ duration: 1 }}

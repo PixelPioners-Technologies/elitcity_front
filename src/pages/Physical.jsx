@@ -83,8 +83,13 @@ const normalizeLocationData = (data, lang) => {
 
 export default function Physical({
   selectedLanguage,
-  favorites,
-  favoriteHandler,
+  favoritesPhysical,
+  favoriteHandlerPhysical,
+  getCorrencyRate,
+  HandleStateChange,
+  currenceChangeState,
+  isOn,
+  toggleSwitch,
 }) {
   const [privateApartments, setPrivateApartments] = useState([]);
 
@@ -118,6 +123,9 @@ export default function Physical({
 
   const [stringFilterValue, setStringFilterValue] = useState("");
 
+  const [search, setSearch] = useState(false);
+
+
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -136,7 +144,9 @@ export default function Physical({
 
   // Assuming `complex` is an object representing each house
   const handleAppartmentClick = (p_apartment_id) => {
-    navigate(`/eachprivateappartment/${p_apartment_id}`,{ state: { p_apartment_id } });
+    navigate(`/eachprivateappartment/${p_apartment_id}`, {
+      state: { p_apartment_id },
+    });
   };
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
@@ -198,21 +208,30 @@ export default function Physical({
     fetcPrivateApartments();
   }, [
     selectedLanguage,
-    selectedCity,
-    selectedPharentDistricts,
-    selectedDistricts,
-    min_square_price,
-    max_square_price,
-    minFullPrice,
-    maxFullPrice,
-    selectedStatuses,
-    max_area,
-    min_area,
+    search,
+    // selectedCity,
+    // selectedPharentDistricts,
+    // selectedDistricts,
+    // min_square_price,
+    // max_square_price,
+    // minFullPrice,
+    // maxFullPrice,
+    // selectedStatuses,
+    // max_area,
+    // min_area,
     currentPage,
-    ascendentPrice,
-    stringFilterValue,
-    selectedRoomNumbers,
+    // ascendentPrice,
+    // stringFilterValue,
+    // selectedRoomNumbers,
   ]);
+
+
+
+  const habdle_Search_Button_Click = () => {
+    setSearch(!search)
+  }
+
+
 
   //-----------------------------------fetch ionly locations --------------------------------------
   useEffect(() => {
@@ -494,6 +513,8 @@ export default function Physical({
       stringFiltrationButtonLanguage: "Search by word",
       complexes: "Complexes",
       private_apartments: "Private Appartments",
+      allFindButtonLanguage : "Search"
+
     };
 
     switch (lang) {
@@ -509,6 +530,8 @@ export default function Physical({
         languageInfo.stringFiltrationButtonLanguage = "Search by word";
         languageInfo.complexes = "Complexes";
         languageInfo.private_apartments = "Private Appartments";
+        languageInfo.allFindButtonLanguage = "Search";
+
         break;
 
       case "ka":
@@ -523,6 +546,8 @@ export default function Physical({
         languageInfo.stringFiltrationButtonLanguage = "იპოვე სიტყვით";
         languageInfo.complexes = "კომპლექსები";
         languageInfo.private_apartments = "კერძო ბინები";
+        languageInfo.allFindButtonLanguage = "ძებნა";
+
         break;
 
       case "ru":
@@ -537,10 +562,14 @@ export default function Physical({
         languageInfo.stringFiltrationButtonLanguage = "Поиск по слову";
         languageInfo.complexes = "Комплексы";
         languageInfo.private_apartments = "Частные апартаменты";
+        languageInfo.allFindButtonLanguage = "Поиск";
+
+        
         break;
     }
     return languageInfo;
   };
+
 
   // ---------------------------------------------------------------------------------------------------------------------
   // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
@@ -608,9 +637,9 @@ export default function Physical({
   };
 
   // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
+  // const [isOn, setIsOn] = useState(false);
+  // const toggleSwitch = () => setIsOn(!isOn);
+  // // -----===--------(END)
 
   // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
@@ -618,7 +647,19 @@ export default function Physical({
       top: 0,
       behavior: "smooth",
     });
+    
   };
+
+  const handle_page_up_arrow= (event, value)=> {
+  setCorrentPage(value)
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+  
+}
+
+
 
   // ------------------------------------------------------------------------------------
   const handleStatusButtonLanguageChange = (lang) => {
@@ -975,6 +1016,10 @@ export default function Physical({
                 />
               </div>
             </div>
+                        {/*serach  Button */}
+                        <div className="all_search_button" onClick={habdle_Search_Button_Click} >
+                  {handle_P_StatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+              </div>
           </div>
         </motion.div>
       </div>
@@ -1241,7 +1286,10 @@ export default function Physical({
                 <div
                   className="switch_physical"
                   data-ison={isOn}
-                  onClick={toggleSwitch}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
                 >
                   <motion.div
                     className="handle_physical"
@@ -1275,11 +1323,7 @@ export default function Physical({
 
       <div className="allCards_physical">
         {privateApartments.map((prev_apartments, index) => (
-          <div
-            className="card_physical"
-            key={index}
-            onClick={() => handleAppartmentClick(prev_apartments.id)}
-          >
+          <div className="card_physical" key={index}>
             <motion.div
               key={currentPage}
               initial={{ x: -50, opacity: 0 }}
@@ -1290,11 +1334,13 @@ export default function Physical({
               <div className="heartbuttonAndImageBox_physical">
                 <div className="heartButtonBox_physical">
                   <button
-                    onClick={() => favoriteHandler(prev_apartments)}
+                    onClick={() => favoriteHandlerPhysical(prev_apartments)}
                     key={prev_apartments.id}
                     className="heartButtons_physical"
                   >
-                    {favorites.some((fav) => fav.id === prev_apartments.id) ? (
+                    {favoritesPhysical.some(
+                      (fav) => fav.id === prev_apartments.id
+                    ) ? (
                       <img src={heartIcon} alt="Logo of heart" />
                     ) : (
                       <img
@@ -1309,19 +1355,25 @@ export default function Physical({
                   src={prev_apartments.images[0]}
                   alt={prev_apartments.name}
                   style={styles.imageStyles}
+                  onClick={() => handleAppartmentClick(prev_apartments.id)}
                 />
               </div>
               {/* --------------card details------------------- */}
               <h1 className="company_title" style={styles.companyTitle}>
                 {prev_apartments.privateApartmentName}
               </h1>
-              <div className="textInfo_physical">
+              <div
+                className="textInfo_physical"
+                onClick={() => handleAppartmentClick(prev_apartments.id)}
+              >
                 <p className="city_settings" style={styles.complexInfo}>
                   {car_settings_language_change(selectedLanguage).city} :{" "}
                   {prev_apartments.address.city}
                 </p>
                 <p className="price_settings" style={styles.complexInfo}>
-                  {prev_apartments.squarePrice}{" "}
+                  {currenceChangeState
+                    ? prev_apartments.squarePrice * getCorrencyRate
+                    : prev_apartments.squarePrice}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">
@@ -1348,7 +1400,7 @@ export default function Physical({
             count={totalPageCount}
             shape="rounded"
             page={currentPage}
-            onChange={(event, value) => setCorrentPage(Number(value))}
+            onChange={handle_page_up_arrow}
             onClick={pagiHandler}
             sx={{
               "& .MuiPaginationItem-root": {
@@ -1407,7 +1459,7 @@ const styles = {
     width: "278px",
     height: "229px",
     overflow: "hidden",
-    borderRadius: "20px",
+    // borderRadius: "20px",
   },
   companyTitle: {
     // position: 'absolute',

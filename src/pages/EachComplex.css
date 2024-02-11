@@ -198,3 +198,39 @@
   /* justify-content: space-between; */
   gap: 30px;
 }
+
+.textBoxOfH4axloMdebareObieqtebi {
+  margin-top: 50px;
+  padding: 0 100px;
+}
+
+.axloMdebareObieqtebiBox {
+  display: flex;
+  padding: 0 100px;
+  justify-content: space-between;
+  
+}
+
+.textBoxOfAxloMdebare {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: white;
+}
+
+.iconAndItsText {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.boxOfMapOnAxloMdebare {
+  /* color: white; */
+  /* width: 300px;
+  height: 100px; */
+}
+
+.googlePhotoOnEachComplexPage {
+  width: 774px;
+  height: 232px;
+}

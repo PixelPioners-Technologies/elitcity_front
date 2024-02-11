@@ -36,6 +36,13 @@ import lipti from "../assets/lipti.svg";
 import shlagbaumi from "../assets/shlagbaumi.svg";
 import konsierji from "../assets/konsierji.svg";
 import ezo from "../assets/ezo.svg";
+import metro from "../assets/Metro.svg";
+import aptiaqi from "../assets/Aptiaqi.svg";
+import supermarket from "../assets/Supermarket.svg";
+import skveri from "../assets/skveri.svg";
+import forMapPhoto from "../assets/ComplexesPhotos/1zz.jpg";
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import private_apartment_location_icon from '../location_icons/private_apartment2.png'
 
 // ------------------
 import "./Physical.css";
@@ -47,12 +54,34 @@ import P_StatusModal from "../modals for private page/P_StatusModa";
 import button_icon from "../icons/Vector.svg";
 
 import { useLocation } from "react-router-dom";
+
+  // --------------------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------------------
+  // ---  compleqsis misamartebi axali struqturidanaa amosagebi da ara aoartamentis addresidan       ------------------
+  // --------------------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------------------
+
+
 function normalizeData(item, lang) {
   return {
     id: item.id,
     construction: item[`construction_type_${lang}`],
+    description: item[`description_${lang}`],
+
     protectionType: item[`protection_type_${lang}`],
     submissionType: item[`submission_type_${lang}`],
+
+    complexAddress: { 
+      city: item[`complex_address_${lang}`][`city_${lang}`],
+      parentDistrict: item[`complex_address_${lang}`][`pharentDistrict_${lang}`], 
+      district: item[`complex_address_${lang}`][`district_${lang}`],
+      streetName: item[`complex_address_${lang}`][`street_name_${lang}`],
+      address: item[`complex_address_${lang}`][`address_${lang}`],
+      longitude: item[`complex_address_${lang}`].longitude,
+      latitude: item[`complex_address_${lang}`].latitude
+    },
 
     complexName: item[`complex_name_${lang}`],
     internalComplexName: item.internal_complex_name.internal_complex_name,
@@ -84,8 +113,13 @@ function normalizeData(item, lang) {
     plotArea: item.internal_complex_name.plot_area,
     rank: item.internal_complex_name.rank,
 
+    metro: item.internal_complex_name.metro,
+    Pharmacy: item.internal_complex_name.Pharmacy,
+    supermarket: item.internal_complex_name.supermarket,
+    Square: item.internal_complex_name.Square,
+
     // Add other fields from internal_complex_name as needed
-    complexImages: item.complex_images.images,
+    complexImages: item.complex_images,
     apartments: item[`appartment_name_${lang}`].map((apartment) => ({
       id: apartment.id,
       apartmentName: apartment[`appartment_name_${lang}`],
@@ -123,18 +157,17 @@ function normalizeData(item, lang) {
   };
 }
 
-import img1 from "../assets/ComplexesPhotos/0zzz.jpg";
-import img2 from "../assets/ComplexesPhotos/1zz.jpg";
-import img3 from "../assets/ComplexesPhotos/2zz.jpg";
-import img4 from "../assets/ComplexesPhotos/3zz.jpg";
-import img5 from "../assets/ComplexesPhotos/4zz.jpg";
-import img6 from "../assets/ComplexesPhotos/5zz.jpg";
 
 export default function EachComplex({
   selectedLanguage,
   favorites,
   favoriteHandler,
   handleCallButtonClick,
+  getCorrencyRate,
+  HandleStateChange,
+  currenceChangeState,
+  isOn,
+  toggleSwitch,
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
@@ -148,7 +181,7 @@ export default function EachComplex({
   // ];
 
   const [eachComplexAllAppartments, seteachComplexAllAppartments] = useState(
-    []
+    {}
   );
   const [wordData, setWordData] = useState(null);
   const [val, setVal] = useState(0);
@@ -177,11 +210,18 @@ export default function EachComplex({
 
   // const [sliderMiniImages, setSliderMiniImages] = useState([]);
   const [sliderImages, setSliderImages] = useState([]);
+  // console.log("sliderImages", sliderImages);
 
   const [eachPrivateApartment, setEachPrivateApartment] = useState([]);
 
   const location = useLocation();
   const { complexId } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
+
+
+
+
+
+
 
   useEffect(() => {
     setSelectedCity("");
@@ -197,6 +237,8 @@ export default function EachComplex({
   // ---------
 
   // console.log("hello");
+
+  const [allComplexImages, setAllComplexImages] = useState([]);
 
   // ეს ნომრის ჩვენებისთვის
   const [showFullNumber, setShowFullNumber] = useState(false);
@@ -247,15 +289,17 @@ export default function EachComplex({
       // const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${complexId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
-      // console.log("ssssssss", response.data.results[0];
       const data = response.data;
       const normalised_Data = normalizeData(data, selectedLanguage);
+
       console.log("----111---,", normalised_Data);
+      setAllComplexImages(data.complex_images);
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
 
+      seteachComplexAllAppartments(normalised_Data)
       // Update sliderImages state with all images from the fetched data
-      const sliderImagesFromData = normadata.images.map((imgUrl, index) => ({
+      const sliderImagesFromData = allComplexImages.map((imgUrl, index) => ({
         id: index,
         value: imgUrl, // Directly using the URL from the JSON data
       }));
@@ -268,27 +312,38 @@ export default function EachComplex({
     fetcPrivateApartments();
   }, [
     selectedLanguage,
-    selectedCity,
-    min_square_price,
-    max_square_price,
-    minFullPrice,
-    maxFullPrice,
-    selectedStatuses,
-    max_area,
-    min_area,
-    currentPage,
-    complexId,
+    // selectedCity,
+    // min_square_price,
+    // max_square_price,
+    // minFullPrice,
+    // maxFullPrice,
+    // selectedStatuses,
+    // max_area,
+    // min_area,
+    // currentPage,
+    // complexId,
+    // sliderImages,
+    // wordData,
+    // allComplexImages,
   ]);
 
-  console.log("imagesss;:::::;", sliderImages);
 
-  console.log("eachPrivateApartment DATA: ", eachPrivateApartment);
+useEffect(()=> {
+  console.log("description" , eachPrivateApartment)
 
-  useEffect(() => {
-    console.log("aq unda iyos suratebi", privateApartments);
-  }, [totalCount, selectedLanguage, complexId]);
 
-  // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
+
+},[eachComplexAllAppartments])
+
+  
+
+  // useEffect(() => {
+  //   console.log("sliderImagessliderImages;:::::;", sliderImages);
+
+  //   // console.log("aq unda iyos suratebi", privateApartments);
+  // }, [sliderImages]);
+
+  // // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
   const handle_P_SpaceButtonClick = () => {
     setIs_P_SpaceModalOpen(true);
@@ -324,37 +379,31 @@ export default function EachComplex({
 
   const handleClick = (index) => {
     setClickedIndex(index);
-    console.log(index);
     setVal(index);
     const wordSlider = sliderImages[index];
     setWordData(wordSlider);
   };
-
   const handleNext = () => {
     const newIndex = val < sliderImages.length - 1 ? val + 1 : 0; // Cycle to the start if at the end
     setVal(newIndex);
-    const wordSlider = sliderImages[newIndex];
-    setWordData(wordSlider);
-    setCarouselPosition(
-      (prevPosition) => (prevPosition + 1) % sliderImages.length
-    );
+    setWordData(sliderImages[newIndex]);
+    if (carouselPosition > 0) {
+      setCarouselPosition(carouselPosition - 1);
+    }
   };
 
   const handlePrevious = () => {
     const newIndex = val > 0 ? val - 1 : sliderImages.length - 1; // Cycle to the end if at the start
     setVal(newIndex);
-    const wordSlider = sliderImages[newIndex];
-    setWordData(wordSlider);
-    setCarouselPosition(
-      (prevPosition) =>
-        (prevPosition - 1 + sliderImages.length) % sliderImages.length
-    );
+    setWordData(sliderImages[newIndex]);
+    if (carouselPosition < sliderImages.length - 4) {
+      setCarouselPosition(carouselPosition + 1);
+    }
   };
-
   // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
+  // const [isOn, setIsOn] = useState(false);
+  // const toggleSwitch = () => setIsOn(!isOn);
+  // // -----===--------(END)
 
   // --------------------------function for selecting status for filtration -----------------------------------------------
 
@@ -367,7 +416,7 @@ export default function EachComplex({
         ? [...prevSelectedStatuses, value]
         : prevSelectedStatuses.filter((status) => status !== value);
 
-      console.log("Updated Selected Statuses:", newSelectedStatuses); // Log the new state
+      // console.log("Updated Selected Statuses:", newSelectedStatuses); // Log the new state
       return newSelectedStatuses;
     });
   };
@@ -421,6 +470,38 @@ export default function EachComplex({
       stringFiltrationButtonLanguage: "Search by word",
       complexes: "Complexes",
       private_apartments: "Private Appartments",
+      number_of_apartments: "Number of appartments",
+      number_of_buildings: "Number of buildings",
+      ceiling_height_meters: "Ceiling Height Meters",
+      flooring: "Flooring",
+      construction: "Construction",
+      parking: "Parking",
+      protection: "Protection",
+      rooms: "Rooms",
+      submission: "Submission",
+      light: "Light",
+      humidity: "Humidity",
+      catering_facility: "Catering Facility",
+      elevator: "Elevator",
+      schlangbaum: "Schlangbaum",
+      concierge: "Concierge",
+      yard: "Yard",
+      description: "Description",
+      spaces: "Spaces",
+      buildings: "Buildings",
+      showNumber: "Show Number",
+      callRequest: "Call Request",
+      allAppartments: "All Appartments",
+      appartmentsAndPlanning: "Appartments and Planning",
+      aboutComplex: "About Complex",
+      nearObjects: "Near Objects",
+      metro: "Metro",
+      pharmacy: "Pharmacy",
+      supermarket: "Supermarket",
+      square: "Square",
+      infrastructure: "Infrastructure",
+      seen: "Seen",
+      pricePerM: "Price from per m²",
     };
 
     switch (lang) {
@@ -436,6 +517,38 @@ export default function EachComplex({
         languageInfo.stringFiltrationButtonLanguage = "Search by word";
         languageInfo.complexes = "Complexes";
         languageInfo.private_apartments = "Private Appartments";
+        languageInfo.number_of_apartments = "Number of appartments";
+        languageInfo.number_of_buildings = "Number of buildings";
+        languageInfo.ceiling_height_meters = "Ceiling Height Meters";
+        languageInfo.flooring = "Flooring";
+        languageInfo.construction = "Construction";
+        languageInfo.parking = "Parking";
+        languageInfo.protection = "Protection";
+        languageInfo.rooms = "Rooms";
+        languageInfo.submission = "Submission";
+        languageInfo.light = "Light";
+        languageInfo.humidity = "Humidity";
+        languageInfo.catering_facility = "Catering Facility";
+        languageInfo.elevator = "Elevator";
+        languageInfo.schlangbaum = "Schlangbaum";
+        languageInfo.concierge = "Concierge";
+        languageInfo.yard = "Yard";
+        languageInfo.description = "Description";
+        languageInfo.spaces = "Spaces";
+        languageInfo.buildings = "Buildings";
+        languageInfo.showNumber = "Show Number";
+        languageInfo.callRequest = "Call Request";
+        languageInfo.allAppartments = "All Apartments";
+        languageInfo.appartmentsAndPlanning = "Apartments and Planning";
+        languageInfo.aboutComplex = "About Complex";
+        languageInfo.nearObjects = "Near Objects";
+        languageInfo.metro = "Metro";
+        languageInfo.pharmacy = "Pharmacy";
+        languageInfo.supermarket = "Supermarket";
+        languageInfo.square = "Square";
+        languageInfo.infrastructure = "Infrastructure";
+        languageInfo.seen = "Seen";
+        languageInfo.pricePerM = "Price from per m²";
         break;
 
       case "ka":
@@ -450,6 +563,40 @@ export default function EachComplex({
         languageInfo.stringFiltrationButtonLanguage = "იპოვე სიტყვით";
         languageInfo.complexes = "კომპლექსები";
         languageInfo.private_apartments = "კერძო ბინები";
+        languageInfo.number_of_apartments = "ბინების რა-ობა";
+        languageInfo.number_of_buildings = "კორპუსების რაოდენობა";
+        languageInfo.ceiling_height_meters = "ჭერის სიმაღლე";
+        languageInfo.flooring = "სართულიანობა";
+        languageInfo.construction = "კონსტრუქცია";
+        languageInfo.parking = "პარკინგი";
+        languageInfo.protection = "დაცვა";
+        languageInfo.rooms = "ოთახები";
+        languageInfo.submission = "ჩაბარება";
+        languageInfo.light = "სინათლე";
+        languageInfo.humidity = "ტენიანობა";
+        languageInfo.catering_facility = "საკვები ობიექტები";
+        languageInfo.elevator = "ლიფტი";
+        languageInfo.schlangbaum = "შლანგბაუმი";
+        languageInfo.concierge = "კონსიერჟი";
+        languageInfo.yard = "ეზო";
+        languageInfo.description = "აღწერა";
+        languageInfo.spaces = "ფართები";
+        languageInfo.buildings = "კორპუსები";
+        languageInfo.showNumber = "ნომრის ჩვენება";
+        languageInfo.callRequest = "ზარის მოთხოვნა";
+        languageInfo.allAppartments = "ყველა ბინა";
+        languageInfo.appartmentsAndPlanning = "ბინები და გეგმარება";
+        languageInfo.aboutComplex = "კომპლექსის შესახებ";
+        languageInfo.nearObjects = "ახლო მდებარე ობიექტები";
+        languageInfo.metro = "მეტრო";
+        languageInfo.pharmacy = "აფთიაქი";
+        languageInfo.supermarket = "სუპერმარკეტი";
+        languageInfo.square = "სკვერი";
+        languageInfo.infrastructure = "ინფრასტრუქტურა";
+        languageInfo.seen = "ნახვები";
+        languageInfo.pricePerM = "m²-ის ფასი";
+        languageInfo.priceTo = "-დან";
+
         break;
 
       case "ru":
@@ -464,6 +611,39 @@ export default function EachComplex({
         languageInfo.stringFiltrationButtonLanguage = "Поиск по слову";
         languageInfo.complexes = "Комплексы";
         languageInfo.private_apartments = "Частные апартаменты";
+        languageInfo.number_of_apartments = "количество квартир";
+        languageInfo.number_of_buildings = "Количество зданий";
+        languageInfo.ceiling_height_meters = "Высота потолка в метрах";
+        languageInfo.flooring = "Пол";
+        languageInfo.construction = "Конструкция";
+        languageInfo.parking = "Парковка";
+        languageInfo.protection = "Охрана";
+        languageInfo.rooms = "Комнаты";
+        languageInfo.submission = "Представление";
+        languageInfo.light = "Свет";
+        languageInfo.humidity = "Влажность";
+        languageInfo.catering_facility = "Питание";
+        languageInfo.elevator = "Лифт";
+        languageInfo.schlangbaum = "Шлагбаум";
+        languageInfo.concierge = "Консьерж";
+        languageInfo.yard = "Двор";
+        languageInfo.description = "Описание";
+        languageInfo.spaces = "Пространства";
+        languageInfo.buildings = "Здания";
+        languageInfo.showNumber = "Показать номер";
+        languageInfo.callRequest = "Запросить звонок";
+        languageInfo.allAppartments = "Все квартиры";
+        languageInfo.appartmentsAndPlanning = "Квартиры и планировка";
+        languageInfo.aboutComplex = "О комплексе";
+        languageInfo.nearObjects = "Близкие объекты";
+        languageInfo.metro = "Метро";
+        languageInfo.pharmacy = "Аптека";
+        languageInfo.supermarket = "Супермаркет";
+        languageInfo.square = "Площадь";
+        languageInfo.infrastructure = "Инфраструктура";
+        languageInfo.seen = "Просмотрено";
+        languageInfo.pricePerM = "Цена за м²";
+
         break;
     }
     return languageInfo;
@@ -533,18 +713,38 @@ export default function EachComplex({
 
   //
 
-  const navigate = useNavigate();
-
   // Assuming `complex` is an object representing each house
   // const handleAppartmentClick = (complexId) => {
   //   navigate(`/eachComplex/${complexId},`);
   // };
 
   // const navigate = useNavigate();
-
   const handleAppartmentClick = (apartmentId) => {
     navigate(`/eachapartment/${apartmentId}`, { state: { apartmentId } });
   };
+
+  
+  
+  const mapcenter = {
+    lat: eachComplexAllAppartments?.complexAddress?.latitude || 41.7151,
+    lng: eachComplexAllAppartments?.complexAddress?.longitude || 44.8271,
+  };
+  
+
+
+  const navigate = useNavigate();
+  
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
+  });
+
+  if (loadError) {
+    return <div>Error loading maps</div>;
+  }
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+  const scalesize = new window.google.maps.Size(40, 40)
 
   return (
     <div className="eachComplexBox">
@@ -574,9 +774,8 @@ export default function EachComplex({
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData.id === data.id ? "clicked" : ""} ${
-                      clickedIndex === i ? "enlarge" : ""
-                    }`}
+                    className={`${wordData.id === data.id ? "clicked" : ""} ${clickedIndex === i ? "enlarge" : ""
+                      }`}
                     src={data.value}
                     alt={`Complex ${data.id}`}
                     onClick={() => handleClick(i + carouselPosition)}
@@ -590,155 +789,187 @@ export default function EachComplex({
         {/* --------- */}
 
         {/* complex text info */}
-        {DATA.map((complex, index) => (
-          <div key={index} className="complexTextsBox">
-            <div className="seenIdFavouriteAndOthersBox">
-              <div className="seenAndIdBox">
-                <p style={{ color: "#838282" }}>Seen: {complex.seen}</p>
-                <p style={{ color: "#838282" }}>ID: {complex.ID}</p>
-              </div>
-
-              <div className="favouriteDollarAndShareBox">
-                {/* Star favourite box */}
-                <button className="heartButtons">
-                  <img src={star} style={{ width: "30px", height: "30px" }} />
-                </button>
-                {/* ----Dollar and Lari Toggle button */}
-                <div className="currencyBox">
-                  <div
-                    className="switch"
-                    data-ison={isOn}
-                    onClick={toggleSwitch}
-                  >
-                    <motion.div className="handle" layout transition={spring}>
-                      <img
-                        src={lari}
-                        alt="Lari Sign"
-                        className={`currency-sign ${isOn ? "active" : ""}`}
-                      />
-                      <img
-                        src={dollar}
-                        alt="Dollar Sign"
-                        className={`currency-sign ${!isOn ? "active" : ""}`}
-                      />
-                    </motion.div>
-                  </div>
-                </div>
-                {/* Share Button */}
-                <button className="heartButtons">
-                  <img src={share} style={{ width: "30px", height: "30px" }} />
-                </button>
-              </div>
-            </div>
-            {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}
-            <div className="companyAdressPriceTextBox">
-              <p style={{ color: "#ccc", fontSize: "20px" }}>
-                {" "}
-                {eachPrivateApartment?.internalComplexName}
-              </p>
-              <p style={{ color: "#838289" }}>
-                {eachPrivateApartment &&
-                  eachPrivateApartment.apartments &&
-                  eachPrivateApartment.apartments.length > 0 &&
-                  eachPrivateApartment.apartments[0]?.address.city}
-              </p>
-              <p style={{ color: "#838289" }}>
-                {eachPrivateApartment &&
-                  eachPrivateApartment.apartments &&
-                  eachPrivateApartment.apartments.length > 0 &&
-                  `${eachPrivateApartment.apartments[0]?.address.streetName}, ${eachPrivateApartment.apartments[0]?.address.city}`}
-              </p>
-
+        {/* აქ DATA.MAP დროებით მაქ დატოვებული როგორც კი ბექი მოგვარდება */}
+        {/* {DATA.map((complex, index) => ( */}
+        <div className="complexTextsBox">
+          <div className="seenIdFavouriteAndOthersBox">
+            <div className="seenAndIdBox">
               <p style={{ color: "#838282" }}>
                 {" "}
-                {eachPrivateApartment?.adress}
+                {
+                  handle_P_StatusButtonLanguageChange(selectedLanguage).seen
+                }: {eachPrivateApartment?.viewCount}
               </p>
-              <p style={{ color: "#ccc", fontSize: "20px" }}>
-                m²-ის ფასი {eachPrivateApartment?.pricePerSqMeter}$-დან
-              </p>
+              <p style={{ color: "#838282" }}>ID: {eachPrivateApartment?.id}</p>
             </div>
 
-            <div className="chabarebaPartebiKorpusebi">
-              {/* ქვედა, მეორე ტექსტია.. ჩაბარება, Fართები... სართულიანობა */}
-              <div className="eachTextOnListTexts">
-                <p style={{ color: "#C2BFBF" }}> ჩაბარება </p>
-                <p style={{ color: "#C2BFBF" }}> ფართები</p>
-                <p style={{ color: "#C2BFBF" }}> ბინების რ-ობა</p>
-                <p style={{ color: "#C2BFBF" }}> კორპუსები</p>
-                <p style={{ color: "#C2BFBF" }}> სართულიანობა</p>
-              </div>
-
-              <div className="eachTextOnListTextsTwo">
-                <p style={{ color: "#FFFFFF" }}>
-                  {eachPrivateApartment?.finishYear}
-                </p>
-                <p style={{ color: "#FFFFFF" }}>
-                  {" "}
-                  {eachPrivateApartment?.space}
-                </p>
-                <p style={{ color: "#FFFFFF" }}>
-                  {eachPrivateApartment?.numberOfApartments}
-                </p>
-                <p style={{ color: "#FFFFFF" }}>
-                  {/* აქ, ბაზაში ნull არის მითითებული და ჯერ ჩავაკომენტარე რო ფრონტისთვის მეჩვენებინა */}
-                  {/* {eachPrivateApartment?.numberOfBuildings} */}
-                  null
-                </p>
-                <p style={{ color: "#FFFFFF" }}>
-                  {eachPrivateApartment?.numberOfFloors}
-                </p>
-              </div>
-            </div>
-            {/* დარეკვისა და ნომრის ჩვენების სექცია */}
-            <div className="numberAndCallRequestBox">
-              <div className="numberBox">
-                <img src={phoneImage} style={{ width: "40px" }} alt="phone" />
-                <p style={{ color: "#FFFFFF" }}>
-                  {phoneNumber && showFullNumber
-                    ? phoneNumber
-                    : phoneNumber
-                        ?.slice(0, -2)
-                        .padEnd(phoneNumber?.length, "*")}
-                </p>
-                <button
-                  onClick={handleToggleNumberDisplay}
-                  className="numberSHowButton"
+            <div className="favouriteDollarAndShareBox">
+              {/* Star favourite box */}
+              <button className="heartButtons">
+                <img src={star} style={{ width: "30px", height: "30px" }} />
+              </button>
+              {/* ----Dollar and Lari Toggle button */}
+              <div className="currencyBox">
+                <div
+                  className="switch"
+                  data-ison={isOn}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
                 >
-                  ნომრის
-                  <br /> ჩვენება
-                </button>
+                  <motion.div className="handle" layout transition={spring}>
+                    <img
+                      src={lari}
+                      alt="Lari Sign"
+                      className={`currency-sign ${isOn ? "active" : ""}`}
+                    />
+                    <img
+                      src={dollar}
+                      alt="Dollar Sign"
+                      className={`currency-sign ${!isOn ? "active" : ""}`}
+                    />
+                  </motion.div>
+                </div>
               </div>
-              <div className="callRequestBox">
-                <img
-                  src={headSetImage}
-                  style={{ width: "40px" }}
-                  alt="headset"
-                />
-                <button
-                  onClick={handleCallButtonClick}
-                  className="numberSHowButton"
-                >
-                  ზარის
-                  <br /> მოთხოვნა
-                </button>
-              </div>
+              {/* Share Button */}
+              <button className="heartButtons">
+                <img src={share} style={{ width: "30px", height: "30px" }} />
+              </button>
             </div>
           </div>
-        ))}
+          {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}
+          <div className="companyAdressPriceTextBox">
+            <p style={{ color: "#ccc", fontSize: "20px" }}>
+              {" "}
+              {eachPrivateApartment?.internalComplexName}
+            </p>
+            <p style={{ color: "#838289" }}>
+              {eachPrivateApartment &&
+                eachPrivateApartment.apartments &&
+                eachPrivateApartment.apartments.length > 0 &&
+                eachPrivateApartment.apartments[0]?.address.city}
+            </p>
+            <p style={{ color: "#838289" }}>
+              {eachPrivateApartment &&
+                eachPrivateApartment.apartments &&
+                eachPrivateApartment.apartments.length > 0 &&
+                `${eachPrivateApartment.apartments[0]?.address.streetName}, ${eachPrivateApartment.apartments[0]?.address.city}`}
+            </p>
+
+            <p style={{ color: "#838282" }}> {eachPrivateApartment?.adress}</p>
+            <p style={{ color: "#ccc", fontSize: "20px" }}>
+              {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}{" "}
+              {currenceChangeState
+                ? eachPrivateApartment.pricePerSqMeter * getCorrencyRate
+                : eachPrivateApartment.pricePerSqMeter}
+              ${handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
+            </p>
+          </div>
+
+          <div className="chabarebaPartebiKorpusebi">
+            {/* ქვედა, მეორე ტექსტია.. ჩაბარება, Fართები... სართულიანობა */}
+            <div className="eachTextOnListTexts">
+              <p style={{ color: "#C2BFBF" }}>
+                {
+                  handle_P_StatusButtonLanguageChange(selectedLanguage)
+                    .submission
+                }
+              </p>
+              <p style={{ color: "#C2BFBF" }}>
+                {handle_P_StatusButtonLanguageChange(selectedLanguage).spaces}
+              </p>
+              <p style={{ color: "#C2BFBF" }}>
+                {
+                  handle_P_StatusButtonLanguageChange(selectedLanguage)
+                    .number_of_apartments
+                }
+              </p>
+              <p style={{ color: "#C2BFBF" }}>
+                {
+                  handle_P_StatusButtonLanguageChange(selectedLanguage)
+                    .buildings
+                }
+              </p>
+              <p style={{ color: "#C2BFBF" }}>
+                {handle_P_StatusButtonLanguageChange(selectedLanguage).flooring}
+              </p>
+            </div>
+
+            <div className="eachTextOnListTextsTwo">
+              <p style={{ color: "#FFFFFF" }}>
+                {eachPrivateApartment?.finishYear}
+              </p>
+              <p style={{ color: "#FFFFFF" }}> {eachPrivateApartment?.space}</p>
+              <p style={{ color: "#FFFFFF" }}>
+                {eachPrivateApartment?.numberOfApartments}
+              </p>
+              <p style={{ color: "#FFFFFF" }}>
+                {/* აქ, ბაზაში ნull არის მითითებული და ჯერ ჩავაკომენტარე რო ფრონტისთვის მეჩვენებინა */}
+                {/* {eachPrivateApartment?.numberOfBuildings} */}
+                null
+              </p>
+              <p style={{ color: "#FFFFFF" }}>
+                {eachPrivateApartment?.numberOfFloors}
+              </p>
+            </div>
+          </div>
+          {/* დარეკვისა და ნომრის ჩვენების სექცია */}
+          <div className="numberAndCallRequestBox">
+            <div className="numberBox">
+              <img src={phoneImage} style={{ width: "40px" }} alt="phone" />
+              <p style={{ color: "#FFFFFF" }}>
+                {phoneNumber && showFullNumber
+                  ? phoneNumber
+                  : phoneNumber?.slice(0, -2).padEnd(phoneNumber?.length, "*")}
+              </p>
+              <button
+                onClick={handleToggleNumberDisplay}
+                className="numberSHowButton"
+              >
+                {
+                  handle_P_StatusButtonLanguageChange(selectedLanguage)
+                    .showNumber
+                }
+              </button>
+            </div>
+            <div className="callRequestBox">
+              <img src={headSetImage} style={{ width: "40px" }} alt="headset" />
+              <button
+                onClick={handleCallButtonClick}
+                className="numberSHowButton"
+              >
+                {
+                  handle_P_StatusButtonLanguageChange(selectedLanguage)
+                    .callRequest
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+        {/* ))} */}
       </div>
       {/* ---------- */}
-      {console.log(
-        "eachPrivateApartment",
-        eachPrivateApartment.internal_complex_name?.rank
-      )}
+      {/* {console.log(
+        "viewCountviewCountviewCountviewCount",
+        eachPrivateApartment.internal_complex_name?.viewCount
+      )} */}
 
       {/* ბინების და გეგმარებების ცამოსაშლელი ბოქსი */}
       <div className="binebiDaGegmarebaFullBox">
         {/* ბინები და ყველა აპარტამენტის ტექსტი და ბათონი */}
         <div className="firstBoxOfBinebi">
-          <p style={{ color: "#FFFFFF" }}>ბინები და გეგმარება</p>
+          <p style={{ color: "#FFFFFF" }}>
+            {
+              handle_P_StatusButtonLanguageChange(selectedLanguage)
+                .appartmentsAndPlanning
+            }
+          </p>
           <button className="numberSHowButton" onClick={handleShowHideClick}>
-            All appartments(12)
+            {
+              handle_P_StatusButtonLanguageChange(selectedLanguage)
+                .allAppartments
+            }
             {showApartments ? (
               <img src={arrowUp} style={{ width: "20px", marginLeft: "5px" }} />
             ) : (
@@ -812,7 +1043,10 @@ export default function EachComplex({
                       // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
                       // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
                       // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      src={prev_apartments.images}
+                      src={
+                        prev_apartments?.images?.apartment?.appartment_images
+                          ?.images[0]
+                      }
                       alt={prev_apartments.name}
                       style={styles.imageStyles}
                     />
@@ -856,6 +1090,11 @@ export default function EachComplex({
         {/* ეს დივი არის ..კომპლექსის შესახებ'' ესეთი წარწერა რომაა და true/false-ის მეშვეობით
         რომ ვფილტრავთ, მაგალითად სართულების ოდენობა, კამერა, ოთახები და ა.შ. */}
         <div>
+          <h4
+            style={{ color: "white", marginTop: "20px", marginBottom: "10px" }}
+          >
+            {handle_P_StatusButtonLanguageChange(selectedLanguage).aboutComplex}
+          </h4>
           <div className="shidaInformaciaIconebisBox">
             {/* სათითაო icons და ტექსტი */}
             <div className="eachDivBoxOfIcons">
@@ -865,7 +1104,12 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>ბინების რაოდენობა</p>
+                <p>
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .number_of_apartments
+                  }
+                </p>
                 <p>
                   {eachPrivateApartment.numberOfApartments !== null
                     ? eachPrivateApartment.numberOfApartments
@@ -883,7 +1127,12 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>კორპუსების რაოდენობა</p>
+                <p>
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .number_of_buildings
+                  }
+                </p>
                 <p>
                   {eachPrivateApartment.numberOfBuildings !== null
                     ? eachPrivateApartment.numberOfBuildings
@@ -901,7 +1150,12 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>ფართი</p>
+                <p>
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .spaceButtonLanguage
+                  }
+                </p>
                 <p>
                   {eachPrivateApartment.space !== null
                     ? eachPrivateApartment.space
@@ -919,7 +1173,12 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>ჭერის სიმაღლე</p>
+                <p>
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .ceiling_height_meters
+                  }
+                </p>
                 <p>
                   {eachPrivateApartment.ceilingHeightMeters !== null
                     ? eachPrivateApartment.ceilingHeightMeters
@@ -937,7 +1196,12 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>სართულიანობა</p>
+                <p>
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .flooring
+                  }
+                </p>
                 <p>
                   {eachPrivateApartment.flooring !== null
                     ? eachPrivateApartment.flooring
@@ -955,11 +1219,16 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>კონსტრუქცია</p>
+                <p>
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .construction
+                  }
+                </p>
                 <p>
                   {eachPrivateApartment.construction !== null
                     ? eachPrivateApartment.construction
-                    : "---"}
+                    : ""}
                 </p>
               </div>
             </div>
@@ -973,7 +1242,12 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>პარკინგი</p>
+                <p>
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .parking
+                  }
+                </p>
                 <p>
                   {eachPrivateApartment.parkingQuantity !== null
                     ? eachPrivateApartment.parkingQuantity
@@ -991,7 +1265,12 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>დაცვა</p>
+                <p>
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .protection
+                  }
+                </p>
                 <p>
                   {eachPrivateApartment.protectionType !== null
                     ? eachPrivateApartment.protectionType
@@ -1009,7 +1288,9 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>ოთახები</p>
+                <p>
+                  {handle_P_StatusButtonLanguageChange(selectedLanguage).rooms}
+                </p>
                 <p>
                   {eachPrivateApartment.roomsQuantity !== null
                     ? eachPrivateApartment.roomsQuantity
@@ -1027,7 +1308,12 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>ჩაბარება</p>
+                <p>
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .submission
+                  }
+                </p>
                 <p>
                   {eachPrivateApartment.submissionType !== null
                     ? eachPrivateApartment.submissionType
@@ -1045,7 +1331,9 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>სინათლე</p>
+                <p>
+                  {handle_P_StatusButtonLanguageChange(selectedLanguage).light}
+                </p>
                 <p>
                   {eachPrivateApartment.lightPercentage !== null
                     ? eachPrivateApartment.lightPercentage
@@ -1063,7 +1351,12 @@ export default function EachComplex({
                 className="stylesOfIconsOnEachComplex"
               />
               <div className="eachDivBoxOfTextOfIcons">
-                <p>ტენიანობა</p>
+                <p>
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .humidity
+                  }
+                </p>
                 <p>
                   {eachPrivateApartment.humidityPercentage !== null
                     ? eachPrivateApartment.humidityPercentage
@@ -1075,7 +1368,13 @@ export default function EachComplex({
 
             {/* iwyeba:   inprastruqturisIconsBox */}
             <div className="inprastruqturisIconsBigBox">
-              <h2>ინფრასტრუქტურა</h2>
+              <h2>
+                {" "}
+                {
+                  handle_P_StatusButtonLanguageChange(selectedLanguage)
+                    .infrastructure
+                }
+              </h2>
               <div className="inprastruqturisIconsBox">
                 {/* სათითაო icons და ტექსტი */}
                 {eachPrivateApartment.cateringFacility && (
@@ -1086,7 +1385,12 @@ export default function EachComplex({
                       className="stylesOfIconsOnEachComplex"
                     />
                     <div className="eachDivBoxOfTextOfIcons">
-                      <p>კვების ობიექტი</p>
+                      <p>
+                        {
+                          handle_P_StatusButtonLanguageChange(selectedLanguage)
+                            .catering_facility
+                        }
+                      </p>
                       <p>{eachPrivateApartment.cateringFacility}</p>
                     </div>
                   </div>
@@ -1103,7 +1407,12 @@ export default function EachComplex({
                       className="stylesOfIconsOnEachComplex"
                     />
                     <div className="eachDivBoxOfTextOfIcons">
-                      <p>ლიფტი</p>
+                      <p>
+                        {
+                          handle_P_StatusButtonLanguageChange(selectedLanguage)
+                            .elevator
+                        }
+                      </p>
                       <p>{eachPrivateApartment.elevatorType}</p>
                     </div>
                   </div>
@@ -1120,7 +1429,12 @@ export default function EachComplex({
                       className="stylesOfIconsOnEachComplex"
                     />
                     <div className="eachDivBoxOfTextOfIcons">
-                      <p>შლანგბაუმი</p>
+                      <p>
+                        {
+                          handle_P_StatusButtonLanguageChange(selectedLanguage)
+                            .schlangbaum
+                        }
+                      </p>
                       <p>{eachPrivateApartment.schlangbaum}</p>
                     </div>
                   </div>
@@ -1137,7 +1451,12 @@ export default function EachComplex({
                       className="stylesOfIconsOnEachComplex"
                     />
                     <div className="eachDivBoxOfTextOfIcons">
-                      <p>კონსიერჟი</p>
+                      <p>
+                        {
+                          handle_P_StatusButtonLanguageChange(selectedLanguage)
+                            .concierge
+                        }
+                      </p>
                       <p>{eachPrivateApartment.conciergeService}</p>
                     </div>
                   </div>
@@ -1154,7 +1473,12 @@ export default function EachComplex({
                       className="stylesOfIconsOnEachComplex"
                     />
                     <div className="eachDivBoxOfTextOfIcons">
-                      <p>ეზო</p>
+                      <p>
+                        {
+                          handle_P_StatusButtonLanguageChange(selectedLanguage)
+                            .yard
+                        }
+                      </p>
                       <p>{eachPrivateApartment.yardDescription}</p>
                     </div>
                   </div>
@@ -1166,6 +1490,104 @@ export default function EachComplex({
             {/* mtavrdeba:  inprastruqturisIconsBox--------- */}
           </div>
         </div>
+        <h4 style={{ color: "white", marginTop: "20px"  }}>
+          {handle_P_StatusButtonLanguageChange(selectedLanguage).description}
+        </h4>
+        <p style={{ color: "white", marginTop: "20px" }}>
+
+          {eachPrivateApartment?.description}
+        </p>
+
+        {/* (START) ახლო მდებარე ობიექტები box */}
+        <div className="textBoxOfH4axloMdebareObieqtebi">
+          <h4 style={{ color: "white" }}>
+            {handle_P_StatusButtonLanguageChange(selectedLanguage).nearObjects}
+          </h4>
+        </div>
+
+        <div className="axloMdebareObieqtebiBox">
+          <div className="textBoxOfAxloMdebare">
+            <div className="iconAndItsText">
+{/* 
+            metro: item.internal_complex_name.metro,
+    Pharmacy: item.internal_complex_name.Pharmacy,
+    supermarket: item.internal_complex_name.supermarket,
+    Square: item.internal_complex_name.Square, */}
+
+
+            {eachPrivateApartment?.metro && (
+                    <>
+                      <img src={metro} alt="metro" />
+                      <p>
+                        {handle_P_StatusButtonLanguageChange(selectedLanguage).metro}
+                      </p>
+                    </>
+                  )}
+            </div>
+            <div className="iconAndItsText">
+
+            {eachPrivateApartment?.supermarket && (
+                    <>
+                      <img src={supermarket} alt="supermarket" />
+                      <p>
+                        {handle_P_StatusButtonLanguageChange(selectedLanguage).supermarket}
+                      </p>
+                    </>
+                  )}
+            </div>
+            <div className="iconAndItsText">
+            {eachPrivateApartment?.Pharmacy &&  (
+                    <>
+                      <img src={aptiaqi} alt="aptiaqi" />
+                      <p>
+                        {handle_P_StatusButtonLanguageChange(selectedLanguage).pharmacy}
+                      </p>
+                    </>
+                  )}
+            </div>
+            <div className="iconAndItsText">
+            {eachPrivateApartment?.Square && (
+                    <>
+                      <img src={skveri} alt="skveri" />
+                      <p>
+                        {handle_P_StatusButtonLanguageChange(selectedLanguage).square}
+                      </p>
+                    </>
+                  )}
+            </div>
+          </div>
+
+          <div className="child_map_container_P">
+            <GoogleMap
+              mapContainerStyle={{ height: '300px' }}
+              center={mapcenter}
+              zoom={16}
+              options={{
+                gestureHandling: "none",
+                zoomControl: true,
+                scrollwheel: false,
+                disableDoubleClickZoom: true,
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false,
+              }}
+            >
+              <Marker
+                key={privateApartments.id}
+                position={{
+                  lat: eachComplexAllAppartments?.complexAddress?.latitude,
+                  lng:eachComplexAllAppartments?.complexAddress?.longitude
+                }}
+                icon={{
+                  url: private_apartment_location_icon,
+                  scaledSize: scalesize
+                }}
+              />
+            </GoogleMap>
+          </div>
+        </div>
+        {/* (END) ახლო მდებარე ობიექტები box -------- */}
+
         {/* ----------- */}
       </div>
     </div>
@@ -1177,7 +1599,7 @@ const styles = {
     width: "278px",
     height: "229px",
     overflow: "hidden",
-    borderRadius: "20px",
+    // borderRadius: "20px",
   },
   companyTitle: {
     // position: 'absolute',
