@@ -3,28 +3,27 @@ import './Lots.css'
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import P_Modal from "../modals for private page/P_Modal";
-import P_PriceModal from '../modals for private page/P_PriceModal';
-import P_SpaceModal from '../modals for private page/P_SpaceModal';
-import P_StatusModal from '../modals for private page/P_StatusModa';
-import { motion } from 'framer-motion';
-import button_icon from '../icons/Vector.svg';
+import P_PriceModal from "../modals for private page/P_PriceModal";
+import P_SpaceModal from "../modals for private page/P_SpaceModal";
+import P_StatusModal from "../modals for private page/P_StatusModa";
+import { motion } from "framer-motion";
+import button_icon from "../icons/Vector.svg";
 import { Link } from "react-router-dom";
-import mapSignLogo from '../assets/mapSignLogoo.svg';
-import Button from '@mui/material/Button';
-import arrowDownSorting from '../assets/arrow-down-white.svg';
-import Menu from '@mui/material/Menu';
-import loupe from '../icons/loupe.png'
-import MenuItem from '@mui/material/MenuItem';
-import lari from '../assets/lari-svgrepo-com.svg';
-import dollar from '../assets/dollar-svgrepo-com.svg';
-import Stack from '@mui/material/Stack';
-import Pagination from '@mui/material/Pagination';
-import heartIcon from '../assets/starLogo.svg';
-import heartIconEmpty from '../assets/emptyStarLogo.svg';
-import googleMapImage from '../assets/mapImageForFooter.svg';
-import { BaseURLs } from '../App';
+import mapSignLogo from "../assets/mapSignLogoo.svg";
+import Button from "@mui/material/Button";
+import arrowDownSorting from "../assets/arrow-down-white.svg";
+import Menu from "@mui/material/Menu";
+import loupe from "../icons/loupe.png";
+import MenuItem from "@mui/material/MenuItem";
+import lari from "../assets/lari-svgrepo-com.svg";
+import dollar from "../assets/dollar-svgrepo-com.svg";
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
+import heartIcon from "../assets/starLogo.svg";
+import heartIconEmpty from "../assets/emptyStarLogo.svg";
+import googleMapImage from "../assets/mapImageForFooter.svg";
+import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
-
 
 const normalizeGroundData = (data, lang) => {
   return data.map((item) => ({
@@ -73,16 +72,15 @@ const normalizeLocationData = (data, lang) => {
   });
 };
 
-export default function Physical({ selectedLanguage,
-  favorites,
+export default function Physical({
+  selectedLanguage,
+  favoritesLots,
+  favoriteHandlerLots,
   getCorrencyRate,
   HandleStateChange,
   currenceChangeState,
   isOn,
   toggleSwitch,
-
-
-
 }) {
   const [privateApartments, setPrivateApartments] = useState([]);
 
@@ -116,8 +114,6 @@ export default function Physical({ selectedLanguage,
   const [stringFilterValue, setStringFilterValue] = useState("");
   const [graundStatus, setGraundStatus] = useState([]);
 
-
-
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -137,7 +133,6 @@ export default function Physical({ selectedLanguage,
   const handleLotsClick = (prev_apartments) => {
     navigate(`/eachground/${prev_apartments}`, { state: { prev_apartments } });
   };
-
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
@@ -205,21 +200,21 @@ export default function Physical({ selectedLanguage,
     graundStatus,
   ]);
 
-
   // useEffect(() => {
   //   console.log("aq unda iyos suratebi", privateApartments);
   // }, [totalCount, selectedLanguage]);
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
-
   useEffect(() => {
     const fetchLocations = async () => {
       try {
         const response = await axios.get(`${BaseURLs.map}${selectedLanguage}`);
-        const normalisedLocationData = normalizeLocationData(response.data, selectedLanguage)
-        setLocations(normalisedLocationData)
-
+        const normalisedLocationData = normalizeLocationData(
+          response.data,
+          selectedLanguage
+        );
+        setLocations(normalisedLocationData);
       } catch (error) {
         console.error("error fetching on locations =>> ", error);
       }
@@ -1218,7 +1213,10 @@ const handle_Search_Burron_Click = () => {
                 <div
                   className="switch_physical"
                   data-ison={isOn}
-                  onClick={() => { toggleSwitch(); HandleStateChange() }}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
                 >
                   <motion.div
                     className="handle_physical"
@@ -1228,14 +1226,16 @@ const handle_Search_Burron_Click = () => {
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        isOn ? "active" : ""
+                      }`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${!isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        !isOn ? "active" : ""
+                      }`}
                     />
                   </motion.div>
                 </div>
@@ -1250,11 +1250,7 @@ const handle_Search_Burron_Click = () => {
 
       <div className="allCards_physical">
         {privateApartments.map((prev_apartments, index) => (
-          <div
-            className="card_physical"
-            key={prev_apartments.id}
-            onClick={() => handleLotsClick(prev_apartments.id)}
-          >
+          <div className="card_physical" key={prev_apartments.id}>
             <motion.div
               key={currentPage}
               initial={{ x: -50, opacity: 0 }}
@@ -1265,11 +1261,13 @@ const handle_Search_Burron_Click = () => {
               <div className="heartbuttonAndImageBox_physical">
                 <div className="heartButtonBox_physical">
                   <button
-                    onClick={() => favoriteHandler(prev_apartments)}
+                    onClick={() => favoriteHandlerLots(prev_apartments)}
                     key={prev_apartments.id}
                     className="heartButtons_physical"
                   >
-                    {favorites.some((fav) => fav.id === prev_apartments.id) ? (
+                    {favoritesLots.some(
+                      (fav) => fav.id === prev_apartments.id
+                    ) ? (
                       <img src={heartIcon} alt="Logo of heart" />
                     ) : (
                       <img
@@ -1284,13 +1282,17 @@ const handle_Search_Burron_Click = () => {
                   src={prev_apartments.images[0]}
                   alt={prev_apartments.name}
                   style={styles.imageStyles}
+                  onClick={() => handleLotsClick(prev_apartments.id)}
                 />
               </div>
               {/* --------------card details------------------- */}
               <h1 className="company_title" style={styles.companyTitle}>
                 {prev_apartments.groundName}
               </h1>
-              <div className="textInfo_physical">
+              <div
+                className="textInfo_physical"
+                onClick={() => handleLotsClick(prev_apartments.id)}
+              >
                 <p className="city_settings" style={styles.complexInfo}>
                   {car_settings_language_change(selectedLanguage).city} :{" "}
                   {prev_apartments.address.city}

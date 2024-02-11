@@ -83,8 +83,8 @@ const normalizeLocationData = (data, lang) => {
 
 export default function Physical({
   selectedLanguage,
-  favorites,
-  favoriteHandler,
+  favoritesPhysical,
+  favoriteHandlerPhysical,
   getCorrencyRate,
   HandleStateChange,
   currenceChangeState,
@@ -141,7 +141,9 @@ export default function Physical({
 
   // Assuming `complex` is an object representing each house
   const handleAppartmentClick = (p_apartment_id) => {
-    navigate(`/eachprivateappartment/${p_apartment_id}`, { state: { p_apartment_id } });
+    navigate(`/eachprivateappartment/${p_apartment_id}`, {
+      state: { p_apartment_id },
+    });
   };
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
@@ -820,10 +822,11 @@ export default function Physical({
                     {NUMBER_OF_ROOM_CHOICES.map((choice) => (
                       <React.Fragment key={choice.value}>
                         <label
-                          className={`checkbox-label ${selectedRoomNumbers.includes(choice.value)
+                          className={`checkbox-label ${
+                            selectedRoomNumbers.includes(choice.value)
                               ? "selected"
                               : ""
-                            }`}
+                          }`}
                           onClick={() => handleRoomNumberChange(choice.value)}
                         >
                           {choice.label}
@@ -834,7 +837,7 @@ export default function Physical({
                           name="number_of_rooms"
                           value={choice.value}
                           checked={selectedRoomNumbers.includes(choice.value)}
-                          onChange={() => { }}
+                          onChange={() => {}}
                           style={{ display: "none" }}
                         />
                       </React.Fragment>
@@ -1245,7 +1248,10 @@ export default function Physical({
                 <div
                   className="switch_physical"
                   data-ison={isOn}
-                  onClick={() => { toggleSwitch(); HandleStateChange() }}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
                 >
                   <motion.div
                     className="handle_physical"
@@ -1255,14 +1261,16 @@ export default function Physical({
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        isOn ? "active" : ""
+                      }`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${!isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        !isOn ? "active" : ""
+                      }`}
                     />
                   </motion.div>
                 </div>
@@ -1277,11 +1285,7 @@ export default function Physical({
 
       <div className="allCards_physical">
         {privateApartments.map((prev_apartments, index) => (
-          <div
-            className="card_physical"
-            key={index}
-            onClick={() => handleAppartmentClick(prev_apartments.id)}
-          >
+          <div className="card_physical" key={index}>
             <motion.div
               key={currentPage}
               initial={{ x: -50, opacity: 0 }}
@@ -1292,11 +1296,13 @@ export default function Physical({
               <div className="heartbuttonAndImageBox_physical">
                 <div className="heartButtonBox_physical">
                   <button
-                    onClick={() => favoriteHandler(prev_apartments)}
+                    onClick={() => favoriteHandlerPhysical(prev_apartments)}
                     key={prev_apartments.id}
                     className="heartButtons_physical"
                   >
-                    {favorites.some((fav) => fav.id === prev_apartments.id) ? (
+                    {favoritesPhysical.some(
+                      (fav) => fav.id === prev_apartments.id
+                    ) ? (
                       <img src={heartIcon} alt="Logo of heart" />
                     ) : (
                       <img
@@ -1311,13 +1317,17 @@ export default function Physical({
                   src={prev_apartments.images[0]}
                   alt={prev_apartments.name}
                   style={styles.imageStyles}
+                  onClick={() => handleAppartmentClick(prev_apartments.id)}
                 />
               </div>
               {/* --------------card details------------------- */}
               <h1 className="company_title" style={styles.companyTitle}>
                 {prev_apartments.privateApartmentName}
               </h1>
-              <div className="textInfo_physical">
+              <div
+                className="textInfo_physical"
+                onClick={() => handleAppartmentClick(prev_apartments.id)}
+              >
                 <p className="city_settings" style={styles.complexInfo}>
                   {car_settings_language_change(selectedLanguage).city} :{" "}
                   {prev_apartments.address.city}

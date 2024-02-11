@@ -36,6 +36,11 @@ import lipti from "../assets/lipti.svg";
 import shlagbaumi from "../assets/shlagbaumi.svg";
 import konsierji from "../assets/konsierji.svg";
 import ezo from "../assets/ezo.svg";
+import metro from "../assets/Metro.svg";
+import aptiaqi from "../assets/Aptiaqi.svg";
+import supermarket from "../assets/Supermarket.svg";
+import skveri from "../assets/skveri.svg";
+import forMapPhoto from "../assets/ComplexesPhotos/1zz.jpg";
 
 // ------------------
 import "./Physical.css";
@@ -1395,6 +1400,52 @@ export default function EachApartment({
         </div>
         {/* ----------- */}
       </div>
+
+      {/* (START) ახლო მდებარე ობიექტები box */}
+      <div className="textBoxOfH4axloMdebareObieqtebi">
+        <h4 style={{ color: "white" }}>
+          {handle_P_StatusButtonLanguageChange(selectedLanguage).nearObjects}
+        </h4>
+      </div>
+
+      <div className="axloMdebareObieqtebiBox">
+        <div className="textBoxOfAxloMdebare">
+          <div className="iconAndItsText">
+            <img src={metro} alt="metro" />
+            <p>{handle_P_StatusButtonLanguageChange(selectedLanguage).metro}</p>
+          </div>
+          <div className="iconAndItsText">
+            <img src={aptiaqi} alt="aptiaqi" />
+            <p>
+              {handle_P_StatusButtonLanguageChange(selectedLanguage).pharmacy}
+            </p>
+          </div>{" "}
+          <div className="iconAndItsText">
+            <img src={supermarket} alt="supermarket" />
+            <p>
+              {
+                handle_P_StatusButtonLanguageChange(selectedLanguage)
+                  .supermarket
+              }
+            </p>
+          </div>{" "}
+          <div className="iconAndItsText">
+            <img src={skveri} alt="skveri" />
+            <p>
+              {handle_P_StatusButtonLanguageChange(selectedLanguage).square}
+            </p>
+          </div>
+        </div>
+
+        <div className="boxOfMapOnAxloMdebare">
+          <img
+            src={forMapPhoto}
+            className="googlePhotoOnEachComplexPage"
+            alt="forMapPhoto"
+          />
+        </div>
+      </div>
+      {/* (END) ახლო მდებარე ობიექტები box -------- */}
     </div>
   );
 }
