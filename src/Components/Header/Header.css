@@ -102,3 +102,21 @@ nav ul {
 /* .heartLogo {
   width: 20.11px;
 } */
+
+
+@media (max-width: 768px) {
+  .LogoAndNavBar, .favouriteAndLanguageAndDayModeChanger {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    width: auto;
+  }
+
+  .buttonItemsOfList {
+    text-align: center;
+    padding: 10px;
+  }
+}

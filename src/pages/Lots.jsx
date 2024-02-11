@@ -1,34 +1,29 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-case-declarations */
-/* eslint-disable react/prop-types */
 import "./Physical.css";
+import './Lots.css'
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import P_Modal from "../modals for private page/P_Modal";
-import P_PriceModal from '../modals for private page/P_PriceModal';
-import P_SpaceModal from '../modals for private page/P_SpaceModal';
-import P_StatusModal from '../modals for private page/P_StatusModa';
-import { motion } from 'framer-motion';
-import button_icon from '../icons/Vector.svg';
+import P_PriceModal from "../modals for private page/P_PriceModal";
+import P_SpaceModal from "../modals for private page/P_SpaceModal";
+import P_StatusModal from "../modals for private page/P_StatusModa";
+import { motion } from "framer-motion";
+import button_icon from "../icons/Vector.svg";
 import { Link } from "react-router-dom";
-import mapSignLogo from '../assets/mapSignLogoo.svg';
-import Button from '@mui/material/Button';
-import arrowDownSorting from '../assets/arrow-down-white.svg';
-import Menu from '@mui/material/Menu';
-import loupe from '../icons/loupe.png'
-import MenuItem from '@mui/material/MenuItem';
-import lari from '../assets/lari-svgrepo-com.svg';
-import dollar from '../assets/dollar-svgrepo-com.svg';
-import Stack from '@mui/material/Stack';
-import Pagination from '@mui/material/Pagination';
-import heartIcon from '../assets/starLogo.svg';
-import heartIconEmpty from '../assets/emptyStarLogo.svg';
-import googleMapImage from '../assets/mapImageForFooter.svg';
-import { BaseURLs } from '../App';
+import mapSignLogo from "../assets/mapSignLogoo.svg";
+import Button from "@mui/material/Button";
+import arrowDownSorting from "../assets/arrow-down-white.svg";
+import Menu from "@mui/material/Menu";
+import loupe from "../icons/loupe.png";
+import MenuItem from "@mui/material/MenuItem";
+import lari from "../assets/lari-svgrepo-com.svg";
+import dollar from "../assets/dollar-svgrepo-com.svg";
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
+import heartIcon from "../assets/starLogo.svg";
+import heartIconEmpty from "../assets/emptyStarLogo.svg";
+import googleMapImage from "../assets/mapImageForFooter.svg";
+import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
-
 
 const normalizeGroundData = (data, lang) => {
   return data.map((item) => ({
@@ -77,7 +72,16 @@ const normalizeLocationData = (data, lang) => {
   });
 };
 
-export default function Physical({ selectedLanguage, favorites }) {
+export default function Physical({
+  selectedLanguage,
+  favoritesLots,
+  favoriteHandlerLots,
+  getCorrencyRate,
+  HandleStateChange,
+  currenceChangeState,
+  isOn,
+  toggleSwitch,
+}) {
   const [privateApartments, setPrivateApartments] = useState([]);
 
   const [is_P_ModalOpen, setIs_P_ModalOpen] = useState("");
@@ -110,6 +114,10 @@ export default function Physical({ selectedLanguage, favorites }) {
   const [stringFilterValue, setStringFilterValue] = useState("");
   const [graundStatus, setGraundStatus] = useState([]);
 
+  const [search, setSearch] = useState(false);
+
+
+
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -127,9 +135,8 @@ export default function Physical({ selectedLanguage, favorites }) {
   const navigate = useNavigate();
   // Assuming `complex` is an object representing each house
   const handleLotsClick = (prev_apartments) => {
-    navigate(`/eachground/${prev_apartments}`,{ state: { prev_apartments } });
+    navigate(`/eachground/${prev_apartments}`, { state: { prev_apartments } });
   };
-
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
@@ -182,20 +189,26 @@ export default function Physical({ selectedLanguage, favorites }) {
     fetcPrivateApartments();
   }, [
     selectedLanguage,
-    selectedCity,
-    selectedPharentDistricts,
-    selectedDistricts,
-    min_square_price,
-    max_square_price,
-    minFullPrice,
-    maxFullPrice,
-    max_area,
-    min_area,
-    currentPage,
-    ascendentPrice,
-    stringFilterValue,
-    graundStatus,
+    search,
+    // selectedCity,
+    // selectedPharentDistricts,
+    // selectedDistricts,
+    // min_square_price,
+    // max_square_price,
+    // minFullPrice,
+    // maxFullPrice,
+    // max_area,
+    // min_area,
+    // currentPage,
+    // ascendentPrice,
+    // stringFilterValue,
+    // graundStatus,
   ]);
+
+
+  const habdle_Search_Button_Click = () => {
+    setSearch(!search)
+  }
 
 
   // useEffect(() => {
@@ -204,14 +217,15 @@ export default function Physical({ selectedLanguage, favorites }) {
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
-
   useEffect(() => {
     const fetchLocations = async () => {
       try {
         const response = await axios.get(`${BaseURLs.map}${selectedLanguage}`);
-        const normalisedLocationData = normalizeLocationData(response.data, selectedLanguage)
-        setLocations(normalisedLocationData)
-
+        const normalisedLocationData = normalizeLocationData(
+          response.data,
+          selectedLanguage
+        );
+        setLocations(normalisedLocationData);
       } catch (error) {
         console.error("error fetching on locations =>> ", error);
       }
@@ -467,6 +481,7 @@ export default function Physical({ selectedLanguage, favorites }) {
       stringFiltrationButtonLanguage: "Search by word",
       complexes: "Complexes",
       private_apartments: "Private Appartments",
+      allFindButtonLanguage : "Search"
     };
 
     switch (lang) {
@@ -482,6 +497,8 @@ export default function Physical({ selectedLanguage, favorites }) {
         languageInfo.stringFiltrationButtonLanguage = "Search by word";
         languageInfo.complexes = "Complexes";
         languageInfo.private_apartments = "Private Appartments";
+        languageInfo.allFindButtonLanguage = "Search";
+
         break;
 
       case "ka":
@@ -496,6 +513,8 @@ export default function Physical({ selectedLanguage, favorites }) {
         languageInfo.stringFiltrationButtonLanguage = "იპოვე სიტყვით";
         languageInfo.complexes = "კომპლექსები";
         languageInfo.private_apartments = "კერძო ბინები";
+        languageInfo.allFindButtonLanguage = "Search";
+
         break;
 
       case "ru":
@@ -510,6 +529,7 @@ export default function Physical({ selectedLanguage, favorites }) {
         languageInfo.stringFiltrationButtonLanguage = "Поиск по слову";
         languageInfo.complexes = "Комплексы";
         languageInfo.private_apartments = "Частные апартаменты";
+        
         break;
     }
     return languageInfo;
@@ -580,10 +600,10 @@ export default function Physical({ selectedLanguage, favorites }) {
     setAnchorEl(null);
   };
 
-  // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
+  // // for toggle DOllar AND LARI ---==---(START)
+  // const [isOn, setIsOn] = useState(false);
+  // const toggleSwitch = () => setIsOn(!isOn);
+  // // -----===--------(END)
 
   // This is for scrool up, when user click other Pagination number
   const pagiHandler = () => {
@@ -604,6 +624,7 @@ export default function Physical({ selectedLanguage, favorites }) {
       sortingButtonAscendantFullPrice: "Ascendant full price ",
       sortingButtonDescendentFullPrice: "Descendant full price",
       studio: "Studio",
+      allFindButtonLanguage : "Search"
     };
 
     switch (lang) {
@@ -615,6 +636,7 @@ export default function Physical({ selectedLanguage, favorites }) {
         languageInfo.sortingButtonAscendantFullPrice = "Ascendant full price ";
         languageInfo.sortingButtonDescendentFullPrice = "Decendent full price";
         languageInfo.studio = "Studio";
+        languageInfo.allFindButtonLanguage = "Search";
 
         break;
 
@@ -624,9 +646,9 @@ export default function Physical({ selectedLanguage, favorites }) {
         languageInfo.sortingButtonAscendantTime = "თარიღი ზრდადობით";
         languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით";
         languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით";
-        languageInfo.sortingButtonDescendentFullPrice =
-          "მთლიანი ფასი კლებადობით";
+        languageInfo.sortingButtonDescendentFullPrice ="მთლიანი ფასი კლებადობით";
         languageInfo.studio = "სტუდიო";
+        languageInfo.allFindButtonLanguage = "ძებნა";
 
         break;
 
@@ -640,6 +662,7 @@ export default function Physical({ selectedLanguage, favorites }) {
         languageInfo.sortingButtonDescendentFullPrice =
           "Полная стоимость потомка";
         languageInfo.studio = "Студия";
+        languageInfo.allFindButtonLanguage = "Поиск";
 
         break;
     }
@@ -743,6 +766,14 @@ export default function Physical({ selectedLanguage, favorites }) {
   };
 
   // ------------------------------------------------------------------------------------------------------------------------
+
+// const handle_Search_Burron_Click = () => {
+  
+
+
+// }
+
+
 
   return (
     <div className="ComplexBodyBox_physical">
@@ -925,6 +956,10 @@ export default function Physical({ selectedLanguage, favorites }) {
                 />
               </div>
             </div>
+            {/*serach  Button */}
+            <div className="all_search_button" onClick={habdle_Search_Button_Click} >
+                  {handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+              </div>
           </div>
         </motion.div>
       </div>
@@ -1191,7 +1226,10 @@ export default function Physical({ selectedLanguage, favorites }) {
                 <div
                   className="switch_physical"
                   data-ison={isOn}
-                  onClick={toggleSwitch}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
                 >
                   <motion.div
                     className="handle_physical"
@@ -1225,11 +1263,7 @@ export default function Physical({ selectedLanguage, favorites }) {
 
       <div className="allCards_physical">
         {privateApartments.map((prev_apartments, index) => (
-          <div
-            className="card_physical"
-            key={prev_apartments.id}
-            onClick={() => handleLotsClick(prev_apartments.id)}
-          >
+          <div className="card_physical" key={prev_apartments.id}>
             <motion.div
               key={currentPage}
               initial={{ x: -50, opacity: 0 }}
@@ -1240,11 +1274,13 @@ export default function Physical({ selectedLanguage, favorites }) {
               <div className="heartbuttonAndImageBox_physical">
                 <div className="heartButtonBox_physical">
                   <button
-                    onClick={() => favoriteHandler(prev_apartments)}
+                    onClick={() => favoriteHandlerLots(prev_apartments)}
                     key={prev_apartments.id}
                     className="heartButtons_physical"
                   >
-                    {favorites.some((fav) => fav.id === prev_apartments.id) ? (
+                    {favoritesLots.some(
+                      (fav) => fav.id === prev_apartments.id
+                    ) ? (
                       <img src={heartIcon} alt="Logo of heart" />
                     ) : (
                       <img
@@ -1259,19 +1295,26 @@ export default function Physical({ selectedLanguage, favorites }) {
                   src={prev_apartments.images[0]}
                   alt={prev_apartments.name}
                   style={styles.imageStyles}
+                  onClick={() => handleLotsClick(prev_apartments.id)}
                 />
               </div>
               {/* --------------card details------------------- */}
               <h1 className="company_title" style={styles.companyTitle}>
                 {prev_apartments.groundName}
               </h1>
-              <div className="textInfo_physical">
+              <div
+                className="textInfo_physical"
+                onClick={() => handleLotsClick(prev_apartments.id)}
+              >
                 <p className="city_settings" style={styles.complexInfo}>
                   {car_settings_language_change(selectedLanguage).city} :{" "}
                   {prev_apartments.address.city}
                 </p>
                 <p className="price_settings" style={styles.complexInfo}>
-                  {prev_apartments.squarePrice}{" "}
+                  {/* {prev_apartments.squarePrice *   getCorrencyRate}{" "} */}
+                  {currenceChangeState
+                    ? prev_apartments.squarePrice * getCorrencyRate
+                    : prev_apartments.squarePrice}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">
@@ -1357,7 +1400,7 @@ const styles = {
     width: "278px",
     height: "229px",
     overflow: "hidden",
-    borderRadius: "20px",
+    // borderRadius: "20px",
   },
   companyTitle: {
     // position: 'absolute',
