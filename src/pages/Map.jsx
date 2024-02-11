@@ -1193,7 +1193,7 @@ const handelGroundClick = (prev_apartments) => {
                     {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
-                  <Modal isOpen={isModalOpen} >
+                  <Modal isOpen={isModalOpen} close={closeModal}>
                     {renderModalContent()}
                   </Modal>
                 </div>
@@ -1301,7 +1301,7 @@ const handelGroundClick = (prev_apartments) => {
                   {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                 </div>
-                <Modal isOpen={isModalOpen} >
+                <Modal isOpen={isModalOpen} close={closeModal} >
                   {renderModalContent()}
                 </Modal>
               </div>
@@ -1407,7 +1407,7 @@ const handelGroundClick = (prev_apartments) => {
                   {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                 </div>
-                <G_Modal isOpen={isModalOpen} >
+                <G_Modal isOpen={isModalOpen} close={closeModal}>
                   {renderModalContent()}
                 </G_Modal>
               </div>
