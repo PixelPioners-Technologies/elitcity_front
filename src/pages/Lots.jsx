@@ -199,7 +199,7 @@ export default function Physical({
     // maxFullPrice,
     // max_area,
     // min_area,
-    // currentPage,
+    currentPage,
     // ascendentPrice,
     // stringFilterValue,
     // graundStatus,
@@ -612,6 +612,14 @@ export default function Physical({
       behavior: "smooth",
     });
   };
+
+const handle_pagination_arrow_page_up = (eevent ,value) => {
+  setCorrentPage(value)
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
 
   // ------------------------------------------------------------------------------------
   const handleStatusButtonLanguageChange = (lang) => {
@@ -1341,7 +1349,8 @@ export default function Physical({
             count={totalPageCount}
             shape="rounded"
             page={currentPage}
-            onChange={(event, value) => setCorrentPage(Number(value))}
+            onChange={handle_pagination_arrow_page_up}
+
             onClick={pagiHandler}
             sx={{
               "& .MuiPaginationItem-root": {

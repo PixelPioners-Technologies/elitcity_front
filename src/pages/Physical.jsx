@@ -219,7 +219,7 @@ export default function Physical({
     // selectedStatuses,
     // max_area,
     // min_area,
-    // currentPage,
+    currentPage,
     // ascendentPrice,
     // stringFilterValue,
     // selectedRoomNumbers,
@@ -647,7 +647,19 @@ export default function Physical({
       top: 0,
       behavior: "smooth",
     });
+    
   };
+
+  const handle_page_up_arrow= (event, value)=> {
+  setCorrentPage(value)
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+  
+}
+
+
 
   // ------------------------------------------------------------------------------------
   const handleStatusButtonLanguageChange = (lang) => {
@@ -1388,7 +1400,7 @@ export default function Physical({
             count={totalPageCount}
             shape="rounded"
             page={currentPage}
-            onChange={(event, value) => setCorrentPage(Number(value))}
+            onChange={handle_page_up_arrow}
             onClick={pagiHandler}
             sx={{
               "& .MuiPaginationItem-root": {
