@@ -349,28 +349,23 @@ export default function EachComplex({
     const wordSlider = sliderImages[index];
     setWordData(wordSlider);
   };
-
   const handleNext = () => {
     const newIndex = val < sliderImages.length - 1 ? val + 1 : 0; // Cycle to the start if at the end
     setVal(newIndex);
-    const wordSlider = sliderImages[newIndex];
-    setWordData(wordSlider);
-    setCarouselPosition(
-      (prevPosition) => (prevPosition + 1) % sliderImages.length
-    );
+    setWordData(sliderImages[newIndex]);
+    if (carouselPosition > 0) {
+      setCarouselPosition(carouselPosition - 1);
+    }
   };
 
   const handlePrevious = () => {
     const newIndex = val > 0 ? val - 1 : sliderImages.length - 1; // Cycle to the end if at the start
     setVal(newIndex);
-    const wordSlider = sliderImages[newIndex];
-    setWordData(wordSlider);
-    setCarouselPosition(
-      (prevPosition) =>
-        (prevPosition - 1 + sliderImages.length) % sliderImages.length
-    );
+    setWordData(sliderImages[newIndex]);
+    if (carouselPosition < sliderImages.length - 4) {
+      setCarouselPosition(carouselPosition + 1);
+    }
   };
-
   // for toggle DOllar AND LARI ---==---(START)
   // const [isOn, setIsOn] = useState(false);
   // const toggleSwitch = () => setIsOn(!isOn);
