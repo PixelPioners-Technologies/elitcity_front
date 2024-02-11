@@ -123,6 +123,9 @@ export default function Physical({
 
   const [stringFilterValue, setStringFilterValue] = useState("");
 
+  const [search, setSearch] = useState(false);
+
+
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -205,21 +208,30 @@ export default function Physical({
     fetcPrivateApartments();
   }, [
     selectedLanguage,
-    selectedCity,
-    selectedPharentDistricts,
-    selectedDistricts,
-    min_square_price,
-    max_square_price,
-    minFullPrice,
-    maxFullPrice,
-    selectedStatuses,
-    max_area,
-    min_area,
-    currentPage,
-    ascendentPrice,
-    stringFilterValue,
-    selectedRoomNumbers,
+    search,
+    // selectedCity,
+    // selectedPharentDistricts,
+    // selectedDistricts,
+    // min_square_price,
+    // max_square_price,
+    // minFullPrice,
+    // maxFullPrice,
+    // selectedStatuses,
+    // max_area,
+    // min_area,
+    // currentPage,
+    // ascendentPrice,
+    // stringFilterValue,
+    // selectedRoomNumbers,
   ]);
+
+
+
+  const habdle_Search_Button_Click = () => {
+    setSearch(!search)
+  }
+
+
 
   //-----------------------------------fetch ionly locations --------------------------------------
   useEffect(() => {
@@ -501,6 +513,8 @@ export default function Physical({
       stringFiltrationButtonLanguage: "Search by word",
       complexes: "Complexes",
       private_apartments: "Private Appartments",
+      allFindButtonLanguage : "Search"
+
     };
 
     switch (lang) {
@@ -516,6 +530,8 @@ export default function Physical({
         languageInfo.stringFiltrationButtonLanguage = "Search by word";
         languageInfo.complexes = "Complexes";
         languageInfo.private_apartments = "Private Appartments";
+        languageInfo.allFindButtonLanguage = "Search";
+
         break;
 
       case "ka":
@@ -530,6 +546,8 @@ export default function Physical({
         languageInfo.stringFiltrationButtonLanguage = "იპოვე სიტყვით";
         languageInfo.complexes = "კომპლექსები";
         languageInfo.private_apartments = "კერძო ბინები";
+        languageInfo.allFindButtonLanguage = "ძებნა";
+
         break;
 
       case "ru":
@@ -544,10 +562,14 @@ export default function Physical({
         languageInfo.stringFiltrationButtonLanguage = "Поиск по слову";
         languageInfo.complexes = "Комплексы";
         languageInfo.private_apartments = "Частные апартаменты";
+        languageInfo.allFindButtonLanguage = "Поиск";
+
+        
         break;
     }
     return languageInfo;
   };
+
 
   // ---------------------------------------------------------------------------------------------------------------------
   // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
@@ -982,6 +1004,10 @@ export default function Physical({
                 />
               </div>
             </div>
+                        {/*serach  Button */}
+                        <div className="all_search_button" onClick={habdle_Search_Button_Click} >
+                  {handle_P_StatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+              </div>
           </div>
         </motion.div>
       </div>

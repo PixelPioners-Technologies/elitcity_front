@@ -10,9 +10,7 @@ import { motion } from "framer-motion";
 
 
 
-
-
-export default function Header({favorites, handleLanguageChange , onButtonClick , selectedLanguage }) {
+export default function Header({favorites, handleLanguageChange , onButtonClick , selectedLanguage ,favoritesPhysical,favoritesLots}) {
 
 
 
