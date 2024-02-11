@@ -23,6 +23,7 @@ export default function Header({
             <img src={CompanyLogo} alt="Logo of Company STARKHOME COMPANY " />
           </Link>
         </div>
+
         <nav>
           <ul>
             <li>
