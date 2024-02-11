@@ -120,9 +120,9 @@ const normalizePrivateApartmentData = (data, lang) => {
     rank: item.internal_private_apartment_name.rank,
     address: {
       city: item[`private_apartment_address_${lang}`][`city_${lang}`],
-      pharentDistrict: item[`private_apartment_address_${lang}`][`pharentDistrict_${lang}`], 
+      pharentDistrict: item[`private_apartment_address_${lang}`][`pharentDistrict_${lang}`],
       district: item[`private_apartment_address_${lang}`][`district_${lang}`],
-      streetName: item[`private_apartment_address_${lang}`][`street_name_${lang}`], 
+      streetName: item[`private_apartment_address_${lang}`][`street_name_${lang}`],
       address: item[`private_apartment_address_${lang}`][`address_${lang}`],
       latitude: item[`private_apartment_address_${lang}`].latitude,
       longitude: item[`private_apartment_address_${lang}`].longitude,
@@ -147,7 +147,7 @@ const normalizeGroundData = (data, lang) => {
     visibility: item.internal_ground_name.visibiliti,
     address: {
       city: item[`ground_address_${lang}`][`city_${lang}`],
-      parentDistrict: item[`ground_address_${lang}`][`parentDistrict_${lang}`], 
+      parentDistrict: item[`ground_address_${lang}`][`parentDistrict_${lang}`],
       district: item[`ground_address_${lang}`][`district_${lang}`],
       streetName: item[`ground_address_${lang}`][`street_name_${lang}`],
       address: item[`ground_address_${lang}`][`address_${lang}`],
@@ -241,17 +241,17 @@ export default function Map({ selectedLanguage }) {
 
   // Assuming `complex` is an object representing each house
   const handleHouseClick = (complexId) => {
-    navigate(`/eachComplex/${complexId}`,{ state: { complexId }});
+    navigate(`/eachComplex/${complexId}`, { state: { complexId } });
   };
 
   const handlePrivateApartmentClick = (p_apartment_id) => {
-    navigate(`/eachprivateappartment/${p_apartment_id}` ,{ state: { p_apartment_id }});
+    navigate(`/eachprivateappartment/${p_apartment_id}`, { state: { p_apartment_id } });
   };
 
 
-const handelGroundClick = (prev_apartments) => {
-  navigate(`/eachground/${prev_apartments}` ,{ state: { prev_apartments }});
-}
+  const handelGroundClick = (prev_apartments) => {
+    navigate(`/eachground/${prev_apartments}`, { state: { prev_apartments } });
+  }
 
 
 
@@ -582,7 +582,7 @@ const handelGroundClick = (prev_apartments) => {
     2: { en: 'Land for settlement', ka: 'სამოსახლო', ru: 'Земля для поселения' },
     3: { en: 'Commercial', ka: 'კომერციული', ru: 'Коммерческий' }
   };
-  
+
   const render_Ground_StatusOption = () => {
     return Object.entries(statusTranslationFor_Ground).map(([value, labels]) => (
       <div className='status_chackboxes' key={value}>
@@ -926,7 +926,14 @@ const handelGroundClick = (prev_apartments) => {
       private_apartments: "Private Appartments",
       lands: "Lands",
       show_all: "Show All",
-      rank : "Rank",
+      rank: "Rank",
+      minPrice: "From m²",
+      maxPrice: "To m²",
+      roomStudio: "Studio",
+      fullPriceHomePage: "Full price",
+      meterPriceHomePage: "The price of m²",
+      dan: "from",
+      mde: "to"
     }
 
     switch (lang) {
@@ -947,6 +954,14 @@ const handelGroundClick = (prev_apartments) => {
         languageInfo.lands = "Lands"
         languageInfo.show_all = "Show All"
         languageInfo.rank = "Rank"
+        languageInfo.spaceButtonClose = "Close"
+        languageInfo.minPrice = "From m²"
+        languageInfo.maxPrice = "To m²"
+        languageInfo.roomStudio = "Studio"
+        languageInfo.fullPriceHomePage = "Full price"
+        languageInfo.meterPriceHomePage = "The price of m²"
+        languageInfo.dan = "from"
+        languageInfo.mde = "to"
         break;
 
       case "ka":
@@ -966,6 +981,14 @@ const handelGroundClick = (prev_apartments) => {
         languageInfo.lands = "ნაკვეთები"
         languageInfo.show_all = "აჩვენე ყველა"
         languageInfo.rank = "რანკი"
+        languageInfo.spaceButtonClose = "დახურვა"
+        languageInfo.minPrice = "დან მ²"
+        languageInfo.maxPrice = "მდე მ²"
+        languageInfo.roomStudio = "სტუდიო"
+        languageInfo.fullPriceHomePage = "სრული ფასი"
+        languageInfo.meterPriceHomePage = "მ² - ის ფასი"
+        languageInfo.dan = "დან"
+        languageInfo.mde = "მდე"
         break
 
       case "ru":
@@ -985,6 +1008,14 @@ const handelGroundClick = (prev_apartments) => {
         languageInfo.lands = "Участки"
         languageInfo.show_all = "Показать все"
         languageInfo.rank = "Классифицировать"
+        languageInfo.spaceButtonClose = "закрить"
+        languageInfo.minPrice = "из м²"
+        languageInfo.maxPrice = "до м²"
+        languageInfo.roomStudio = "Студия"
+        languageInfo.fullPriceHomePage = "Полная стоимость"
+        languageInfo.meterPriceHomePage = "Цена м²"
+        languageInfo.dan = "из"
+        languageInfo.mde = "до"
         break
     }
     return languageInfo
@@ -1121,11 +1152,15 @@ const handelGroundClick = (prev_apartments) => {
                   </div>
 
                   <SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
-                    <div className='filter_little_container'   >
+                    {/* <div className='filter_little_container'   > */}
+                    <div>
+                      <div>
+                        <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
+                      </div>
                       <input
                         type="number"
                         className='filter_inputs'
-                        placeholder={handleInputLanguageChange(selectedLanguage).min_space}
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
                         value={min_space}
                         onChange={(e) => setMin_space(e.target.value)}
                       />
@@ -1133,11 +1168,10 @@ const handelGroundClick = (prev_apartments) => {
                       <input
                         type="number"
                         className='filter_inputs'
-                        placeholder={handleInputLanguageChange(selectedLanguage).max_space}
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
                         value={max_space}
                         onChange={(e) => setMax_space(e.target.value)}
                       />
-                      <p>otaxebis filtraciac unda iyos aq</p>
                     </div>
                     <button className='modal_close_button' onClick={closeSpaceModal}>Close</button>
                   </SpaceModal>
@@ -1150,11 +1184,14 @@ const handelGroundClick = (prev_apartments) => {
                     <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                   </div>
                   <PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                    <div className='fullPriceHomePage'>
+                      {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+                    </div>
                     <div>
                       <input
                         type="number"
                         className='filter_inputs'
-                        placeholder={handleInputLanguageChange(selectedLanguage).min_price_per_sq_meter}
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                         value={minPricePerSquareMeter}
                         onChange={(e) => setMinPricePerSquareMeter(e.target.value)}
                       />
@@ -1162,15 +1199,19 @@ const handelGroundClick = (prev_apartments) => {
                       <input
                         type="number"
                         className='filter_inputs'
-                        placeholder={handleInputLanguageChange(selectedLanguage).max_price_per_sq_meter}
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                         value={maxPricePerSquareMeter}
                         onChange={(e) => setMaxPricePerSquareMeter(e.target.value)}
                       />
 
+                      <div className='meterPriceHomePageComplex'>
+                        {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
+                      </div>
+
                       <input
                         type="number"
                         className='filter_inputs'
-                        placeholder={handleInputLanguageChange(selectedLanguage).min_full_price}
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                         value={minFullPrice}
                         onChange={(e) => setMinFullPrice(e.target.value)}
                       />
@@ -1178,7 +1219,7 @@ const handelGroundClick = (prev_apartments) => {
                       <input
                         type="number"
                         className='filter_inputs'
-                        placeholder={handleInputLanguageChange(selectedLanguage).max_full_price}
+                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                         value={maxFullPrice}
                         onChange={(e) => setMaxFullPrice(e.target.value)}
                       />
@@ -1229,10 +1270,13 @@ const handelGroundClick = (prev_apartments) => {
                 </div>
                 <SpaceModal isOpen={isSpaceModalOpen} close={closeSpaceModal}>
                   <div>
+                    <div>
+                      <text className='priceTextMap'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
+                    </div>
                     <input
                       type="number"
                       className='filter_inputs'
-                      placeholder={handleInputLanguageChange(selectedLanguage).min_space}
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
                       value={min_area}
                       onChange={(e) => setMin_area(e.target.value)}
                     />
@@ -1240,7 +1284,7 @@ const handelGroundClick = (prev_apartments) => {
                     <input
                       type="number"
                       className='filter_inputs'
-                      placeholder={handleInputLanguageChange(selectedLanguage).max_space}
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
                       value={max_area}
                       onChange={(e) => setMax_area(e.target.value)}
                     />
@@ -1257,11 +1301,14 @@ const handelGroundClick = (prev_apartments) => {
                   <img src={button_icon} alt="button dropdown icon" className='dropdown' />
                 </div>
                 <PriceModal isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                  <div className='fullPriceHomePage'>
+                    {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+                  </div>
                   <div>
                     <input
                       type="number"
                       className='filter_inputs'
-                      placeholder={handleInputLanguageChange(selectedLanguage).min_price_per_sq_meter}
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                       value={min_square_price}
                       onChange={(e) => setMin_square_price(e.target.value)}
                     />
@@ -1269,15 +1316,19 @@ const handelGroundClick = (prev_apartments) => {
                     <input
                       type="number"
                       className='filter_inputs'
-                      placeholder={handleInputLanguageChange(selectedLanguage).max_price_per_sq_meter}
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                       value={max_square_price}
                       onChange={(e) => setMax_square_price(e.target.value)}
                     />
 
+                    <div className='meterPriceHomePageComplex'>
+                      {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
+                    </div>
+
                     <input
                       type="number"
                       className='filter_inputs'
-                      placeholder={handleInputLanguageChange(selectedLanguage).min_full_price}
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                       value={min_P_FullPrice}
                       onChange={(e) => setMin_P_FullPrice(e.target.value)}
                     />
@@ -1285,7 +1336,7 @@ const handelGroundClick = (prev_apartments) => {
                     <input
                       type="number"
                       className='filter_inputs'
-                      placeholder={handleInputLanguageChange(selectedLanguage).max_full_price}
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                       value={max_P_FullPrice}
                       onChange={(e) => setMax_P_FullPrice(e.target.value)}
                     />
@@ -1565,7 +1616,7 @@ const handelGroundClick = (prev_apartments) => {
                   <h2>{selectedGrounds.groundName.length > 15 ? `${selectedGrounds.groundName.substring(0, 15)}...` : selectedGrounds.groundName}</h2>
 
                   {selectedGrounds.images && selectedGrounds.images.length > 0 && (
-                    <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} onClick={() => handelGroundClick(selectedGrounds.id)}  className='infowindow_img' />
+                    <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} onClick={() => handelGroundClick(selectedGrounds.id)} className='infowindow_img' />
                   )}
                   <div className="infowindow_settings">
                     <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusTextfor_Grounds(selectedGrounds.status, selectedLanguage)}</p>
@@ -1706,7 +1757,7 @@ const handelGroundClick = (prev_apartments) => {
                 <div className='infowindow_container'  >
                   <h2>{selectedGrounds.groundName.length > 15 ? `${selectedGrounds.groundName.substring(0, 15)}...` : selectedGrounds.groundName}</h2>
                   {selectedGrounds.images && selectedGrounds.images.length > 0 && (
-                    <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} onClick={() => handelGroundClick(selectedGrounds.id)}  className='infowindow_img' />
+                    <img src={selectedGrounds.images[0]} alt={selectedGrounds.privateApartmentName} onClick={() => handelGroundClick(selectedGrounds.id)} className='infowindow_img' />
                   )}
                   <div className="infowindow_settings">
                     <p style={{ fontSize: '13px', color: 'white', fontWeight: "600" }}  >{getStatusTextfor_Grounds(selectedGrounds.status, selectedLanguage)}</p>
