@@ -514,52 +514,6 @@ export default function Complex({
     return languageInfo
   }
 
-      pricePerM: " from per m²",
-    };
-
-    switch (lang) {
-      case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
-        languageInfo.cityButtonLanguage = "Location";
-        languageInfo.spaceButtonLanguage = "Space";
-        languageInfo.priceButtonLanguage = "Price";
-        languageInfo.allStatusLanguage = "All";
-        languageInfo.findMapButtonLanguage = "Find Map";
-        languageInfo.allFindButtonLanguage = "Find";
-        languageInfo.spaceButtonClose = "Close";
-        languageInfo.pricePerM = " from per m²";
-
-        break;
-
-      case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
-        languageInfo.cityButtonLanguage = "მდებარეობა";
-        languageInfo.spaceButtonLanguage = "ფართი";
-        languageInfo.priceButtonLanguage = "ფასი";
-        languageInfo.allStatusLanguage = "ყველა";
-        languageInfo.findMapButtonLanguage = "რუკაზე ძიება";
-        languageInfo.allFindButtonLanguage = "ძიება";
-        languageInfo.spaceButtonClose = "დახურვა";
-        languageInfo.pricePerM = " m²-იდან";
-
-        break;
-
-      case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус";
-        languageInfo.cityButtonLanguage = "Местоположение";
-        languageInfo.spaceButtonLanguage = "Площадь";
-        languageInfo.priceButtonLanguage = "Цена";
-        languageInfo.allStatusLanguage = "Все";
-        languageInfo.findMapButtonLanguage = "Карта";
-        languageInfo.allFindButtonLanguage = "Натдти";
-        languageInfo.spaceButtonClose = "закрить";
-        languageInfo.pricePerM = " за м²";
-
-
-        break;
-    }
-    return languageInfo;
-  };
 
   // ------------------------------------------------------------------------------------
 
