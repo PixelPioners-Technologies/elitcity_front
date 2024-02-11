@@ -9,23 +9,26 @@ import ArrowDown from "../../assets/arrowDownFromHeader.svg";
 import { motion } from "framer-motion";
 
 
-
-export default function Header({favorites, handleLanguageChange , onButtonClick , selectedLanguage ,favoritesPhysical,favoritesLots}) {
-
-
-
+export default function Header({
+  favorites,
+  handleLanguageChange,
+  onButtonClick,
+  selectedLanguage,
+  favoritesLots,
+  favoritesPhysical,
+}) {
 
   const handle_P_StatusButtonLanguageChange = (lang) => {
     var languageInfo = {
       complex: "Complexes",
       lands: "Lands",
-      developers: 'Developers',
-      natural_persons: 'Natural persons',
-      map: 'Map',
-      Promotions: 'Promotions',
-      Blogs: 'Blogs',
+      developers: "Developers",
+      natural_persons: "Natural persons",
+      map: "Map",
+      Promotions: "Promotions",
+      Blogs: "Blogs",
     };
-  
+
     switch (lang) {
       case "en":
         languageInfo.complex = "Complexes";
@@ -36,7 +39,7 @@ export default function Header({favorites, handleLanguageChange , onButtonClick 
         languageInfo.Promotions = "Promotions";
         languageInfo.Blogs = "Blogs";
         break;
-  
+
       case "ka":
         languageInfo.complex = "კომპლექსები";
         languageInfo.lands = "მიწები";
@@ -46,7 +49,7 @@ export default function Header({favorites, handleLanguageChange , onButtonClick 
         languageInfo.Promotions = "აქციები";
         languageInfo.Blogs = "ბლოგები";
         break;
-  
+
       case "ru":
         languageInfo.complex = "Комплексы";
         languageInfo.lands = "Земли";
@@ -59,9 +62,6 @@ export default function Header({favorites, handleLanguageChange , onButtonClick 
     }
     return languageInfo;
   };
-
- 
-
 
   return (
     <div className="header">
@@ -82,7 +82,15 @@ export default function Header({favorites, handleLanguageChange , onButtonClick 
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button onClick={() => onButtonClick('ComplexButton')}  className='buttonItemsOfList'>{handle_P_StatusButtonLanguageChange(selectedLanguage).complex}</button>
+                  <button
+                    onClick={() => onButtonClick("ComplexButton")}
+                    className="buttonItemsOfList"
+                  >
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .complex
+                    }
+                  </button>
                 </motion.div>
               </Link>
             </li>
@@ -94,7 +102,12 @@ export default function Header({favorites, handleLanguageChange , onButtonClick 
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className='buttonItemsOfList'>{handle_P_StatusButtonLanguageChange(selectedLanguage).lands}</button>
+                  <button className="buttonItemsOfList">
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .lands
+                    }
+                  </button>
                 </motion.div>
               </Link>
             </li>
@@ -106,7 +119,12 @@ export default function Header({favorites, handleLanguageChange , onButtonClick 
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className='buttonItemsOfList'>{handle_P_StatusButtonLanguageChange(selectedLanguage).developers}</button>
+                  <button className="buttonItemsOfList">
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .developers
+                    }
+                  </button>
                 </motion.div>
               </Link>
             </li>
@@ -118,7 +136,12 @@ export default function Header({favorites, handleLanguageChange , onButtonClick 
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className='buttonItemsOfList'>{handle_P_StatusButtonLanguageChange(selectedLanguage).natural_persons}</button>
+                  <button className="buttonItemsOfList">
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .natural_persons
+                    }
+                  </button>
                 </motion.div>
               </Link>
             </li>
@@ -130,7 +153,9 @@ export default function Header({favorites, handleLanguageChange , onButtonClick 
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className='buttonItemsOfList'>{handle_P_StatusButtonLanguageChange(selectedLanguage).map}</button>
+                  <button className="buttonItemsOfList">
+                    {handle_P_StatusButtonLanguageChange(selectedLanguage).map}
+                  </button>
                 </motion.div>
               </Link>
             </li>
@@ -142,7 +167,12 @@ export default function Header({favorites, handleLanguageChange , onButtonClick 
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className='buttonItemsOfList'>{handle_P_StatusButtonLanguageChange(selectedLanguage).Promotions}</button>
+                  <button className="buttonItemsOfList">
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .Promotions
+                    }
+                  </button>
                 </motion.div>
               </Link>
             </li>
@@ -154,7 +184,12 @@ export default function Header({favorites, handleLanguageChange , onButtonClick 
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className='buttonItemsOfList'>{handle_P_StatusButtonLanguageChange(selectedLanguage).Blogs}</button>
+                  <button className="buttonItemsOfList">
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .Blogs
+                    }
+                  </button>
                 </motion.div>
               </Link>
             </li>

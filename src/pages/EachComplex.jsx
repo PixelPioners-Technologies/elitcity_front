@@ -349,28 +349,23 @@ export default function EachComplex({
     const wordSlider = sliderImages[index];
     setWordData(wordSlider);
   };
-
   const handleNext = () => {
     const newIndex = val < sliderImages.length - 1 ? val + 1 : 0; // Cycle to the start if at the end
     setVal(newIndex);
-    const wordSlider = sliderImages[newIndex];
-    setWordData(wordSlider);
-    setCarouselPosition(
-      (prevPosition) => (prevPosition + 1) % sliderImages.length
-    );
+    setWordData(sliderImages[newIndex]);
+    if (carouselPosition > 0) {
+      setCarouselPosition(carouselPosition - 1);
+    }
   };
 
   const handlePrevious = () => {
     const newIndex = val > 0 ? val - 1 : sliderImages.length - 1; // Cycle to the end if at the start
     setVal(newIndex);
-    const wordSlider = sliderImages[newIndex];
-    setWordData(wordSlider);
-    setCarouselPosition(
-      (prevPosition) =>
-        (prevPosition - 1 + sliderImages.length) % sliderImages.length
-    );
+    setWordData(sliderImages[newIndex]);
+    if (carouselPosition < sliderImages.length - 4) {
+      setCarouselPosition(carouselPosition + 1);
+    }
   };
-
   // for toggle DOllar AND LARI ---==---(START)
   // const [isOn, setIsOn] = useState(false);
   // const toggleSwitch = () => setIsOn(!isOn);
@@ -762,7 +757,14 @@ export default function EachComplex({
               </button>
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
-                <div className="switch" data-ison={isOn} onClick={() => { toggleSwitch(); HandleStateChange() }}>
+                <div
+                  className="switch"
+                  data-ison={isOn}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
+                >
                   <motion.div className="handle" layout transition={spring}>
                     <img
                       src={lari}
@@ -807,8 +809,8 @@ export default function EachComplex({
               {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}{" "}
               {currenceChangeState
                 ? eachPrivateApartment.pricePerSqMeter * getCorrencyRate
-                : eachPrivateApartment.pricePerSqMeter}$
-              {handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
+                : eachPrivateApartment.pricePerSqMeter}
+              ${handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
             </p>
           </div>
 
@@ -1504,7 +1506,7 @@ const styles = {
     width: "278px",
     height: "229px",
     overflow: "hidden",
-    borderRadius: "20px",
+    // borderRadius: "20px",
   },
   companyTitle: {
     // position: 'absolute',
