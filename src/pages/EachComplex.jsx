@@ -762,7 +762,14 @@ export default function EachComplex({
               </button>
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
-                <div className="switch" data-ison={isOn} onClick={() => { toggleSwitch(); HandleStateChange() }}>
+                <div
+                  className="switch"
+                  data-ison={isOn}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
+                >
                   <motion.div className="handle" layout transition={spring}>
                     <img
                       src={lari}
@@ -807,8 +814,8 @@ export default function EachComplex({
               {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}{" "}
               {currenceChangeState
                 ? eachPrivateApartment.pricePerSqMeter * getCorrencyRate
-                : eachPrivateApartment.pricePerSqMeter}$
-              {handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
+                : eachPrivateApartment.pricePerSqMeter}
+              ${handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
             </p>
           </div>
 
@@ -1504,7 +1511,7 @@ const styles = {
     width: "278px",
     height: "229px",
     overflow: "hidden",
-    borderRadius: "20px",
+    // borderRadius: "20px",
   },
   companyTitle: {
     // position: 'absolute',

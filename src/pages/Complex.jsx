@@ -444,6 +444,7 @@ export default function Complex({
       findMapButtonLanguage: "Find Map",
       allFindButtonLanguage: "Find",
       spaceButtonClose: "Close",
+      pricePerM: " from per m²",
     };
 
     switch (lang) {
@@ -456,6 +457,8 @@ export default function Complex({
         languageInfo.findMapButtonLanguage = "Find Map";
         languageInfo.allFindButtonLanguage = "Find";
         languageInfo.spaceButtonClose = "Close";
+        languageInfo.pricePerM = " from per m²";
+
         break;
 
       case "ka":
@@ -467,6 +470,8 @@ export default function Complex({
         languageInfo.findMapButtonLanguage = "რუკაზე ძიება";
         languageInfo.allFindButtonLanguage = "ძიება";
         languageInfo.spaceButtonClose = "დახურვა";
+        languageInfo.pricePerM = " m²-იდან";
+
         break;
 
       case "ru":
@@ -478,6 +483,8 @@ export default function Complex({
         languageInfo.findMapButtonLanguage = "Карта";
         languageInfo.allFindButtonLanguage = "Натдти";
         languageInfo.spaceButtonClose = "закрить";
+        languageInfo.pricePerM = " за м²";
+
         break;
     }
     return languageInfo;
@@ -1135,13 +1142,17 @@ export default function Complex({
                 onClick={() => handleHouseClick(complex.id)}
               >
                 <p style={styles.complexInfo}>
-                  {complex.address.city}, {complex.address.street}
+                  {complex.address.city}
+                  {/* {complex.address.street} */}
                 </p>
                 <p style={styles.complexInfo}>
-                  Price per sq meter: {complex.price_per_sq_meter}
+                  {complex.complexDetails.pricePerSqMeter}
+                  {handleStatusButtonLanguageChange(selectedLanguage).pricePerM}
                 </p>
                 {/* Update the line below with the actual date property */}
-                <p style={styles.complexFinished}>Date: {complex.date}</p>
+                <p style={styles.complexFinished}>
+                  {complex.complexDetails.finishYear}
+                </p>
               </div>
             </motion.div>
           </div>
@@ -1222,7 +1233,7 @@ const styles = {
     width: "278px",
     height: "229px",
     overflow: "hidden",
-    borderRadius: "20px",
+    // borderRadius: "20px",
   },
   companyTitle: {
     // position: 'absolute',
