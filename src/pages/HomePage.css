@@ -307,7 +307,7 @@
 @media screen and (max-width: 500px) {
   .main_foto {
     height: 100vh;
-    background-blend-mode: darken;
+    /* background-blend-mode: lighten; */
     /* width: 345px; */
     /* background-color: aquamarine; */
     /* background-image: none; */

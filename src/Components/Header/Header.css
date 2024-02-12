@@ -1,5 +1,5 @@
 .header {
-  /* padding: 20px; */
+  /* padding: 30px; */
   height: 84px;
   background-color: rgb(0, 0, 0);
   display: flex;
@@ -16,9 +16,10 @@
 nav ul {
   /* width: 888px; */
   display: flex;
-  gap: 20px;
+  gap: 33px;
   /* justify-content: space-between; */
   list-style: none;
+  font-size: 18px;
   padding: 0;
 }
 .row_reverse {
@@ -125,6 +126,7 @@ nav ul {
     flex-direction: column;
     background-color: black;
     gap: 30px;
+    width: 230px;
   }
   .open {
     display: flex;
