@@ -26,6 +26,8 @@ import { motion } from "framer-motion";
 import cancel_icon from "./icons/cancel.png";
 import EachApartment from "./pages/EachApartment";
 import EachBlog from "./pages/EachBlog";
+import Each_Developer from "./pages/Each_Developer";
+
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
@@ -67,27 +69,30 @@ function trackButtonClick(buttonName) {
 const BaseURLs = {
   // storkhome
 
-  // complex: "https://api.storkhome.ge/complex/",
-  // company: "https://api.storkhome.ge/company/",
-  // apartment: "https://api.storkhome.ge/apartment/",
-  // private_apartment: "https://api.storkhome.ge/privateapartments/",
-  // ground: "https://api.storkhome.ge/ground/",
-  // promotion: "https://api.storkhome.ge/promotions/",
-  // blog: "https://api.storkhome.ge/blog/",
-  // map: "https://api.storkhome.ge/map/",
-  // complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+  complex: "https://api.storkhome.ge/complex/",
+  company: "https://api.storkhome.ge/company/",
+  apartment: "https://api.storkhome.ge/apartment/",
+  private_apartment: "https://api.storkhome.ge/privateapartments/",
+  ground: "https://api.storkhome.ge/ground/",
+  promotion: "https://api.storkhome.ge/promotions/",
+  blog: "https://api.storkhome.ge/blog/",
+  map: "https://api.storkhome.ge/map/",
+  complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+  company_and_complex : 'https://api.storkhome.ge/companycomplex/',
 
   // local
 
-  complex: "http://127.0.0.1:8000/complex/",
-  company: "http://127.0.0.1:8000/company/",
-  apartment: "http://127.0.0.1:8000/apartment/",
-  private_apartment: "http://127.0.0.1:8000/privateapartments/",
-  ground: "http://127.0.0.1:8000/ground/",
-  promotion: "http://127.0.0.1:8000/promotions/",
-  blog: "http://127.0.0.1:8000/blog/",
-  map: "http://127.0.0.1:8000/map/",
-  complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+  // complex: "http://127.0.0.1:8000/complex/",
+  // company: "http://127.0.0.1:8000/company/",
+  // apartment: "http://127.0.0.1:8000/apartment/",
+  // private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  // ground: "http://127.0.0.1:8000/ground/",
+  // promotion: "http://127.0.0.1:8000/promotions/",
+  // blog: "http://127.0.0.1:8000/blog/",
+  // map: "http://127.0.0.1:8000/map/",
+  // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+  // company_and_complex : 'http://127.0.0.1:8000/companycomplex/',
+
 };
 
 export { BaseURLs };
@@ -839,6 +844,24 @@ function App() {
             />
           }
         />
+
+        <Route
+          path="eachcompany/:companyID"
+          element={
+            <Each_Developer
+              selectedLanguage={selectedLanguage}
+              favorites={favorites}
+              favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
+              getCorrencyRate={getCorrencyRate}
+              HandleStateChange={HandleStateChange}
+              currenceChangeState={currenceChangeState}
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
+            />
+          }
+        />
+
 
         <Route
           path="eachblog/:blogId"

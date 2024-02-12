@@ -893,7 +893,7 @@ export default function EachApartment({
               {/* ქვედა, მეორე ტექსტია.. bathroom,bedroom,balcony  Fართები... სართულიანობა */}
               <div className="eachTextOnListTexts">
                 <div className="room_details" style={{ color: "#C2BFBF" }}>
-                   <p className="room_details_headers" >{handle_P_StatusButtonLanguageChange(selectedLanguage).rooms} :{eachComplexAllAppartments?.internalApartmentDetails.rooms} </p> 
+                   <p className="room_details_headers" >{handle_P_StatusButtonLanguageChange(selectedLanguage).rooms} :{eachComplexAllAppartments?.internalApartmentDetails?.rooms} </p> 
                 </div>
                 <div className="room_details" style={{ color: "#C2BFBF" }}>
                   { handle_P_StatusButtonLanguageChange(selectedLanguage).kitchen }: {eachComplexAllAppartments?.internalApartmentDetails?.kitchen}

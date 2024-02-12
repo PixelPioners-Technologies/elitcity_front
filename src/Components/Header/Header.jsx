@@ -23,7 +23,7 @@ export default function Header({
       complex: "Complexes",
       lands: "Lands",
       developers: "Developers",
-      natural_persons: "Natural persons",
+      natural_persons: "Phisical persons",
       map: "Map",
       Promotions: "Promotions",
       Blogs: "Blogs",

@@ -41,8 +41,8 @@ import aptiaqi from "../assets/Aptiaqi.svg";
 import supermarket from "../assets/Supermarket.svg";
 import skveri from "../assets/skveri.svg";
 import forMapPhoto from "../assets/ComplexesPhotos/1zz.jpg";
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-import private_apartment_location_icon from '../location_icons/private_apartment2.png'
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import private_apartment_location_icon from "../location_icons/private_apartment2.png";
 
 // ------------------
 import "./Physical.css";
@@ -55,14 +55,13 @@ import button_icon from "../icons/Vector.svg";
 
 import { useLocation } from "react-router-dom";
 
-  // --------------------------------------------------------------------------------------------------------------------
-  // --------------------------------------------------------------------------------------------------------------------
-  // --------------------------------------------------------------------------------------------------------------------
-  // ---  compleqsis misamartebi axali struqturidanaa amosagebi da ara aoartamentis addresidan       ------------------
-  // --------------------------------------------------------------------------------------------------------------------
-  // --------------------------------------------------------------------------------------------------------------------
-  // --------------------------------------------------------------------------------------------------------------------
-
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+// ---  compleqsis misamartebi axali struqturidanaa amosagebi da ara aoartamentis addresidan       ------------------
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 
 function normalizeData(item, lang) {
   return {
@@ -73,14 +72,15 @@ function normalizeData(item, lang) {
     protectionType: item[`protection_type_${lang}`],
     submissionType: item[`submission_type_${lang}`],
 
-    complexAddress: { 
+    complexAddress: {
       city: item[`complex_address_${lang}`][`city_${lang}`],
-      parentDistrict: item[`complex_address_${lang}`][`pharentDistrict_${lang}`], 
+      parentDistrict:
+        item[`complex_address_${lang}`][`pharentDistrict_${lang}`],
       district: item[`complex_address_${lang}`][`district_${lang}`],
       streetName: item[`complex_address_${lang}`][`street_name_${lang}`],
       address: item[`complex_address_${lang}`][`address_${lang}`],
       longitude: item[`complex_address_${lang}`].longitude,
-      latitude: item[`complex_address_${lang}`].latitude
+      latitude: item[`complex_address_${lang}`].latitude,
     },
 
     complexName: item[`complex_name_${lang}`],
@@ -156,7 +156,6 @@ function normalizeData(item, lang) {
     // Add other top-level fields like typeOfRoof, constructionType, etc., as needed, dynamically using the lang parameter
   };
 }
-
 
 export default function EachComplex({
   selectedLanguage,
@@ -297,7 +296,7 @@ export default function EachComplex({
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
 
-      seteachComplexAllAppartments(normalised_Data)
+      seteachComplexAllAppartments(normalised_Data);
       // Update sliderImages state with all images from the fetched data
       const sliderImagesFromData = allComplexImages.map((imgUrl, index) => ({
         id: index,
@@ -327,15 +326,9 @@ export default function EachComplex({
     // allComplexImages,
   ]);
 
-
-useEffect(()=> {
-  console.log("description" , eachPrivateApartment)
-
-
-
-},[eachComplexAllAppartments])
-
-  
+  useEffect(() => {
+    console.log("description", eachPrivateApartment);
+  }, [eachComplexAllAppartments]);
 
   // useEffect(() => {
   //   console.log("sliderImagessliderImages;:::::;", sliderImages);
@@ -723,17 +716,13 @@ useEffect(()=> {
     navigate(`/eachapartment/${apartmentId}`, { state: { apartmentId } });
   };
 
-  
-  
   const mapcenter = {
     lat: eachComplexAllAppartments?.complexAddress?.latitude || 41.7151,
     lng: eachComplexAllAppartments?.complexAddress?.longitude || 44.8271,
   };
-  
-
 
   const navigate = useNavigate();
-  
+
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
   });
@@ -744,7 +733,7 @@ useEffect(()=> {
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
-  const scalesize = new window.google.maps.Size(40, 40)
+  const scalesize = new window.google.maps.Size(40, 40);
 
   return (
     <div className="eachComplexBox">
@@ -1490,11 +1479,10 @@ useEffect(()=> {
             {/* mtavrdeba:  inprastruqturisIconsBox--------- */}
           </div>
         </div>
-        <h4 style={{ color: "white", marginTop: "20px"  }}>
+        <h4 style={{ color: "white", marginTop: "20px" }}>
           {handle_P_StatusButtonLanguageChange(selectedLanguage).description}
         </h4>
         <p style={{ color: "white", marginTop: "20px" }}>
-
           {eachPrivateApartment?.description}
         </p>
 
@@ -1508,58 +1496,68 @@ useEffect(()=> {
         <div className="axloMdebareObieqtebiBox">
           <div className="textBoxOfAxloMdebare">
             <div className="iconAndItsText">
-{/* 
+              {/* 
             metro: item.internal_complex_name.metro,
     Pharmacy: item.internal_complex_name.Pharmacy,
     supermarket: item.internal_complex_name.supermarket,
     Square: item.internal_complex_name.Square, */}
 
-
-            {eachPrivateApartment?.metro && (
-                    <>
-                      <img src={metro} alt="metro" />
-                      <p>
-                        {handle_P_StatusButtonLanguageChange(selectedLanguage).metro}
-                      </p>
-                    </>
-                  )}
+              {eachPrivateApartment?.metro && (
+                <>
+                  <img src={metro} alt="metro" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .metro
+                    }
+                  </p>
+                </>
+              )}
             </div>
             <div className="iconAndItsText">
-
-            {eachPrivateApartment?.supermarket && (
-                    <>
-                      <img src={supermarket} alt="supermarket" />
-                      <p>
-                        {handle_P_StatusButtonLanguageChange(selectedLanguage).supermarket}
-                      </p>
-                    </>
-                  )}
+              {eachPrivateApartment?.supermarket && (
+                <>
+                  <img src={supermarket} alt="supermarket" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .supermarket
+                    }
+                  </p>
+                </>
+              )}
             </div>
             <div className="iconAndItsText">
-            {eachPrivateApartment?.Pharmacy &&  (
-                    <>
-                      <img src={aptiaqi} alt="aptiaqi" />
-                      <p>
-                        {handle_P_StatusButtonLanguageChange(selectedLanguage).pharmacy}
-                      </p>
-                    </>
-                  )}
+              {eachPrivateApartment?.Pharmacy && (
+                <>
+                  <img src={aptiaqi} alt="aptiaqi" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .pharmacy
+                    }
+                  </p>
+                </>
+              )}
             </div>
             <div className="iconAndItsText">
-            {eachPrivateApartment?.Square && (
-                    <>
-                      <img src={skveri} alt="skveri" />
-                      <p>
-                        {handle_P_StatusButtonLanguageChange(selectedLanguage).square}
-                      </p>
-                    </>
-                  )}
+              {eachPrivateApartment?.Square && (
+                <>
+                  <img src={skveri} alt="skveri" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .square
+                    }
+                  </p>
+                </>
+              )}
             </div>
           </div>
 
           <div className="child_map_container_P">
             <GoogleMap
-              mapContainerStyle={{ height: '300px' }}
+              mapContainerStyle={{ height: "300px" }}
               center={mapcenter}
               zoom={16}
               options={{
@@ -1576,11 +1574,11 @@ useEffect(()=> {
                 key={privateApartments.id}
                 position={{
                   lat: eachComplexAllAppartments?.complexAddress?.latitude,
-                  lng:eachComplexAllAppartments?.complexAddress?.longitude
+                  lng: eachComplexAllAppartments?.complexAddress?.longitude,
                 }}
                 icon={{
                   url: private_apartment_location_icon,
-                  scaledSize: scalesize
+                  scaledSize: scalesize,
                 }}
               />
             </GoogleMap>

@@ -672,6 +672,15 @@ export default function Physical({
       sortingButtonAscendantFullPrice: "Ascendant full price ",
       sortingButtonDescendentFullPrice: "Descendant full price",
       studio: "Studio",
+      spaceButtonClose: "Close",
+
+      minPrice: "From m²",
+      maxPrice: "To m²",
+      roomStudio: "Studio",
+      fullPriceHomePage: "Full price",
+      meterPriceHomePage: "The price of m²",
+      dan: "from",
+      mde: "to"
     };
 
     switch (lang) {
@@ -683,6 +692,14 @@ export default function Physical({
         languageInfo.sortingButtonAscendantFullPrice = "Ascendant full price ";
         languageInfo.sortingButtonDescendentFullPrice = "Decendent full price";
         languageInfo.studio = "Studio";
+        languageInfo.spaceButtonClose = "Close"
+        languageInfo.minPrice = "From m²"
+        languageInfo.maxPrice = "To m²"
+        languageInfo.roomStudio = "Studio"
+        languageInfo.fullPriceHomePage = "Full price"
+        languageInfo.meterPriceHomePage = "The price of m²"
+        languageInfo.dan = "from"
+        languageInfo.mde = "to"
 
         break;
 
@@ -695,6 +712,14 @@ export default function Physical({
         languageInfo.sortingButtonDescendentFullPrice =
           "მთლიანი ფასი კლებადობით";
         languageInfo.studio = "სტუდიო";
+        languageInfo.spaceButtonClose = "დახურვა"
+        languageInfo.minPrice = "დან მ²"
+        languageInfo.maxPrice = "მდე მ²"
+        languageInfo.roomStudio = "სტუდიო"
+        languageInfo.fullPriceHomePage = "სრული ფასი"
+        languageInfo.meterPriceHomePage = "მ² - ის ფასი"
+        languageInfo.dan = "დან"
+        languageInfo.mde = "მდე"
 
         break;
 
@@ -708,6 +733,14 @@ export default function Physical({
         languageInfo.sortingButtonDescendentFullPrice =
           "Полная стоимость потомка";
         languageInfo.studio = "Студия";
+        languageInfo.spaceButtonClose = "закрить"
+        languageInfo.minPrice = "из м²"
+        languageInfo.maxPrice = "до м²"
+        languageInfo.roomStudio = "Студия"
+        languageInfo.fullPriceHomePage = "Полная стоимость"
+        languageInfo.meterPriceHomePage = "Цена м²"
+        languageInfo.dan = "из"
+        languageInfo.mde = "до"
 
         break;
     }
@@ -831,6 +864,10 @@ export default function Physical({
                 />
               </div>
 
+              <div>
+                      <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
+                    </div>
+
               <P_SpaceModal
                 isOpen={is_P_SpaceModalOpen}
                 close={close_P_SpaceModal}
@@ -839,7 +876,7 @@ export default function Physical({
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder="Min Price Per Square Meter"
+                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
                     value={min_area}
                     onChange={(e) => setMin_area(e.target.value)}
                   />
@@ -847,7 +884,7 @@ export default function Physical({
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder="Max Price Per Square Meter"
+                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
                     value={max_area}
                     onChange={(e) => setMax_area(e.target.value)}
                   />
@@ -884,7 +921,7 @@ export default function Physical({
                   className="modal_close_button"
                   onClick={close_P_SpaceModal}
                 >
-                  Close
+                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                 </button>
               </P_SpaceModal>
             </div>
@@ -907,10 +944,13 @@ export default function Physical({
                 close={handleClose_P_PriceModal}
               >
                 <div>
+                <div className='fullPriceHomePage'>
+                    {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+                  </div>
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder="Min Price Per Square Meter"
+                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                     value={min_square_price}
                     onChange={(e) => setMin_square_price(e.target.value)}
                   />
@@ -918,15 +958,19 @@ export default function Physical({
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder="Max Price Per Square Meter"
+                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                     value={max_square_price}
                     onChange={(e) => setMax_square_price(e.target.value)}
                   />
 
+<div className='meterPriceHomePageComplex'>
+                      {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
+                    </div>
+
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder="Min Full Price"
+                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                     value={minFullPrice}
                     onChange={(e) => setMinFullPrice(e.target.value)}
                   />
@@ -934,7 +978,7 @@ export default function Physical({
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder="Max Full Price"
+                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                     value={maxFullPrice}
                     onChange={(e) => setMaxFullPrice(e.target.value)}
                   />
@@ -943,7 +987,10 @@ export default function Physical({
                   className="modal_close_button"
                   onClick={handleClose_P_PriceModal}
                 >
-                  Close
+                  {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .spaceButtonClose
+                    }
                 </button>
               </P_PriceModal>
             </div>
