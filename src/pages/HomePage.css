@@ -1,49 +1,53 @@
-
-
-
 .main_foto {
-  background-image: url('../icons/613.jpg');
+  width: 100%;
+  background-image: url("../icons/613.jpg");
   background-size: cover;
-  background-position: center; 
+  background-position: center;
   background-repeat: no-repeat;
-
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: space-evenly; */
+}
+.title_filter_cont {
+  /* border: 1px solid red; */
+  margin-top: 150px;
 }
 
-.filter_cont_for_complexes{
-  margin-bottom: 30px;
-}
 
-
-.for_comfort {
+/* .for_comfort {
   margin-top: 0px;
-}
+  border: 1px solid green;
+} */
 
 .adgilicomportistvis {
+  /* border: 1px solid blue; */
   text-align: center;
-  font-family: 'BPG Rioni', sans-serif;
+  font-family: "BPG Rioni", sans-serif;
   font-weight: 400;
   font-size: 48px;
   line-height: 52.22px;
   letter-spacing: 10%;
-  color: #FFFFFF;
-  padding-top: 150px;
+  color: #ffffff;
+  /* padding-top: 150px; */
+  margin-bottom: 70px;
 }
 
 .container {
   display: flex;
   gap: 15px;
-
-
-  justify-content: center; /* Align buttons as in the photo */
+  border: 1px solid green;
+  justify-content: center;
   align-items: center;
-}
+} 
 
-.homepage_map_link, .homepage_serch_button {
-  background-color: transparent; 
+.homepage_map_link,
+.homepage_serch_button {
+  background-color: transparent;
   color: #f1eeee; /* Change to the color you need */
   border: none;
   padding: 10px 20px; /* Adjust padding to match the size in the photo */
-  text-transform: uppercase; /* If the text is meant to be uppercase */
+  text-transform: uppercase;
   font-weight: bold; /* If the font is bold in the photo */
   border-radius: 5px; /* Adjust the border-radius to match the button corners in the photo */
   font-size: 16px; /* Adjust font size to match the photo */
@@ -55,9 +59,10 @@
   margin-top: 0px;
 }
 
-.homepage_map_link:hover, .homepage_serch_button:hover {
+.homepage_map_link:hover,
+.homepage_serch_button:hover {
   background-color: transparent; /* Color when hovered, adjust as needed */
-  color: black
+  color: black;
 }
 
 .button-container {
@@ -66,22 +71,25 @@
   justify-content: center; /* Center the buttons if needed */
   margin-top: 40px; /* Add space above the button container */
   padding-left: 40%;
+
+  /* border: 1px solid red; */
 }
 
 .filter_cont_for_homepage {
   /* color: black!important; */
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding-top: 70px;
+  /* padding-top: 70px; */
   gap: 13px;
-  padding-top: 65px;
+  /* padding-top: 65px; */
+  /* border: 1px solid green; */
 }
 
-#black_cont{
+#black_cont {
   color: black;
 }
-
 
 /* close buttons styles for homepage0 */
 
@@ -122,11 +130,10 @@
     rgba(0, 0, 0, 0.24) 0px 1.93094px 3.4757px -2.25px,
     rgba(0, 0, 0, 0.192) 0px 5.10423px 9.18761px -3.375px,
     rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px; */
-  
 }
 
 .min_price_homePage {
-  color:#FFFFFF;
+  color: #ffffff;
   background-color: transparent;
   border-style: hidden;
   border: 3px solid transparent;
@@ -137,32 +144,31 @@
   margin-left: 10px;
 }
 
-.min_price_homePage:focus{
+.min_price_homePage:focus {
   outline: none;
   /* Optionally, change border or add shadow on focus */
   box-shadow: 0 0 5px rgb(161, 193, 202);
 }
 
-.min_price_homePage::placeholder{
+.min_price_homePage::placeholder {
   font-size: 15px; /* Larger text size */
   color: #999;
 }
 
 .priceTextHomePage {
-  color: #FFFFFF;
-  
+  color: #ffffff;
 }
-.fullPriceHomePage{
-  color: #FFFFFF;
+.fullPriceHomePage {
+  color: #ffffff;
 }
 
-.meterPriceHomePage{
-  color: #FFFFFF;
+.meterPriceHomePage {
+  color: #ffffff;
   padding-top: 25px;
 }
 
 /* -------------------------------space button stules ------------------------------------------- */
-.space_button_homepage{
+.space_button_homepage {
   display: flex;
   width: 159px;
   height: 33px;
@@ -170,19 +176,22 @@
   align-items: center;
   gap: 43px;
   flex-shrink: 0;
-  border: 1.5px solid #ADA9A9;
+  border: 1.5px solid #ada9a9;
   mix-blend-mode: hard-light;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  color: #FFF;
+  color: #fff;
   position: relative;
 }
 
-.button-modal-container-homepage{
+.button-modal-container-homepage {
   position: relative;
   cursor: pointer;
+  /* border: 10px solid green; */
+  /* border: 1px solid red; */
 }
 
-.lacation_button_homepage{
+.lacation_button_homepage {
+  /* border: 1px solid red; */
   display: flex;
   width: 210px;
   height: 33px;
@@ -190,12 +199,12 @@
   align-items: center;
   gap: 43px;
   flex-shrink: 0;
-  border: 1.5px solid #ADA9A9;
+  border: 1.5px solid #ada9a9;
   mix-blend-mode: hard-light;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  color: #FFF;
+  color: #fff;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -206,7 +215,7 @@
 
 /* for Location  */
 .location_modal_container-homepage {
-  color: #FFF;
+  color: #fff;
 }
 
 .districts_and_pharentdostricts-homepage {
@@ -231,7 +240,6 @@
   font-size: 20px;
   user-select: none;
   animation: jello-horizontal 0.9s both;
-  
 }
 
 /* checkmark */
@@ -248,7 +256,7 @@
   width: 1em;
   border-radius: 50%;
   border: 4px;
-  border-color: #FFF;
+  border-color: #fff;
   background-color: #ffffff;
 }
 
@@ -288,10 +296,44 @@
   margin-left: 20px;
 }
 
-.child_district_checkmarks-homepage{
+.child_district_checkmarks-homepage {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
   margin-left: 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .main_foto {
+    height: 100vh;
+    background-blend-mode: darken;
+    /* width: 345px; */
+    /* background-color: aquamarine; */
+    /* background-image: none; */
+  }
+  .filter_cont_for_homepage {
+    /* border: 1px solid rgb(32, 218, 32); */
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+
+    /* height: 100vh; */
+  }
+  .adgilicomportistvis{
+    font-size: 20px;
+    margin-bottom: 50px;
+  }
+  .title_filter_cont{
+    margin-top: 50px;
+  }
+  .button-container{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    padding-left: 0%;
+    margin-top: 40px;
+    /* margin-left: 4%; */
+    /* text-align: start; */
+  }
 }

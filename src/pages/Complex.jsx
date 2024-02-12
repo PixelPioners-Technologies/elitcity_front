@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import heartIcon from "../assets/starLogo.svg";
+import Filter from "../assets/filter.png";
 
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import mapSignLogo from "../assets/mapSignLogoo.svg";
@@ -36,18 +37,16 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 // ------------------------------------------------------------------------------------
 
-import { BaseURLs } from '../App';
+import { BaseURLs } from "../App";
 
-import button_icon from '../icons/Vector.svg';
+import button_icon from "../icons/Vector.svg";
 
-import Modal_main from '../modals_for_complex/Modal_main';
-import PriceModal_complex from '../modals_for_complex/PriceModal_complex';
-import SpaceModal_complex from '../modals_for_complex/SpaceModal_complex';
-import StatusModal_complex from '../modals_for_complex/StatusModa_complex';
+import Modal_main from "../modals_for_complex/Modal_main";
+import PriceModal_complex from "../modals_for_complex/PriceModal_complex";
+import SpaceModal_complex from "../modals_for_complex/SpaceModal_complex";
+import StatusModal_complex from "../modals_for_complex/StatusModa_complex";
 
-import loupe from '../icons/loupe.png'
-
-
+import loupe from "../icons/loupe.png";
 
 // eslint-disable-next-line react/prop-types
 export default function Complex({
@@ -91,8 +90,6 @@ export default function Complex({
   currenceChangeState,
   isOn,
   toggleSwitch,
-
-
 }) {
   const [homes, setHomes] = useState([]);
 
@@ -106,9 +103,7 @@ export default function Complex({
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
 
-  const [modalContent, setModalContent] = useState('');
-
-
+  const [modalContent, setModalContent] = useState("");
 
   // const [status, setStatus] = useState('');
 
@@ -116,11 +111,6 @@ export default function Complex({
   // const [zoomLevel, setZoomLevel] = useState(13);
 
   // const [mapInstance, setMapInstance] = useState(null);
-
-
-
-
-
 
   const navigate = useNavigate();
 
@@ -133,16 +123,13 @@ export default function Complex({
     navigate(`/eachComplex/${complexId}`, { state: { complexId } });
   };
 
-
-
   // useEffect(() => {
   //   console.log('corrent page----', totalPageCount)
   // }, [totalPageCount,currentPage ])
 
   useEffect(() => {
-    console.log('total_item_number on complex', total_item_number)
-  }, [total_item_number])
-
+    console.log("total_item_number on complex", total_item_number);
+  }, [total_item_number]);
 
   // 1111111111111111111111111111111111
   // for toggle DOllar AND LARI ---==---(START)
@@ -230,41 +217,58 @@ export default function Complex({
 
   const renderModalContent = () => {
     switch (modalContent) {
-      case 'cities':
-        return <div>
-          {locations.map((cityItem, index) => (
-            <button key={index} onClick={() => handleCityClick(cityItem.city)} className='city_button'>
-              <span>{cityItem.city}</span>
+      case "cities":
+        return (
+          <div>
+            {locations.map((cityItem, index) => (
+              <button
+                key={index}
+                onClick={() => handleCityClick(cityItem.city)}
+                className="city_button"
+              >
+                <span>{cityItem.city}</span>
+              </button>
+            ))}
+            <button className="modal_close_button" onClick={closeModal}>
+              close
             </button>
-          ))}
-          <button className='modal_close_button' onClick={closeModal} >close</button>
-        </div>
+          </div>
+        );
       case "pharentdistricts":
         // Find the city object from the locations array
-        const city = locations.find(loc => loc.city === selectedCity);
+        const city = locations.find((loc) => loc.city === selectedCity);
         if (!city) return null;
 
         return (
-          <div className='location_modal_container' >
-            <div className='districts_and_pharentdostricts'>
+          <div className="location_modal_container">
+            <div className="districts_and_pharentdostricts">
               {city.pharentDistricts.map((parentDistrict, index) => (
-                <ul key={index} >
-
-                  <div className='pharent_district_chackmarks' >
+                <ul key={index}>
+                  <div className="pharent_district_chackmarks">
                     <label className="container">
                       <input
                         type="checkbox"
-                        checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
-                        onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
+                        checked={selectedPharentDistricts.includes(
+                          parentDistrict.pharentDistrict
+                        )}
+                        onChange={(e) =>
+                          handleParentDistrictChange(
+                            e,
+                            parentDistrict.pharentDistrict
+                          )
+                        }
                       />
                       <div className="checkmark"></div>
                     </label>
                     <p>{parentDistrict.pharentDistrict}</p>
                   </div>
 
-                  <div className='district_checkmarks' >
+                  <div className="district_checkmarks">
                     {parentDistrict.districts.map((district, districtIndex) => (
-                      <li key={districtIndex} className='child_district_checkmarks' >
+                      <li
+                        key={districtIndex}
+                        className="child_district_checkmarks"
+                      >
                         <label className="container">
                           <input
                             type="checkbox"
@@ -281,7 +285,9 @@ export default function Complex({
                 </ul>
               ))}
             </div>
-            <button className='modal_close_button' onClick={closeModal}>Close</button>
+            <button className="modal_close_button" onClick={closeModal}>
+              Close
+            </button>
           </div>
         );
 
@@ -291,64 +297,68 @@ export default function Complex({
   };
 
   const handleShowModal = () => {
-    setModalContent('cities')
-    setIsModalOpen(true)
+    setModalContent("cities");
+    setIsModalOpen(true);
     setIsSpaceModalOpen(false);
-    setIsPriceModalOpen(false)
-    setIsStatusModalOpen(false)
-  }
+    setIsPriceModalOpen(false);
+    setIsStatusModalOpen(false);
+  };
 
   const handleCityClick = (city) => {
-    setModalContent("pharentdistricts")
-    selectedCityChangeHandler(city)
-    setIsModalOpen(true)
-  }
+    setModalContent("pharentdistricts");
+    selectedCityChangeHandler(city);
+    setIsModalOpen(true);
+  };
 
   const closeModal = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   const handleParentDistrictChange = (e, parentDistrict) => {
-
-    selectedPharentDistrictsChangeHandler(prevSelected => {
+    selectedPharentDistrictsChangeHandler((prevSelected) => {
       if (e.target.checked) {
         return [...prevSelected, parentDistrict];
       } else {
-        return prevSelected.filter(pd => pd !== parentDistrict);
+        return prevSelected.filter((pd) => pd !== parentDistrict);
       }
     });
     // Find the city object from the locations array
-    const city = locations.find(loc => loc.city === selectedCity);
+    const city = locations.find((loc) => loc.city === selectedCity);
     if (!city) return;
 
     // Find the specific parent district object
-    const parentDistrictObj = city.pharentDistricts.find(pd => pd.pharentDistrict === parentDistrict);
+    const parentDistrictObj = city.pharentDistricts.find(
+      (pd) => pd.pharentDistrict === parentDistrict
+    );
     if (!parentDistrictObj) return;
 
-    selectedDistrictsChangeHandler(prevSelected => {
+    selectedDistrictsChangeHandler((prevSelected) => {
       if (e.target.checked) {
         // Add all districts of the parent district to the selected list
         // Ensure no duplicates are added
-        const updatedDistricts = new Set([...prevSelected, ...parentDistrictObj.districts]);
+        const updatedDistricts = new Set([
+          ...prevSelected,
+          ...parentDistrictObj.districts,
+        ]);
         return Array.from(updatedDistricts);
       } else {
         // Remove all districts of the parent district from the selected list
-        return prevSelected.filter(d => !parentDistrictObj.districts.includes(d));
+        return prevSelected.filter(
+          (d) => !parentDistrictObj.districts.includes(d)
+        );
       }
     });
   };
 
   const handleDistrictChange = (e, district) => {
-    selectedDistrictsChangeHandler(prevSelected => {
+    selectedDistrictsChangeHandler((prevSelected) => {
       if (e.target.checked) {
         return [...prevSelected, district];
       } else {
-        return prevSelected.filter(d => d !== district);
+        return prevSelected.filter((d) => d !== district);
       }
     });
   };
-
-
 
   // -(END)----------------------------------------------------------------------------
 
@@ -422,14 +432,10 @@ export default function Complex({
   //   fetchData();
   // }, []);
 
-
-
-
   // useEffect(() => {
   //   const sortedResults = sortHomes(homes, forPriceDecrease);
   //   setSortedHomes(sortedResults);
   // }, [forPriceDecrease, homes, min_space, max_space]);
-
 
   // ------------------------------------------------------------------------------------
   // --------ffunction for changing status button content language change and also select city button language change -------------
@@ -443,46 +449,45 @@ export default function Complex({
       allStatusLanguage: "All",
       findMapButtonLanguage: "Find Map",
       allFindButtonLanguage: "Find",
-      spaceButtonClose: "Close"
-    }
+      spaceButtonClose: "Close",
+    };
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status"
-        languageInfo.cityButtonLanguage = "Location"
-        languageInfo.spaceButtonLanguage = "Space"
-        languageInfo.priceButtonLanguage = "Price"
-        languageInfo.allStatusLanguage = "All"
-        languageInfo.findMapButtonLanguage = "Find Map"
-        languageInfo.allFindButtonLanguage = "Find"
-        languageInfo.spaceButtonClose = "Close"
+        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.cityButtonLanguage = "Location";
+        languageInfo.spaceButtonLanguage = "Space";
+        languageInfo.priceButtonLanguage = "Price";
+        languageInfo.allStatusLanguage = "All";
+        languageInfo.findMapButtonLanguage = "Find Map";
+        languageInfo.allFindButtonLanguage = "Find";
+        languageInfo.spaceButtonClose = "Close";
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
-        languageInfo.cityButtonLanguage = "მდებარეობა"
-        languageInfo.spaceButtonLanguage = "ფართი"
-        languageInfo.priceButtonLanguage = "ფასი"
-        languageInfo.allStatusLanguage = "ყველა"
-        languageInfo.findMapButtonLanguage = "რუკაზე ძიება"
-        languageInfo.allFindButtonLanguage = "ძიება"
-        languageInfo.spaceButtonClose = "დახურვა"
-        break
+        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.cityButtonLanguage = "მდებარეობა";
+        languageInfo.spaceButtonLanguage = "ფართი";
+        languageInfo.priceButtonLanguage = "ფასი";
+        languageInfo.allStatusLanguage = "ყველა";
+        languageInfo.findMapButtonLanguage = "რუკაზე ძიება";
+        languageInfo.allFindButtonLanguage = "ძიება";
+        languageInfo.spaceButtonClose = "დახურვა";
+        break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус"
-        languageInfo.cityButtonLanguage = "Местоположение"
-        languageInfo.spaceButtonLanguage = "Площадь"
-        languageInfo.priceButtonLanguage = "Цена"
-        languageInfo.allStatusLanguage = "Все"
-        languageInfo.findMapButtonLanguage = "Карта"
-        languageInfo.allFindButtonLanguage = "Натдти"
-        languageInfo.spaceButtonClose = "закрить"
-        break
+        languageInfo.statusInfoLanguage = "выберите статус";
+        languageInfo.cityButtonLanguage = "Местоположение";
+        languageInfo.spaceButtonLanguage = "Площадь";
+        languageInfo.priceButtonLanguage = "Цена";
+        languageInfo.allStatusLanguage = "Все";
+        languageInfo.findMapButtonLanguage = "Карта";
+        languageInfo.allFindButtonLanguage = "Натдти";
+        languageInfo.spaceButtonClose = "закрить";
+        break;
     }
-    return languageInfo
-  }
-
+    return languageInfo;
+  };
 
   // ------------------------------------------------------------------------------------
 
@@ -510,8 +515,6 @@ export default function Complex({
   //     currentPage * itemsPerPage
   //   )
   //   : [];
-
-
 
   // ------------------------------------------------------------------------------------
   // const homeMaping = currentSortedHomes.map((complex, index) => (
@@ -569,17 +572,16 @@ export default function Complex({
   // ------------------------render status option--------------------------------------------
 
   const statusTranslations = {
-    1: { en: 'Planned', ka: 'დაგეგმილი', ru: 'Запланировано' },
-    2: { en: 'Under Construction', ka: 'მშენებარე', ru: 'Строится' },
-    3: { en: 'Completed', ka: 'დასრულებული', ru: 'Завершено' }
-    // Add more statuses and translations if needed
+    1: { en: "Planned", ka: "დაგეგმილი", ru: "Запланировано" },
+    2: { en: "Under Construction", ka: "მშენებარე", ru: "Строится" },
+    3: { en: "Completed", ka: "დასრულებული", ru: "Завершено" },
+    // Add more statuses and translations if neededComplexBodyBox
   };
 
   const renderStatusOptions = () => {
     return Object.entries(statusTranslations).map(([value, labels]) => (
-      <div className='status_chackboxes' key={value}>
-
-        <label className="container" style={{ display: 'flex', gap: '15px' }}>
+      <div className="status_chackboxes" key={value}>
+        <label className="container" style={{ display: "flex", gap: "15px" }}>
           <input
             type="checkbox"
             checked={selectedStatuses.includes(value)}
@@ -587,14 +589,12 @@ export default function Complex({
             onChange={(e) => handleStatusChange(e, value)}
           />
           <div className="checkmark"></div>
-          <p className='text_modal_color' >{labels[selectedLanguage]}</p>
+          <p className="text_modal_color">{labels[selectedLanguage]}</p>
         </label>
       </div>
     ));
   };
   // -----------------------------------------------------------------------------
-
-
 
   const handleSpaceButtonClick = () => {
     setIsSpaceModalOpen(true);
@@ -612,155 +612,229 @@ export default function Complex({
     setIsSpaceModalOpen(false);
     setIsModalOpen(false);
     setIsStatusModalOpen(false);
-  }
+  };
 
   const handleClosePriceModal = () => {
-    setIsPriceModalOpen(false)
-  }
+    setIsPriceModalOpen(false);
+  };
 
   const handleStatusButtonClick = () => {
     setIsStatusModalOpen(true);
     setIsSpaceModalOpen(false);
     setIsPriceModalOpen(false);
     setIsModalOpen(false);
-  }
+  };
 
   const handleCloseStatusModal = () => {
     setIsStatusModalOpen(false);
-  }
-
+  };
 
   const handleSearchButtonClick = () => {
     setIsStatusModalOpen(false);
     setIsSpaceModalOpen(false);
     setIsPriceModalOpen(false);
     setIsModalOpen(false);
-  }
-
+  };
 
   const pagiHandler = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    searchButtonhangeHandler(!searchButton)
+    searchButtonhangeHandler(!searchButton);
   };
 
 
+  const [Open, setOpen] = useState(false);
+
+  const toggleFunc = () => {
+    setOpen(!Open)
+    // console.log("open:", Open);
+  }
+
   return (
     <div className="ComplexBodyBox">
-
-      <div className="filter_cont_for_complexes" >
+      <div className="filter_cont_for_complexes">
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 2 }}
         >
-          <div className='for_comfort'>
-            <div className='adgilicomportistvis'>
-              ადგილი შენი კომფორტისთვის
+          <div className="for_comfort">
+            <div className="adgilicomportistvis title">
+              <p>ადგილი შენი კომფორტისთვის</p> 
+              <img onClick={toggleFunc} className="filter_icon_for_links" src={Filter} alt="/" />
             </div>
-            <div className='filter_cont_for_complex'>
-
+            <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
               {/* button for filtering space */}
               <div className="button-modal-container ">
-                <div onClick={handleSpaceButtonClick} className='space_button'  >
-                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
-                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                <div onClick={handleSpaceButtonClick} className="space_button">
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .spaceButtonLanguage
+                  }
+                  <img
+                    src={button_icon}
+                    alt="button dropdown icon"
+                    className="dropdown"
+                  />
                 </div>
 
-                <SpaceModal_complex isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                <SpaceModal_complex
+                  isOpen={isSpaceModalOpen}
+                  close={closeSpaceModal}
+                >
                   <div>
                     <input
                       type="number"
-                      placeholder='Min Price Per Square Meter'
+                      placeholder="Min Price Per Square Meter"
                       value={min_space}
                       onChange={(e) => max_spacehangeHandler(e.target.value)}
                     />
 
                     <input
                       type="number"
-                      placeholder='Max Price Per Square Meter'
+                      placeholder="Max Price Per Square Meter"
                       value={max_space}
                       onChange={(e) => min_spacehangeHandler(e.target.value)}
                     />
                   </div>
-                  <button className='modal_close_button' onClick={closeSpaceModal}>
-                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                  <button
+                    className="modal_close_button"
+                    onClick={closeSpaceModal}
+                  >
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .spaceButtonClose
+                    }
                   </button>
                 </SpaceModal_complex>
               </div>
               {/* button for filtering price  */}
               <div className="button-modal-container">
-                <div onClick={handlePriceButtonClick} className='space_button'  >
-                  {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
-                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+                <div onClick={handlePriceButtonClick} className="space_button">
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .priceButtonLanguage
+                  }
+                  <img
+                    src={button_icon}
+                    alt="button dropdown icon"
+                    className="dropdown"
+                  />
                 </div>
-                <PriceModal_complex isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                <PriceModal_complex
+                  isOpen={isPriceModalOpen}
+                  close={handleClosePriceModal}
+                >
                   <div>
                     <input
                       type="number"
-                      placeholder='Min Price Per Square Meter'
+                      placeholder="Min Price Per Square Meter"
                       value={minPricePerSquareMeter}
-                      onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
+                      onChange={(e) =>
+                        minPricePerSquareMeterChangeHandler(e.target.value)
+                      }
                     />
 
                     <input
                       type="number"
-                      placeholder='Max Price Per Square Meter'
+                      placeholder="Max Price Per Square Meter"
                       value={maxPricePerSquareMeter}
-                      onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
+                      onChange={(e) =>
+                        maxPricePerSquareMeterChangeHandler(e.target.value)
+                      }
                     />
 
                     <input
                       type="number"
-                      placeholder='Min Full Price'
+                      placeholder="Min Full Price"
                       value={minFullPrice}
-                      onChange={(e) => minFullPriceChangeHandler(e.target.value)}
+                      onChange={(e) =>
+                        minFullPriceChangeHandler(e.target.value)
+                      }
                     />
 
                     <input
                       type="number"
-                      placeholder='Max Full Price'
+                      placeholder="Max Full Price"
                       value={maxFullPrice}
-                      onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
+                      onChange={(e) =>
+                        maxFullPriceChangeHandler(e.target.value)
+                      }
                     />
                   </div>
-                  <button className='modal_close_button' onClick={handleClosePriceModal}>
-                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                  <button
+                    className="modal_close_button"
+                    onClick={handleClosePriceModal}
+                  >
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .spaceButtonClose
+                    }
                   </button>
                 </PriceModal_complex>
               </div>
 
               {/* button for locations */}
-              <div className="button-modal-container" >
-                <div onClick={handleShowModal} className='lacation_button'   >
-                  {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
-                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+              <div className="button-modal-container">
+                <div onClick={handleShowModal} className="lacation_button">
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .cityButtonLanguage
+                  }
+                  <img
+                    src={button_icon}
+                    alt="button dropdown icon"
+                    className="dropdown"
+                  />
                 </div>
-                <Modal_main isOpen={isModalOpen} >
+                <Modal_main isOpen={isModalOpen}>
                   {renderModalContent()}
                 </Modal_main>
               </div>
 
               {/* button for status */}
-              <div className="button-modal-container" >
-                <div onClick={handleStatusButtonClick} className='lacation_button'   >
-                  {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
-                  <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+              <div className="button-modal-container">
+                <div
+                  onClick={handleStatusButtonClick}
+                  className="lacation_button"
+                >
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .statusInfoLanguage
+                  }
+                  <img
+                    src={button_icon}
+                    alt="button dropdown icon"
+                    className="dropdown"
+                  />
                 </div>
-                <StatusModal_complex isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+                <StatusModal_complex
+                  isOpen={isStatusModalOpen}
+                  close={handleCloseStatusModal}
+                >
                   {renderStatusOptions()}
-                  <button className='modal_close_button' onClick={handleCloseStatusModal}>
-                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                  <button
+                    className="modal_close_button"
+                    onClick={handleCloseStatusModal}
+                  >
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .spaceButtonClose
+                    }
                   </button>
                 </StatusModal_complex>
               </div>
               {/* Button For find word (sityvit dzebna) */}
-              <div className="lacation_button" >
-                <input className='string_filter_input'
+              <div className="lacation_button">
+                <input
+                  className="string_filter_input"
                   type="text"
-                  placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+                  placeholder={
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .allFindButtonLanguage
+                  }
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
                 />
@@ -768,18 +842,21 @@ export default function Complex({
                 {/* ------------------------- */}
               </div>
               <div className="button-modal-container ">
-                <div onClick={handleSearchButtonClick} className='space_button'  >
-                  <button className='homepage_serch_button_complexpage' style={{ color: 'white' }} onClick={() => searchButtonhangeHandler(!searchButton)}> Search</button>
+                <div onClick={handleSearchButtonClick} className="space_button">
+                  <button
+                    className="homepage_serch_button_complexpage"
+                    style={{ color: "white" }}
+                    onClick={() => searchButtonhangeHandler(!searchButton)}
+                  >
+                    {" "}
+                    Search
+                  </button>
                 </div>
               </div>
             </div>
-
           </div>
         </motion.div>
       </div>
-
-
-
 
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
       <motion.div
@@ -792,7 +869,9 @@ export default function Complex({
         <div className="forPaddingOfInfoFieldOfComplexsPlansMaps">
           <div className="infoFieldOfComplexsPlansMaps">
             <div className="complexInfoAndCountShowBox">
-              <p style={{ color: "white" }}>კომპლექსები {total_item_number}</p>
+              <p className="komplex_text" style={{ color: "white" }}>
+                კომპლექსები {total_item_number}
+              </p>
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
             <div className="projectsPlansMapsSortingAndDollarBox">
@@ -861,7 +940,8 @@ export default function Complex({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox">
-                  სორტირება
+                  <p className="sort_text_web">სორტირება</p>
+                  <p className="sort_text">სორტ</p>
                   <img src={arrowDownSorting} style={{ width: "20px" }} />
                 </div>
               </Button>
@@ -1012,8 +1092,13 @@ export default function Complex({
 
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
-                <div className="switch" data-ison={isOn}
-                  onClick={() => { toggleSwitch(); HandleStateChange() }}
+                <div
+                  className="switch"
+                  data-ison={isOn}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
                 >
                   <motion.div className="handle" layout transition={spring}>
                     <img
@@ -1081,8 +1166,6 @@ export default function Complex({
                 </p>
                 <p style={styles.complexInfo}>
                   Price per sq meter: {complex.pricePerSqMeter}
-
-
                 </p>
                 {/* Update the line below with the actual date property */}
                 <p style={styles.complexFinished}>Date: {complex.date}</p>
@@ -1097,11 +1180,11 @@ export default function Complex({
         <img src={scrollUp} alt='logo' style={{ width: '40px' }} />
       </button> */}
 
-
       {/* Pagination for user to select some page */}
       <div className="pagination">
-        <Stack spacing={2}>
+        <Stack spacing={2} className="row_link">
           <Pagination
+            className="numbers_link"
             count={totalPageCount}
             shape="rounded"
             page={currentPage}
@@ -1111,15 +1194,22 @@ export default function Complex({
             onClick={pagiHandler}
             sx={{
               "& .MuiPaginationItem-root": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 color: "#fff !important", // White text color for unselected items, with increased specificity
                 margin: "3px !important", // Removes margin between buttons, with increased specificity
-                padding: "0 !important", // Removes padding inside buttons, with increased specificity
+                padding: "0 !important",
+                // Removes padding inside buttons, with increased specificity
                 "&:hover": {
+                  flexDirection: "row !important",
+                  display: "flex !important",
                   backgroundColor: "#f0f0f0 !important", // Background color on hover for unselected items, with increased specificity
                   color: "#000 !important", // Text color on hover for unselected items, with increased specificity
                 },
               },
               "& .Mui-selected": {
+                flexDirection: "row !important",
+                display: "flex !important",
                 backgroundColor: "#fff !important", // White background color for the selected item, with increased specificity
                 color: "#000 !important", // Black text color for the selected item, with increased specificity
                 "&:hover": {
@@ -1128,11 +1218,14 @@ export default function Complex({
                 },
               },
               "& .MuiPaginationItem-ellipsis": {
+                flexDirection: "row !important",
                 color: "#fff !important", // Color of the ellipsis, with increased specificity
                 margin: "0 !important", // Removes margin around the ellipsis, with increased specificity
                 padding: "0 !important", // Removes padding around the ellipsis, with increased specificity
               },
               ".MuiPagination-ul": {
+                flexDirection: "row !important",
+                display: "flex !important",
                 justifyContent: "center !important", // Centers the pagination items, with increased specificity
                 flexWrap: "nowrap !important", // Prevents the pagination items from wrapping, with increased specificity
               },
@@ -1140,7 +1233,6 @@ export default function Complex({
           />
         </Stack>
       </div>
-
 
       {/* ---------------------------------------------------------------- */}
       <div className="googleMapImageBox">
@@ -1154,21 +1246,18 @@ export default function Complex({
             <img
               src={googleMapImage}
               alt="googleMapImage"
-              className="googleMapImage"
+              className="googleMapImage google_map"
             />
           </motion.div>
         </Link>
-
       </div>
-
-
     </div>
   );
 }
 
 const styles = {
   imageStyles: {
-    width: "278px",
+    width: "250px",
     height: "229px",
     overflow: "hidden",
     borderRadius: "20px",
@@ -1191,3 +1280,4 @@ const spring = {
   stiffness: 100,
   damping: 30,
 };
+

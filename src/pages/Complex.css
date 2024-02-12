@@ -3,9 +3,14 @@
 } */
 
 .ComplexBodyBox {
-
-  margin-top: 50px;
+  /* margin-top: 50px; */
   padding: 100px 150px;
+  /* border: 1px solid red; */
+}
+.for_comfort {
+  margin-top: 0px;
+  /* border: 1px solid green; */
+  /* text-align: center; */
 }
 
 .motionBox {
@@ -13,17 +18,22 @@
 }
 
 .forPaddingOfInfoFieldOfComplexsPlansMaps {
-  padding: 0 30px;
-} 
+  /* padding: 0 30px; */
+  /* border: 1px solid red; */
+}
 
 .infoFieldOfComplexsPlansMaps {
-  border: 1px solid black;
-  border-radius: 10px;
+  /* width: 100%; */
+  /* border: 1px solid rgb(228, 17, 17); */
+  /* border-radius: 10px; */
   display: flex;
+  /* flex-direction: column; */
   justify-content: space-between;
   height: 70px;
   padding: 0 20px;
-
+}
+.filter_cont_for_complexes {
+  margin-bottom: 40px;
 }
 
 .complexInfoAndCountShowBox {
@@ -39,11 +49,12 @@
 }
 
 .mapAndLogoImg {
+  /* text-align: center; */
   display: flex;
   align-items: center;
   justify-content: center;
+  /* border: 3px solid red; */
 }
-
 
 .textButtonContainer:hover .textButton {
   /* color: aqua; */
@@ -55,14 +66,12 @@
   /* padding: 10px 20px; */
   font-size: 16px;
   text-align: center;
+  list-style: none;
   text-decoration: none;
   border: 1px solid #000;
   background-color: #000;
   color: #fff;
-
 }
-
-
 
 .mapSignLogo {
   width: 30px;
@@ -71,8 +80,9 @@
 .sortAndArrowDownImgBox {
   display: flex;
   gap: 10px;
+  background-origin: padding-box;
+  /* border: 1px solid red; */
 }
-
 
 /* /////////////////////////////// */
 .menu-transition {
@@ -85,15 +95,14 @@
 }
 /* /////////////////////////////// */
 
-
 .currencyBox {
-  /* height: 50px; */
   display: flex;
   align-items: center;
-
-
+  /* border: 1px solid red; */
 }
-
+.sort_text {
+  display: none;
+}
 /* classes of toggle button on currency --- */
 .switch {
   width: 90px;
@@ -102,7 +111,7 @@
   background-color: black;
 
   display: flex;
-  justify-content: flex-start;  
+  justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
 
@@ -112,8 +121,6 @@
   cursor: pointer;
   /* border-radius: 50px; */
 }
-
-
 
 .switch[data-ison="true"] {
   justify-content: flex-end;
@@ -136,34 +143,19 @@
 }
 
 .currency-sign.active {
-
   display: none; /* Hide inactive currency sign */
 }
 /* ------------- */
 
-
-
-
-
-
-
-
-
-
-
-
 .allCards {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   /* padding: 0 30px; */
   gap: 40px;
   margin-top: 50px;
   margin-bottom: 100px;
-  
- 
 }
-
 
 .card {
   width: 315px;
@@ -176,8 +168,7 @@
   padding: 20px 20px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
 
-
-  transition: transform 0.3s ease-in-out;
+  /* transition: transform 0.3s ease-in-out; */
 
   &:hover {
     transform: scale(1.05);
@@ -187,14 +178,16 @@
 
 .heartbuttonAndImageBox {
   position: relative;
+  text-align: center;
+  /* border: 1px solid green; */
 }
 
 .heartButtonBox {
-  width: 100%;
+  /* border: 1px solid red; */
+  width: 250px;
   display: flex;
   justify-content: flex-end;
   position: absolute;
-
 }
 
 .heartButtons {
@@ -211,8 +204,8 @@
 
 .heartButtons:hover {
   cursor: pointer;
-  transform: scale(1.2); 
-  transition: transform 0.3s ease; 
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
 }
 
 .textInfo {
@@ -224,20 +217,19 @@
 }
 
 .googleMapImageBox {
- display: flex;
- justify-content: center;
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid red; */
 }
 
-.googleMapImage {
+.google_map {
   height: 358px;
   width: 1074px;
+  /* background-position: 100%; */
 }
 
-
-
-
 .homepage_serch_button_complexpage {
-  background-color: transparent; 
+  background-color: transparent;
   color: #f1eeee; /* Change to the color you need */
   border: none;
   padding: 10px 20px; /* Adjust padding to match the size in the photo */
@@ -253,20 +245,33 @@
   margin-top: 0px;
 }
 
- .homepage_serch_button_complexpage:hover {
+.homepage_serch_button_complexpage:hover {
   background-color: transparent; /* Color when hovered, adjust as needed */
-  color: black
+  color: black;
 }
 
-.filter_cont_for_complex{
+.close_cont {
+  /* border: 1px solid red; */
   display: flex;
+  /* flex-direction: row; */
   justify-content: center;
   align-items: center;
   padding-top: 70px;
   gap: 13px;
   padding-top: 65px;
 }
-
+.filter_icon_for_links {
+  /* width: 30px; */
+  background-color: wheat;
+  border-radius: 50%;
+  display: none;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 
 /* ----------------------------------modal close button styles------------------------------------------ */
 .modal_close_button {
@@ -306,4 +311,67 @@
     rgba(0, 0, 0, 0.24) 0px 1.93094px 3.4757px -2.25px,
     rgba(0, 0, 0, 0.192) 0px 5.10423px 9.18761px -3.375px,
     rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px;
+}
+
+@media screen and (max-width: 500px) {
+  .numbers_link {
+    border: none;
+    display: flex;
+  }
+  .title {
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* border: 1px solid blue; */
+  }
+  .filter_icon_for_links {
+    display: block;
+  }
+  .ComplexBodyBox {
+    padding: 30px 50px;
+    /* border: 1px solid green; */
+  }
+  .mapAndLogoImg {
+    display: none;
+  }
+  .filter_cont_for_complex {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    padding: 0;
+  }
+  .komplex_text {
+    font-size: 14px;
+  }
+  .switch {
+    width: 80px;
+    height: 40px;
+  }
+  .sortAndArrowDownImgBox {
+    font-size: 12px;
+  }
+  .sort_text {
+    display: block;
+  }
+  .sort_text_web {
+    display: none;
+  }
+  .card {
+    padding: 10px 10px;
+  }
+  .google_map {
+    width: 200px;
+  }
+  .projectsPlansMapsSortingAndDollarBox {
+    gap: 5px;
+  }
+  .close_cont {
+    display: none;
+  }
+  .filter_cont_for_complex {
+    gap: 10px;
+  }
 }

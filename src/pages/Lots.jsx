@@ -7,28 +7,27 @@ import "./Physical.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import P_Modal from "../modals for private page/P_Modal";
-import P_PriceModal from '../modals for private page/P_PriceModal';
-import P_SpaceModal from '../modals for private page/P_SpaceModal';
-import P_StatusModal from '../modals for private page/P_StatusModa';
-import { motion } from 'framer-motion';
-import button_icon from '../icons/Vector.svg';
+import P_PriceModal from "../modals for private page/P_PriceModal";
+import P_SpaceModal from "../modals for private page/P_SpaceModal";
+import P_StatusModal from "../modals for private page/P_StatusModa";
+import { motion } from "framer-motion";
+import button_icon from "../icons/Vector.svg";
 import { Link } from "react-router-dom";
-import mapSignLogo from '../assets/mapSignLogoo.svg';
-import Button from '@mui/material/Button';
-import arrowDownSorting from '../assets/arrow-down-white.svg';
-import Menu from '@mui/material/Menu';
-import loupe from '../icons/loupe.png'
-import MenuItem from '@mui/material/MenuItem';
-import lari from '../assets/lari-svgrepo-com.svg';
-import dollar from '../assets/dollar-svgrepo-com.svg';
-import Stack from '@mui/material/Stack';
-import Pagination from '@mui/material/Pagination';
-import heartIcon from '../assets/starLogo.svg';
-import heartIconEmpty from '../assets/emptyStarLogo.svg';
-import googleMapImage from '../assets/mapImageForFooter.svg';
-import { BaseURLs } from '../App';
+import mapSignLogo from "../assets/mapSignLogoo.svg";
+import Button from "@mui/material/Button";
+import arrowDownSorting from "../assets/arrow-down-white.svg";
+import Menu from "@mui/material/Menu";
+import loupe from "../icons/loupe.png";
+import MenuItem from "@mui/material/MenuItem";
+import lari from "../assets/lari-svgrepo-com.svg";
+import dollar from "../assets/dollar-svgrepo-com.svg";
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
+import heartIcon from "../assets/starLogo.svg";
+import heartIconEmpty from "../assets/emptyStarLogo.svg";
+import googleMapImage from "../assets/mapImageForFooter.svg";
+import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
-
 
 const normalizeGroundData = (data, lang) => {
   return data.map((item) => ({
@@ -77,16 +76,14 @@ const normalizeLocationData = (data, lang) => {
   });
 };
 
-export default function Physical({ selectedLanguage,
+export default function Physical({
+  selectedLanguage,
   favorites,
   getCorrencyRate,
   HandleStateChange,
   currenceChangeState,
   isOn,
   toggleSwitch,
-
-
-
 }) {
   const [privateApartments, setPrivateApartments] = useState([]);
 
@@ -120,8 +117,6 @@ export default function Physical({ selectedLanguage,
   const [stringFilterValue, setStringFilterValue] = useState("");
   const [graundStatus, setGraundStatus] = useState([]);
 
-
-
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -141,7 +136,6 @@ export default function Physical({ selectedLanguage,
   const handleLotsClick = (prev_apartments) => {
     navigate(`/eachground/${prev_apartments}`, { state: { prev_apartments } });
   };
-
 
   // ------------------------------------axios for fetching private apartments -----------------------------------------
 
@@ -209,21 +203,21 @@ export default function Physical({ selectedLanguage,
     graundStatus,
   ]);
 
-
   // useEffect(() => {
   //   console.log("aq unda iyos suratebi", privateApartments);
   // }, [totalCount, selectedLanguage]);
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
-
   useEffect(() => {
     const fetchLocations = async () => {
       try {
         const response = await axios.get(`${BaseURLs.map}${selectedLanguage}`);
-        const normalisedLocationData = normalizeLocationData(response.data, selectedLanguage)
-        setLocations(normalisedLocationData)
-
+        const normalisedLocationData = normalizeLocationData(
+          response.data,
+          selectedLanguage
+        );
+        setLocations(normalisedLocationData);
       } catch (error) {
         console.error("error fetching on locations =>> ", error);
       }
@@ -1203,7 +1197,10 @@ export default function Physical({ selectedLanguage,
                 <div
                   className="switch_physical"
                   data-ison={isOn}
-                  onClick={() => { toggleSwitch(); HandleStateChange() }}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
                 >
                   <motion.div
                     className="handle_physical"
@@ -1213,14 +1210,16 @@ export default function Physical({ selectedLanguage,
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        isOn ? "active" : ""
+                      }`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${!isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        !isOn ? "active" : ""
+                      }`}
                     />
                   </motion.div>
                 </div>
@@ -1315,15 +1314,21 @@ export default function Physical({ selectedLanguage,
             onClick={pagiHandler}
             sx={{
               "& .MuiPaginationItem-root": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 color: "#fff !important", // White text color for unselected items, with increased specificity
                 margin: "3px !important", // Removes margin between buttons, with increased specificity
                 padding: "0 !important", // Removes padding inside buttons, with increased specificity
                 "&:hover": {
+                  display: "flex !important",
+                  flexDirection: "row !important",
                   backgroundColor: "#f0f0f0 !important", // Background color on hover for unselected items, with increased specificity
                   color: "#000 !important", // Text color on hover for unselected items, with increased specificity
                 },
               },
               "& .Mui-selected": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 backgroundColor: "#fff !important", // White background color for the selected item, with increased specificity
                 color: "#000 !important", // Black text color for the selected item, with increased specificity
                 "&:hover": {
@@ -1332,11 +1337,15 @@ export default function Physical({ selectedLanguage,
                 },
               },
               "& .MuiPaginationItem-ellipsis": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 color: "#fff !important", // Color of the ellipsis, with increased specificity
                 margin: "0 !important", // Removes margin around the ellipsis, with increased specificity
                 padding: "0 !important", // Removes padding around the ellipsis, with increased specificity
               },
               ".MuiPagination-ul": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 justifyContent: "center !important", // Centers the pagination items, with increased specificity
                 flexWrap: "nowrap !important", // Prevents the pagination items from wrapping, with increased specificity
               },

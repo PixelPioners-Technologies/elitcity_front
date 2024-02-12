@@ -1,10 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
-
-
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
 
 .ComplexBodyBox_physical {
-
   margin-top: 50px;
   padding: 100px 150px;
 }
@@ -15,7 +11,7 @@
 
 .forPaddingOfInfoFieldOfComplexsPlansMaps_physical {
   padding: 0 30px;
-} 
+}
 
 .infoFieldOfComplexsPlansMaps_physical {
   border: 1px solid black;
@@ -24,7 +20,6 @@
   justify-content: space-between;
   height: 70px;
   padding: 0 20px;
-
 }
 
 .complexInfoAndCountShowBox_physical {
@@ -45,7 +40,6 @@
   justify-content: center;
 }
 
-
 .textButtonContainer_physical:hover .textButton {
   /* color: aqua; */
   cursor: pointer;
@@ -60,10 +54,7 @@
   border: 1px solid #000;
   background-color: #000;
   color: #fff;
-
 }
-
-
 
 .mapSignLogo_physical {
   width: 30px;
@@ -73,7 +64,6 @@
   display: flex;
   gap: 10px;
 }
-
 
 /* /////////////////////////////// */
 .menu-transition {
@@ -86,13 +76,10 @@
 }
 /* /////////////////////////////// */
 
-
 .currencyBox_physical {
   /* height: 50px; */
   display: flex;
   align-items: center;
-
-
 }
 
 /* classes of toggle button on currency --- */
@@ -103,7 +90,7 @@
   background-color: black;
 
   display: flex;
-  justify-content: flex-start;  
+  justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
 
@@ -113,8 +100,6 @@
   cursor: pointer;
   /* border-radius: 50px; */
 }
-
-
 
 .switch_physical[data-ison="true"] {
   justify-content: flex-end;
@@ -137,12 +122,11 @@
 }
 
 .currency-sign_physical.active {
-
   display: none; /* Hide inactive currency sign */
 }
 
 /* ----------------------------------filter container  styles ---------------------------------------------- */
-.filter_cont_for_physical{
+.filter_cont_for_physical {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -150,20 +134,19 @@
   margin-bottom: 50px;
 }
 
-
-
-
-
 /* ------------------------------------------------------------------------------------------------------------- */
 
 /* ----------------------------------pagination container styles ---------------------------------------------- */
 
-.pagination{
+.pagination {
   margin-bottom: 120px;
   display: flex;
   justify-content: center;
+  /* border: 2px solid red; */
 }
-
+.numbers_link {
+  /* border: 1px solid red; */
+}
 
 /* ------------------------------------------------------------------------------------------------------------- */
 /* ----------------------------------string filtration input styles ---------------------------------------------- */
@@ -180,14 +163,13 @@
   opacity: 1; /* Optional: ensures full opacity of placeholder */
 }
 
-.dropdown{
+.dropdown {
   width: 20px;
 }
 
 /* ---------------------------------------room number chackboxes----------------------------------------------------- */
-.room_choice_container{
+.room_choice_container {
   margin-top: 10px;
-  
 }
 
 .checkbox-label {
@@ -213,8 +195,6 @@ input[type="checkbox"] {
 
 /* ------------------------------------------------------------------------------------------------------------- */
 
-
-
 .allCards_physical {
   display: flex;
   justify-content: space-between;
@@ -223,10 +203,7 @@ input[type="checkbox"] {
   gap: 29px;
   margin-top: 50px;
   margin-bottom: 100px;
-  
- 
 }
-
 
 .card_physical {
   width: 315px;
@@ -249,7 +226,6 @@ input[type="checkbox"] {
 
 .heartbuttonAndImageBox_physical {
   position: relative;
-  
 }
 
 .heartButtonBox_physical {
@@ -257,7 +233,6 @@ input[type="checkbox"] {
   display: flex;
   justify-content: flex-end;
   position: absolute;
-
 }
 
 .heartButtons_physical {
@@ -274,33 +249,30 @@ input[type="checkbox"] {
 
 .heartButtons_physical:hover {
   cursor: pointer;
-  transform: scale(1.2); 
-  transition: transform 0.3s ease; 
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
 }
 /* ----------------------------------card info styles---------------------------------------------------- */
-.company_title{
+.company_title {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 3px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-.city_settings{
-  font-family: 'Roboto', sans-serif;
-
+.city_settings {
+  font-family: "Roboto", sans-serif;
 }
 
-.price_settings{
-  font-family: 'Roboto', sans-serif;
-
+.price_settings {
+  font-family: "Roboto", sans-serif;
 }
 
-.status_settings{
-  font-family: 'Roboto', sans-serif;
+.status_settings {
+  font-family: "Roboto", sans-serif;
   color: #868282;
 }
-
 
 .textInfo_physical {
   margin-top: 10px;
@@ -310,24 +282,21 @@ input[type="checkbox"] {
   gap: 10px;
 }
 
-.private_apartment_rank{
+.private_apartment_rank {
   color: #f0f0f0;
 }
 
-.status_and_rank{
+.status_and_rank {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
-
 }
-
-
 
 /* ------------------------------------------------------------------------------------------------------- */
 
 .googleMapImageBox_physical {
- display: flex;
- justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .googleMapImage_physical {
@@ -335,6 +304,22 @@ input[type="checkbox"] {
   width: 1074px;
 }
 
-
-
-
+@media screen and (max-width: 500px) {
+  .pagination {
+    display: flex;
+    /* border: 1px solid green; */
+  }
+  .numbers_link{
+    /* border: 1px solid red; */
+  }
+  .row_link{
+    /* border:1px solid yellow; */
+    display: flex;
+    flex-direction: row !important;
+  }
+  /* {
+  border: 2px solid yellow;
+  display: flex;
+  flex-direction: row;
+} */
+}
