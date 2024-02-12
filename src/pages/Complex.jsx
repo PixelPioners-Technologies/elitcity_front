@@ -129,20 +129,6 @@ export default function Complex({
   //   console.log('corrent page----', totalPageCount)
   // }, [totalPageCount,currentPage ])
 
-
-  // useEffect(() => {
-
-  //   console.log("total_item_number on complex", total_item_number);
-  // }, [total_item_number]);
-
-
-
-  // 1111111111111111111111111111111111
-  // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
-
   // ------------------------------------------------------------------------------------
   // for Sorting
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -1138,15 +1124,6 @@ export default function Complex({
 
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
-
-//                 <div
-//                   className="switch"
-//                   data-ison={isOn}
-//                   onClick={() => {
-//                     toggleSwitch();
-//                     HandleStateChange();
-//                   }}
-//                 >
                 <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
 
                   <motion.div className="handle" layout transition={spring}>

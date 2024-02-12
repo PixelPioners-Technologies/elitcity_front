@@ -36,7 +36,6 @@
 .container {
   display: flex;
   gap: 15px;
-  border: 1px solid green;
   justify-content: center;
   align-items: center;
 } 
@@ -360,4 +359,5 @@
 /* Remove spin buttons and clear button for Internet Explorer */
 .min_price_homePage::-ms-clear {
   display: none;
+}
 }
