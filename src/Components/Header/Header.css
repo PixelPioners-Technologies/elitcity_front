@@ -1,30 +1,33 @@
 .header {
+  /* padding: 20px; */
   height: 84px;
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   display: flex;
-  /* align-items: center; */
-  justify-content: space-between;
-  padding-right: 30px;
-}
-
-.LogoAndNavBar {
-  display: flex;
-  justify-content: space-between;
-
   align-items: center;
-  gap: 30px;
-} 
-
-nav ul {
-  width: 888px;
-  display: flex;
-  justify-content: space-between; 
-  list-style: none; 
-  padding: 0; 
+  justify-content: space-between;
 }
-
+.line {
+  width: 38px;
+  height: 8px;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 4px;
+}
+nav ul {
+  /* width: 888px; */
+  display: flex;
+  gap: 20px;
+  /* justify-content: space-between; */
+  list-style: none;
+  padding: 0;
+}
+.row_reverse {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 15%;
+}
 .textButtonContainer:hover .buttonItemsOfList {
-  /* color: aqua; */
   cursor: pointer;
 }
 
@@ -35,13 +38,17 @@ nav ul {
   background: none;
   font: inherit;
   color: white;
+  /* margin-left: 40px; */
 }
-
+.downArrowImgAndDevelopersLinkBox {
+  margin-left: 100px;
+  margin-right: 20px;
+}
 
 .favouriteAndLanguageAndDayModeChanger {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 40px;
 }
 
 .downArrowImgAndDevelopersLinkBox {
@@ -49,12 +56,6 @@ nav ul {
   align-items: center;
   justify-content: center;
 }
-
-.heartAndNumberBox {
-  display: flex;
-  position: relative;
-}
-
 .heartBox {
   background-color: white;
   width: 39px;
@@ -62,27 +63,26 @@ nav ul {
   border-radius: 20px;
   display: flex;
   justify-content: center;
-
 }
-
+.burger_menu_icon {
+  display: none;
+}
 .heartLogoButton {
-    padding: 0;
-    margin: 0;
-    border: none;
-    background: none;
-    font: inherit;
-    color: inherit;
-    appearance: none;
-    display: flex;
-    align-items: center;
-    /* Additional styles as needed */
-  
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  appearance: none;
+  display: flex;
+  align-items: center;
 }
 
 .heartLogoButton:hover {
   cursor: pointer;
 }
-
+/* 
 .numberOfHeart {
   display: flex;
   align-items: center;
@@ -93,30 +93,58 @@ nav ul {
   height: 20px;
   text-align: center;
   position: absolute;
+  margin-top: -32px;
+  right: 118px;
   border: 2px solid;
-  left: 27px;
-  /* background-color: red; */
-}
-
-/* ჯერ–ჯერობი იყოს და არ წაშალო.. Button რომ დავამატე div-ში, აღარ დამჭირდა სურათზე width–ის მითითება */
-/* .heartLogo {
-  width: 20.11px;
+  border: 1px solid black;
 } */
 
+/* ჯერ–ჯერობი იყოს და არ წაშალო.. Button რომ დავამატე div-ში, აღარ დამჭირდა სურათზე width–ის მითითება */
 
-@media (max-width: 768px) {
-  .LogoAndNavBar, .favouriteAndLanguageAndDayModeChanger {
+@media screen and (max-width: 500px) {
+  .header {
+    height: 60px;
+    position: relative;
+  }
+  .burger_menu_icon {
+    width: 40px;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 5px;
+    display: block;
+    cursor: pointer;
   }
 
+  .close {
+    display: none;
+  }
   nav ul {
+    padding: 30px;
+    display: flex;
     flex-direction: column;
-    width: auto;
+    background-color: black;
+    gap: 30px;
   }
-
-  .buttonItemsOfList {
-    text-align: center;
-    padding: 10px;
+  .open {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+    right: 0;
+    flex-direction: column;
+  }
+  .downArrowImgAndDevelopersLinkBox {
+    display: none;
+  }
+  .heartBox {
+    width: 33px;
+    height: 33px;
+  }
+  .favouriteAndLanguageAndDayModeChanger {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
   }
 }

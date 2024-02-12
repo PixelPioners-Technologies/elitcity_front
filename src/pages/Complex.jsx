@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import heartIcon from "../assets/starLogo.svg";
+import Filter from "../assets/filter.png";
 
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import mapSignLogo from "../assets/mapSignLogoo.svg";
@@ -84,6 +85,13 @@ export default function Complex({
   handleCorrentPageHandler,
   complexes,
   total_item_number,
+
+  getCorrencyRate,
+  HandleStateChange,
+  currenceChangeState,
+  isOn,
+  toggleSwitch,
+
 }) {
   const [homes, setHomes] = useState([]);
 
@@ -121,10 +129,12 @@ export default function Complex({
   //   console.log('corrent page----', totalPageCount)
   // }, [totalPageCount,currentPage ])
 
+
   // useEffect(() => {
 
   //   console.log("total_item_number on complex", total_item_number);
   // }, [total_item_number]);
+
 
 
   // 1111111111111111111111111111111111
@@ -446,7 +456,6 @@ export default function Complex({
       findMapButtonLanguage: "Find Map",
       allFindButtonLanguage: "Find",
       spaceButtonClose: "Close",
-
       minPrice: "From m²",
       maxPrice: "To m²",
       roomStudio: "Studio",
@@ -513,6 +522,7 @@ export default function Complex({
     }
     return languageInfo
   }
+
 
   // ------------------------------------------------------------------------------------
 
@@ -600,6 +610,7 @@ export default function Complex({
     1: { en: "Planned", ka: "დაგეგმილი", ru: "Запланировано" },
     2: { en: "Under Construction", ka: "მშენებარე", ru: "Строится" },
     3: { en: "Completed", ka: "დასრულებული", ru: "Завершено" },
+
     // Add more statuses and translations if needed
   };
 
@@ -669,6 +680,15 @@ export default function Complex({
     searchButtonhangeHandler(!searchButton);
   };
 
+
+  const [Open, setOpen] = useState(false);
+
+  const toggleFunc = () => {
+    setOpen(!Open)
+    // console.log("open:", Open);
+  }
+
+
   return (
     <div className="ComplexBodyBox">
       <div className="filter_cont_for_complexes">
@@ -678,8 +698,13 @@ export default function Complex({
           transition={{ duration: 2 }}
         >
           <div className="for_comfort">
-            <div className="adgilicomportistvis">ადგილი შენი კომფორტისთვის</div>
-            <div className="filter_cont_for_complex">
+
+            <div className="adgilicomportistvis title">
+              <p>ადგილი შენი კომფორტისთვის</p> 
+              <img onClick={toggleFunc} className="filter_icon_for_links" src={Filter} alt="/" />
+            </div>
+            <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
+
               {/* button for filtering space */}
               <div className="button-modal-container ">
                 <div onClick={handleSpaceButtonClick} className="space_button">
@@ -699,13 +724,9 @@ export default function Complex({
                   close={closeSpaceModal}
                 >
                   <div>
-
-                    <div>
-                      <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
-                    </div>
-                    <input className='min_price_complex'
-                      type='number'
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
+                    <input
+                      type="number"
+                      placeholder="Min Price Per Square Meter"
 
                       value={min_space}
                       onChange={(e) => max_spacehangeHandler(e.target.value)}
@@ -713,18 +734,21 @@ export default function Complex({
 
                     <input className='min_price_complex'
                       type="number"
-
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
-
                       value={max_space}
                       onChange={(e) => min_spacehangeHandler(e.target.value)}
                     />
                   </div>
 
-                  <button className='modal_close_button' onClick={closeSpaceModal}>
-                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                  <button
+                    className="modal_close_button"
+                    onClick={closeSpaceModal}
+                  >
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .spaceButtonClose
+                    }
 
-             
                   </button>
                 </SpaceModal_complex>
               </div>
@@ -741,19 +765,14 @@ export default function Complex({
                     className="dropdown"
                   />
                 </div>
-
                 <PriceModal_complex isOpen={isPriceModalOpen} close={handleClosePriceModal} >
                   <div className='fullPriceHomePage'>
                     {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
                   </div>
-
-
                   <div>
                     <input className='min_price_complex'
                       type="number"
-
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}           
-
                       value={minPricePerSquareMeter}
                       onChange={(e) =>
                         minPricePerSquareMeterChangeHandler(e.target.value)
@@ -762,9 +781,7 @@ export default function Complex({
 
                     <input className='min_price_complex'
                       type="number"
-
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
-
                       value={maxPricePerSquareMeter}
                       onChange={(e) =>
                         maxPricePerSquareMeterChangeHandler(e.target.value)
@@ -777,9 +794,7 @@ export default function Complex({
 
                     <input className='min_price_complex'
                       type="number"
-
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
-
                       value={minFullPrice}
                       onChange={(e) =>
                         minFullPriceChangeHandler(e.target.value)
@@ -788,9 +803,7 @@ export default function Complex({
 
                     <input className='min_price_complex'
                       type="number"
-
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}             
-
                       value={maxFullPrice}
                       onChange={(e) =>
                         maxFullPriceChangeHandler(e.target.value)
@@ -822,10 +835,7 @@ export default function Complex({
                     className="dropdown"
                   />
                 </div>
-
                 <Modal_main isOpen={isModalOpen} close={closeModal}>
-
-
                   {renderModalContent()}
                 </Modal_main>
               </div>
@@ -905,7 +915,9 @@ export default function Complex({
         <div className="forPaddingOfInfoFieldOfComplexsPlansMaps">
           <div className="infoFieldOfComplexsPlansMaps">
             <div className="complexInfoAndCountShowBox">
-              <p style={{ color: "white" }}>კომპლექსები {total_item_number}</p>
+              <p className="komplex_text" style={{ color: "white" }}>
+                კომპლექსები {total_item_number}
+              </p>
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
             <div className="projectsPlansMapsSortingAndDollarBox">
@@ -974,7 +986,8 @@ export default function Complex({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox">
-                  სორტირება
+                  <p className="sort_text_web">სორტირება</p>
+                  <p className="sort_text">სორტ</p>
                   <img src={arrowDownSorting} style={{ width: "20px" }} />
                 </div>
               </Button>
@@ -1125,7 +1138,17 @@ export default function Complex({
 
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
+
+//                 <div
+//                   className="switch"
+//                   data-ison={isOn}
+//                   onClick={() => {
+//                     toggleSwitch();
+//                     HandleStateChange();
+//                   }}
+//                 >
                 <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
+
                   <motion.div className="handle" layout transition={spring}>
                     <img
                       src={lari}
@@ -1216,8 +1239,9 @@ export default function Complex({
 
       {/* Pagination for user to select some page */}
       <div className="pagination">
-        <Stack spacing={2}>
+        <Stack spacing={2} className="row_link">
           <Pagination
+            className="numbers_link"
             count={totalPageCount}
             shape="rounded"
             page={currentPage}
@@ -1227,15 +1251,22 @@ export default function Complex({
             onClick={pagiHandler}
             sx={{
               "& .MuiPaginationItem-root": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 color: "#fff !important", // White text color for unselected items, with increased specificity
                 margin: "3px !important", // Removes margin between buttons, with increased specificity
-                padding: "0 !important", // Removes padding inside buttons, with increased specificity
+                padding: "0 !important",
+                // Removes padding inside buttons, with increased specificity
                 "&:hover": {
+                  flexDirection: "row !important",
+                  display: "flex !important",
                   backgroundColor: "#f0f0f0 !important", // Background color on hover for unselected items, with increased specificity
                   color: "#000 !important", // Text color on hover for unselected items, with increased specificity
                 },
               },
               "& .Mui-selected": {
+                flexDirection: "row !important",
+                display: "flex !important",
                 backgroundColor: "#fff !important", // White background color for the selected item, with increased specificity
                 color: "#000 !important", // Black text color for the selected item, with increased specificity
                 "&:hover": {
@@ -1244,11 +1275,14 @@ export default function Complex({
                 },
               },
               "& .MuiPaginationItem-ellipsis": {
+                flexDirection: "row !important",
                 color: "#fff !important", // Color of the ellipsis, with increased specificity
                 margin: "0 !important", // Removes margin around the ellipsis, with increased specificity
                 padding: "0 !important", // Removes padding around the ellipsis, with increased specificity
               },
               ".MuiPagination-ul": {
+                flexDirection: "row !important",
+                display: "flex !important",
                 justifyContent: "center !important", // Centers the pagination items, with increased specificity
                 flexWrap: "nowrap !important", // Prevents the pagination items from wrapping, with increased specificity
               },
@@ -1269,7 +1303,7 @@ export default function Complex({
             <img
               src={googleMapImage}
               alt="googleMapImage"
-              className="googleMapImage"
+              className="googleMapImage google_map"
             />
           </motion.div>
         </Link>
@@ -1280,7 +1314,7 @@ export default function Complex({
 
 const styles = {
   imageStyles: {
-    width: "278px",
+    width: "250px",
     height: "229px",
     overflow: "hidden",
     // borderRadius: "20px",
@@ -1303,3 +1337,4 @@ const spring = {
   stiffness: 100,
   damping: 30,
 };
+
