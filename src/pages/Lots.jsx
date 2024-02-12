@@ -117,7 +117,6 @@ export default function Physical({
   const [search, setSearch] = useState(false);
 
 
-
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -209,7 +208,6 @@ export default function Physical({
   const habdle_Search_Button_Click = () => {
     setSearch(!search)
   }
-
 
   // useEffect(() => {
   //   console.log("aq unda iyos suratebi", privateApartments);
@@ -1327,14 +1325,16 @@ export default function Physical({
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        isOn ? "active" : ""
+                      }`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${!isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        !isOn ? "active" : ""
+                      }`}
                     />
                   </motion.div>
                 </div>
@@ -1432,15 +1432,21 @@ export default function Physical({
             onClick={pagiHandler}
             sx={{
               "& .MuiPaginationItem-root": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 color: "#fff !important", // White text color for unselected items, with increased specificity
                 margin: "3px !important", // Removes margin between buttons, with increased specificity
                 padding: "0 !important", // Removes padding inside buttons, with increased specificity
                 "&:hover": {
+                  display: "flex !important",
+                  flexDirection: "row !important",
                   backgroundColor: "#f0f0f0 !important", // Background color on hover for unselected items, with increased specificity
                   color: "#000 !important", // Text color on hover for unselected items, with increased specificity
                 },
               },
               "& .Mui-selected": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 backgroundColor: "#fff !important", // White background color for the selected item, with increased specificity
                 color: "#000 !important", // Black text color for the selected item, with increased specificity
                 "&:hover": {
@@ -1449,11 +1455,15 @@ export default function Physical({
                 },
               },
               "& .MuiPaginationItem-ellipsis": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 color: "#fff !important", // Color of the ellipsis, with increased specificity
                 margin: "0 !important", // Removes margin around the ellipsis, with increased specificity
                 padding: "0 !important", // Removes padding around the ellipsis, with increased specificity
               },
               ".MuiPagination-ul": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 justifyContent: "center !important", // Centers the pagination items, with increased specificity
                 flexWrap: "nowrap !important", // Prevents the pagination items from wrapping, with increased specificity
               },
