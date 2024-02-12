@@ -264,22 +264,30 @@ export default function EachComplex({
       const data = response.data;
       const normalised_Data = normalizeData(data, selectedLanguage);
 
-      // console.log("----111---,", normalised_Data);
+      console.log("dataaaaa" , data.complex_images)
+
       setAllComplexImages(data.complexImages);
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
 
       seteachComplexAllAppartments(normalised_Data);
-
-
       // const sliderImagesFromData = allComplexImages.map((imgUrl, index) => ({
       //   id: index,
       //   value: imgUrl, // Directly using the URL from the JSON data
       // }));
 
       
-      setSliderImages(sliderImagesFromData); // Update the state
-      setWordData(sliderImagesFromData[0] || null); // Initialize with the first image or null if empty
+      // setSliderImages( data.complex_images); // Update the state
+      // setWordData(sliderImagesFromData[0] || null); // Initialize with the first image or null if empty
+      const imagesWithIds = data.complex_images.map((url, index) => ({
+        id: index,  // or any other unique identifier
+        value: url  // the image URL
+      }));
+
+      
+      setSliderImages(imagesWithIds); // Assuming data.complex_images is an array of image objects
+      setWordData(imagesWithIds[0] || null); // Initialize with the first image or null if empty
+      
 
 
 
@@ -301,18 +309,13 @@ export default function EachComplex({
     // wordData,
     // allComplexImages,
   ]);
-
+  
+  // console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
   useEffect(() => {
-    console.log("slider images", sliderImages);
-    console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
+    console.log("slider images", eachComplexAllAppartments);
 
   }, [sliderImages , eachComplexAllAppartments]);
 
-  // useEffect(() => {
-  //   console.log("sliderImagessliderImages;:::::;", sliderImages);
-
-  //   // console.log("aq unda iyos suratebi", privateApartments);
-  // }, [sliderImages]);
 
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -710,7 +713,7 @@ export default function EachComplex({
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData.id === data.id ? "clicked" : ""} ${
+                    className={`${wordData?.id === data.id ? "clicked" : ""} ${
                       clickedIndex === i ? "enlarge" : ""
                     }`}
                     src={data.value}
