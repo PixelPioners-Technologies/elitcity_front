@@ -84,7 +84,6 @@ export default function Complex({
   currenceChangeState,
   isOn,
   toggleSwitch,
-
 }) {
   const [homes, setHomes] = useState([]);
 
@@ -429,9 +428,8 @@ export default function Complex({
 
         break
     }
-    return languageInfo
-  }
-
+    return languageInfo;
+  };
 
   // ------------------------------------------------------------------------------------
 
@@ -541,14 +539,12 @@ export default function Complex({
     searchButtonhangeHandler(!searchButton);
   };
 
-
   const [Open, setOpen] = useState(false);
 
   const toggleFunc = () => {
-    setOpen(!Open)
+    setOpen(!Open);
     // console.log("open:", Open);
-  }
-
+  };
 
   return (
     <div className="ComplexBodyBox">
@@ -559,13 +555,11 @@ export default function Complex({
           transition={{ duration: 2 }}
         >
           <div className="for_comfort">
-
             <div className="adgilicomportistvis title">
               <p>ადგილი შენი კომფორტისთვის</p>
               <img onClick={toggleFunc} className="filter_icon_for_links" src={Filter} alt="/" />
             </div>
             <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
-
               {/* button for filtering space */}
               <div className="button-modal-container ">
                 <div onClick={handleSpaceButtonClick} className="space_button">
@@ -588,14 +582,17 @@ export default function Complex({
                     <input
                       type="number"
                       placeholder="Min Price Per Square Meter"
-
                       value={min_space}
                       onChange={(e) => max_spacehangeHandler(e.target.value)}
                     />
 
-                    <input className='min_price_complex'
+                    <input
+                      className="min_price_complex"
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .maxPrice
+                      }
                       value={max_space}
                       onChange={(e) => min_spacehangeHandler(e.target.value)}
                     />
@@ -609,7 +606,6 @@ export default function Complex({
                       handleStatusButtonLanguageChange(selectedLanguage)
                         .spaceButtonClose
                     }
-
                   </button>
                 </SpaceModal_complex>
               </div>
@@ -626,12 +622,19 @@ export default function Complex({
                     className="dropdown"
                   />
                 </div>
-                <PriceModal_complex isOpen={isPriceModalOpen} close={handleClosePriceModal} >
-                  <div className='fullPriceHomePage'>
-                    {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+                <PriceModal_complex
+                  isOpen={isPriceModalOpen}
+                  close={handleClosePriceModal}
+                >
+                  <div className="fullPriceHomePage">
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .fullPriceHomePage
+                    }
                   </div>
                   <div>
-                    <input className='min_price_complex'
+                    <input
+                      className="min_price_complex"
                       type="number"
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                       value={minPricePerSquareMeter}
@@ -640,29 +643,39 @@ export default function Complex({
                       }
                     />
 
-                    <input className='min_price_complex'
+                    <input
+                      className="min_price_complex"
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage).mde
+                      }
                       value={maxPricePerSquareMeter}
                       onChange={(e) =>
                         maxPricePerSquareMeterChangeHandler(e.target.value)
                       }
                     />
 
-                    <div className='meterPriceHomePageComplex'>
-                      {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
+                    <div className="meterPriceHomePageComplex">
+                      {
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .meterPriceHomePage
+                      }
                     </div>
 
-                    <input className='min_price_complex'
+                    <input
+                      className="min_price_complex"
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage).dan
+                      }
                       value={minFullPrice}
                       onChange={(e) =>
                         minFullPriceChangeHandler(e.target.value)
                       }
                     />
 
-                    <input className='min_price_complex'
+                    <input
+                      className="min_price_complex"
                       type="number"
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                       value={maxFullPrice}
@@ -1000,7 +1013,6 @@ export default function Complex({
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
                 <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
-
                   <motion.div className="handle" layout transition={spring}>
                     <img
                       src={lari}
@@ -1025,11 +1037,10 @@ export default function Complex({
 
       <div className="allCards">
         {complexes.map((complex, index) => (
-
           <div className="card" key={complex.id}>
             <motion.div
               initial={{ x: -50, opacity: 0 }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 0.1 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
             >
@@ -1153,7 +1164,7 @@ export default function Complex({
         <Link to="/map">
           <motion.div
             initial={{ x: -150, opacity: 0 }}
-            transition={{ duration: 1.5 }}
+            transition={{ duration: 1 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
           >
@@ -1195,4 +1206,3 @@ const spring = {
   stiffness: 100,
   damping: 30,
 };
-
