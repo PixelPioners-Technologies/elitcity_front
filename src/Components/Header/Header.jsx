@@ -8,6 +8,7 @@ import Language from "./Language/Language";
 import ArrowDown from "../../assets/arrowDownFromHeader.svg";
 import { motion } from "framer-motion";
 
+
 export default function Header({
   favorites,
   handleLanguageChange,
@@ -16,6 +17,7 @@ export default function Header({
   favoritesLots,
   favoritesPhysical,
 }) {
+
   const handle_P_StatusButtonLanguageChange = (lang) => {
     var languageInfo = {
       complex: "Complexes",
