@@ -313,6 +313,7 @@
     rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px;
 }
 
+
 @media screen and (max-width: 500px) {
   .numbers_link {
     border: none;
@@ -374,4 +375,5 @@
   .filter_cont_for_complex {
     gap: 10px;
   }
+
 }

@@ -8,7 +8,7 @@ import loupe from '../icons/loupe.png'
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { BaseURLs } from '../App';
-
+import { useNavigate } from 'react-router-dom';
 
 const normalizeCompanyData = (data, lang) => {
   return data.map(item => ({
@@ -40,6 +40,11 @@ export default function Developers({ favorites, selectedLanguage }) {
 
 
 
+  const navigate = useNavigate();
+  // Assuming `complex` is an object representing each house
+  const handle_company_click = (companyID) => {
+    navigate(`/eachcompany/${companyID}`, { state: { companyID } });
+  };
 
   // --------------------------------------function for fetching company data-------------------------------------------
 
@@ -148,13 +153,14 @@ export default function Developers({ favorites, selectedLanguage }) {
                 // whileTap={{ scale: 0.9 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
-                <div className='developers' >
+             
+                <div className='developers'  onClick={() => handle_company_click(developers.id)}   >
 
                   <div className='developers_child_container' >
 
                     {/* logo container */}
                     <div>
-                      <img className='company_logo' src={developers.logoCompany} rel='company logo' />
+                      <img className='company_logo' src={developers.logoCompany} rel='company logo'  />
                     </div>
 
                     {/* settings container */}
@@ -197,7 +203,7 @@ export default function Developers({ favorites, selectedLanguage }) {
 
       <div>
         {otherCompanies.map((developers, index) => (
-          <div className='big_container_for_key' key={index}  >
+          <div className='big_container_for_key' key={index} onClick={() => handle_company_click(developers.id)}   >
             <motion.div
               // key={currentPage}
               initial={{ x: -50, opacity: 0 }}

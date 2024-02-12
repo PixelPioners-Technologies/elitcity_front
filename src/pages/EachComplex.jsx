@@ -36,6 +36,13 @@ import lipti from "../assets/lipti.svg";
 import shlagbaumi from "../assets/shlagbaumi.svg";
 import konsierji from "../assets/konsierji.svg";
 import ezo from "../assets/ezo.svg";
+import metro from "../assets/Metro.svg";
+import aptiaqi from "../assets/Aptiaqi.svg";
+import supermarket from "../assets/Supermarket.svg";
+import skveri from "../assets/skveri.svg";
+import forMapPhoto from "../assets/ComplexesPhotos/1zz.jpg";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import private_apartment_location_icon from "../location_icons/private_apartment2.png";
 
 // ------------------
 import "./Physical.css";
@@ -47,14 +54,34 @@ import P_StatusModal from "../modals for private page/P_StatusModa";
 import button_icon from "../icons/Vector.svg";
 
 import { useLocation } from "react-router-dom";
+
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+// ---  compleqsis misamartebi axali struqturidanaa amosagebi da ara aoartamentis addresidan       ------------------
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+
 function normalizeData(item, lang) {
   return {
     id: item.id,
     construction: item[`construction_type_${lang}`],
-    description: item[`Description_${lang}`],
+    description: item[`description_${lang}`],
 
     protectionType: item[`protection_type_${lang}`],
     submissionType: item[`submission_type_${lang}`],
+
+    complexAddress: {
+      city: item[`complex_address_${lang}`][`city_${lang}`],
+      parentDistrict:
+        item[`complex_address_${lang}`][`pharentDistrict_${lang}`],
+      district: item[`complex_address_${lang}`][`district_${lang}`],
+      streetName: item[`complex_address_${lang}`][`street_name_${lang}`],
+      address: item[`complex_address_${lang}`][`address_${lang}`],
+      longitude: item[`complex_address_${lang}`].longitude,
+      latitude: item[`complex_address_${lang}`].latitude,
+    },
 
     complexName: item[`complex_name_${lang}`],
     internalComplexName: item.internal_complex_name.internal_complex_name,
@@ -85,7 +112,11 @@ function normalizeData(item, lang) {
     yardDescription: item.internal_complex_name.yard_description,
     plotArea: item.internal_complex_name.plot_area,
     rank: item.internal_complex_name.rank,
-    viewCount: item.internal_complex_name.views_count,
+
+    metro: item.internal_complex_name.metro,
+    Pharmacy: item.internal_complex_name.Pharmacy,
+    supermarket: item.internal_complex_name.supermarket,
+    Square: item.internal_complex_name.Square,
 
     // Add other fields from internal_complex_name as needed
     complexImages: item.complex_images,
@@ -126,13 +157,6 @@ function normalizeData(item, lang) {
   };
 }
 
-import img1 from "../assets/ComplexesPhotos/0zzz.jpg";
-import img2 from "../assets/ComplexesPhotos/1zz.jpg";
-import img3 from "../assets/ComplexesPhotos/2zz.jpg";
-import img4 from "../assets/ComplexesPhotos/3zz.jpg";
-import img5 from "../assets/ComplexesPhotos/4zz.jpg";
-import img6 from "../assets/ComplexesPhotos/5zz.jpg";
-
 export default function EachComplex({
   selectedLanguage,
   favorites,
@@ -156,7 +180,7 @@ export default function EachComplex({
   // ];
 
   const [eachComplexAllAppartments, seteachComplexAllAppartments] = useState(
-    []
+    {}
   );
   const [wordData, setWordData] = useState(null);
   const [val, setVal] = useState(0);
@@ -185,7 +209,7 @@ export default function EachComplex({
 
   // const [sliderMiniImages, setSliderMiniImages] = useState([]);
   const [sliderImages, setSliderImages] = useState([]);
-  console.log("sliderImages", sliderImages);
+  // console.log("sliderImages", sliderImages);
 
   const [eachPrivateApartment, setEachPrivateApartment] = useState([]);
 
@@ -258,14 +282,15 @@ export default function EachComplex({
       // const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${complexId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
-      // console.log("ssssssss", response.data.results[0];
       const data = response.data;
       const normalised_Data = normalizeData(data, selectedLanguage);
+
       console.log("----111---,", normalised_Data);
       setAllComplexImages(data.complex_images);
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
 
+      seteachComplexAllAppartments(normalised_Data);
       // Update sliderImages state with all images from the fetched data
       const sliderImagesFromData = allComplexImages.map((imgUrl, index) => ({
         id: index,
@@ -295,15 +320,17 @@ export default function EachComplex({
     // allComplexImages,
   ]);
 
-  // console.log("eachPrivateApartment DATA: ", eachPrivateApartment);
-
   useEffect(() => {
-    console.log("sliderImagessliderImages;:::::;", sliderImages);
+    console.log("description", eachPrivateApartment);
+  }, [eachComplexAllAppartments]);
 
-    // console.log("aq unda iyos suratebi", privateApartments);
-  }, [sliderImages]);
+  // useEffect(() => {
+  //   console.log("sliderImagessliderImages;:::::;", sliderImages);
 
-  // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
+  //   // console.log("aq unda iyos suratebi", privateApartments);
+  // }, [sliderImages]);
+
+  // // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
 
   const handle_P_SpaceButtonClick = () => {
     setIs_P_SpaceModalOpen(true);
@@ -339,33 +366,27 @@ export default function EachComplex({
 
   const handleClick = (index) => {
     setClickedIndex(index);
-    console.log(index);
     setVal(index);
     const wordSlider = sliderImages[index];
     setWordData(wordSlider);
   };
-
   const handleNext = () => {
     const newIndex = val < sliderImages.length - 1 ? val + 1 : 0; // Cycle to the start if at the end
     setVal(newIndex);
-    const wordSlider = sliderImages[newIndex];
-    setWordData(wordSlider);
-    setCarouselPosition(
-      (prevPosition) => (prevPosition + 1) % sliderImages.length
-    );
+    setWordData(sliderImages[newIndex]);
+    if (carouselPosition > 0) {
+      setCarouselPosition(carouselPosition - 1);
+    }
   };
 
   const handlePrevious = () => {
     const newIndex = val > 0 ? val - 1 : sliderImages.length - 1; // Cycle to the end if at the start
     setVal(newIndex);
-    const wordSlider = sliderImages[newIndex];
-    setWordData(wordSlider);
-    setCarouselPosition(
-      (prevPosition) =>
-        (prevPosition - 1 + sliderImages.length) % sliderImages.length
-    );
+    setWordData(sliderImages[newIndex]);
+    if (carouselPosition < sliderImages.length - 4) {
+      setCarouselPosition(carouselPosition + 1);
+    }
   };
-
   // for toggle DOllar AND LARI ---==---(START)
   // const [isOn, setIsOn] = useState(false);
   // const toggleSwitch = () => setIsOn(!isOn);
@@ -382,7 +403,7 @@ export default function EachComplex({
         ? [...prevSelectedStatuses, value]
         : prevSelectedStatuses.filter((status) => status !== value);
 
-      console.log("Updated Selected Statuses:", newSelectedStatuses); // Log the new state
+      // console.log("Updated Selected Statuses:", newSelectedStatuses); // Log the new state
       return newSelectedStatuses;
     });
   };
@@ -679,18 +700,34 @@ export default function EachComplex({
 
   //
 
-  const navigate = useNavigate();
-
   // Assuming `complex` is an object representing each house
   // const handleAppartmentClick = (complexId) => {
   //   navigate(`/eachComplex/${complexId},`);
   // };
 
   // const navigate = useNavigate();
-
   const handleAppartmentClick = (apartmentId) => {
     navigate(`/eachapartment/${apartmentId}`, { state: { apartmentId } });
   };
+
+  const mapcenter = {
+    lat: eachComplexAllAppartments?.complexAddress?.latitude || 41.7151,
+    lng: eachComplexAllAppartments?.complexAddress?.longitude || 44.8271,
+  };
+
+  const navigate = useNavigate();
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
+  });
+
+  if (loadError) {
+    return <div>Error loading maps</div>;
+  }
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+  const scalesize = new window.google.maps.Size(40, 40);
 
   return (
     <div className="eachComplexBox">
@@ -757,7 +794,14 @@ export default function EachComplex({
               </button>
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
-                <div className="switch" data-ison={isOn} onClick={() => { toggleSwitch(); HandleStateChange() }}>
+                <div
+                  className="switch"
+                  data-ison={isOn}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
+                >
                   <motion.div className="handle" layout transition={spring}>
                     <img
                       src={lari}
@@ -802,8 +846,8 @@ export default function EachComplex({
               {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}{" "}
               {currenceChangeState
                 ? eachPrivateApartment.pricePerSqMeter * getCorrencyRate
-                : eachPrivateApartment.pricePerSqMeter}$
-              {handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
+                : eachPrivateApartment.pricePerSqMeter}
+              ${handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
             </p>
           </div>
 
@@ -890,10 +934,10 @@ export default function EachComplex({
         {/* ))} */}
       </div>
       {/* ---------- */}
-      {console.log(
+      {/* {console.log(
         "viewCountviewCountviewCountviewCount",
         eachPrivateApartment.internal_complex_name?.viewCount
-      )}
+      )} */}
 
       {/* ბინების და გეგმარებების ცამოსაშლელი ბოქსი */}
       <div className="binebiDaGegmarebaFullBox">
@@ -1430,15 +1474,112 @@ export default function EachComplex({
             {/* mtavrdeba:  inprastruqturisIconsBox--------- */}
           </div>
         </div>
-        <h4 style={{ color: "white" }}>
+        <h4 style={{ color: "white", marginTop: "20px" }}>
           {handle_P_StatusButtonLanguageChange(selectedLanguage).description}
         </h4>
-        <p style={{ color: "white", marginTop: "10px" }}>
-          {eachPrivateApartment.description !== null
-            ? eachPrivateApartment.description
-            : ""}{" "}
-          ,,es teqsti washale, რადგან ბაზაში ნალია მაგიტო დავწერე
+        <p style={{ color: "white", marginTop: "20px" }}>
+          {eachPrivateApartment?.description}
         </p>
+
+        {/* (START) ახლო მდებარე ობიექტები box */}
+        <div className="textBoxOfH4axloMdebareObieqtebi">
+          <h4 style={{ color: "white" }}>
+            {handle_P_StatusButtonLanguageChange(selectedLanguage).nearObjects}
+          </h4>
+        </div>
+
+        <div className="axloMdebareObieqtebiBox">
+          <div className="textBoxOfAxloMdebare">
+            <div className="iconAndItsText">
+              {/* 
+            metro: item.internal_complex_name.metro,
+    Pharmacy: item.internal_complex_name.Pharmacy,
+    supermarket: item.internal_complex_name.supermarket,
+    Square: item.internal_complex_name.Square, */}
+
+              {eachPrivateApartment?.metro && (
+                <>
+                  <img src={metro} alt="metro" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .metro
+                    }
+                  </p>
+                </>
+              )}
+            </div>
+            <div className="iconAndItsText">
+              {eachPrivateApartment?.supermarket && (
+                <>
+                  <img src={supermarket} alt="supermarket" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .supermarket
+                    }
+                  </p>
+                </>
+              )}
+            </div>
+            <div className="iconAndItsText">
+              {eachPrivateApartment?.Pharmacy && (
+                <>
+                  <img src={aptiaqi} alt="aptiaqi" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .pharmacy
+                    }
+                  </p>
+                </>
+              )}
+            </div>
+            <div className="iconAndItsText">
+              {eachPrivateApartment?.Square && (
+                <>
+                  <img src={skveri} alt="skveri" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .square
+                    }
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="child_map_container_P">
+            <GoogleMap
+              mapContainerStyle={{ height: "300px" }}
+              center={mapcenter}
+              zoom={16}
+              options={{
+                gestureHandling: "none",
+                zoomControl: true,
+                scrollwheel: false,
+                disableDoubleClickZoom: true,
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false,
+              }}
+            >
+              <Marker
+                key={privateApartments.id}
+                position={{
+                  lat: eachComplexAllAppartments?.complexAddress?.latitude,
+                  lng: eachComplexAllAppartments?.complexAddress?.longitude,
+                }}
+                icon={{
+                  url: private_apartment_location_icon,
+                  scaledSize: scalesize,
+                }}
+              />
+            </GoogleMap>
+          </div>
+        </div>
+        {/* (END) ახლო მდებარე ობიექტები box -------- */}
 
         {/* ----------- */}
       </div>
@@ -1451,7 +1592,7 @@ const styles = {
     width: "278px",
     height: "229px",
     overflow: "hidden",
-    borderRadius: "20px",
+    // borderRadius: "20px",
   },
   companyTitle: {
     // position: 'absolute',

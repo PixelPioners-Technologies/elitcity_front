@@ -26,16 +26,15 @@ import { motion } from "framer-motion";
 import cancel_icon from "./icons/cancel.png";
 import EachApartment from "./pages/EachApartment";
 import EachBlog from "./pages/EachBlog";
+import Each_Developer from "./pages/Each_Developer";
 
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
   const location = useLocation();
-
   useEffect(() => {
     const pagePath = location.pathname + location.search;
 
-    // Here we're using the gtag function directly as it's globally available from the index.html script
     window.gtag("config", "G-FFTZPPMQNZ", {
       page_path: pagePath,
     });
@@ -43,7 +42,6 @@ const usePageTracking = () => {
 };
 
 function trackButtonClick(buttonName) {
-  // Updated to use gtag directly
   window.gtag("event", "click", {
     event_category: "Header",
     event_label: buttonName,
@@ -68,7 +66,6 @@ function trackButtonClick(buttonName) {
 //   });
 // }
 
-
 const BaseURLs = {
 //   // storkhome
 
@@ -81,6 +78,7 @@ const BaseURLs = {
   blog: "https://api.storkhome.ge/blog/",
   map: "https://api.storkhome.ge/map/",
   complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+  company_and_complex : 'https://api.storkhome.ge/companycomplex/',
 
   // local
 
@@ -93,6 +91,8 @@ const BaseURLs = {
   // blog: "http://127.0.0.1:8000/blog/",
   // map: "http://127.0.0.1:8000/map/",
   // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+  // company_and_complex : 'http://127.0.0.1:8000/companycomplex/',
+
 };
 
 export { BaseURLs };
@@ -176,6 +176,9 @@ function App() {
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [favorites, setFavorites] = useState([]);
+  const [favoritesLots, setFavoritesLots] = useState([]);
+  const [favoritesPhysical, setFavoritesPhysical] = useState([]);
+
   const [getCorrencyRate, setGetCorrencyRate] = useState(0);
 
   // ------------------------------steitebi chasawodeblad -----------------------------
@@ -203,15 +206,11 @@ function App() {
 
   const [searchInput, setSearchInput] = useState("");
 
-
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
-  const [total_item_number, setTotal_item_number] = useState('');
-
+  const [total_item_number, setTotal_item_number] = useState("");
 
   const [homes, setHomes] = useState([]);
-
-
 
   const [complex_homes, setComplex_homes] = useState([]);
 
@@ -263,16 +262,20 @@ function App() {
     setSearchButton(data);
   };
   const handleCorrentPageHandler = (data) => {
-    setCorrentPage(data)
-  }
+    setCorrentPage(data);
+      window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+  };
 
   const handleSetTodalPageCount = (data) => {
-    setTotalPageCount(data)
-  }
+    setTotalPageCount(data);
+  };
 
   const handleSetAllItems = (data) => {
-    setTotal_item_number(data)
-  }
+    setTotal_item_number(data);
+  };
   // -----------------------------------------------------------------------------------------------------
 
   // useEffect(() => {
@@ -288,7 +291,6 @@ function App() {
 
       const limit = 12; // Define the limit or make it dynamic as per your requirement
       const offset = (currentPage - 1) * limit;
-
 
       let queryParams = new URLSearchParams({
         [cityParam]: selectedCity,
@@ -314,13 +316,15 @@ function App() {
       const requestUrl = `${BaseURLs.complex}${selectedLanguage}/?${queryString}`;
       try {
         const response = await axios.get(requestUrl);
-        const normalData = normalizeComplexData(response.data.results, selectedLanguage);
+        const normalData = normalizeComplexData(
+          response.data.results,
+          selectedLanguage
+        );
         setComplexes(normalData);
 
         handleSetTodalPageCount(response.data.total_pages); // Set total number of pages
         handleCorrentPageHandler(response.data.current_page); // Set current page
-        handleSetAllItems(response.data.total_items)
-
+        handleSetAllItems(response.data.total_items);
       } catch (error) {
         console.error("Error fetching complexes:", error);
       }
@@ -329,9 +333,7 @@ function App() {
     fetchComplexes();
   }, [searchButton]);
 
-
   //-----------------------------------fetch ionly locations --------------------------------------
-
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -372,7 +374,7 @@ function App() {
     }
   }, []);
 
-  // Load favorites from localStorage on initial render
+  // Load favorites from localStorage on initial render FOR COMPLEX
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
@@ -389,6 +391,82 @@ function App() {
       const updatedFavorites = [...favorites, complex];
       setFavorites(updatedFavorites);
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Update localStorage
+    }
+  };
+  // -----------------------------------------------------------------------------------------------
+
+  // Load favorites from localStorage on initial render FOR LOTS
+
+  // Retrieve saved favorites from localStorage on initial render
+  useEffect(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem("favoritesLots"));
+    if (savedFavorites) {
+      setFavoritesLots(savedFavorites);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("favoritesLots", JSON.stringify(favoritesLots));
+  }, [favoritesLots]);
+
+  // favoritesLots functionality
+  const favoriteHandlerLots = (complex) => {
+    const isAlreadySaved = favoritesLots.some((c) => c.id === complex.id);
+
+    if (isAlreadySaved) {
+      const updatedComplexes = favoritesLots.filter((c) => c.id !== complex.id);
+      setFavoritesLots(updatedComplexes);
+      localStorage.setItem("favoritesLots", JSON.stringify(updatedComplexes)); // Update localStorage
+    } else {
+      const updatedfavoritesLots = [...favoritesLots, complex];
+      setFavoritesLots(updatedfavoritesLots);
+      localStorage.setItem(
+        "favoritesLots",
+        JSON.stringify(updatedfavoritesLots)
+      ); // Update localStorage
+    }
+  };
+  // -----------------------------------------------------------------------------------------------
+
+  // Load favorites from localStorage on initial render FOR PHYSICAL JSX
+
+  // Retrieve saved favorites from localStorage on initial render
+  useEffect(() => {
+    const savedFavorites = JSON.parse(
+      localStorage.getItem("favoritesPhysical")
+    );
+    if (savedFavorites) {
+      setFavoritesPhysical(savedFavorites);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "favoritesPhysical",
+      JSON.stringify(favoritesPhysical)
+    );
+  }, [favoritesPhysical]);
+
+  // favoritesPhysical functionality
+  const favoriteHandlerPhysical = (complex) => {
+    const isAlreadySaved = favoritesPhysical.some((c) => c.id === complex.id);
+
+    if (isAlreadySaved) {
+      const updatedComplexes = favoritesPhysical.filter(
+        (c) => c.id !== complex.id
+      );
+      setFavoritesPhysical(updatedComplexes);
+      localStorage.setItem(
+        "favoritesPhysical",
+        JSON.stringify(updatedComplexes)
+      ); // Update localStorage
+    } else {
+      const updatedfavoritesPhysical = [...favoritesPhysical, complex];
+      setFavoritesPhysical(updatedfavoritesPhysical);
+      localStorage.setItem(
+        "favoritesPhysical",
+        JSON.stringify(updatedfavoritesPhysical)
+      ); // Update localStorage
     }
   };
   // -----------------------------------------------------------------------------------------------
@@ -421,10 +499,9 @@ function App() {
   const [currenceChangeState, setCurrenceChangeState] = useState(true);
 
   const HandleStateChange = () => {
-    setCurrenceChangeState(!currenceChangeState)
-    console.log(currenceChangeState)
-  }
-
+    setCurrenceChangeState(!currenceChangeState);
+    console.log(currenceChangeState);
+  };
 
   // for toggle DOllar AND LARI ---==---(START)
   const [isOn, setIsOn] = useState(false);
@@ -517,8 +594,11 @@ function App() {
         <div>
           <Header
             favorites={favorites}
+            favoritesPhysical={favoritesPhysical}
+            favoritesLots={favoritesLots}
             handleLanguageChange={handleLanguageChange}
             onButtonClick={trackButtonClick}
+            selectedLanguage={selectedLanguage}
           />
         </div>
       ) : null}
@@ -605,19 +685,15 @@ function App() {
                 searchButton={searchButton}
                 searchButtonhangeHandler={searchButtonhangeHandler}
                 selectedCityChangeHandler={selectedCityChangeHandler}
-
-
-                selectedPharentDistrictsChangeHandler={selectedPharentDistrictsChangeHandler}
-
+                selectedPharentDistrictsChangeHandler={
+                  selectedPharentDistrictsChangeHandler
+                }
                 totalPageCount={totalPageCount}
                 currentPage={currentPage}
                 handleCorrentPageHandler={handleCorrentPageHandler}
                 handleSetTodalPageCount={handleSetTodalPageCount}
-
                 complexes={complexes}
-
                 total_item_number={total_item_number}
-
                 getCorrencyRate={getCorrencyRate}
                 HandleStateChange={HandleStateChange}
                 currenceChangeState={currenceChangeState}
@@ -630,7 +706,9 @@ function App() {
         <Route
           path="lots"
           element={
-            <Lots favorites={favorites}
+            <Lots
+              favoritesLots={favoritesLots}
+              favoriteHandlerLots={favoriteHandlerLots}
               selectedLanguage={selectedLanguage}
               getCorrencyRate={getCorrencyRate}
               HandleStateChange={HandleStateChange}
@@ -666,11 +744,10 @@ function App() {
           path="physical"
           element={
             <Physical
-              favorites={favorites}
+              favoritesPhysical={favoritesPhysical}
+              favoriteHandlerPhysical={favoriteHandlerPhysical}
               selectedLanguage={selectedLanguage}
-              favoriteHandler={favoriteHandler}
               handleCallButtonClick={handleCallButtonClick}
-
               getCorrencyRate={getCorrencyRate}
               HandleStateChange={HandleStateChange}
               currenceChangeState={currenceChangeState}
@@ -679,7 +756,10 @@ function App() {
             />
           }
         />
-        <Route path="articles" element={<Articles selectedLanguage={selectedLanguage} />} />
+        <Route
+          path="articles"
+          element={<Articles selectedLanguage={selectedLanguage} />}
+        />
         <Route
           path="storkhome"
           element={
@@ -698,13 +778,11 @@ function App() {
               favorites={favorites}
               favoriteHandler={favoriteHandler}
               handleCallButtonClick={handleCallButtonClick}
-
               getCorrencyRate={getCorrencyRate}
               HandleStateChange={HandleStateChange}
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
-
             />
           }
         />
@@ -717,7 +795,6 @@ function App() {
               favorites={favorites}
               favoriteHandler={favoriteHandler}
               handleCallButtonClick={handleCallButtonClick}
-
               getCorrencyRate={getCorrencyRate}
               HandleStateChange={HandleStateChange}
               currenceChangeState={currenceChangeState}
@@ -735,7 +812,6 @@ function App() {
               favorites={favorites}
               favoriteHandler={favoriteHandler}
               handleCallButtonClick={handleCallButtonClick}
-
               getCorrencyRate={getCorrencyRate}
               HandleStateChange={HandleStateChange}
               currenceChangeState={currenceChangeState}
@@ -753,7 +829,6 @@ function App() {
               favorites={favorites}
               favoriteHandler={favoriteHandler}
               handleCallButtonClick={handleCallButtonClick}
-
               getCorrencyRate={getCorrencyRate}
               HandleStateChange={HandleStateChange}
               currenceChangeState={currenceChangeState}
@@ -764,32 +839,56 @@ function App() {
         />
 
         <Route
+          path="eachcompany/:companyID"
+          element={
+            <Each_Developer
+              selectedLanguage={selectedLanguage}
+              favorites={favorites}
+              favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
+              getCorrencyRate={getCorrencyRate}
+              HandleStateChange={HandleStateChange}
+              currenceChangeState={currenceChangeState}
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
+            />
+          }
+        />
+
+
+        <Route
           path="eachblog/:blogId"
           element={
             <EachBlog
               selectedLanguage={selectedLanguage}
-            // handleCallButtonClick={handleCallButtonClick}
+              // handleCallButtonClick={handleCallButtonClick}
             />
           }
         />
 
         <Route
           path="favoriteComplex"
-          element={<FavoriteComplex
-            favorites={favorites}
-            getCorrencyRate={getCorrencyRate}
-            HandleStateChange={HandleStateChange}
-            currenceChangeState={currenceChangeState}
-            isOn={isOn}
-            toggleSwitch={toggleSwitch}
-
-          />}
+          element={
+            <FavoriteComplex
+              favoriteHandlerPhysical={favoriteHandlerPhysical}
+              favoriteHandlerLots={favoriteHandlerLots}
+              favoriteHandler={favoriteHandler}
+              favoritesLots={favoritesLots}
+              favoritesPhysical={favoritesPhysical}
+              favorites={favorites}
+              getCorrencyRate={getCorrencyRate}
+              HandleStateChange={HandleStateChange}
+              currenceChangeState={currenceChangeState}
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
+            />
+          }
         />
       </Routes>
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-      // onClick={(e) => e.stopPropagation()}
+        // onClick={(e) => e.stopPropagation()}
       >
         <div className="call_modal_containerr">
           <div className="cancel_icon_container">
