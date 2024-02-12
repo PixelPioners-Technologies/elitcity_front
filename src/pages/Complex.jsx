@@ -91,7 +91,6 @@ export default function Complex({
   currenceChangeState,
   isOn,
   toggleSwitch,
-
 }) {
   const [homes, setHomes] = useState([]);
 
@@ -462,67 +461,66 @@ export default function Complex({
       fullPriceHomePage: "Full price",
       meterPriceHomePage: "The price of m²",
       dan: "from",
-      mde: "to"
-    }
+      mde: "to",
+    };
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status"
-        languageInfo.cityButtonLanguage = "Location"
-        languageInfo.spaceButtonLanguage = "Space"
-        languageInfo.priceButtonLanguage = "Price"
-        languageInfo.allStatusLanguage = "All"
-        languageInfo.findMapButtonLanguage = "Find Map"
-        languageInfo.allFindButtonLanguage = "Find"
-        languageInfo.spaceButtonClose = "Close"
-        languageInfo.minPrice = "From m²"
-        languageInfo.maxPrice = "To m²"
-        languageInfo.roomStudio = "Studio"
-        languageInfo.fullPriceHomePage = "Full price"
-        languageInfo.meterPriceHomePage = "The price of m²"
-        languageInfo.dan = "from"
-        languageInfo.mde = "to"
+        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.cityButtonLanguage = "Location";
+        languageInfo.spaceButtonLanguage = "Space";
+        languageInfo.priceButtonLanguage = "Price";
+        languageInfo.allStatusLanguage = "All";
+        languageInfo.findMapButtonLanguage = "Find Map";
+        languageInfo.allFindButtonLanguage = "Find";
+        languageInfo.spaceButtonClose = "Close";
+        languageInfo.minPrice = "From m²";
+        languageInfo.maxPrice = "To m²";
+        languageInfo.roomStudio = "Studio";
+        languageInfo.fullPriceHomePage = "Full price";
+        languageInfo.meterPriceHomePage = "The price of m²";
+        languageInfo.dan = "from";
+        languageInfo.mde = "to";
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
-        languageInfo.cityButtonLanguage = "მდებარეობა"
-        languageInfo.spaceButtonLanguage = "ფართი"
-        languageInfo.priceButtonLanguage = "ფასი"
-        languageInfo.allStatusLanguage = "ყველა"
-        languageInfo.findMapButtonLanguage = "რუკაზე ძიება"
-        languageInfo.allFindButtonLanguage = "ძიება"
-        languageInfo.spaceButtonClose = "დახურვა"
-        languageInfo.minPrice = "დან მ²"
-        languageInfo.maxPrice = "მდე მ²"
-        languageInfo.roomStudio = "სტუდიო"
-        languageInfo.fullPriceHomePage = "სრული ფასი"
-        languageInfo.meterPriceHomePage = "მ² - ის ფასი"
-        languageInfo.dan = "დან"
-        languageInfo.mde = "მდე"
-        break
+        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.cityButtonLanguage = "მდებარეობა";
+        languageInfo.spaceButtonLanguage = "ფართი";
+        languageInfo.priceButtonLanguage = "ფასი";
+        languageInfo.allStatusLanguage = "ყველა";
+        languageInfo.findMapButtonLanguage = "რუკაზე ძიება";
+        languageInfo.allFindButtonLanguage = "ძიება";
+        languageInfo.spaceButtonClose = "დახურვა";
+        languageInfo.minPrice = "დან მ²";
+        languageInfo.maxPrice = "მდე მ²";
+        languageInfo.roomStudio = "სტუდიო";
+        languageInfo.fullPriceHomePage = "სრული ფასი";
+        languageInfo.meterPriceHomePage = "მ² - ის ფასი";
+        languageInfo.dan = "დან";
+        languageInfo.mde = "მდე";
+        break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус"
-        languageInfo.cityButtonLanguage = "Местоположение"
-        languageInfo.spaceButtonLanguage = "Площадь"
-        languageInfo.priceButtonLanguage = "Цена"
-        languageInfo.allStatusLanguage = "Все"
-        languageInfo.findMapButtonLanguage = "Карта"
-        languageInfo.allFindButtonLanguage = "Натдти"
-        languageInfo.spaceButtonClose = "закрить"
-        languageInfo.minPrice = "из м²"
-        languageInfo.maxPrice = "до м²"
-        languageInfo.roomStudio = "Студия"
-        languageInfo.fullPriceHomePage = "Полная стоимость"
-        languageInfo.meterPriceHomePage = "Цена м²"
-        languageInfo.dan = "из"
-        languageInfo.mde = "до"
-        break
+        languageInfo.statusInfoLanguage = "выберите статус";
+        languageInfo.cityButtonLanguage = "Местоположение";
+        languageInfo.spaceButtonLanguage = "Площадь";
+        languageInfo.priceButtonLanguage = "Цена";
+        languageInfo.allStatusLanguage = "Все";
+        languageInfo.findMapButtonLanguage = "Карта";
+        languageInfo.allFindButtonLanguage = "Натдти";
+        languageInfo.spaceButtonClose = "закрить";
+        languageInfo.minPrice = "из м²";
+        languageInfo.maxPrice = "до м²";
+        languageInfo.roomStudio = "Студия";
+        languageInfo.fullPriceHomePage = "Полная стоимость";
+        languageInfo.meterPriceHomePage = "Цена м²";
+        languageInfo.dan = "из";
+        languageInfo.mde = "до";
+        break;
     }
-    return languageInfo
-  }
-
+    return languageInfo;
+  };
 
   // ------------------------------------------------------------------------------------
 
@@ -680,14 +678,12 @@ export default function Complex({
     searchButtonhangeHandler(!searchButton);
   };
 
-
   const [Open, setOpen] = useState(false);
 
   const toggleFunc = () => {
-    setOpen(!Open)
+    setOpen(!Open);
     // console.log("open:", Open);
-  }
-
+  };
 
   return (
     <div className="ComplexBodyBox">
@@ -698,13 +694,11 @@ export default function Complex({
           transition={{ duration: 2 }}
         >
           <div className="for_comfort">
-
             <div className="adgilicomportistvis title">
               <p>ადგილი შენი კომფორტისთვის</p>
               <img onClick={toggleFunc} className="filter_icon_for_links" src={Filter} alt="/" />
             </div>
             <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
-
               {/* button for filtering space */}
               <div className="button-modal-container ">
                 <div onClick={handleSpaceButtonClick} className="space_button">
@@ -727,14 +721,17 @@ export default function Complex({
                     <input
                       type="number"
                       placeholder="Min Price Per Square Meter"
-
                       value={min_space}
                       onChange={(e) => max_spacehangeHandler(e.target.value)}
                     />
 
-                    <input className='min_price_complex'
+                    <input
+                      className="min_price_complex"
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .maxPrice
+                      }
                       value={max_space}
                       onChange={(e) => min_spacehangeHandler(e.target.value)}
                     />
@@ -748,7 +745,6 @@ export default function Complex({
                       handleStatusButtonLanguageChange(selectedLanguage)
                         .spaceButtonClose
                     }
-
                   </button>
                 </SpaceModal_complex>
               </div>
@@ -765,12 +761,19 @@ export default function Complex({
                     className="dropdown"
                   />
                 </div>
-                <PriceModal_complex isOpen={isPriceModalOpen} close={handleClosePriceModal} >
-                  <div className='fullPriceHomePage'>
-                    {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+                <PriceModal_complex
+                  isOpen={isPriceModalOpen}
+                  close={handleClosePriceModal}
+                >
+                  <div className="fullPriceHomePage">
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .fullPriceHomePage
+                    }
                   </div>
                   <div>
-                    <input className='min_price_complex'
+                    <input
+                      className="min_price_complex"
                       type="number"
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                       value={minPricePerSquareMeter}
@@ -779,29 +782,39 @@ export default function Complex({
                       }
                     />
 
-                    <input className='min_price_complex'
+                    <input
+                      className="min_price_complex"
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage).mde
+                      }
                       value={maxPricePerSquareMeter}
                       onChange={(e) =>
                         maxPricePerSquareMeterChangeHandler(e.target.value)
                       }
                     />
 
-                    <div className='meterPriceHomePageComplex'>
-                      {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
+                    <div className="meterPriceHomePageComplex">
+                      {
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .meterPriceHomePage
+                      }
                     </div>
 
-                    <input className='min_price_complex'
+                    <input
+                      className="min_price_complex"
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage).dan
+                      }
                       value={minFullPrice}
                       onChange={(e) =>
                         minFullPriceChangeHandler(e.target.value)
                       }
                     />
 
-                    <input className='min_price_complex'
+                    <input
+                      className="min_price_complex"
                       type="number"
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                       value={maxFullPrice}
@@ -1169,11 +1182,10 @@ export default function Complex({
 
       <div className="allCards">
         {complexes.map((complex, index) => (
-
           <div className="card" key={complex.id}>
             <motion.div
               initial={{ x: -50, opacity: 0 }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 0.1 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
             >
@@ -1199,8 +1211,6 @@ export default function Complex({
                   src={complex.images[0]}
                   alt={complex.name}
                   style={styles.imageStyles}
-
-
                   onClick={() => handleHouseClick(complex.id)}
                 />
               </div>
@@ -1221,7 +1231,6 @@ export default function Complex({
                 <p style={styles.complexFinished}>
                   {complex.complexDetails.finishYear}
                 </p>
-
               </div>
             </motion.div>
           </div>
@@ -1292,7 +1301,7 @@ export default function Complex({
         <Link to="/map">
           <motion.div
             initial={{ x: -150, opacity: 0 }}
-            transition={{ duration: 1.5 }}
+            transition={{ duration: 1 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
           >
@@ -1333,4 +1342,3 @@ const spring = {
   stiffness: 100,
   damping: 30,
 };
-

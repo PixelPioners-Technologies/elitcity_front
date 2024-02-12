@@ -17,15 +17,7 @@
   border: 1px solid white;
 }
 
-.forPaddingOfInfoFieldOfComplexsPlansMaps {
-  /* padding: 0 30px; */
-  /* border: 1px solid red; */
-}
-
 .infoFieldOfComplexsPlansMaps {
-  /* width: 100%; */
-  /* border: 1px solid rgb(228, 17, 17); */
-  /* border-radius: 10px; */
   display: flex;
   /* flex-direction: column; */
   justify-content: space-between;
@@ -148,6 +140,7 @@
 /* ------------- */
 
 .allCards {
+  /* border: 1px solid red; */
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
@@ -158,17 +151,17 @@
 }
 
 .card {
+  border: 1px solid red;
   width: 315px;
-  height: 400px;
+  /* height: 400px; */
   /* background-color: #C1D6CC; */
   background-color: black;
   border: 1px solid white;
-  /* border-radius: 20px; */
   overflow: hidden;
   padding: 20px 20px;
+  border-radius: 10px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
-
-  /* transition: transform 0.3s ease-in-out; */
+  transition: transform 0.3s ease-in-out;
 
   &:hover {
     transform: scale(1.05);
@@ -188,6 +181,7 @@
   display: flex;
   justify-content: flex-end;
   position: absolute;
+  margin-top: 5px;
 }
 
 .heartButtons {
@@ -212,7 +206,7 @@
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  /* padding-left: 20px; */
+  padding-left: 10px;
   gap: 10px;
 }
 
@@ -374,6 +368,9 @@
   }
   .filter_cont_for_complex {
     gap: 10px;
+  }
+  .textInfo {
+    padding-left: 20px;
   }
 
 }
