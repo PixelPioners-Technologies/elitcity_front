@@ -21,14 +21,14 @@
   position: relative;
 }
 
-.miniImagesBox {
+.miniImagesBox_complex {
   display: flex;
   gap: 20px;
   justify-content: center;
   position: absolute;
   top: 371px;
   left: 136px;
-  background-color: lightblue; /* Add a background color */
+  background-color: none !important ; /* Add a background color */
 }
 
 
@@ -224,11 +224,11 @@
   gap: 30px;
 }
 
-.boxOfMapOnAxloMdebare {
+/* .boxOfMapOnAxloMdebare { */
   /* color: white; */
   /* width: 300px;
   height: 100px; */
-}
+/* } */
 
 .googlePhotoOnEachComplexPage {
   width: 774px;

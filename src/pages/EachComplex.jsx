@@ -258,7 +258,6 @@ export default function EachComplex({
         });
       }
 
-      // const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${complexId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
       const data = response.data;
@@ -271,22 +270,14 @@ export default function EachComplex({
       setPrivateApartments(normalised_Data);
 
       seteachComplexAllAppartments(normalised_Data);
-      // const sliderImagesFromData = allComplexImages.map((imgUrl, index) => ({
-      //   id: index,
-      //   value: imgUrl, // Directly using the URL from the JSON data
-      // }));
 
-      
-      // setSliderImages( data.complex_images); // Update the state
-      // setWordData(sliderImagesFromData[0] || null); // Initialize with the first image or null if empty
       const imagesWithIds = data.complex_images.map((url, index) => ({
-        id: index,  // or any other unique identifier
-        value: url  // the image URL
+        id: index,  
+        value: url  
       }));
 
-      
-      setSliderImages(imagesWithIds); // Assuming data.complex_images is an array of image objects
-      setWordData(imagesWithIds[0] || null); // Initialize with the first image or null if empty
+      setSliderImages(imagesWithIds); 
+      setWordData(imagesWithIds[0] || null); 
       
 
 
@@ -312,9 +303,9 @@ export default function EachComplex({
   
   // console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
   useEffect(() => {
-    console.log("slider images", eachComplexAllAppartments);
+    console.log("apartments ", privateApartments);
 
-  }, [sliderImages , eachComplexAllAppartments]);
+  }, [privateApartments ]);
 
 
 
@@ -707,7 +698,7 @@ export default function EachComplex({
               N
             </button>
           </div>
-          <div className="miniImagesBox">
+          <div className="miniImagesBox_complex">
             {sliderImages
               .slice(carouselPosition, carouselPosition + 4)
               .map((data, i) => (
@@ -734,12 +725,6 @@ export default function EachComplex({
         <div className="complexTextsBox">
           <div className="seenIdFavouriteAndOthersBox">
             <div className="seenAndIdBox">
-              <p style={{ color: "#838282" }}>
-                {" "}
-                {
-                  handle_P_StatusButtonLanguageChange(selectedLanguage).seen
-                }: {eachPrivateApartment?.viewCount}
-              </p>
               <p style={{ color: "#838282" }}>ID: {eachPrivateApartment?.id}</p>
             </div>
 
