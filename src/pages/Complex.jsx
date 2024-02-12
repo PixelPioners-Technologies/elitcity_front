@@ -139,9 +139,9 @@ export default function Complex({
 
   // 1111111111111111111111111111111111
   // for toggle DOllar AND LARI ---==---(START)
-  const [isOn, setIsOn] = useState(false);
-  const toggleSwitch = () => setIsOn(!isOn);
-  // -----===--------(END)
+  // const [isOn, setIsOn] = useState(false);
+  // const toggleSwitch = () => setIsOn(!isOn);
+  // // -----===--------(END)
 
   // ------------------------------------------------------------------------------------
   // for Sorting
@@ -700,7 +700,7 @@ export default function Complex({
           <div className="for_comfort">
 
             <div className="adgilicomportistvis title">
-              <p>ადგილი შენი კომფორტისთვის</p> 
+              <p>ადგილი შენი კომფორტისთვის</p>
               <img onClick={toggleFunc} className="filter_icon_for_links" src={Filter} alt="/" />
             </div>
             <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
@@ -772,7 +772,7 @@ export default function Complex({
                   <div>
                     <input className='min_price_complex'
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}           
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                       value={minPricePerSquareMeter}
                       onChange={(e) =>
                         minPricePerSquareMeterChangeHandler(e.target.value)
@@ -803,7 +803,7 @@ export default function Complex({
 
                     <input className='min_price_complex'
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}             
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                       value={maxFullPrice}
                       onChange={(e) =>
                         maxFullPriceChangeHandler(e.target.value)
@@ -1139,32 +1139,28 @@ export default function Complex({
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
 
-//                 <div
-//                   className="switch"
-//                   data-ison={isOn}
-//                   onClick={() => {
-//                     toggleSwitch();
-//                     HandleStateChange();
-//                   }}
-//                 >
+
                 <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
 
-                  <motion.div className="handle" layout transition={spring}>
-                    <img
-                      src={lari}
-                      alt="Lari Sign"
-                      className={`currency-sign ${isOn ? "active" : ""}`}
-                    />
-                    <img
-                      src={dollar}
-                      alt="Dollar Sign"
-                      className={`currency-sign ${!isOn ? "active" : ""}`}
-                    />
-                  </motion.div>
-                </div>
-              </div>
+                    <motion.div className="handle" layout transition={spring}>
+                      <img
+                        src={lari}
+                        alt="Lari Sign"
+                        className={`currency-sign ${isOn ? "active" : ""}`}
+                      />
+                      <img
+                        src={dollar}
+                        alt="Dollar Sign"
+                        className={`currency-sign ${!isOn ? "active" : ""}`}
+                      />
+                    </motion.div>
+                  </div>
+                
+              
               {/* ---------------- */}
             </div>
+            </div>
+
           </div>
         </div>
       </motion.div>

@@ -12,16 +12,8 @@ import ArrowDown from "../../assets/arrowDownFromHeader.svg";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
-export default function Header({
-  favorites,
-  handleLanguageChange,
-  onButtonClick,
-}) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
 
 export default function Header({
   favorites,
@@ -32,6 +24,10 @@ export default function Header({
   favoritesPhysical,
 }) {
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
   const handle_P_StatusButtonLanguageChange = (lang) => {
     var languageInfo = {
       complex: "Complexes",
