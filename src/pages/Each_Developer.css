@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+
+.company_page {
+  font-family: 'Roboto', sans-serif;
+  color: aliceblue;
+}
+
+
+.company_background_image_container {
+  height: 350px;
+  overflow: hidden;
+}
+
+.company_background_image_big {
+  width: 100%;
+}
+
+/* .colo_name_and_others {
+
+} */
+
+.company_logo_round {
+  border-radius: 50%;
+  position: absolute;
+  margin-top: -42px;
+  margin-left: 30px;
+  width: 240px;
+}
+
+.cpmpany_name_and_settings {
+  display: flex;
+}
+
+.all_settings_company_1 {
+  margin-left: 20%;
+  margin-top: 40px;
+}
+
+
+.company_name_each{
+font-size: 200;
+}
+
+.company_adddresss{
+  font-size: medium;
+  font-weight: 300;
+}
+
+
+.mobile_website_phone{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 30px;
+}
+
+
+.email_and_website_container {
+  margin-top: 40px;
+  margin-left: 35px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.company_all_logos {
+  width: 33px;
+  height: 33px;
+}
+
+.about_each_company{
+  width: 100%;
+  margin-top: 150px;
+  padding: 40px;
+}
+
+.about_company_header{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+.about_company_container{
+  margin-top: 40px;
+}
+
+.currency_and_allcomplex_header{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+  margin-top: 50px;
+}
+
+
+
+/* ---------------------------card styles ------------------------------ */
+
+
+
+
+.allCards_each_company {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  /* padding: 0 30px; */
+  gap: 40px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  
+ 
+}
+
+
+.card_each_company {
+  width: 315px;
+  height: 400px;
+  /* background-color: #C1D6CC; */
+  background-color: black;
+  border: 1px solid white;
+  /* border-radius: 20px; */
+  overflow: hidden;
+  padding: 20px 20px;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+
+
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}
+
+.heartbuttonAndImageBox_each_company {
+  position: relative;
+}
+
+.heartButtonBox_each_company {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+
+}
+
+.heartButtons_each_company {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  appearance: none;
+  display: flex;
+  align-items: center;
+}
+
+.heartButtons_each_company:hover {
+  cursor: pointer;
+  transform: scale(1.2); 
+  transition: transform 0.3s ease; 
+}
+
+.textInfo_each_company {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  /* padding-left: 20px; */
+  gap: 10px;
+}
+
+.companys_complexes_container{
+  padding: 40px;
+}
+
+
+/* --------------------------------------------------currency styles  -------------------------------------------- */
+
+.currencyBox {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+
+
+}
+
+/* classes of toggle button on currency --- */
+.switch {
+  width: 90px;
+  height: 40px;
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  background-color: black;
+
+  display: flex;
+  justify-content: flex-start;  
+  align-items: center;
+  border: 1px solid white;
+
+  /* border: 1px solid red; */
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+  /* border-radius: 50px; */
+}
+
+
+
+.switch[data-ison="true"] {
+  justify-content: flex-end;
+}
+
+.handle {
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.currency-sign {
+  width: 27px; /* Adjust width as needed */
+  height: auto;
+  margin-right: 0px; /* Add spacing between the images */
+}
+
+.currency-sign.active {
+
+  display: none; /* Hide inactive currency sign */
+}
+/* ------------- */
+

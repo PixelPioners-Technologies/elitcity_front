@@ -26,6 +26,8 @@ import { motion } from "framer-motion";
 import cancel_icon from "./icons/cancel.png";
 import EachApartment from "./pages/EachApartment";
 import EachBlog from "./pages/EachBlog";
+import Each_Developer from "./pages/Each_Developer";
+
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
@@ -76,6 +78,7 @@ const BaseURLs = {
   blog: "https://api.storkhome.ge/blog/",
   map: "https://api.storkhome.ge/map/",
   complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+  company_and_complex : 'https://api.storkhome.ge/companycomplex/',
 
   // local
 
@@ -88,6 +91,8 @@ const BaseURLs = {
   // blog: "http://127.0.0.1:8000/blog/",
   // map: "http://127.0.0.1:8000/map/",
   // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+  // company_and_complex : 'http://127.0.0.1:8000/companycomplex/',
+
 };
 
 export { BaseURLs };
@@ -832,6 +837,24 @@ function App() {
             />
           }
         />
+
+        <Route
+          path="eachcompany/:companyID"
+          element={
+            <Each_Developer
+              selectedLanguage={selectedLanguage}
+              favorites={favorites}
+              favoriteHandler={favoriteHandler}
+              handleCallButtonClick={handleCallButtonClick}
+              getCorrencyRate={getCorrencyRate}
+              HandleStateChange={HandleStateChange}
+              currenceChangeState={currenceChangeState}
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
+            />
+          }
+        />
+
 
         <Route
           path="eachblog/:blogId"

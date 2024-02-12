@@ -121,10 +121,10 @@ export default function Complex({
   //   console.log('corrent page----', totalPageCount)
   // }, [totalPageCount,currentPage ])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    console.log("total_item_number on complex", total_item_number);
-  }, [total_item_number]);
+  //   console.log("total_item_number on complex", total_item_number);
+  // }, [total_item_number]);
 
 
   // 1111111111111111111111111111111111
