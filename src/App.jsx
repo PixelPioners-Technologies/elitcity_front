@@ -27,8 +27,7 @@ import cancel_icon from "./icons/cancel.png";
 import EachApartment from "./pages/EachApartment";
 import EachBlog from "./pages/EachBlog";
 import Each_Developer from "./pages/Each_Developer";
-
-
+import storkhome__logo from './company_logo/storkhome__logo.png'
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
   const location = useLocation();
@@ -67,7 +66,7 @@ function trackButtonClick(buttonName) {
 // }
 
 const BaseURLs = {
-//   // storkhome
+  //   // storkhome
 
   complex: "https://api.storkhome.ge/complex/",
   company: "https://api.storkhome.ge/company/",
@@ -78,7 +77,7 @@ const BaseURLs = {
   blog: "https://api.storkhome.ge/blog/",
   map: "https://api.storkhome.ge/map/",
   complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
-  company_and_complex : 'https://api.storkhome.ge/companycomplex/',
+  company_and_complex: 'https://api.storkhome.ge/companycomplex/',
 
   // local
 
@@ -144,6 +143,7 @@ const normalizeComplexData = (data, lang) => {
       space: item.internal_complex_name.space,
       isVipComplex: item.internal_complex_name.vipComplex,
       isVisible: item.internal_complex_name.visibiliti,
+      rank: item.internal_complex_name.rank
     },
   }));
 };
@@ -214,6 +214,7 @@ function App() {
 
   const [complex_homes, setComplex_homes] = useState([]);
 
+  const [showSplashScreen, setShowSplashScreen] = useState(true);
   // -----------------------------------------------------------------------------------------------------
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
@@ -263,10 +264,10 @@ function App() {
   };
   const handleCorrentPageHandler = (data) => {
     setCorrentPage(data);
-      window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleSetTodalPageCount = (data) => {
@@ -332,6 +333,13 @@ function App() {
 
     fetchComplexes();
   }, [searchButton]);
+
+  // const rank = complexes.map((complex.internal_complex_name.rank) => {
+
+  // }  )
+
+
+
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
@@ -587,6 +595,34 @@ function App() {
   };
   // ------------------------------------------------------------------------------------------
 
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowSplashScreen(false);
+  //   }, 3000); // 3000 milliseconds = 3 seconds
+
+  //   return () => clearTimeout(timer); // Clean up the timer
+  // }, []);
+
+  // if (showSplashScreen) {
+  //   return (
+  //     <div className="slashscreen_container" >
+
+  //       <img className="slash_company_logo" src={storkhome__logo} alt='company_logo' />
+  //       <div className="spinner">
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
   return (
     <div className="App">
       {/* Conditional rendering for the Header */}
@@ -607,7 +643,7 @@ function App() {
         <Route path="/" element={<Nothing />} />
 
         <Route
-          path="homePage"
+          path="/homepage"
           element={
             <HomePage
               searchInput={searchInput}
@@ -861,7 +897,7 @@ function App() {
           element={
             <EachBlog
               selectedLanguage={selectedLanguage}
-              // handleCallButtonClick={handleCallButtonClick}
+            // handleCallButtonClick={handleCallButtonClick}
             />
           }
         />
@@ -888,7 +924,7 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-        // onClick={(e) => e.stopPropagation()}
+      // onClick={(e) => e.stopPropagation()}
       >
         <div className="call_modal_containerr">
           <div className="cancel_icon_container">
