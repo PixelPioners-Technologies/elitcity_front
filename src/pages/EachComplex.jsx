@@ -114,9 +114,9 @@ function normalizeData(item, lang) {
     rank: item.internal_complex_name.rank,
 
     metro: item.internal_complex_name.metro,
-    Pharmacy: item.internal_complex_name.Pharmacy,
+    Pharmacy: item.internal_complex_name.pharmacy,
     supermarket: item.internal_complex_name.supermarket,
-    Square: item.internal_complex_name.Square,
+    Square: item.internal_complex_name.pquare,
 
     // Add other fields from internal_complex_name as needed
     complexImages: item.complex_images,
@@ -252,27 +252,6 @@ export default function EachComplex({
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
-      // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-      // const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
-      // const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
-
-      const cityParam = `city`;
-
-      const limit = 12; // Define the limit or make it dynamic as per your requirement
-      const offset = (currentPage - 1) * limit;
-
-      // let queryParams = new URLSearchParams({
-      //   [cityParam]: selectedCity,
-      //   min_square_price: min_square_price,
-      //   max_square_price: max_square_price,
-      //   min_full_price: minFullPrice,
-      //   max_full_price: maxFullPrice,
-      //   min_area: min_area,
-      //   max_area: max_area,
-      //   limit: limit,
-      //   offset: offset,
-      // });
-
       if (selectedStatuses && selectedStatuses.length > 0) {
         selectedStatuses.forEach((status) => {
           queryParams.append("status", status);
@@ -285,22 +264,25 @@ export default function EachComplex({
       const data = response.data;
       const normalised_Data = normalizeData(data, selectedLanguage);
 
-      console.log("----111---,", normalised_Data);
-      setAllComplexImages(data.complex_images);
+      // console.log("----111---,", normalised_Data);
+      setAllComplexImages(data.complexImages);
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
 
       seteachComplexAllAppartments(normalised_Data);
-      // Update sliderImages state with all images from the fetched data
-      const sliderImagesFromData = allComplexImages.map((imgUrl, index) => ({
-        id: index,
-        value: imgUrl, // Directly using the URL from the JSON data
-      }));
+
+
+      // const sliderImagesFromData = allComplexImages.map((imgUrl, index) => ({
+      //   id: index,
+      //   value: imgUrl, // Directly using the URL from the JSON data
+      // }));
+
+      
       setSliderImages(sliderImagesFromData); // Update the state
       setWordData(sliderImagesFromData[0] || null); // Initialize with the first image or null if empty
 
-      // setTotalCount(response.data.total_items);
-      // setCorrentPage(response.data.current_page);
+
+
     };
     fetcPrivateApartments();
   }, [
@@ -321,8 +303,10 @@ export default function EachComplex({
   ]);
 
   useEffect(() => {
-    console.log("description", eachPrivateApartment);
-  }, [eachComplexAllAppartments]);
+    console.log("slider images", sliderImages);
+    console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
+
+  }, [sliderImages , eachComplexAllAppartments]);
 
   // useEffect(() => {
   //   console.log("sliderImagessliderImages;:::::;", sliderImages);
@@ -330,37 +314,6 @@ export default function EachComplex({
   //   // console.log("aq unda iyos suratebi", privateApartments);
   // }, [sliderImages]);
 
-  // // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
-
-  const handle_P_SpaceButtonClick = () => {
-    setIs_P_SpaceModalOpen(true);
-    setIs_P_PriceModalOpen(false);
-    setIs_P_StatusModalOpen(false);
-  };
-
-  const close_P_SpaceModal = () => {
-    setIs_P_SpaceModalOpen(false);
-  };
-
-  const handle_P_PriceButtonClick = () => {
-    setIs_P_PriceModalOpen(true);
-    setIs_P_SpaceModalOpen(false);
-    setIs_P_StatusModalOpen(false);
-  };
-
-  const handleClose_P_PriceModal = () => {
-    setIs_P_PriceModalOpen(false);
-  };
-
-  const handle_P_StatusButtonClick = () => {
-    setIs_P_StatusModalOpen(true);
-    setIs_P_SpaceModalOpen(false);
-    setIs_P_PriceModalOpen(false);
-  };
-
-  const handleClose_P_StatusModal = () => {
-    setIs_P_StatusModalOpen(false);
-  };
 
   // ---------------------------------------------------------------------------------------------------------------------
 

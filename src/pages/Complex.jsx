@@ -1,10 +1,3 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-undef */
-// import React from 'react'
 import "./Complex.css";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -124,9 +117,11 @@ export default function Complex({
     navigate(`/eachComplex/${complexId}`, { state: { complexId } });
   };
 
-  // useEffect(() => {
-  //   console.log('corrent page----', totalPageCount)
-  // }, [totalPageCount,currentPage ])
+  useEffect(() => {
+    // console.log('corrent page----', complexes.complexDetails.rank)
+    console.log('corrent page----', complexes)
+
+  }, [complexes])
 
   // ------------------------------------------------------------------------------------
   // for Sorting
@@ -352,83 +347,6 @@ export default function Complex({
   };
 
   // -(END)----------------------------------------------------------------------------
-
-  // second useEffect (ეს მხოლოდ ფასის მიხედვითაა სორტირებული); ეს აღარაა საჭირო, რადგან გაკეთდა უვკე სორტირება !!!!!!!!
-  // (თუმცა ჯერ
-  // ეწეროს მაინც)
-  // const sortHomes = (data, sortOrder) => {
-  //   if (sortOrder === "decrease") {
-  //     return [...data].sort(
-  //       (a, b) =>
-  //         parseFloat(b.price_per_sq_meter) - parseFloat(a.price_per_sq_meter)
-  //     );
-  //   } else if (sortOrder === "increase") {
-  //     return [...data].sort(
-  //       (a, b) =>
-  //         parseFloat(a.price_per_sq_meter) - parseFloat(b.price_per_sq_meter)
-  //     );
-  //   } else {
-  //     return data;
-  //   }
-  // };
-  // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-  // const pharentdistrictParams = `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
-  // const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
-
-  // // Create a URLSearchParams object
-  // let queryParams = new URLSearchParams({
-  //   [cityParam]: selectedCity,
-  //   [pharentdistrictParams]: selectedPharentDistricts.join(","),
-  //   [districtParams]: selectedDistricts.join(","),
-  //   min_price_per_sq_meter: minPricePerSquareMeter,
-  //   max_price_per_sq_meter: maxPricePerSquareMeter,
-  //   min_full_price: minFullPrice,
-  //   max_full_price: maxFullPrice,
-  //   min_space: min_space,
-  //   max_space: max_space,
-  //   // status: selectedStatuses,
-  //   ordering: ascendentPrice,
-  // });
-
-  // if (selectedStatuses && selectedStatuses.length > 0) {
-  //   selectedStatuses.forEach((status) => {
-  //     queryParams.append("status", status);
-  //   });
-  // }
-
-  // const queryString = queryParams.toString();
-  // const requestUrl = `${selectedLanguage}/?${queryString}`;
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       setIsLoading(true);
-  //       // const response = await axiosInstance.get(`https://api.storkhome.ge/complex/${selectedLanguage}/`);
-  //       // const response = await axios.get(`${BaseURLs.complex}//${requestUrl}`);
-
-  //       // const { results } = response.data.results[0];
-  //       // const normalData = normalizeComplexData(
-  //       //   response.data.results,
-  //       //   selectedLanguage
-  //       // );
-  //       // setHomes(normalData);
-  //       // setIsLoading(false);
-  //       // handleSetTodalPageCount(response.data.total_items);
-  //     } catch (error) {
-  //       setIsLoading(false);
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // useEffect(() => {
-  //   const sortedResults = sortHomes(homes, forPriceDecrease);
-  //   setSortedHomes(sortedResults);
-  // }, [forPriceDecrease, homes, min_space, max_space]);
-
-  // ------------------------------------------------------------------------------------
   // --------ffunction for changing status button content language change and also select city button language change -------------
 
   const handleStatusButtonLanguageChange = (lang) => {
@@ -448,62 +366,67 @@ export default function Complex({
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
-    };
+      pricePerM: 'Price per m²'
+    }
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
-        languageInfo.cityButtonLanguage = "Location";
-        languageInfo.spaceButtonLanguage = "Space";
-        languageInfo.priceButtonLanguage = "Price";
-        languageInfo.allStatusLanguage = "All";
-        languageInfo.findMapButtonLanguage = "Find Map";
-        languageInfo.allFindButtonLanguage = "Find";
-        languageInfo.spaceButtonClose = "Close";
-        languageInfo.minPrice = "From m²";
-        languageInfo.maxPrice = "To m²";
-        languageInfo.roomStudio = "Studio";
-        languageInfo.fullPriceHomePage = "Full price";
-        languageInfo.meterPriceHomePage = "The price of m²";
-        languageInfo.dan = "from";
-        languageInfo.mde = "to";
+        languageInfo.statusInfoLanguage = "Select Status"
+        languageInfo.cityButtonLanguage = "Location"
+        languageInfo.spaceButtonLanguage = "Space"
+        languageInfo.priceButtonLanguage = "Price"
+        languageInfo.allStatusLanguage = "All"
+        languageInfo.findMapButtonLanguage = "Find Map"
+        languageInfo.allFindButtonLanguage = "Find"
+        languageInfo.spaceButtonClose = "Close"
+        languageInfo.minPrice = "From m²"
+        languageInfo.maxPrice = "To m²"
+        languageInfo.roomStudio = "Studio"
+        languageInfo.fullPriceHomePage = "Full price"
+        languageInfo.meterPriceHomePage = "The price of m²"
+        languageInfo.dan = "from"
+        languageInfo.mde = "to"
+        languageInfo.pricePerM = "Price per m²"
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
-        languageInfo.cityButtonLanguage = "მდებარეობა";
-        languageInfo.spaceButtonLanguage = "ფართი";
-        languageInfo.priceButtonLanguage = "ფასი";
-        languageInfo.allStatusLanguage = "ყველა";
-        languageInfo.findMapButtonLanguage = "რუკაზე ძიება";
-        languageInfo.allFindButtonLanguage = "ძიება";
-        languageInfo.spaceButtonClose = "დახურვა";
-        languageInfo.minPrice = "დან მ²";
-        languageInfo.maxPrice = "მდე მ²";
-        languageInfo.roomStudio = "სტუდიო";
-        languageInfo.fullPriceHomePage = "სრული ფასი";
-        languageInfo.meterPriceHomePage = "მ² - ის ფასი";
-        languageInfo.dan = "დან";
-        languageInfo.mde = "მდე";
-        break;
+        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
+        languageInfo.cityButtonLanguage = "მდებარეობა"
+        languageInfo.spaceButtonLanguage = "ფართი"
+        languageInfo.priceButtonLanguage = "ფასი"
+        languageInfo.allStatusLanguage = "ყველა"
+        languageInfo.findMapButtonLanguage = "რუკაზე ძიება"
+        languageInfo.allFindButtonLanguage = "ძიება"
+        languageInfo.spaceButtonClose = "დახურვა"
+        languageInfo.minPrice = "დან მ²"
+        languageInfo.maxPrice = "მდე მ²"
+        languageInfo.roomStudio = "სტუდიო"
+        languageInfo.fullPriceHomePage = "სრული ფასი"
+        languageInfo.meterPriceHomePage = "მ² - ის ფასი"
+        languageInfo.dan = "დან"
+        languageInfo.mde = "მდე"
+        languageInfo.pricePerM = "მ² ფასი"
+        break
 
       case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус";
-        languageInfo.cityButtonLanguage = "Местоположение";
-        languageInfo.spaceButtonLanguage = "Площадь";
-        languageInfo.priceButtonLanguage = "Цена";
-        languageInfo.allStatusLanguage = "Все";
-        languageInfo.findMapButtonLanguage = "Карта";
-        languageInfo.allFindButtonLanguage = "Натдти";
-        languageInfo.spaceButtonClose = "закрить";
-        languageInfo.minPrice = "из м²";
-        languageInfo.maxPrice = "до м²";
-        languageInfo.roomStudio = "Студия";
-        languageInfo.fullPriceHomePage = "Полная стоимость";
-        languageInfo.meterPriceHomePage = "Цена м²";
-        languageInfo.dan = "из";
-        languageInfo.mde = "до";
-        break;
+        languageInfo.statusInfoLanguage = "выберите статус"
+        languageInfo.cityButtonLanguage = "Местоположение"
+        languageInfo.spaceButtonLanguage = "Площадь"
+        languageInfo.priceButtonLanguage = "Цена"
+        languageInfo.allStatusLanguage = "Все"
+        languageInfo.findMapButtonLanguage = "Карта"
+        languageInfo.allFindButtonLanguage = "Натдти"
+        languageInfo.spaceButtonClose = "закрить"
+        languageInfo.minPrice = "из м²"
+        languageInfo.maxPrice = "до м²"
+        languageInfo.roomStudio = "Студия"
+        languageInfo.fullPriceHomePage = "Полная стоимость"
+        languageInfo.meterPriceHomePage = "Цена м²"
+        languageInfo.dan = "из"
+        languageInfo.mde = "до"
+        languageInfo.pricePerM = "Цена за м²"
+
+        break
     }
     return languageInfo;
   };
@@ -524,69 +447,6 @@ export default function Complex({
   };
 
   // -----------------------------------------------------------------------------------------------------------------------------
-
-  // // Pagination logic
-  // const itemsPerPage = 12;
-  // // const totalPageCount = Math.ceil(totalCount / itemsPerPage);
-  // const currentSortedHomes = sortedHomes
-  //   ? sortedHomes.slice(
-  //     (currentPage - 1) * itemsPerPage,
-  //     currentPage * itemsPerPage
-  //   )
-  //   : [];
-
-  // ------------------------------------------------------------------------------------
-  // const homeMaping = currentSortedHomes.map((complex, index) => (
-  //   <div
-  //     className="card"
-  //     key={complex.id}
-  //     onClick={() => handleHouseClick(complex.id)}
-  //     >
-  //     <motion.div
-  //       initial={{ x: -50, opacity: 0 }}
-  //       transition={{ duration: 1 }}
-  //       whileInView={{ x: 0, opacity: 1 }}
-  //       viewport={{ once: true }}
-  //     >
-  //       <div className="heartbuttonAndImageBox">
-  //         <div className="heartButtonBox">
-  //           <button
-  //             onClick={() => favoriteHandler(complex)}
-  //             key={complex.id}
-  //             className="heartButtons"
-  //           >
-  //             {favorites.some((fav) => fav.id === complex.id) ? (
-  //               <img src={heartIcon} alt="Logo of heart" />
-  //             ) : (
-  //               <img
-  //                 src={heartIconEmpty}
-  //                 alt="Logo of empty heart"
-  //                 style={{ width: "30px", height: "30px" }}
-  //               />
-  //             )}
-  //           </button>
-  //         </div>
-  //         <img
-  //           src={complex.images[0]}
-  //           alt={complex.name}
-  //           style={styles.imageStyles}
-  //         />
-  //       </div>
-  //       <p style={styles.companyTitle}>{complex.name}</p>
-  //       <div className="textInfo">
-  //         <p style={styles.complexInfo}>
-  //           {complex.address.city}, {complex.address.street}
-  //         </p>
-  //         <p style={styles.complexInfo}>
-  //           Price per sq meter: {complex.price_per_sq_meter}
-  //         </p>
-  //         {/* Update the line below with the actual date property */}
-  //         <p style={styles.complexFinished}>Date: {complex.date}</p>
-  //       </div>
-  //     </motion.div>
-  //   </div>
-  // ));
-  // ------------------------------------------------------------------------------------
 
   // ------------------------render status option--------------------------------------------
 
@@ -614,6 +474,21 @@ export default function Complex({
       </div>
     ));
   };
+
+
+  const getStatusTranslation = (status, selectedLanguage) => {
+    const statusTranslations = {
+      1: { en: "Planned", ka: "დაგეგმილი", ru: "Запланировано" },
+      2: { en: "Under Construction", ka: "მშენებარე", ru: "Строится" },
+      3: { en: "Completed", ka: "დასრულებული", ru: "Завершено" },
+    };
+
+    const translation = statusTranslations[status]?.[selectedLanguage] || 'Status Unknown';
+
+    return translation;
+  };
+
+
   // -----------------------------------------------------------------------------
 
   const handleSpaceButtonClick = () => {
@@ -682,12 +557,7 @@ export default function Complex({
           <div className="for_comfort">
             <div className="adgilicomportistvis title">
               <p>ადგილი შენი კომფორტისთვის</p>
-              <img
-                onClick={toggleFunc}
-                className="filter_icon_for_links"
-                src={Filter}
-                alt="/"
-              />
+              <img onClick={toggleFunc} className="filter_icon_for_links" src={Filter} alt="/" />
             </div>
             <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
               {/* button for filtering space */}
@@ -766,9 +636,7 @@ export default function Complex({
                     <input
                       className="min_price_complex"
                       type="number"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).dan
-                      }
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                       value={minPricePerSquareMeter}
                       onChange={(e) =>
                         minPricePerSquareMeterChangeHandler(e.target.value)
@@ -809,9 +677,7 @@ export default function Complex({
                     <input
                       className="min_price_complex"
                       type="number"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).mde
-                      }
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                       value={maxFullPrice}
                       onChange={(e) =>
                         maxFullPriceChangeHandler(e.target.value)
@@ -1191,7 +1057,7 @@ export default function Complex({
                       <img
                         src={heartIconEmpty}
                         alt="Logo of empty heart"
-                        style={{ width: "30px", height: "30px" }}
+                        style={{ width: "30px", height: "30px", border: '1px solid white' }}
                       />
                     )}
                   </button>
@@ -1201,25 +1067,33 @@ export default function Complex({
                   alt={complex.name}
                   style={styles.imageStyles}
                   onClick={() => handleHouseClick(complex.id)}
+                  className="complex_dard_1"
                 />
               </div>
               <p style={styles.companyTitle}>{complex.name}</p>
-              <div
-                className="textInfo"
-                onClick={() => handleHouseClick(complex.id)}
-              >
-                <p style={styles.complexInfo}>
-                  {complex.address.city}
-                  {/* {complex.address.street} */}
-                </p>
-                <p style={styles.complexInfo}>
-                  {complex.complexDetails.pricePerSqMeter}
-                  {handleStatusButtonLanguageChange(selectedLanguage).pricePerM}
-                </p>
-                {/* Update the line below with the actual date property */}
-                <p style={styles.complexFinished}>
-                  {complex.complexDetails.finishYear}
-                </p>
+              <div className="textinfo_and_company_logo"  >
+                <div
+                  className="textInfo"
+                  onClick={() => handleHouseClick(complex.id)}
+                >
+                  <p style={styles.complexInfo}>
+                    {complex.address.city}
+                  </p>
+                  <div className="price_and_" >
+                    <p style={styles.complexInfo}>
+                      {handleStatusButtonLanguageChange(selectedLanguage).pricePerM}
+                    </p>
+                    <p style={styles.complexInfo}> {currenceChangeState
+                      ? complex.complexDetails.pricePerSqMeter * getCorrencyRate
+                      : complex.complexDetails.pricePerSqMeter}</p>
+                  </div>
+                  <p style={styles.complexFinished} className="complex_status_on_card" >{getStatusTranslation(complex.complexDetails.isFinished, selectedLanguage)}</p>
+                </div>
+                <div style={{ color: 'white' }} className="company_logo_on_card">
+                  <img src={complex.company.logo} alt="company logo" className="company_logo_3" />
+                  <p className="complex_status_in_card">{complex.complexDetails.rank}</p>
+                </div>
+
               </div>
             </motion.div>
           </div>
@@ -1308,9 +1182,10 @@ export default function Complex({
 
 const styles = {
   imageStyles: {
-    width: "250px",
+    maxWidth: '275px',
     height: "229px",
     overflow: "hidden",
+    color: 'white'
     // borderRadius: "20px",
   },
   companyTitle: {

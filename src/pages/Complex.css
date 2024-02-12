@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap');
+
+
+
 /* .imageOfBuilding {
   width: 200px;
 } */
@@ -148,6 +152,7 @@
   gap: 40px;
   margin-top: 50px;
   margin-bottom: 100px;
+  
 }
 
 .card {
@@ -202,13 +207,54 @@
   transition: transform 0.3s ease;
 }
 
+.textinfo_and_company_logo{
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+
+.company_logo_3{
+  margin-top: 10px;
+  width: 40px;
+  border-radius: 50%;
+  margin-left: 30px;
+}
+
 .textInfo {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   padding-left: 10px;
   gap: 10px;
+  width: 300px;
+  font-family: 'Roboto', sans-serif;
 }
+
+.price_and_value{
+  display: flex;
+}
+
+
+.complex_status_on_card{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  margin-top: 10px;
+}
+
+
+.company_logo_on_card{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+
+.complex_status_in_card{
+  margin-left: 30px;
+  
+}
+
 
 .googleMapImageBox {
   display: flex;

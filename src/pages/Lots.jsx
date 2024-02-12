@@ -1539,7 +1539,7 @@ const styles = {
     width: "278px",
     height: "229px",
     overflow: "hidden",
-    borderRadius: "20px",
+    // borderRadius: "20px",
   },
   companyTitle: {
     // position: 'absolute',
