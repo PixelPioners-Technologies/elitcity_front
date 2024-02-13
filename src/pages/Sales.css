@@ -4,6 +4,7 @@
 
 .SalesBox {
   margin-top: 50px;
+  /* border: 1px solid red; */
   /* min-height: 100vh; Ensure the component covers at least the viewport height */
   background-color: black; /* Set your desired background color */
   /* padding: 20px; */
@@ -11,6 +12,7 @@
 }
 
 .forPaddingOfsalesNavBar {
+  /* border: 1px solid green; */
   padding: 0 90px;
 } 
 
@@ -26,6 +28,7 @@
 .boxOftitleOfActionAndOffers {
   display: flex;
   align-items: center;
+  /* border: 1px solid blue; */
 }
 
 .titleOfActionAndOffers {
@@ -33,6 +36,7 @@
 }
 
 .allSaleGiftAndInstallmentBox {
+  /* border: 1px solid blue; */
   display: flex;
   gap: 105px;
 }
@@ -72,6 +76,8 @@
 }
 
 .saleArticlesBox {
+  /* border: 1px solid red; */
+
   display: flex;
   flex-direction: row;
   margin-top: 50px;
@@ -92,11 +98,11 @@
 }
 
 .eachSaleArticleBox2{
+  /* border: 1px solid blue; */
   padding: 20px;
   display: flex;
-  gap: 10px;
+  /* gap: 10px; */
   color: white;
-  width: 700px;
 }
 .saleArticleInfoText {
   width: 400px;
@@ -178,6 +184,7 @@ margin-bottom: 20px;
 .image_company_for_sale_modal{
   width: 80px;
   border-radius: 50%;
+  
 }
 
 .address_and_address{
@@ -302,4 +309,67 @@ margin-bottom: 20px;
 
 .hedaphone_ico_sale_modaln{
   width: 50px;
+}
+
+@media screen and (max-width: 500px) {
+  .SalesBox {
+    padding: 20px;
+  }
+  .forPaddingOfsalesNavBar {
+    /* border: 1px solid green; */
+    display: flex;
+    justify-content: center;
+    padding:0;
+  }
+  .infoFieldOfSalesAndSoOn {
+    padding: 0;
+    align-items: center;
+    /* width: 100%; */
+    width: 340px;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+  .boxOftitleOfActionAndOffers {
+    /* width: 340px; */
+text-align: center;
+  }
+  .allSaleGiftAndInstallmentBox{
+    gap: 20px;
+    font-size: 15px;
+  }
+  .saleArticlesBox {
+    /* border: 1px solid blue; */
+    padding: 0px;
+  }
+  .eachSaleArticleBox {
+    width: 340px;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    /* padding: 0; */
+
+  }
+  .eachSaleArticleBox2{
+    padding: 20px;
+    /* border: 1px solid blue; */
+  }
+  .saleArticleInfoText{
+    /* border: 1px solid green; */
+    width: 330px;
+    font-size: 14px;
+  }
+  .imageOfSaleComplex {
+    width: 330px;
+    /* padding: 0; */
+  }
+  .SaleArticleImageBox{
+    width: 330px;
+    /* padding: 0 ; */
+    /* border: 1px solid blue; */
+  }
+  .SaleArticleImageBox {
+    margin-left: 0;
+  }
+
+  
 }

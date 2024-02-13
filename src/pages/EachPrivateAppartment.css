@@ -2,12 +2,15 @@
 .about_and_map_P{
   margin-top: 50px;
   color: aliceblue;
+  /* border: 1px solid blue; */
 }
 
 .aboud_and_map_child_container_P{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* border: 1px solid blue; */
+
 }
 
 .about_land_header_P{

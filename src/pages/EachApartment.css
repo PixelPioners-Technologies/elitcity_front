@@ -2,33 +2,39 @@
   height: 100vh;
   width: 99vw;
   padding: 0 42px;
+  margin-top: 50px;
+  border: 1px solid red;
   
 }
 
 .imageAndTextInfos {
   display: flex;
   gap: 50px;
+  /* border: 1px solid red; */
 }
 
 .imageSliderBox {
+  /* border: 1p solid red; */
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
 .bigImageBox {
-  width: 711px;
+  /* width: 711px; */
   position: relative;
 }
 
 .miniImagesBox {
   display: flex;
-  gap: 20px;
+  /* flex-wrap: wrap; */
+  gap: 23px;
   justify-content: center;
   position: absolute;
   top: 371px;
-  left: 136px;
-  background-color: lightblue; /* Add a background color */
+  left: 119px;
+  /* border: 3px solid red; */
+  background-color: rgba(9, 170, 22, 0.01); 
 }
 
 
@@ -67,6 +73,7 @@
   /* justify-content: space-around; */
   /* gap: 50px; */
   justify-content: space-between;
+  border: 2px solid green;
   
 
 }
@@ -249,4 +256,17 @@
 .googlePhotoOnEachComplexPage {
   width: 774px;
   height: 232px;
+}
+@media screen and (max-width:500px) {
+  .imageAndTextInfos {
+    border:1px solid red;
+    flex-direction: column;
+  }
+  .bigImageBox {
+    width: 340px;
+  }
+  .eachComplexBox {
+    width: 100%;
+  }
+  
 }

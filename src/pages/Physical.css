@@ -371,6 +371,7 @@ input[type="checkbox"] {
   .infoFieldOfComplexsPlansMaps_physical{
     padding: 0;
     gap: 0px;
+    width: 340px;
   }
   .currencyBox_physical{
     /* border: 1px solid red; */
