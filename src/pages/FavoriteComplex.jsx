@@ -17,9 +17,8 @@ export default function FavoriteComplex({
 }) {
   return (
     <div>
-      {/* <h1>favorite Page</h1> */}
-
       <div className="ComplexBoxInFavoritesPages">
+        <h3 style={{ color: "white" }}> კომპლექსები</h3>
         {/* for Complex */}
         {favorites &&
           favorites.map((complex, index) => (
@@ -58,7 +57,10 @@ export default function FavoriteComplex({
               </div>
             </div>
           ))}
+      </div>
 
+      <div className="ComplexBoxInFavoritesPages">
+        <h3 style={{ color: "white" }}> ბინები</h3>
         {/* for physical */}
         {favoritesPhysical &&
           favoritesPhysical.map((complex, index) => (
@@ -98,7 +100,10 @@ export default function FavoriteComplex({
               </div>
             </div>
           ))}
+      </div>
 
+      <div className="ComplexBoxInFavoritesPages">
+        <h3 style={{ color: "white" }}> მიწები</h3>
         {/* for Lots */}
         {favoritesLots &&
           favoritesLots.map((complex, index) => (
