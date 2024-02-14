@@ -665,6 +665,8 @@ export default function Physical({
       studio: "Studio",
       allFindButtonLanguage: "Search",
       spaceButtonClose: "Close",
+      spaceButtonLanguage: "Space",
+      priceButtonLanguage: "Price",
 
       minPrice: "From m²",
       maxPrice: "To m²",
@@ -686,6 +688,8 @@ export default function Physical({
         languageInfo.studio = "Studio";
         languageInfo.allFindButtonLanguage = "Search";
         languageInfo.spaceButtonClose = "Close"
+        languageInfo.spaceButtonLanguage = "Space"
+        languageInfo.priceButtonLanguage = "Price"
         languageInfo.minPrice = "From m²"
         languageInfo.maxPrice = "To m²"
         languageInfo.roomStudio = "Studio"
@@ -706,6 +710,8 @@ export default function Physical({
         languageInfo.studio = "სტუდიო";
         languageInfo.allFindButtonLanguage = "ძებნა";
         languageInfo.spaceButtonClose = "დახურვა"
+        languageInfo.spaceButtonLanguage = "ფართი"
+        languageInfo.priceButtonLanguage = "ფასი"
         languageInfo.minPrice = "დან მ²"
         languageInfo.maxPrice = "მდე მ²"
         languageInfo.roomStudio = "სტუდიო"
@@ -728,6 +734,8 @@ export default function Physical({
         languageInfo.studio = "Студия";
         languageInfo.allFindButtonLanguage = "Поиск";
         languageInfo.spaceButtonClose = "закрить"
+        languageInfo.spaceButtonLanguage = "Площадь"
+        languageInfo.priceButtonLanguage = "Цена"
         languageInfo.minPrice = "из м²"
         languageInfo.maxPrice = "до м²"
         languageInfo.roomStudio = "Студия"
@@ -988,7 +996,9 @@ export default function Physical({
                   className="dropdown"
                 />
               </div>
-              <P_Modal isOpen={is_P_ModalOpen}>{renderModalContent()}</P_Modal>
+              <P_Modal isOpen={is_P_ModalOpen} close={closeModal}>
+                {renderModalContent()}
+                </P_Modal>
             </div>
 
             {/* button for status */}

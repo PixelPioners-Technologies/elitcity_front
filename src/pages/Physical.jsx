@@ -1008,7 +1008,9 @@ export default function Physical({
                   className="dropdown"
                 />
               </div>
-              <P_Modal isOpen={is_P_ModalOpen}>{renderModalContent()}</P_Modal>
+              <P_Modal isOpen={is_P_ModalOpen} close={closeModal}>
+                {renderModalContent()}
+                </P_Modal>
             </div>
 
             {/* button for status */}
