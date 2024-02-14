@@ -93,6 +93,7 @@ const BaseURLs = {
 export { BaseURLs };
 
 //--ეს ლოგიკსა უზრუნველყოფს მოსული ინფორმაციის ფილდების გადაკეთებას, რადგან ენის სვლილებისას იცვლება მათი ფილდების სახელებიც--
+// zz
 
 const normalizeComplexData = (data, lang) => {
   return data.map((item) => ({
@@ -258,10 +259,10 @@ function App() {
   };
   const handleCorrentPageHandler = (data) => {
     setCorrentPage(data);
-      window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleSetTodalPageCount = (data) => {
