@@ -230,16 +230,10 @@ export default function EachPrivateAppartment({
   const squareSymbol = "\u00B2";
 
   const mapcenter = {
-<<<<<<< HEAD
-    lat: ground.address?.latitude,
-    lng: ground.address?.longitude,
-  };
-=======
     lat: ground.address?.latitude || 41.7151,
     lng: ground.address?.longitude || 44.8271,
   }
 
->>>>>>> origin/main
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",

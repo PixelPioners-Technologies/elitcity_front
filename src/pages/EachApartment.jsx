@@ -1493,21 +1493,6 @@ export default function EachApartment({
               fullscreenControl: false,
             }}
           >
-            <Marker
-              key={privateApartments.id}
-              position={{
-                lat: eachComplexAllAppartments?.apartmentAddress?.latitude,
-                lng: eachComplexAllAppartments?.apartmentAddress?.longitude,
-              }}
-<<<<<<< HEAD
-              icon={{
-                url: private_apartment_location_icon,
-                scaledSize: scalesize,
-              }}
-            />
-          </GoogleMap>
-=======
-            >
               <Marker
                 key={privateApartments.id}
                 position={{
@@ -1522,7 +1507,6 @@ export default function EachApartment({
                 }}
               />
             </GoogleMap>
->>>>>>> origin/main
         </div>
       </div>
       {/* (END) ახლო მდებარე ობიექტები box -------- */}

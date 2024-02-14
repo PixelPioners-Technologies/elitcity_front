@@ -37,7 +37,7 @@
   position: absolute;
   top: 371px;
   left: 119px;
-  border: 3px solid red;
+  /* border: 3px solid red; */
   background-color: rgba(9, 170, 22, 0.01);
 }
 
@@ -173,7 +173,7 @@
 
 .shidaInformaciaIconebisBox {
   padding: 30px 80px;
-  background-color: rgb(182, 175, 175);
+  /* background-color: rgb(182, 175, 175); */
   display: flex;
   flex-wrap: wrap;
   gap: 60px;
@@ -205,12 +205,12 @@
 
 .textBoxOfH4axloMdebareObieqtebi {
   margin-top: 50px;
-  padding: 0 100px;
+  /* padding: 0 100px; */
 }
 
 .axloMdebareObieqtebiBox {
   display: flex;
-  padding: 0 100px;
+  /* padding: 0 100px; */
   justify-content: space-between;
 }
 

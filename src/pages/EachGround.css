@@ -3,7 +3,7 @@
 
 .eachComplexBox2 {
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,7 +15,7 @@
 .imageAndTextInfos2 {
   display: flex;
   flex-direction: row;
-  border: 1px solid rgb(0, 255, 13);
+  /* border: 1px solid rgb(0, 255, 13); */
   justify-content: center;
   /* background-color: aquaa; */
   gap: 70px;

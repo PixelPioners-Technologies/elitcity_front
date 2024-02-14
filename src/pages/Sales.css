@@ -397,7 +397,7 @@
     margin-top: -10px;
   }
   .column {
-    display: none;
+    /* display: none; */
     /* font-size: 12px;
     margin-top: -15px; */
     /* border: 1px solid gray; */

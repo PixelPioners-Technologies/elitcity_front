@@ -1,23 +1,79 @@
-.eachComplexBox3{
+.eachComplexBox3 {
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-top: 30px;
 }
-.imageAndTextInfos3{
+.imageAndTextInfos3 {
   display: flex;
   flex-direction: row;
-  border: 1px solid rgb(0, 255, 13);
+  /* border: 1px solid rgb(0, 255, 13); */
   justify-content: center;
   /* background-color: aquaa; */
   gap: 70px;
 }
-#lands_img{
+#lands_img {
   width: 700px;
-  height: 300px;
+  height: 450px;
+}
+.imageSliderBox3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 2px solid blue; */
+}
+.miniImagesBox2 {
+  /* border: 1px solid red; */
+  /* display: flex; */
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+  position: relative;
+  bottom: 100px;
+}
+.btns {
+  width: 77px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(15, 15, 15);
+  border: none;
+  color: white;
+  font-weight: 600;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+}
+.btns::before {
+  width: 77px;
+  height: 130px;
+  position: absolute;
+  content: "";
+  background-color: white;
+  border-radius: 50%;
+  left: -100%;
+  top: 0;
+  transition-duration: 0.3s;
+  mix-blend-mode: difference;
+}
+
+.btns:hover::before {
+  transition-duration: 0.3s;
+  transform: translate(100%, -50%);
+  border-radius: 0;
+}
+
+.btns:active {
+  transform: translate(5px, 5px);
+  transition-duration: 0.3s;
 }
 /* 
 .imageAndTextInfos {
@@ -46,8 +102,6 @@
   background-color: lightblue; /* Add a background color 
 } */
 
-
-
 .thumbnail {
   border: 2px solid white;
 }
@@ -58,7 +112,9 @@
 
 .enlarge {
   border: 2px solid white;
-  transform: scale(1.2); /* Increase the size of the image when the "enlarge" class is applied */
+  transform: scale(
+    1.2
+  ); /* Increase the size of the image when the "enlarge" class is applied */
   transition: transform 0.3s ease; /* Add a smooth transition effect */
 }
 
@@ -66,24 +122,29 @@
   scale: 1.1;
 } */
 
-
 .complexTextsBox2 {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   /* width: 100%;
   display: flex;
   flex-direction: column;
   gap: 30px;
   padding-top: 40px; */
-  
 }
 
 .seenIdFavouriteAndOthersBox2 {
+  /* border: 1px solid blue; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   /* color: white; */
   /* display: flex; */
   /* justify-content: space-around; */
   /* gap: 50px; */
   /* justify-content: space-between; */
-  
-
 }
 
 .seenAndIdBox {
@@ -106,15 +167,11 @@
 .eachTextOnListTextsOne {
   display: flex;
   flex-direction: column;
-
-
 }
 
 .eachTextOnListTextsTwo {
   display: flex;
   flex-direction: column;
-
-
 }
 
 .numberAndCallRequestBox {
@@ -130,8 +187,6 @@
   /* justify-content: center; */
   align-items: center;
   gap: 20px;
-
-
 }
 
 .numberSHowButton {
@@ -158,8 +213,6 @@
   align-items: center;
   gap: 20px;
   padding: 11px 10px;
-
-
 }
 
 .binebiDaGegmarebaFullBox {
@@ -167,22 +220,21 @@
 }
 
 .firstBoxOfBinebi {
+  width: 100%;
+  /* border: 1px solid red; */
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  
+  /* padding: 0 60px 0 60px; */
+  margin-top: 30px;
 }
 
 .paddingForEachComplexCardBox {
   padding: 0 50px;
 }
 
-
-
-
-
-
 .shidaInformaciaIconebisBox {
-  padding: 30px 80px;
+  /* padding: 30px 80px; */
   background-color: rgb(182, 175, 175);
   display: flex;
   flex-wrap: wrap;
@@ -194,7 +246,6 @@
   align-items: center;
   gap: 10px;
 }
-
 
 .stylesOfIconsOnEachComplex {
   width: 40px;
@@ -210,20 +261,37 @@
 .inprastruqturisIconsBox {
   margin-top: 20px;
   display: flex;
+  flex-direction: column;
   /* justify-content: space-between; */
   gap: 30px;
 }
 
 .textBoxOfH4axloMdebareObieqtebi {
-  margin-top: 50px;
-  padding: 0 100px;
+  /* border: 1px solid red; */
+  /* width: 100%;
+  display: flex;
+  align-items: start;
+  border: 1px solid red; */
+  /* justify-content: start; */
+  /* margin-top: 50px; */
+  /* text-align: start;  */
+  /* padding: 200px 100px; */
 }
-
+.textBoxOfH4axloMdebareObieqtebi h4 {
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* justify-content: start; */
+  /* align-items: start; */
+}
 .axloMdebareObieqtebiBox {
   display: flex;
-  padding: 0 100px;
+  align-items: center;
   justify-content: space-between;
-  
+  /* border: 1px solid blue; */
+  margin-bottom: 20px;
+}
+.textBoxOfAxloMdebare {
+  /* border: 2px solid red; */
 }
 
 .textBoxOfAxloMdebare {
@@ -231,6 +299,7 @@
   flex-direction: column;
   gap: 10px;
   color: white;
+  /* border: 2px solid green; */
 }
 
 .iconAndItsText {
@@ -240,12 +309,78 @@
 }
 
 /* .boxOfMapOnAxloMdebare { */
-  /* color: white; */
-  /* width: 300px;
+/* color: white; */
+/* width: 300px;
   height: 100px; */
 /* } */
 
 .googlePhotoOnEachComplexPage {
   width: 774px;
   height: 232px;
+}
+@media screen and (max-width: 500px) {
+  .eachComplexBox3 {
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .imageAndTextInfos3 {
+    flex-direction: column;
+    /* padding: 20px; */
+    align-items: center;
+  }
+  .lands_img {
+    /* width: 340px;
+     */
+    /* width: 100%; */
+    padding: 10px;
+  }
+  #lands_img {
+    width: 100%;
+    /* width: 340px; */
+  }
+  .complexTextsBox2 {
+    /* width: 100px */
+    width: 340px;
+  }
+  .axloMdebareObieqtebiBox {
+    flex-direction: column;
+    padding: 0;
+  }
+  .textBoxOfH4axloMdebareObieqtebi {
+    text-align: center;
+  }
+  .miniImagesBox2 {
+    /* border: 1px solid red; */
+    width: 300px;
+  }
+  .axloMdebareObieqtebiBox {
+    width: 100%;
+    /* border: 2px solid blue; */
+    /* P: 0;
+     */
+    /* padding: 0 20px; */
+    padding: 0;
+  }
+  .child_map_container_P {
+    width: 100%;
+    /* width: 700px; */
+    /* border: 2px solid red; */
+  }
+  #mapp {
+    /* width: 300px; */
+  }
+  .binebiDaGegmarebaFullBox {
+    width: 100%;
+    /* border: 1px solid red; */
+    /* padding: 10px 0; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .complexTextsBox2 {
+    width: 100%;
+  }
 }

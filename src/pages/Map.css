@@ -3,7 +3,8 @@
 
 .main_map {
   background-color: rgb(0, 0, 0);
-  height: 100vh;
+  /* height: 100vh; */
+  border: 1px solid red;
 }
 
 .map_cont {
@@ -13,7 +14,7 @@
 }
 
 .filtetmethods_and_filters {
-  /* border: 1px solid red; */
+  border: 1px solid red;
   display: flex;
   justify-content: center;
   align-items: center;

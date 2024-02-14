@@ -263,7 +263,7 @@ export default function EachComplex({
       const data = response.data;
       const normalised_Data = normalizeData(data, selectedLanguage);
 
-      console.log("dataaaaa" , data.complex_images)
+      console.log("dataaaaa", data.complex_images);
 
       setAllComplexImages(data.complexImages);
       setEachPrivateApartment(normalised_Data);
@@ -272,13 +272,12 @@ export default function EachComplex({
       seteachComplexAllAppartments(normalised_Data);
 
       const imagesWithIds = data.complex_images.map((url, index) => ({
-        id: index,  
-        value: url  
+        id: index,
+        value: url,
       }));
 
-      setSliderImages(imagesWithIds); 
-      setWordData(imagesWithIds[0] || null); 
-      
+      setSliderImages(imagesWithIds);
+      setWordData(imagesWithIds[0] || null);
     };
     fetcPrivateApartments();
   }, [
@@ -297,14 +296,11 @@ export default function EachComplex({
     // wordData,
     // allComplexImages,
   ]);
-  
+
   // console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
   useEffect(() => {
     console.log("apartments ", privateApartments);
-
-  }, [privateApartments ]);
-
-
+  }, [privateApartments]);
 
   // ---------------------------------------------------------------------------------------------------------------------
 
@@ -679,12 +675,12 @@ export default function EachComplex({
         {/* Complexes photos info */}
         <div className="imageSliderBox3">
           <div className="lands_img">
-            <button className="btns" onClick={handlePrevious}>
+            {/* <button className="btns" onClick={handlePrevious}>
               P
-            </button>
+            </button> */}
             {wordData && ( // Check if wordData is not null/undefined before rendering
               <img
-              id="lands_img"
+                id="lands_img"
                 src={wordData.value}
                 alt={`Complex ${wordData.id}`}
                 // height="450"
@@ -692,11 +688,11 @@ export default function EachComplex({
                 className={clickedIndex !== null ? "clicked" : ""}
               />
             )}
-            <button className="btns" onClick={handleNext}>
-              N
-            </button>
           </div>
           <div className="miniImagesBox2">
+            <button className="btns" onClick={handleNext}>
+              Next
+            </button>
             {sliderImages
               .slice(carouselPosition, carouselPosition + 4)
               .map((data, i) => (
@@ -713,6 +709,9 @@ export default function EachComplex({
                   />
                 </div>
               ))}
+            <button className="btns" onClick={handlePrevious}>
+              Previus
+            </button>
           </div>
         </div>
         {/* --------- */}
@@ -1489,9 +1488,10 @@ export default function EachComplex({
             </div>
           </div>
 
-          <div className="child_map_container_P">
+          <div className="child_map_container_P ">
             <GoogleMap
-              mapContainerStyle={{ height: "300px" }}
+            id="mapp"
+              mapContainerStyle={{ height: "300px"  }}
               center={mapcenter}
               zoom={16}
               options={{
@@ -1502,7 +1502,9 @@ export default function EachComplex({
                 streetViewControl: false,
                 mapTypeControl: false,
                 fullscreenControl: false,
+                
               }}
+
             >
               <Marker
                 key={privateApartments.id}
