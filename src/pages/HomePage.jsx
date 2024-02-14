@@ -502,6 +502,7 @@ export default function Map({ selectedLanguage,
                       type="number"
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                       value={minPricePerSquareMeter}
+                      // -----------======-------
                       onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
                     />
                     <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
@@ -513,6 +514,7 @@ export default function Map({ selectedLanguage,
                       type="number"
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                       value={maxPricePerSquareMeter}
+                      // -----------======-------
                       onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
                     />
                     <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
@@ -529,6 +531,7 @@ export default function Map({ selectedLanguage,
                       type="number"
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
                       value={minFullPrice}
+                      // -----------======-------
                       onChange={(e) => minFullPriceChangeHandler(e.target.value)}
                     />
                     <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
@@ -540,6 +543,7 @@ export default function Map({ selectedLanguage,
                       type="number"
                       placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
                       value={maxFullPrice}
+                      // -----------======-------
                       onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
                     />
                     <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />

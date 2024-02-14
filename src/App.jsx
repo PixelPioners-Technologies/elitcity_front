@@ -90,7 +90,7 @@ const BaseURLs = {
   blog: "http://127.0.0.1:8000/blog/",
   map: "http://127.0.0.1:8000/map/",
   complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
-  company_and_complex : 'http://127.0.0.1:8000/companycomplex/',
+  company_and_complex: 'http://127.0.0.1:8000/companycomplex/',
 
 };
 
@@ -204,26 +204,25 @@ function App() {
 
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
 
-  
+
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
   const [total_item_number, setTotal_item_number] = useState("");
-  
+
   // const [homes, setHomes] = useState([]);
-  
+
   // const [complex_homes, setComplex_homes] = useState([]);
-  
+
   // const [showSplashScreen, setShowSplashScreen] = useState(true);
-  
+
   const [ascendentPrice, setAscendentPrice] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
   // -----------------------------------------------------------------------------------------------------
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
-  const sortingChangeHandler = (data)=> {
+  const sortingChangeHandler = (data) => {
     setAscendentPrice(data)
-    console.log(data)
   }
 
   const stringSearchHeandles = (data) => {
@@ -245,23 +244,33 @@ function App() {
   const selectedDistrictsChangeHandler = (data) => {
     setSelectedDistricts(data);
   };
+
+  // ------------------==================------------------------------------------------------
   const minPricePerSquareMeterChangeHandler = (data) => {
-    setMinPricePerSquareMeter(data);
+    // const normalizedValue = isOn ? (value / getCorrencyRate) : value;
+    setMinPricePerSquareMeter(normalizedValue);
   };
   const maxPricePerSquareMeterChangeHandler = (data) => {
     setMaxPricePerSquareMeter(data);
   };
+
+  // -----------------------------------------------------------------------------------------------
+
   const minFullPriceChangeHandler = (data) => {
     setMinFullPrice(data);
   };
   const maxFullPriceChangeHandler = (data) => {
     setMaxFullPrice(data);
   };
+
+  // ---------------===================--------------------------------------------------------
+
+
   const min_spacehangeHandler = (data) => {
-    setMax_space(data);
+    setMin_space(data);
   };
   const max_spacehangeHandler = (data) => {
-    setMin_space(data);
+    setMax_space(data);
   };
   const selectedStatusesChangeHandler = (data) => {
     setSelectedStatuses(data);
@@ -313,7 +322,7 @@ function App() {
         limit: limit,
         offset: offset,
         ordering: ascendentPrice,
-        search : searchInput,
+        search: searchInput,
       });
 
       // Append each status as a separate parameter
@@ -715,18 +724,19 @@ function App() {
                 min_spacehangeHandler={min_spacehangeHandler}
                 max_space={max_space}
                 max_spacehangeHandler={max_spacehangeHandler}
+                // ------------------==================------------------------------------------------------
+                minPricePerSquareMeterChangeHandler={minPricePerSquareMeterChangeHandler}
                 minPricePerSquareMeter={minPricePerSquareMeter}
-                minPricePerSquareMeterChangeHandler={
-                  minPricePerSquareMeterChangeHandler
-                }
+
+                maxPricePerSquareMeterChangeHandler={maxPricePerSquareMeterChangeHandler}
                 maxPricePerSquareMeter={maxPricePerSquareMeter}
-                maxPricePerSquareMeterChangeHandler={
-                  maxPricePerSquareMeterChangeHandler
-                }
-                minFullPrice={minFullPrice}
+
                 minFullPriceChangeHandler={minFullPriceChangeHandler}
-                maxFullPrice={maxFullPrice}
+                minFullPrice={minFullPrice}
+
                 maxFullPriceChangeHandler={maxFullPriceChangeHandler}
+                maxFullPrice={maxFullPrice}
+                // ------------------==================------------------------------------------------------
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
                 selectedCity={selectedCity}
@@ -753,6 +763,7 @@ function App() {
                 sortingChangeHandler={sortingChangeHandler}
 
                 stringSearchHeandles={stringSearchHeandles}
+
 
               />
             }

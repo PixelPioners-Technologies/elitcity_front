@@ -734,10 +734,12 @@ export default function Complex({
                         handleStatusButtonLanguageChange(selectedLanguage).dan
                       }
                       value={minFullPrice}
-                      onChange={(e) =>
-                        minFullPriceChangeHandler(e.target.value)
+                      onChange={(e) =>   props.minFullPriceChangeHandler(e.target.value)
                       }
                     />
+
+
+
 
                     <input
                       className="min_price_complex"
