@@ -579,9 +579,13 @@ export default function Complex({
                   close={closeSpaceModal}
                 >
                   <div>
+                  <div>
+                      <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
+                    </div>
                     <input
+                      className="min_price_complex"
                       type="number"
-                      placeholder="Min Price Per Square Meter"
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
                       value={min_space}
                       onChange={(e) => max_spacehangeHandler(e.target.value)}
                     />
@@ -769,7 +773,10 @@ export default function Complex({
                     onClick={() => searchButtonhangeHandler(!searchButton)}
                   >
                     {" "}
-                    Search
+                    {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .allFindButtonLanguage
+                  }
                   </button>
                 </div>
               </div>
