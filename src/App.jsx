@@ -68,29 +68,29 @@ function trackButtonClick(buttonName) {
 const BaseURLs = {
   //   // storkhome
 
-  // complex: "https://api.storkhome.ge/complex/",
-  // company: "https://api.storkhome.ge/company/",
-  // apartment: "https://api.storkhome.ge/apartment/",
-  // private_apartment: "https://api.storkhome.ge/privateapartments/",
-  // ground: "https://api.storkhome.ge/ground/",
-  // promotion: "https://api.storkhome.ge/promotions/",
-  // blog: "https://api.storkhome.ge/blog/",
-  // map: "https://api.storkhome.ge/map/",
-  // complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
-  // company_and_complex: 'https://api.storkhome.ge/companycomplex/',
+  complex: "https://api.storkhome.ge/complex/",
+  company: "https://api.storkhome.ge/company/",
+  apartment: "https://api.storkhome.ge/apartment/",
+  private_apartment: "https://api.storkhome.ge/privateapartments/",
+  ground: "https://api.storkhome.ge/ground/",
+  promotion: "https://api.storkhome.ge/promotions/",
+  blog: "https://api.storkhome.ge/blog/",
+  map: "https://api.storkhome.ge/map/",
+  complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+  company_and_complex: 'https://api.storkhome.ge/companycomplex/',
 
   // local
 
-  complex: "http://127.0.0.1:8000/complex/",
-  company: "http://127.0.0.1:8000/company/",
-  apartment: "http://127.0.0.1:8000/apartment/",
-  private_apartment: "http://127.0.0.1:8000/privateapartments/",
-  ground: "http://127.0.0.1:8000/ground/",
-  promotion: "http://127.0.0.1:8000/promotions/",
-  blog: "http://127.0.0.1:8000/blog/",
-  map: "http://127.0.0.1:8000/map/",
-  complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
-  company_and_complex: 'http://127.0.0.1:8000/companycomplex/',
+  // complex: "http://127.0.0.1:8000/complex/",
+  // company: "http://127.0.0.1:8000/company/",
+  // apartment: "http://127.0.0.1:8000/apartment/",
+  // private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  // ground: "http://127.0.0.1:8000/ground/",
+  // promotion: "http://127.0.0.1:8000/promotions/",
+  // blog: "http://127.0.0.1:8000/blog/",
+  // map: "http://127.0.0.1:8000/map/",
+  // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+  // company_and_complex: 'http://127.0.0.1:8000/companycomplex/',
 
 };
 
@@ -614,6 +614,93 @@ function App() {
   // ------------------------------------------------------------------------------------------
 
 
+
+
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [salesDepartment, setSalesDepartment] = useState(false);
+  const [storkhomePlus, setStorkhomePlus] = useState(false);
+  const [other, setOther] = useState(false);
+
+
+  const [sedtsheet, setSedtsheet] = useState(false);
+
+  const handleSendSheet = () => {
+    setSedtsheet(!sedtsheet)
+    // Process or log the states here
+    console.log(name, phone, email, salesDepartment, storkhomePlus, other);
+
+  }
+
+
+
+
+
+  useEffect(() => {
+    const sendDataToSheet = async () => {
+
+      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      // const targetUrl = "https://script.google.com/macros/s/AKfycbyHWl50dD5rLLd4jfu9vPZ-JKH9QT4O2nunRctKJoaAoWkD29r26pvosgvb3uDYnvgZ/exec";
+      // // Combine the URLs
+      // const proxiedRequestUrl = proxyUrl + targetUrl;
+      
+      if (!sedtsheet) return; // Only proceed if sedtsheet is true
+  
+      const formData = {
+        name,
+        phone,
+        email,
+        salesDepartment,
+        storkhomePlus,
+        other
+      };
+  
+      try {
+        // Await the Axios call
+        const response = await axios.post('https://script.google.com/macros/s/AKfycbyHWl50dD5rLLd4jfu9vPZ-JKH9QT4O2nunRctKJoaAoWkD29r26pvosgvb3uDYnvgZ/exec', formData);
+        console.log(response.data); // Log the response data, not the whole response
+      } catch (error) {
+        console.error('Error sending data to sheet:', error);
+      }
+    };
+  
+    sendDataToSheet();
+  }, [sedtsheet]);
+  
+
+
+  // Event handlers will be defined here
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+
+  const handleSalesDepartmentChange = () => {
+    setSalesDepartment(!salesDepartment);
+  };
+
+  const handleStorkhomePlusChange = () => {
+    setStorkhomePlus(!storkhomePlus);
+  };
+
+  const handleOtherChange = () => {
+    setOther(!other);
+  };
+
+
+
+
+
   // useEffect(() => {
   //   const timer = setTimeout(() => {
   //     setShowSplashScreen(false);
@@ -975,8 +1062,11 @@ function App() {
             </div>
             <div className="call_input_container">
               <input
+                name="name"
                 type="text"
                 className="call_input"
+                onChange={handleNameChange}
+                value={name}
                 placeholder={
                   languageTranslationForCheetModal(selectedLanguage).name
                 }
@@ -984,6 +1074,8 @@ function App() {
             </div>
             <div className="call_input_container">
               <input
+                value={phone}
+                onChange={handlePhoneChange}
                 type="number"
                 className="call_input"
                 placeholder={
@@ -992,6 +1084,21 @@ function App() {
                 }
               />
             </div>
+
+            <div className="call_input_container">
+              <input
+                value={email}
+                onChange={handleEmailChange}
+                type="text"
+                className="call_input"
+                placeholder={
+                  languageTranslationForCheetModal(selectedLanguage)
+                    .phone_number
+                }
+              />
+            </div>
+
+
           </div>
           <div className="choose_container">
             <div className="department_choices">
@@ -1009,7 +1116,13 @@ function App() {
             {/* 1 chekmark konteineri  tavisi saxelit */}
             <div className="little_checkmark_container">
               <label>
-                <input type="checkbox" className="input" />
+                <input type="checkbox" className="input"
+
+                  value={salesDepartment}
+                  onChange={handleSalesDepartmentChange}
+
+
+                />
                 <span className="custom-checkbox"></span>
               </label>
               <p style={{ color: "white" }}>
@@ -1023,7 +1136,14 @@ function App() {
             {/* 2 chekmark konteineri  tavisi saxelit */}
             <div className="little_checkmark_container">
               <label>
-                <input type="checkbox" className="input" />
+                <input type="checkbox" className="input"
+
+
+                  value={storkhomePlus}
+                  onChange={handleStorkhomePlusChange}
+
+
+                />
                 <span className="custom-checkbox"></span>
               </label>
               <p style={{ color: "white" }}>
@@ -1037,7 +1157,12 @@ function App() {
             {/* 3 chekmark konteineri  tavisi saxelit */}
             <div className="little_checkmark_container">
               <label>
-                <input type="checkbox" className="input" />
+                <input type="checkbox" className="input"
+
+                  value={other}
+                  onChange={handleOtherChange}
+
+                />
                 <span className="custom-checkbox"></span>
               </label>
               <p style={{ color: "white" }}>
@@ -1052,7 +1177,7 @@ function App() {
               // whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <button className="senc_to_sheet">
+              <button className="senc_to_sheet" onClick={handleSendSheet} >
                 {languageTranslationForCheetModal(selectedLanguage).send}
               </button>
             </motion.div>
