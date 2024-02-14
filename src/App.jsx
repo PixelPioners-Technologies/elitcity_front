@@ -641,6 +641,12 @@ function App() {
     const sendDataToSheet = async () => {
 
       // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
       // const targetUrl = "https://script.google.com/macros/s/AKfycbyHWl50dD5rLLd4jfu9vPZ-JKH9QT4O2nunRctKJoaAoWkD29r26pvosgvb3uDYnvgZ/exec";
       // // Combine the URLs
       // const proxiedRequestUrl = proxyUrl + targetUrl;
