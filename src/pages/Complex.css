@@ -16,6 +16,7 @@
 }
 
 .motionBox {
+
   border: 1px solid white;
 }
 
@@ -33,6 +34,7 @@
 .complexInfoAndCountShowBox {
   display: flex;
   align-items: center;
+  /* border: 1px solid green; */
 }
 
 .projectsPlansMapsSortingAndDollarBox {
@@ -153,7 +155,7 @@
 }
 
 .card {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 315px;
   /* height: 400px; */
   /* background-color: #C1D6CC; */
@@ -351,17 +353,19 @@
     display: flex;
   }
   .title {
-    font-size: 18px;
+    font-size: 15px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    gap: 15px;
+    /* flex-direction: column; */
+    /* flex-direction: row; */
+    /* justify-content: space-between; */
     /* border: 1px solid blue; */
   }
   .filter_icon_for_links {
     display: block;
   }
   .ComplexBodyBox {
-    padding: 30px 50px;
+    padding: 20px;
     /* border: 1px solid green; */
   }
   .mapAndLogoImg {
@@ -379,8 +383,13 @@
     font-size: 14px;
   }
   .switch {
-    width: 70px;
+    width: 40px;
     height: 40px;
+    /* border: 1px solid red; */
+  }
+  .currencyBox {
+    /* width: 60px; */
+
   }
   .sortAndArrowDownImgBox {
     font-size: 12px;
@@ -410,9 +419,9 @@
     padding-left: 20px;
   }
   .infoFieldOfComplexsPlansMaps {
-    width: 340px;
+    /* width: 340px; */
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     padding-left: 0;
     /* font-size: 10px; */
   }

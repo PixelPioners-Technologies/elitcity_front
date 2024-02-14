@@ -683,11 +683,11 @@ export default function EachComplex({
   const scalesize = new window.google.maps.Size(40, 40);
 
   return (
-    <div className="eachComplexBox">
-      <div className="imageAndTextInfos">
+    <div className="eachComplexBox3">
+      <div className="imageAndTextInfos3">
         {/* Complexes photos info */}
-        <div className="imageSliderBox">
-          <div className="bigImageBox">
+        <div className="imageSliderBox3">
+          <div className="bigImageBox2">
             <button className="btns" onClick={handlePrevious}>
               P
             </button>
@@ -704,7 +704,7 @@ export default function EachComplex({
               N
             </button>
           </div>
-          <div className="miniImagesBox">
+          <div className="miniImagesBox2">
             {sliderImages
               .slice(carouselPosition, carouselPosition + 4)
               .map((data, i) => (
@@ -728,8 +728,8 @@ export default function EachComplex({
         {/* complex text info */}
         {/* აქ DATA.MAP დროებით მაქ დატოვებული როგორც კი ბექი მოგვარდება */}
         {/* {DATA.map((complex, index) => ( */}
-        <div className="complexTextsBox">
-          <div className="seenIdFavouriteAndOthersBox">
+        <div className="complexTextsBox2">
+          <div className="seenIdFavouriteAndOthersBox2">
             <div className="seenAndIdBox">
               <p style={{ color: "#838282" }}>
                 {" "}

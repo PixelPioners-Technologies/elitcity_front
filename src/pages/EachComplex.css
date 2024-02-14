@@ -1,14 +1,14 @@
-.eachComplexBox {
+/* .eachComplexBox {
   height: 100vh;
   width: 99vw;
   padding: 0 42px;
   
-}
-
+} */
+/* 
 .imageAndTextInfos {
   display: flex;
   gap: 50px;
-}
+} */
 
 .imageSliderBox {
   display: flex;
@@ -52,34 +52,34 @@
 } */
 
 
-.complexTextsBox {
-  width: 100%;
+.complexTextsBox2 {
+  /* width: 100%;
   display: flex;
   flex-direction: column;
   gap: 30px;
-  padding-top: 40px;
+  padding-top: 40px; */
   
 }
 
-.seenIdFavouriteAndOthersBox {
+.seenIdFavouriteAndOthersBox2 {
   /* color: white; */
-  display: flex;
+  /* display: flex; */
   /* justify-content: space-around; */
   /* gap: 50px; */
-  justify-content: space-between;
+  /* justify-content: space-between; */
   
 
 }
 
 .seenAndIdBox {
-  display: flex;
+  /* display: flex;
   gap: 20px;
-  align-items: center;
+  align-items: center; */
 }
 
 .favouriteDollarAndShareBox {
-  display: flex;
-  gap: 20px;
+  /* display: flex;
+  gap: 20px; */
 }
 
 .chabarebaPartebiKorpusebi {
