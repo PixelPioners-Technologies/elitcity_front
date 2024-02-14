@@ -41,8 +41,8 @@ import aptiaqi from "../assets/Aptiaqi.svg";
 import supermarket from "../assets/Supermarket.svg";
 import skveri from "../assets/skveri.svg";
 import forMapPhoto from "../assets/ComplexesPhotos/1zz.jpg";
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-import private_apartment_location_icon from '../location_icons/private_apartment2.png'
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import private_apartment_location_icon from "../location_icons/private_apartment2.png";
 
 // ------------------
 import "./Physical.css";
@@ -55,14 +55,13 @@ import button_icon from "../icons/Vector.svg";
 
 import { useLocation } from "react-router-dom";
 
-  // --------------------------------------------------------------------------------------------------------------------
-  // --------------------------------------------------------------------------------------------------------------------
-  // --------------------------------------------------------------------------------------------------------------------
-  // ---  compleqsis misamartebi axali struqturidanaa amosagebi da ara aoartamentis addresidan       ------------------
-  // --------------------------------------------------------------------------------------------------------------------
-  // --------------------------------------------------------------------------------------------------------------------
-  // --------------------------------------------------------------------------------------------------------------------
-
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+// ---  compleqsis misamartebi axali struqturidanaa amosagebi da ara aoartamentis addresidan       ------------------
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 
 function normalizeData(item, lang) {
   return {
@@ -73,14 +72,15 @@ function normalizeData(item, lang) {
     protectionType: item[`protection_type_${lang}`],
     submissionType: item[`submission_type_${lang}`],
 
-    complexAddress: { 
+    complexAddress: {
       city: item[`complex_address_${lang}`][`city_${lang}`],
-      parentDistrict: item[`complex_address_${lang}`][`pharentDistrict_${lang}`], 
+      parentDistrict:
+        item[`complex_address_${lang}`][`pharentDistrict_${lang}`],
       district: item[`complex_address_${lang}`][`district_${lang}`],
       streetName: item[`complex_address_${lang}`][`street_name_${lang}`],
       address: item[`complex_address_${lang}`][`address_${lang}`],
       longitude: item[`complex_address_${lang}`].longitude,
-      latitude: item[`complex_address_${lang}`].latitude
+      latitude: item[`complex_address_${lang}`].latitude,
     },
 
     complexName: item[`complex_name_${lang}`],
@@ -114,9 +114,9 @@ function normalizeData(item, lang) {
     rank: item.internal_complex_name.rank,
 
     metro: item.internal_complex_name.metro,
-    Pharmacy: item.internal_complex_name.Pharmacy,
+    Pharmacy: item.internal_complex_name.pharmacy,
     supermarket: item.internal_complex_name.supermarket,
-    Square: item.internal_complex_name.Square,
+    Square: item.internal_complex_name.pquare,
 
     // Add other fields from internal_complex_name as needed
     complexImages: item.complex_images,
@@ -156,7 +156,6 @@ function normalizeData(item, lang) {
     // Add other top-level fields like typeOfRoof, constructionType, etc., as needed, dynamically using the lang parameter
   };
 }
-
 
 export default function EachComplex({
   selectedLanguage,
@@ -217,12 +216,6 @@ export default function EachComplex({
   const location = useLocation();
   const { complexId } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
 
-
-
-
-
-
-
   useEffect(() => {
     setSelectedCity("");
     setMin_area("");
@@ -259,55 +252,33 @@ export default function EachComplex({
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
-      // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-      // const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
-      // const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
-
-      const cityParam = `city`;
-
-      const limit = 12; // Define the limit or make it dynamic as per your requirement
-      const offset = (currentPage - 1) * limit;
-
-      // let queryParams = new URLSearchParams({
-      //   [cityParam]: selectedCity,
-      //   min_square_price: min_square_price,
-      //   max_square_price: max_square_price,
-      //   min_full_price: minFullPrice,
-      //   max_full_price: maxFullPrice,
-      //   min_area: min_area,
-      //   max_area: max_area,
-      //   limit: limit,
-      //   offset: offset,
-      // });
-
       if (selectedStatuses && selectedStatuses.length > 0) {
         selectedStatuses.forEach((status) => {
           queryParams.append("status", status);
         });
       }
 
-      // const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${complexId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
       const data = response.data;
       const normalised_Data = normalizeData(data, selectedLanguage);
 
-      console.log("----111---,", normalised_Data);
-      setAllComplexImages(data.complex_images);
+      console.log("dataaaaa" , data.complex_images)
+
+      setAllComplexImages(data.complexImages);
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
 
-      seteachComplexAllAppartments(normalised_Data)
-      // Update sliderImages state with all images from the fetched data
-      const sliderImagesFromData = allComplexImages.map((imgUrl, index) => ({
-        id: index,
-        value: imgUrl, // Directly using the URL from the JSON data
-      }));
-      setSliderImages(sliderImagesFromData); // Update the state
-      setWordData(sliderImagesFromData[0] || null); // Initialize with the first image or null if empty
+      seteachComplexAllAppartments(normalised_Data);
 
-      // setTotalCount(response.data.total_items);
-      // setCorrentPage(response.data.current_page);
+      const imagesWithIds = data.complex_images.map((url, index) => ({
+        id: index,  
+        value: url  
+      }));
+
+      setSliderImages(imagesWithIds); 
+      setWordData(imagesWithIds[0] || null); 
+      
     };
     fetcPrivateApartments();
   }, [
@@ -326,54 +297,14 @@ export default function EachComplex({
     // wordData,
     // allComplexImages,
   ]);
-
-
-useEffect(()=> {
-  console.log("description" , eachPrivateApartment)
-
-
-
-},[eachComplexAllAppartments])
-
   
+  // console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
+  useEffect(() => {
+    console.log("apartments ", privateApartments);
 
-  // useEffect(() => {
-  //   console.log("sliderImagessliderImages;:::::;", sliderImages);
+  }, [privateApartments ]);
 
-  //   // console.log("aq unda iyos suratebi", privateApartments);
-  // }, [sliderImages]);
 
-  // // ----------------------------------------logic for space and proce modal to open and close -----------------------------------------------
-
-  const handle_P_SpaceButtonClick = () => {
-    setIs_P_SpaceModalOpen(true);
-    setIs_P_PriceModalOpen(false);
-    setIs_P_StatusModalOpen(false);
-  };
-
-  const close_P_SpaceModal = () => {
-    setIs_P_SpaceModalOpen(false);
-  };
-
-  const handle_P_PriceButtonClick = () => {
-    setIs_P_PriceModalOpen(true);
-    setIs_P_SpaceModalOpen(false);
-    setIs_P_StatusModalOpen(false);
-  };
-
-  const handleClose_P_PriceModal = () => {
-    setIs_P_PriceModalOpen(false);
-  };
-
-  const handle_P_StatusButtonClick = () => {
-    setIs_P_StatusModalOpen(true);
-    setIs_P_SpaceModalOpen(false);
-    setIs_P_PriceModalOpen(false);
-  };
-
-  const handleClose_P_StatusModal = () => {
-    setIs_P_StatusModalOpen(false);
-  };
 
   // ---------------------------------------------------------------------------------------------------------------------
 
@@ -723,17 +654,13 @@ useEffect(()=> {
     navigate(`/eachapartment/${apartmentId}`, { state: { apartmentId } });
   };
 
-  
-  
   const mapcenter = {
     lat: eachComplexAllAppartments?.complexAddress?.latitude || 41.7151,
     lng: eachComplexAllAppartments?.complexAddress?.longitude || 44.8271,
   };
-  
-
 
   const navigate = useNavigate();
-  
+
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
   });
@@ -744,7 +671,7 @@ useEffect(()=> {
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
-  const scalesize = new window.google.maps.Size(40, 40)
+  const scalesize = new window.google.maps.Size(40, 40);
 
   return (
     <div className="eachComplexBox">
@@ -768,14 +695,15 @@ useEffect(()=> {
               N
             </button>
           </div>
-          <div className="miniImagesBox">
+          <div className="miniImagesBox_complex">
             {sliderImages
               .slice(carouselPosition, carouselPosition + 4)
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData.id === data.id ? "clicked" : ""} ${clickedIndex === i ? "enlarge" : ""
-                      }`}
+                    className={`${wordData?.id === data.id ? "clicked" : ""} ${
+                      clickedIndex === i ? "enlarge" : ""
+                    }`}
                     src={data.value}
                     alt={`Complex ${data.id}`}
                     onClick={() => handleClick(i + carouselPosition)}
@@ -794,12 +722,6 @@ useEffect(()=> {
         <div className="complexTextsBox">
           <div className="seenIdFavouriteAndOthersBox">
             <div className="seenAndIdBox">
-              <p style={{ color: "#838282" }}>
-                {" "}
-                {
-                  handle_P_StatusButtonLanguageChange(selectedLanguage).seen
-                }: {eachPrivateApartment?.viewCount}
-              </p>
               <p style={{ color: "#838282" }}>ID: {eachPrivateApartment?.id}</p>
             </div>
 
@@ -1490,11 +1412,10 @@ useEffect(()=> {
             {/* mtavrdeba:  inprastruqturisIconsBox--------- */}
           </div>
         </div>
-        <h4 style={{ color: "white", marginTop: "20px"  }}>
+        <h4 style={{ color: "white", marginTop: "20px" }}>
           {handle_P_StatusButtonLanguageChange(selectedLanguage).description}
         </h4>
         <p style={{ color: "white", marginTop: "20px" }}>
-
           {eachPrivateApartment?.description}
         </p>
 
@@ -1508,58 +1429,68 @@ useEffect(()=> {
         <div className="axloMdebareObieqtebiBox">
           <div className="textBoxOfAxloMdebare">
             <div className="iconAndItsText">
-{/* 
+              {/* 
             metro: item.internal_complex_name.metro,
     Pharmacy: item.internal_complex_name.Pharmacy,
     supermarket: item.internal_complex_name.supermarket,
     Square: item.internal_complex_name.Square, */}
 
-
-            {eachPrivateApartment?.metro && (
-                    <>
-                      <img src={metro} alt="metro" />
-                      <p>
-                        {handle_P_StatusButtonLanguageChange(selectedLanguage).metro}
-                      </p>
-                    </>
-                  )}
+              {eachPrivateApartment?.metro && (
+                <>
+                  <img src={metro} alt="metro" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .metro
+                    }
+                  </p>
+                </>
+              )}
             </div>
             <div className="iconAndItsText">
-
-            {eachPrivateApartment?.supermarket && (
-                    <>
-                      <img src={supermarket} alt="supermarket" />
-                      <p>
-                        {handle_P_StatusButtonLanguageChange(selectedLanguage).supermarket}
-                      </p>
-                    </>
-                  )}
+              {eachPrivateApartment?.supermarket && (
+                <>
+                  <img src={supermarket} alt="supermarket" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .supermarket
+                    }
+                  </p>
+                </>
+              )}
             </div>
             <div className="iconAndItsText">
-            {eachPrivateApartment?.Pharmacy &&  (
-                    <>
-                      <img src={aptiaqi} alt="aptiaqi" />
-                      <p>
-                        {handle_P_StatusButtonLanguageChange(selectedLanguage).pharmacy}
-                      </p>
-                    </>
-                  )}
+              {eachPrivateApartment?.Pharmacy && (
+                <>
+                  <img src={aptiaqi} alt="aptiaqi" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .pharmacy
+                    }
+                  </p>
+                </>
+              )}
             </div>
             <div className="iconAndItsText">
-            {eachPrivateApartment?.Square && (
-                    <>
-                      <img src={skveri} alt="skveri" />
-                      <p>
-                        {handle_P_StatusButtonLanguageChange(selectedLanguage).square}
-                      </p>
-                    </>
-                  )}
+              {eachPrivateApartment?.Square && (
+                <>
+                  <img src={skveri} alt="skveri" />
+                  <p>
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .square
+                    }
+                  </p>
+                </>
+              )}
             </div>
           </div>
 
           <div className="child_map_container_P">
             <GoogleMap
-              mapContainerStyle={{ height: '300px' }}
+              mapContainerStyle={{ height: "300px" }}
               center={mapcenter}
               zoom={16}
               options={{
@@ -1575,12 +1506,12 @@ useEffect(()=> {
               <Marker
                 key={privateApartments.id}
                 position={{
-                  lat: eachComplexAllAppartments?.complexAddress?.latitude,
-                  lng:eachComplexAllAppartments?.complexAddress?.longitude
+                  lat: mapcenter.lat,
+                  lng: mapcenter.lng,
                 }}
                 icon={{
                   url: private_apartment_location_icon,
-                  scaledSize: scalesize
+                  scaledSize: scalesize,
                 }}
               />
             </GoogleMap>

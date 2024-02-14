@@ -8,7 +8,7 @@ import loupe from '../icons/loupe.png'
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { BaseURLs } from '../App';
-
+import { useNavigate } from 'react-router-dom';
 
 const normalizeCompanyData = (data, lang) => {
   return data.map(item => ({
@@ -40,6 +40,11 @@ export default function Developers({ favorites, selectedLanguage }) {
 
 
 
+  const navigate = useNavigate();
+  // Assuming `complex` is an object representing each house
+  const handle_company_click = (companyID) => {
+    navigate(`/eachcompany/${companyID}`, { state: { companyID } });
+  };
 
   // --------------------------------------function for fetching company data-------------------------------------------
 
@@ -148,13 +153,14 @@ export default function Developers({ favorites, selectedLanguage }) {
                 // whileTap={{ scale: 0.9 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
-                <div className='developers' >
+             
+                <div className='developers'  onClick={() => handle_company_click(developers.id)}   >
 
                   <div className='developers_child_container' >
 
                     {/* logo container */}
                     <div>
-                      <img className='company_logo' src={developers.logoCompany} rel='company logo' />
+                      <img className='company_logo' src={developers.logoCompany} rel='company logo'  />
                     </div>
 
                     {/* settings container */}
@@ -197,7 +203,7 @@ export default function Developers({ favorites, selectedLanguage }) {
 
       <div>
         {otherCompanies.map((developers, index) => (
-          <div className='big_container_for_key' key={index}  >
+          <div className='big_container_for_key' key={index} onClick={() => handle_company_click(developers.id)}   >
             <motion.div
               // key={currentPage}
               initial={{ x: -50, opacity: 0 }}
@@ -247,15 +253,21 @@ export default function Developers({ favorites, selectedLanguage }) {
               onClick={pagiHandler}
               sx={{
                 '& .MuiPaginationItem-root': {
+                  display: "flex !important",
+                  flexDirection: "row !important",
                   color: '#fff !important', // White text color for unselected items, with increased specificity
                   margin: '3px !important', // Removes margin between buttons, with increased specificity
                   padding: '0 !important', // Removes padding inside buttons, with increased specificity
                   '&:hover': {
+                    display: "flex !important",
+                    flexDirection: "row !important",
                     backgroundColor: '#f0f0f0 !important', // Background color on hover for unselected items, with increased specificity
                     color: '#000 !important', // Text color on hover for unselected items, with increased specificity
                   },
                 },
                 '& .Mui-selected': {
+                  display: "flex !important",
+                  flexDirection: "row !important",
                   backgroundColor: '#fff !important', // White background color for the selected item, with increased specificity
                   color: '#000 !important', // Black text color for the selected item, with increased specificity
                   '&:hover': {
@@ -264,11 +276,15 @@ export default function Developers({ favorites, selectedLanguage }) {
                   },
                 },
                 '& .MuiPaginationItem-ellipsis': {
+                  display: "flex !important",
+                  flexDirection: "row !important",
                   color: '#fff !important', // Color of the ellipsis, with increased specificity
                   margin: '0 !important', // Removes margin around the ellipsis, with increased specificity
                   padding: '0 !important', // Removes padding around the ellipsis, with increased specificity
                 },
                 '.MuiPagination-ul': {
+                  display: "flex !important",
+                  flexDirection: "row !important",
                   justifyContent: 'center !important', // Centers the pagination items, with increased specificity
                   flexWrap: 'nowrap !important', // Prevents the pagination items from wrapping, with increased specificity
                 }

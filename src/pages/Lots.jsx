@@ -1,5 +1,5 @@
 import "./Physical.css";
-import './Lots.css'
+import "./Lots.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import P_Modal from "../modals for private page/P_Modal";
@@ -24,6 +24,7 @@ import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import googleMapImage from "../assets/mapImageForFooter.svg";
 import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
+import Filter from "../assets/filter.png";
 
 const normalizeGroundData = (data, lang) => {
   return data.map((item) => ({
@@ -116,8 +117,6 @@ export default function Physical({
 
   const [search, setSearch] = useState(false);
 
-
-
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -205,11 +204,9 @@ export default function Physical({
     // graundStatus,
   ]);
 
-
   const habdle_Search_Button_Click = () => {
-    setSearch(!search)
-  }
-
+    setSearch(!search);
+  };
 
   // useEffect(() => {
   //   console.log("aq unda iyos suratebi", privateApartments);
@@ -488,7 +485,7 @@ export default function Physical({
       fullPriceHomePage: "Full price",
       meterPriceHomePage: "The price of m²",
       dan: "from",
-      mde: "to"
+      mde: "to",
     };
 
     switch (lang) {
@@ -505,14 +502,14 @@ export default function Physical({
         languageInfo.complexes = "Complexes";
         languageInfo.private_apartments = "Private Appartments";
         languageInfo.allFindButtonLanguage = "Search";
-        languageInfo.spaceButtonClose = "Close"
-        languageInfo.minPrice = "From m²"
-        languageInfo.maxPrice = "To m²"
-        languageInfo.roomStudio = "Studio"
-        languageInfo.fullPriceHomePage = "Full price"
-        languageInfo.meterPriceHomePage = "The price of m²"
-        languageInfo.dan = "from"
-        languageInfo.mde = "to"
+        languageInfo.spaceButtonClose = "Close";
+        languageInfo.minPrice = "From m²";
+        languageInfo.maxPrice = "To m²";
+        languageInfo.roomStudio = "Studio";
+        languageInfo.fullPriceHomePage = "Full price";
+        languageInfo.meterPriceHomePage = "The price of m²";
+        languageInfo.dan = "from";
+        languageInfo.mde = "to";
 
         break;
 
@@ -529,14 +526,14 @@ export default function Physical({
         languageInfo.complexes = "კომპლექსები";
         languageInfo.private_apartments = "კერძო ბინები";
         languageInfo.allFindButtonLanguage = "Search";
-        languageInfo.spaceButtonClose = "დახურვა"
-        languageInfo.minPrice = "დან მ²"
-        languageInfo.maxPrice = "მდე მ²"
-        languageInfo.roomStudio = "სტუდიო"
-        languageInfo.fullPriceHomePage = "სრული ფასი"
-        languageInfo.meterPriceHomePage = "მ² - ის ფასი"
-        languageInfo.dan = "დან"
-        languageInfo.mde = "მდე"
+        languageInfo.spaceButtonClose = "დახურვა";
+        languageInfo.minPrice = "დან მ²";
+        languageInfo.maxPrice = "მდე მ²";
+        languageInfo.roomStudio = "სტუდიო";
+        languageInfo.fullPriceHomePage = "სრული ფასი";
+        languageInfo.meterPriceHomePage = "მ² - ის ფასი";
+        languageInfo.dan = "დან";
+        languageInfo.mde = "მდე";
 
         break;
 
@@ -552,14 +549,14 @@ export default function Physical({
         languageInfo.stringFiltrationButtonLanguage = "Поиск по слову";
         languageInfo.complexes = "Комплексы";
         languageInfo.private_apartments = "Частные апартаменты";
-        languageInfo.spaceButtonClose = "закрить"
-        languageInfo.minPrice = "из м²"
-        languageInfo.maxPrice = "до м²"
-        languageInfo.roomStudio = "Студия"
-        languageInfo.fullPriceHomePage = "Полная стоимость"
-        languageInfo.meterPriceHomePage = "Цена м²"
-        languageInfo.dan = "из"
-        languageInfo.mde = "до"
+        languageInfo.spaceButtonClose = "закрить";
+        languageInfo.minPrice = "из м²";
+        languageInfo.maxPrice = "до м²";
+        languageInfo.roomStudio = "Студия";
+        languageInfo.fullPriceHomePage = "Полная стоимость";
+        languageInfo.meterPriceHomePage = "Цена м²";
+        languageInfo.dan = "из";
+        languageInfo.mde = "до";
 
         break;
     }
@@ -645,12 +642,12 @@ export default function Physical({
   };
 
   const handle_pagination_arrow_page_up = (eevent, value) => {
-    setCorrentPage(value)
+    setCorrentPage(value);
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-  }
+  };
 
   // ------------------------------------------------------------------------------------
   const handleStatusButtonLanguageChange = (lang) => {
@@ -674,7 +671,7 @@ export default function Physical({
       fullPriceHomePage: "Full price",
       meterPriceHomePage: "The price of m²",
       dan: "from",
-      mde: "to"
+      mde: "to",
     };
 
     switch (lang) {
@@ -706,7 +703,8 @@ export default function Physical({
         languageInfo.sortingButtonAscendantTime = "თარიღი ზრდადობით";
         languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით";
         languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით";
-        languageInfo.sortingButtonDescendentFullPrice = "მთლიანი ფასი კლებადობით";
+        languageInfo.sortingButtonDescendentFullPrice =
+          "მთლიანი ფასი კლებადობით";
         languageInfo.studio = "სტუდიო";
         languageInfo.allFindButtonLanguage = "ძებნა";
         languageInfo.spaceButtonClose = "დახურვა"
@@ -849,15 +847,26 @@ export default function Physical({
 
   // const handle_Search_Burron_Click = () => {
 
-
-
   // }
 
+  const [sortOpen, setSortOpen] = useState(false);
 
+  const sortOpenLots = () => {
+    setSortOpen(!sortOpen);
+  };
 
   return (
     <div className="ComplexBodyBox_physical">
-      <div className="private_filter_conteiner">
+      <div className="filter_div_for_sort_icon">
+        <img
+          onClick={sortOpenLots}
+          className="filter_image"
+          src={Filter}
+          alt=""
+        />
+      </div>
+      {/* className="private_filter_conteiner" */}
+      <div className={sortOpen ? "private_filter_conteiner" : "closeSort"} >
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -884,12 +893,20 @@ export default function Physical({
               >
                 <div>
                   <div>
-                    <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
+                    <text className="priceTextHomePage">
+                      {
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .spaceButtonLanguage
+                      }
+                    </text>
                   </div>
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
+                    placeholder={
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .minPrice
+                    }
                     value={min_area}
                     onChange={(e) => setMin_area(e.target.value)}
                   />
@@ -897,7 +914,10 @@ export default function Physical({
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
+                    placeholder={
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .maxPrice
+                    }
                     value={max_area}
                     onChange={(e) => setMax_area(e.target.value)}
                   />
@@ -932,13 +952,18 @@ export default function Physical({
                 close={handleClose_P_PriceModal}
               >
                 <div>
-                  <div className='fullPriceHomePage'>
-                    {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+                  <div className="fullPriceHomePage">
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .fullPriceHomePage
+                    }
                   </div>
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
+                    placeholder={
+                      handleStatusButtonLanguageChange(selectedLanguage).dan
+                    }
                     value={min_square_price}
                     onChange={(e) => setMin_square_price(e.target.value)}
                   />
@@ -946,19 +971,26 @@ export default function Physical({
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
+                    placeholder={
+                      handleStatusButtonLanguageChange(selectedLanguage).mde
+                    }
                     value={max_square_price}
                     onChange={(e) => setMax_square_price(e.target.value)}
                   />
 
-                  <div className='meterPriceHomePageComplex'>
-                    {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
+                  <div className="meterPriceHomePageComplex">
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .meterPriceHomePage
+                    }
                   </div>
 
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
+                    placeholder={
+                      handleStatusButtonLanguageChange(selectedLanguage).dan
+                    }
                     value={minFullPrice}
                     onChange={(e) => setMinFullPrice(e.target.value)}
                   />
@@ -966,7 +998,9 @@ export default function Physical({
                   <input
                     type="number"
                     className="filter_inputs"
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
+                    placeholder={
+                      handleStatusButtonLanguageChange(selectedLanguage).mde
+                    }
                     value={maxFullPrice}
                     onChange={(e) => setMaxFullPrice(e.target.value)}
                   />
@@ -1055,8 +1089,14 @@ export default function Physical({
               </div>
             </div>
             {/*serach  Button */}
-            <div className="all_search_button" onClick={habdle_Search_Button_Click} >
-              {handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+            <div
+              className="all_search_button"
+              onClick={habdle_Search_Button_Click}
+            >
+              {
+                handleStatusButtonLanguageChange(selectedLanguage)
+                  .allFindButtonLanguage
+              }
             </div>
           </div>
         </motion.div>
@@ -1151,7 +1191,8 @@ export default function Physical({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox_physical">
-                  სორტირება
+                  <p className="sort_text_web">სორტირება</p>
+                  <p className="sort_text">სორტ</p>
                   <img src={arrowDownSorting} style={{ width: "20px" }} />
                 </div>
               </Button>
@@ -1337,14 +1378,16 @@ export default function Physical({
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        isOn ? "active" : ""
+                      }`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${!isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        !isOn ? "active" : ""
+                      }`}
                     />
                   </motion.div>
                 </div>
@@ -1438,19 +1481,24 @@ export default function Physical({
             shape="rounded"
             page={currentPage}
             onChange={handle_pagination_arrow_page_up}
-
             onClick={pagiHandler}
             sx={{
               "& .MuiPaginationItem-root": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 color: "#fff !important", // White text color for unselected items, with increased specificity
                 margin: "3px !important", // Removes margin between buttons, with increased specificity
                 padding: "0 !important", // Removes padding inside buttons, with increased specificity
                 "&:hover": {
+                  display: "flex !important",
+                  flexDirection: "row !important",
                   backgroundColor: "#f0f0f0 !important", // Background color on hover for unselected items, with increased specificity
                   color: "#000 !important", // Text color on hover for unselected items, with increased specificity
                 },
               },
               "& .Mui-selected": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 backgroundColor: "#fff !important", // White background color for the selected item, with increased specificity
                 color: "#000 !important", // Black text color for the selected item, with increased specificity
                 "&:hover": {
@@ -1459,11 +1507,15 @@ export default function Physical({
                 },
               },
               "& .MuiPaginationItem-ellipsis": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 color: "#fff !important", // Color of the ellipsis, with increased specificity
                 margin: "0 !important", // Removes margin around the ellipsis, with increased specificity
                 padding: "0 !important", // Removes padding around the ellipsis, with increased specificity
               },
               ".MuiPagination-ul": {
+                display: "flex !important",
+                flexDirection: "row !important",
                 justifyContent: "center !important", // Centers the pagination items, with increased specificity
                 flexWrap: "nowrap !important", // Prevents the pagination items from wrapping, with increased specificity
               },
@@ -1497,7 +1549,7 @@ const styles = {
     width: "278px",
     height: "229px",
     overflow: "hidden",
-    borderRadius: "20px",
+    // borderRadius: "20px",
   },
   companyTitle: {
     // position: 'absolute',
