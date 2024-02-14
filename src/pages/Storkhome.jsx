@@ -94,43 +94,39 @@ export default function Storkhome({
 
       <div className='card_kit_settings_container' >
         <div className='kit_settings_cont' >
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
         </div>
 
         <div className='kit_settings_cont' >
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
         </div>
 
         <div className='kit_settings_cont' >
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
-          <p className='kit_settings' >imformaciistvis velodebit damkvets</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
+          <p className='kit_settings' >now information yet</p>
         </div>
 
       </div>

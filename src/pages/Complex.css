@@ -207,6 +207,13 @@
   transition: transform 0.3s ease;
 }
 
+
+.company_title_on_card{
+  color: #f1eeee;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 10px;
+}
+
 .textinfo_and_company_logo{
   display: flex;
   justify-content: flex-start;
@@ -273,7 +280,6 @@
   color: #f1eeee; /* Change to the color you need */
   border: none;
   padding: 10px 20px; /* Adjust padding to match the size in the photo */
-  text-transform: uppercase; /* If the text is meant to be uppercase */
   font-weight: bold; /* If the font is bold in the photo */
   border-radius: 5px; /* Adjust the border-radius to match the button corners in the photo */
   font-size: 16px; /* Adjust font size to match the photo */
@@ -288,6 +294,7 @@
 .homepage_serch_button_complexpage:hover {
   background-color: transparent; /* Color when hovered, adjust as needed */
   color: black;
+  
 }
 
 .close_cont {

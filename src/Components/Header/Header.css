@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap');
+
+
 .header {
   /* padding: 30px; */
   height: 84px;
@@ -83,6 +86,13 @@ nav ul {
 .heartLogoButton:hover {
   cursor: pointer;
 }
+
+.buttonItemsOfList{
+  font-family: 'Roboto', sans-serif;
+
+}
+
+
 /* 
 .numberOfHeart {
   display: flex;
