@@ -210,14 +210,20 @@ function App() {
   const [currentPage, setCorrentPage] = useState(0);
   const [total_item_number, setTotal_item_number] = useState("");
 
-  const [homes, setHomes] = useState([]);
+  // const [homes, setHomes] = useState([]);
 
-  const [complex_homes, setComplex_homes] = useState([]);
+  // const [complex_homes, setComplex_homes] = useState([]);
 
-  const [showSplashScreen, setShowSplashScreen] = useState(true);
+  // const [showSplashScreen, setShowSplashScreen] = useState(true);
+
+  const [ascendentPrice, setAscendentPrice] = useState("");
+
   // -----------------------------------------------------------------------------------------------------
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
+  const sortingChangeHandler = (data)=> {
+    setAscendentPrice(data)
+  }
 
   const stringSearchHeandles = (data) => {
     setSearchInput(data);
@@ -305,6 +311,7 @@ function App() {
         max_space: max_space,
         limit: limit,
         offset: offset,
+        ordering: ascendentPrice,
       });
 
       // Append each status as a separate parameter
@@ -735,6 +742,7 @@ function App() {
                 currenceChangeState={currenceChangeState}
                 isOn={isOn}
                 toggleSwitch={toggleSwitch}
+                sortingChangeHandler={sortingChangeHandler}
               />
             }
           />

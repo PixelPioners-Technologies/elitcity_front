@@ -84,13 +84,16 @@ export default function Complex({
   currenceChangeState,
   isOn,
   toggleSwitch,
-}) {
-  const [homes, setHomes] = useState([]);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [forPriceDecrease, setForPriceDecrease] = useState(null);
-  const [sortedHomes, setSortedHomes] = useState(null); // Initialize sortedHomes state
-  const [ascendentPrice, setAscendentPrice] = useState("");
+  sortingChangeHandler,
+
+}) {
+  // const [homes, setHomes] = useState([]);
+
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [forPriceDecrease, setForPriceDecrease] = useState(null);
+  // const [sortedHomes, setSortedHomes] = useState(null); 
+  // const [ascendentPrice, setAscendentPrice] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
@@ -366,7 +369,14 @@ export default function Complex({
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
-      pricePerM: 'Price per m²'
+      pricePerM: 'Price per m²',
+
+      sortingButtonAscendentPrice: "Ascendant price in m²",
+      sortingButtonDescendentPrice: "Descendent price in m²",
+      sortingButtonAscendantTime: "Ascendant created at",
+      sortingButtonDescendentTime: "Decendant created at",
+      sortingButtonAscendantFullPrice: "Ascendant full price ",
+      sortingButtonDescendentFullPrice: "Descendant full price",
     }
 
     switch (lang) {
@@ -387,6 +397,13 @@ export default function Complex({
         languageInfo.dan = "from"
         languageInfo.mde = "to"
         languageInfo.pricePerM = "Price per m²"
+
+        languageInfo.sortingButtonAscendentPrice = "Ascendant price in m²";
+        languageInfo.sortingButtonDescendentPrice = "Descendent price in m²";
+        languageInfo.sortingButtonAscendantTime = "Ascendant created at";
+        languageInfo.sortingButtonDescendentTime = "Decendent created at";
+        languageInfo.sortingButtonAscendantFullPrice = "Ascendant full price ";
+        languageInfo.sortingButtonDescendentFullPrice = "Decendent full price";
         break;
 
       case "ka":
@@ -406,6 +423,14 @@ export default function Complex({
         languageInfo.dan = "დან"
         languageInfo.mde = "მდე"
         languageInfo.pricePerM = "მ² ფასი"
+
+        languageInfo.sortingButtonAscendentPrice = "მ² ფასი ზრდადობით";
+        languageInfo.sortingButtonDescendentPrice = "მ² ფასი კლებადობით";
+        languageInfo.sortingButtonAscendantTime = "თარიღი ზრდადობით";
+        languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით";
+        languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით";
+        languageInfo.sortingButtonDescendentFullPrice ="მთლიანი ფასი კლებადობით";
+        
         break
 
       case "ru":
@@ -425,6 +450,13 @@ export default function Complex({
         languageInfo.dan = "из"
         languageInfo.mde = "до"
         languageInfo.pricePerM = "Цена за м²"
+
+        languageInfo.sortingButtonAscendentPrice = "Цена м² цена по увеличение";
+        languageInfo.sortingButtonDescendentPrice = "Цена м² цена по снижение";
+        languageInfo.sortingButtonAscendantTime = "Время по увеличение";
+        languageInfo.sortingButtonDescendentTime = "Время по снижение";
+        languageInfo.sortingButtonAscendantFullPrice = "Полная цена по увеличение";
+        languageInfo.sortingButtonDescendentFullPrice ="Полная цена по снижение";
 
         break
     }
@@ -813,23 +845,6 @@ export default function Complex({
                 </motion.div>
               </Link>
 
-              <Link to="/complex/apartmentList">
-                <motion.div
-                  className="textButtonContainer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <div className="mapAndLogoImg">
-                    <img
-                      src={mapSignLogo}
-                      alt="mapSignLogo"
-                      className="mapSignLogo"
-                    />
-                    <button className="textButton">გეგმარებები</button>
-                  </div>
-                </motion.div>
-              </Link>
 
               <Link to="/map">
                 <motion.div
@@ -901,7 +916,7 @@ export default function Complex({
                     }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice("-created_at");
+                      sortingChangeHandler("-created_at");
                     }}
                   >
                     თარიღი კლებადობით
@@ -921,7 +936,7 @@ export default function Complex({
                     }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice("created_at");
+                      sortingChangeHandler("created_at");
                     }}
                   >
                     თარიღი ზრდადობით
@@ -941,7 +956,7 @@ export default function Complex({
                     }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice("-price_per_sq_meter");
+                      sortingChangeHandler("-price_per_sq_meter");
                     }}
                   >
                     ფასი კლებადობით
@@ -961,7 +976,7 @@ export default function Complex({
                     }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice("price_per_sq_meter");
+                      sortingChangeHandler("price_per_sq_meter");
                     }}
                   >
                     ფასი ზრდადობით
@@ -981,7 +996,7 @@ export default function Complex({
                     }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice("-rank");
+                      sortingChangeHandler("-rank");
                     }}
                   >
                     რანკი კლებადობით
@@ -1001,7 +1016,7 @@ export default function Complex({
                     }}
                     onClick={() => {
                       handleClose();
-                      setAscendentPrice("rank");
+                      sortingChangeHandler("rank");
                     }}
                   >
                     რანკი ზრდადობით
@@ -1040,7 +1055,7 @@ export default function Complex({
           <div className="card" key={complex.id}>
             <motion.div
               initial={{ x: -50, opacity: 0 }}
-              transition={{ duration: 0.1 }}
+              transition={{ duration: 1.1 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
             >
