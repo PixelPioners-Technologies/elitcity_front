@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 // import React from 'react'
+
+import React from "react";
+
 import "./Header.css";
 import CompanyLogo from "../../assets/LogoOfStorkhome.svg";
 import { Link } from "react-router-dom";
@@ -7,6 +10,8 @@ import HeartLogo from "../../assets/starLogo.svg";
 import Language from "./Language/Language";
 import ArrowDown from "../../assets/arrowDownFromHeader.svg";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+
 
 
 export default function Header({
@@ -17,13 +22,18 @@ export default function Header({
   favoritesLots,
   favoritesPhysical,
 }) {
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
   const handle_P_StatusButtonLanguageChange = (lang) => {
     var languageInfo = {
       complex: "Complexes",
       lands: "Lands",
       developers: "Developers",
-      natural_persons: "Natural persons",
+      natural_persons: "Phisical persons",
       map: "Map",
       Promotions: "Promotions",
       Blogs: "Blogs",
@@ -61,18 +71,19 @@ export default function Header({
         break;
     }
     return languageInfo;
+
   };
 
   return (
     <div className="header">
-      <div className="LogoAndNavBar">
-        <div className="logoBox">
-          <Link to="/homePage">
-            <img src={CompanyLogo} alt="Logo of Company STARKHOME COMPANY " />
-          </Link>
-        </div>
 
-        <nav>
+      <Link to="/homePage">
+        <img src={CompanyLogo} alt="Logo of Company STARKHOME COMPANY " />
+      </Link>
+      {/* ------------------------------- */}
+      {/* ჯერ–ჯერობით favorite უბრალოდ img-ად მაქვს ვიზუალისთვის და არა ფუნქციონალით */}
+      <div className="row_reverse">
+        <nav className={isMenuOpen ? "open" : "close"}>
           <ul>
             <li>
               <Link to="/complex">
@@ -102,6 +113,7 @@ export default function Header({
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
+
                   <button className="buttonItemsOfList">
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
@@ -119,6 +131,7 @@ export default function Header({
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
+
                   <button className="buttonItemsOfList">
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
@@ -184,6 +197,7 @@ export default function Header({
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
+
                   <button className="buttonItemsOfList">
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
@@ -207,6 +221,7 @@ export default function Header({
             </li>
           </ul>
         </nav>
+
       </div>
 
       <div className="favouriteAndLanguageAndDayModeChanger">
@@ -219,33 +234,26 @@ export default function Header({
             <button className="buttonItemsOfList">დეველო</button>
           </Link>
         </div>
-        {/* ------------------------------- */}
 
-        {/* ჯერ–ჯერობით favorite უბრალოდ img-ად მაქვს ვიზუალისთვის და არა ფუნქციონალით */}
-        <div className="heartAndNumberBox">
-          <Link to="/favoriteComplex">
-            <div className="heartBox">
-              <button className="heartLogoButton">
-                <img
-                  src={HeartLogo}
-                  alt="Icon of Heart"
-                  className="heartLogo"
-                />
-              </button>
-            </div>
-          </Link>
-          <div className="numberOfHeart">
-            <p>
-              {favorites.length +
-                favoritesPhysical.length +
-                favoritesLots.length}
-            </p>
+      </div>
+
+      <div className="favouriteAndLanguageAndDayModeChanger">
+        <Link to="/favoriteComplex">
+          <div className="heartBox">
+            <button className="heartLogoButton">
+              <img src={HeartLogo} alt="Icon of Heart" className="heartLogo" />
+            </button>
           </div>
-        </div>
-        {/* Language Menu,  */}
+        </Link>
         {/* აქ მხოლოდ ენებს ჩამოშლის ფუნქცია აქვს და გადასაყვანია ყველა ტექსტი სხვა ენებზეც, გურამს 
         აქვს მაპზე გაწერილი მოდალებად */}
         <Language handleLanguageChange={handleLanguageChange} />
+      </div>
+      <div className="burger_menu_icon" onClick={toggleMenu}>
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+
       </div>
     </div>
   );

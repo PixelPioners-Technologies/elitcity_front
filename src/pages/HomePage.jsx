@@ -399,15 +399,16 @@ export default function Map({ selectedLanguage,
 
   // ---------------------------------------------------------------------------------------------------------------------
   return (
-    <div className='hhh'>
+    // <div className='hhh'>
       <>
         <div className='main_map main_foto '>
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 2 }}
+            className='title_filter_cont'
           >
-            <div className='for_comfort'>
+            {/* <div className='for_comfort'> */}
               <div className='adgilicomportistvis'>
                 ადგილი შენი კომფორტისთვის
               </div>
@@ -532,7 +533,7 @@ export default function Map({ selectedLanguage,
                 </div>
               </div>
 
-            </div>
+            {/* </div> */}
           </motion.div>
 
           <motion.div
@@ -555,7 +556,7 @@ export default function Map({ selectedLanguage,
           </motion.div>
         </div>
       </>
-    </div>
+    // </div>
 
   );
 }
