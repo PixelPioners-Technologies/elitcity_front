@@ -426,3 +426,58 @@
     /* font-size: 10px; */
   }
 }
+
+
+/* ---------- M O D A L S ------------ */
+
+.min_price_complex {
+  color:#FFFFFF;
+  background-color: transparent;
+  border-style: hidden;
+  border: 3px solid transparent;
+  /* Additional styling to ensure the input field blends well with your design */
+  background-color: transparent; /* Light background for visibility */
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.min_price_complex:focus{
+  outline: none;
+  /* Optionally, change border or add shadow on focus */
+  box-shadow: 0 0 5px rgb(161, 193, 202);
+}
+
+.min_price_complex::placeholder{
+  font-size: 15px; /* Larger text size */
+  color: #999;
+}
+
+.meterPriceHomePageComplex {
+  color: #FFFFFF;
+  padding-top: 25px;
+}
+
+
+/* Remove spin buttons for Webkit browsers like Chrome and Safari */
+.min_price_complex::-webkit-outer-spin-button,
+.min_price_complex::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove spin buttons for Mozilla Firefox */
+
+
+/* Remove spin buttons for MS Edge */
+.min_price_complex::-ms-clear,
+.min_price_complex::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Remove spin buttons and clear button for Internet Explorer */
+.min_price_complex::-ms-clear {
+  display: none;
+}

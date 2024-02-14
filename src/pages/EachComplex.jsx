@@ -258,31 +258,27 @@ export default function EachComplex({
         });
       }
 
-      // const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.complex_and_apartments}${selectedLanguage}/${complexId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
       const data = response.data;
       const normalised_Data = normalizeData(data, selectedLanguage);
 
-      // console.log("----111---,", normalised_Data);
+      console.log("dataaaaa" , data.complex_images)
+
       setAllComplexImages(data.complexImages);
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
 
       seteachComplexAllAppartments(normalised_Data);
 
+      const imagesWithIds = data.complex_images.map((url, index) => ({
+        id: index,  
+        value: url  
+      }));
 
-      // const sliderImagesFromData = allComplexImages.map((imgUrl, index) => ({
-      //   id: index,
-      //   value: imgUrl, // Directly using the URL from the JSON data
-      // }));
-
+      setSliderImages(imagesWithIds); 
+      setWordData(imagesWithIds[0] || null); 
       
-      setSliderImages(sliderImagesFromData); // Update the state
-      setWordData(sliderImagesFromData[0] || null); // Initialize with the first image or null if empty
-
-
-
     };
     fetcPrivateApartments();
   }, [
@@ -301,18 +297,13 @@ export default function EachComplex({
     // wordData,
     // allComplexImages,
   ]);
-
+  
+  // console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
   useEffect(() => {
-    console.log("slider images", sliderImages);
-    console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
+    console.log("apartments ", privateApartments);
 
-  }, [sliderImages , eachComplexAllAppartments]);
+  }, [privateApartments ]);
 
-  // useEffect(() => {
-  //   console.log("sliderImagessliderImages;:::::;", sliderImages);
-
-  //   // console.log("aq unda iyos suratebi", privateApartments);
-  // }, [sliderImages]);
 
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -711,7 +702,7 @@ export default function EachComplex({
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData.id === data.id ? "clicked" : ""} ${
+                    className={`${wordData?.id === data.id ? "clicked" : ""} ${
                       clickedIndex === i ? "enlarge" : ""
                     }`}
                     src={data.value}
@@ -732,12 +723,6 @@ export default function EachComplex({
         <div className="complexTextsBox2">
           <div className="seenIdFavouriteAndOthersBox2">
             <div className="seenAndIdBox">
-              <p style={{ color: "#838282" }}>
-                {" "}
-                {
-                  handle_P_StatusButtonLanguageChange(selectedLanguage).seen
-                }: {eachPrivateApartment?.viewCount}
-              </p>
               <p style={{ color: "#838282" }}>ID: {eachPrivateApartment?.id}</p>
             </div>
 
@@ -1522,8 +1507,8 @@ export default function EachComplex({
               <Marker
                 key={privateApartments.id}
                 position={{
-                  lat: eachComplexAllAppartments?.complexAddress?.latitude,
-                  lng: eachComplexAllAppartments?.complexAddress?.longitude,
+                  lat: mapcenter.lat,
+                  lng: mapcenter.lng,
                 }}
                 icon={{
                   url: private_apartment_location_icon,

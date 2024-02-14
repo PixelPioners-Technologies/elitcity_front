@@ -862,12 +862,12 @@ export default function Physical({
               </div>
 
               <div>
-                <text className="priceTextHomePage">
+                <p className="priceTextHomePage">
                   {
                     handleStatusButtonLanguageChange(selectedLanguage)
                       .spaceButtonLanguage
                   }
-                </text>
+                </p>
               </div>
 
               <P_SpaceModal
@@ -1033,7 +1033,9 @@ export default function Physical({
                   className="dropdown"
                 />
               </div>
-              <P_Modal isOpen={is_P_ModalOpen}>{renderModalContent()}</P_Modal>
+              <P_Modal isOpen={is_P_ModalOpen} close={closeModal}>
+                {renderModalContent()}
+                </P_Modal>
             </div>
 
             {/* button for status */}
