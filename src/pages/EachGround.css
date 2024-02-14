@@ -3,7 +3,7 @@
 
 .eachComplexBox2 {
   width: 100%;
-  /* border: 1px solid red; */
+  border: 1px solid red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,7 +15,7 @@
 .imageAndTextInfos2 {
   display: flex;
   flex-direction: row;
-  /* border: 1px solid rgb(0, 255, 13); */
+  border: 1px solid rgb(0, 255, 13);
   justify-content: center;
   /* background-color: aquaa; */
   gap: 70px;
@@ -30,22 +30,22 @@
   position: relative;
   bottom: 100px;
 }
-.imageSliderBox6 {
+/* .imageSliderBox6 { */
   /* border: 1px solid red; */
-}
-.lands_image {
+/* } */
+/* .lands_image { */
   /* width: 500px; */
   /* position: r
   elative; */
   /* border: 6px solid red; */
-}
-.carusel_buttons2 {
+/* } */
+/* .carusel_buttons2 { */
   /* display: none; */
-}
-.imageSliderBox2 {
+/* } */
+/* .imageSliderBox2 { */
   /* border: 2px solid green; */
   /* background-color: blue; */
-}
+/* } */
 .ground_settings {
   display: flex;
   justify-content: flex-start;
@@ -180,6 +180,7 @@
     width: 100%;
     flex-direction: column;
     padding: 20px 30px;
+    /* border: 2px solid red; */
     /* justify-content: center; */
     /* align-items: center; */
   }
@@ -216,5 +217,6 @@
   }
   .about_and_map_child_container2{
     padding: 20px;
+    /* border: 2px solid blue; */
   }
 }

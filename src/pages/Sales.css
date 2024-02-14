@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
 
 .SalesBox {
   margin-top: 50px;
@@ -14,7 +12,7 @@
 .forPaddingOfsalesNavBar {
   /* border: 1px solid green; */
   padding: 0 90px;
-} 
+}
 
 .infoFieldOfSalesAndSoOn {
   border: 1px solid white;
@@ -22,7 +20,6 @@
   justify-content: space-between;
   height: 70px;
   padding: 0 40px;
-
 }
 
 .boxOftitleOfActionAndOffers {
@@ -51,8 +48,6 @@
   transform: 0.3sec;
 }
 
-
-
 .buttonOfEachSection {
   background: none;
   color: inherit;
@@ -64,15 +59,12 @@
   color: white;
 }
 
-
-
 .percentIstallmentImg {
   width: 23px;
 }
 
 .giftImg {
   width: 30px;
-
 }
 
 .saleArticlesBox {
@@ -83,9 +75,8 @@
   margin-top: 50px;
   padding: 40px;
   flex-wrap: wrap;
-  justify-content:space-around;
+  justify-content: space-around;
 }
-
 
 /* ------------------------------------------------------------- */
 .eachSaleArticleBox {
@@ -97,7 +88,7 @@
   width: 700px;
 }
 
-.eachSaleArticleBox2{
+.eachSaleArticleBox2 {
   /* border: 1px solid blue; */
   padding: 20px;
   display: flex;
@@ -112,8 +103,7 @@
   justify-content: space-between;
 }
 
-
-.company_logo_sales{
+.company_logo_sales {
   width: 28px;
   border-radius: 50%;
 }
@@ -130,7 +120,7 @@
 }
 
 .SaleArticleImageBox {
-margin-left: 34px;
+  margin-left: 34px;
 }
 
 .microphoneAndItsInfoText {
@@ -143,61 +133,66 @@ margin-left: 34px;
   display: flex;
   gap: 22px;
   margin-top: 22px;
-
-
 }
-
 
 .imageOfSaleComplex {
   width: 200px;
 }
 
 /* ----------------------------modal styles---------------------------------------- */
-.close_sale_modal{
-width: 100%;
-display: flex;
-justify-content: flex-end;
-margin-bottom: 20px;
+.close_sale_modal {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  /* border: 1px solid red; */
+}
+.whole_sale_omdal_content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 3px solid green; */
 }
 
-
-.close_icon_sale{
+.close_icon_sale {
   width: 40px;
   cursor: pointer;
 }
 
 .sale_modal_container_main {
+  /* border: 1px solid blue; */
   /* height: 600px; */
   /* width: 500px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   padding: 10px;
 }
 
-.image_for_sale_modal{
+.image_for_sale_modal {
   width: 500px;
+  /* border: 1px solid green; */
 }
 
-.image_company_for_sale_modal{
+.image_company_for_sale_modal {
   width: 80px;
   border-radius: 50%;
-  
 }
 
-.address_and_address{
+.address_and_address {
   display: flex;
 }
 
-.selected_promotion_alert{
+.selected_promotion_alert {
   max-width: 350px;
   margin-bottom: 30px;
   margin-right: 10px;
 }
 
-.microfon_logo_and_alert{
+.microfon_logo_and_alert {
   display: flex;
   justify-content: flex-start;
   align-content: stretch;
@@ -235,14 +230,14 @@ margin-bottom: 20px;
 
 /* ---------------------------------------------------------------------- */
 
-.sale_settings_and_companylogo{
+.sale_settings_and_companylogo {
   display: flex;
   justify-content: space-between;
   align-items: self-start;
   margin-top: 30px;
 }
 
-.company_image_little_container{
+.company_image_little_container {
   height: 100%;
   display: flex;
   justify-content: center;
@@ -252,30 +247,22 @@ margin-bottom: 20px;
   
 } */
 
-
-.all_call_modal_buttons{
+.all_call_modal_buttons {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 400;
 }
 
-
-.call_and_number_on_saleModal{
+.call_and_number_on_saleModal {
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 20px;
-
 }
 
-
-
-
-
-
-.show_number_sale_modal{
+.show_number_sale_modal {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -287,14 +274,11 @@ margin-bottom: 20px;
   height: 56px;
 }
 
-
-.call_sale_modal{
+.call_sale_modal {
   font-size: small;
-
 }
 
-
-.make_call_Sale_modal{
+.make_call_Sale_modal {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -307,7 +291,7 @@ margin-bottom: 20px;
   cursor: pointer;
 }
 
-.hedaphone_ico_sale_modaln{
+.hedaphone_ico_sale_modaln {
   width: 50px;
 }
 
@@ -319,7 +303,7 @@ margin-bottom: 20px;
     /* border: 1px solid green; */
     display: flex;
     justify-content: center;
-    padding:0;
+    padding: 0;
   }
   .infoFieldOfSalesAndSoOn {
     padding: 0;
@@ -331,9 +315,9 @@ margin-bottom: 20px;
   }
   .boxOftitleOfActionAndOffers {
     /* width: 340px; */
-text-align: center;
+    text-align: center;
   }
-  .allSaleGiftAndInstallmentBox{
+  .allSaleGiftAndInstallmentBox {
     gap: 20px;
     font-size: 15px;
   }
@@ -347,13 +331,12 @@ text-align: center;
     gap: 20px;
     align-items: center;
     /* padding: 0; */
-
   }
-  .eachSaleArticleBox2{
+  .eachSaleArticleBox2 {
     padding: 20px;
     /* border: 1px solid blue; */
   }
-  .saleArticleInfoText{
+  .saleArticleInfoText {
     /* border: 1px solid green; */
     width: 330px;
     font-size: 14px;
@@ -362,7 +345,7 @@ text-align: center;
     width: 330px;
     /* padding: 0; */
   }
-  .SaleArticleImageBox{
+  .SaleArticleImageBox {
     width: 330px;
     /* padding: 0 ; */
     /* border: 1px solid blue; */
@@ -370,6 +353,61 @@ text-align: center;
   .SaleArticleImageBox {
     margin-left: 0;
   }
+  .image_for_sale_modal {
+    width: 100%;
+    /* width: 340px; */
+  }
+  .whole_sale_omdal_content {
+    /* padding: 0 0px; */
+  }
+  .call_and_number_on_saleModal {
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 30px;
+    /* margin-bottom: 40px; */
+    /* border: 1px solid red; */
+  }
+  .address_and_address {
+    /* width: 100%;
+    border: 1px solid red;
+    display: flex;
+    justify-content: start;
+    align-items: start; */
+  }
+  /* .sale_modal_container_main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  } */
 
-  
+  .close_icon_sale {
+    width: 20px;
+  }
+  .close_sale_modal {
+    margin-top: -20px;
+  }
+  .image_container_for_sale_modal {
+    /* border-radius: 20px; */
+    /* border: 1px solid yellow; */
+  }
+  .image_for_sale_modal {
+    border-radius: 20px;
+    margin-top: -10px;
+  }
+  .column {
+    display: none;
+    /* font-size: 12px;
+    margin-top: -15px; */
+    /* border: 1px solid gray; */
+  }
+  .sale_settings_and_companylogo {
+    flex-direction: column;
+    /* border: 1px solid gray; */
+  }
+  .call_and_number_on_saleModal{
+    /* border: 1px solid green; */
+    align-items: center;
+  }
 }

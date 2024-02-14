@@ -339,7 +339,7 @@ export default function Sales({ selectedLanguage, handleCallButtonClick }) {
                 />
               </div>
               <div className="sale_settings_and_companylogo">
-                <div>
+                <div className="column">
                   <div className="microfon_logo_and_alert">
                     <img src={microphoneLogo} alt="Microphone" />
                     <p className="selected_promotion_alert">

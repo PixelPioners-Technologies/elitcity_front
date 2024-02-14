@@ -687,16 +687,17 @@ export default function EachComplex({
       <div className="imageAndTextInfos3">
         {/* Complexes photos info */}
         <div className="imageSliderBox3">
-          <div className="bigImageBox2">
+          <div className="lands_img">
             <button className="btns" onClick={handlePrevious}>
               P
             </button>
             {wordData && ( // Check if wordData is not null/undefined before rendering
               <img
+              id="lands_img"
                 src={wordData.value}
                 alt={`Complex ${wordData.id}`}
-                height="450"
-                width="711"
+                // height="450"
+                // width="711"
                 className={clickedIndex !== null ? "clicked" : ""}
               />
             )}

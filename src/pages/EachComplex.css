@@ -1,9 +1,24 @@
-/* .eachComplexBox {
-  height: 100vh;
-  width: 99vw;
-  padding: 0 42px;
-  
-} */
+.eachComplexBox3{
+  width: 100%;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+}
+.imageAndTextInfos3{
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgb(0, 255, 13);
+  justify-content: center;
+  /* background-color: aquaa; */
+  gap: 70px;
+}
+#lands_img{
+  width: 700px;
+  height: 300px;
+}
 /* 
 .imageAndTextInfos {
   display: flex;
@@ -21,15 +36,15 @@
   position: relative;
 }
 
-.miniImagesBox {
+/* .miniImagesBox {
   display: flex;
   gap: 20px;
   justify-content: center;
   position: absolute;
   top: 371px;
   left: 136px;
-  background-color: lightblue; /* Add a background color */
-}
+  background-color: lightblue; /* Add a background color 
+} */
 
 
 

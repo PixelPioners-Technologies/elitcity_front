@@ -115,12 +115,12 @@
     align-items: center;
     /* border: ; */
   }
-  .big_container_for_key{
-    /* border: 1px solid red; */
+  /* .big_container_for_key{
+    border: 1px solid red;
   }
   .textButtonContainer{
-    /* border: 1px solid rgb(60, 255, 0); */
-  }
+    border: 1px solid rgb(60, 255, 0);
+  } */
   .company_background_image {
     margin-right: 0;
     border-radius: 25px;
@@ -139,13 +139,13 @@
   .settings_container {
     font-size: 12px;
   }
-  .developers_child_container {
-    /* gap: 10px; */
+  /* .developers_child_container {
+    gap: 10px;
   }
   .second_developers_child_container{
-    /* border: 2px solid blue; */
-    /* padding: 10px; */
-  }
+    border: 2px solid blue; 
+    padding: 10px;
+  } */
   .company_background_image{
     width: 100%;
     /* border: 1px solid green; */
