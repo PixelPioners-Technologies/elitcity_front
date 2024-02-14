@@ -283,39 +283,11 @@ export default function EachApartment({
 
   useEffect(() => {
     const fetcPrivateApartments = async () => {
-      // const cityParam = `address_${selectedLanguage}__city_${selectedLanguage}__city_${selectedLanguage}__icontains`;
-      // const pharentdistrictParams =  `address_${selectedLanguage}__pharentDistrict_${selectedLanguage}__pharentDistrict_${selectedLanguage}__in`;
-      // const districtParams = `address_${selectedLanguage}__district_${selectedLanguage}__district_${selectedLanguage}__in`;
-
-      // const cityParam = `city`;
-
-      // const limit = 12; // Define the limit or make it dynamic as per your requirement
-      // const offset = (currentPage - 1) * limit;
-
-      // let queryParams = new URLSearchParams({
-      //   [cityParam]: selectedCity,
-      //   min_square_price: min_square_price,
-      //   max_square_price: max_square_price,
-      //   min_full_price: minFullPrice,
-      //   max_full_price: maxFullPrice,
-      //   min_area: min_area,
-      //   max_area: max_area,
-      //   limit: limit,
-      //   offset: offset,
-      // });
-
-      // if (selectedStatuses && selectedStatuses.length > 0) {
-      //   selectedStatuses.forEach((status) => {
-      //     queryParams.append("status", status);
-      //   });
-      // }
-
-      // const queryString = queryParams.toString();
       const requestUrl = `${BaseURLs.apartment}${selectedLanguage}/${apartmentId}`; // /?${queryString}
       const response = await axios.get(requestUrl);
-      // console.log("ssssssss", response.data.results[0];
+
       const data = response.data;
-      // console.log(data);
+
       const normalised_Data = normalizeApartmentData(data, selectedLanguage);
       seteachComplexAllAppartments(normalised_Data);
       console.log("zzzzzz", normalised_Data);
@@ -1507,8 +1479,8 @@ export default function EachApartment({
               <Marker
                 key={privateApartments.id}
                 position={{
-                  lat: eachComplexAllAppartments?.apartmentAddress?.latitude,
-                  lng: eachComplexAllAppartments?.apartmentAddress?.longitude,
+                  lat: mapcenter.lat,
+                  lng: mapcenter.lng,
             
             
                 }}

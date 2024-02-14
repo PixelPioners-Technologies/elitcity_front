@@ -1,0 +1,8 @@
+.ComplexBoxInFavoritesPages {
+  display: flex;
+  padding: 50px 70px ;
+  width: 100%;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}

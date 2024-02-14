@@ -1,29 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap');
+
+
+
 /* .imageOfBuilding {
   width: 200px;
 } */
 
 .ComplexBodyBox {
-
-  margin-top: 50px;
+  /* margin-top: 50px; */
   padding: 100px 150px;
+  /* border: 1px solid red; */
+}
+.for_comfort {
+  margin-top: 0px;
+  /* border: 1px solid green; */
+  /* text-align: center; */
 }
 
 .motionBox {
   border: 1px solid white;
 }
 
-.forPaddingOfInfoFieldOfComplexsPlansMaps {
-  padding: 0 30px;
-} 
-
 .infoFieldOfComplexsPlansMaps {
-  border: 1px solid black;
-  border-radius: 10px;
   display: flex;
+  /* flex-direction: column; */
   justify-content: space-between;
   height: 70px;
   padding: 0 20px;
-
+}
+.filter_cont_for_complexes {
+  margin-bottom: 40px;
 }
 
 .complexInfoAndCountShowBox {
@@ -39,11 +45,12 @@
 }
 
 .mapAndLogoImg {
+  /* text-align: center; */
   display: flex;
   align-items: center;
   justify-content: center;
+  /* border: 3px solid red; */
 }
-
 
 .textButtonContainer:hover .textButton {
   /* color: aqua; */
@@ -55,14 +62,12 @@
   /* padding: 10px 20px; */
   font-size: 16px;
   text-align: center;
+  list-style: none;
   text-decoration: none;
   border: 1px solid #000;
   background-color: #000;
   color: #fff;
-
 }
-
-
 
 .mapSignLogo {
   width: 30px;
@@ -71,8 +76,9 @@
 .sortAndArrowDownImgBox {
   display: flex;
   gap: 10px;
+  background-origin: padding-box;
+  /* border: 1px solid red; */
 }
-
 
 /* /////////////////////////////// */
 .menu-transition {
@@ -85,15 +91,14 @@
 }
 /* /////////////////////////////// */
 
-
 .currencyBox {
-  /* height: 50px; */
   display: flex;
   align-items: center;
-
-
+  /* border: 1px solid red; */
 }
-
+.sort_text {
+  display: none;
+}
 /* classes of toggle button on currency --- */
 .switch {
   width: 90px;
@@ -102,7 +107,7 @@
   background-color: black;
 
   display: flex;
-  justify-content: flex-start;  
+  justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
 
@@ -112,8 +117,6 @@
   cursor: pointer;
   /* border-radius: 50px; */
 }
-
-
 
 .switch[data-ison="true"] {
   justify-content: flex-end;
@@ -136,47 +139,33 @@
 }
 
 .currency-sign.active {
-
   display: none; /* Hide inactive currency sign */
 }
 /* ------------- */
 
-
-
-
-
-
-
-
-
-
-
-
 .allCards {
+  /* border: 1px solid red; */
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   /* padding: 0 30px; */
   gap: 40px;
   margin-top: 50px;
   margin-bottom: 100px;
   
- 
 }
 
-
 .card {
+  border: 1px solid red;
   width: 315px;
-  height: 400px;
+  /* height: 400px; */
   /* background-color: #C1D6CC; */
   background-color: black;
   border: 1px solid white;
-  /* border-radius: 20px; */
   overflow: hidden;
   padding: 20px 20px;
+  border-radius: 10px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
-
-
   transition: transform 0.3s ease-in-out;
 
   &:hover {
@@ -187,14 +176,17 @@
 
 .heartbuttonAndImageBox {
   position: relative;
+  text-align: center;
+  /* border: 1px solid green; */
 }
 
 .heartButtonBox {
-  width: 100%;
+  /* border: 1px solid red; */
+  width: 250px;
   display: flex;
   justify-content: flex-end;
   position: absolute;
-
+  margin-top: 5px;
 }
 
 .heartButtons {
@@ -211,33 +203,73 @@
 
 .heartButtons:hover {
   cursor: pointer;
-  transform: scale(1.2); 
-  transition: transform 0.3s ease; 
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+}
+
+.textinfo_and_company_logo{
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+
+.company_logo_3{
+  margin-top: 10px;
+  width: 40px;
+  border-radius: 50%;
+  margin-left: 30px;
 }
 
 .textInfo {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  /* padding-left: 20px; */
+  padding-left: 10px;
   gap: 10px;
+  width: 300px;
+  font-family: 'Roboto', sans-serif;
 }
+
+.price_and_value{
+  display: flex;
+}
+
+
+.complex_status_on_card{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  margin-top: 10px;
+}
+
+
+.company_logo_on_card{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+
+.complex_status_in_card{
+  margin-left: 30px;
+  
+}
+
 
 .googleMapImageBox {
- display: flex;
- justify-content: center;
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid red; */
 }
 
-.googleMapImage {
+.google_map {
   height: 358px;
   width: 1074px;
+  /* background-position: 100%; */
 }
 
-
-
-
 .homepage_serch_button_complexpage {
-  background-color: transparent; 
+  background-color: transparent;
   color: #f1eeee; /* Change to the color you need */
   border: none;
   padding: 10px 20px; /* Adjust padding to match the size in the photo */
@@ -253,20 +285,33 @@
   margin-top: 0px;
 }
 
- .homepage_serch_button_complexpage:hover {
+.homepage_serch_button_complexpage:hover {
   background-color: transparent; /* Color when hovered, adjust as needed */
-  color: black
+  color: black;
 }
 
-.filter_cont_for_complex{
+.close_cont {
+  /* border: 1px solid red; */
   display: flex;
+  /* flex-direction: row; */
   justify-content: center;
   align-items: center;
   padding-top: 70px;
   gap: 13px;
   padding-top: 65px;
 }
-
+.filter_icon_for_links {
+  /* width: 30px; */
+  background-color: wheat;
+  border-radius: 50%;
+  display: none;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 
 /* ----------------------------------modal close button styles------------------------------------------ */
 .modal_close_button {
@@ -308,56 +353,70 @@
     rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px;
 }
 
-/* ---------- M O D A L S ------------ */
 
-.min_price_complex {
-  color:#FFFFFF;
-  background-color: transparent;
-  border-style: hidden;
-  border: 3px solid transparent;
-  /* Additional styling to ensure the input field blends well with your design */
-  background-color: transparent; /* Light background for visibility */
-  padding: 10px;
-  border-radius: 5px;
-  margin-left: 10px;
-}
+@media screen and (max-width: 500px) {
+  .numbers_link {
+    border: none;
+    display: flex;
+  }
+  .title {
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* border: 1px solid blue; */
+  }
+  .filter_icon_for_links {
+    display: block;
+  }
+  .ComplexBodyBox {
+    padding: 30px 50px;
+    /* border: 1px solid green; */
+  }
+  .mapAndLogoImg {
+    display: none;
+  }
+  .filter_cont_for_complex {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    padding: 0;
+  }
+  .komplex_text {
+    font-size: 14px;
+  }
+  .switch {
+    width: 80px;
+    height: 40px;
+  }
+  .sortAndArrowDownImgBox {
+    font-size: 12px;
+  }
+  .sort_text {
+    display: block;
+  }
+  .sort_text_web {
+    display: none;
+  }
+  .card {
+    padding: 10px 10px;
+  }
+  .google_map {
+    width: 200px;
+  }
+  .projectsPlansMapsSortingAndDollarBox {
+    gap: 5px;
+  }
+  .close_cont {
+    display: none;
+  }
+  .filter_cont_for_complex {
+    gap: 10px;
+  }
+  .textInfo {
+    padding-left: 20px;
+  }
 
-.min_price_complex:focus{
-  outline: none;
-  /* Optionally, change border or add shadow on focus */
-  box-shadow: 0 0 5px rgb(161, 193, 202);
-}
-
-.min_price_complex::placeholder{
-  font-size: 15px; /* Larger text size */
-  color: #999;
-}
-
-.meterPriceHomePageComplex {
-  color: #FFFFFF;
-  padding-top: 25px;
-}
-
-
-/* Remove spin buttons for Webkit browsers like Chrome and Safari */
-.min_price_complex::-webkit-outer-spin-button,
-.min_price_complex::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Remove spin buttons for Mozilla Firefox */
-
-
-/* Remove spin buttons for MS Edge */
-.min_price_complex::-ms-clear,
-.min_price_complex::-ms-reveal {
-  display: none;
-  width: 0;
-  height: 0;
-}
-
-/* Remove spin buttons and clear button for Internet Explorer */
-.min_price_complex::-ms-clear {
-  display: none;
 }

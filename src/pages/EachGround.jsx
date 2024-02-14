@@ -222,8 +222,8 @@ export default function EachGround({
   // const squareSymbol = "\u00B2";
 
   const mapcenter = {
-    lat: ground.address?.latitude,
-    lng: ground.address?.longitude,
+    lat: ground.address?.latitude || 41.7151,
+    lng: ground.address?.longitude || 44.8271,
   }
 
 
@@ -408,8 +408,8 @@ export default function EachGround({
               <Marker
                 key={ground.id}
                 position={{
-                  lat: ground.address?.latitude,
-                  lng: ground.address?.longitude,
+                  lat: mapcenter.lat,
+                  lng:  mapcenter.lng
                 }}
                 icon={{
                   url: ground_location_icon,
