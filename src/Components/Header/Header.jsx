@@ -33,7 +33,7 @@ export default function Header({
       complex: "Complexes",
       lands: "Lands",
       developers: "Developers",
-      natural_persons: "Phisical persons",
+      natural_persons: "Physical persons",
       map: "Map",
       Promotions: "Promotions",
       Blogs: "Blogs",
@@ -44,7 +44,7 @@ export default function Header({
         languageInfo.complex = "Complexes";
         languageInfo.lands = "Lands";
         languageInfo.developers = "Developers";
-        languageInfo.natural_persons = "Natural persons";
+        languageInfo.natural_persons = "Physical persons";
         languageInfo.map = "Map";
         languageInfo.Promotions = "Promotions";
         languageInfo.Blogs = "Blogs";

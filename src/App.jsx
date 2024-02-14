@@ -68,29 +68,29 @@ function trackButtonClick(buttonName) {
 const BaseURLs = {
   //   // storkhome
 
-  complex: "https://api.storkhome.ge/complex/",
-  company: "https://api.storkhome.ge/company/",
-  apartment: "https://api.storkhome.ge/apartment/",
-  private_apartment: "https://api.storkhome.ge/privateapartments/",
-  ground: "https://api.storkhome.ge/ground/",
-  promotion: "https://api.storkhome.ge/promotions/",
-  blog: "https://api.storkhome.ge/blog/",
-  map: "https://api.storkhome.ge/map/",
-  complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
-  company_and_complex: 'https://api.storkhome.ge/companycomplex/',
+  // complex: "https://api.storkhome.ge/complex/",
+  // company: "https://api.storkhome.ge/company/",
+  // apartment: "https://api.storkhome.ge/apartment/",
+  // private_apartment: "https://api.storkhome.ge/privateapartments/",
+  // ground: "https://api.storkhome.ge/ground/",
+  // promotion: "https://api.storkhome.ge/promotions/",
+  // blog: "https://api.storkhome.ge/blog/",
+  // map: "https://api.storkhome.ge/map/",
+  // complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+  // company_and_complex: 'https://api.storkhome.ge/companycomplex/',
 
   // local
 
-  // complex: "http://127.0.0.1:8000/complex/",
-  // company: "http://127.0.0.1:8000/company/",
-  // apartment: "http://127.0.0.1:8000/apartment/",
-  // private_apartment: "http://127.0.0.1:8000/privateapartments/",
-  // ground: "http://127.0.0.1:8000/ground/",
-  // promotion: "http://127.0.0.1:8000/promotions/",
-  // blog: "http://127.0.0.1:8000/blog/",
-  // map: "http://127.0.0.1:8000/map/",
-  // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
-  // company_and_complex : 'http://127.0.0.1:8000/companycomplex/',
+  complex: "http://127.0.0.1:8000/complex/",
+  company: "http://127.0.0.1:8000/company/",
+  apartment: "http://127.0.0.1:8000/apartment/",
+  private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  ground: "http://127.0.0.1:8000/ground/",
+  promotion: "http://127.0.0.1:8000/promotions/",
+  blog: "http://127.0.0.1:8000/blog/",
+  map: "http://127.0.0.1:8000/map/",
+  complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+  company_and_complex : 'http://127.0.0.1:8000/companycomplex/',
 
 };
 
@@ -204,25 +204,26 @@ function App() {
 
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
 
-  const [searchInput, setSearchInput] = useState("");
-
+  
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
   const [total_item_number, setTotal_item_number] = useState("");
-
+  
   // const [homes, setHomes] = useState([]);
-
+  
   // const [complex_homes, setComplex_homes] = useState([]);
-
+  
   // const [showSplashScreen, setShowSplashScreen] = useState(true);
-
+  
   const [ascendentPrice, setAscendentPrice] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
   // -----------------------------------------------------------------------------------------------------
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
   const sortingChangeHandler = (data)=> {
     setAscendentPrice(data)
+    console.log(data)
   }
 
   const stringSearchHeandles = (data) => {
@@ -312,6 +313,7 @@ function App() {
         limit: limit,
         offset: offset,
         ordering: ascendentPrice,
+        search : searchInput,
       });
 
       // Append each status as a separate parameter
@@ -655,6 +657,9 @@ function App() {
             <HomePage
               searchInput={searchInput}
               setSearchInput={setSearchInput}
+              stringSearchHeandles={stringSearchHeandles}
+
+
               favoriteHandler={favoriteHandler}
               favorites={favorites}
               selectedLanguage={selectedLanguage}
@@ -689,6 +694,9 @@ function App() {
               selectedCity={selectedCity}
               selectedPharentDistricts={selectedPharentDistricts}
               selectedDistricts={selectedDistricts}
+
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
             />
           }
         />
@@ -743,6 +751,9 @@ function App() {
                 isOn={isOn}
                 toggleSwitch={toggleSwitch}
                 sortingChangeHandler={sortingChangeHandler}
+
+                stringSearchHeandles={stringSearchHeandles}
+
               />
             }
           />

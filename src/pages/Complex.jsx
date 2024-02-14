@@ -71,8 +71,6 @@ export default function Complex({
   selectedDistrictsChangeHandler,
   selectedPharentDistrictsChangeHandler,
   selectedCityChangeHandler,
-  searchInput,
-  setSearchInput,
   totalPageCount,
   currentPage,
   handleCorrentPageHandler,
@@ -86,6 +84,10 @@ export default function Complex({
   toggleSwitch,
 
   sortingChangeHandler,
+
+  searchInput,
+  setSearchInput,
+  stringSearchHeandles,
 
 }) {
   // const [homes, setHomes] = useState([]);
@@ -375,8 +377,14 @@ export default function Complex({
       sortingButtonDescendentPrice: "Descendent price in m²",
       sortingButtonAscendantTime: "Ascendant created at",
       sortingButtonDescendentTime: "Decendant created at",
-      sortingButtonAscendantFullPrice: "Ascendant full price ",
-      sortingButtonDescendentFullPrice: "Descendant full price",
+      sortingButtonAscendent_rank: "Ascendant rank",
+      sortingButtonDescendent_rank: "Decendant rank",
+
+      complexes : 'Complexes',
+      map : "Map",
+      sorting : 'Sorting',
+      place_for_your_comfort : 'A place for your comfort',
+      sort: 'Sort'
     }
 
     switch (lang) {
@@ -402,8 +410,16 @@ export default function Complex({
         languageInfo.sortingButtonDescendentPrice = "Descendent price in m²";
         languageInfo.sortingButtonAscendantTime = "Ascendant created at";
         languageInfo.sortingButtonDescendentTime = "Decendent created at";
-        languageInfo.sortingButtonAscendantFullPrice = "Ascendant full price ";
-        languageInfo.sortingButtonDescendentFullPrice = "Decendent full price";
+        languageInfo.sortingButtonAscendent_rank = "Ascendant rank";
+        languageInfo.sortingButtonDescendent_rank = "Decendant rank";
+
+        languageInfo.complexes = "Complexes";
+        languageInfo.map = "Map";
+        languageInfo.sorting = "Sorting";
+        languageInfo.sort = "Sort";
+
+        languageInfo.place_for_your_comfort = "A place for your comfort";
+
         break;
 
       case "ka":
@@ -428,9 +444,15 @@ export default function Complex({
         languageInfo.sortingButtonDescendentPrice = "მ² ფასი კლებადობით";
         languageInfo.sortingButtonAscendantTime = "თარიღი ზრდადობით";
         languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით";
-        languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით";
-        languageInfo.sortingButtonDescendentFullPrice ="მთლიანი ფასი კლებადობით";
-        
+        languageInfo.sortingButtonAscendent_rank = "რანკი ზრდით";
+        languageInfo.sortingButtonDescendent_rank = "რანკი კლებით";
+
+        languageInfo.complexes = "კომპლექსები";
+        languageInfo.map = "რუქა";
+        languageInfo.sorting = "სორტირება";
+        languageInfo.sort = "სორტ";
+        languageInfo.place_for_your_comfort = "ადგილი შენი კომფორტისტვის";
+
         break
 
       case "ru":
@@ -440,7 +462,7 @@ export default function Complex({
         languageInfo.priceButtonLanguage = "Цена"
         languageInfo.allStatusLanguage = "Все"
         languageInfo.findMapButtonLanguage = "Карта"
-        languageInfo.allFindButtonLanguage = "Натдти"
+        languageInfo.allFindButtonLanguage = "Поиск"
         languageInfo.spaceButtonClose = "закрить"
         languageInfo.minPrice = "из м²"
         languageInfo.maxPrice = "до м²"
@@ -451,12 +473,19 @@ export default function Complex({
         languageInfo.mde = "до"
         languageInfo.pricePerM = "Цена за м²"
 
-        languageInfo.sortingButtonAscendentPrice = "Цена м² цена по увеличение";
-        languageInfo.sortingButtonDescendentPrice = "Цена м² цена по снижение";
+        languageInfo.sortingButtonAscendentPrice = "Цена м² по увеличение";
+        languageInfo.sortingButtonDescendentPrice = "Цена м² по снижение";
         languageInfo.sortingButtonAscendantTime = "Время по увеличение";
         languageInfo.sortingButtonDescendentTime = "Время по снижение";
-        languageInfo.sortingButtonAscendantFullPrice = "Полная цена по увеличение";
-        languageInfo.sortingButtonDescendentFullPrice ="Полная цена по снижение";
+        languageInfo.sortingButtonAscendent_rank = "Ранга по увеличение";
+        languageInfo.sortingButtonDescendent_rank = "Ранга по снижение";
+
+        languageInfo.complexes = "Комплексекс";
+        languageInfo.map = "карта";
+        languageInfo.sorting = "Сортировка";
+        languageInfo.sort = "Сорт";
+
+        languageInfo.place_for_your_comfort = "Место для вашего комфорта";
 
         break
     }
@@ -588,7 +617,7 @@ export default function Complex({
         >
           <div className="for_comfort">
             <div className="adgilicomportistvis title">
-              <p>ადგილი შენი კომფორტისთვის</p>
+              <p>{handleStatusButtonLanguageChange(selectedLanguage).place_for_your_comfort} </p>
               <img onClick={toggleFunc} className="filter_icon_for_links" src={Filter} alt="/" />
             </div>
             <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
@@ -611,7 +640,7 @@ export default function Complex({
                   close={closeSpaceModal}
                 >
                   <div>
-                  <div>
+                    <div>
                       <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
                     </div>
                     <input
@@ -792,8 +821,8 @@ export default function Complex({
                       .allFindButtonLanguage
                   }
                   value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                />
+                  onChange={(e) => stringSearchHeandles(e.target.value)} />
+
                 <img src={loupe} alt="search icon" className="dropdown" />
                 {/* ------------------------- */}
               </div>
@@ -806,9 +835,9 @@ export default function Complex({
                   >
                     {" "}
                     {
-                    handleStatusButtonLanguageChange(selectedLanguage)
-                      .allFindButtonLanguage
-                  }
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .allFindButtonLanguage
+                    }
                   </button>
                 </div>
               </div>
@@ -829,30 +858,11 @@ export default function Complex({
           <div className="infoFieldOfComplexsPlansMaps">
             <div className="complexInfoAndCountShowBox">
               <p className="komplex_text" style={{ color: "white" }}>
-                კომპლექსები {total_item_number}
+                {handleStatusButtonLanguageChange(selectedLanguage).complexes}  {total_item_number}
               </p>
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
             <div className="projectsPlansMapsSortingAndDollarBox">
-              <Link to="/complex">
-                <motion.div
-                  className="textButtonContainer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <div className="mapAndLogoImg">
-                    <img
-                      src={mapSignLogo}
-                      alt="mapSignLogo"
-                      className="mapSignLogo"
-                    />
-                    <button className="textButton">პროექტები</button>
-                  </div>
-                </motion.div>
-              </Link>
-
-
               <Link to="/map">
                 <motion.div
                   className="textButtonContainer"
@@ -866,13 +876,11 @@ export default function Complex({
                       alt="mapSignLogo"
                       className="mapSignLogo"
                     />
-                    <button className="textButton">რუკა</button>
+                    <button className="textButton"> {handleStatusButtonLanguageChange(selectedLanguage).map}</button>
                   </div>
                 </motion.div>
               </Link>
-              {/* მხოლოდ for sorting ----- */}
-              {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
-                რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
+
               <Button
                 id="basic-button"
                 aria-controls={open ? "basic-menu" : undefined}
@@ -882,8 +890,8 @@ export default function Complex({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox">
-                  <p className="sort_text_web">სორტირება</p>
-                  <p className="sort_text">სორტ</p>
+                  <p className="sort_text_web">{handleStatusButtonLanguageChange(selectedLanguage).sorting}</p>
+                  <p className="sort_text">{handleStatusButtonLanguageChange(selectedLanguage).sort}</p>
                   <img src={arrowDownSorting} style={{ width: "20px" }} />
                 </div>
               </Button>
@@ -926,7 +934,8 @@ export default function Complex({
                       sortingChangeHandler("-created_at");
                     }}
                   >
-                    თარიღი კლებადობით
+                    {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentTime}
+
                   </MenuItem>
                 </motion.div>
 
@@ -946,7 +955,8 @@ export default function Complex({
                       sortingChangeHandler("created_at");
                     }}
                   >
-                    თარიღი ზრდადობით
+                  {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantTime}
+
                   </MenuItem>
                 </motion.div>
 
@@ -966,7 +976,8 @@ export default function Complex({
                       sortingChangeHandler("-price_per_sq_meter");
                     }}
                   >
-                    ფასი კლებადობით
+                    {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentPrice}
+
                   </MenuItem>
                 </motion.div>
 
@@ -986,7 +997,7 @@ export default function Complex({
                       sortingChangeHandler("price_per_sq_meter");
                     }}
                   >
-                    ფასი ზრდადობით
+                    {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendentPrice}
                   </MenuItem>
                 </motion.div>
 
@@ -1006,7 +1017,8 @@ export default function Complex({
                       sortingChangeHandler("-rank");
                     }}
                   >
-                    რანკი კლებადობით
+                    {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendent_rank}
+
                   </MenuItem>
                 </motion.div>
 
@@ -1026,7 +1038,8 @@ export default function Complex({
                       sortingChangeHandler("rank");
                     }}
                   >
-                    რანკი ზრდადობით
+                    {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendent_rank}
+
                   </MenuItem>
                 </motion.div>
               </Menu>
@@ -1092,7 +1105,7 @@ export default function Complex({
                   className="complex_dard_1"
                 />
               </div>
-              <p style={styles.companyTitle}>{complex.name}</p>
+              <p  className="company_title_on_card"  >{complex.complexName}</p>
               <div className="textinfo_and_company_logo"  >
                 <div
                   className="textInfo"
