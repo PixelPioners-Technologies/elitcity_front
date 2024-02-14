@@ -361,3 +361,27 @@
   display: none;
 }
 }
+
+
+/* Remove spin buttons for Webkit browsers like Chrome and Safari */
+.min_price_homePage::-webkit-outer-spin-button,
+.min_price_homePage::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove spin buttons for Mozilla Firefox */
+
+
+/* Remove spin buttons for MS Edge */
+.min_price_homePage::-ms-clear,
+.min_price_homePage::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Remove spin buttons and clear button for Internet Explorer */
+.min_price_homePage::-ms-clear {
+  display: none;
+}

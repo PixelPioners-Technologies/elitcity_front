@@ -285,9 +285,6 @@ export default function EachComplex({
       setSliderImages(imagesWithIds); 
       setWordData(imagesWithIds[0] || null); 
       
-
-
-
     };
     fetcPrivateApartments();
   }, [
@@ -1515,8 +1512,8 @@ export default function EachComplex({
               <Marker
                 key={privateApartments.id}
                 position={{
-                  lat: eachComplexAllAppartments?.complexAddress?.latitude,
-                  lng: eachComplexAllAppartments?.complexAddress?.longitude,
+                  lat: mapcenter.lat,
+                  lng: mapcenter.lng,
                 }}
                 icon={{
                   url: private_apartment_location_icon,
