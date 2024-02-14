@@ -862,12 +862,12 @@ export default function Physical({
               </div>
 
               <div>
-                <text className="priceTextHomePage">
+                <p className="priceTextHomePage">
                   {
                     handleStatusButtonLanguageChange(selectedLanguage)
                       .spaceButtonLanguage
                   }
-                </text>
+                </p>
               </div>
 
               <P_SpaceModal

@@ -1479,8 +1479,8 @@ export default function EachApartment({
               <Marker
                 key={privateApartments.id}
                 position={{
-                  lat: eachComplexAllAppartments?.apartmentAddress?.latitude,
-                  lng: eachComplexAllAppartments?.apartmentAddress?.longitude,
+                  lat: mapcenter.lat,
+                  lng: mapcenter.lng,
             
             
                 }}
