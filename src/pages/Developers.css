@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  /* border: 1px solid green; */
 }
 .header_container {
   color: aliceblue;
@@ -112,7 +113,14 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    /* border: ; */
   }
+  /* .big_container_for_key{
+    border: 1px solid red;
+  }
+  .textButtonContainer{
+    border: 1px solid rgb(60, 255, 0);
+  } */
   .company_background_image {
     margin-right: 0;
     border-radius: 25px;
@@ -121,6 +129,7 @@
   h1,
   .header_container {
     font-size: 18px;
+    /* border: 1px solid red; */
   }
   .companyes_header {
     flex-direction: column;
@@ -130,7 +139,16 @@
   .settings_container {
     font-size: 12px;
   }
-  .developers_child_container {
+  /* .developers_child_container {
     gap: 10px;
+  }
+  .second_developers_child_container{
+    border: 2px solid blue; 
+    padding: 10px;
+  } */
+  .company_background_image{
+    width: 100%;
+    /* border: 1px solid green; */
+    padding: 0;
   }
 }

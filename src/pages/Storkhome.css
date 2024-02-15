@@ -3,6 +3,7 @@
 .main_storkhome_container {
   color: aliceblue;
   padding: 60px;
+  /* border: 1px solid red; */
 }
 
 
@@ -12,7 +13,9 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
+  /* border: 1px solid green; */
 }
+
 
 .storkhome_plus {
   display: flex;
@@ -26,6 +29,7 @@
 .storkhome_plus_translatable {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 200;
+  /* border: 1px solid blue; */
 }
 
 /* --------------------------------------card kit styles ----------------------------------------- */
@@ -35,10 +39,13 @@
   align-items: center;
   gap: 50px;
   margin-top: 40px;
+  /* border: 1px solid blue; */
+  /* flex-direction: column; */
 }
 
 
 .storkhome_cards {
+  /* padding: 30px 140px; */
   width: 427.7px;
   height: 211px;
   top: 213px;
@@ -51,7 +58,16 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  /* border: 1px solid red; */
 
+}
+.column{
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* flex-direction: row; */
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .kit {
@@ -62,6 +78,7 @@
 
 .logo_plus {
   margin-bottom: 13px;
+  /* border: 1px solid blue; */
 }
 
 .card_logo_and_plus {
@@ -69,6 +86,9 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  /* border: 1px solid green; */
+  margin-top: 25px;
+
 }
 
 
@@ -82,6 +102,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* border: 1px solid red; */
 
 }
 
@@ -91,6 +112,7 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
+  margin-top: 30px;
 }
 
 /* -------------------------------------------------------------------------------------------------- */
@@ -148,5 +170,29 @@
 
 
 
-
 /* -------------------------------------------------------------------------------------------------- */
+@media screen and (max-width: 500px) {
+  .main_storkhome_container{
+    padding: 0;
+
+  }
+  .storkhome_cards_container {
+    width: 100%;
+    flex-direction: column;
+
+  }
+  .storkhome_cards {
+    width: 340px;
+  }
+  .textButtonCont{
+    margin-bottom: 20px;
+
+  }
+  .make_call{
+    width: 340px
+  }
+  .storkhome_plus_container {
+    margin-top: 40px;
+  }
+  
+}

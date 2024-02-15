@@ -263,7 +263,7 @@ export default function EachComplex({
       const data = response.data;
       const normalised_Data = normalizeData(data, selectedLanguage);
 
-      console.log("dataaaaa" , data.complex_images)
+      console.log("dataaaaa", data.complex_images);
 
       setAllComplexImages(data.complexImages);
       setEachPrivateApartment(normalised_Data);
@@ -272,13 +272,12 @@ export default function EachComplex({
       seteachComplexAllAppartments(normalised_Data);
 
       const imagesWithIds = data.complex_images.map((url, index) => ({
-        id: index,  
-        value: url  
+        id: index,
+        value: url,
       }));
 
-      setSliderImages(imagesWithIds); 
-      setWordData(imagesWithIds[0] || null); 
-      
+      setSliderImages(imagesWithIds);
+      setWordData(imagesWithIds[0] || null);
     };
     fetcPrivateApartments();
   }, [
@@ -297,14 +296,11 @@ export default function EachComplex({
     // wordData,
     // allComplexImages,
   ]);
-  
+
   // console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
   useEffect(() => {
     console.log("apartments ", privateApartments);
-
-  }, [privateApartments ]);
-
-
+  }, [privateApartments]);
 
   // ---------------------------------------------------------------------------------------------------------------------
 
@@ -674,28 +670,29 @@ export default function EachComplex({
   const scalesize = new window.google.maps.Size(40, 40);
 
   return (
-    <div className="eachComplexBox">
-      <div className="imageAndTextInfos">
+    <div className="eachComplexBox3">
+      <div className="imageAndTextInfos3">
         {/* Complexes photos info */}
-        <div className="imageSliderBox">
-          <div className="bigImageBox">
-            <button className="btns" onClick={handlePrevious}>
+        <div className="imageSliderBox3">
+          <div className="lands_img">
+            {/* <button className="btns" onClick={handlePrevious}>
               P
-            </button>
+            </button> */}
             {wordData && ( // Check if wordData is not null/undefined before rendering
               <img
+                id="lands_img"
                 src={wordData.value}
                 alt={`Complex ${wordData.id}`}
-                height="450"
-                width="711"
+                // height="450"
+                // width="711"
                 className={clickedIndex !== null ? "clicked" : ""}
               />
             )}
-            <button className="btns" onClick={handleNext}>
-              N
-            </button>
           </div>
-          <div className="miniImagesBox_complex">
+          <div className="miniImagesBox2">
+            <button className="btns" onClick={handleNext}>
+              Next
+            </button>
             {sliderImages
               .slice(carouselPosition, carouselPosition + 4)
               .map((data, i) => (
@@ -712,6 +709,9 @@ export default function EachComplex({
                   />
                 </div>
               ))}
+            <button className="btns" onClick={handlePrevious}>
+              Previus
+            </button>
           </div>
         </div>
         {/* --------- */}
@@ -719,8 +719,8 @@ export default function EachComplex({
         {/* complex text info */}
         {/* აქ DATA.MAP დროებით მაქ დატოვებული როგორც კი ბექი მოგვარდება */}
         {/* {DATA.map((complex, index) => ( */}
-        <div className="complexTextsBox">
-          <div className="seenIdFavouriteAndOthersBox">
+        <div className="complexTextsBox2">
+          <div className="seenIdFavouriteAndOthersBox2">
             <div className="seenAndIdBox">
               <p style={{ color: "#838282" }}>ID: {eachPrivateApartment?.id}</p>
             </div>
@@ -1488,9 +1488,10 @@ export default function EachComplex({
             </div>
           </div>
 
-          <div className="child_map_container_P">
+          <div className="child_map_container_P ">
             <GoogleMap
-              mapContainerStyle={{ height: "300px" }}
+            id="mapp"
+              mapContainerStyle={{ height: "300px"  }}
               center={mapcenter}
               zoom={16}
               options={{
@@ -1501,7 +1502,9 @@ export default function EachComplex({
                 streetViewControl: false,
                 mapTypeControl: false,
                 fullscreenControl: false,
+                
               }}
+
             >
               <Marker
                 key={privateApartments.id}

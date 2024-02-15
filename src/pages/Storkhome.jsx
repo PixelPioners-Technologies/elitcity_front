@@ -1,223 +1,173 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
-import './Storkhome.css'
-import CompanyLogo from '../assets/LogoOfStorkhome.svg';
+import React, { useState, useEffect } from "react";
+import "./Storkhome.css";
+import CompanyLogo from "../assets/LogoOfStorkhome.svg";
 // import Call_Modal from '../Modals_for_stokhome_plus/Call_Modal'
-import headphone_icon from '../icons/headphones.png'
-import { motion } from 'framer-motion';
+import headphone_icon from "../icons/headphones.png";
+import { motion } from "framer-motion";
 
-
-
-export default function Storkhome({
-  selectedLanguage,
-  handleCallButtonClick,
-
-}) {
-
-
-
-
-
+export default function Storkhome({ selectedLanguage, handleCallButtonClick }) {
   const LanguageChangeForStorkhomePage = (lang) => {
     var languageInfo = {
       header: "For more comfort",
-      make_call: "Call request"
-    }
+      make_call: "Call request",
+    };
 
     switch (lang) {
       case "en":
-        languageInfo.header = "For more comfort"
-        languageInfo.make_call = "Call request"
+        languageInfo.header = "For more comfort";
+        languageInfo.make_call = "Call request";
 
         break;
 
       case "ka":
-        languageInfo.header = "ტოპ დეველუპერული კომპანიები"
-        languageInfo.make_call = "ზარის მოთხოვნა"
+        languageInfo.header = "ტოპ დეველუპერული კომპანიები";
+        languageInfo.make_call = "ზარის მოთხოვნა";
 
-        break
+        break;
 
       case "ru":
-        languageInfo.header = "Для большего комфорта"
-        languageInfo.make_call = "Запросить звонок"
+        languageInfo.header = "Для большего комфорта";
+        languageInfo.make_call = "Запросить звонок";
 
-        break
+        break;
     }
-    return languageInfo
-  }
-
-
-
+    return languageInfo;
+  };
 
   return (
-    <div className='main_storkhome_container' >
-
-      <div className='storkhome_plus_container' >
-        <h1 className='sotkhome_plus' >Storkhome +</h1>
-        <h2 className='storkhome_plus_translatable' > {LanguageChangeForStorkhomePage(selectedLanguage).header}</h2>
+    <div className="main_storkhome_container">
+      <div className="storkhome_plus_container">
+        <h1 className="sotkhome_plus">Storkhome +</h1>
+        <h2 className="storkhome_plus_translatable">
+          {" "}
+          {LanguageChangeForStorkhomePage(selectedLanguage).header}
+        </h2>
       </div>
 
-      <div className='storkhome_cards_container' >
-
+      <div className="storkhome_cards_container">
         {/* first card */}
-        <div className="storkhome_cards">
-          <p className='kit' >Starter Kit  </p>
-          <div className='card_logo_and_plus' >
-            <img src={CompanyLogo} rel='company logo' />
-            <p className='logo_plus' >+</p>
+        <div className="column">
+          <div className="storkhome_cards">
+            <p className="kit">Starter Kit </p>
+            <div className="card_logo_and_plus">
+              <img src={CompanyLogo} rel="company logo" />
+              <p className="logo_plus">+</p>
+            </div>
+            <p> T : +995 111 222 333 </p>
           </div>
-          <p> T : +995 111 222 333 </p>
+          <div className="kit_settings_cont">
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          </div>
         </div>
 
         {/* first card */}
-        <div className="storkhome_cards">
-          <p className='kit' >Regular Kit</p>
-          <div className='card_logo_and_plus' >
-            <img src={CompanyLogo} rel='company logo' />
-            <p className='logo_plus' >+</p>
+        <div className="column">
+          <div className="storkhome_cards">
+            <p className="kit">Regular Kit</p>
+            <div className="card_logo_and_plus">
+              <img src={CompanyLogo} rel="company logo" />
+              <p className="logo_plus">+</p>
+            </div>
+            <p> T : +995 111 222 333 </p>
           </div>
-          <p> T : +995 111 222 333 </p>
+          <div className="kit_settings_cont">
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          </div>
         </div>
 
         {/* first card */}
-        <div className="storkhome_cards">
-          <p className='kit' >Premium Kit</p>
-          <div className='card_logo_and_plus' >
-            <img src={CompanyLogo} rel='company logo' />
-            <p className='logo_plus' >+</p>
+        <div className="column">
+          <div className="storkhome_cards">
+            <p className="kit">Premium Kit</p>
+            <div className="card_logo_and_plus">
+              <img src={CompanyLogo} rel="company logo" />
+              <p className="logo_plus">+</p>
+            </div>
+            <p> T : +995 111 222 333 </p>
           </div>
-          <p> T : +995 111 222 333 </p>
+          <div className="kit_settings_cont">
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+            <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          </div>
         </div>
-
       </div>
-
-      <div className='card_kit_settings_container' >
-        <div className='kit_settings_cont' >
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
+      {/* 
+      <div className="card_kit_settings_container">
+        <div className="kit_settings_cont">
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
         </div>
 
-        <div className='kit_settings_cont' >
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
+        <div className="kit_settings_cont">
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
+          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
         </div>
-
-        <div className='kit_settings_cont' >
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-          <p className='kit_settings' >now information yet</p>
-        </div>
-
-      </div>
+      </div> */}
       <motion.div
-        className="textButtonContainer"
+        className="textButtonContainer textButtonCont"
         whileHover={{ scale: 1.05 }}
         // whileTap={{ scale: 0.9 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <div className='big_call_cont' onClick={handleCallButtonClick} >
+        <div className="big_call_cont" onClick={handleCallButtonClick}>
           <div className="make_call">
-            <img className='hedaphone_icon' src={headphone_icon} rel='headphone icon' />
-            <p className='call' >{LanguageChangeForStorkhomePage(selectedLanguage).make_call}</p>
+            <img
+              className="hedaphone_icon"
+              src={headphone_icon}
+              rel="headphone icon"
+            />
+            <p className="call">
+              {LanguageChangeForStorkhomePage(selectedLanguage).make_call}
+            </p>
           </div>
         </div>
       </motion.div>
-
-
     </div>
-  )
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // export default function Storkhome() {
 //   return (
@@ -233,8 +183,6 @@ export default function Storkhome({
 //     </div>
 //   )
 // }
-
-
 
 // const Storkhome = () => {
 //   const [formData, setFormData] = useState({ Email: '', Name: '', Floor: '' });
