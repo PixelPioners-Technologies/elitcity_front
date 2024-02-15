@@ -6,22 +6,11 @@
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: space-evenly; */
 }
 .title_filter_cont {
-  /* border: 1px solid red; */
   margin-top: 150px;
 }
-
-
-/* .for_comfort {
-  margin-top: 0px;
-  border: 1px solid green;
-} */
-
 .adgilicomportistvis {
-  /* border: 1px solid blue; */
   text-align: center;
   font-family: "BPG Rioni", sans-serif;
   font-weight: 400;
@@ -29,69 +18,53 @@
   line-height: 52.22px;
   letter-spacing: 10%;
   color: #ffffff;
-  /* padding-top: 150px; */
   margin-bottom: 70px;
 }
-
 .container {
   display: flex;
   gap: 15px;
   justify-content: center;
   align-items: center;
-} 
-
+}
 .homepage_map_link,
 .homepage_serch_button {
   background-color: transparent;
-  color: #f1eeee; /* Change to the color you need */
+  color: #f1eeee;
   border: none;
-  padding: 10px 20px; /* Adjust padding to match the size in the photo */
+  padding: 10px 20px;
   text-transform: uppercase;
-  font-weight: bold; /* If the font is bold in the photo */
-  border-radius: 5px; /* Adjust the border-radius to match the button corners in the photo */
-  font-size: 16px; /* Adjust font size to match the photo */
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Adjust or remove shadow as needed */
-  transition: background-color 0.3s ease; /* For a hover effect */
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease;
   align-items: end;
-  margin: 0 5px; /* Adds space between the buttons */
+  margin: 0 5px;
   margin-top: 0px;
 }
-
 .homepage_map_link:hover,
 .homepage_serch_button:hover {
   background-color: transparent; /* Color when hovered, adjust as needed */
   color: black;
 }
-
 .button-container {
-  width: 100%; /* Take full width of its parent */
+  width: 100%;
   display: flex;
-  justify-content: center; /* Center the buttons if needed */
-  margin-top: 40px; /* Add space above the button container */
+  justify-content: center;
+  margin-top: 40px;
   padding-left: 40%;
-
-  /* border: 1px solid red; */
 }
-
 .filter_cont_for_homepage {
-  /* color: black!important; */
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* padding-top: 70px; */
   gap: 13px;
-  /* padding-top: 65px; */
-  /* border: 1px solid green; */
 }
-
 #black_cont {
   color: black;
 }
-
-/* close buttons styles for homepage0 */
-
 .modal_close_button_homePage {
   display: flex;
   justify-content: center;
@@ -103,32 +76,21 @@
   background: transparent;
   color: whitesmoke;
   padding: 15px;
-  /* box-shadow: 0 0.7065919983928324px 0.7065919983928324px -0.625px #00000026,
-    0 1.8065619053231785px 1.8065619053231785px -1.25px #00000025,
-    0 3.6217592146567767px 3.6217592146567767px -1.875px #00000023,
-    0 6.8655999097303715px 6.8655999097303715px -2.5px #00000020,
-    0 13.646761411524492px 13.646761411524492px -3.125px #0000001b,
-    0 30px 30px -3.75px #0000000d; */
   font-weight: bold;
   font-family: Montserrat;
   cursor: pointer;
   display: flex;
   align-items: center;
   transition: 150ms ease-in-out;
-  border-style: solid; /* This line is necessary */
+  border-style: solid;
   border-color: aliceblue;
   border-width: 1px;
   margin-top: 30px;
 }
-
 .modal_close_button_homePage:hover {
   scale: 0.95;
   background: transparent;
   color: rgb(255, 255, 255);
-  /* box-shadow: rgba(41, 165, 16, 0.26) 0px 0.637473px 1.14745px -1.125px,
-    rgba(0, 0, 0, 0.24) 0px 1.93094px 3.4757px -2.25px,
-    rgba(0, 0, 0, 0.192) 0px 5.10423px 9.18761px -3.375px,
-    rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px; */
 }
 
 .min_price_homePage {
@@ -136,31 +98,25 @@
   background-color: transparent;
   border-style: hidden;
   border: 3px solid transparent;
-  /* Additional styling to ensure the input field blends well with your design */
-  background-color: transparent; /* Light background for visibility */
+  background-color: transparent;
   padding: 10px;
   border-radius: 5px;
   margin-left: 10px;
 }
-
 .min_price_homePage:focus {
   outline: none;
-  /* Optionally, change border or add shadow on focus */
   box-shadow: 0 0 5px rgb(161, 193, 202);
 }
-
 .min_price_homePage::placeholder {
-  font-size: 15px; /* Larger text size */
+  font-size: 15px;
   color: #999;
 }
-
 .priceTextHomePage {
   color: #ffffff;
 }
 .fullPriceHomePage {
   color: #ffffff;
 }
-
 .meterPriceHomePage {
   color: #ffffff;
   padding-top: 25px;
@@ -185,12 +141,8 @@
 .button-modal-container-homepage {
   position: relative;
   cursor: pointer;
-  /* border: 10px solid green; */
-  /* border: 1px solid red; */
 }
-
 .lacation_button_homepage {
-  /* border: 1px solid red; */
   display: flex;
   width: 210px;
   height: 33px;
@@ -207,23 +159,19 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 0px; /* 0% */
+  line-height: 0px;
   letter-spacing: 1.76px;
   position: relative;
 }
-
-/* for Location  */
 .location_modal_container-homepage {
   color: #fff;
 }
-
 .districts_and_pharentdostricts-homepage {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   gap: 20px;
 }
-
 .pharent_district_chackmarks-homepage {
   display: flex;
   justify-content: flex-start;
@@ -231,7 +179,6 @@
   gap: 10px;
   margin-bottom: 10px;
 }
-
 .container-homepage {
   display: block;
   position: relative;
@@ -240,13 +187,9 @@
   user-select: none;
   animation: jello-horizontal 0.9s both;
 }
-
-/* checkmark */
 .checkmark-homepage:hover {
   animation: jello-horizontal 0.9s both;
 }
-
-/* Create a custom checkbox */
 .checkmark-homepage {
   position: relative;
   top: 0;
@@ -258,25 +201,17 @@
   border-color: #fff;
   background-color: #ffffff;
 }
-
-/* When the checkbox is checked, add a blue background */
 .container-homepage input:checked ~ .checkmark-homepage {
   background-color: rgb(0, 0, 0);
 }
-
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
-
-/* Show the checkmark when checked */
 .container-homepage input:checked ~ .checkmark-homepage:after {
   display: block;
 }
-
-/* Style the checkmark/indicator */
 .container-homepage .checkmark-homepage:after {
   left: 0.4em;
   top: 0.2em;
@@ -294,7 +229,6 @@
   gap: 10px;
   margin-left: 20px;
 }
-
 .child_district_checkmarks-homepage {
   display: flex;
   justify-content: flex-start;
@@ -302,86 +236,55 @@
   gap: 10px;
   margin-left: 20px;
 }
-
-
 @media screen and (max-width: 500px) {
   .main_foto {
     height: 100vh;
-    /* background-blend-mode: lighten; */
-    /* width: 345px; */
-    /* background-color: aquamarine; */
-    /* background-image: none; */
   }
   .filter_cont_for_homepage {
-    /* border: 1px solid rgb(32, 218, 32); */
     flex-direction: column;
     align-items: start;
     gap: 20px;
-
-    /* height: 100vh; */
   }
-  .adgilicomportistvis{
+  .adgilicomportistvis {
     font-size: 20px;
     margin-bottom: 50px;
   }
-  .title_filter_cont{
+  .title_filter_cont {
     margin-top: 50px;
   }
-  .button-container{
+  .button-container {
     display: flex;
     justify-content: start;
     align-items: start;
     padding-left: 0%;
     margin-top: 40px;
-    /* margin-left: 4%; */
-    /* text-align: start; */
   }
-
-
-/* Remove spin buttons for Webkit browsers like Chrome and Safari */
+  .min_price_homePage::-webkit-outer-spin-button,
+  .min_price_homePage::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .min_price_homePage::-ms-clear,
+  .min_price_homePage::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  .min_price_homePage::-ms-clear {
+    display: none;
+  }
+}
 .min_price_homePage::-webkit-outer-spin-button,
 .min_price_homePage::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
-/* Remove spin buttons for Mozilla Firefox */
-
-
-/* Remove spin buttons for MS Edge */
 .min_price_homePage::-ms-clear,
 .min_price_homePage::-ms-reveal {
   display: none;
   width: 0;
   height: 0;
 }
-
-/* Remove spin buttons and clear button for Internet Explorer */
-.min_price_homePage::-ms-clear {
-  display: none;
-}
-}
-
-
-/* Remove spin buttons for Webkit browsers like Chrome and Safari */
-.min_price_homePage::-webkit-outer-spin-button,
-.min_price_homePage::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Remove spin buttons for Mozilla Firefox */
-
-
-/* Remove spin buttons for MS Edge */
-.min_price_homePage::-ms-clear,
-.min_price_homePage::-ms-reveal {
-  display: none;
-  width: 0;
-  height: 0;
-}
-
-/* Remove spin buttons and clear button for Internet Explorer */
 .min_price_homePage::-ms-clear {
   display: none;
 }

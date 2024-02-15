@@ -3,8 +3,8 @@
 
 .main_map {
   background-color: rgb(0, 0, 0);
-  /* height: 100vh; */
-  border: 1px solid red;
+  height: 100vh;
+  /* border: 1px solid red; */
 }
 
 .map_cont {
@@ -14,7 +14,7 @@
 }
 
 .filtetmethods_and_filters {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,6 +23,11 @@
 
 .filter_methods_container {
   padding-top: 70px;
+  /* border: 3px solid blue; */
+}
+
+.category_button{
+  /* border: 1px solid yellow; */
 }
 
 .filter_cont {
@@ -36,8 +41,7 @@
 
 /* -------------------------------space button stules ------------------------------------------- */
 .space_button {
-  /* border: 1px solid red; */
-
+ 
   display: flex;
   width: 159px;
   height: 33px;
@@ -50,11 +54,17 @@
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: #fff;
   position: relative;
+   /* border: 1px solid red; */
+
+}
+.category_button{
+  /* border: 1px solid rgb(0, 102, 255); */
 }
 
 .button-modal-container {
   position: relative;
   cursor: pointer;
+  /* border: 2px solid blue; */
 }
 
 /* ----------------------------------------------------------------------------------------------- */
@@ -348,7 +358,7 @@
 
 .legend_contained {
   display: flex;
-  justify-content: flex-start;
+  justify-content:space-evenly;
   align-items: center;
   color: #fff;
   gap: 30px;
@@ -543,3 +553,32 @@ span {
   right: 0;
   opacity: 1;
 } */
+
+
+
+@media screen and (max-width:500px) {
+  .map_cont {
+    width: 100%;
+  }
+  .filtetmethods_and_filters {
+    width: 100%;
+    flex-direction: column;
+  }
+  .filter_cont {
+    /* border: 1px solid red; */
+    flex-direction: column;
+    padding-top: 0;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  .legend_contained {
+    width: 100%;
+    padding: 0;
+    margin-left: 0;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    /* border: 1px solid green; */
+    /* align-items: start; */
+  }
+  
+}
