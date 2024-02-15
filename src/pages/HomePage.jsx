@@ -342,7 +342,7 @@ export default function Map({ selectedLanguage,
       spaceButtonLanguage: "Space",
       priceButtonLanguage: "Price",
       allStatusLanguage: "All",
-      findMapButtonLanguage: "Find Map",
+      findMapButtonLanguage: "Map",
       allFindButtonLanguage: "Find",
       spaceButtonClose: "Close",
       minPrice: "From m²",
@@ -361,7 +361,7 @@ export default function Map({ selectedLanguage,
         languageInfo.spaceButtonLanguage = "Space"
         languageInfo.priceButtonLanguage = "Price"
         languageInfo.allStatusLanguage = "All"
-        languageInfo.findMapButtonLanguage = "Find Map"
+        languageInfo.findMapButtonLanguage = "Map"
         languageInfo.allFindButtonLanguage = "Find"
         languageInfo.spaceButtonClose = "Close"
         languageInfo.minPrice = "From m²"
@@ -379,7 +379,7 @@ export default function Map({ selectedLanguage,
         languageInfo.spaceButtonLanguage = "ფართი"
         languageInfo.priceButtonLanguage = "ფასი"
         languageInfo.allStatusLanguage = "ყველა"
-        languageInfo.findMapButtonLanguage = "რუკაზე ძიება"
+        languageInfo.findMapButtonLanguage = "რუქა"
         languageInfo.allFindButtonLanguage = "ძიება"
         languageInfo.spaceButtonClose = "დახურვა"
         languageInfo.minPrice = "დან მ²"
