@@ -351,7 +351,8 @@ export default function Map({ selectedLanguage,
       fullPriceHomePage: "Full price",
       meterPriceHomePage: "The price of m²",
       dan: "from",
-      mde: "to"
+      mde: "to",
+      place_for_your_comfort : 'A place for your comfort',
     }
 
     switch (lang) {
@@ -371,6 +372,7 @@ export default function Map({ selectedLanguage,
         languageInfo.meterPriceHomePage = "The price of m²"
         languageInfo.dan = "from"
         languageInfo.mde = "to"
+        languageInfo.place_for_your_comfort = "A place for your comfort";
         break;
 
       case "ka":
@@ -389,6 +391,7 @@ export default function Map({ selectedLanguage,
         languageInfo.meterPriceHomePage = "მ² - ის ფასი"
         languageInfo.dan = "დან"
         languageInfo.mde = "მდე"
+        languageInfo.place_for_your_comfort = "ადგილი შენი კომფორტისტვის";
         break
 
       case "ru":
@@ -407,6 +410,7 @@ export default function Map({ selectedLanguage,
         languageInfo.meterPriceHomePage = "Цена м²"
         languageInfo.dan = "из"
         languageInfo.mde = "до"
+        languageInfo.place_for_your_comfort = "Место для вашего комфорта";
         break
     }
     return languageInfo
@@ -426,7 +430,7 @@ export default function Map({ selectedLanguage,
         >
           {/* <div className='for_comfort'> */}
           <div className='adgilicomportistvis'>
-            ადგილი შენი კომფორტისთვის
+          {handleStatusButtonLanguageChange(selectedLanguage).place_for_your_comfort}
           </div>
           <div className='filter_cont_for_homepage'>
 
