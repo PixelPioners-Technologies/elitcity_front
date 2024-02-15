@@ -125,6 +125,7 @@ function normalizeData(item, lang) {
       apartmentName: apartment[`appartment_name_${lang}`],
       testField: apartment[`test_field_${lang}`],
       internalApartmentName: apartment.internal_apartment_name,
+      
       images: apartment.appartment_images,
       address: {
         city: apartment[`appartment_address_${lang}`][`city_${lang}`], // Correctly dynamic
