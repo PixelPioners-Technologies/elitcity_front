@@ -26,9 +26,6 @@
   /* border: 3px solid blue; */
 }
 
-.category_button{
-  /* border: 1px solid yellow; */
-}
 
 .filter_cont {
   display: flex;
@@ -57,9 +54,7 @@
    /* border: 1px solid red; */
 
 }
-.category_button{
-  /* border: 1px solid rgb(0, 102, 255); */
-}
+
 
 .button-modal-container {
   position: relative;
