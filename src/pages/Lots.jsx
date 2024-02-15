@@ -662,8 +662,6 @@ export default function Physical({
       studio: "Studio",
       allFindButtonLanguage: "Search",
       spaceButtonClose: "Close",
-      spaceButtonLanguage: "Space",
-      priceButtonLanguage: "Price",
 
       minPrice: "From m²",
       maxPrice: "To m²",
@@ -684,16 +682,14 @@ export default function Physical({
         languageInfo.sortingButtonDescendentFullPrice = "Decendent full price";
         languageInfo.studio = "Studio";
         languageInfo.allFindButtonLanguage = "Search";
-        languageInfo.spaceButtonClose = "Close"
-        languageInfo.spaceButtonLanguage = "Space"
-        languageInfo.priceButtonLanguage = "Price"
-        languageInfo.minPrice = "From m²"
-        languageInfo.maxPrice = "To m²"
-        languageInfo.roomStudio = "Studio"
-        languageInfo.fullPriceHomePage = "Full price"
-        languageInfo.meterPriceHomePage = "The price of m²"
-        languageInfo.dan = "from"
-        languageInfo.mde = "to"
+        languageInfo.spaceButtonClose = "Close";
+        languageInfo.minPrice = "From m²";
+        languageInfo.maxPrice = "To m²";
+        languageInfo.roomStudio = "Studio";
+        languageInfo.fullPriceHomePage = "Full price";
+        languageInfo.meterPriceHomePage = "The price of m²";
+        languageInfo.dan = "from";
+        languageInfo.mde = "to";
 
         break;
 
@@ -707,16 +703,14 @@ export default function Physical({
           "მთლიანი ფასი კლებადობით";
         languageInfo.studio = "სტუდიო";
         languageInfo.allFindButtonLanguage = "ძებნა";
-        languageInfo.spaceButtonClose = "დახურვა"
-        languageInfo.spaceButtonLanguage = "ფართი"
-        languageInfo.priceButtonLanguage = "ფასი"
-        languageInfo.minPrice = "დან მ²"
-        languageInfo.maxPrice = "მდე მ²"
-        languageInfo.roomStudio = "სტუდიო"
-        languageInfo.fullPriceHomePage = "სრული ფასი"
-        languageInfo.meterPriceHomePage = "მ² - ის ფასი"
-        languageInfo.dan = "დან"
-        languageInfo.mde = "მდე"
+        languageInfo.spaceButtonClose = "დახურვა";
+        languageInfo.minPrice = "დან მ²";
+        languageInfo.maxPrice = "მდე მ²";
+        languageInfo.roomStudio = "სტუდიო";
+        languageInfo.fullPriceHomePage = "სრული ფასი";
+        languageInfo.meterPriceHomePage = "მ² - ის ფასი";
+        languageInfo.dan = "დან";
+        languageInfo.mde = "მდე";
 
         break;
 
@@ -731,16 +725,14 @@ export default function Physical({
           "Полная стоимость потомка";
         languageInfo.studio = "Студия";
         languageInfo.allFindButtonLanguage = "Поиск";
-        languageInfo.spaceButtonClose = "закрить"
-        languageInfo.spaceButtonLanguage = "Площадь"
-        languageInfo.priceButtonLanguage = "Цена"
-        languageInfo.minPrice = "из м²"
-        languageInfo.maxPrice = "до м²"
-        languageInfo.roomStudio = "Студия"
-        languageInfo.fullPriceHomePage = "Полная стоимость"
-        languageInfo.meterPriceHomePage = "Цена м²"
-        languageInfo.dan = "из"
-        languageInfo.mde = "до"
+        languageInfo.spaceButtonClose = "закрить";
+        languageInfo.minPrice = "из м²";
+        languageInfo.maxPrice = "до м²";
+        languageInfo.roomStudio = "Студия";
+        languageInfo.fullPriceHomePage = "Полная стоимость";
+        languageInfo.meterPriceHomePage = "Цена м²";
+        languageInfo.dan = "из";
+        languageInfo.mde = "до";
 
         break;
     }
@@ -1030,9 +1022,7 @@ export default function Physical({
                   className="dropdown"
                 />
               </div>
-              <P_Modal isOpen={is_P_ModalOpen} close={closeModal}>
-                {renderModalContent()}
-                </P_Modal>
+              <P_Modal isOpen={is_P_ModalOpen}>{renderModalContent()}</P_Modal>
             </div>
 
             {/* button for status */}

@@ -157,7 +157,15 @@
   transform: scale(1.2);
   transition: transform 0.3s ease;
 }
-.textinfo_and_company_logo {
+
+
+.company_title_on_card{
+  color: #f1eeee;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 10px;
+}
+
+.textinfo_and_company_logo{
   display: flex;
   justify-content: flex-start;
   gap: 20px;
@@ -206,11 +214,10 @@
   background-color: transparent;
   color: #f1eeee;
   border: none;
-  padding: 10px 20px;
-  text-transform: uppercase;
-  font-weight: bold;
-  border-radius: 5px;
-  font-size: 16px;
+  padding: 10px 20px; /* Adjust padding to match the size in the photo */
+  font-weight: bold; /* If the font is bold in the photo */
+  border-radius: 5px; /* Adjust the border-radius to match the button corners in the photo */
+  font-size: 16px; /* Adjust font size to match the photo */
   cursor: pointer;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   transition: background-color 0.3s ease;
@@ -221,6 +228,7 @@
 .homepage_serch_button_complexpage:hover {
   background-color: transparent;
   color: black;
+  
 }
 .close_cont {
   display: flex;

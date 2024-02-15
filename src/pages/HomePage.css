@@ -115,6 +115,9 @@
   color: #ffffff;
 }
 .fullPriceHomePage {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: #ffffff;
 }
 .meterPriceHomePage {
@@ -288,3 +291,112 @@
 .min_price_homePage::-ms-clear {
   display: none;
 }
+
+
+
+/* Remove spin buttons for Webkit browsers like Chrome and Safari */
+.min_price_homePage::-webkit-outer-spin-button,
+.min_price_homePage::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove spin buttons for Mozilla Firefox */
+
+
+/* Remove spin buttons for MS Edge */
+.min_price_homePage::-ms-clear,
+.min_price_homePage::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+
+.for_dolar_and_lari{
+  position: relative;
+}
+
+
+/* Remove spin buttons and clear button for Internet Explorer */
+.min_price_homePage::-ms-clear {
+  display: none;
+}
+
+
+.currency-sign_homepage_11 {
+  width: 17px; /* Adjust width as needed */
+  height: auto;
+  margin-right: 0px; /* Add spacing between the images */
+  position: absolute;
+  left: 184px;
+  top: 12px;
+
+}
+
+.currency-sign_homepage_11.active {
+
+  display: none; /* Hide inactive currency sign */
+}
+
+
+
+
+
+
+/* --------------------------------------------------currency styles  -------------------------------------------- */
+
+.currencyBox_homepage {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+
+
+}
+
+/* classes of toggle button on currency --- */
+.switch_homepage {
+  width: 70px;
+  height: 30px;
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  background-color: none;
+
+  display: flex;
+  justify-content: flex-start;  
+  align-items: center;
+  border: 1px solid white;
+
+  /* border: 1px solid red; */
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+  /* border-radius: 50px; */
+}
+
+
+
+.switch_homepage[data-ison="true"] {
+  justify-content: flex-end;
+}
+
+.handle_homepage {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.currency-sign_homepage {
+  width: 17px; /* Adjust width as needed */
+  height: auto;
+  margin-right: 0px; /* Add spacing between the images */
+}
+
+.currency-sign_homepage.active {
+
+  display: none; /* Hide inactive currency sign */
+}
+/* ------------- */
