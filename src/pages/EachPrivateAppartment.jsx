@@ -13,6 +13,11 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import private_apartment_location_icon from "../location_icons/private_apartment2.png";
+import metro from "../assets/Metro.svg";
+import aptiaqi from "../assets/Aptiaqi.svg";
+import supermarket from "../assets/Supermarket.svg";
+import skveri from "../assets/skveri.svg";
+
 
 const normalizePrivateApartmentData = (data, lang) => {
   return {
@@ -34,6 +39,13 @@ const normalizePrivateApartmentData = (data, lang) => {
     Bathroom: data.internal_private_apartment_name.Bathroom,
     bedroom: data.internal_private_apartment_name.bedroom,
     Balcony: data.internal_private_apartment_name.Balcony,
+
+
+    metro: data.internal_private_apartment_name.metro,
+    pharmacy: data.internal_private_apartment_name.pharmacy,
+    supermarket: data.internal_private_apartment_name.supermarket,
+    square: data.internal_private_apartment_name.square,
+
 
     address: {
       city: data[`private_apartment_address_${lang}`][`city_${lang}`],
@@ -85,7 +97,7 @@ export default function EachPrivateAppartment({
       const data = response.data;
       const normadata = normalizePrivateApartmentData(data, selectedLanguage);
       setGround(normadata);
-
+      console.log(data)
       // Update sliderImages state with all images from the fetched data
       const sliderImagesFromData = normadata.images.map((imgUrl, index) => ({
         id: index,
@@ -102,6 +114,9 @@ export default function EachPrivateAppartment({
   }, [ground]); // This effect will run after 'ground' has been updated
 
   // ---------------------------------------------------------------------------------------------
+
+
+
 
   const cardStatusSettingLanguage = (lang, status) => {
     const statusLanguageInfo = {
@@ -160,11 +175,18 @@ export default function EachPrivateAppartment({
       views: "Views",
       description: 'Description',
 
-      rooms : 'Rooms',
-      kitchen  : 'Kitchen'  ,
-      Bathroom  : 'Bathroom'  ,
-      bedroom  : 'Bedroom'   ,
-      Balcony  : 'Balcony'  ,
+      rooms: 'Rooms',
+      kitchen: 'Kitchen',
+      Bathroom: 'Bathroom',
+      bedroom: 'Bedroom',
+      Balcony: 'Balcony',
+
+      metro: "Metro",
+      pharmacy: "Pharmacy",
+      supermarket: "Supermarket",
+      square: "Square",
+      nearObjects: "Near Objects",
+
     };
 
     switch (lang) {
@@ -187,6 +209,13 @@ export default function EachPrivateAppartment({
         languageInfo.bedroom = "Bedroom";
         languageInfo.Balcony = "Balcony";
 
+        languageInfo.metro = "Metro";
+        languageInfo.pharmacy = "Pharmacy";
+        languageInfo.supermarket = "Supermarket";
+        languageInfo.square = "Square";
+        languageInfo.nearObjects = "Near Objects";
+
+
 
         break;
 
@@ -208,6 +237,12 @@ export default function EachPrivateAppartment({
         languageInfo.bedroom = "საძინებელი";
         languageInfo.Balcony = "აივანი";
 
+        languageInfo.metro = "მეტრო";
+        languageInfo.pharmacy = "აფთიაქი";
+        languageInfo.supermarket = "სუპერმარკეტი";
+        languageInfo.square = "სკვერი";
+        languageInfo.nearObjects = "ახლო მდებარე ობიექტები";
+
 
         break;
 
@@ -228,6 +263,13 @@ export default function EachPrivateAppartment({
         languageInfo.Bathroom = "Ванная комната";
         languageInfo.bedroom = "Спальная комната";
         languageInfo.Balcony = "Балкон";
+
+        languageInfo.metro = "Метро";
+        languageInfo.pharmacy = "Аптека";
+        languageInfo.supermarket = "Супермаркет";
+        languageInfo.square = "Площадь";
+        languageInfo.nearObjects = "Близкие объекты";
+
         break;
     }
     return languageInfo;
@@ -298,7 +340,7 @@ export default function EachPrivateAppartment({
         <div className="lands_image">
           {wordData && ( // Check if wordData is not null/undefined before rendering
             <img
-            id="lands_image"
+              id="lands_image"
               src={wordData.value}
               alt={`Complex ${wordData.id}`}
               height="450"
@@ -316,9 +358,8 @@ export default function EachPrivateAppartment({
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData.id === data.id ? "clicked" : ""} ${
-                      clickedIndex === i ? "enlarge" : ""
-                    }`}
+                    className={`${wordData.id === data.id ? "clicked" : ""} ${clickedIndex === i ? "enlarge" : ""
+                      }`}
                     src={data.value}
                     alt={`Complex ${data.id}`}
                     onClick={() => handleClick(i + carouselPosition)}
@@ -485,8 +526,73 @@ export default function EachPrivateAppartment({
             </GoogleMap>
           </div>
         </div>
+
+        <div className="textBoxOfAxloMdebare">
+          {/* (START) ახლო მდებარე ობიექტები box */}
+          <div className="textBoxOfH4axloMdebareObieqtebi">
+            <h4 style={{ color: "white" }}>
+              {handleStaticTextLanguageChange(selectedLanguage).nearObjects}
+            </h4>
+          </div>
+          <div className="iconAndItsText">
+            {ground?.metro && (
+              <>
+                <img src={metro} alt="metro" />
+                <p>
+                  {
+                    handleStaticTextLanguageChange(selectedLanguage)
+                      .metro
+                  }
+                </p>
+              </>
+            )}
+          </div>
+          <div className="iconAndItsText">
+            {ground?.supermarket && (
+              <>
+                <img src={supermarket} alt="supermarket" />
+                <p>
+                  {
+                    handleStaticTextLanguageChange(selectedLanguage)
+                      .supermarket
+                  }
+                </p>
+              </>
+            )}
+          </div>
+          <div className="iconAndItsText">
+            {ground?.pharmacy && (
+              <>
+                <img src={aptiaqi} alt="aptiaqi" />
+                <p>
+                  {
+                    handleStaticTextLanguageChange(selectedLanguage)
+                      .pharmacy
+                  }
+                </p>
+              </>
+            )}
+          </div>
+          <div className="iconAndItsText">
+            {ground?.square && (
+              <>
+                <img src={skveri} alt="skveri" />
+                <p>
+                  {
+                    handleStaticTextLanguageChange(selectedLanguage)
+                      .square
+                  }
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+
+
+
+
       </div>
-      </div>
+    </div>
   );
 }
 

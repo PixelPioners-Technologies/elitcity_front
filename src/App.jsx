@@ -68,29 +68,33 @@ function trackButtonClick(buttonName) {
 const BaseURLs = {
   //   // storkhome
 
-  complex: "https://api.storkhome.ge/complex/",
-  company: "https://api.storkhome.ge/company/",
-  apartment: "https://api.storkhome.ge/apartment/",
-  private_apartment: "https://api.storkhome.ge/privateapartments/",
-  ground: "https://api.storkhome.ge/ground/",
-  promotion: "https://api.storkhome.ge/promotions/",
-  blog: "https://api.storkhome.ge/blog/",
-  map: "https://api.storkhome.ge/map/",
-  complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
-  company_and_complex: 'https://api.storkhome.ge/companycomplex/',
+  // complex: "https://api.storkhome.ge/complex/",
+  // company: "https://api.storkhome.ge/company/",
+  // apartment: "https://api.storkhome.ge/apartment/",
+  // private_apartment: "https://api.storkhome.ge/privateapartments/",
+  // ground: "https://api.storkhome.ge/ground/",
+  // promotion: "https://api.storkhome.ge/promotions/",
+  // blog: "https://api.storkhome.ge/blog/",
+  // map: "https://api.storkhome.ge/map/",
+  // complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
+  // company_and_complex: 'https://api.storkhome.ge/companycomplex/',
+  // proxy: 'https://api.storkhome.ge/proxy/',
+
 
   // local
 
-  // complex: "http://127.0.0.1:8000/complex/",
-  // company: "http://127.0.0.1:8000/company/",
-  // apartment: "http://127.0.0.1:8000/apartment/",
-  // private_apartment: "http://127.0.0.1:8000/privateapartments/",
-  // ground: "http://127.0.0.1:8000/ground/",
-  // promotion: "http://127.0.0.1:8000/promotions/",
-  // blog: "http://127.0.0.1:8000/blog/",
-  // map: "http://127.0.0.1:8000/map/",
-  // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
-  // company_and_complex: 'http://127.0.0.1:8000/companycomplex/',
+  complex: "http://127.0.0.1:8000/complex/",
+  company: "http://127.0.0.1:8000/company/",
+  apartment: "http://127.0.0.1:8000/apartment/",
+  private_apartment: "http://127.0.0.1:8000/privateapartments/",
+  ground: "http://127.0.0.1:8000/ground/",
+  promotion: "http://127.0.0.1:8000/promotions/",
+  blog: "http://127.0.0.1:8000/blog/",
+  map: "http://127.0.0.1:8000/map/",
+  complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
+  company_and_complex: 'http://127.0.0.1:8000/companycomplex/',
+  proxy: 'http://127.0.0.1:8000/proxy/',
+
 
 };
 
@@ -195,12 +199,19 @@ function App() {
 
   const [selectedPharentDistricts, setSelectedPharentDistricts] = useState([]);
   const [selectedDistricts, setSelectedDistricts] = useState([]);
-
+// ===================================================================================================
   const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState("");
   const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState("");
 
+  const [converted_min_price_square_meter, setConverted_min_price_square_meter] = useState(minPricePerSquareMeter);
+  const [converted_max_price_square_meter, setConverted_max_price_square_meter] = useState(maxPricePerSquareMeter);
+
   const [minFullPrice, setMinFullPrice] = useState("");
   const [maxFullPrice, setMaxFullPrice] = useState("");
+
+  const [converted_min_full_price, setConverted_min_full_price] = useState(minFullPrice);
+  const [converted_max_full_price, setConverted_max_full_price] = useState(maxFullPrice);
+// ===================================================================================================
 
   const [min_space, setMin_space] = useState("");
   const [max_space, setMax_space] = useState("");
@@ -254,8 +265,7 @@ function App() {
 
   // ------------------==================------------------------------------------------------
   const minPricePerSquareMeterChangeHandler = (data) => {
-    // const normalizedValue = isOn ? (value / getCorrencyRate) : value;
-    setMinPricePerSquareMeter(normalizedValue);
+    setMinPricePerSquareMeter(data);
   };
   const maxPricePerSquareMeterChangeHandler = (data) => {
     setMaxPricePerSquareMeter(data);
@@ -282,9 +292,41 @@ function App() {
   const selectedStatusesChangeHandler = (data) => {
     setSelectedStatuses(data);
   };
+
+
   const searchButtonhangeHandler = (data) => {
     setSearchButton(data);
+
+    if (minPricePerSquareMeter === ""){
+      setConverted_min_price_square_meter("");
+    }else{
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_min_price_square_meter(String(minPricePerSquareMeter * conversionRate ))
+    }
+
+    if (maxPricePerSquareMeter === ""){
+      setConverted_max_price_square_meter("");
+    }else{
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_max_price_square_meter(String(maxPricePerSquareMeter * conversionRate ))
+    }
+
+    if (minFullPrice === ""){
+      setConverted_min_full_price("");
+    }else{
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_min_full_price(String(minFullPrice * conversionRate ))
+    }
+
+    if (maxFullPrice === ""){
+      setConverted_max_full_price("");
+    }else{
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_max_full_price(String(maxFullPrice * conversionRate ))
+    }
   };
+
+
   const handleCorrentPageHandler = (data) => {
     setCorrentPage(data);
     window.scrollTo({
@@ -320,10 +362,10 @@ function App() {
         [cityParam]: selectedCity,
         [pharentdistrictParams]: selectedPharentDistricts.join(","),
         [districtParams]: selectedDistricts.join(","),
-        min_price_per_sq_meter: minPricePerSquareMeter,
-        max_price_per_sq_meter: maxPricePerSquareMeter,
-        min_full_price: minFullPrice,
-        max_full_price: maxFullPrice,
+        min_price_per_sq_meter: converted_min_price_square_meter,
+        max_price_per_sq_meter: converted_max_price_square_meter,
+        min_full_price: converted_min_full_price,
+        max_full_price: converted_max_full_price,
         min_space: min_space,
         max_space: max_space,
         limit: limit,
@@ -517,7 +559,7 @@ function App() {
         const rateInfo = rates.find((rate) => rate.code === "USD");
         if (rateInfo) {
           setGetCorrencyRate(rateInfo.rate);
-          console.log("Exchange rate from USD to GEL:", rateInfo.rate);
+          // console.log("Exchange rate from USD to GEL:", rateInfo.rate);
         }
       } catch (error) {
         console.error("Error fetching exchange rate:", error);
@@ -641,25 +683,11 @@ function App() {
   }
 
 
-
-
-
   useEffect(() => {
     const sendDataToSheet = async () => {
 
-      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      if (!sedtsheet) return;
 
-      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-
-      // const targetUrl = "https://script.google.com/macros/s/AKfycbyHWl50dD5rLLd4jfu9vPZ-JKH9QT4O2nunRctKJoaAoWkD29r26pvosgvb3uDYnvgZ/exec";
-      // // Combine the URLs
-      // const proxiedRequestUrl = proxyUrl + targetUrl;
-      
-      if (!sedtsheet) return; // Only proceed if sedtsheet is true
-  
       const formData = {
         name,
         phone,
@@ -668,19 +696,19 @@ function App() {
         storkhomePlus,
         other
       };
-  
+
       try {
         // Await the Axios call
-        const response = await axios.post('https://script.google.com/macros/s/AKfycbyHWl50dD5rLLd4jfu9vPZ-JKH9QT4O2nunRctKJoaAoWkD29r26pvosgvb3uDYnvgZ/exec', formData);
+        const response = await axios.post(BaseURLs.proxy, formData);
         console.log(response.data); // Log the response data, not the whole response
       } catch (error) {
         console.error('Error sending data to sheet:', error);
       }
     };
-  
+
     sendDataToSheet();
   }, [sedtsheet]);
-  
+
 
 
   // Event handlers will be defined here
