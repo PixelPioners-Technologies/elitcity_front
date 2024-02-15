@@ -1,3 +1,7 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import "./Complex.css";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -88,13 +92,12 @@ export default function Complex({
   searchInput,
   setSearchInput,
   stringSearchHeandles,
-
 }) {
   // const [homes, setHomes] = useState([]);
 
   // const [isLoading, setIsLoading] = useState(true);
   // const [forPriceDecrease, setForPriceDecrease] = useState(null);
-  // const [sortedHomes, setSortedHomes] = useState(null); 
+  // const [sortedHomes, setSortedHomes] = useState(null);
   // const [ascendentPrice, setAscendentPrice] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -124,17 +127,13 @@ export default function Complex({
 
   useEffect(() => {
     // console.log('corrent page----', complexes.complexDetails.rank)
-    console.log('corrent page----', complexes)
-
-  }, [complexes])
-
+    console.log("corrent page----", complexes);
+  }, [complexes]);
 
   // useEffect(() => {
 
   //   console.log("total_item_number on complex", total_item_number);
   // }, [total_item_number]);
-
-
 
   // 1111111111111111111111111111111111
   // for toggle DOllar AND LARI ---==---(START)
@@ -385,7 +384,7 @@ export default function Complex({
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
-      pricePerM: 'Price per m²',
+      pricePerM: "Price per m²",
 
       sortingButtonAscendentPrice: "Ascendant price in m²",
       sortingButtonDescendentPrice: "Descendent price in m²",
@@ -394,31 +393,31 @@ export default function Complex({
       sortingButtonAscendent_rank: "Ascendant rank",
       sortingButtonDescendent_rank: "Decendant rank",
 
-      complexes : 'Complexes',
-      map : "Map",
-      sorting : 'Sorting',
-      place_for_your_comfort : 'A place for your comfort',
-      sort: 'Sort'
-    }
+      complexes: "Complexes",
+      map: "Map",
+      sorting: "Sorting",
+      place_for_your_comfort: "A place for your comfort",
+      sort: "Sort",
+    };
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status"
-        languageInfo.cityButtonLanguage = "Location"
-        languageInfo.spaceButtonLanguage = "Space"
-        languageInfo.priceButtonLanguage = "Price"
-        languageInfo.allStatusLanguage = "All"
-        languageInfo.findMapButtonLanguage = "Find Map"
-        languageInfo.allFindButtonLanguage = "Find"
-        languageInfo.spaceButtonClose = "Close"
-        languageInfo.minPrice = "From m²"
-        languageInfo.maxPrice = "To m²"
-        languageInfo.roomStudio = "Studio"
-        languageInfo.fullPriceHomePage = "Full price"
-        languageInfo.meterPriceHomePage = "The price of m²"
-        languageInfo.dan = "from"
-        languageInfo.mde = "to"
-        languageInfo.pricePerM = "Price per m²"
+        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.cityButtonLanguage = "Location";
+        languageInfo.spaceButtonLanguage = "Space";
+        languageInfo.priceButtonLanguage = "Price";
+        languageInfo.allStatusLanguage = "All";
+        languageInfo.findMapButtonLanguage = "Find Map";
+        languageInfo.allFindButtonLanguage = "Find";
+        languageInfo.spaceButtonClose = "Close";
+        languageInfo.minPrice = "From m²";
+        languageInfo.maxPrice = "To m²";
+        languageInfo.roomStudio = "Studio";
+        languageInfo.fullPriceHomePage = "Full price";
+        languageInfo.meterPriceHomePage = "The price of m²";
+        languageInfo.dan = "from";
+        languageInfo.mde = "to";
+        languageInfo.pricePerM = "Price per m²";
 
         languageInfo.sortingButtonAscendentPrice = "Ascendant price in m²";
         languageInfo.sortingButtonDescendentPrice = "Descendent price in m²";
@@ -437,22 +436,22 @@ export default function Complex({
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
-        languageInfo.cityButtonLanguage = "მდებარეობა"
-        languageInfo.spaceButtonLanguage = "ფართი"
-        languageInfo.priceButtonLanguage = "ფასი"
-        languageInfo.allStatusLanguage = "ყველა"
-        languageInfo.findMapButtonLanguage = "რუკაზე ძიება"
-        languageInfo.allFindButtonLanguage = "ძიება"
-        languageInfo.spaceButtonClose = "დახურვა"
-        languageInfo.minPrice = "დან მ²"
-        languageInfo.maxPrice = "მდე მ²"
-        languageInfo.roomStudio = "სტუდიო"
-        languageInfo.fullPriceHomePage = "სრული ფასი"
-        languageInfo.meterPriceHomePage = "მ² - ის ფასი"
-        languageInfo.dan = "დან"
-        languageInfo.mde = "მდე"
-        languageInfo.pricePerM = "მ² ფასი"
+        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.cityButtonLanguage = "მდებარეობა";
+        languageInfo.spaceButtonLanguage = "ფართი";
+        languageInfo.priceButtonLanguage = "ფასი";
+        languageInfo.allStatusLanguage = "ყველა";
+        languageInfo.findMapButtonLanguage = "რუკაზე ძიება";
+        languageInfo.allFindButtonLanguage = "ძიება";
+        languageInfo.spaceButtonClose = "დახურვა";
+        languageInfo.minPrice = "დან მ²";
+        languageInfo.maxPrice = "მდე მ²";
+        languageInfo.roomStudio = "სტუდიო";
+        languageInfo.fullPriceHomePage = "სრული ფასი";
+        languageInfo.meterPriceHomePage = "მ² - ის ფასი";
+        languageInfo.dan = "დან";
+        languageInfo.mde = "მდე";
+        languageInfo.pricePerM = "მ² ფასი";
 
         languageInfo.sortingButtonAscendentPrice = "მ² ფასი ზრდადობით";
         languageInfo.sortingButtonDescendentPrice = "მ² ფასი კლებადობით";
@@ -467,25 +466,25 @@ export default function Complex({
         languageInfo.sort = "სორტ";
         languageInfo.place_for_your_comfort = "ადგილი შენი კომფორტისტვის";
 
-        break
+        break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус"
-        languageInfo.cityButtonLanguage = "Местоположение"
-        languageInfo.spaceButtonLanguage = "Площадь"
-        languageInfo.priceButtonLanguage = "Цена"
-        languageInfo.allStatusLanguage = "Все"
-        languageInfo.findMapButtonLanguage = "Карта"
-        languageInfo.allFindButtonLanguage = "Поиск"
-        languageInfo.spaceButtonClose = "закрить"
-        languageInfo.minPrice = "из м²"
-        languageInfo.maxPrice = "до м²"
-        languageInfo.roomStudio = "Студия"
-        languageInfo.fullPriceHomePage = "Полная стоимость"
-        languageInfo.meterPriceHomePage = "Цена м²"
-        languageInfo.dan = "из"
-        languageInfo.mde = "до"
-        languageInfo.pricePerM = "Цена за м²"
+        languageInfo.statusInfoLanguage = "выберите статус";
+        languageInfo.cityButtonLanguage = "Местоположение";
+        languageInfo.spaceButtonLanguage = "Площадь";
+        languageInfo.priceButtonLanguage = "Цена";
+        languageInfo.allStatusLanguage = "Все";
+        languageInfo.findMapButtonLanguage = "Карта";
+        languageInfo.allFindButtonLanguage = "Поиск";
+        languageInfo.spaceButtonClose = "закрить";
+        languageInfo.minPrice = "из м²";
+        languageInfo.maxPrice = "до м²";
+        languageInfo.roomStudio = "Студия";
+        languageInfo.fullPriceHomePage = "Полная стоимость";
+        languageInfo.meterPriceHomePage = "Цена м²";
+        languageInfo.dan = "из";
+        languageInfo.mde = "до";
+        languageInfo.pricePerM = "Цена за м²";
 
         languageInfo.sortingButtonAscendentPrice = "Цена м² по увеличение";
         languageInfo.sortingButtonDescendentPrice = "Цена м² по снижение";
@@ -501,7 +500,7 @@ export default function Complex({
 
         languageInfo.place_for_your_comfort = "Место для вашего комфорта";
 
-        break
+        break;
     }
     return languageInfo;
   };
@@ -550,7 +549,6 @@ export default function Complex({
     ));
   };
 
-
   const getStatusTranslation = (status, selectedLanguage) => {
     const statusTranslations = {
       1: { en: "Planned", ka: "დაგეგმილი", ru: "Запланировано" },
@@ -558,11 +556,11 @@ export default function Complex({
       3: { en: "Completed", ka: "დასრულებული", ru: "Завершено" },
     };
 
-    const translation = statusTranslations[status]?.[selectedLanguage] || 'Status Unknown';
+    const translation =
+      statusTranslations[status]?.[selectedLanguage] || "Status Unknown";
 
     return translation;
   };
-
 
   // -----------------------------------------------------------------------------
 
@@ -631,8 +629,18 @@ export default function Complex({
         >
           <div className="for_comfort">
             <div className="adgilicomportistvis title">
-              <p>{handleStatusButtonLanguageChange(selectedLanguage).place_for_your_comfort} </p>
-              <img onClick={toggleFunc} className="filter_icon_for_links" src={Filter} alt="/" />
+              <p>
+                {
+                  handleStatusButtonLanguageChange(selectedLanguage)
+                    .place_for_your_comfort
+                }{" "}
+              </p>
+              <img
+                onClick={toggleFunc}
+                className="filter_icon_for_links"
+                src={Filter}
+                alt="/"
+              />
             </div>
             <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
               {/* button for filtering space */}
@@ -655,12 +663,20 @@ export default function Complex({
                 >
                   <div>
                     <div>
-                      <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
+                      <text className="priceTextHomePage">
+                        {
+                          handleStatusButtonLanguageChange(selectedLanguage)
+                            .spaceButtonLanguage
+                        }
+                      </text>
                     </div>
                     <input
                       className="min_price_complex"
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .minPrice
+                      }
                       value={min_space}
                       onChange={(e) => max_spacehangeHandler(e.target.value)}
                     />
@@ -715,7 +731,9 @@ export default function Complex({
                     <input
                       className="min_price_complex"
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage).dan
+                      }
                       value={minPricePerSquareMeter}
                       onChange={(e) =>
                         minPricePerSquareMeterChangeHandler(e.target.value)
@@ -748,17 +766,17 @@ export default function Complex({
                         handleStatusButtonLanguageChange(selectedLanguage).dan
                       }
                       value={minFullPrice}
-                      onChange={(e) =>   props.minFullPriceChangeHandler(e.target.value)
+                      onChange={(e) =>
+                        props.minFullPriceChangeHandler(e.target.value)
                       }
                     />
-
-
-
 
                     <input
                       className="min_price_complex"
                       type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage).mde
+                      }
                       value={maxFullPrice}
                       onChange={(e) =>
                         maxFullPriceChangeHandler(e.target.value)
@@ -837,7 +855,8 @@ export default function Complex({
                       .allFindButtonLanguage
                   }
                   value={searchInput}
-                  onChange={(e) => stringSearchHeandles(e.target.value)} />
+                  onChange={(e) => stringSearchHeandles(e.target.value)}
+                />
 
                 <img src={loupe} alt="search icon" className="dropdown" />
                 {/* ------------------------- */}
@@ -874,7 +893,8 @@ export default function Complex({
           <div className="infoFieldOfComplexsPlansMaps">
             <div className="complexInfoAndCountShowBox">
               <p className="komplex_text" style={{ color: "white" }}>
-                {handleStatusButtonLanguageChange(selectedLanguage).complexes}  {total_item_number}
+                {handleStatusButtonLanguageChange(selectedLanguage).complexes}{" "}
+                {total_item_number}
               </p>
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
@@ -892,7 +912,10 @@ export default function Complex({
                       alt="mapSignLogo"
                       className="mapSignLogo"
                     />
-                    <button className="textButton"> {handleStatusButtonLanguageChange(selectedLanguage).map}</button>
+                    <button className="textButton">
+                      {" "}
+                      {handleStatusButtonLanguageChange(selectedLanguage).map}
+                    </button>
                   </div>
                 </motion.div>
               </Link>
@@ -906,8 +929,12 @@ export default function Complex({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox">
-                  <p className="sort_text_web">{handleStatusButtonLanguageChange(selectedLanguage).sorting}</p>
-                  <p className="sort_text">{handleStatusButtonLanguageChange(selectedLanguage).sort}</p>
+                  <p className="sort_text_web">
+                    {handleStatusButtonLanguageChange(selectedLanguage).sorting}
+                  </p>
+                  <p className="sort_text">
+                    {handleStatusButtonLanguageChange(selectedLanguage).sort}
+                  </p>
                   <img src={arrowDownSorting} style={{ width: "20px" }} />
                 </div>
               </Button>
@@ -950,8 +977,10 @@ export default function Complex({
                       sortingChangeHandler("-created_at");
                     }}
                   >
-                    {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentTime}
-
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .sortingButtonDescendentTime
+                    }
                   </MenuItem>
                 </motion.div>
 
@@ -971,8 +1000,10 @@ export default function Complex({
                       sortingChangeHandler("created_at");
                     }}
                   >
-                  {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendantTime}
-
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .sortingButtonAscendantTime
+                    }
                   </MenuItem>
                 </motion.div>
 
@@ -992,8 +1023,10 @@ export default function Complex({
                       sortingChangeHandler("-price_per_sq_meter");
                     }}
                   >
-                    {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendentPrice}
-
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .sortingButtonDescendentPrice
+                    }
                   </MenuItem>
                 </motion.div>
 
@@ -1013,7 +1046,10 @@ export default function Complex({
                       sortingChangeHandler("price_per_sq_meter");
                     }}
                   >
-                    {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendentPrice}
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .sortingButtonAscendentPrice
+                    }
                   </MenuItem>
                 </motion.div>
 
@@ -1033,8 +1069,10 @@ export default function Complex({
                       sortingChangeHandler("-rank");
                     }}
                   >
-                    {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonDescendent_rank}
-
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .sortingButtonDescendent_rank
+                    }
                   </MenuItem>
                 </motion.div>
 
@@ -1054,8 +1092,10 @@ export default function Complex({
                       sortingChangeHandler("rank");
                     }}
                   >
-                    {handleStatusButtonLanguageChange(selectedLanguage).sortingButtonAscendent_rank}
-
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .sortingButtonAscendent_rank
+                    }
                   </MenuItem>
                 </motion.div>
               </Menu>
@@ -1063,29 +1103,24 @@ export default function Complex({
 
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
-
-
                 <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
+                  <motion.div className="handle" layout transition={spring}>
+                    <img
+                      src={lari}
+                      alt="Lari Sign"
+                      className={`currency-sign ${isOn ? "active" : ""}`}
+                    />
+                    <img
+                      src={dollar}
+                      alt="Dollar Sign"
+                      className={`currency-sign ${!isOn ? "active" : ""}`}
+                    />
+                  </motion.div>
+                </div>
 
-                    <motion.div className="handle" layout transition={spring}>
-                      <img
-                        src={lari}
-                        alt="Lari Sign"
-                        className={`currency-sign ${isOn ? "active" : ""}`}
-                      />
-                      <img
-                        src={dollar}
-                        alt="Dollar Sign"
-                        className={`currency-sign ${!isOn ? "active" : ""}`}
-                      />
-                    </motion.div>
-                  </div>
-                
-              
-              {/* ---------------- */}
+                {/* ---------------- */}
+              </div>
             </div>
-            </div>
-
           </div>
         </div>
       </motion.div>
@@ -1114,7 +1149,11 @@ export default function Complex({
                       <img
                         src={heartIconEmpty}
                         alt="Logo of empty heart"
-                        style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                        style={{
+                          width: "30px",
+                          height: "30px",
+                          border: "1px solid white",
+                        }}
                       />
                     )}
                   </button>
@@ -1127,30 +1166,51 @@ export default function Complex({
                   className="complex_dard_1"
                 />
               </div>
-              <p  className="company_title_on_card"  >{complex.complexName}</p>
-              <div className="textinfo_and_company_logo"  >
+              <p className="company_title_on_card">{complex.complexName}</p>
+              <div className="textinfo_and_company_logo">
                 <div
                   className="textInfo"
                   onClick={() => handleHouseClick(complex.id)}
                 >
-                  <p style={styles.complexInfo}>
-                    {complex.address.city}
-                  </p>
-                  <div className="price_and_" >
+                  <p style={styles.complexInfo}>{complex.address.city}</p>
+                  <div className="price_and_">
                     <p style={styles.complexInfo}>
-                      {handleStatusButtonLanguageChange(selectedLanguage).pricePerM}
+                      {
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .pricePerM
+                      }
                     </p>
-                    <p style={styles.complexInfo}> {currenceChangeState
-                      ? complex.complexDetails.pricePerSqMeter * getCorrencyRate
-                      : complex.complexDetails.pricePerSqMeter}</p>
+                    <p style={styles.complexInfo}>
+                      {" "}
+                      {currenceChangeState
+                        ? complex.complexDetails.pricePerSqMeter *
+                          getCorrencyRate
+                        : complex.complexDetails.pricePerSqMeter}
+                    </p>
                   </div>
-                  <p style={styles.complexFinished} className="complex_status_on_card" >{getStatusTranslation(complex.complexDetails.isFinished, selectedLanguage)}</p>
+                  <p
+                    style={styles.complexFinished}
+                    className="complex_status_on_card"
+                  >
+                    {getStatusTranslation(
+                      complex.complexDetails.isFinished,
+                      selectedLanguage
+                    )}
+                  </p>
                 </div>
-                <div style={{ color: 'white' }} className="company_logo_on_card">
-                  <img src={complex.company.logo} alt="company logo" className="company_logo_3" />
-                  <p className="complex_status_in_card">{complex.complexDetails.rank}</p>
+                <div
+                  style={{ color: "white" }}
+                  className="company_logo_on_card"
+                >
+                  <img
+                    src={complex.company.logo}
+                    alt="company logo"
+                    className="company_logo_3"
+                  />
+                  <p className="complex_status_in_card">
+                    {complex.complexDetails.rank}
+                  </p>
                 </div>
-
               </div>
             </motion.div>
           </div>
@@ -1239,10 +1299,10 @@ export default function Complex({
 
 const styles = {
   imageStyles: {
-    maxWidth: '275px',
+    maxWidth: "275px",
     height: "229px",
     overflow: "hidden",
-    color: 'white'
+    color: "white",
     // borderRadius: "20px",
   },
   companyTitle: {

@@ -105,7 +105,7 @@ export default function FavoriteComplex({
                 {/* ----------- */}
 
                 <img
-                  onClick={handleprivateAppartmentClick(favoritesPhysical.id)}
+                  onClick={handleprivateAppartmentClick(complex.id)}
                   src={complex.images[0]}
                   alt={complex.name}
                   style={styles.imageStyles}
@@ -147,7 +147,7 @@ export default function FavoriteComplex({
                 </button>
                 {/* ----------- */}
                 <img
-                  onClick={handleLotsClick(favoritesLots.id)}
+                  onClick={handleLotsClick(complex.id)}
                   src={complex.images[0]}
                   alt={complex.name}
                   style={styles.imageStyles}

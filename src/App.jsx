@@ -27,7 +27,7 @@ import cancel_icon from "./icons/cancel.png";
 import EachApartment from "./pages/EachApartment";
 import EachBlog from "./pages/EachBlog";
 import Each_Developer from "./pages/Each_Developer";
-import storkhome__logo from './company_logo/storkhome__logo.png'
+import storkhome__logo from "./company_logo/storkhome__logo.png";
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
   const location = useLocation();
@@ -77,9 +77,8 @@ const BaseURLs = {
   blog: "https://api.storkhome.ge/blog/",
   map: "https://api.storkhome.ge/map/",
   complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
-  company_and_complex: 'https://api.storkhome.ge/companycomplex/',
-  proxy: 'https://api.storkhome.ge/proxy/',
-
+  company_and_complex: "https://api.storkhome.ge/companycomplex/",
+  proxy: "https://api.storkhome.ge/proxy/",
 
   // local
 
@@ -94,8 +93,6 @@ const BaseURLs = {
   // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
   // company_and_complex: 'http://127.0.0.1:8000/companycomplex/',
   // proxy: 'http://127.0.0.1:8000/proxy/',
-
-
 };
 
 export { BaseURLs };
@@ -148,14 +145,14 @@ const normalizeComplexData = (data, lang) => {
       space: item.internal_complex_name.space,
       isVipComplex: item.internal_complex_name.vipComplex,
       isVisible: item.internal_complex_name.visibiliti,
-      
+
       metro: item.internal_complex_name.metro,
       Pharmacy: item.internal_complex_name.Pharmacy,
       supermarket: item.internal_complex_name.supermarket,
       Square: item.internal_complex_name.Square,
       Description: item.internal_complex_name.Description,
 
-      rank: item.internal_complex_name.rank
+      rank: item.internal_complex_name.rank,
     },
   }));
 };
@@ -200,19 +197,27 @@ function App() {
 
   const [selectedPharentDistricts, setSelectedPharentDistricts] = useState([]);
   const [selectedDistricts, setSelectedDistricts] = useState([]);
-// ===================================================================================================
+  // ===================================================================================================
   const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState("");
   const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState("");
 
-  const [converted_min_price_square_meter, setConverted_min_price_square_meter] = useState(minPricePerSquareMeter);
-  const [converted_max_price_square_meter, setConverted_max_price_square_meter] = useState(maxPricePerSquareMeter);
+  const [
+    converted_min_price_square_meter,
+    setConverted_min_price_square_meter,
+  ] = useState(minPricePerSquareMeter);
+  const [
+    converted_max_price_square_meter,
+    setConverted_max_price_square_meter,
+  ] = useState(maxPricePerSquareMeter);
 
   const [minFullPrice, setMinFullPrice] = useState("");
   const [maxFullPrice, setMaxFullPrice] = useState("");
 
-  const [converted_min_full_price, setConverted_min_full_price] = useState(minFullPrice);
-  const [converted_max_full_price, setConverted_max_full_price] = useState(maxFullPrice);
-// ===================================================================================================
+  const [converted_min_full_price, setConverted_min_full_price] =
+    useState(minFullPrice);
+  const [converted_max_full_price, setConverted_max_full_price] =
+    useState(maxFullPrice);
+  // ===================================================================================================
 
   const [min_space, setMin_space] = useState("");
   const [max_space, setMax_space] = useState("");
@@ -222,7 +227,6 @@ function App() {
   const [searchButton, setSearchButton] = useState(false);
 
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
-
 
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
@@ -241,8 +245,8 @@ function App() {
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
   const sortingChangeHandler = (data) => {
-    setAscendentPrice(data)
-  }
+    setAscendentPrice(data);
+  };
 
   const stringSearchHeandles = (data) => {
     setSearchInput(data);
@@ -283,7 +287,6 @@ function App() {
 
   // ---------------===================--------------------------------------------------------
 
-
   const min_spacehangeHandler = (data) => {
     setMin_space(data);
   };
@@ -294,39 +297,41 @@ function App() {
     setSelectedStatuses(data);
   };
 
-
   const searchButtonhangeHandler = (data) => {
     setSearchButton(data);
 
-    if (minPricePerSquareMeter === ""){
+    if (minPricePerSquareMeter === "") {
       setConverted_min_price_square_meter("");
-    }else{
+    } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverted_min_price_square_meter(String(minPricePerSquareMeter * conversionRate ))
+      setConverted_min_price_square_meter(
+        String(minPricePerSquareMeter * conversionRate)
+      );
     }
 
-    if (maxPricePerSquareMeter === ""){
+    if (maxPricePerSquareMeter === "") {
       setConverted_max_price_square_meter("");
-    }else{
+    } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverted_max_price_square_meter(String(maxPricePerSquareMeter * conversionRate ))
+      setConverted_max_price_square_meter(
+        String(maxPricePerSquareMeter * conversionRate)
+      );
     }
 
-    if (minFullPrice === ""){
+    if (minFullPrice === "") {
       setConverted_min_full_price("");
-    }else{
+    } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverted_min_full_price(String(minFullPrice * conversionRate ))
+      setConverted_min_full_price(String(minFullPrice * conversionRate));
     }
 
-    if (maxFullPrice === ""){
+    if (maxFullPrice === "") {
       setConverted_max_full_price("");
-    }else{
+    } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverted_max_full_price(String(maxFullPrice * conversionRate ))
+      setConverted_max_full_price(String(maxFullPrice * conversionRate));
     }
   };
-
 
   const handleCorrentPageHandler = (data) => {
     setCorrentPage(data);
@@ -405,9 +410,6 @@ function App() {
   // const rank = complexes.map((complex.internal_complex_name.rank) => {
 
   // }  )
-
-
-
 
   //-----------------------------------fetch ionly locations --------------------------------------
 
@@ -663,30 +665,23 @@ function App() {
   };
   // ------------------------------------------------------------------------------------------
 
-
-
-
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [salesDepartment, setSalesDepartment] = useState(false);
   const [storkhomePlus, setStorkhomePlus] = useState(false);
   const [other, setOther] = useState(false);
 
-
   const [sedtsheet, setSedtsheet] = useState(false);
 
   const handleSendSheet = () => {
-    setSedtsheet(!sedtsheet)
+    setSedtsheet(!sedtsheet);
     // Process or log the states here
     console.log(name, phone, email, salesDepartment, storkhomePlus, other);
-
-  }
-
+  };
 
   useEffect(() => {
     const sendDataToSheet = async () => {
-
       if (!sedtsheet) return;
 
       const formData = {
@@ -695,7 +690,7 @@ function App() {
         email,
         salesDepartment,
         storkhomePlus,
-        other
+        other,
       };
 
       try {
@@ -703,14 +698,12 @@ function App() {
         const response = await axios.post(BaseURLs.proxy, formData);
         console.log(response.data); // Log the response data, not the whole response
       } catch (error) {
-        console.error('Error sending data to sheet:', error);
+        console.error("Error sending data to sheet:", error);
       }
     };
 
     sendDataToSheet();
   }, [sedtsheet]);
-
-
 
   // Event handlers will be defined here
 
@@ -726,7 +719,6 @@ function App() {
     setEmail(e.target.value);
   };
 
-
   const handleSalesDepartmentChange = () => {
     setSalesDepartment(!salesDepartment);
   };
@@ -738,10 +730,6 @@ function App() {
   const handleOtherChange = () => {
     setOther(!other);
   };
-
-
-
-
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -796,8 +784,6 @@ function App() {
               searchInput={searchInput}
               setSearchInput={setSearchInput}
               stringSearchHeandles={stringSearchHeandles}
-
-
               favoriteHandler={favoriteHandler}
               favorites={favorites}
               selectedLanguage={selectedLanguage}
@@ -832,7 +818,6 @@ function App() {
               selectedCity={selectedCity}
               selectedPharentDistricts={selectedPharentDistricts}
               selectedDistricts={selectedDistricts}
-
               isOn={isOn}
               toggleSwitch={toggleSwitch}
             />
@@ -854,15 +839,16 @@ function App() {
                 max_space={max_space}
                 max_spacehangeHandler={max_spacehangeHandler}
                 // ------------------==================------------------------------------------------------
-                minPricePerSquareMeterChangeHandler={minPricePerSquareMeterChangeHandler}
+                minPricePerSquareMeterChangeHandler={
+                  minPricePerSquareMeterChangeHandler
+                }
                 minPricePerSquareMeter={minPricePerSquareMeter}
-
-                maxPricePerSquareMeterChangeHandler={maxPricePerSquareMeterChangeHandler}
+                maxPricePerSquareMeterChangeHandler={
+                  maxPricePerSquareMeterChangeHandler
+                }
                 maxPricePerSquareMeter={maxPricePerSquareMeter}
-
                 minFullPriceChangeHandler={minFullPriceChangeHandler}
                 minFullPrice={minFullPrice}
-
                 maxFullPriceChangeHandler={maxFullPriceChangeHandler}
                 maxFullPrice={maxFullPrice}
                 // ------------------==================------------------------------------------------------
@@ -890,10 +876,7 @@ function App() {
                 isOn={isOn}
                 toggleSwitch={toggleSwitch}
                 sortingChangeHandler={sortingChangeHandler}
-
                 stringSearchHeandles={stringSearchHeandles}
-
-
               />
             }
           />
@@ -1050,13 +1033,12 @@ function App() {
           }
         />
 
-
         <Route
           path="eachblog/:blogId"
           element={
             <EachBlog
               selectedLanguage={selectedLanguage}
-            // handleCallButtonClick={handleCallButtonClick}
+              // handleCallButtonClick={handleCallButtonClick}
             />
           }
         />
@@ -1083,7 +1065,7 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-      // onClick={(e) => e.stopPropagation()}
+        // onClick={(e) => e.stopPropagation()}
       >
         <div className="call_modal_containerr">
           <div className="cancel_icon_container">
@@ -1139,8 +1121,6 @@ function App() {
                 }
               />
             </div>
-
-
           </div>
           <div className="choose_container">
             <div className="department_choices">
@@ -1158,12 +1138,11 @@ function App() {
             {/* 1 chekmark konteineri  tavisi saxelit */}
             <div className="little_checkmark_container">
               <label>
-                <input type="checkbox" className="input"
-
+                <input
+                  type="checkbox"
+                  className="input"
                   value={salesDepartment}
                   onChange={handleSalesDepartmentChange}
-
-
                 />
                 <span className="custom-checkbox"></span>
               </label>
@@ -1178,13 +1157,11 @@ function App() {
             {/* 2 chekmark konteineri  tavisi saxelit */}
             <div className="little_checkmark_container">
               <label>
-                <input type="checkbox" className="input"
-
-
+                <input
+                  type="checkbox"
+                  className="input"
                   value={storkhomePlus}
                   onChange={handleStorkhomePlusChange}
-
-
                 />
                 <span className="custom-checkbox"></span>
               </label>
@@ -1199,11 +1176,11 @@ function App() {
             {/* 3 chekmark konteineri  tavisi saxelit */}
             <div className="little_checkmark_container">
               <label>
-                <input type="checkbox" className="input"
-
+                <input
+                  type="checkbox"
+                  className="input"
                   value={other}
                   onChange={handleOtherChange}
-
                 />
                 <span className="custom-checkbox"></span>
               </label>
@@ -1219,7 +1196,7 @@ function App() {
               // whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <button className="senc_to_sheet" onClick={handleSendSheet} >
+              <button className="senc_to_sheet" onClick={handleSendSheet}>
                 {languageTranslationForCheetModal(selectedLanguage).send}
               </button>
             </motion.div>
