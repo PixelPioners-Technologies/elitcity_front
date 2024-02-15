@@ -7,11 +7,12 @@
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center;
-  
+  align-items: center;  
+ 
 }
 
-.modal-content_sale {
+.modal-content_sale { 
+  /* border: 10px solid red; */
   background-color: rgb(0, 0, 0);
   padding: 20px;
   border-radius: 5px;
@@ -21,5 +22,12 @@
   overflow: hidden;
   padding: 20px 20px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  /* border: 1px solid red; */
 
+}
+@media screen and (max-width:500px) {
+  .modal-content_sale {
+    width:300px;
+  }
+  
 }

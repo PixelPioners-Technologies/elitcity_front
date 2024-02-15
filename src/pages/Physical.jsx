@@ -698,8 +698,7 @@ export default function Physical({
         languageInfo.sortingButtonAscendantTime = "თარიღი ზრდადობით";
         languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით";
         languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით";
-        languageInfo.sortingButtonDescendentFullPrice =
-          "მთლიანი ფასი კლებადობით";
+        languageInfo.sortingButtonDescendentFullPrice ="მთლიანი ფასი კლებადობით";
         languageInfo.studio = "სტუდიო";
         languageInfo.spaceButtonClose = "დახურვა";
         languageInfo.minPrice = "დან მ²";
@@ -713,14 +712,12 @@ export default function Physical({
         break;
 
       case "ru":
-        languageInfo.sortingButtonAscendentPrice = "Ццена м² с шагом";
-        languageInfo.sortingButtonDescendentPrice = "м² цена снижается";
-        languageInfo.sortingButtonAscendantTime = "Асцендент создан в";
-        languageInfo.sortingButtonDescendentTime = "Потомок создан в";
-        languageInfo.sortingButtonAscendantFullPrice =
-          "Полная цена Асцендента.";
-        languageInfo.sortingButtonDescendentFullPrice =
-          "Полная стоимость потомка";
+        languageInfo.sortingButtonAscendentPrice = "Цена м² цена по увеличение";
+        languageInfo.sortingButtonDescendentPrice = "Цена м² цена по снижение";
+        languageInfo.sortingButtonAscendantTime = "Время по увеличение";
+        languageInfo.sortingButtonDescendentTime = "Время по снижение";
+        languageInfo.sortingButtonAscendantFullPrice = "Полная цена по увеличение";
+        languageInfo.sortingButtonDescendentFullPrice ="Полная цена по снижение";
         languageInfo.studio = "Студия";
         languageInfo.spaceButtonClose = "закрить";
         languageInfo.minPrice = "из м²";

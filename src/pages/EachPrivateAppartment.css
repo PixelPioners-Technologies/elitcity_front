@@ -1,28 +1,94 @@
 /* -------------------------------about and map container styles---------------------------------- */
-.about_and_map_P{
-  margin-top: 50px;
-  color: aliceblue;
-}
-
-.aboud_and_map_child_container_P{
+.eachComplexBox {
+  width: 100%;
+  /* border: 1px solid red; */
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px ;
+}
+.imageAndTextInfos {
+  /* border: 1px solid rgb(255, 208, 0); */
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  gap: 70px;
 }
 
-.about_land_header_P{
+.miniImagesBoxS {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+  position: relative;
+  bottom: 100px;
+  /* border: 1px solid red; */
+}
+.imageSliderBox {
+  /* border: 2px solid blue; */
+  display: flex;
+  flex-direction: column;
+}
+.about_and_map_P {
+  /* display: flex;
+  flex-direction: row; */
+  /* margin-top: 50px;
+  color: aliceblue; */
+  /* border: 1px solid blue; */
+  /* gap: 70px; */
+  height: 400px;
+  margin-top: 50px;
+  width: 81%;
+  color: aliceblue;
+  /* border: 2px solid rgb(255, 208, 0); */
+  /* padding: 0 90px; */
+}
+
+.aboud_and_map_child_container_P {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+  /* border: 4px solid blue; */
+}
+
+.about_land_header_P {
   margin-bottom: 20px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 500;
 }
 
-.about_land_P{
+.about_land_P {
   max-width: 600px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: aliceblue;
-
 }
 
-.child_map_container_P{
+.child_map_container_P {
   width: 800px;
-  height: 200px;
+  /* height: 200px; */
+}
+@media screen and (max-width: 500px) {
+  .imageAndTextInfos {
+    width: 100%;
+    padding: 20px 30px;
+    flex-direction: column;
+    /* border: 1px solid blue; */
+  }
+  .about_and_map_P {
+    flex-direction: column;
+    /* border: 1px solid blue; */
+    /* padding-bottom: 10px; */
+
+  }
+  .aboud_and_map_child_container_P {
+    flex-direction: column;
+    /* border: 1px solid red; */
+    /* bottom: 100px; */
+  }
+  .child_map_container_P {
+    width: 100%;
+    padding-bottom: 30px;
+  }
 }
