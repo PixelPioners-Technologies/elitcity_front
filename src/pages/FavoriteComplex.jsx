@@ -7,6 +7,7 @@ import heartIcon from "../assets/starLogo.svg";
 import "./FavoriteComplex.css";
 import { useNavigate } from "react-router-dom";
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
+import { useEffect } from "react";
 
 
 
@@ -38,6 +39,18 @@ export default function FavoriteComplex({
     navigate(`/eachapartment/${apartmentId}`, { state: { apartmentId } });
   };
 
+
+useEffect(()=> {
+  console.log('fav complex ' , favorites )
+  console.log('fav phisical ' , favoritesPhysical )
+  console.log('fav ground ' , favoritesLots )
+  console.log('fav ground handler' , favoriteHandlerLots )
+
+
+
+},[favorites,favoritesPhysical,favoritesLots])
+
+  
 
 
   return (
@@ -107,7 +120,7 @@ export default function FavoriteComplex({
               {/* ----------- */}
 
               <img
-                onClick={handleprivateAppartmentClick(favoritesPhysical.id)}
+                onClick={handleprivateAppartmentClick(complex.id)}
                 src={complex.images[0]}
                 alt={complex.name}
                 style={styles.imageStyles}
@@ -146,7 +159,7 @@ export default function FavoriteComplex({
               </button>
               {/* ----------- */}
               <img
-              onClick={handleLotsClick(favoritesLots.id)}
+              onClick={handleLotsClick(complex.id)}
                 src={complex.images[0]}
                 alt={complex.name}
                 style={styles.imageStyles}
