@@ -185,8 +185,8 @@
     /* align-items: center; */
   }
   #lands_image {
-    /* width: 340px; */
     width: 100%;
+    height: auto;
   }
   .slide_style {
     /* border: 2px solid red; */

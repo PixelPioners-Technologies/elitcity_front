@@ -48,7 +48,7 @@
 .aboud_and_map_child_container_P {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 70px;
   /* border: 4px solid blue; */
 }
@@ -70,7 +70,6 @@
   /* height: 200px; */
 }
 @media screen and (max-width: 500px) {
-
   .imageAndTextInfos {
     width: 100%;
     padding: 20px 30px;

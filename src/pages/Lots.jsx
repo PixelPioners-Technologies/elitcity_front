@@ -209,9 +209,10 @@ export default function Physical({
     // graundStatus,
   ]);
 
+
+
   const habdle_Search_Button_Click = () => {
     setSearch(!search);
-
     if (min_square_price === "") {
       setConvertedMinSquarePrice("");
     } else {
@@ -523,6 +524,11 @@ export default function Physical({
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
+      map : "Map",
+      sorting : 'Sorting',
+      sort: 'Sort'
+
+      
     };
 
     switch (lang) {
@@ -547,6 +553,12 @@ export default function Physical({
         languageInfo.meterPriceHomePage = "The price of m²";
         languageInfo.dan = "from";
         languageInfo.mde = "to";
+        
+        languageInfo.map = "Map";
+        languageInfo.sorting = "Sorting";
+        languageInfo.sort = "Sort";
+
+        
 
         break;
 
@@ -572,6 +584,13 @@ export default function Physical({
         languageInfo.dan = "დან";
         languageInfo.mde = "მდე";
 
+        languageInfo.map = "რუქა";
+        languageInfo.sorting = "სორტირება";
+        languageInfo.sort = "სორტ";
+
+        
+        
+
         break;
 
       case "ru":
@@ -594,6 +613,11 @@ export default function Physical({
         languageInfo.meterPriceHomePage = "Цена м²";
         languageInfo.dan = "из";
         languageInfo.mde = "до";
+
+        languageInfo.map = "карта";
+        languageInfo.sorting = "Сортировка";
+        languageInfo.sort = "Сорт";
+
 
         break;
     }
@@ -1157,23 +1181,7 @@ export default function Physical({
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
             <div className="projectsPlansMapsSortingAndDollarBox_physical">
-              <Link to="/complex">
-                <motion.div
-                  className="textButtonContainer_physical"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <div className="mapAndLogoImg_physical">
-                    <img
-                      src={mapSignLogo}
-                      alt="mapSignLogo"
-                      className="mapSignLogo"
-                    />
-                    <button className="textButton_physical">პროექტები</button>
-                  </div>
-                </motion.div>
-              </Link>
+
               {/* 
               <Link to='/complex/apartmentList' >
               <motion.div
@@ -1203,7 +1211,7 @@ export default function Physical({
                       alt="mapSignLogo"
                       className="mapSignLogo"
                     />
-                    <button className="textButton">რუკა</button>
+                    <button className="textButton">{handle_P_StatusButtonLanguageChange(selectedLanguage).map}</button>
                   </div>
                 </motion.div>
               </Link>
@@ -1219,8 +1227,8 @@ export default function Physical({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox_physical">
-                  <p className="sort_text_web">სორტირება</p>
-                  <p className="sort_text">სორტ</p>
+                  <p className="sort_text_web">{handle_P_StatusButtonLanguageChange(selectedLanguage).sorting}</p>
+                  <p className="sort_text">{handle_P_StatusButtonLanguageChange(selectedLanguage).sort}</p>
                   <img src={arrowDownSorting} style={{ width: "20px" }} />
                 </div>
               </Button>

@@ -43,6 +43,12 @@ const normalizePrivateApartmentData = (data, lang) => {
     isAvailable: item.internal_private_apartment_name.is_available,
     visibility: item.internal_private_apartment_name.visibiliti,
     rank: item.internal_private_apartment_name.rank,
+
+    // metro : item.internal_private_apartment_name.metro,
+    // pharmacy : item.internal_private_apartment_name.pharmacy,
+    // supermarket : item.internal_private_apartment_name.supermarket,
+    // square : item.internal_private_apartment_name.square,
+
     address: {
       city: item[`private_apartment_address_${lang}`][`city_${lang}`],
       parentDistrict:
@@ -56,7 +62,7 @@ const normalizePrivateApartmentData = (data, lang) => {
     },
     images: item.private_apartment_images,
     privateApartmentName: item[`private_apartment_name_${lang}`],
-    testPrivateField: item[`test_private_field_${lang}`],
+    about: item[`about_${lang}`],
   }));
 };
 
@@ -552,6 +558,10 @@ export default function Physical({
       complexes: "Complexes",
       private_apartments: "Private Appartments",
       allFindButtonLanguage: "Search",
+      map : "Map",
+      sorting : 'Sorting',
+      sort: 'Sort',
+      projects : "Projects"
     };
 
     switch (lang) {
@@ -569,6 +579,13 @@ export default function Physical({
         languageInfo.private_apartments = "Private Appartments";
         languageInfo.allFindButtonLanguage = "Search";
 
+        languageInfo.map = "Map";
+        languageInfo.sorting = "Sorting";
+        languageInfo.sort = "Sort";
+        languageInfo.projects = "Projects";
+
+
+
         break;
 
       case "ka":
@@ -585,6 +602,13 @@ export default function Physical({
         languageInfo.private_apartments = "კერძო ბინები";
         languageInfo.allFindButtonLanguage = "ძებნა";
 
+        languageInfo.map = "რუქა";
+        languageInfo.sorting = "სორტირება";
+        languageInfo.sort = "სორტ";
+        languageInfo.projects = "პროექტები";
+
+
+
         break;
 
       case "ru":
@@ -600,6 +624,11 @@ export default function Physical({
         languageInfo.complexes = "Комплексы";
         languageInfo.private_apartments = "Частные апартаменты";
         languageInfo.allFindButtonLanguage = "Поиск";
+        languageInfo.map = "карта";
+        languageInfo.sorting = "Сортировка";
+        languageInfo.sort = "Сорт";
+        languageInfo.projects = "Проекты";
+
 
         break;
     }
@@ -1183,7 +1212,7 @@ export default function Physical({
                       alt="mapSignLogo"
                       className="mapSignLogo"
                     />
-                    <button className="textButton_physical">პროექტები</button>
+                    <button className="textButton_physical">{handle_P_StatusButtonLanguageChange(selectedLanguage).projects}</button>
                   </div>
                 </motion.div>
               </Link>
@@ -1216,7 +1245,7 @@ export default function Physical({
                       alt="mapSignLogo"
                       className="mapSignLogo"
                     />
-                    <button className="textButton">რუკა</button>
+                    <button className="textButton">{handle_P_StatusButtonLanguageChange(selectedLanguage).map}</button>
                   </div>
                 </motion.div>
               </Link>
@@ -1232,8 +1261,8 @@ export default function Physical({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox_physical">
-                  <p className="sort_text_web">სორტირება</p>
-                  <p className="sort_text">სორტ</p>
+                  <p className="sort_text_web">{handle_P_StatusButtonLanguageChange(selectedLanguage).sorting}</p>
+                  <p className="sort_text">{handle_P_StatusButtonLanguageChange(selectedLanguage).sort}</p>
                   <img src={arrowDownSorting} style={{ width: "20px" }} />
                 </div>
               </Button>
@@ -1513,6 +1542,9 @@ export default function Physical({
           </div>
         ))}
       </div>
+
+
+      
       {/* Pagination for user to select some page */}
       <div className="pagination">
         <Stack spacing={2}>
