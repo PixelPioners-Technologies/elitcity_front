@@ -108,24 +108,35 @@ export default function Physical({
   const [selectedStatuses, setSelectedStatuses] = useState([]);
   const [selectedRoomNumbers, setSelectedRoomNumbers] = useState([]);
 
-  const [min_square_price, setMin_square_price] = useState("");
-  const [max_square_price, setMax_square_price] = useState("");
-
+  
   const [min_area, setMin_area] = useState("");
   const [max_area, setMax_area] = useState("");
-
-  const [minFullPrice, setMinFullPrice] = useState("");
-  const [maxFullPrice, setMaxFullPrice] = useState("");
-
+  
   const [totalCount, setTotalCount] = useState(0);
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
   const [ascendentPrice, setAscendentPrice] = useState("");
-
+  
   const [stringFilterValue, setStringFilterValue] = useState("");
-
+  
   const [search, setSearch] = useState(false);
+  
+  const [min_square_price, setMin_square_price] = useState("");
+  const [max_square_price, setMax_square_price] = useState("");
 
+  const [converter_min_square_price, setConverter_min_square_price] = useState(min_square_price);
+  const [converter_max_square_price, setConverter_max_square_price] = useState(max_square_price);
+
+  const [minFullPrice, setMinFullPrice] = useState("");
+  const [maxFullPrice, setMaxFullPrice] = useState("");
+  
+  const [converter_min_full_price, setConverter_min_full_price] = useState(minFullPrice);
+  const [converter_max_full_price, setConverter_max_full_price] = useState(maxFullPrice);
+  
+
+
+
+  
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -168,10 +179,10 @@ export default function Physical({
         [cityParam]: selectedCity,
         [pharentdistrictParams]: selectedPharentDistricts.join(","),
         [districtParams]: selectedDistricts.join(","),
-        min_square_price: min_square_price,
-        max_square_price: max_square_price,
-        min_full_price: minFullPrice,
-        max_full_price: maxFullPrice,
+        min_square_price: converter_min_square_price,
+        max_square_price: converter_max_square_price,
+        min_full_price: converter_min_full_price,
+        max_full_price: converter_max_full_price,
         min_area: min_area,
         max_area: max_area,
         limit: limit,
@@ -227,7 +238,38 @@ export default function Physical({
 
   const habdle_Search_Button_Click = () => {
     setSearch(!search);
+
+    if (min_square_price ==="" ){
+      setConverter_min_square_price("")
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverter_min_square_price(String(min_square_price * conversionRate))
+    }
+
+    if (max_square_price ==="" ){
+      setConverter_max_square_price("")
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverter_max_square_price(String(max_square_price * conversionRate))
+    }
+
+    if (minFullPrice ==="" ){
+      setConverter_min_full_price("")
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverter_min_full_price(String(minFullPrice * conversionRate))
+    }
+
+    if (maxFullPrice ==="" ){
+      setConverter_max_full_price("")
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverter_max_full_price(String(maxFullPrice * conversionRate))
+    }
+
   };
+
+
 
   //-----------------------------------fetch ionly locations --------------------------------------
   useEffect(() => {
