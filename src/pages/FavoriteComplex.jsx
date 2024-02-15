@@ -5,8 +5,9 @@
 // eslint-disable-next-line react/prop-types
 import heartIcon from "../assets/starLogo.svg";
 import "./FavoriteComplex.css";
-
+import { useNavigate } from "react-router-dom";
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
+
 export default function FavoriteComplex({
   favorites,
   favoritesPhysical,
@@ -15,6 +16,26 @@ export default function FavoriteComplex({
   favoriteHandlerLots,
   favoriteHandlerPhysical,
 }) {
+  const navigate = useNavigate();
+
+  const handleHouseClick = (complexId) => {
+    navigate(`/eachComplex/${complexId}`, { state: { complexId } });
+  };
+
+  const handleLotsClick = (prev_apartments) => {
+    navigate(`/eachground/${prev_apartments}`, { state: { prev_apartments } });
+  };
+
+  const handleprivateAppartmentClick = (p_apartment_id) => {
+    navigate(`/eachprivateappartment/${p_apartment_id}`, {
+      state: { p_apartment_id },
+    });
+  };
+
+  // const handleAppartmentClick = (apartmentId) => {
+  //   navigate(`/eachapartment/${apartmentId}`, { state: { apartmentId } });
+  // };
+
   return (
     <div>
       <div className="ComplexBoxInFavoritesPages">
@@ -41,6 +62,7 @@ export default function FavoriteComplex({
               </button>
               {/* ----------- */}
               <img
+                onClick={() => handleHouseClick(complex.id)}
                 src={complex.images[0]}
                 alt={complex.name}
                 style={styles.imageStyles}
@@ -57,90 +79,92 @@ export default function FavoriteComplex({
               </div>
             </div>
           ))}
-      </div>
 
-      <div className="ComplexBoxInFavoritesPages">
-        <h3 style={{ color: "white" }}> ბინები</h3>
-        {/* for physical */}
-        {favoritesPhysical &&
-          favoritesPhysical.map((complex, index) => (
-            <div className="card" key={index}>
-              {/* ----------- */}
-              <button
-                onClick={() => favoriteHandlerPhysical(complex)}
-                key={complex.id}
-                className="heartButtons"
-              >
-                {favoritesPhysical.some((fav) => fav.id === complex.id) ? (
-                  <img src={heartIcon} alt="Logo of heart" />
-                ) : (
-                  <img
-                    src={heartIconEmpty}
-                    alt="Logo of empty heart"
-                    style={{ width: "30px", height: "30px" }}
-                  />
-                )}
-              </button>
-              {/* ----------- */}
+        <div className="ComplexBoxInFavoritesPages">
+          <h3 style={{ color: "white" }}> ბინები</h3>
+          {/* for physical */}
+          {favoritesPhysical &&
+            favoritesPhysical.map((complex, index) => (
+              <div className="card" key={index}>
+                {/* ----------- */}
+                <button
+                  onClick={() => favoriteHandlerPhysical(complex)}
+                  key={complex.id}
+                  className="heartButtons"
+                >
+                  {favoritesPhysical.some((fav) => fav.id === complex.id) ? (
+                    <img src={heartIcon} alt="Logo of heart" />
+                  ) : (
+                    <img
+                      src={heartIconEmpty}
+                      alt="Logo of empty heart"
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                  )}
+                </button>
+                {/* ----------- */}
 
-              <img
-                src={complex.images[0]}
-                alt={complex.name}
-                style={styles.imageStyles}
-              />
-              <p style={styles.companyTitle}>{complex.name}</p>
-              <div className="textInfo">
-                <p style={styles.complexInfo}>
-                  {complex.address.city}, {complex.address.street}
-                </p>
-                <p style={styles.complexInfo}>
-                  Price per sq meter: {complex.price_per_sq_meter}
-                </p>
-                <p style={styles.complexFinished}>Date: ...</p>
+                <img
+                  onClick={handleprivateAppartmentClick(favoritesPhysical.id)}
+                  src={complex.images[0]}
+                  alt={complex.name}
+                  style={styles.imageStyles}
+                />
+                <p style={styles.companyTitle}>{complex.name}</p>
+                <div className="textInfo">
+                  <p style={styles.complexInfo}>
+                    {complex.address.city}, {complex.address.street}
+                  </p>
+                  <p style={styles.complexInfo}>
+                    Price per sq meter: {complex.price_per_sq_meter}
+                  </p>
+                  <p style={styles.complexFinished}>Date: ...</p>
+                </div>
               </div>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
 
-      <div className="ComplexBoxInFavoritesPages">
-        <h3 style={{ color: "white" }}> მიწები</h3>
-        {/* for Lots */}
-        {favoritesLots &&
-          favoritesLots.map((complex, index) => (
-            <div className="card" key={index}>
-              <button
-                onClick={() => favoriteHandlerLots(complex)}
-                key={complex.id}
-                className="heartButtons"
-              >
-                {favoritesLots.some((fav) => fav.id === complex.id) ? (
-                  <img src={heartIcon} alt="Logo of heart" />
-                ) : (
-                  <img
-                    src={heartIconEmpty}
-                    alt="Logo of empty heart"
-                    style={{ width: "30px", height: "30px" }}
-                  />
-                )}
-              </button>
-              {/* ----------- */}
-              <img
-                src={complex.images[0]}
-                alt={complex.name}
-                style={styles.imageStyles}
-              />
-              <p style={styles.companyTitle}>{complex.name}</p>
-              <div className="textInfo">
-                <p style={styles.complexInfo}>
-                  {complex.address.city}, {complex.address.street}
-                </p>
-                <p style={styles.complexInfo}>
-                  Price per sq meter: {complex.price_per_sq_meter}
-                </p>
-                <p style={styles.complexFinished}>Date: ...</p>
+        <div className="ComplexBoxInFavoritesPages">
+          <h3 style={{ color: "white" }}> მიწები</h3>
+          {/* for Lots */}
+          {favoritesLots &&
+            favoritesLots.map((complex, index) => (
+              <div className="card" key={index}>
+                <button
+                  onClick={() => favoriteHandlerLots(complex)}
+                  key={complex.id}
+                  className="heartButtons"
+                >
+                  {favoritesLots.some((fav) => fav.id === complex.id) ? (
+                    <img src={heartIcon} alt="Logo of heart" />
+                  ) : (
+                    <img
+                      src={heartIconEmpty}
+                      alt="Logo of empty heart"
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                  )}
+                </button>
+                {/* ----------- */}
+                <img
+                  onClick={handleLotsClick(favoritesLots.id)}
+                  src={complex.images[0]}
+                  alt={complex.name}
+                  style={styles.imageStyles}
+                />
+                <p style={styles.companyTitle}>{complex.name}</p>
+                <div className="textInfo">
+                  <p style={styles.complexInfo}>
+                    {complex.address.city}, {complex.address.street}
+                  </p>
+                  <p style={styles.complexInfo}>
+                    Price per sq meter: {complex.price_per_sq_meter}
+                  </p>
+                  <p style={styles.complexFinished}>Date: ...</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
     </div>
   );

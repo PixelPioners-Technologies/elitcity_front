@@ -68,9 +68,9 @@ function normalizeData(item, lang) {
     id: item.id,
     construction: item[`construction_type_${lang}`],
     description: item[`description_${lang}`],
-
     protectionType: item[`protection_type_${lang}`],
     submissionType: item[`submission_type_${lang}`],
+    typeOfRoof: item[`type_of_roof_${lang}`],
 
     complexAddress: {
       city: item[`complex_address_${lang}`][`city_${lang}`],
@@ -114,9 +114,9 @@ function normalizeData(item, lang) {
     rank: item.internal_complex_name.rank,
 
     metro: item.internal_complex_name.metro,
-    Pharmacy: item.internal_complex_name.pharmacy,
+    pharmacy: item.internal_complex_name.pharmacy,
     supermarket: item.internal_complex_name.supermarket,
-    Square: item.internal_complex_name.pquare,
+    square: item.internal_complex_name.square,
 
     // Add other fields from internal_complex_name as needed
     complexImages: item.complex_images,
@@ -125,7 +125,7 @@ function normalizeData(item, lang) {
       apartmentName: apartment[`appartment_name_${lang}`],
       testField: apartment[`test_field_${lang}`],
       internalApartmentName: apartment.internal_apartment_name,
-      images: apartment.appartment_images.images,
+      images: apartment.appartment_images,
       address: {
         city: apartment[`appartment_address_${lang}`][`city_${lang}`], // Correctly dynamic
         parentDistrict:
@@ -213,8 +213,17 @@ export default function EachComplex({
 
   const [eachPrivateApartment, setEachPrivateApartment] = useState([]);
 
+
+
+
   const location = useLocation();
   const { complexId } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
+
+
+
+
+
+
 
   useEffect(() => {
     setSelectedCity("");
@@ -263,7 +272,7 @@ export default function EachComplex({
       const data = response.data;
       const normalised_Data = normalizeData(data, selectedLanguage);
 
-      console.log("dataaaaa" , data.complex_images)
+      console.log("dataaaaa", data.complex_images);
 
       setAllComplexImages(data.complexImages);
       setEachPrivateApartment(normalised_Data);
@@ -272,13 +281,12 @@ export default function EachComplex({
       seteachComplexAllAppartments(normalised_Data);
 
       const imagesWithIds = data.complex_images.map((url, index) => ({
-        id: index,  
-        value: url  
+        id: index,
+        value: url,
       }));
 
-      setSliderImages(imagesWithIds); 
-      setWordData(imagesWithIds[0] || null); 
-      
+      setSliderImages(imagesWithIds);
+      setWordData(imagesWithIds[0] || null);
     };
     fetcPrivateApartments();
   }, [
@@ -297,14 +305,11 @@ export default function EachComplex({
     // wordData,
     // allComplexImages,
   ]);
-  
+
   // console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
   useEffect(() => {
     console.log("apartments ", privateApartments);
-
-  }, [privateApartments ]);
-
-
+  }, [privateApartments]);
 
   // ---------------------------------------------------------------------------------------------------------------------
 
@@ -674,36 +679,36 @@ export default function EachComplex({
   const scalesize = new window.google.maps.Size(40, 40);
 
   return (
-    <div className="eachComplexBox">
-      <div className="imageAndTextInfos">
+    <div className="eachComplexBox3">
+      <div className="imageAndTextInfos3">
         {/* Complexes photos info */}
-        <div className="imageSliderBox">
-          <div className="bigImageBox">
-            <button className="btns" onClick={handlePrevious}>
+        <div className="imageSliderBox3">
+          <div className="lands_img">
+            {/* <button className="btns" onClick={handlePrevious}>
               P
-            </button>
+            </button> */}
             {wordData && ( // Check if wordData is not null/undefined before rendering
               <img
+                id="lands_img"
                 src={wordData.value}
                 alt={`Complex ${wordData.id}`}
-                height="450"
-                width="711"
+                // height="450"
+                // width="711"
                 className={clickedIndex !== null ? "clicked" : ""}
               />
             )}
-            <button className="btns" onClick={handleNext}>
-              N
-            </button>
           </div>
-          <div className="miniImagesBox_complex">
+          <div className="miniImagesBox2">
+            <button className="btns" onClick={handleNext}>
+              Next
+            </button>
             {sliderImages
               .slice(carouselPosition, carouselPosition + 4)
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData?.id === data.id ? "clicked" : ""} ${
-                      clickedIndex === i ? "enlarge" : ""
-                    }`}
+                    className={`${wordData?.id === data.id ? "clicked" : ""} ${clickedIndex === i ? "enlarge" : ""
+                      }`}
                     src={data.value}
                     alt={`Complex ${data.id}`}
                     onClick={() => handleClick(i + carouselPosition)}
@@ -712,6 +717,9 @@ export default function EachComplex({
                   />
                 </div>
               ))}
+            <button className="btns" onClick={handlePrevious}>
+              Previus
+            </button>
           </div>
         </div>
         {/* --------- */}
@@ -719,8 +727,8 @@ export default function EachComplex({
         {/* complex text info */}
         {/* აქ DATA.MAP დროებით მაქ დატოვებული როგორც კი ბექი მოგვარდება */}
         {/* {DATA.map((complex, index) => ( */}
-        <div className="complexTextsBox">
-          <div className="seenIdFavouriteAndOthersBox">
+        <div className="complexTextsBox2">
+          <div className="seenIdFavouriteAndOthersBox2">
             <div className="seenAndIdBox">
               <p style={{ color: "#838282" }}>ID: {eachPrivateApartment?.id}</p>
             </div>
@@ -907,6 +915,8 @@ export default function EachComplex({
         {showApartments && (
           <div className="allCards_physical paddingForEachComplexCardBox">
             {privateApartments.apartments.map((prev_apartments, index) => (
+
+
               <div
                 className="card_physical"
                 key={index}
@@ -939,35 +949,11 @@ export default function EachComplex({
                         )}
                       </button>
                     </div>
+                    {console.log('binis surati ', prev_apartments?.rank)}
                     <img
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
-                      // ბექი რომ გასწორდება images[0] უნდა დავაბრუნო უკან
+
                       src={
-                        prev_apartments?.images?.apartment?.appartment_images
-                          ?.images[0]
+                        prev_apartments?.images[0]
                       }
                       alt={prev_apartments.name}
                       style={styles.imageStyles}
@@ -1429,11 +1415,7 @@ export default function EachComplex({
         <div className="axloMdebareObieqtebiBox">
           <div className="textBoxOfAxloMdebare">
             <div className="iconAndItsText">
-              {/* 
-            metro: item.internal_complex_name.metro,
-    Pharmacy: item.internal_complex_name.Pharmacy,
-    supermarket: item.internal_complex_name.supermarket,
-    Square: item.internal_complex_name.Square, */}
+
 
               {eachPrivateApartment?.metro && (
                 <>
@@ -1461,7 +1443,7 @@ export default function EachComplex({
               )}
             </div>
             <div className="iconAndItsText">
-              {eachPrivateApartment?.Pharmacy && (
+              {eachPrivateApartment?.pharmacy && (
                 <>
                   <img src={aptiaqi} alt="aptiaqi" />
                   <p>
@@ -1474,7 +1456,7 @@ export default function EachComplex({
               )}
             </div>
             <div className="iconAndItsText">
-              {eachPrivateApartment?.Square && (
+              {eachPrivateApartment?.square && (
                 <>
                   <img src={skveri} alt="skveri" />
                   <p>
@@ -1488,8 +1470,9 @@ export default function EachComplex({
             </div>
           </div>
 
-          <div className="child_map_container_P">
+          <div className="child_map_container_P ">
             <GoogleMap
+              id="mapp"
               mapContainerStyle={{ height: "300px" }}
               center={mapcenter}
               zoom={16}
@@ -1501,7 +1484,9 @@ export default function EachComplex({
                 streetViewControl: false,
                 mapTypeControl: false,
                 fullscreenControl: false,
+
               }}
+
             >
               <Marker
                 key={privateApartments.id}

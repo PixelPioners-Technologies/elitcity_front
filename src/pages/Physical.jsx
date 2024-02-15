@@ -43,6 +43,12 @@ const normalizePrivateApartmentData = (data, lang) => {
     isAvailable: item.internal_private_apartment_name.is_available,
     visibility: item.internal_private_apartment_name.visibiliti,
     rank: item.internal_private_apartment_name.rank,
+
+    // metro : item.internal_private_apartment_name.metro,
+    // pharmacy : item.internal_private_apartment_name.pharmacy,
+    // supermarket : item.internal_private_apartment_name.supermarket,
+    // square : item.internal_private_apartment_name.square,
+
     address: {
       city: item[`private_apartment_address_${lang}`][`city_${lang}`],
       parentDistrict:
@@ -56,7 +62,7 @@ const normalizePrivateApartmentData = (data, lang) => {
     },
     images: item.private_apartment_images,
     privateApartmentName: item[`private_apartment_name_${lang}`],
-    testPrivateField: item[`test_private_field_${lang}`],
+    about: item[`about_${lang}`],
   }));
 };
 
@@ -108,24 +114,35 @@ export default function Physical({
   const [selectedStatuses, setSelectedStatuses] = useState([]);
   const [selectedRoomNumbers, setSelectedRoomNumbers] = useState([]);
 
-  const [min_square_price, setMin_square_price] = useState("");
-  const [max_square_price, setMax_square_price] = useState("");
-
+  
   const [min_area, setMin_area] = useState("");
   const [max_area, setMax_area] = useState("");
-
-  const [minFullPrice, setMinFullPrice] = useState("");
-  const [maxFullPrice, setMaxFullPrice] = useState("");
-
+  
   const [totalCount, setTotalCount] = useState(0);
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
   const [ascendentPrice, setAscendentPrice] = useState("");
-
+  
   const [stringFilterValue, setStringFilterValue] = useState("");
-
+  
   const [search, setSearch] = useState(false);
+  
+  const [min_square_price, setMin_square_price] = useState("");
+  const [max_square_price, setMax_square_price] = useState("");
 
+  const [converter_min_square_price, setConverter_min_square_price] = useState(min_square_price);
+  const [converter_max_square_price, setConverter_max_square_price] = useState(max_square_price);
+
+  const [minFullPrice, setMinFullPrice] = useState("");
+  const [maxFullPrice, setMaxFullPrice] = useState("");
+  
+  const [converter_min_full_price, setConverter_min_full_price] = useState(minFullPrice);
+  const [converter_max_full_price, setConverter_max_full_price] = useState(maxFullPrice);
+  
+
+
+
+  
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -168,10 +185,10 @@ export default function Physical({
         [cityParam]: selectedCity,
         [pharentdistrictParams]: selectedPharentDistricts.join(","),
         [districtParams]: selectedDistricts.join(","),
-        min_square_price: min_square_price,
-        max_square_price: max_square_price,
-        min_full_price: minFullPrice,
-        max_full_price: maxFullPrice,
+        min_square_price: converter_min_square_price,
+        max_square_price: converter_max_square_price,
+        min_full_price: converter_min_full_price,
+        max_full_price: converter_max_full_price,
         min_area: min_area,
         max_area: max_area,
         limit: limit,
@@ -227,7 +244,38 @@ export default function Physical({
 
   const habdle_Search_Button_Click = () => {
     setSearch(!search);
+
+    if (min_square_price ==="" ){
+      setConverter_min_square_price("")
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverter_min_square_price(String(min_square_price * conversionRate))
+    }
+
+    if (max_square_price ==="" ){
+      setConverter_max_square_price("")
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverter_max_square_price(String(max_square_price * conversionRate))
+    }
+
+    if (minFullPrice ==="" ){
+      setConverter_min_full_price("")
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverter_min_full_price(String(minFullPrice * conversionRate))
+    }
+
+    if (maxFullPrice ==="" ){
+      setConverter_max_full_price("")
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverter_max_full_price(String(maxFullPrice * conversionRate))
+    }
+
   };
+
+
 
   //-----------------------------------fetch ionly locations --------------------------------------
   useEffect(() => {
@@ -510,6 +558,10 @@ export default function Physical({
       complexes: "Complexes",
       private_apartments: "Private Appartments",
       allFindButtonLanguage: "Search",
+      map : "Map",
+      sorting : 'Sorting',
+      sort: 'Sort',
+      projects : "Projects"
     };
 
     switch (lang) {
@@ -527,6 +579,13 @@ export default function Physical({
         languageInfo.private_apartments = "Private Appartments";
         languageInfo.allFindButtonLanguage = "Search";
 
+        languageInfo.map = "Map";
+        languageInfo.sorting = "Sorting";
+        languageInfo.sort = "Sort";
+        languageInfo.projects = "Projects";
+
+
+
         break;
 
       case "ka":
@@ -543,6 +602,13 @@ export default function Physical({
         languageInfo.private_apartments = "კერძო ბინები";
         languageInfo.allFindButtonLanguage = "ძებნა";
 
+        languageInfo.map = "რუქა";
+        languageInfo.sorting = "სორტირება";
+        languageInfo.sort = "სორტ";
+        languageInfo.projects = "პროექტები";
+
+
+
         break;
 
       case "ru":
@@ -558,6 +624,11 @@ export default function Physical({
         languageInfo.complexes = "Комплексы";
         languageInfo.private_apartments = "Частные апартаменты";
         languageInfo.allFindButtonLanguage = "Поиск";
+        languageInfo.map = "карта";
+        languageInfo.sorting = "Сортировка";
+        languageInfo.sort = "Сорт";
+        languageInfo.projects = "Проекты";
+
 
         break;
     }
@@ -698,8 +769,7 @@ export default function Physical({
         languageInfo.sortingButtonAscendantTime = "თარიღი ზრდადობით";
         languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით";
         languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით";
-        languageInfo.sortingButtonDescendentFullPrice =
-          "მთლიანი ფასი კლებადობით";
+        languageInfo.sortingButtonDescendentFullPrice ="მთლიანი ფასი კლებადობით";
         languageInfo.studio = "სტუდიო";
         languageInfo.spaceButtonClose = "დახურვა";
         languageInfo.minPrice = "დან მ²";
@@ -713,14 +783,12 @@ export default function Physical({
         break;
 
       case "ru":
-        languageInfo.sortingButtonAscendentPrice = "Ццена м² с шагом";
-        languageInfo.sortingButtonDescendentPrice = "м² цена снижается";
-        languageInfo.sortingButtonAscendantTime = "Асцендент создан в";
-        languageInfo.sortingButtonDescendentTime = "Потомок создан в";
-        languageInfo.sortingButtonAscendantFullPrice =
-          "Полная цена Асцендента.";
-        languageInfo.sortingButtonDescendentFullPrice =
-          "Полная стоимость потомка";
+        languageInfo.sortingButtonAscendentPrice = "Цена м² цена по увеличение";
+        languageInfo.sortingButtonDescendentPrice = "Цена м² цена по снижение";
+        languageInfo.sortingButtonAscendantTime = "Время по увеличение";
+        languageInfo.sortingButtonDescendentTime = "Время по снижение";
+        languageInfo.sortingButtonAscendantFullPrice = "Полная цена по увеличение";
+        languageInfo.sortingButtonDescendentFullPrice ="Полная цена по снижение";
         languageInfo.studio = "Студия";
         languageInfo.spaceButtonClose = "закрить";
         languageInfo.minPrice = "из м²";
@@ -1033,7 +1101,9 @@ export default function Physical({
                   className="dropdown"
                 />
               </div>
-              <P_Modal isOpen={is_P_ModalOpen}>{renderModalContent()}</P_Modal>
+              <P_Modal isOpen={is_P_ModalOpen} close={closeModal}>
+                {renderModalContent()}
+                </P_Modal>
             </div>
 
             {/* button for status */}
@@ -1142,7 +1212,7 @@ export default function Physical({
                       alt="mapSignLogo"
                       className="mapSignLogo"
                     />
-                    <button className="textButton_physical">პროექტები</button>
+                    <button className="textButton_physical">{handle_P_StatusButtonLanguageChange(selectedLanguage).projects}</button>
                   </div>
                 </motion.div>
               </Link>
@@ -1175,7 +1245,7 @@ export default function Physical({
                       alt="mapSignLogo"
                       className="mapSignLogo"
                     />
-                    <button className="textButton">რუკა</button>
+                    <button className="textButton">{handle_P_StatusButtonLanguageChange(selectedLanguage).map}</button>
                   </div>
                 </motion.div>
               </Link>
@@ -1191,8 +1261,8 @@ export default function Physical({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox_physical">
-                  <p className="sort_text_web">სორტირება</p>
-                  <p className="sort_text">სორტ</p>
+                  <p className="sort_text_web">{handle_P_StatusButtonLanguageChange(selectedLanguage).sorting}</p>
+                  <p className="sort_text">{handle_P_StatusButtonLanguageChange(selectedLanguage).sort}</p>
                   <img src={arrowDownSorting} style={{ width: "20px" }} />
                 </div>
               </Button>
@@ -1472,6 +1542,9 @@ export default function Physical({
           </div>
         ))}
       </div>
+
+
+      
       {/* Pagination for user to select some page */}
       <div className="pagination">
         <Stack spacing={2}>

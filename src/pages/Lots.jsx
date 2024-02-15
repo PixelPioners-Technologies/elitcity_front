@@ -98,15 +98,8 @@ export default function Physical({
   const [locations, setLocations] = useState([]);
   const [selectedStatuses, setSelectedStatuses] = useState([]);
 
-  const [min_square_price, setMin_square_price] = useState("");
-  const [max_square_price, setMax_square_price] = useState("");
-
   const [min_area, setMin_area] = useState("");
   const [max_area, setMax_area] = useState("");
-
-  const [minFullPrice, setMinFullPrice] = useState("");
-  const [maxFullPrice, setMaxFullPrice] = useState("");
-
   const [totalCount, setTotalCount] = useState(0);
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
@@ -116,6 +109,19 @@ export default function Physical({
   const [graundStatus, setGraundStatus] = useState([]);
 
   const [search, setSearch] = useState(false);
+
+  const [min_square_price, setMin_square_price] = useState("");
+  const [max_square_price, setMax_square_price] = useState("");
+
+  const [convertedMinSquarePrice, setConvertedMinSquarePrice] = useState(min_square_price);
+  const [convertedMaxSquarePrice, setConvertedMaxSquarePrice] = useState(max_square_price);
+
+  const [minFullPrice, setMinFullPrice] = useState("");
+  const [maxFullPrice, setMaxFullPrice] = useState("");
+
+  const [convertedMinFullPrice, setConvertedMinFullPrice] = useState(minFullPrice);
+  const [convertedMaxFullPrice, setConvertedMaxFullPrice] = useState(maxFullPrice);
+
 
   useEffect(() => {
     setSelectedCity("");
@@ -132,7 +138,6 @@ export default function Physical({
   }, [selectedLanguage]);
 
   const navigate = useNavigate();
-  // Assuming `complex` is an object representing each house
   const handleLotsClick = (prev_apartments) => {
     navigate(`/eachground/${prev_apartments}`, { state: { prev_apartments } });
   };
@@ -156,10 +161,10 @@ export default function Physical({
         [cityParam]: selectedCity,
         [pharentdistrictParams]: selectedPharentDistricts.join(","),
         [districtParams]: selectedDistricts.join(","),
-        min_square_price: min_square_price,
-        max_square_price: max_square_price,
-        min_full_price: minFullPrice,
-        max_full_price: maxFullPrice,
+        min_square_price: convertedMinSquarePrice,
+        max_square_price: convertedMaxSquarePrice,
+        min_full_price: convertedMinFullPrice,
+        max_full_price: convertedMaxFullPrice,
         min_area: min_area,
         max_area: max_area,
         limit: limit,
@@ -204,9 +209,42 @@ export default function Physical({
     // graundStatus,
   ]);
 
+
+
   const habdle_Search_Button_Click = () => {
     setSearch(!search);
+    if (min_square_price === "") {
+      setConvertedMinSquarePrice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConvertedMinSquarePrice(String(min_square_price * conversionRate));
+    }
+
+    if (max_square_price === "") {
+      setConvertedMaxSquarePrice("");
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConvertedMaxSquarePrice(String(max_square_price * conversionRate));
+    }
+
+    if (minFullPrice === "") {
+      setConvertedMinFullPrice("");
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConvertedMinFullPrice(String(minFullPrice * conversionRate));
+    }
+
+    if (maxFullPrice === "") {
+      setConvertedMaxFullPrice("");
+    } else {
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConvertedMaxFullPrice(String(maxFullPrice * conversionRate));
+    }
+
   };
+
+
 
   // useEffect(() => {
   //   console.log("aq unda iyos suratebi", privateApartments);
@@ -486,6 +524,11 @@ export default function Physical({
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
+      map : "Map",
+      sorting : 'Sorting',
+      sort: 'Sort'
+
+      
     };
 
     switch (lang) {
@@ -510,6 +553,12 @@ export default function Physical({
         languageInfo.meterPriceHomePage = "The price of m²";
         languageInfo.dan = "from";
         languageInfo.mde = "to";
+        
+        languageInfo.map = "Map";
+        languageInfo.sorting = "Sorting";
+        languageInfo.sort = "Sort";
+
+        
 
         break;
 
@@ -535,6 +584,13 @@ export default function Physical({
         languageInfo.dan = "დან";
         languageInfo.mde = "მდე";
 
+        languageInfo.map = "რუქა";
+        languageInfo.sorting = "სორტირება";
+        languageInfo.sort = "სორტ";
+
+        
+        
+
         break;
 
       case "ru":
@@ -557,6 +613,11 @@ export default function Physical({
         languageInfo.meterPriceHomePage = "Цена м²";
         languageInfo.dan = "из";
         languageInfo.mde = "до";
+
+        languageInfo.map = "карта";
+        languageInfo.sorting = "Сортировка";
+        languageInfo.sort = "Сорт";
+
 
         break;
     }
@@ -1082,6 +1143,7 @@ export default function Physical({
             <div
               className="all_search_button"
               onClick={habdle_Search_Button_Click}
+
             >
               {
                 handleStatusButtonLanguageChange(selectedLanguage)
@@ -1119,23 +1181,7 @@ export default function Physical({
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
             <div className="projectsPlansMapsSortingAndDollarBox_physical">
-              <Link to="/complex">
-                <motion.div
-                  className="textButtonContainer_physical"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <div className="mapAndLogoImg_physical">
-                    <img
-                      src={mapSignLogo}
-                      alt="mapSignLogo"
-                      className="mapSignLogo"
-                    />
-                    <button className="textButton_physical">პროექტები</button>
-                  </div>
-                </motion.div>
-              </Link>
+
               {/* 
               <Link to='/complex/apartmentList' >
               <motion.div
@@ -1165,7 +1211,7 @@ export default function Physical({
                       alt="mapSignLogo"
                       className="mapSignLogo"
                     />
-                    <button className="textButton">რუკა</button>
+                    <button className="textButton">{handle_P_StatusButtonLanguageChange(selectedLanguage).map}</button>
                   </div>
                 </motion.div>
               </Link>
@@ -1181,8 +1227,8 @@ export default function Physical({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox_physical">
-                  <p className="sort_text_web">სორტირება</p>
-                  <p className="sort_text">სორტ</p>
+                  <p className="sort_text_web">{handle_P_StatusButtonLanguageChange(selectedLanguage).sorting}</p>
+                  <p className="sort_text">{handle_P_StatusButtonLanguageChange(selectedLanguage).sort}</p>
                   <img src={arrowDownSorting} style={{ width: "20px" }} />
                 </div>
               </Button>
@@ -1368,16 +1414,12 @@ export default function Physical({
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${
-                        isOn ? "active" : ""
-                      }`}
+                      className={`currency-sign_physical ${isOn ? "active" : ""}`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${
-                        !isOn ? "active" : ""
-                      }`}
+                      className={`currency-sign_physical ${!isOn ? "active" : ""}`}
                     />
                   </motion.div>
                 </div>
