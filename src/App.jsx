@@ -90,7 +90,7 @@ const BaseURLs = {
   // blog: "http://127.0.0.1:8000/blog/",
   // map: "http://127.0.0.1:8000/map/",
   // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
-  // company_and_complex : 'http://127.0.0.1:8000/companycomplex/',
+  // company_and_complex: 'http://127.0.0.1:8000/companycomplex/',
 
 };
 
@@ -204,20 +204,26 @@ function App() {
 
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
 
-  const [searchInput, setSearchInput] = useState("");
 
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
   const [total_item_number, setTotal_item_number] = useState("");
 
-  const [homes, setHomes] = useState([]);
+  // const [homes, setHomes] = useState([]);
 
-  const [complex_homes, setComplex_homes] = useState([]);
+  // const [complex_homes, setComplex_homes] = useState([]);
 
-  const [showSplashScreen, setShowSplashScreen] = useState(true);
+  // const [showSplashScreen, setShowSplashScreen] = useState(true);
+
+  const [ascendentPrice, setAscendentPrice] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+
   // -----------------------------------------------------------------------------------------------------
 
   // -------------------------------funqciebi  steitebis cvlilebistvis ---------------------------------
+  const sortingChangeHandler = (data) => {
+    setAscendentPrice(data)
+  }
 
   const stringSearchHeandles = (data) => {
     setSearchInput(data);
@@ -238,23 +244,33 @@ function App() {
   const selectedDistrictsChangeHandler = (data) => {
     setSelectedDistricts(data);
   };
+
+  // ------------------==================------------------------------------------------------
   const minPricePerSquareMeterChangeHandler = (data) => {
-    setMinPricePerSquareMeter(data);
+    // const normalizedValue = isOn ? (value / getCorrencyRate) : value;
+    setMinPricePerSquareMeter(normalizedValue);
   };
   const maxPricePerSquareMeterChangeHandler = (data) => {
     setMaxPricePerSquareMeter(data);
   };
+
+  // -----------------------------------------------------------------------------------------------
+
   const minFullPriceChangeHandler = (data) => {
     setMinFullPrice(data);
   };
   const maxFullPriceChangeHandler = (data) => {
     setMaxFullPrice(data);
   };
+
+  // ---------------===================--------------------------------------------------------
+
+
   const min_spacehangeHandler = (data) => {
-    setMax_space(data);
+    setMin_space(data);
   };
   const max_spacehangeHandler = (data) => {
-    setMin_space(data);
+    setMax_space(data);
   };
   const selectedStatusesChangeHandler = (data) => {
     setSelectedStatuses(data);
@@ -305,6 +321,8 @@ function App() {
         max_space: max_space,
         limit: limit,
         offset: offset,
+        ordering: ascendentPrice,
+        search: searchInput,
       });
 
       // Append each status as a separate parameter
@@ -596,6 +614,99 @@ function App() {
   // ------------------------------------------------------------------------------------------
 
 
+
+
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [salesDepartment, setSalesDepartment] = useState(false);
+  const [storkhomePlus, setStorkhomePlus] = useState(false);
+  const [other, setOther] = useState(false);
+
+
+  const [sedtsheet, setSedtsheet] = useState(false);
+
+  const handleSendSheet = () => {
+    setSedtsheet(!sedtsheet)
+    // Process or log the states here
+    console.log(name, phone, email, salesDepartment, storkhomePlus, other);
+
+  }
+
+
+
+
+
+  useEffect(() => {
+    const sendDataToSheet = async () => {
+
+      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+      // const targetUrl = "https://script.google.com/macros/s/AKfycbyHWl50dD5rLLd4jfu9vPZ-JKH9QT4O2nunRctKJoaAoWkD29r26pvosgvb3uDYnvgZ/exec";
+      // // Combine the URLs
+      // const proxiedRequestUrl = proxyUrl + targetUrl;
+      
+      if (!sedtsheet) return; // Only proceed if sedtsheet is true
+  
+      const formData = {
+        name,
+        phone,
+        email,
+        salesDepartment,
+        storkhomePlus,
+        other
+      };
+  
+      try {
+        // Await the Axios call
+        const response = await axios.post('https://script.google.com/macros/s/AKfycbyHWl50dD5rLLd4jfu9vPZ-JKH9QT4O2nunRctKJoaAoWkD29r26pvosgvb3uDYnvgZ/exec', formData);
+        console.log(response.data); // Log the response data, not the whole response
+      } catch (error) {
+        console.error('Error sending data to sheet:', error);
+      }
+    };
+  
+    sendDataToSheet();
+  }, [sedtsheet]);
+  
+
+
+  // Event handlers will be defined here
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+
+  const handleSalesDepartmentChange = () => {
+    setSalesDepartment(!salesDepartment);
+  };
+
+  const handleStorkhomePlusChange = () => {
+    setStorkhomePlus(!storkhomePlus);
+  };
+
+  const handleOtherChange = () => {
+    setOther(!other);
+  };
+
+
+
+
+
   // useEffect(() => {
   //   const timer = setTimeout(() => {
   //     setShowSplashScreen(false);
@@ -648,6 +759,9 @@ function App() {
             <HomePage
               searchInput={searchInput}
               setSearchInput={setSearchInput}
+              stringSearchHeandles={stringSearchHeandles}
+
+
               favoriteHandler={favoriteHandler}
               favorites={favorites}
               selectedLanguage={selectedLanguage}
@@ -682,6 +796,9 @@ function App() {
               selectedCity={selectedCity}
               selectedPharentDistricts={selectedPharentDistricts}
               selectedDistricts={selectedDistricts}
+
+              isOn={isOn}
+              toggleSwitch={toggleSwitch}
             />
           }
         />
@@ -700,18 +817,19 @@ function App() {
                 min_spacehangeHandler={min_spacehangeHandler}
                 max_space={max_space}
                 max_spacehangeHandler={max_spacehangeHandler}
+                // ------------------==================------------------------------------------------------
+                minPricePerSquareMeterChangeHandler={minPricePerSquareMeterChangeHandler}
                 minPricePerSquareMeter={minPricePerSquareMeter}
-                minPricePerSquareMeterChangeHandler={
-                  minPricePerSquareMeterChangeHandler
-                }
+
+                maxPricePerSquareMeterChangeHandler={maxPricePerSquareMeterChangeHandler}
                 maxPricePerSquareMeter={maxPricePerSquareMeter}
-                maxPricePerSquareMeterChangeHandler={
-                  maxPricePerSquareMeterChangeHandler
-                }
-                minFullPrice={minFullPrice}
+
                 minFullPriceChangeHandler={minFullPriceChangeHandler}
-                maxFullPrice={maxFullPrice}
+                minFullPrice={minFullPrice}
+
                 maxFullPriceChangeHandler={maxFullPriceChangeHandler}
+                maxFullPrice={maxFullPrice}
+                // ------------------==================------------------------------------------------------
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
                 selectedCity={selectedCity}
@@ -735,6 +853,11 @@ function App() {
                 currenceChangeState={currenceChangeState}
                 isOn={isOn}
                 toggleSwitch={toggleSwitch}
+                sortingChangeHandler={sortingChangeHandler}
+
+                stringSearchHeandles={stringSearchHeandles}
+
+
               />
             }
           />
@@ -945,8 +1068,11 @@ function App() {
             </div>
             <div className="call_input_container">
               <input
+                name="name"
                 type="text"
                 className="call_input"
+                onChange={handleNameChange}
+                value={name}
                 placeholder={
                   languageTranslationForCheetModal(selectedLanguage).name
                 }
@@ -954,6 +1080,8 @@ function App() {
             </div>
             <div className="call_input_container">
               <input
+                value={phone}
+                onChange={handlePhoneChange}
                 type="number"
                 className="call_input"
                 placeholder={
@@ -962,6 +1090,21 @@ function App() {
                 }
               />
             </div>
+
+            <div className="call_input_container">
+              <input
+                value={email}
+                onChange={handleEmailChange}
+                type="text"
+                className="call_input"
+                placeholder={
+                  languageTranslationForCheetModal(selectedLanguage)
+                    .phone_number
+                }
+              />
+            </div>
+
+
           </div>
           <div className="choose_container">
             <div className="department_choices">
@@ -979,7 +1122,13 @@ function App() {
             {/* 1 chekmark konteineri  tavisi saxelit */}
             <div className="little_checkmark_container">
               <label>
-                <input type="checkbox" className="input" />
+                <input type="checkbox" className="input"
+
+                  value={salesDepartment}
+                  onChange={handleSalesDepartmentChange}
+
+
+                />
                 <span className="custom-checkbox"></span>
               </label>
               <p style={{ color: "white" }}>
@@ -993,7 +1142,14 @@ function App() {
             {/* 2 chekmark konteineri  tavisi saxelit */}
             <div className="little_checkmark_container">
               <label>
-                <input type="checkbox" className="input" />
+                <input type="checkbox" className="input"
+
+
+                  value={storkhomePlus}
+                  onChange={handleStorkhomePlusChange}
+
+
+                />
                 <span className="custom-checkbox"></span>
               </label>
               <p style={{ color: "white" }}>
@@ -1007,7 +1163,12 @@ function App() {
             {/* 3 chekmark konteineri  tavisi saxelit */}
             <div className="little_checkmark_container">
               <label>
-                <input type="checkbox" className="input" />
+                <input type="checkbox" className="input"
+
+                  value={other}
+                  onChange={handleOtherChange}
+
+                />
                 <span className="custom-checkbox"></span>
               </label>
               <p style={{ color: "white" }}>
@@ -1022,7 +1183,7 @@ function App() {
               // whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <button className="senc_to_sheet">
+              <button className="senc_to_sheet" onClick={handleSendSheet} >
                 {languageTranslationForCheetModal(selectedLanguage).send}
               </button>
             </motion.div>

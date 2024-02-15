@@ -16,9 +16,22 @@ import { Link } from 'react-router-dom';
 
 import loupe from '../icons/loupe.png'
 
+import dollar_black from "../assets/dollar-svgrepo-com.svg";
+import lari_black from "../assets/lari-svgrepo-com.svg";
+import dollar from '../assets/dollar-whitee.svg';
+import lari from '../assets/lari-white.svg';
+
+
 
 import './HomePage.css'
 import { Data } from '@react-google-maps/api';
+
+
+
+
+
+
+
 // const initialCenter = {
 //   lat: 41.7151,
 //   lng: 44.8271
@@ -59,6 +72,9 @@ export default function Map({ selectedLanguage,
   selectedDistricts,
   searchInput,
   setSearchInput,
+
+  isOn,
+  toggleSwitch,
 
 }) {
 
@@ -400,162 +416,205 @@ export default function Map({ selectedLanguage,
   // ---------------------------------------------------------------------------------------------------------------------
   return (
     // <div className='hhh'>
-      <>
-        <div className='main_map main_foto '>
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 2 }}
-            className='title_filter_cont'
-          >
-            {/* <div className='for_comfort'> */}
-              <div className='adgilicomportistvis'>
-                ადგილი შენი კომფორტისთვის
+    <>
+      <div className='main_map main_foto '>
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 2 }}
+          className='title_filter_cont'
+        >
+          {/* <div className='for_comfort'> */}
+          <div className='adgilicomportistvis'>
+            ადგილი შენი კომფორტისთვის
+          </div>
+          <div className='filter_cont_for_homepage'>
+
+            {/* button for filtering space */}
+            <div className="button-modal-container-homepage">
+              <div onClick={handleSpaceButtonClick} className='space_button_homepage'  >
+                {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
+                <img src={button_icon} alt="button dropdown icon" className='dropdown' />
               </div>
-              <div className='filter_cont_for_homepage'>
 
-                {/* button for filtering space */}
-                <div className="button-modal-container-homepage">
-                  <div onClick={handleSpaceButtonClick} className='space_button_homepage'  >
-                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
-                    <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+              <SpaceModal_1 isOpen={isSpaceModalOpen} close={closeSpaceModal}>
+                <div>
+                  <div>
+                    <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
                   </div>
-
-                  <SpaceModal_1 isOpen={isSpaceModalOpen} close={closeSpaceModal}>
-                    <div>
-                      <div>
-                        <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
-                      </div>
-                      <input className='min_price_homePage'
-                        type='number'
-                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
-                        value={min_space}
-                        onChange={(e) => max_spacehangeHandler(e.target.value)}
-                      />
-
-                      <input className='min_price_homePage'
-                        type="number"
-                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
-                        value={max_space}
-                        onChange={(e) => min_spacehangeHandler(e.target.value)}
-                      />
-                    </div>
-
-                    <button className='modal_close_button_homePage' onClick={closeSpaceModal}>
-                      {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
-                    </button>
-                  </SpaceModal_1>
-
-                </div>
-
-                {/* button for filtering price  */}
-                <div className="button-modal-container-homepage">
-                  <div onClick={handlePriceButtonClick} className='space_button_homepage'  >
-                    {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
-                    <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-                  </div>
-                  <PriceModal_1 isOpen={isPriceModalOpen} close={handleClosePriceModal} >
-                    <div className='fullPriceHomePage'>
-                      {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
-                    </div>
-                    <div>
-                      <input className='min_price_homePage'
-                        type="number"
-                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
-                        value={minPricePerSquareMeter}
-                        onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
-                      />
-
-                      <input className='min_price_homePage'
-                        type="number"
-                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
-                        value={maxPricePerSquareMeter}
-                        onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
-                      />
-
-                      <div className='meterPriceHomePage'>
-                        {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
-                      </div>
-
-                      <input className='min_price_homePage'
-                        type="number"
-                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
-                        value={minFullPrice}
-                        onChange={(e) => minFullPriceChangeHandler(e.target.value)}
-                      />
-
-                      <input className='min_price_homePage'
-                        type="number"
-                        placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
-                        value={maxFullPrice}
-                        onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
-                      />
-                    </div>
-                    <button className='modal_close_button_homePage' onClick={handleClosePriceModal}>
-                      {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
-                    </button>
-                  </PriceModal_1>
-                </div>
-
-                {/* button for locations */}
-                <div className="button-modal-container-homepage" >
-                  <div onClick={handleShowModal} className='lacation_button_homepage'   >
-                    {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
-                    <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-                  </div>
-                  <Modal_1 isOpen={isModalOpen} close={closeModal} >
-                    {renderModalContent()}
-                  </Modal_1>
-                </div>
-
-                {/* button for status */}
-                <div className="button-modal-container-homepage" >
-                  <div onClick={handleStatusButtonClick} className='lacation_button_homepage'   >
-                    {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
-                    <img src={button_icon} alt="button dropdown icon" className='dropdown' />
-                  </div>
-                  <StatusModal_1 isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
-                    {renderStatusOptions()}
-                    <button className='modal_close_button_homePage' onClick={handleCloseStatusModal}>
-                      {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
-                    </button>
-                  </StatusModal_1>
-                </div>
-                {/* Button For find word (sityvit dzebna) */}
-                <div className="lacation_button" >
-                  <input className='string_filter_input'
-                    type='search'
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
+                  <input className='min_price_homePage'
+                    type='number'
+                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
+                    value={min_space}
+                    onChange={(e) => max_spacehangeHandler(e.target.value)}
                   />
-                  <img src={loupe} alt="search icon" className="dropdown" />
+
+                  <input className='min_price_homePage'
+                    type="number"
+                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
+                    value={max_space}
+                    onChange={(e) => min_spacehangeHandler(e.target.value)}
+                  />
                 </div>
-              </div>
 
-            {/* </div> */}
-          </motion.div>
-
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 2 }}
-          >
-
-            {/* Map button link */}
-            <div className="button-container">
-              <Link to="/map">
-                <button className='homepage_map_link'>{handleStatusButtonLanguageChange(selectedLanguage).findMapButtonLanguage}</button>
-              </Link>
-              <Link to="/complex">
-                <button className='homepage_serch_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
-                  {handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+                <button className='modal_close_button_homePage' onClick={closeSpaceModal}>
+                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                 </button>
-              </Link>
+              </SpaceModal_1>
+
             </div>
-          </motion.div>
-        </div>
-      </>
+
+            {/* button for filtering price  */}
+            <div className="button-modal-container-homepage">
+              <div onClick={handlePriceButtonClick} className='space_button_homepage'  >
+                {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
+                <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+              </div>
+              <PriceModal_1 isOpen={isPriceModalOpen} close={handleClosePriceModal} >
+                <div className='fullPriceHomePage'>
+                  {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+
+                  {/* ----Dollar and Lari Toggle button */}
+                  <div className="currencyBox_homepage">
+                    <div className="switch_homepage" data-ison={isOn} onClick={toggleSwitch}>
+                      <motion.div className="handle_homepage" layout transition={spring}>
+                        <img
+                          src={lari_black}
+                          alt="Lari Sign"
+                          className={`currency-sign_homepage ${isOn ? "active" : ""}`}
+                        />
+                        <img
+                          src={dollar_black}
+                          alt="Dollar Sign"
+                          className={`currency-sign_homepage ${!isOn ? "active" : ""}`}
+                        />
+                      </motion.div>
+                    </div>
+                  </div>
+                  {/* ---------------- */}
+
+
+                </div>
+                <div>
+                  {/* pirveli  */}
+                  <div className="for_dolar_and_lari">
+                    <input className='min_price_homePage'
+                      type="number"
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
+                      value={minPricePerSquareMeter}
+                      // -----------======-------
+                      onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
+                    />
+                    <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+                  </div>
+
+                  {/* meore  */}
+                  <div className="for_dolar_and_lari">
+                    <input className='min_price_homePage'
+                      type="number"
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
+                      value={maxPricePerSquareMeter}
+                      // -----------======-------
+                      onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
+                    />
+                    <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+                  </div>
+
+
+                  <div className='meterPriceHomePage'>
+                    {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
+                  </div>
+
+                  {/* mesame  */}
+                  <div className="for_dolar_and_lari">
+                    <input className='min_price_homePage'
+                      type="number"
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
+                      value={minFullPrice}
+                      // -----------======-------
+                      onChange={(e) => minFullPriceChangeHandler(e.target.value)}
+                    />
+                    <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+                  </div>
+
+                  {/* meotxe  */}
+                  <div className="for_dolar_and_lari">
+                    <input className='min_price_homePage'
+                      type="number"
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
+                      value={maxFullPrice}
+                      // -----------======-------
+                      onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
+                    />
+                    <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+                  </div>
+
+                </div>
+                <button className='modal_close_button_homePage' onClick={handleClosePriceModal}>
+                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                </button>
+              </PriceModal_1>
+            </div>
+
+            {/* button for locations */}
+            <div className="button-modal-container-homepage" >
+              <div onClick={handleShowModal} className='lacation_button_homepage'   >
+                {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
+                <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+              </div>
+              <Modal_1 isOpen={isModalOpen} close={closeModal} >
+                {renderModalContent()}
+              </Modal_1>
+            </div>
+
+            {/* button for status */}
+            <div className="button-modal-container-homepage" >
+              <div onClick={handleStatusButtonClick} className='lacation_button_homepage'   >
+                {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
+                <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+              </div>
+              <StatusModal_1 isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+                {renderStatusOptions()}
+                <button className='modal_close_button_homePage' onClick={handleCloseStatusModal}>
+                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                </button>
+              </StatusModal_1>
+            </div>
+            {/* Button For find word (sityvit dzebna) */}
+            <div className="lacation_button" >
+              <input className='string_filter_input'
+                type='search'
+                placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+              <img src={loupe} alt="search icon" className="dropdown" />
+            </div>
+          </div>
+
+          {/* </div> */}
+        </motion.div>
+
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 2 }}
+        >
+
+          {/* Map button link */}
+          <div className="button-container">
+            <Link to="/map">
+              <button className='homepage_map_link'>{handleStatusButtonLanguageChange(selectedLanguage).findMapButtonLanguage}</button>
+            </Link>
+            <Link to="/complex">
+              <button className='homepage_serch_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
+                {handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+              </button>
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+    </>
     // </div>
 
   );
@@ -584,3 +643,30 @@ export default function Map({ selectedLanguage,
 
 
 
+
+const styles = {
+  imageStyles: {
+    maxWidth: '275px',
+    height: "229px",
+    overflow: "hidden",
+    color: 'white'
+    // borderRadius: "20px",
+  },
+  companyTitle: {
+    // position: 'absolute',
+    // top: '262px',
+    // paddingLeft: '20px'
+  },
+  complexInfo: {
+    color: "white",
+  },
+  complexFinished: {
+    color: "white",
+  },
+};
+
+const spring = {
+  type: "spring",
+  stiffness: 100,
+  damping: 30,
+};

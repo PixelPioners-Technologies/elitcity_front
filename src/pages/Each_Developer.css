@@ -4,32 +4,37 @@
 .company_page {
   font-family: 'Roboto', sans-serif;
   color: aliceblue;
+  padding: 20px;
+  /* border: 1px solid red; */
 }
 
 
 .company_background_image_container {
   height: 350px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid blue; */
 }
 
 .company_background_image_big {
   width: 100%;
 }
 
-/* .colo_name_and_others {
-
-} */
 
 .company_logo_round {
   border-radius: 50%;
-  position: absolute;
-  margin-top: -42px;
-  margin-left: 30px;
-  width: 240px;
+  /* position: absolute; */
+  /* margin-top: -42px;
+  margin-left: 30px; */
+  /* width: 240px; */
 }
 
 .cpmpany_name_and_settings {
   display: flex;
+  align-items: start;
+  justify-content: start;
+  /* flex-direction: column; */
 }
 
 .all_settings_company_1 {
@@ -233,3 +238,64 @@ font-size: 200;
 }
 /* ------------- */
 
+@media screen and (max-width: 500px) {
+
+  .company_background_image_container {
+    width: 100%;
+  }
+  .responsive_logo{
+    position: absolute;
+    margin-bottom: 0px;
+    /* margin-top: 20px; */
+    /* z-index: 11; */
+    /* top: -80px; */
+    /* width: 100%; */
+    border: 1px solid red;
+    width: 60px;
+    height: 60px;
+
+    /* width: 100%; */
+  }
+  .company_logo_round{
+    width: 100px;
+    height: 100px;
+  }
+  .mobile_website_phone {
+    flex-direction: column;
+    align-items: start;
+    margin-left: 0;
+    padding-left: 0;
+    justify-content: start;
+    /* border: 1px solid green; */
+    /* gap: 4px; */
+    /* display: none; */
+  }
+  .cpmpany_name_and_settings {
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .all_settings_company_1 {
+    /* border: 2px solid yellow; */
+    margin-left: 0%;
+    margin-top: 0;
+  }
+  .about_each_company{
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .allCards_each_company{
+    /* border: 1px solid red; */
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+}

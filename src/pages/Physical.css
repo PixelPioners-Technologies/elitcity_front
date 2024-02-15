@@ -214,7 +214,9 @@ input[type="checkbox"] {
 /* ------------------------------------------------------------------------------------------------------------- */
 
 .allCards_physical {
+  /* border: 2PX solid red; */
   display: flex;
+  /* align-items: center; */
   justify-content: space-between;
   flex-wrap: wrap;
   /* padding: 0 30px; */
@@ -226,12 +228,16 @@ input[type="checkbox"] {
 .card_physical {
   width: 315px;
   height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   /* background-color: #C1D6CC; */
   background-color: black;
   border: 1px solid white;
   /* border-radius: 20px; */
   overflow: hidden;
-  padding: 20px 20px;
+  /* padding: 10px; */
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
 
   transition: transform 0.3s ease-in-out;
@@ -247,7 +253,7 @@ input[type="checkbox"] {
 }
 
 .heartButtonBox_physical {
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   justify-content: flex-end;
   position: absolute;
@@ -324,12 +330,15 @@ input[type="checkbox"] {
 
 @media screen and (max-width: 500px) {
   .ComplexBodyBox_physical {
-    padding: 30px 50px;
+    padding: 20px;
     /* border: 1px solid red; */
   }
   .pagination {
     display: flex;
     /* border: 1px solid green; */
+  }
+  .allCards_physical {
+    justify-content: center;
   }
   .filter_cont_for_physical {
     flex-direction: column;
@@ -358,19 +367,25 @@ input[type="checkbox"] {
     display: none;
   }
   .forPaddingOfInfoFieldOfComplexsPlansMaps_physical {
-    padding: 0;
+    padding: 0 20px;
     display: flex;
     flex-direction: row;
-    align-items: start;
-    gap: 10px;
+    justify-content: space-between;
+    /* align-items: start; */
+    /* gap: 10px; */
     /* border: 1px solid red; */
   }
   .complexInfoAndCountShowBox_physical{
     font-size: 15px;
   }
   .infoFieldOfComplexsPlansMaps_physical{
+    width: 100%;
     padding: 0;
     gap: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* width: 340px; */
   }
   .currencyBox_physical{
     /* border: 1px solid red; */

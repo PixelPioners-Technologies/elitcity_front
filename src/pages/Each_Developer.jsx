@@ -1,19 +1,17 @@
-import './Each_Developer.css'
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { BaseURLs } from '../App';
-import { useLocation } from 'react-router-dom';
-import website_logo from '../icons/earth.png'
-import email_logo from '../icons/email.png'
-import phone_logo from '../icons/phone.png'
+import "./Each_Developer.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { BaseURLs } from "../App";
+import { useLocation } from "react-router-dom";
+import website_logo from "../icons/earth.png";
+import email_logo from "../icons/email.png";
+import phone_logo from "../icons/phone.png";
 import { motion } from "framer-motion";
 import heartIcon from "../assets/starLogo.svg";
 import dollar from "../assets/dollar-svgrepo-com.svg";
 import lari from "../assets/lari-svgrepo-com.svg";
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import { useNavigate } from "react-router-dom";
-
-
 
 function normalizeCompanyData(company, lang) {
   return {
@@ -31,7 +29,7 @@ function normalizeCompanyData(company, lang) {
     visibility: company.internal_name.visibility,
     address: company[`address_${lang}`],
     aboutCompany: company[`aboutcompany_${lang}`],
-    complexes: company.complexes.map(complex => ({
+    complexes: company.complexes.map((complex) => ({
       id: complex.internal_complex_name.id,
       createdAt: complex.internal_complex_name.created_at,
       internalComplexName: complex.internal_complex_name.internal_complex_name,
@@ -86,12 +84,6 @@ function normalizeCompanyData(company, lang) {
   };
 }
 
-
-
-
-
-
-
 export default function Each_Developer({
   selectedLanguage,
   favoriteHandler,
@@ -102,15 +94,9 @@ export default function Each_Developer({
   currenceChangeState,
   isOn,
   toggleSwitch,
-
-
 }) {
-
-
-
   const [company, setCompany] = useState({});
   const [complexes_in_company, setComplexes_in_company] = useState([]);
-
 
   const navigate = useNavigate();
   // Assuming `complex` is an object representing each house
@@ -118,136 +104,151 @@ export default function Each_Developer({
     navigate(`/eachComplex/${complexId}`, { state: { complexId } });
   };
 
-
-
   useEffect(() => {
-    console.log(complexes_in_company)
+    console.log(complexes_in_company);
   }, [complexes_in_company]);
-
 
   // ---------------------------------  id  --------------------------------------------------
   const location = useLocation();
   const { companyID } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
   // ---------------------- ----------------------------------------------------------------
 
-
   useEffect(() => {
-
     const fetchCompanies = async () => {
       const requestUrl = `${BaseURLs.company_and_complex}${selectedLanguage}/${companyID}`;
       const response = await axios.get(requestUrl);
-      const normaldata = normalizeCompanyData(response.data, selectedLanguage)
+      const normaldata = normalizeCompanyData(response.data, selectedLanguage);
 
-      setCompany(normaldata)
-      setComplexes_in_company(normaldata.complexes)
-      console.log(complexes_in_company)
-
-    }
-    fetchCompanies()
-  }, [selectedLanguage])
-
+      setCompany(normaldata);
+      setComplexes_in_company(normaldata.complexes);
+      console.log(complexes_in_company);
+    };
+    fetchCompanies();
+  }, [selectedLanguage]);
 
   useEffect(() => {
-    console.log(complexes_in_company)
-  }, [complexes_in_company])
-
+    console.log(complexes_in_company);
+  }, [complexes_in_company]);
 
   // --------------------------------------function for changind static text languages -------------------------------------------
   const language_change_for_each_companyPage = (lang) => {
     var languageInfo = {
       about: "About company",
       price_per_meter: "      Price per m²",
-      company_complexes: 'Company projects'
-    }
+      company_complexes: "Company projects",
+    };
 
     switch (lang) {
       case "en":
-        languageInfo.about = "About company"
-        languageInfo.price_per_meter = "    Price per m²"
-        languageInfo.company_complexes = "Company projects"
-
-
+        languageInfo.about = "About company";
+        languageInfo.price_per_meter = "    Price per m²";
+        languageInfo.company_complexes = "Company projects";
 
         break;
 
       case "ka":
-        languageInfo.about = "კომპანიის შესახებ"
-        languageInfo.price_per_meter = "     მ² - ის ფასი"
-        languageInfo.company_complexes = "კომპანიის პროექტები"
+        languageInfo.about = "კომპანიის შესახებ";
+        languageInfo.price_per_meter = "     მ² - ის ფასი";
+        languageInfo.company_complexes = "კომპანიის პროექტები";
 
-        break
+        break;
 
       case "ru":
-        languageInfo.about = "О компании"
-        languageInfo.price_per_meter = "    Цена м²"
-        languageInfo.company_complexes = "Проекты компании"
+        languageInfo.about = "О компании";
+        languageInfo.price_per_meter = "    Цена м²";
+        languageInfo.company_complexes = "Проекты компании";
 
-        break
+        break;
     }
-    return languageInfo
-  }
-
-
+    return languageInfo;
+  };
 
   // ----------------------------------------------------------------------------------------------
   const handleHouseClick = (complexId) => {
     navigate(`/eachComplex/${complexId}`, { state: { complexId } });
   };
 
-
-
-
   return (
-    <div className='company_page' >
-      <div >
-        <div className='company_background_image_container' >
-          <img src={company.backgroundImage} alt="company background image" className="company_background_image_big" />
+    <div className="company_page">
+      <div className="company_main_page">
+        <div className="company_background_image_container">
+          <img
+            src={company.backgroundImage}
+            alt="company background image"
+            className="company_background_image_big"
+          />
+          {/* <div className="responsive_logo"> */}
+            <img
+              src={company.logo}
+              rel="company logo"
+              className="company_logo_round responsive_logo"
+            />
+          {/* </div> */}
         </div>
-        <div className='colo_name_and_others' >
+        <div className="colo_name_and_others">
           {/* logo */}
-          <div>
+          {/* <div className='responsive_logo'>
             <img src={company.logo} rel='company logo' className="company_logo_round" />
-          </div>
+          </div> */}
           {/* name container  */}
-          <div className='cpmpany_name_and_settings' >
-            <div className='all_settings_company_1' >
-              <h1 className='company_name_each' >{company.name}</h1>
-              <h2 className='company_adddresss' > {company.address}</h2>
+          <div className="cpmpany_name_and_settings">
+            <div className="all_settings_company_1">
+              <h1 className="company_name_each">{company.name}</h1>
+              <h2 className="company_adddresss"> {company.address}</h2>
             </div>
 
-            <div className='mobile_website_phone' >
+            <div className="mobile_website_phone">
               {/* email  */}
-              <div className='email_and_website_container margin_left_for_settings ' >
-                <img src={email_logo} alt="email logo" className="company_all_logos" />
+              <div className="email_and_website_container margin_left_for_settings ">
+                <img
+                  src={email_logo}
+                  alt="email logo"
+                  className="company_all_logos"
+                />
                 <p>{company.email}</p>
               </div>
               {/* phone  */}
-              <div className='email_and_website_container' >
-                <img src={phone_logo} alt="email logo" className="company_all_logos" />
+              <div className="email_and_website_container">
+                <img
+                  src={phone_logo}
+                  alt="email logo"
+                  className="company_all_logos"
+                />
                 <p>{company.mobile}</p>
               </div>
               {/* website  */}
-              <div className='email_and_website_container' >
-                <img src={website_logo} alt="email logo" className="company_all_logos" />
+              <div className="email_and_website_container">
+                <img
+                  src={website_logo}
+                  alt="email logo"
+                  className="company_all_logos"
+                />
                 <p>{company.email}</p>
               </div>
             </div>
-
           </div>
         </div>
       </div>
 
-      <div className='about_each_company' >
-        <p className='about_company_header' >{language_change_for_each_companyPage(selectedLanguage).about}</p>
-        <div className='about_company_container' >
+      <div className="about_each_company">
+        <p className="about_company_header">
+          {language_change_for_each_companyPage(selectedLanguage).about}
+        </p>
+        <div className="about_company_container">
           <p> {company.aboutCompany} </p>
         </div>
 
-
         <div className="currency_and_allcomplex_header">
-          <p className='company_complexes_header' >{language_change_for_each_companyPage(selectedLanguage).company_complexes}</p>
+          <p className="company_complexes_header">
+            {
+              language_change_for_each_companyPage(selectedLanguage)
+                .company_complexes
+            }
+          </p>
           <div className="currencyBox">
-            <div className="switch" data-ison={isOn}
+            <div
+              className="switch"
+              data-ison={isOn}
               onClick={() => {
                 toggleSwitch();
                 HandleStateChange();
@@ -267,13 +268,12 @@ export default function Each_Developer({
               </motion.div>
             </div>
           </div>
-
         </div>
       </div>
-      <div className='companys_complexes_container' >
+      <div className="companys_complexes_container">
         <div className="allCards_each_company">
           {complexes_in_company.map((complex, index) => (
-            <div className="card" key={complex.id}  >
+            <div className="card" key={complex.id}>
               <motion.div
                 initial={{ x: -50, opacity: 0 }}
                 transition={{ duration: 1 }}
@@ -310,21 +310,19 @@ export default function Each_Developer({
                   className="textInfo_each_company"
                   onClick={() => handleHouseClick(complex.id)}
                 >
-                  <p style={styles.complexInfo}>
-                    {complex.address.city}
-                  </p>
+                  <p style={styles.complexInfo}>{complex.address.city}</p>
                   <p style={styles.complexInfo}>
                     {currenceChangeState
                       ? complex.pricePerSqMeter * getCorrencyRate
                       : complex.pricePerSqMeter}
 
-
                     {/* {complex.pricePerSqMeter} */}
-                    {language_change_for_each_companyPage(selectedLanguage).price_per_meter}
+                    {
+                      language_change_for_each_companyPage(selectedLanguage)
+                        .price_per_meter
+                    }
                   </p>
-                  <p style={styles.complexFinished}>
-                    {complex.finishYear}
-                  </p>
+                  <p style={styles.complexFinished}>{complex.finishYear}</p>
                 </div>
               </motion.div>
             </div>
@@ -332,10 +330,8 @@ export default function Each_Developer({
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-
 
 const styles = {
   imageStyles: {
@@ -357,20 +353,8 @@ const styles = {
   },
 };
 
-
 const spring = {
   type: "spring",
   stiffness: 100,
   damping: 30,
 };
-
-
-
-
-
-
-
-
-
-
-
