@@ -15,15 +15,7 @@
   /* justify-content: space-between; */
   gap: 70px;
 }
-.imageSliderBox {
-  /* border: 1px solid red; */
-  /* height: 100vh; */
-  /* width: 100%; */
-}
-.bigImageBox {
-  /* border: 2px solid blue; */
-  /* width: 100%; */
-}
+
 .miniImagesBoxS {
   display: flex;
   align-items: center;
@@ -72,17 +64,13 @@
   font-family: "Roboto", sans-serif;
   color: aliceblue;
 }
-.ground_all_settind2{
-  /* border: 1px solid red; */
-}
+
 .child_map_container_P {
   width: 800px;
   /* height: 200px; */
 }
 @media screen and (max-width: 500px) {
-  .eachComplexBox {
-    /* border: 1px solid red; */
-  }
+
   .imageAndTextInfos {
     width: 100%;
     padding: 20px 30px;
