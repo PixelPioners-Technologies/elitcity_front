@@ -3,10 +3,12 @@
   background-color: black; /* Set your desired background color */
   padding: 20px;
   overflow: hidden;
+  /* border: 1px solid red; */
 }
 
 .Left {
   float: left;
+  /* border: 1px solid red; */
 }
 
 .Right {
@@ -40,10 +42,17 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media screen and (max-width: 500px) {
+  .ArticlesPageBox{
+    /* border: 2px solid green; */
+    padding: 40px;
+  }
   .BoxOfEachArticle {
+    width: 100%;
+    padding: 10px;
+    /* border: 1px solid red; */
     flex-direction: column; /* Stack image and text vertically on smaller screens */
-    width: 445px; /* Use the full width of the container */
+    /* width: 445px; Use the full width of the container */
   }
 
   .ArticleImgBox, .ArticleTextBox {

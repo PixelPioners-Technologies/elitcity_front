@@ -365,42 +365,16 @@
     flex-direction: column;
     align-items: start;
     margin-top: 30px;
-    /* margin-bottom: 40px; */
-    /* border: 1px solid red; */
   }
-  .address_and_address {
-    /* width: 100%;
-    border: 1px solid red;
-    display: flex;
-    justify-content: start;
-    align-items: start; */
-  }
-  /* .sale_modal_container_main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  } */
-
   .close_icon_sale {
     width: 20px;
   }
   .close_sale_modal {
     margin-top: -20px;
   }
-  .image_container_for_sale_modal {
-    /* border-radius: 20px; */
-    /* border: 1px solid yellow; */
-  }
   .image_for_sale_modal {
-    border-radius: 20px;
+    /* border-radius: 20px; */
     margin-top: -10px;
-  }
-  .column {
-    /* display: none; */
-    /* font-size: 12px;
-    margin-top: -15px; */
-    /* border: 1px solid gray; */
   }
   .sale_settings_and_companylogo {
     flex-direction: column;

@@ -19,7 +19,6 @@
   visibility: visible;
 }
 
-
 .modal-content-storkhome {
   background: #000000; /* White background */
   padding: 20px;
@@ -33,7 +32,7 @@
   border-style: solid;
   border-width: 2px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
-  height: 500px;
+  height: 550px;
 }
 
 .scale-up-top-storkhome {
