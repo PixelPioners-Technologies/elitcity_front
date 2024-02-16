@@ -191,6 +191,10 @@ export default function EachApartment({
   currenceChangeState,
   isOn,
   toggleSwitch,
+  favoriteApartment,
+  favorite_apartment_handler,
+
+
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
@@ -203,15 +207,7 @@ export default function EachApartment({
   //   { id: 6, value: img6 },
   // ];
 
-  const [eachComplexAllAppartments, seteachComplexAllAppartments] = useState(
-    []
-  );
-  {
-    console.log(
-      "---------------------------------------",
-      eachComplexAllAppartments.address?.adress?.city
-    );
-  }
+  const [eachComplexAllAppartments, seteachComplexAllAppartments] = useState([]);
 
   const [wordData, setWordData] = useState(null);
   const [val, setVal] = useState(0);
@@ -483,7 +479,6 @@ export default function EachApartment({
       supermarket: "Supermarket",
       square: "Square",
       infrastructure: "Infrastructure",
-      seen: "Seen",
       kitchen: "Kitchen",
       bathroom: "bathroom",
       bedroom: "Bedroom",
@@ -534,7 +529,6 @@ export default function EachApartment({
         languageInfo.supermarket = "Supermarket";
         languageInfo.square = "Square";
         languageInfo.infrastructure = "Infrastructure";
-        languageInfo.seen = "Seen";
         languageInfo.kitchen = "Kitchen";
         languageInfo.bathroom = "Bathroom";
         languageInfo.bedroom = "Bedroom";
@@ -585,7 +579,6 @@ export default function EachApartment({
         languageInfo.supermarket = "სუპერმარკეტი";
         languageInfo.square = "სკვერი";
         languageInfo.infrastructure = "ინფრასტრუქტურა";
-        languageInfo.seen = "ნახვები";
         languageInfo.kitchen = "სამზარეულო";
         languageInfo.bathroom = "სააბაზანო";
         languageInfo.bedroom = "საძინებელი";
@@ -636,7 +629,6 @@ export default function EachApartment({
         languageInfo.supermarket = "Супермаркет";
         languageInfo.square = "Площадь";
         languageInfo.infrastructure = "Инфраструктура";
-        languageInfo.seen = "Просмотрено";
         languageInfo.kitchen = "Кухня";
         languageInfo.bathroom = "Ванная";
         languageInfo.bedroom = "Спальня";
@@ -730,7 +722,7 @@ export default function EachApartment({
     return <div>Loading...</div>;
   }
   const scalesize = new window.google.maps.Size(40, 40);
-// 
+  // 
   return (
     <div className="eachComplexBoxn imageAndTextInfos3">
       <div className="imageAndTextInfos3 center">
@@ -760,9 +752,8 @@ export default function EachApartment({
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData?.id === data.id ? "clicked" : ""} ${
-                      clickedIndex === i ? "enlarge" : ""
-                    }`}
+                    className={`${wordData?.id === data.id ? "clicked" : ""} ${clickedIndex === i ? "enlarge" : ""
+                      }`}
                     src={data.value}
                     alt={`Complex ${data.id}`}
                     onClick={() => handleClick(i + carouselPosition)}
@@ -783,18 +774,27 @@ export default function EachApartment({
           <div key={index} className="complexTextsBox2 gapp">
             <div className="seenIdFavouriteAndOthersBox">
               <div className="seenAndIdBox">
-                <p style={{ color: "#838282" }}>
-                  {handle_P_StatusButtonLanguageChange(selectedLanguage).seen}:
-                  : {complex.seen}
-                </p>
                 <p style={{ color: "#838282" }}>ID: {complex.ID}</p>
               </div>
 
               <div className="favouriteDollarAndShareBox">
                 {/* Star favourite box */}
-                <button className="heartButtons">
-                  <img src={star} style={{ width: "30px", height: "30px" }} />
+                <button
+                  key={eachComplexAllAppartments.id}
+                  className="heartButtons"
+                  onClick={() => favorite_apartment_handler(eachComplexAllAppartments)}
+                >
+                  {favoriteApartment.some((fav) => fav.id === eachComplexAllAppartments.id) ? (
+                    <img src={heartIcon} alt="Logo of heart" />
+                  ) : (
+                    <img
+                      src={heartIconEmpty}
+                      alt="Logo of empty heart"
+                      style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                    />
+                  )}
                 </button>
+
                 {/* ----Dollar and Lari Toggle button */}
                 <div className="currencyBox">
                   <div
@@ -844,9 +844,9 @@ export default function EachApartment({
                     }{" "}
                     {currenceChangeState
                       ? eachComplexAllAppartments?.complex?.internalComplex
-                          ?.pricePerSqMeter * getCorrencyRate
+                        ?.pricePerSqMeter * getCorrencyRate
                       : eachComplexAllAppartments?.complex?.internalComplex
-                          ?.pricePerSqMeter}
+                        ?.pricePerSqMeter}
                     $
                   </p>
                 )}
@@ -938,8 +938,8 @@ export default function EachApartment({
                   {phoneNumbers && showFullNumber
                     ? phoneNumbers
                     : phoneNumbers
-                        ?.slice(0, -2)
-                        .padEnd(phoneNumbers?.length, "*")}
+                      ?.slice(0, -2)
+                      .padEnd(phoneNumbers?.length, "*")}
                 </p>
                 <button
                   onClick={handleToggleNumberDisplay}
@@ -1008,7 +1008,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.numberOfApartments !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                        ?.numberOfApartments
+                      ?.numberOfApartments
                     : "---"}{" "}
                 </p>
               </div>
@@ -1035,7 +1035,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.numberOfBuildings !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                        ?.numberOfBuildings
+                      ?.numberOfBuildings
                     : "---"}
                 </p>{" "}
               </div>
@@ -1086,7 +1086,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     .ceilingHeightMeters !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                        .ceilingHeightMeters
+                      .ceilingHeightMeters
                     : "---"}
                 </p>
               </div>
@@ -1112,7 +1112,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.flooring !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                        ?.flooring
+                      ?.flooring
                     : "---"}
                 </p>
               </div>
@@ -1162,7 +1162,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.parkingQuantity !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                        ?.parkingQuantity
+                      ?.parkingQuantity
                     : "---"}
                 </p>
               </div>
@@ -1209,7 +1209,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.roomsQuantity !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                        ?.roomsQuantity
+                      ?.roomsQuantity
                     : "---"}
                 </p>
               </div>
@@ -1256,7 +1256,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.lightPercentage !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                        ?.lightPercentage
+                      ?.lightPercentage
                     : "---"}
                 </p>
               </div>
@@ -1282,7 +1282,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.humidityPercentage !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                        ?.humidityPercentage
+                      ?.humidityPercentage
                     : "---"}
                 </p>
               </div>
@@ -1302,139 +1302,139 @@ export default function EachApartment({
                 {/* სათითაო icons და ტექსტი */}
                 {eachComplexAllAppartments?.complex?.internalComplex
                   ?.cateringFacility && (
-                  <div className="eachDivBoxOfIcons">
-                    <img
-                      src={kvebisObieqti}
-                      alt="kvebisObieqti"
-                      className="stylesOfIconsOnEachComplex"
-                    />
-                    <div className="eachDivBoxOfTextOfIcons">
-                      <p>
-                        {
-                          handle_P_StatusButtonLanguageChange(selectedLanguage)
-                            .catering_facility
-                        }
-                      </p>
-                      <p>{eachPrivateApartment.cateringFacility}</p>
+                    <div className="eachDivBoxOfIcons">
+                      <img
+                        src={kvebisObieqti}
+                        alt="kvebisObieqti"
+                        className="stylesOfIconsOnEachComplex"
+                      />
+                      <div className="eachDivBoxOfTextOfIcons">
+                        <p>
+                          {
+                            handle_P_StatusButtonLanguageChange(selectedLanguage)
+                              .catering_facility
+                          }
+                        </p>
+                        <p>{eachPrivateApartment.cateringFacility}</p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
                 {eachComplexAllAppartments?.complex?.internalComplex
                   ?.elevatorType && (
-                  <div className="eachDivBoxOfIcons">
-                    <img
-                      src={lipti}
-                      alt="lipti"
-                      className="stylesOfIconsOnEachComplex"
-                    />
-                    <div className="eachDivBoxOfTextOfIcons">
-                      <p>
-                        {" "}
-                        {
-                          handle_P_StatusButtonLanguageChange(selectedLanguage)
-                            .elevator
-                        }
-                      </p>
-                      <p>
-                        {
-                          eachComplexAllAppartments?.complex?.internalComplex
-                            ?.elevatorType
-                        }
-                      </p>
+                    <div className="eachDivBoxOfIcons">
+                      <img
+                        src={lipti}
+                        alt="lipti"
+                        className="stylesOfIconsOnEachComplex"
+                      />
+                      <div className="eachDivBoxOfTextOfIcons">
+                        <p>
+                          {" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(selectedLanguage)
+                              .elevator
+                          }
+                        </p>
+                        <p>
+                          {
+                            eachComplexAllAppartments?.complex?.internalComplex
+                              ?.elevatorType
+                          }
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
                 {eachComplexAllAppartments?.complex?.internalComplex
                   ?.schlangbaum && (
-                  <div className="eachDivBoxOfIcons">
-                    <img
-                      src={shlagbaumi}
-                      alt="shlagbaumi"
-                      className="stylesOfIconsOnEachComplex"
-                    />
-                    <div className="eachDivBoxOfTextOfIcons">
-                      <p>
-                        {" "}
-                        {
-                          handle_P_StatusButtonLanguageChange(selectedLanguage)
-                            .schlangbaum
-                        }
-                      </p>
-                      <p>
-                        {
-                          eachComplexAllAppartments?.complex?.internalComplex
-                            ?.schlangbaum
-                        }
-                      </p>
+                    <div className="eachDivBoxOfIcons">
+                      <img
+                        src={shlagbaumi}
+                        alt="shlagbaumi"
+                        className="stylesOfIconsOnEachComplex"
+                      />
+                      <div className="eachDivBoxOfTextOfIcons">
+                        <p>
+                          {" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(selectedLanguage)
+                              .schlangbaum
+                          }
+                        </p>
+                        <p>
+                          {
+                            eachComplexAllAppartments?.complex?.internalComplex
+                              ?.schlangbaum
+                          }
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
                 {eachComplexAllAppartments?.complex?.internalComplex
                   ?.conciergeService && (
-                  <div className="eachDivBoxOfIcons">
-                    <img
-                      src={konsierji}
-                      alt="konsierji"
-                      className="stylesOfIconsOnEachComplex"
-                    />
-                    <div className="eachDivBoxOfTextOfIcons">
-                      <p>
-                        {" "}
-                        {
-                          handle_P_StatusButtonLanguageChange(selectedLanguage)
-                            .concierge
-                        }
-                      </p>
-                      <p>
-                        {
-                          eachComplexAllAppartments?.complex?.internalComplex
-                            ?.conciergeService
-                        }
-                      </p>
+                    <div className="eachDivBoxOfIcons">
+                      <img
+                        src={konsierji}
+                        alt="konsierji"
+                        className="stylesOfIconsOnEachComplex"
+                      />
+                      <div className="eachDivBoxOfTextOfIcons">
+                        <p>
+                          {" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(selectedLanguage)
+                              .concierge
+                          }
+                        </p>
+                        <p>
+                          {
+                            eachComplexAllAppartments?.complex?.internalComplex
+                              ?.conciergeService
+                          }
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
                 {eachComplexAllAppartments?.complex?.internalComplex
                   ?.yardDescription && (
-                  <div className="eachDivBoxOfIcons">
-                    <img
-                      src={ezo}
-                      alt="ezo"
-                      className="stylesOfIconsOnEachComplex"
-                    />
-                    <div className="eachDivBoxOfTextOfIcons">
-                      <p>
-                        {" "}
-                        {
-                          handle_P_StatusButtonLanguageChange(selectedLanguage)
-                            .yard
-                        }
-                      </p>
-                      <p>
-                        {
-                          eachComplexAllAppartments?.complex?.internalComplex
-                            ?.yardDescription
-                        }
-                      </p>
+                    <div className="eachDivBoxOfIcons">
+                      <img
+                        src={ezo}
+                        alt="ezo"
+                        className="stylesOfIconsOnEachComplex"
+                      />
+                      <div className="eachDivBoxOfTextOfIcons">
+                        <p>
+                          {" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(selectedLanguage)
+                              .yard
+                          }
+                        </p>
+                        <p>
+                          {
+                            eachComplexAllAppartments?.complex?.internalComplex
+                              ?.yardDescription
+                          }
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
                 {/* ----- */}
               </div>
@@ -1496,20 +1496,20 @@ export default function EachApartment({
               fullscreenControl: false,
             }}
           >
-              <Marker
-                key={privateApartments.id}
-                position={{
-                  lat: mapcenter.lat,
-                  lng: mapcenter.lng,
-            
-            
-                }}
-                icon={{
-                  url: private_apartment_location_icon,
-                  scaledSize: scalesize
-                }}
-              />
-            </GoogleMap>
+            <Marker
+              key={privateApartments.id}
+              position={{
+                lat: mapcenter.lat,
+                lng: mapcenter.lng,
+
+
+              }}
+              icon={{
+                url: private_apartment_location_icon,
+                scaledSize: scalesize
+              }}
+            />
+          </GoogleMap>
         </div>
       </div>
       {/* (END) ახლო მდებარე ობიექტები box -------- */}
