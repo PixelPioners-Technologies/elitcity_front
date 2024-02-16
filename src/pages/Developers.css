@@ -95,6 +95,7 @@
   line-height: 0px; /* 0% */
   letter-spacing: 1.76px;
   position: relative;
+  /* border: 1px solid ridge; */
 }
 
 .dropdown {

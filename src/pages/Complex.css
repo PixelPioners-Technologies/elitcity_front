@@ -1,11 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap");
 
 .ComplexBodyBox {
-  padding: 100px 150px;
+  padding: 0 80px;
+  /* border: 1px solid red; */
 }
 .for_comfort {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: auto;
   margin-top: 0px;
+  /* border: 1px solid red; */
 }
+.column_div_for_comfort {
+  flex-direction: column;
+}
+.column_div {
+  /* border: 1px solid red; */
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0; */
+}
+.flex_end {
+  width: 40%;
+  /* border: 1px solid red; */
+  margin-top: 20px;
+}
+
 .motionBox {
   border: 1px solid white;
 }
@@ -14,6 +38,7 @@
   justify-content: space-between;
   height: 70px;
   padding: 0 20px;
+  /* border: 1px solid red; */
 }
 .filter_cont_for_complexes {
   margin-bottom: 40px;
@@ -21,6 +46,7 @@
 .complexInfoAndCountShowBox {
   display: flex;
   align-items: center;
+  /* border:1px solid green */
 }
 .projectsPlansMapsSortingAndDollarBox {
   display: flex;
@@ -30,7 +56,39 @@
 .mapAndLogoImg {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* border: 1px solid red; */
+   /* height: 33px; */
+  /* width: 159px;  */
+  gap: 7px;
+  padding-left: 10px;
+  /* border: 1.5px solid #ada9a9; */
+
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.styles_for_top_map{
+  height: 33px;
+  width: 159px; 
+  gap: 7px;
+  padding-right: 80px;
+  padding-left: 18px;
+  flex-shrink: 0;
+  border: 1.5px solid #ada9a9;
+  mix-blend-mode: hard-light;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  /* margin-right: 0px; */
+}
+.textButtonContainer{
+  /* border: 2px solid red; */
+}
+.map_styles{
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  width: 120px;
+  /* gap: 30px; */
+  /* padding: 20px; */
+
 }
 .textButtonContainer:hover .textButton {
   cursor: pointer;
@@ -92,7 +150,7 @@
   width: 35px;
   height: 35px;
   background-color: white;
-  border-radius: 40px;
+  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,7 +179,7 @@
   border: 1px solid white;
   overflow: hidden;
   padding: 20px 20px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
   transition: transform 0.3s ease-in-out;
   &:hover {
@@ -132,13 +190,16 @@
 .heartbuttonAndImageBox {
   position: relative;
   text-align: center;
+
+  /* border: 1px solid red; */
 }
 .heartButtonBox {
-  width: 250px;
+  width: 210px;
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  margin-top: 5px;
+  /* margin-top: 5px; */
+  /* border: 1px solid red; */
 }
 .heartButtons {
   padding: 0;
@@ -158,32 +219,35 @@
   transition: transform 0.3s ease;
 }
 
-
-.company_title_on_card{
+.company_title_on_card {
   color: #f1eeee;
-  font-family: 'Roboto', sans-serif;
-  margin-left: 10px;
+  text-align: center;
+  /* font-family: "Roboto", sans-serif; */
+  /* margin-left: 10px; */
+  /* border: 1px solid green; */
 }
 
-.textinfo_and_company_logo{
+.textinfo_and_company_logo {
   display: flex;
-  justify-content: flex-start;
-  gap: 20px;
+  margin-top: 10px;
+  /* justify-content: flex-start; */
+  /* gap: 20px; */
+  /* border: 1px solid green; */
 }
 .company_logo_3 {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   width: 40px;
   border-radius: 50%;
   margin-left: 30px;
 }
 .textInfo {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   display: flex;
   flex-direction: column;
-  padding-left: 10px;
+  /* padding-left: 10px; */
   gap: 10px;
   width: 300px;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 .price_and_value {
   display: flex;
@@ -228,15 +292,24 @@
 .homepage_serch_button_complexpage:hover {
   background-color: transparent;
   color: black;
-  
 }
 .close_cont {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 70px;
-  gap: 13px;
-  padding-top: 65px;
+  /* padding-top: 70px; */
+  gap: 23px;
+  /* padding-top: 65px; */
+  margin-top: 20px;
+  /* border: 1px solid rgb(255, 238, 0); */
+}
+.find_map_div {
+  /* border: 2px solid green; */
+  width: 65%;
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+  gap: 60px;
 }
 .filter_icon_for_links {
   background-color: wheat;
@@ -288,6 +361,23 @@
     rgba(0, 0, 0, 0.192) 0px 5.10423px 9.18761px -3.375px,
     rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px;
 }
+.project_div_parent{
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+}
+.projects_name{
+  color: white;
+  font-size: 17px;
+}
+.line_sizes{
+  width: 25px;
+  height: 5px;
+
+
+}
 @media screen and (max-width: 500px) {
   .numbers_link {
     border: none;
@@ -338,6 +428,7 @@
   }
   .projectsPlansMapsSortingAndDollarBox {
     gap: 5px;
+    /* border: 2px solid green; */
   }
   .close_cont {
     display: none;
@@ -346,11 +437,13 @@
     gap: 10px;
   }
   .textInfo {
-    padding-left: 20px;
+    /* padding-left: 20px; */
+    /* border: 1px solid red; */
   }
   .infoFieldOfComplexsPlansMaps {
     display: flex;
     padding-left: 0;
+    /* border: 1px solid green; */
   }
 }
 
@@ -395,9 +488,6 @@
   display: none;
 }
 
-
-
-
 /* 
 
 <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
@@ -418,9 +508,6 @@
  */
 
 
-
-@media screen and (max-width: 500px) {
- 
   .currencyBox {
     display: flex;
     align-items: center;
@@ -460,7 +547,3 @@
   .currency-sign.active {
     display: none;
   }
-
-}
-
-
