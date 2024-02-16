@@ -191,6 +191,7 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [favoritesLots, setFavoritesLots] = useState([]);
   const [favoritesPhysical, setFavoritesPhysical] = useState([]);
+  const [favoriteApartment, setFavoriteApartment] = useState([]);
 
   const [getCorrencyRate, setGetCorrencyRate] = useState(0);
 
@@ -547,7 +548,51 @@ function App() {
     }
   };
   // -----------------------------------------------------------------------------------------------
+ // -----------------------------------------------------------------------------------------------
 
+  // Load favorites from localStorage on initial render FOR PHYSICAL JSX
+  // const [favoriteApartment, setFavoriteApartment] = useState([]);
+
+  // Retrieve saved favorites from localStorage on initial render
+  useEffect(() => {
+    const savedFavorites = JSON.parse(
+      localStorage.getItem("favoriteapartment")
+    );
+    if (savedFavorites) {
+      setFavoriteApartment(savedFavorites);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "favoriteapartment",
+      JSON.stringify(favoriteApartment)
+    );
+  }, [favoriteApartment]);
+
+  // favoritesPhysical functionality
+  const favorite_apartment_handler = (complex) => {
+    const isAlreadySaved = favoriteApartment.some((c) => c.id === complex.id);
+
+    if (isAlreadySaved) {
+      const updatedComplexes = favoriteApartment.filter(
+        (c) => c.id !== complex.id
+      );
+      setFavoriteApartment(updatedComplexes);
+      localStorage.setItem(
+        "favoriteapartment",
+        JSON.stringify(updatedComplexes)
+      ); // Update localStorage
+    } else {
+      const updated_favorite_apartment = [...favoriteApartment, complex];
+      setFavoriteApartment(updated_favorite_apartment);
+      localStorage.setItem(
+        "favoriteapartment",
+        JSON.stringify(updated_favorite_apartment)
+      ); // Update localStorage
+    }
+  };
+  // -----------------------------------------------------------------------------------------------
   // -------------------------------------function for fetching usd corrency --------------------------
 
   useEffect(() => {
@@ -981,6 +1026,8 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoriteApartment={favoriteApartment}
+              favorite_apartment_handler={favorite_apartment_handler}
             />
           }
         />
@@ -998,6 +1045,9 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoritesLot={favoritesLots}
+              favoritesLots={favoritesLots}
+              favoriteHandlerLots={favoriteHandlerLots}
             />
           }
         />
@@ -1015,6 +1065,9 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoriteHandlerPhysical={favoriteHandlerPhysical}
+              favoritesPhysical={favoritesPhysical}
+              favoriteHandlerLots={favoriteHandlerLots}
             />
           }
         />
@@ -1032,6 +1085,9 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoriteApartment={favoriteApartment}
+              favorite_apartment_handler={favorite_apartment_handler}
+              
             />
           }
         />
@@ -1079,6 +1135,9 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoriteApartment={favoriteApartment}
+              favorite_apartment_handler={favorite_apartment_handler}
+              selectedLanguage={selectedLanguage}
             />
           }
         />
