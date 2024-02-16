@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
+
 import "./App.css";
 import Header from "./Components/Header/Header";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -28,6 +27,9 @@ import EachApartment from "./pages/EachApartment";
 import EachBlog from "./pages/EachBlog";
 import Each_Developer from "./pages/Each_Developer";
 import storkhome__logo from './company_logo/storkhome__logo.png'
+import Facebook from "./Facebook";
+
+
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
   const location = useLocation();
@@ -677,9 +679,8 @@ function App() {
 
   const handleSendSheet = () => {
     setSedtsheet(!sedtsheet)
-    // Process or log the states here
     console.log(name, phone, email, salesDepartment, storkhomePlus, other);
-
+ 
   }
 
 
@@ -771,6 +772,9 @@ function App() {
 
   return (
     <div className="App">
+      <div>
+        <Facebook/>
+      </div>
       {/* Conditional rendering for the Header */}
       {forVisible && window.location.pathname !== "/" ? (
         <div>
