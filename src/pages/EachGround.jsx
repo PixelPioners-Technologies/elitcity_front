@@ -13,6 +13,8 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import ground_location_icon from "../location_icons/ground_location_icon.png";
+import heartIcon from "../assets/starLogo.svg";
+import heartIconEmpty from "../assets/emptyStarLogo.svg";
 
 const normalizeGroundData = (data, lang) => {
   return {
@@ -49,6 +51,8 @@ export default function EachGround({
   currenceChangeState,
   isOn,
   toggleSwitch,
+  favoritesLots,
+  favoriteHandlerLots,
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
   const [ground, setGround] = useState({});
@@ -294,9 +298,23 @@ export default function EachGround({
 
             <div className="favouriteDollarAndShareBox">
               {/* Star favourite box */}
-              <button className="heartButtons">
-                <img src={star} style={{ width: "30px", height: "30px" }} />
-              </button>
+              <button
+               
+                    key={ground.id}
+                    className="heartButtons"
+                    onClick={() => favoriteHandlerLots(ground)}
+                  >
+                    {favoritesLots.some((fav) => fav.id === ground.id) ? (
+                      <img src={heartIcon} alt="Logo of heart" />
+                    ) : (
+                      <img
+                        src={heartIconEmpty}
+                        alt="Logo of empty heart"
+                        style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                      />
+                    )}
+                  </button>
+
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
                 <div

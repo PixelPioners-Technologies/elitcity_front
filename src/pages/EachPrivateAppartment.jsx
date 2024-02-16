@@ -17,7 +17,8 @@ import metro from "../assets/Metro.svg";
 import aptiaqi from "../assets/Aptiaqi.svg";
 import supermarket from "../assets/Supermarket.svg";
 import skveri from "../assets/skveri.svg";
-
+import heartIcon from "../assets/starLogo.svg";
+import heartIconEmpty from "../assets/emptyStarLogo.svg";
 
 const normalizePrivateApartmentData = (data, lang) => {
   return {
@@ -74,6 +75,8 @@ export default function EachPrivateAppartment({
   currenceChangeState,
   isOn,
   toggleSwitch,
+  favoriteHandlerPhysical,
+  favoritesPhysical,
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
   const [ground, setGround] = useState({});
@@ -172,7 +175,6 @@ export default function EachPrivateAppartment({
       show_mobile_number: "Show nuber",
       request_call: "Call request",
       status: "Status",
-      views: "Views",
       description: 'Description',
 
       rooms: 'Rooms',
@@ -200,7 +202,6 @@ export default function EachPrivateAppartment({
         languageInfo.show_mobile_number = "Show nuber";
         languageInfo.request_call = "Call request";
         languageInfo.status = "Status";
-        languageInfo.views = "Views";
         languageInfo.description = "Description";
 
         languageInfo.rooms = "Rooms";
@@ -229,7 +230,6 @@ export default function EachPrivateAppartment({
         languageInfo.show_mobile_number = "ნომრის ჩვენება";
         languageInfo.request_call = "ზარის მოთხოვნა";
         languageInfo.status = "სტატუსი";
-        languageInfo.views = "ნახვები";
         languageInfo.description = "აღწერილობა";
         languageInfo.rooms = "ოთახები";
         languageInfo.kitchen = "სამზარეულო";
@@ -256,7 +256,6 @@ export default function EachPrivateAppartment({
         languageInfo.show_mobile_number = "Показать номер";
         languageInfo.request_call = "Запрос на звонок";
         languageInfo.status = "Положение дел";
-        languageInfo.views = "Взгляды";
         languageInfo.description = "Описание";
         languageInfo.rooms = "Номера";
         languageInfo.kitchen = "Кухня";
@@ -379,17 +378,34 @@ export default function EachPrivateAppartment({
         <div className="ground_all_settind2">
           <div className="seenIdFavouriteAndOthersBox">
             <div className="seenAndIdBox">
-              <p style={{ color: "#838282" }}>
-                {handleStaticTextLanguageChange(selectedLanguage).views}
-              </p>
               <p style={{ color: "#838282" }}>ID: {ground.id}</p>
             </div>
 
             <div className="favouriteDollarAndShareBox">
               {/* Star favourite box */}
-              <button className="heartButtons">
+              {/* <button className="heartButtons">
                 <img src={star} style={{ width: "30px", height: "30px" }} />
-              </button>
+              </button> */}
+
+                  <button
+                    // onClick={() => favoriteHandler(complex)}
+                    key={ground.id}
+                    className="heartButtons"
+                    onClick={() => favoriteHandlerPhysical(ground)}
+                  >
+                    {favoritesPhysical.some((fav) => fav.id === ground.id) ? (
+                      <img src={heartIcon} alt="Logo of heart" />
+                    ) : (
+                      <img
+                        src={heartIconEmpty}
+                        alt="Logo of empty heart"
+                        style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                      />
+                    )}
+                  </button>
+
+
+              
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
                 <div
@@ -418,6 +434,7 @@ export default function EachPrivateAppartment({
               <button className="heartButtons">
                 <img src={share} style={{ width: "30px", height: "30px" }} />
               </button>
+
             </div>
           </div>
 
