@@ -125,6 +125,10 @@
   padding-top: 25px;
 }
 
+.inputInlineDispley{
+  display: inline-flex;
+}
+
 /* -------------------------------space button stules ------------------------------------------- */
 .space_button_homepage {
   display: flex;
