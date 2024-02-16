@@ -730,19 +730,19 @@ export default function EachApartment({
     return <div>Loading...</div>;
   }
   const scalesize = new window.google.maps.Size(40, 40);
-
+// 
   return (
-    <div className="eachComplexBoxn">
-      <div className="imageAndTextInfos4">
+    <div className="eachComplexBoxn imageAndTextInfos3">
+      <div className="imageAndTextInfos3 center">
         {/* Complexes photos info */}
-        <div className="imageSliderBox">
-          <div className=" apart_class_image">
-            <button className="btns" onClick={handlePrevious}>
+        <div className="imageSliderBox3">
+          <div className="lands_img">
+            {/* <button className="btns" onClick={handlePrevious}>
               P
-            </button>
+            </button> */}
             {wordData && ( // Check if wordData is not null/undefined before rendering
               <img
-                id="lands_image"
+                id="lands_img"
                 src={wordData.value}
                 alt={`Complex ${wordData.id}`}
                 // height="450"
@@ -750,17 +750,17 @@ export default function EachApartment({
                 className={clickedIndex !== null ? "clicked" : ""}
               />
             )}
-            <button className="btns" onClick={handleNext}>
-              N
-            </button>
           </div>
-          <div className="miniImagesBox">
+          <div className="miniImagesBox2">
+            <button className="btns" onClick={handleNext}>
+              Next
+            </button>
             {sliderImages
               .slice(carouselPosition, carouselPosition + 4)
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData.id === data.id ? "clicked" : ""} ${
+                    className={`${wordData?.id === data.id ? "clicked" : ""} ${
                       clickedIndex === i ? "enlarge" : ""
                     }`}
                     src={data.value}
@@ -771,13 +771,16 @@ export default function EachApartment({
                   />
                 </div>
               ))}
+            <button className="btns" onClick={handlePrevious}>
+              Previus
+            </button>
           </div>
         </div>
         {/* --------- */}
 
         {/* complex text info */}
         {DATA.map((complex, index) => (
-          <div key={index} className="complexTextsBox">
+          <div key={index} className="complexTextsBox2 gapp">
             <div className="seenIdFavouriteAndOthersBox">
               <div className="seenAndIdBox">
                 <p style={{ color: "#838282" }}>
@@ -1288,7 +1291,7 @@ export default function EachApartment({
 
             {/* iwyeba:   inprastruqturisIconsBox */}
             <div className="inprastruqturisIconsBigBox">
-              <h2>
+              <h2 className="hh2">
                 {" "}
                 {
                   handle_P_StatusButtonLanguageChange(selectedLanguage)
@@ -1449,7 +1452,7 @@ export default function EachApartment({
         </h4>
       </div>
 
-      <div className="axloMdebareObieqtebiBox">
+      <div className="axloMdebareObieqtebiBox padding ">
         <div className="textBoxOfAxloMdebare">
           <div className="iconAndItsText">
             <img src={metro} alt="metro" />

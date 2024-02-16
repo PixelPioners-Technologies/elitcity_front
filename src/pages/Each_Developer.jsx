@@ -177,27 +177,20 @@ export default function Each_Developer({
             alt="company background image"
             className="company_background_image_big"
           />
-          {/* <div className="responsive_logo"> */}
-            <img
-              src={company.logo}
-              rel="company logo"
-              className="company_logo_round responsive_logo"
-            />
-          {/* </div> */}
         </div>
-        <div className="colo_name_and_others">
           {/* logo */}
-          {/* <div className='responsive_logo'>
+          <div className='responsive_logo'>
             <img src={company.logo} rel='company logo' className="company_logo_round" />
-          </div> */}
-          {/* name container  */}
+          </div>
+          {/* name container  */}        
+          <div className="colo_name_and_others">
           <div className="cpmpany_name_and_settings">
             <div className="all_settings_company_1">
               <h1 className="company_name_each">{company.name}</h1>
               <h2 className="company_adddresss"> {company.address}</h2>
             </div>
 
-            <div className="mobile_website_phone">
+            <div className="mobile_website_phone socials_box" >
               {/* email  */}
               <div className="email_and_website_container margin_left_for_settings ">
                 <img
@@ -245,7 +238,7 @@ export default function Each_Developer({
                 .company_complexes
             }
           </p>
-          <div className="currencyBox">
+          <div className="currencyBox currency_box">
             <div
               className="switch"
               data-ison={isOn}

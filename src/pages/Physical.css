@@ -398,16 +398,11 @@ input[type="checkbox"] {
     gap: 0;
   }
   .googleMapImage_physical {
-    width: 200px;
+    width: 100%;
   }
   .sort_text{
     font-size: 15px;
   }
-  /* {
-  border: 2px solid yellow;
-  display: flex;
-  flex-direction: row;
-} */
 }
 
 
