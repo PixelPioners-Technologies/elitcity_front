@@ -10,13 +10,23 @@
 .title_filter_cont {
   margin-top: 150px;
 }
+.row_butt{
+
+
+  /* border: 1px solid red; */
+}
+
 .location_icon_respons{
-  display: none;
+  width: 15px;
+  height: 20px;
+  margin-left: -10px;
+/* border: 1px solid red; */
+  /* display: none; */
 }
 .adgilicomportistvis {
   text-align: center;
-  font-family: "BPG Rioni", sans-serif;
-  font-weight: 400;
+  /* font-family: "BPG Rioni", sans-serif; */
+  /* font-weight: 400; */
   font-size: 48px;
   line-height: 52.22px;
   letter-spacing: 10%;
@@ -28,6 +38,9 @@
   gap: 15px;
   justify-content: center;
   align-items: center;
+}
+.map_icon{
+  /* border: 1px solid red; */
 }
 .homepage_map_link,
 .homepage_serch_button {
@@ -43,8 +56,18 @@
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   transition: background-color 0.3s ease;
   align-items: end;
-  margin: 0 5px;
-  margin-top: 0px;
+  margin: 0 10px;
+  /* margin-top: 0px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* border: 1px solid red; */
+  gap: 10px;
+  
+
+}
+.homepage_map_link{
+  width: 120px;
 }
 .homepage_map_link:hover,
 .homepage_serch_button:hover {
@@ -72,7 +95,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   width: 100px;
   height: 30px;
   border: none;
@@ -97,18 +120,24 @@
 }
 
 .min_price_homePage {
+  /* border: 3px solid blue; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   color: #ffffff;
-  background-color: transparent;
+  width: 150px;
+  /* background-color: transparent; */
   border-style: hidden;
-  border: 3px solid transparent;
+  /* border: 3px solid transparent; */
   background-color: transparent;
   padding: 10px;
-  border-radius: 5px;
-  margin-left: 10px;
+  /* border-radius: 5px; */
+  /* margin-left: 10px; */
 }
 .min_price_homePage:focus {
   outline: none;
-  box-shadow: 0 0 5px rgb(161, 193, 202);
+  border: none;
+  /* box-shadow: 0 0 5px rgb(161, 193, 202); */
 }
 .min_price_homePage::placeholder {
   font-size: 15px;
@@ -126,6 +155,15 @@
 .meterPriceHomePage {
   color: #ffffff;
   padding-top: 25px;
+}
+
+.inputInlineDispley{
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+  /* border: 1px solid green; */
+  width: 100%;
+  /* width: 200px; */
 }
 
 /* -------------------------------space button stules ------------------------------------------- */
@@ -268,7 +306,7 @@
     align-items: center;
     /* align-items: start; */
     gap: 10px;
-    padding-left: 7px;
+    padding-left: 17px;
     padding-right: 20px;
   }
   .main_foto {
@@ -352,23 +390,32 @@
 
 
 .for_dolar_and_lari{
-  position: relative;
+  /* position: relative; */
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  /* border: 1.5px solid #ada9a9;
+  mix-blend-mode: hard-light;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
+  padding-right: 5px;
+  /* gap: 3px; */
 }
 
 
 /* Remove spin buttons and clear button for Internet Explorer */
 .min_price_homePage::-ms-clear {
   display: none;
+  /* border: 10px solid green; */
 }
 
 
 .currency-sign_homepage_11 {
   width: 17px; /* Adjust width as needed */
   height: auto;
-  margin-right: 0px; /* Add spacing between the images */
-  position: absolute;
-  left: 184px;
-  top: 12px;
+  /* margin-right: 0px;  */
+  /* position: absolute; */
+  /* left: 184px; */
+  /* top: 12px; */
 
 }
 
@@ -405,7 +452,7 @@
   border: 1px solid white;
 
   /* border: 1px solid red; */
-  border-radius: 50px;
+  /* border-radius: 50px; */
   padding: 10px;
   cursor: pointer;
   /* border-radius: 50px; */
@@ -421,7 +468,7 @@
   width: 25px;
   height: 25px;
   background-color: white;
-  border-radius: 40px;
+  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -438,3 +485,6 @@
   display: none; /* Hide inactive currency sign */
 }
 /* ------------- */
+  .min_price_homePage{
+    width: 100px;
+  }

@@ -4,46 +4,36 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
-import React, { useState, useEffect } from 'react';
-import button_icon from '../icons/Vector.svg';
+import React, { useState, useEffect } from "react";
+import button_icon from "../icons/Vector.svg";
 import button_icon1 from "../icons/findimage.svg";
-import Modal_1 from '../modals for main page/Modal_1';
-import PriceModal_1 from '../modals for main page/PriceModal_1';
-import SpaceModal_1 from '../modals for main page/SpaceModal_1';
-import StatusModal_1 from '../modals for main page/StatusModa_1';
+import Modal_1 from "../modals for main page/Modal_1";
+import PriceModal_1 from "../modals for main page/PriceModal_1";
+import SpaceModal_1 from "../modals for main page/SpaceModal_1";
+import StatusModal_1 from "../modals for main page/StatusModa_1";
 import { motion } from "framer-motion";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import loupe from '../icons/loupe.png'
+import loupe from "../icons/loupe.png";
 
 import dollar_black from "../assets/dollar-svgrepo-com.svg";
 import lari_black from "../assets/lari-svgrepo-com.svg";
-import dollar from '../assets/dollar-whitee.svg';
-import lari from '../assets/lari-white.svg';
-import LocationIcon from '../assets/locationIcon.png';
+import dollar from "../assets/dollar-whitee.svg";
+import lari from "../assets/lari-white.svg";
+import LocationIcon from "../assets/locationIcon.png";
 
-
-
-import './HomePage.css'
-import { Data } from '@react-google-maps/api';
-
-
-
-
-
-
+import "./HomePage.css";
+import { Data } from "@react-google-maps/api";
 
 // const initialCenter = {
 //   lat: 41.7151,
 //   lng: 44.8271
 // };
 
-
-
-
 // ---------------------------------------------------------------------------------------------------------------------
 
-export default function Map({ selectedLanguage,
+export default function Map({
+  selectedLanguage,
 
   // favorites,
   // complexChangeHandler,
@@ -76,12 +66,9 @@ export default function Map({ selectedLanguage,
 
   isOn,
   toggleSwitch,
-
 }) {
-
-  const [modalContent, setModalContent] = useState('');
+  const [modalContent, setModalContent] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   // const [status, setStatus] = useState('');
 
@@ -94,7 +81,6 @@ export default function Map({ selectedLanguage,
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
 
-
   // const [searchInput, setSearchInput] = useState('');
   // const [searchButton , setSearchButton] = useState(false);
 
@@ -102,9 +88,7 @@ export default function Map({ selectedLanguage,
   //   setSearchButton(!searchButton)
   // };
 
-
   //----------------------------------------------------------------------------------------------------
-
 
   // ----------------------------------------------------------------------------------------------
 
@@ -112,41 +96,61 @@ export default function Map({ selectedLanguage,
 
   const renderModalContent = () => {
     switch (modalContent) {
-      case 'cities':
-        return <div>
-          {locations.map((cityItem, index) => (
-            <button key={index} onClick={() => handleCityClick(cityItem.city)} className='city_button'>
-              <span>{cityItem.city}</span>
+      case "cities":
+        return (
+          <div>
+            {locations.map((cityItem, index) => (
+              <button
+                key={index}
+                onClick={() => handleCityClick(cityItem.city)}
+                className="city_button"
+              >
+                <span>{cityItem.city}</span>
+              </button>
+            ))}
+            <button
+              className="modal_close_button_homePage"
+              onClick={closeModal}
+            >
+              close
             </button>
-          ))}
-          <button className='modal_close_button_homePage' onClick={closeModal} >close</button>
-        </div>
+          </div>
+        );
       case "pharentdistricts":
         // Find the city object from the locations array
-        const city = locations.find(loc => loc.city === selectedCity);
+        const city = locations.find((loc) => loc.city === selectedCity);
         if (!city) return null;
 
         return (
-          <div className='location_modal_container-homepage' >
-            <div className='districts_and_pharentdostricts-homepage'>
+          <div className="location_modal_container-homepage">
+            <div className="districts_and_pharentdostricts-homepage">
               {city.pharentDistricts.map((parentDistrict, index) => (
-                <ul key={index} >
-
-                  <div className='pharent_district_chackmarks-homepage' >
+                <ul key={index}>
+                  <div className="pharent_district_chackmarks-homepage">
                     <label className="container-homepage">
                       <input
                         type="checkbox"
-                        checked={selectedPharentDistricts.includes(parentDistrict.pharentDistrict)}
-                        onChange={(e) => handleParentDistrictChange(e, parentDistrict.pharentDistrict)}
+                        checked={selectedPharentDistricts.includes(
+                          parentDistrict.pharentDistrict
+                        )}
+                        onChange={(e) =>
+                          handleParentDistrictChange(
+                            e,
+                            parentDistrict.pharentDistrict
+                          )
+                        }
                       />
                       <div className="checkmark-homepage"></div>
                     </label>
                     <p>{parentDistrict.pharentDistrict}</p>
                   </div>
 
-                  <div className='district_checkmarks-homepage' >
+                  <div className="district_checkmarks-homepage">
                     {parentDistrict.districts.map((district, districtIndex) => (
-                      <li key={districtIndex} className='child_district_checkmarks-homepage' >
+                      <li
+                        key={districtIndex}
+                        className="child_district_checkmarks-homepage"
+                      >
                         <label className="container-homepage">
                           <input
                             type="checkbox"
@@ -163,7 +167,12 @@ export default function Map({ selectedLanguage,
                 </ul>
               ))}
             </div>
-            <button className='modal_close_button_homePage' onClick={closeModal}>Close</button>
+            <button
+              className="modal_close_button_homePage"
+              onClick={closeModal}
+            >
+              Close
+            </button>
           </div>
         );
 
@@ -172,67 +181,70 @@ export default function Map({ selectedLanguage,
     }
   };
 
-
   const handleShowModal = () => {
-    setModalContent('cities')
-    setIsModalOpen(true)
+    setModalContent("cities");
+    setIsModalOpen(true);
     setIsSpaceModalOpen(false);
-    setIsPriceModalOpen(false)
-    setIsStatusModalOpen(false)
-  }
+    setIsPriceModalOpen(false);
+    setIsStatusModalOpen(false);
+  };
 
   const handleCityClick = (city) => {
     console.log("City selected: ", city);
-    setModalContent("pharentdistricts")
-    selectedCityChangeHandler(city)
-    setIsModalOpen(true)
-  }
+    setModalContent("pharentdistricts");
+    selectedCityChangeHandler(city);
+    setIsModalOpen(true);
+  };
 
   const closeModal = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   const handleParentDistrictChange = (e, parentDistrict) => {
-
-    selectedPharentDistrictsChangeHandler(prevSelected => {
+    selectedPharentDistrictsChangeHandler((prevSelected) => {
       if (e.target.checked) {
         return [...prevSelected, parentDistrict];
       } else {
-        return prevSelected.filter(pd => pd !== parentDistrict);
+        return prevSelected.filter((pd) => pd !== parentDistrict);
       }
     });
     // Find the city object from the locations array
-    const city = locations.find(loc => loc.city === selectedCity);
+    const city = locations.find((loc) => loc.city === selectedCity);
     if (!city) return;
 
     // Find the specific parent district object
-    const parentDistrictObj = city.pharentDistricts.find(pd => pd.pharentDistrict === parentDistrict);
+    const parentDistrictObj = city.pharentDistricts.find(
+      (pd) => pd.pharentDistrict === parentDistrict
+    );
     if (!parentDistrictObj) return;
 
-    selectedDistrictsChangeHandler(prevSelected => {
+    selectedDistrictsChangeHandler((prevSelected) => {
       if (e.target.checked) {
         // Add all districts of the parent district to the selected list
         // Ensure no duplicates are added
-        const updatedDistricts = new Set([...prevSelected, ...parentDistrictObj.districts]);
+        const updatedDistricts = new Set([
+          ...prevSelected,
+          ...parentDistrictObj.districts,
+        ]);
         return Array.from(updatedDistricts);
       } else {
         // Remove all districts of the parent district from the selected list
-        return prevSelected.filter(d => !parentDistrictObj.districts.includes(d));
+        return prevSelected.filter(
+          (d) => !parentDistrictObj.districts.includes(d)
+        );
       }
     });
   };
 
   const handleDistrictChange = (e, district) => {
-    selectedDistrictsChangeHandler(prevSelected => {
+    selectedDistrictsChangeHandler((prevSelected) => {
       if (e.target.checked) {
         return [...prevSelected, district];
       } else {
-        return prevSelected.filter(d => d !== district);
+        return prevSelected.filter((d) => d !== district);
       }
     });
   };
-
-
 
   // useEffect( () => {
   //   console.log('pharentdistrict selected : ' , selectedPharentDistricts)
@@ -264,40 +276,37 @@ export default function Map({ selectedLanguage,
     setIsSpaceModalOpen(false);
     setIsModalOpen(false);
     setIsStatusModalOpen(false);
-  }
+  };
 
   const handleClosePriceModal = () => {
-    setIsPriceModalOpen(false)
-  }
+    setIsPriceModalOpen(false);
+  };
 
   const handleStatusButtonClick = () => {
     setIsStatusModalOpen(true);
     setIsSpaceModalOpen(false);
     setIsPriceModalOpen(false);
     setIsModalOpen(false);
-  }
+  };
 
   const handleCloseStatusModal = () => {
     setIsStatusModalOpen(false);
-  }
-
+  };
 
   // ---------------------------------------------------------------------------------------------------------------------
   // ----------------------------------icon coloure and  status  change  ----------------------------------------------------------
 
-
   const statusTranslations = {
-    1: { en: 'Planned', ka: 'დაგეგმილი', ru: 'Запланировано' },
-    2: { en: 'Under Construction', ka: 'მშენებარე', ru: 'Строится' },
-    3: { en: 'Completed', ka: 'დასრულებული', ru: 'Завершено' }
+    1: { en: "Planned", ka: "დაგეგმილი", ru: "Запланировано" },
+    2: { en: "Under Construction", ka: "მშენებარე", ru: "Строится" },
+    3: { en: "Completed", ka: "დასრულებული", ru: "Завершено" },
     // Add more statuses and translations if needed
   };
 
   const renderStatusOptions = () => {
     return Object.entries(statusTranslations).map(([value, labels]) => (
-      <div className='status_chackboxes' key={value}>
-
-        <label className="container" style={{ display: 'flex', gap: '15px' }}>
+      <div className="status_chackboxes" key={value}>
+        <label className="container" style={{ display: "flex", gap: "15px" }}>
           <input
             type="checkbox"
             checked={selectedStatuses.includes(value)}
@@ -305,7 +314,7 @@ export default function Map({ selectedLanguage,
             onChange={(e) => handleStatusChange(e, value)}
           />
           <div className="checkmark"></div>
-          <p className='text_modal_color' >{labels[selectedLanguage]}</p>
+          <p className="text_modal_color">{labels[selectedLanguage]}</p>
         </label>
       </div>
     ));
@@ -328,12 +337,6 @@ export default function Map({ selectedLanguage,
 
   // -----------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
   // --------ffunction for changing status button content language change and also select city button language change -------------
 
   const handleStatusButtonLanguageChange = (lang) => {
@@ -353,243 +356,377 @@ export default function Map({ selectedLanguage,
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
-      place_for_your_comfort : 'A place for your comfort',
-    }
+      place_for_your_comfort: "A place for your comfort",
+    };
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status"
-        languageInfo.cityButtonLanguage = "Location"
-        languageInfo.spaceButtonLanguage = "Space"
-        languageInfo.priceButtonLanguage = "Price"
-        languageInfo.allStatusLanguage = "All"
-        languageInfo.findMapButtonLanguage = "Map"
-        languageInfo.allFindButtonLanguage = "Find"
-        languageInfo.spaceButtonClose = "Close"
-        languageInfo.minPrice = "From m²"
-        languageInfo.maxPrice = "To m²"
-        languageInfo.roomStudio = "Studio"
-        languageInfo.fullPriceHomePage = "Full price"
-        languageInfo.meterPriceHomePage = "The price of m²"
-        languageInfo.dan = "from"
-        languageInfo.mde = "to"
+        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.cityButtonLanguage = "Location";
+        languageInfo.spaceButtonLanguage = "Space";
+        languageInfo.priceButtonLanguage = "Price";
+        languageInfo.allStatusLanguage = "All";
+        languageInfo.findMapButtonLanguage = "Map";
+        languageInfo.allFindButtonLanguage = "Find";
+        languageInfo.spaceButtonClose = "Close";
+        languageInfo.minPrice = "From m²";
+        languageInfo.maxPrice = "To m²";
+        languageInfo.roomStudio = "Studio";
+        languageInfo.fullPriceHomePage = "Full price";
+        languageInfo.meterPriceHomePage = "The price of m²";
+        languageInfo.dan = "from";
+        languageInfo.mde = "to";
         languageInfo.place_for_your_comfort = "A place for your comfort";
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი"
-        languageInfo.cityButtonLanguage = "მდებარეობა"
-        languageInfo.spaceButtonLanguage = "ფართი"
-        languageInfo.priceButtonLanguage = "ფასი"
-        languageInfo.allStatusLanguage = "ყველა"
-        languageInfo.findMapButtonLanguage = "რუქა"
-        languageInfo.allFindButtonLanguage = "ძიება"
-        languageInfo.spaceButtonClose = "დახურვა"
-        languageInfo.minPrice = "დან მ²"
-        languageInfo.maxPrice = "მდე მ²"
-        languageInfo.roomStudio = "სტუდიო"
-        languageInfo.fullPriceHomePage = "სრული ფასი"
-        languageInfo.meterPriceHomePage = "მ² - ის ფასი"
-        languageInfo.dan = "დან"
-        languageInfo.mde = "მდე"
+        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.cityButtonLanguage = "მდებარეობა";
+        languageInfo.spaceButtonLanguage = "ფართი";
+        languageInfo.priceButtonLanguage = "ფასი";
+        languageInfo.allStatusLanguage = "ყველა";
+        languageInfo.findMapButtonLanguage = "რუქა";
+        languageInfo.allFindButtonLanguage = "ძიება";
+        languageInfo.spaceButtonClose = "დახურვა";
+        languageInfo.minPrice = "დან მ²";
+        languageInfo.maxPrice = "მდე მ²";
+        languageInfo.roomStudio = "სტუდიო";
+        languageInfo.fullPriceHomePage = "სრული ფასი";
+        languageInfo.meterPriceHomePage = "მ² - ის ფასი";
+        languageInfo.dan = "დან";
+        languageInfo.mde = "მდე";
         languageInfo.place_for_your_comfort = "ადგილი შენი კომფორტისტვის";
-        break
+        break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус"
-        languageInfo.cityButtonLanguage = "Местоположение"
-        languageInfo.spaceButtonLanguage = "Площадь"
-        languageInfo.priceButtonLanguage = "Цена"
-        languageInfo.allStatusLanguage = "Все"
-        languageInfo.findMapButtonLanguage = "Карта"
-        languageInfo.allFindButtonLanguage = "Натдти"
-        languageInfo.spaceButtonClose = "закрить"
-        languageInfo.minPrice = "из м²"
-        languageInfo.maxPrice = "до м²"
-        languageInfo.roomStudio = "Студия"
-        languageInfo.fullPriceHomePage = "Полная стоимость"
-        languageInfo.meterPriceHomePage = "Цена м²"
-        languageInfo.dan = "из"
-        languageInfo.mde = "до"
+        languageInfo.statusInfoLanguage = "выберите статус";
+        languageInfo.cityButtonLanguage = "Местоположение";
+        languageInfo.spaceButtonLanguage = "Площадь";
+        languageInfo.priceButtonLanguage = "Цена";
+        languageInfo.allStatusLanguage = "Все";
+        languageInfo.findMapButtonLanguage = "Карта";
+        languageInfo.allFindButtonLanguage = "Натдти";
+        languageInfo.spaceButtonClose = "закрить";
+        languageInfo.minPrice = "из м²";
+        languageInfo.maxPrice = "до м²";
+        languageInfo.roomStudio = "Студия";
+        languageInfo.fullPriceHomePage = "Полная стоимость";
+        languageInfo.meterPriceHomePage = "Цена м²";
+        languageInfo.dan = "из";
+        languageInfo.mde = "до";
         languageInfo.place_for_your_comfort = "Место для вашего комфорта";
-        break
+        break;
     }
-    return languageInfo
-  }
+    return languageInfo;
+  };
   // ---------------------------------------------------------------------------------------------------------------------
 
   // ---------------------------------------------------------------------------------------------------------------------
   return (
     // <div className='hhh'>
     <>
-      <div className='main_map main_foto home_page_etyle'>
+      <div className="main_map main_foto home_page_etyle">
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 2 }}
-          className='title_filter_cont'
+          className="title_filter_cont"
         >
           {/* <div className='for_comfort'> */}
-          <div className='adgilicomportistvis'>
-          {handleStatusButtonLanguageChange(selectedLanguage).place_for_your_comfort}
+          <div className="adgilicomportistvis">
+            {
+              handleStatusButtonLanguageChange(selectedLanguage)
+                .place_for_your_comfort
+            }
           </div>
-          <div className='filter_cont_for_homepage'>
-
+          <div className="filter_cont_for_homepage">
             {/* button for filtering space */}
             <div className="button-modal-container-homepage">
-              <div onClick={handleSpaceButtonClick} className='space_button_homepage'  >
-                {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}
-                <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+              <div
+                onClick={handleSpaceButtonClick}
+                className="space_button_homepage"
+              >
+                {
+                  handleStatusButtonLanguageChange(selectedLanguage)
+                    .spaceButtonLanguage
+                }
+                <img
+                  src={button_icon}
+                  alt="button dropdown icon"
+                  className="dropdown"
+                />
               </div>
 
               <SpaceModal_1 isOpen={isSpaceModalOpen} close={closeSpaceModal}>
                 <div>
                   <div>
-                    <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
+                    <text className="priceTextHomePage">
+                      {
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .spaceButtonLanguage
+                      }
+                    </text>
                   </div>
-                  <input className='min_price_homePage'
-                    type='number'
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
-                    value={min_space}
-                    onChange={(e) => max_spacehangeHandler(e.target.value)}
-                  />
+                  <div className="inputInlineDispley">
+                    <input
+                      className="min_price_homePage"
+                      type="number"
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .minPrice
+                      }
+                      value={min_space}
+                      onChange={(e) => max_spacehangeHandler(e.target.value)}
+                    />
 
-                  <input className='min_price_homePage'
-                    type="number"
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
-                    value={max_space}
-                    onChange={(e) => min_spacehangeHandler(e.target.value)}
-                  />
+                    <input
+                      className="min_price_homePage"
+                      type="number"
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .maxPrice
+                      }
+                      value={max_space}
+                      onChange={(e) => min_spacehangeHandler(e.target.value)}
+                    />
+                  </div>
                 </div>
 
-                <button className='modal_close_button_homePage' onClick={closeSpaceModal}>
-                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                <button
+                  className="modal_close_button_homePage"
+                  onClick={closeSpaceModal}
+                >
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .spaceButtonClose
+                  }
                 </button>
               </SpaceModal_1>
-
             </div>
 
             {/* button for filtering price  */}
             <div className="button-modal-container-homepage">
-              <div onClick={handlePriceButtonClick} className='space_button_homepage'  >
-                {handleStatusButtonLanguageChange(selectedLanguage).priceButtonLanguage}
-                <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+              <div
+                onClick={handlePriceButtonClick}
+                className="space_button_homepage"
+              >
+                {
+                  handleStatusButtonLanguageChange(selectedLanguage)
+                    .priceButtonLanguage
+                }
+                <img
+                  src={button_icon}
+                  alt="button dropdown icon"
+                  className="dropdown"
+                />
               </div>
-              <PriceModal_1 isOpen={isPriceModalOpen} close={handleClosePriceModal} >
-                <div className='fullPriceHomePage'>
-                  {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+              <PriceModal_1
+                isOpen={isPriceModalOpen}
+                close={handleClosePriceModal}
+              >
+                <div className="fullPriceHomePage">
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .fullPriceHomePage
+                  }
 
                   {/* ----Dollar and Lari Toggle button */}
                   <div className="currencyBox_homepage">
-                    <div className="switch_homepage" data-ison={isOn} onClick={toggleSwitch}>
-                      <motion.div className="handle_homepage" layout transition={spring}>
+                    <div
+                      className="switch_homepage"
+                      data-ison={isOn}
+                      onClick={toggleSwitch}
+                    >
+                      <motion.div
+                        className="handle_homepage"
+                        layout
+                        transition={spring}
+                      >
                         <img
                           src={lari_black}
                           alt="Lari Sign"
-                          className={`currency-sign_homepage ${isOn ? "active" : ""}`}
+                          className={`currency-sign_homepage ${
+                            isOn ? "active" : ""
+                          }`}
                         />
                         <img
                           src={dollar_black}
                           alt="Dollar Sign"
-                          className={`currency-sign_homepage ${!isOn ? "active" : ""}`}
+                          className={`currency-sign_homepage ${
+                            !isOn ? "active" : ""
+                          }`}
                         />
                       </motion.div>
                     </div>
                   </div>
                   {/* ---------------- */}
-
-
                 </div>
                 <div>
                   {/* pirveli  */}
-                  <div className="for_dolar_and_lari">
-                    <input className='min_price_homePage'
-                      type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
-                      value={minPricePerSquareMeter}
-                      // -----------======-------
-                      onChange={(e) => minPricePerSquareMeterChangeHandler(e.target.value)}
-                    />
-                    <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+                  <div className="inputInlineDispley">
+                    <div className="for_dolar_and_lari">
+                      <input
+                        className="min_price_homePage"
+                        type="number"
+                        placeholder={
+                          handleStatusButtonLanguageChange(selectedLanguage).dan
+                        }
+                        value={minPricePerSquareMeter}
+                        // -----------======-------
+                        onChange={(e) =>
+                          minPricePerSquareMeterChangeHandler(e.target.value)
+                        }
+                      />
+                      <img
+                        src={isOn ? dollar : lari}
+                        alt="lari"
+                        className="currency-sign_homepage_11"
+                      />
+                    </div>
+
+                    {/* meore  */}
+                    <div className="for_dolar_and_lari">
+                      <input
+                        className="min_price_homePage"
+                        type="number"
+                        placeholder={
+                          handleStatusButtonLanguageChange(selectedLanguage).mde
+                        }
+                        value={maxPricePerSquareMeter}
+                        // -----------======-------
+                        onChange={(e) =>
+                          maxPricePerSquareMeterChangeHandler(e.target.value)
+                        }
+                      />
+                      <img
+                        src={isOn ? dollar : lari}
+                        alt="lari"
+                        className="currency-sign_homepage_11"
+                      />
+                    </div>
                   </div>
 
-                  {/* meore  */}
-                  <div className="for_dolar_and_lari">
-                    <input className='min_price_homePage'
-                      type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
-                      value={maxPricePerSquareMeter}
-                      // -----------======-------
-                      onChange={(e) => maxPricePerSquareMeterChangeHandler(e.target.value)}
-                    />
-                    <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
-                  </div>
-
-
-                  <div className='meterPriceHomePage'>
-                    {handleStatusButtonLanguageChange(selectedLanguage).meterPriceHomePage}
+                  <div className="meterPriceHomePage">
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .meterPriceHomePage
+                    }
                   </div>
 
                   {/* mesame  */}
-                  <div className="for_dolar_and_lari">
-                    <input className='min_price_homePage'
-                      type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).dan}
-                      value={minFullPrice}
-                      // -----------======-------
-                      onChange={(e) => minFullPriceChangeHandler(e.target.value)}
-                    />
-                    <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
-                  </div>
+                  <div className="inputInlineDispley">
+                    <div className="for_dolar_and_lari">
+                      <input
+                        className="min_price_homePage"
+                        type="number"
+                        placeholder={
+                          handleStatusButtonLanguageChange(selectedLanguage).dan
+                        }
+                        value={minFullPrice}
+                        // -----------======-------
+                        onChange={(e) =>
+                          minFullPriceChangeHandler(e.target.value)
+                        }
+                      />
+                      <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+                    </div>
 
-                  {/* meotxe  */}
-                  <div className="for_dolar_and_lari">
-                    <input className='min_price_homePage'
-                      type="number"
-                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).mde}
-                      value={maxFullPrice}
-                      // -----------======-------
-                      onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
-                    />
-                    <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+                    {/* meotxe  */}
+                    <div className="for_dolar_and_lari">
+                      <input
+                        className="min_price_homePage"
+                        type="number"
+                        placeholder={
+                          handleStatusButtonLanguageChange(selectedLanguage).mde
+                        }
+                        value={maxFullPrice}
+                        // -----------======-------
+                        onChange={(e) =>
+                          maxFullPriceChangeHandler(e.target.value)
+                        }
+                      />
+                      <img
+                        src={isOn ? dollar : lari}
+                        alt="lari"
+                        className="currency-sign_homepage_11"
+                      />
+                    </div>
                   </div>
-
                 </div>
-                <button className='modal_close_button_homePage' onClick={handleClosePriceModal}>
-                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                <button
+                  className="modal_close_button_homePage"
+                  onClick={handleClosePriceModal}
+                >
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .spaceButtonClose
+                  }
                 </button>
               </PriceModal_1>
             </div>
 
             {/* button for locations */}
-            <div className="button-modal-container-homepage" >
-              <div onClick={handleShowModal} className='lacation_button_homepage'   >
-                {handleStatusButtonLanguageChange(selectedLanguage).cityButtonLanguage}
-                <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+            <div className="button-modal-container-homepage">
+              <div
+                onClick={handleShowModal}
+                className="lacation_button_homepage"
+              >
+                {
+                  handleStatusButtonLanguageChange(selectedLanguage)
+                    .cityButtonLanguage
+                }
+                <img
+                  src={button_icon}
+                  alt="button dropdown icon"
+                  className="dropdown"
+                />
               </div>
-              <Modal_1 isOpen={isModalOpen} close={closeModal} >
+              <Modal_1 isOpen={isModalOpen} close={closeModal}>
                 {renderModalContent()}
               </Modal_1>
             </div>
 
             {/* button for status */}
-            <div className="button-modal-container-homepage" >
-              <div onClick={handleStatusButtonClick} className='lacation_button_homepage'   >
-                {handleStatusButtonLanguageChange(selectedLanguage).statusInfoLanguage}
-                <img src={button_icon} alt="button dropdown icon" className='dropdown' />
+            <div className="button-modal-container-homepage">
+              <div
+                onClick={handleStatusButtonClick}
+                className="lacation_button_homepage"
+              >
+                {
+                  handleStatusButtonLanguageChange(selectedLanguage)
+                    .statusInfoLanguage
+                }
+                <img
+                  src={button_icon}
+                  alt="button dropdown icon"
+                  className="dropdown"
+                />
               </div>
-              <StatusModal_1 isOpen={isStatusModalOpen} close={handleCloseStatusModal} >
+              <StatusModal_1
+                isOpen={isStatusModalOpen}
+                close={handleCloseStatusModal}
+              >
                 {renderStatusOptions()}
-                <button className='modal_close_button_homePage' onClick={handleCloseStatusModal}>
-                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
+                <button
+                  className="modal_close_button_homePage"
+                  onClick={handleCloseStatusModal}
+                >
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .spaceButtonClose
+                  }
                 </button>
               </StatusModal_1>
             </div>
             {/* Button For find word (sityvit dzebna) */}
-            <div className="lacation_button" >
-              <input className='string_filter_input'
-                type='search'
-                placeholder={handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+            <div className="lacation_button">
+              <input
+                className="string_filter_input"
+                type="search"
+                placeholder={
+                  handleStatusButtonLanguageChange(selectedLanguage)
+                    .allFindButtonLanguage
+                }
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
               />
@@ -604,18 +741,32 @@ export default function Map({ selectedLanguage,
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 2 }}
-          className='button_flex'
+          className="button_flex"
         >
-
           {/* Map button link */}
           <div className="button-container">
-            <Link className='map_icon' to="/map">
-              
-              <button className='homepage_map_link row_butt'><img className='location_icon_respons' src={LocationIcon} alt='/'/>{handleStatusButtonLanguageChange(selectedLanguage).findMapButtonLanguage}</button>
+            <Link className="map_icon" to="/map">
+              <button className="homepage_map_link row_butt">
+                <img
+                  className="location_icon_respons"
+                  src={LocationIcon}
+                  alt="/"
+                />
+                {
+                  handleStatusButtonLanguageChange(selectedLanguage)
+                    .findMapButtonLanguage
+                }
+              </button>
             </Link>
             <Link to="/complex">
-              <button className='homepage_serch_button' onClick={() => searchButtonhangeHandler(!searchButton)}>
-                {handleStatusButtonLanguageChange(selectedLanguage).allFindButtonLanguage}
+              <button
+                className="homepage_serch_button"
+                onClick={() => searchButtonhangeHandler(!searchButton)}
+              >
+                {
+                  handleStatusButtonLanguageChange(selectedLanguage)
+                    .allFindButtonLanguage
+                }
               </button>
             </Link>
           </div>
@@ -623,10 +774,8 @@ export default function Map({ selectedLanguage,
       </div>
     </>
     // </div>
-
   );
 }
-
 
 //127.0.0.1:8000/complex/en/?address_en__city_en__city_en=&
 // address_en__city_en__city_en__icontains=&
@@ -636,10 +785,6 @@ export default function Map({ selectedLanguage,
 // address_en__district_en__district_en=&address_en__district_en__district_en__icontains=&
 // address_en__district_en__district_en__in=lisi
 
-
-
-
-
 //127.0.0.1:8000/complex/en/?
 // address_en__city_en__city_en=&
 // address_en__city_en__city_en__icontains=&
@@ -648,15 +793,12 @@ export default function Map({ selectedLanguage,
 // max_full_price=&min_full_price=&
 // status=2
 
-
-
-
 const styles = {
   imageStyles: {
-    maxWidth: '275px',
+    maxWidth: "275px",
     height: "229px",
     overflow: "hidden",
-    color: 'white'
+    color: "white",
     // borderRadius: "20px",
   },
   companyTitle: {
