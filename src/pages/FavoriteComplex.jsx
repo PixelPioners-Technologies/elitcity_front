@@ -83,7 +83,7 @@ export default function FavoriteComplex({
                   {/* ----------- */}
                   <img
                     onClick={() => handleHouseClick(complex.id)}
-                    src={complex.images[0]}
+                    src={complex?.images[0]}
                     alt={complex.name}
                     style={styles.imageStyles}
                   />
@@ -131,14 +131,14 @@ export default function FavoriteComplex({
 
                     <img
                       onClick={handleprivateAppartmentClick(complex.id)}
-                      src={complex.images[0]}
+                      src={complex?.images[0]}
                       alt={complex.name}
                       style={styles.imageStyles}
                     />
                     <p style={styles.companyTitle}>{complex.name}</p>
                     <div className="textInfo">
                       <p style={styles.complexInfo}>
-                        {complex.address.city}, {complex.address.street}
+                        {complex?.address?.city}, {complex.address.street}
                       </p>
                       <p style={styles.complexInfo}>
                         Price per sq meter: {complex.price_per_sq_meter}
@@ -178,7 +178,7 @@ export default function FavoriteComplex({
                     {/* ----------- */}
                     <img
                       onClick={handleLotsClick(complex.id)}
-                      src={complex.images[0]}
+                      src={complex?.images[0]}
                       alt={complex.name}
                       style={styles.imageStyles}
                     />

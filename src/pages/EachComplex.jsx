@@ -736,9 +736,23 @@ export default function EachComplex({
 
             <div className="favouriteDollarAndShareBox">
               {/* Star favourite box */}
-              <button className="heartButtons">
-                <img src={star} style={{ width: "30px", height: "30px" }} />
-              </button>
+              <button
+                    key={eachPrivateApartment.id}
+                    className="heartButtons"
+                    onClick={() => favoriteHandler(eachPrivateApartment)}
+                  >
+                    {favorites.some((fav) => fav.id === eachPrivateApartment.id) ? (
+                      <img src={heartIcon} alt="Logo of heart" />
+                    ) : (
+                      <img
+                        src={heartIconEmpty}
+                        alt="Logo of empty heart"
+                        style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                      />
+                    )}
+                  </button>
+
+
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox">
                 <div
