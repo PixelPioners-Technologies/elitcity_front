@@ -20,6 +20,7 @@ import dollar_black from "../assets/dollar-svgrepo-com.svg";
 import lari_black from "../assets/lari-svgrepo-com.svg";
 import dollar from '../assets/dollar-whitee.svg';
 import lari from '../assets/lari-white.svg';
+import LocationIcon from '../assets/locationIcon.png';
 
 
 
@@ -421,7 +422,7 @@ export default function Map({ selectedLanguage,
   return (
     // <div className='hhh'>
     <>
-      <div className='main_map main_foto '>
+      <div className='main_map main_foto home_page_etyle'>
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -603,12 +604,14 @@ export default function Map({ selectedLanguage,
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 2 }}
+          className='button_flex'
         >
 
           {/* Map button link */}
           <div className="button-container">
-            <Link to="/map">
-              <button className='homepage_map_link'>{handleStatusButtonLanguageChange(selectedLanguage).findMapButtonLanguage}</button>
+            <Link className='map_icon' to="/map">
+              
+              <button className='homepage_map_link row_butt'><img className='location_icon_respons' src={LocationIcon} alt='/'/>{handleStatusButtonLanguageChange(selectedLanguage).findMapButtonLanguage}</button>
             </Link>
             <Link to="/complex">
               <button className='homepage_serch_button' onClick={() => searchButtonhangeHandler(!searchButton)}>

@@ -10,6 +10,9 @@
 .title_filter_cont {
   margin-top: 150px;
 }
+.location_icon_respons{
+  display: none;
+}
 .adgilicomportistvis {
   text-align: center;
   font-family: "BPG Rioni", sans-serif;
@@ -34,7 +37,7 @@
   padding: 10px 20px;
   text-transform: uppercase;
   font-weight: bold;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   font-size: 16px;
   cursor: pointer;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -240,17 +243,48 @@
   margin-left: 20px;
 }
 @media screen and (max-width: 500px) {
+  .home_page_etyle{
+    padding: 15px;
+    /* border: 1px solid red; */
+    /* gap: 0; */
+  }
+  .button_flex{
+    /* border: 1px solid green; */
+    margin-top: 50px;
+    /* display: flex;
+    flex-direction: row;
+    align-items: center; */
+
+  }
+  .location_icon_respons{
+    width: 15px;
+    height: 20px;
+    display: block;
+  }
+  .row_butt{
+    width: 100px;
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    /* align-items: start; */
+    gap: 10px;
+    padding-left: 7px;
+    padding-right: 20px;
+  }
   .main_foto {
     height: 100vh;
   }
   .filter_cont_for_homepage {
     flex-direction: column;
     align-items: start;
+    margin-top: 60px;
     gap: 20px;
   }
   .adgilicomportistvis {
     font-size: 20px;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
+    /* border: 1px solid red; */
+    /* margin-top: 10px; */
   }
   .title_filter_cont {
     margin-top: 50px;
@@ -260,7 +294,11 @@
     justify-content: start;
     align-items: start;
     padding-left: 0%;
-    margin-top: 40px;
+    margin-top: 0;
+    gap: 20px;
+    /* font-size: 15px; */
+    /* margin-top: 40px; */
+    /* border:1px solid red; */
   }
   .min_price_homePage::-webkit-outer-spin-button,
   .min_price_homePage::-webkit-inner-spin-button {
