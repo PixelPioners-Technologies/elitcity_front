@@ -40,142 +40,163 @@ export default function FavoriteComplex({
   };
 
 
-useEffect(()=> {
-  console.log('fav complex ' , favorites )
-  console.log('fav phisical ' , favoritesPhysical )
-  console.log('fav ground ' , favoritesLots )
-  console.log('fav ground handler' , favoriteHandlerLots )
+  useEffect(() => {
+    console.log('fav complex ', favorites)
+    console.log('fav phisical ', favoritesPhysical)
+    console.log('fav ground ', favoritesLots)
+    console.log('fav ground handler', favoriteHandlerLots)
 
 
 
-},[favorites,favoritesPhysical,favoritesLots])
+  }, [favorites, favoritesPhysical, favoritesLots])
 
-  
+
 
 
   return (
     <div>
-      {/* <h1>favorite Page</h1> */}
-
       <div className="ComplexBoxInFavoritesPages">
-        {/* for Complex */}
-        {favorites && favorites.map((complex, index) => (
-          <div className="card" key={index}  >
-            {/* ----------- */}
-            <button
-              onClick={() => favoriteHandler(complex)}
-              key={complex.id}
-              className="heartButtons"
-            >
-              {favorites.some((fav) => fav.id === complex.id) ? (
-                <img src={heartIcon} alt="Logo of heart" />
-              ) : (
-                <img
-                  src={heartIconEmpty}
-                  alt="Logo of empty heart"
-                  style={{ width: "30px", height: "30px" }}
-                />
-              )}
-            </button>
-            {/* ----------- */}
-            <img
-              onClick={() => handleHouseClick(complex.id)}
-              src={complex.images[0]}
-              alt={complex.name}
-              style={styles.imageStyles}
-            />
-            <p style={styles.companyTitle}>{complex.name}</p>
-            <div className="textInfo" >
-              <p style={styles.complexInfo}>
-                {complex.address.city}, {complex.address.street}
-              </p>
-              <p style={styles.complexInfo}>
-                Price per sq meter: {complex.price_per_sq_meter}
-              </p>
-              <p style={styles.complexFinished}>Date: ...</p>
+        {favorites && favorites.length > 0 && (
+          <div>
+            <h1 className="item_header" > complexes   </h1>
+            <div className="same_items"  >
+
+              {/* for Complex */}
+              {favorites && favorites.map((complex, index) => (
+                <div className="card" key={index}  >
+                  {/* ----------- */}
+                  <button
+                    onClick={() => favoriteHandler(complex)}
+                    key={complex.id}
+                    className="heartButtons"
+                  >
+                    {favorites.some((fav) => fav.id === complex.id) ? (
+                      <img src={heartIcon} alt="Logo of heart" />
+                    ) : (
+                      <img
+                        src={heartIconEmpty}
+                        alt="Logo of empty heart"
+                        style={{ width: "30px", height: "30px" }}
+                      />
+                    )}
+                  </button>
+                  {/* ----------- */}
+                  <img
+                    onClick={() => handleHouseClick(complex.id)}
+                    src={complex.images[0]}
+                    alt={complex.name}
+                    style={styles.imageStyles}
+                  />
+                  <p style={styles.companyTitle}>{complex.complexName}</p>
+                  <div className="textInfo" >
+                    <p style={styles.complexInfo}>
+                      {complex.address.city}, {complex.address.street}
+                    </p>
+                    <p style={styles.complexInfo}>
+                      Price per sq meter: {complex.price_per_sq_meter}
+                    </p>
+                    <p style={styles.complexFinished}>Date: ...</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
+        )}
 
-        {/* for physical */}
-        {favoritesPhysical &&
-          favoritesPhysical.map((complex, index) => (
-            <div className="card" key={index}>
-              {/* ----------- */}
-              <button
-                onClick={() => favoriteHandlerPhysical(complex)}
-                key={complex.id}
-                className="heartButtons"
-              >
-                {favoritesPhysical.some((fav) => fav.id === complex.id) ? (
-                  <img src={heartIcon} alt="Logo of heart" />
-                ) : (
-                  <img
-                    src={heartIconEmpty}
-                    alt="Logo of empty heart"
-                    style={{ width: "30px", height: "30px" }}
-                  />
-                )}
-              </button>
-              {/* ----------- */}
+        {favoritesPhysical && favoritesPhysical.length > 0 && (
+          <div>
+            <h1 className="item_header" > private apartments </h1>
+            <div className="same_items"  >
+              {/* for physical */}
+              {favoritesPhysical &&
+                favoritesPhysical.map((complex, index) => (
+                  <div className="card" key={index}>
+                    {/* ----------- */}
+                    <button
+                      onClick={() => favoriteHandlerPhysical(complex)}
+                      key={complex.id}
+                      className="heartButtons"
+                    >
+                      {favoritesPhysical.some((fav) => fav.id === complex.id) ? (
+                        <img src={heartIcon} alt="Logo of heart" />
+                      ) : (
+                        <img
+                          src={heartIconEmpty}
+                          alt="Logo of empty heart"
+                          style={{ width: "30px", height: "30px" }}
+                        />
+                      )}
+                    </button>
+                    {/* ----------- */}
 
-              <img
-                onClick={handleprivateAppartmentClick(complex.id)}
-                src={complex.images[0]}
-                alt={complex.name}
-                style={styles.imageStyles}
-              />
-              <p style={styles.companyTitle}>{complex.name}</p>
-              <div className="textInfo">
-                <p style={styles.complexInfo}>
-                  {complex.address.city}, {complex.address.street}
-                </p>
-                <p style={styles.complexInfo}>
-                  Price per sq meter: {complex.price_per_sq_meter}
-                </p>
-                <p style={styles.complexFinished}>Date: ...</p>
-              </div>
+                    <img
+                      onClick={handleprivateAppartmentClick(complex.id)}
+                      src={complex.images[0]}
+                      alt={complex.name}
+                      style={styles.imageStyles}
+                    />
+                    <p style={styles.companyTitle}>{complex.name}</p>
+                    <div className="textInfo">
+                      <p style={styles.complexInfo}>
+                        {complex.address.city}, {complex.address.street}
+                      </p>
+                      <p style={styles.complexInfo}>
+                        Price per sq meter: {complex.price_per_sq_meter}
+                      </p>
+                      <p style={styles.complexFinished}>Date: ...</p>
+                    </div>
+                  </div>
+                ))}
             </div>
-          ))}
+          </div>
+        )}
 
-        {/* for Lots */}
-        {favoritesLots &&
-          favoritesLots.map((complex, index) => (
-            <div className="card" key={index}>
-              <button
-                onClick={() => favoriteHandlerLots(complex)}
-                key={complex.id}
-                className="heartButtons"
-              >
-                {favoritesLots.some((fav) => fav.id === complex.id) ? (
-                  <img src={heartIcon} alt="Logo of heart" />
-                ) : (
-                  <img
-                    src={heartIconEmpty}
-                    alt="Logo of empty heart"
-                    style={{ width: "30px", height: "30px" }}
-                  />
-                )}
-              </button>
-              {/* ----------- */}
-              <img
-              onClick={handleLotsClick(complex.id)}
-                src={complex.images[0]}
-                alt={complex.name}
-                style={styles.imageStyles}
-              />
-              <p style={styles.companyTitle}>{complex.name}</p>
-              <div className="textInfo">
-                <p style={styles.complexInfo}>
-                  {complex.address.city}, {complex.address.street}
-                </p>
-                <p style={styles.complexInfo}>
-                  Price per sq meter: {complex.price_per_sq_meter}
-                </p>
-                <p style={styles.complexFinished}>Date: ...</p>
-              </div>
+
+        {favoritesLots && favoritesLots.length > 0 && (
+          <div>
+            <h1 className="item_header" > grounds  </h1>
+            <div className="same_items"  >
+              {/* for Lots */}
+              {favoritesLots &&
+                favoritesLots.map((complex, index) => (
+                  <div className="card" key={index}>
+                    <button
+                      onClick={() => favoriteHandlerLots(complex)}
+                      key={complex.id}
+                      className="heartButtons"
+                    >
+                      {favoritesLots.some((fav) => fav.id === complex.id) ? (
+                        <img src={heartIcon} alt="Logo of heart" />
+                      ) : (
+                        <img
+                          src={heartIconEmpty}
+                          alt="Logo of empty heart"
+                          style={{ width: "30px", height: "30px" }}
+                        />
+                      )}
+                    </button>
+                    {/* ----------- */}
+                    <img
+                      onClick={handleLotsClick(complex.id)}
+                      src={complex.images[0]}
+                      alt={complex.name}
+                      style={styles.imageStyles}
+                    />
+                    <p style={styles.companyTitle}>{complex.name}</p>
+                    <div className="textInfo">
+                      <p style={styles.complexInfo}>
+                        {complex.address.city}, {complex.address.street}
+                      </p>
+                      <p style={styles.complexInfo}>
+                        Price per sq meter: {complex.price_per_sq_meter}
+                      </p>
+                      <p style={styles.complexFinished}>Date: ...</p>
+                    </div>
+                  </div>
+                ))}
             </div>
-          ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -186,6 +207,7 @@ const styles = {
     width: "278px",
     height: "229px",
     overflow: "hidden",
+    color: 'white'
     // borderRadius: "20px",
   },
   companyTitle: {

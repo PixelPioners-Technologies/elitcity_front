@@ -1,8 +1,25 @@
 .ComplexBoxInFavoritesPages {
   display: flex;
-  padding: 50px 70px ;
+  padding: 50px 70px;
   width: 100%;
   justify-content: center;
+  flex-direction: column;
   gap: 50px;
   flex-wrap: wrap;
+}
+ 
+.item_header {
+  color: aliceblue;
+ margin-bottom: 30px;
+}
+
+.item_header_none {
+  display: none;
+}
+
+.same_items {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
 }
