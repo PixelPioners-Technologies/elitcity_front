@@ -13,8 +13,8 @@
   /* border: 1px solid red; */
 }
 .center{
-  /* border: 1px solid red; */
-  /* align-items: center; */
+  border: 1px solid red;
+  align-items: center;
 }
 .gapp{
   gap: 20px;
@@ -205,7 +205,7 @@
   /* border: 2px solid red; */
 }
 .hh2{
-  /* border: 1px solid red; */
+  border: 1px solid red;
 }
 
 .inprastruqturisIconsBox {

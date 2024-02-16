@@ -244,7 +244,7 @@
 
 @media screen and (max-width: 500px) {
   .company_page {
-    /* border: 1px solid red; */
+    border: 1px solid red;
   }
   .company_main_page {
     width: 100%;
@@ -283,9 +283,9 @@
     gap: 4px;
   }
   .all_settings_company_1 {
-    /* width: 100%; */
-    /* border: 1px solid red; */
-    /* font-size: px; */
+    width: 100%;
+    border: 1px solid red;
+    font-size: px;
   }
   .colo_name_and_others {
     margin-top: 3px;
