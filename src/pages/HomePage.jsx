@@ -352,7 +352,7 @@ export default function Map({ selectedLanguage,
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
-      place_for_your_comfort : 'A place for your comfort',
+      place_for_your_comfort: 'A place for your comfort',
     }
 
     switch (lang) {
@@ -430,7 +430,7 @@ export default function Map({ selectedLanguage,
         >
           {/* <div className='for_comfort'> */}
           <div className='adgilicomportistvis'>
-          {handleStatusButtonLanguageChange(selectedLanguage).place_for_your_comfort}
+            {handleStatusButtonLanguageChange(selectedLanguage).place_for_your_comfort}
           </div>
           <div className='filter_cont_for_homepage'>
 
@@ -446,19 +446,21 @@ export default function Map({ selectedLanguage,
                   <div>
                     <text className='priceTextHomePage'>{handleStatusButtonLanguageChange(selectedLanguage).spaceButtonLanguage}</text>
                   </div>
-                  <input className='min_price_homePage'
-                    type='number'
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
-                    value={min_space}
-                    onChange={(e) => max_spacehangeHandler(e.target.value)}
-                  />
+                  <div className='inputInlineDispley'>
+                    <input className='min_price_homePage'
+                      type='number'
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).minPrice}
+                      value={min_space}
+                      onChange={(e) => max_spacehangeHandler(e.target.value)}
+                    />
 
-                  <input className='min_price_homePage'
-                    type="number"
-                    placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
-                    value={max_space}
-                    onChange={(e) => min_spacehangeHandler(e.target.value)}
-                  />
+                    <input className='min_price_homePage'
+                      type="number"
+                      placeholder={handleStatusButtonLanguageChange(selectedLanguage).maxPrice}
+                      value={max_space}
+                      onChange={(e) => min_spacehangeHandler(e.target.value)}
+                    />
+                  </div>
                 </div>
 
                 <button className='modal_close_button_homePage' onClick={closeSpaceModal}>
@@ -501,6 +503,7 @@ export default function Map({ selectedLanguage,
                 </div>
                 <div>
                   {/* pirveli  */}
+                  <div className='inputInlineDispley'>
                   <div className="for_dolar_and_lari">
                     <input className='min_price_homePage'
                       type="number"
@@ -523,6 +526,7 @@ export default function Map({ selectedLanguage,
                     />
                     <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
                   </div>
+                  </div>
 
 
                   <div className='meterPriceHomePage'>
@@ -530,6 +534,7 @@ export default function Map({ selectedLanguage,
                   </div>
 
                   {/* mesame  */}
+                  <div className='inputInlineDispley'>
                   <div className="for_dolar_and_lari">
                     <input className='min_price_homePage'
                       type="number"
@@ -551,6 +556,7 @@ export default function Map({ selectedLanguage,
                       onChange={(e) => maxFullPriceChangeHandler(e.target.value)}
                     />
                     <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+                  </div>
                   </div>
 
                 </div>
