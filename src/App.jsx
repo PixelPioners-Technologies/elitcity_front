@@ -1026,6 +1026,8 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoriteApartment={favoriteApartment}
+              favorite_apartment_handler={favorite_apartment_handler}
             />
           }
         />
@@ -1133,6 +1135,9 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoriteApartment={favoriteApartment}
+              favorite_apartment_handler={favorite_apartment_handler}
+              selectedLanguage={selectedLanguage}
             />
           }
         />

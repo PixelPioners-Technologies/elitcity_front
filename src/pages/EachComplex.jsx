@@ -168,6 +168,9 @@ export default function EachComplex({
   currenceChangeState,
   isOn,
   toggleSwitch,
+  favoriteApartment,
+  favorite_apartment_handler,
+  
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
@@ -930,12 +933,9 @@ export default function EachComplex({
         {showApartments && (
           <div className="allCards_physical paddingForEachComplexCardBox">
             {privateApartments.apartments.map((prev_apartments, index) => (
-
-
               <div
                 className="card_physical"
                 key={index}
-                onClick={() => handleAppartmentClick(prev_apartments.id)}
               >
                 <motion.div
                   key={currentPage}
@@ -947,11 +947,11 @@ export default function EachComplex({
                   <div className="heartbuttonAndImageBox_physical">
                     <div className="heartButtonBox_physical">
                       <button
-                        onClick={() => favoriteHandler(prev_apartments)}
+                        onClick={() => favorite_apartment_handler(prev_apartments)}
                         key={prev_apartments.id}
                         className="heartButtons_physical"
                       >
-                        {favorites.some(
+                        {favoriteApartment.some(
                           (fav) => fav.id === prev_apartments.id
                         ) ? (
                           <img src={heartIcon} alt="Logo of heart" />
@@ -966,7 +966,7 @@ export default function EachComplex({
                     </div>
                     {console.log('binis surati ', prev_apartments?.rank)}
                     <img
-
+                        onClick={() => handleAppartmentClick(prev_apartments.id)}
                       src={
                         prev_apartments?.images[0]
                       }
@@ -978,7 +978,7 @@ export default function EachComplex({
                   <h1 className="company_title" style={styles.companyTitle}>
                     {prev_apartments.privateApartmentName}
                   </h1>
-                  <div className="textInfo_physical">
+                  <div className="textInfo_physical" onClick={() => handleAppartmentClick(prev_apartments.id)}  >
                     <p className="city_settings" style={styles.complexInfo}>
                       {car_settings_language_change(selectedLanguage).city} :{" "}
                       {prev_apartments.address.city}

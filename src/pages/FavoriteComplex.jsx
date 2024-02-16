@@ -13,12 +13,15 @@ import { useEffect } from "react";
 
 
 export default function FavoriteComplex({
+  selectedLanguage,
   favorites,
   favoritesPhysical,
   favoritesLots,
   favoriteHandler,
   favoriteHandlerLots,
   favoriteHandlerPhysical,
+  favoriteApartment,
+  favorite_apartment_handler,
 }) {
   const navigate = useNavigate();
 
@@ -44,18 +47,58 @@ export default function FavoriteComplex({
     console.log('fav complex ', favorites)
     console.log('fav phisical ', favoritesPhysical)
     console.log('fav ground ', favoritesLots)
-    console.log('fav ground handler', favoriteHandlerLots)
+    console.log('fav apartments ', favoriteApartment)
+
+  }, [favorites, favoritesPhysical, favoritesLots, favoriteApartment])
 
 
 
-  }, [favorites, favoritesPhysical, favoritesLots])
+  const get_complex_StatusTranslation = (status, selectedLanguage) => {
+    const statusTranslations = {
+      1: { en: "Planned", ka: "დაგეგმილი", ru: "Запланировано" },
+      2: { en: "Under Construction", ka: "მშენებარე", ru: "Строится" },
+      3: { en: "Completed", ka: "დასრულებული", ru: "Завершено" },
+    };
+
+    const translation = statusTranslations[status]?.[selectedLanguage] || 'Status Unknown';
+
+    return translation;
+  };
 
 
+
+  const get_private_apartment_StatusTranslation = (status, selectedLanguage) => {
+    const statusTranslations = {
+      1: { en: "Newly renovated", ka: "ახალი რემონტი", ru: "Недавно отремонтированный" },
+      2: { en: "With old repairs", ka: "ძველი რემონტით", ru: "Со старым ремонтом" },
+      3: { en: "To be repaired", ka: "სარემონტო", ru: "Требует ремонта" },
+    };
+
+    const translation = statusTranslations[status]?.[selectedLanguage] || 'Status Unknown';
+
+    return translation;
+  };
+
+
+
+  const get_ground_StatusTranslation = (status, selectedLanguage) => {
+    const statusTranslations = {
+      1: { en: "Agricultural", ka: "სასოფლო-სამეურნეო", ru: "Сельскохозяйственный" },
+      2: { en: "Land for settlement", ka: "სამოსახლო", ru: "Земля для поселения" },
+      3: { en: "Commercial", ka: "კომერციული", ru: "Коммерческий" },
+    };
+
+    const translation = statusTranslations[status]?.[selectedLanguage] || 'Status Unknown';
+
+    return translation;
+  };
 
 
   return (
     <div>
       <div className="ComplexBoxInFavoritesPages">
+        {/* =================================   complex   ============================================== */}
+
         {favorites && favorites.length > 0 && (
           <div>
             <h1 className="item_header" > complexes   </h1>
@@ -68,7 +111,7 @@ export default function FavoriteComplex({
                   <button
                     onClick={() => favoriteHandler(complex)}
                     key={complex.id}
-                    className="heartButtons"
+                    className="heartButtons_f"
                   >
                     {favorites.some((fav) => fav.id === complex.id) ? (
                       <img src={heartIcon} alt="Logo of heart" />
@@ -87,26 +130,27 @@ export default function FavoriteComplex({
                     alt={complex.name}
                     style={styles.imageStyles}
                   />
-                  <p style={styles.companyTitle}>{complex.complexName}</p>
-                  <div className="textInfo" >
-                    <p style={styles.complexInfo}>
-                      {complex.address.city}, {complex.address.street}
-                    </p>
-                    <p style={styles.complexInfo}>
-                      Price per sq meter: {complex.price_per_sq_meter}
-                    </p>
-                    <p style={styles.complexFinished}>Date: ...</p>
+
+                  <p className="complex_title_f" >{complex?.complexName}</p>
+                  <div className="textInfo_f" >
+                    <p className="complex_addres_f"  >{complex.address.city} {"  ,  "} {complex.address?.street}</p>
+                    <p className="complex_square_price_f"  >Price per sq meter: {complex.complexDetails?.pricePerSqMeter} </p>
+                    <div className="complex_status_and_rank_container_f">
+                      <p className="complex_status_f" > {get_complex_StatusTranslation(complex.complexDetails?.isFinished, selectedLanguage)}</p>
+                      <p className="complex_rank_f" > {complex.complexDetails?.rank}</p>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         )}
+        {/* ======================================   private apartments    ======================================================== */}
 
         {favoritesPhysical && favoritesPhysical.length > 0 && (
           <div>
             <h1 className="item_header" > private apartments </h1>
-            <div className="same_items"  >
+            <div className="same_items" >
               {/* for physical */}
               {favoritesPhysical &&
                 favoritesPhysical.map((complex, index) => (
@@ -115,7 +159,7 @@ export default function FavoriteComplex({
                     <button
                       onClick={() => favoriteHandlerPhysical(complex)}
                       key={complex.id}
-                      className="heartButtons"
+                      className="heartButtons_f"
                     >
                       {favoritesPhysical.some((fav) => fav.id === complex.id) ? (
                         <img src={heartIcon} alt="Logo of heart" />
@@ -130,27 +174,26 @@ export default function FavoriteComplex({
                     {/* ----------- */}
 
                     <img
-                      onClick={handleprivateAppartmentClick(complex.id)}
+                      onClick={() => handleprivateAppartmentClick(complex.id)}
                       src={complex?.images[0]}
                       alt={complex.name}
                       style={styles.imageStyles}
                     />
-                    <p style={styles.companyTitle}>{complex.name}</p>
-                    <div className="textInfo">
-                      <p style={styles.complexInfo}>
-                        {complex?.address?.city}, {complex.address.street}
-                      </p>
-                      <p style={styles.complexInfo}>
-                        Price per sq meter: {complex.price_per_sq_meter}
-                      </p>
-                      <p style={styles.complexFinished}>Date: ...</p>
+                    <p className="p_apartment_title_f">{complex.privateApartmentName}</p>
+                    <div className="textInfo_f">
+                      <p className="p_apartment_addres_f"  >{complex?.address?.city}{"  ,  "} {complex.address?.address}</p>
+                      <p className="P_apartment_squateproce_f"   >Price per sq meter{"  :  "} {complex?.squarePrice}</p>
+                      <div className="complex_status_and_rank_container_f">
+                        <p className="p_apartment_status_f"  >{get_private_apartment_StatusTranslation(complex?.status, selectedLanguage)}</p>
+                        <p className="p_apartment_rank_f"  >{complex?.rank}</p>
+                      </div>
                     </div>
                   </div>
                 ))}
             </div>
           </div>
         )}
-
+        {/* ==========================================     grounds      ============================================= */}
 
         {favoritesLots && favoritesLots.length > 0 && (
           <div>
@@ -163,7 +206,7 @@ export default function FavoriteComplex({
                     <button
                       onClick={() => favoriteHandlerLots(complex)}
                       key={complex.id}
-                      className="heartButtons"
+                      className="heartButtons_f"
                     >
                       {favoritesLots.some((fav) => fav.id === complex.id) ? (
                         <img src={heartIcon} alt="Logo of heart" />
@@ -177,26 +220,77 @@ export default function FavoriteComplex({
                     </button>
                     {/* ----------- */}
                     <img
-                      onClick={handleLotsClick(complex.id)}
+                      onClick={() => handleLotsClick(complex.id)}
                       src={complex?.images[0]}
                       alt={complex.name}
                       style={styles.imageStyles}
                     />
-                    <p style={styles.companyTitle}>{complex.name}</p>
-                    <div className="textInfo">
-                      <p style={styles.complexInfo}>
-                        {complex.address.city}, {complex.address.street}
-                      </p>
-                      <p style={styles.complexInfo}>
-                        Price per sq meter: {complex.price_per_sq_meter}
-                      </p>
-                      <p style={styles.complexFinished}>Date: ...</p>
+                    <p className="ground_title_f" >{complex?.groundName}</p>
+                    <div className="textInfo_f">
+                      <p className="ground_address_f" >{complex.address.city}{"  ,  "}  {complex.address.address} </p>
+                      <p className="ground_squareprice_f" > Price per sq meter: {complex.squarePrice} </p>
+                      <div className="complex_status_and_rank_container_f">
+                        <p className="ground_status_f" >{get_ground_StatusTranslation(complex.status, selectedLanguage)}</p>
+                        <p className="ground_rank_f" >{complex.rank}</p>
+                      </div>
                     </div>
                   </div>
                 ))}
             </div>
           </div>
         )}
+        {/* ========================================    apartments    =============================================== */}
+
+        {favoriteApartment && favoriteApartment.length > 0 && (
+          <div>
+            <h1 className="item_header" > apartments</h1>
+            <div className="same_items"  >
+              {/* for Lots */}
+              {favoriteApartment &&
+                favoriteApartment.map((complex, index) => (
+                  <div className="card" key={index}>
+                    <button
+                      onClick={() => favorite_apartment_handler(complex)}
+                      key={complex.id}
+                      className="heartButtons_f"
+                    >
+                      {favoriteApartment.some((fav) => fav.id === complex.id) ? (
+                        <img src={heartIcon} alt="Logo of heart" />
+                      ) : (
+                        <img
+                          src={heartIconEmpty}
+                          alt="Logo of empty heart"
+                          style={{ width: "30px", height: "30px" }}
+                        />
+                      )}
+                    </button>
+                    {/* ----------- */}
+                    <img
+                      onClick={() => handleAppartmentClick(complex.id)}
+                      src={complex?.images[0]}
+                      alt={complex.name}
+                      style={styles.imageStyles}
+                    />
+                    <p className="apartment_title_f" >{complex?.apartmentName}</p>
+                    <div className="textInfo_f">
+                      <p className="apartment_adres_f" > {complex.address?.city}, {complex.address?.address}</p>
+                      <p className="apartment_squareproce_f"  > Price per sq meter: {complex.internalApartmentName?.square_price}</p>
+                      <div className="complex_status_and_rank_container_f" >
+                        <p  className="apartment_status_f" >{get_complex_StatusTranslation(complex.internalApartmentName?.status , selectedLanguage)}</p>
+                        <p  className="apartment_rank_f" >{complex.internalApartmentName?.rank}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        )}
+
+        {/* ======================================================================================================== */}
+
+
+
+
       </div>
     </div>
   );
