@@ -22,9 +22,8 @@ export default function Header({
   favoritesLots,
   favoritesPhysical,
 }) {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }

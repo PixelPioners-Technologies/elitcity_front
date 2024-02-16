@@ -13,6 +13,11 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import private_apartment_location_icon from "../location_icons/private_apartment2.png";
+import metro from "../assets/Metro.svg";
+import aptiaqi from "../assets/Aptiaqi.svg";
+import supermarket from "../assets/Supermarket.svg";
+import skveri from "../assets/skveri.svg";
+
 
 const normalizePrivateApartmentData = (data, lang) => {
   return {
@@ -28,6 +33,20 @@ const normalizePrivateApartmentData = (data, lang) => {
     isAvailable: data.internal_private_apartment_name.is_available,
     visibility: data.internal_private_apartment_name.visibiliti,
     rank: data.internal_private_apartment_name.rank,
+
+    rooms: data.internal_private_apartment_name.rooms,
+    kitchen: data.internal_private_apartment_name.kitchen,
+    Bathroom: data.internal_private_apartment_name.Bathroom,
+    bedroom: data.internal_private_apartment_name.bedroom,
+    Balcony: data.internal_private_apartment_name.Balcony,
+
+
+    metro: data.internal_private_apartment_name.metro,
+    pharmacy: data.internal_private_apartment_name.pharmacy,
+    supermarket: data.internal_private_apartment_name.supermarket,
+    square: data.internal_private_apartment_name.square,
+
+
     address: {
       city: data[`private_apartment_address_${lang}`][`city_${lang}`],
       parentDistrict:
@@ -41,7 +60,7 @@ const normalizePrivateApartmentData = (data, lang) => {
     },
     images: data.private_apartment_images,
     privateApartmentName: data[`private_apartment_name_${lang}`],
-    testPrivateField: data[`test_private_field_${lang}`],
+    about: data[`about_${lang}`],
   };
 };
 
@@ -78,7 +97,7 @@ export default function EachPrivateAppartment({
       const data = response.data;
       const normadata = normalizePrivateApartmentData(data, selectedLanguage);
       setGround(normadata);
-
+      console.log(data)
       // Update sliderImages state with all images from the fetched data
       const sliderImagesFromData = normadata.images.map((imgUrl, index) => ({
         id: index,
@@ -95,6 +114,9 @@ export default function EachPrivateAppartment({
   }, [ground]); // This effect will run after 'ground' has been updated
 
   // ---------------------------------------------------------------------------------------------
+
+
+
 
   const cardStatusSettingLanguage = (lang, status) => {
     const statusLanguageInfo = {
@@ -151,7 +173,20 @@ export default function EachPrivateAppartment({
       request_call: "Call request",
       status: "Status",
       views: "Views",
-      description: "Description",
+      description: 'Description',
+
+      rooms: 'Rooms',
+      kitchen: 'Kitchen',
+      Bathroom: 'Bathroom',
+      bedroom: 'Bedroom',
+      Balcony: 'Balcony',
+
+      metro: "Metro",
+      pharmacy: "Pharmacy",
+      supermarket: "Supermarket",
+      square: "Square",
+      nearObjects: "Near Objects",
+
     };
 
     switch (lang) {
@@ -167,6 +202,21 @@ export default function EachPrivateAppartment({
         languageInfo.status = "Status";
         languageInfo.views = "Views";
         languageInfo.description = "Description";
+
+        languageInfo.rooms = "Rooms";
+        languageInfo.kitchen = "Kitchen";
+        languageInfo.Bathroom = "Bathroom";
+        languageInfo.bedroom = "Bedroom";
+        languageInfo.Balcony = "Balcony";
+
+        languageInfo.metro = "Metro";
+        languageInfo.pharmacy = "Pharmacy";
+        languageInfo.supermarket = "Supermarket";
+        languageInfo.square = "Square";
+        languageInfo.nearObjects = "Near Objects";
+
+
+
         break;
 
       case "ka":
@@ -181,6 +231,19 @@ export default function EachPrivateAppartment({
         languageInfo.status = "სტატუსი";
         languageInfo.views = "ნახვები";
         languageInfo.description = "აღწერილობა";
+        languageInfo.rooms = "ოთახები";
+        languageInfo.kitchen = "სამზარეულო";
+        languageInfo.Bathroom = "საპირფარეშო";
+        languageInfo.bedroom = "საძინებელი";
+        languageInfo.Balcony = "აივანი";
+
+        languageInfo.metro = "მეტრო";
+        languageInfo.pharmacy = "აფთიაქი";
+        languageInfo.supermarket = "სუპერმარკეტი";
+        languageInfo.square = "სკვერი";
+        languageInfo.nearObjects = "ახლო მდებარე ობიექტები";
+
+
         break;
 
       case "ru":
@@ -195,6 +258,18 @@ export default function EachPrivateAppartment({
         languageInfo.status = "Положение дел";
         languageInfo.views = "Взгляды";
         languageInfo.description = "Описание";
+        languageInfo.rooms = "Номера";
+        languageInfo.kitchen = "Кухня";
+        languageInfo.Bathroom = "Ванная комната";
+        languageInfo.bedroom = "Спальная комната";
+        languageInfo.Balcony = "Балкон";
+
+        languageInfo.metro = "Метро";
+        languageInfo.pharmacy = "Аптека";
+        languageInfo.supermarket = "Супермаркет";
+        languageInfo.square = "Площадь";
+        languageInfo.nearObjects = "Близкие объекты";
+
         break;
     }
     return languageInfo;
@@ -265,7 +340,7 @@ export default function EachPrivateAppartment({
         <div className="lands_image">
           {wordData && ( // Check if wordData is not null/undefined before rendering
             <img
-            id="lands_image"
+              id="lands_image"
               src={wordData.value}
               alt={`Complex ${wordData.id}`}
               height="450"
@@ -283,9 +358,8 @@ export default function EachPrivateAppartment({
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData.id === data.id ? "clicked" : ""} ${
-                      clickedIndex === i ? "enlarge" : ""
-                    }`}
+                    className={`${wordData.id === data.id ? "clicked" : ""} ${clickedIndex === i ? "enlarge" : ""
+                      }`}
                     src={data.value}
                     alt={`Complex ${data.id}`}
                     onClick={() => handleClick(i + carouselPosition)}
@@ -362,22 +436,16 @@ export default function EachPrivateAppartment({
               {handleStaticTextLanguageChange(selectedLanguage).square_price}:{" "}
               {currenceChangeState
                 ? ground.squarePrice * getCorrencyRate
-                : ground.squarePrice}
-            </p>
-            <p style={{ color: "#C2BFBF" }}>
-              {handleStaticTextLanguageChange(selectedLanguage).status}:{" "}
-              {cardStatusSettingLanguage(selectedLanguage, ground.status)}
-            </p>
-            <p style={{ color: "#C2BFBF" }}>
-              {" "}
-              {handleStaticTextLanguageChange(selectedLanguage).area} :{" "}
-              {ground.area} m²{" "}
-            </p>
-            <p style={{ color: "#C2BFBF" }}>
-              {" "}
-              {handleStaticTextLanguageChange(selectedLanguage).rank}:{" "}
-              {ground.rank}
-            </p>
+                : ground.squarePrice}</p>
+            <p style={{ color: "#C2BFBF" }}>{handleStaticTextLanguageChange(selectedLanguage).status}: {cardStatusSettingLanguage(selectedLanguage, ground.status)}</p>
+            <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).area} : {ground.area} m²  </p>
+            <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).rank}: {ground.rank}</p>
+            <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).rooms}     :{ground.rooms}   </p>
+            <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).kitchen}  : {ground.kitchen}   </p>
+            <p style={{ color: "#C2BFBF" }}>  {handleStaticTextLanguageChange(selectedLanguage).Bathroom}  :{ground.Bathroom}   </p>
+            <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).bedroom} : {ground.bedroom}   </p>
+            <p style={{ color: "#C2BFBF" }}>  {handleStaticTextLanguageChange(selectedLanguage).Balcony}  :{ground.Balcony}   </p>
+
           </div>
           {/* დარეკვისა და ნომრის ჩვენების სექცია */}
           <div className="numberAndCallRequestBox">
@@ -422,23 +490,9 @@ export default function EachPrivateAppartment({
         <div className="aboud_and_map_child_container_P">
           {/* about container  */}
           <div>
-            <h1 className="about_land_header_P">
-              {" "}
-              {
-                handleStaticTextLanguageChange(selectedLanguage).description
-              }{" "}
-            </h1>
-            <p className="about_land_P">
-              What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
-              printing and typesetting industry. Lorem Ipsum has been the
-              industry's standard dummy text ever since the 1500s, when an
-              unknown printer took a galley of type and scrambled it to make a
-              type specimen book. It has survived not only five centuries, but
-              also the leap into electronic typesetting, remaining essentially
-              unchanged. It was popularised in the 1960s with the release of
-              Letraset sheets containing Lorem Ipsum passages, and more recently
-              with desktop publishing software like Aldus PageMaker including
-              versions of Lorem Ipsum.
+            <h1 className='about_land_header_P' > {handleStaticTextLanguageChange(selectedLanguage).description} </h1>
+            <p className='about_land_P' >
+              {ground.about}
             </p>
           </div>
 
@@ -472,8 +526,73 @@ export default function EachPrivateAppartment({
             </GoogleMap>
           </div>
         </div>
+
+        <div className="textBoxOfAxloMdebare">
+          {/* (START) ახლო მდებარე ობიექტები box */}
+          <div className="textBoxOfH4axloMdebareObieqtebi">
+            <h4 style={{ color: "white" }}>
+              {handleStaticTextLanguageChange(selectedLanguage).nearObjects}
+            </h4>
+          </div>
+          <div className="iconAndItsText">
+            {ground?.metro && (
+              <>
+                <img src={metro} alt="metro" />
+                <p>
+                  {
+                    handleStaticTextLanguageChange(selectedLanguage)
+                      .metro
+                  }
+                </p>
+              </>
+            )}
+          </div>
+          <div className="iconAndItsText">
+            {ground?.supermarket && (
+              <>
+                <img src={supermarket} alt="supermarket" />
+                <p>
+                  {
+                    handleStaticTextLanguageChange(selectedLanguage)
+                      .supermarket
+                  }
+                </p>
+              </>
+            )}
+          </div>
+          <div className="iconAndItsText">
+            {ground?.pharmacy && (
+              <>
+                <img src={aptiaqi} alt="aptiaqi" />
+                <p>
+                  {
+                    handleStaticTextLanguageChange(selectedLanguage)
+                      .pharmacy
+                  }
+                </p>
+              </>
+            )}
+          </div>
+          <div className="iconAndItsText">
+            {ground?.square && (
+              <>
+                <img src={skveri} alt="skveri" />
+                <p>
+                  {
+                    handleStaticTextLanguageChange(selectedLanguage)
+                      .square
+                  }
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+
+
+
+
       </div>
-      </div>
+    </div>
   );
 }
 
