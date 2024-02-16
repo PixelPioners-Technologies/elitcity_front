@@ -141,27 +141,36 @@
 /* ========================================    apartments    =============================================== */
 
 
-.apartment_title_f{
+.apartment_title_f {
   margin-top: 3px;
   color: aliceblue;
 }
 
-.apartment_adres_f{
+.apartment_adres_f {
   color: aliceblue;
   padding-right: 10px;
 }
 
-.apartment_squareproce_f{
+.apartment_squareproce_f {
   color: aliceblue;
 }
 
 
-.apartment_status_f{
+.apartment_status_f {
   color: rgb(122, 122, 122);
 
 }
 
-.apartment_rank_f{
+.apartment_rank_f {
   color: aliceblue;
 
 }
+
+/* 
+@media screen and (max-width:500px) {
+  .ComplexBoxInFavoritesPages {
+display: flex;
+justify-content: center;
+
+  }
+} */

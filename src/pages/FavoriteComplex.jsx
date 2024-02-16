@@ -94,6 +94,69 @@ export default function FavoriteComplex({
   };
 
 
+
+  const language_chage = (lang) => {
+    var languageInfo = {
+      complexes: "Complexes",
+      private_apartments: "Private Appartments",
+      minPrice: "From m²",
+      maxPrice: "To m²",
+      meterPriceHomePage: "The price of m²",
+      dan: "from",
+      mde: "to",
+      ground : "Land"
+
+    };
+
+    switch (lang) {
+      case "en":
+        languageInfo.complexes = "Complexes";
+        languageInfo.private_apartments = "Private Appartments";
+        languageInfo.minPrice = "From m²";
+        languageInfo.maxPrice = "To m²";
+        languageInfo.meterPriceHomePage = "The price of m²";
+        languageInfo.dan = "from";
+        languageInfo.mde = "to";
+        languageInfo.ground = "Land";
+
+
+        break;
+
+      case "ka":
+        languageInfo.complexes = "კომპლექსები";
+        languageInfo.private_apartments = "კერძო ბინები";
+        languageInfo.minPrice = "დან მ²";
+        languageInfo.maxPrice = "მდე მ²";
+        languageInfo.meterPriceHomePage = "მ²- ის ფასი";
+        languageInfo.dan = "დან";
+        languageInfo.mde = "მდე";
+        languageInfo.ground = "ნაკვეთები";
+
+
+        break;
+
+      case "ru":
+        languageInfo.complexes = "Комплексы";
+        languageInfo.private_apartments = "Частные апартаменты";
+        languageInfo.minPrice = "из м²";
+        languageInfo.maxPrice = "до м²";
+        languageInfo.meterPriceHomePage = "Цена м²";
+        languageInfo.dan = "из";
+        languageInfo.mde = "до";
+        languageInfo.ground = "Земля";
+
+
+        break;
+    }
+    return languageInfo;
+  };
+
+
+
+
+
+  
+
   return (
     <div>
       <div className="ComplexBoxInFavoritesPages">
@@ -101,7 +164,7 @@ export default function FavoriteComplex({
 
         {favorites && favorites.length > 0 && (
           <div>
-            <h1 className="item_header" > complexes   </h1>
+            <h1 className="item_header" > {language_chage(selectedLanguage).complexes}</h1>
             <div className="same_items"  >
 
               {/* for Complex */}
@@ -134,7 +197,7 @@ export default function FavoriteComplex({
                   <p className="complex_title_f" >{complex?.complexName}</p>
                   <div className="textInfo_f" >
                     <p className="complex_addres_f"  >{complex.address.city} {"  ,  "} {complex.address?.street}</p>
-                    <p className="complex_square_price_f"  >Price per sq meter: {complex.complexDetails?.pricePerSqMeter} </p>
+                    <p className="complex_square_price_f"  >{language_chage(selectedLanguage).meterPriceHomePage}{"  :  "} {complex.complexDetails?.pricePerSqMeter} </p>
                     <div className="complex_status_and_rank_container_f">
                       <p className="complex_status_f" > {get_complex_StatusTranslation(complex.complexDetails?.isFinished, selectedLanguage)}</p>
                       <p className="complex_rank_f" > {complex.complexDetails?.rank}</p>
@@ -149,7 +212,7 @@ export default function FavoriteComplex({
 
         {favoritesPhysical && favoritesPhysical.length > 0 && (
           <div>
-            <h1 className="item_header" > private apartments </h1>
+            <h1 className="item_header" > {language_chage(selectedLanguage).private_apartments} </h1>
             <div className="same_items" >
               {/* for physical */}
               {favoritesPhysical &&
@@ -182,7 +245,7 @@ export default function FavoriteComplex({
                     <p className="p_apartment_title_f">{complex.privateApartmentName}</p>
                     <div className="textInfo_f">
                       <p className="p_apartment_addres_f"  >{complex?.address?.city}{"  ,  "} {complex.address?.address}</p>
-                      <p className="P_apartment_squateproce_f"   >Price per sq meter{"  :  "} {complex?.squarePrice}</p>
+                      <p className="P_apartment_squateproce_f"   >{language_chage(selectedLanguage).meterPriceHomePage}{"  :  "} {complex?.squarePrice}</p>
                       <div className="complex_status_and_rank_container_f">
                         <p className="p_apartment_status_f"  >{get_private_apartment_StatusTranslation(complex?.status, selectedLanguage)}</p>
                         <p className="p_apartment_rank_f"  >{complex?.rank}</p>
@@ -197,7 +260,7 @@ export default function FavoriteComplex({
 
         {favoritesLots && favoritesLots.length > 0 && (
           <div>
-            <h1 className="item_header" > grounds  </h1>
+            <h1 className="item_header" > {language_chage(selectedLanguage).ground}  </h1>
             <div className="same_items"  >
               {/* for Lots */}
               {favoritesLots &&
@@ -228,7 +291,7 @@ export default function FavoriteComplex({
                     <p className="ground_title_f" >{complex?.groundName}</p>
                     <div className="textInfo_f">
                       <p className="ground_address_f" >{complex.address.city}{"  ,  "}  {complex.address.address} </p>
-                      <p className="ground_squareprice_f" > Price per sq meter: {complex.squarePrice} </p>
+                      <p className="ground_squareprice_f" > {language_chage(selectedLanguage).meterPriceHomePage}{"  :  "} {complex.squarePrice} </p>
                       <div className="complex_status_and_rank_container_f">
                         <p className="ground_status_f" >{get_ground_StatusTranslation(complex.status, selectedLanguage)}</p>
                         <p className="ground_rank_f" >{complex.rank}</p>
@@ -274,7 +337,7 @@ export default function FavoriteComplex({
                     <p className="apartment_title_f" >{complex?.apartmentName}</p>
                     <div className="textInfo_f">
                       <p className="apartment_adres_f" > {complex.address?.city}, {complex.address?.address}</p>
-                      <p className="apartment_squareproce_f"  > Price per sq meter: {complex.internalApartmentName?.square_price}</p>
+                      <p className="apartment_squareproce_f"  > {language_chage(selectedLanguage).meterPriceHomePage}{"  :  "} {complex.internalApartmentName?.square_price}</p>
                       <div className="complex_status_and_rank_container_f" >
                         <p  className="apartment_status_f" >{get_complex_StatusTranslation(complex.internalApartmentName?.status , selectedLanguage)}</p>
                         <p  className="apartment_rank_f" >{complex.internalApartmentName?.rank}</p>
