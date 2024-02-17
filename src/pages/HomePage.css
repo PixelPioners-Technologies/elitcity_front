@@ -231,7 +231,7 @@
   left: 0;
   height: 1em;
   width: 1em;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   border: 4px;
   border-color: #fff;
   background-color: #ffffff;

@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap");
 
-.ComplexBodyBox {
+.complex_page_div {
   padding: 0 80px;
-  /* border: 1px solid red; */
+  border: 1px solid red;
 }
 .for_comfort {
   display: flex;
@@ -11,30 +11,28 @@
   justify-content: center;
   height: auto;
   margin-top: 0px;
-  /* border: 1px solid red; */
+  border: 1px solid red;
 }
 .column_div_for_comfort {
   flex-direction: column;
-}
 
 .flex_end {
   width: 40%;
   /* border: 1px solid red; */
   margin-top: 20px;
 }
-
 .motionBox {
   border: 1px solid white;
+  margin-top: 20px;
+}
+.forPaddingOfInfoFieldOfComplexsPlansMaps {
+  /* border: 1px solid green; */
+  padding: 15px;
 }
 .infoFieldOfComplexsPlansMaps {
   display: flex;
   justify-content: space-between;
-  height: 70px;
-  padding: 0 20px;
   /* border: 1px solid red; */
-}
-.filter_cont_for_complexes {
-  margin-bottom: 40px;
 }
 .complexInfoAndCountShowBox {
   display: flex;
@@ -44,23 +42,43 @@
 .projectsPlansMapsSortingAndDollarBox {
   display: flex;
   align-items: center;
+  justify-content: space-around;
   gap: 20px;
+  /* width: 35%; */
+  /* border: 2px solid blue; */
+}
+.project_div_parent {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+.projects_name {
+  color: white;
+  font-size: 17px;
+}
+.line_sizes {
+  width: 25px;
+  height: 5px;
+}
+.arrow_for_complex {
+  display: none;
+}
+.sort_icon_for_complex_mob {
+  display: none;
+  /* border: 1px solid red; */
 }
 .mapAndLogoImg {
   display: flex;
   align-items: center;
-  /* border: 1px solid red; */
-   /* height: 33px; */
-  /* width: 159px;  */
   gap: 7px;
   padding-left: 10px;
-  /* border: 1.5px solid #ada9a9; */
-
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
-.styles_for_top_map{
+.styles_for_top_map {
   height: 33px;
-  width: 159px; 
+  width: 159px;
   gap: 7px;
   padding-right: 80px;
   padding-left: 18px;
@@ -69,17 +87,14 @@
   mix-blend-mode: hard-light;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: #fff;
-  /* margin-right: 0px; */
-}
 
-.map_styles{
+}
+.map_styles {
+
   /* border: 1px solid red; */
   display: flex;
   align-items: center;
   width: 120px;
-  /* gap: 30px; */
-  /* padding: 20px; */
-
 }
 .textButtonContainer:hover .textButton {
   cursor: pointer;
@@ -112,27 +127,28 @@
 .menu-open {
   transform: scaleY(1);
 }
-
-/* /////////////////////////////// */
-
-.currencyBox {
+.currency-Box {
+  /* width: 70px; */
   display: flex;
   align-items: center;
+  /* border: 1px solid red; */
 }
 .sort_text {
   display: none;
 }
 .switch {
-  width: 90px;
-  height: 40px;
   background-color: black;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
-  border-radius: 50px;
-  padding: 10px;
+  /* padding: 10px; */
   cursor: pointer;
+}
+.lari_and_dolari_style {
+  width: 100px;
+  height: 40px;
+  /* border: 1px solid green; */
 }
 .switch[data-ison="true"] {
   justify-content: flex-end;
@@ -141,7 +157,6 @@
   width: 35px;
   height: 35px;
   background-color: white;
-  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -170,7 +185,6 @@
   border: 1px solid white;
   overflow: hidden;
   padding: 20px 20px;
-  /* border-radius: 10px; */
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
   transition: transform 0.3s ease-in-out;
   &:hover {
@@ -181,16 +195,12 @@
 .heartbuttonAndImageBox {
   position: relative;
   text-align: center;
-
-  /* border: 1px solid red; */
 }
 .heartButtonBox {
   width: 210px;
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  /* margin-top: 5px; */
-  /* border: 1px solid red; */
 }
 .heartButtons {
   padding: 0;
@@ -213,28 +223,22 @@
 .company_title_on_card {
   color: #f1eeee;
   text-align: center;
-
 }
 
 .textinfo_and_company_logo {
   display: flex;
   margin-top: 10px;
-
 }
 .company_logo_3 {
-  /* margin-top: 10px; */
   width: 40px;
   border-radius: 50%;
   margin-left: 30px;
 }
 .textInfo {
-  /* margin-top: 10px; */
   display: flex;
   flex-direction: column;
-  /* padding-left: 10px; */
   gap: 10px;
   width: 300px;
-
 }
 .price_and_value {
   display: flex;
@@ -265,10 +269,10 @@
   background-color: transparent;
   color: #f1eeee;
   border: none;
-  padding: 10px 20px; /* Adjust padding to match the size in the photo */
-  font-weight: bold; /* If the font is bold in the photo */
-  border-radius: 5px; /* Adjust the border-radius to match the button corners in the photo */
-  font-size: 16px; /* Adjust font size to match the photo */
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   transition: background-color 0.3s ease;
@@ -284,13 +288,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* padding-top: 70px; */
   gap: 23px;
-  /* padding-top: 65px; */
   margin-top: 20px;
-  /* border: 1px solid rgb(255, 238, 0); */
 }
 .find_map_div {
+  width: 100%;
   /* border: 2px solid green; */
   width: 65%;
   display: flex;
@@ -347,24 +349,11 @@
     rgba(0, 0, 0, 0.192) 0px 5.10423px 9.18761px -3.375px,
     rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px;
 }
-.project_div_parent{
-  /* border: 1px solid red; */
-  display: flex;
-  align-items: center;
-  gap: 7px;
 
-}
-.projects_name{
-  color: white;
-  font-size: 17px;
-}
-.line_sizes{
-  width: 25px;
-  height: 5px;
-
-
-}
 @media screen and (max-width: 500px) {
+  .filter_cont_for_complexes {
+    /* display: none; */
+  }
   .numbers_link {
     border: none;
     display: flex;
@@ -393,10 +382,6 @@
   .komplex_text {
     font-size: 14px;
   }
-  .switch {
-    width: 40px;
-    height: 40px;
-  }
   .sortAndArrowDownImgBox {
     font-size: 12px;
   }
@@ -412,23 +397,134 @@
   .google_map {
     width: 200px;
   }
-  .projectsPlansMapsSortingAndDollarBox {
-    gap: 5px;
-    /* border: 2px solid green; */
-  }
+
   .close_cont {
     display: none;
   }
   .filter_cont_for_complex {
     gap: 10px;
   }
-
   .infoFieldOfComplexsPlansMaps {
     display: flex;
     padding-left: 0;
-    /* border: 1px solid green; */
+  }
+  .currency-sign.active {
+    display: none;
+  }
+  .sort_icon_for_complex {
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    /* margin-left: -  10px; */
+  }
+  .projectsPlansMapsSortingAndDollarBox {
+    gap: 5px;
+    /* border: 2px solid green; */
+    display: flex;
+    align-items: center;
+  }
+  .forPaddingOfInfoFieldOfComplexsPlansMaps {
+    padding: 10px;
+  }
+  .project_div_parent, .sort_hide_resp{
+    display: none;
+  }
+  .arrow_for_complex, .sort_icon_for_complex_mob{
+    display: block;
+  }
+
+  .sort_icon_for_complex_mob{
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+  }
+  .sortAndArrowDownImgBox{
+    /* border: 1px solid red; */
+  }
+  .styles_for_top_map{
+
+    display: flex;
+    flex-direction: row;
+    display: block;
+    /* border: 1px solid red; */
+    align-items: center;
+    display: block;
+  }
+  .mapAndLogoImg{
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    /* width: 20px; */
+  }
+  .textButton{
+    display: block;
+    color: wheat;
+  }
+  .close_cont{
+    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
+  }
+  .find_map_div {
+    border: 1px solid green;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    /* width: 0%;
+    gap: 0; */
+  }
+  .gap_short{
+    width: auto !important;
+    /* width: 2px !important; */
+  }
+  .map_styles{
+    /* width: 200px; */
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* text-align: center; */
+  }
+  .for_comfort{
+    /* display: none; */
+  }
+  .complex_page_div {
+    padding: 0 10px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ---------- M O D A L S ------------ */
 
@@ -541,3 +637,4 @@
   .currency-sign.active {
     display: none;
   }
+

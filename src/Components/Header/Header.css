@@ -65,9 +65,9 @@ nav ul {
 }
 .heartBox {
   background-color: white;
-  width: 39px;
-  height: 39px;
-  border-radius: 20px;
+  width: 30px;
+  height: 30px;
+  /* border-radius: 20px; */
   display: flex;
   justify-content: center;
 }
