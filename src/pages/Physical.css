@@ -216,7 +216,7 @@ input[type="checkbox"] {
   /* border: 2PX solid red; */
   display: flex;
   /* align-items: center; */
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   /* padding: 0 30px; */
   gap: 29px;

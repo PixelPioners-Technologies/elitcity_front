@@ -19,23 +19,24 @@ import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
 
 // images
-import binebisRaodenoba from "../assets/key.svg";
-import korpusebisRaodenoba from "../assets/buildings.svg";
-import parti from "../assets/Room.svg";
-import cherisSimagle from "../assets/cherisSimagle.svg";
-import sartulianoba from "../assets/sartulianoba.svg";
-import konstruqcia from "../assets/konstruqcia.svg";
-import parkingi from "../assets/parking_.svg";
-import dacva from "../assets/dacvaCamera.svg";
-import otaxebi from "../assets/otaxebi.svg";
-import chabareba from "../assets/chabarebaTetriKarkasi.svg";
-import sinatle from "../assets/sinatle.svg";
-import tenianoba from "../assets/tenianoba.svg";
-import kvebisObieqti from "../assets/kvebisObieqtebi.svg";
-import lipti from "../assets/lipti.svg";
-import shlagbaumi from "../assets/shlagbaumi.svg";
-import konsierji from "../assets/konsierji.svg";
-import ezo from "../assets/ezo.svg";
+// import binebisRaodenoba from "../assets/key.svg";
+// import korpusebisRaodenoba from "../assets/buildings.svg";
+// import parti from "../assets/Room.svg";
+// import cherisSimagle from "../assets/cherisSimagle.svg";
+// import sartulianoba from "../assets/sartulianoba.svg";
+// import konstruqcia from "../assets/konstruqcia.svg";
+// import parkingi from "../assets/parking_.svg";
+// import dacva from "../assets/dacvaCamera.svg";
+// import otaxebi from "../assets/otaxebi.svg";
+// import chabareba from "../assets/chabarebaTetriKarkasi.svg";
+// import sinatle from "../assets/sinatle.svg";
+// import tenianoba from "../assets/tenianoba.svg";
+
+// import kvebisObieqti from "../assets/kvebisObieqtebi.svg";
+// import lipti from "../assets/lipti.svg";
+// import shlagbaumi from "../assets/shlagbaumi.svg";
+// import konsierji from "../assets/konsierji.svg";
+// import ezo from "../assets/ezo.svg";
 import metro from "../assets/Metro.svg";
 import aptiaqi from "../assets/Aptiaqi.svg";
 import supermarket from "../assets/Supermarket.svg";
@@ -43,6 +44,32 @@ import skveri from "../assets/skveri.svg";
 import forMapPhoto from "../assets/ComplexesPhotos/1zz.jpg";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import private_apartment_location_icon from "../location_icons/private_apartment2.png";
+
+
+import binebisRaodenoba from '../icons/gasagebi.png'
+import korpusebisRaodenoba from '../icons/korpusi.png'
+import parti from '../icons/farti.png'
+import cherisSimagle from '../icons/cheris_simagle.png'
+import sartulianoba from '../icons/sartulianoba.png'
+import konstruqcia from '../icons/konstruqcia.png'
+import parkingi from '../icons/parkingi.png'
+import dacva from '../icons/video_kamera.png'
+import otaxebi from '../icons/otaxebi.png'
+import chabareba from '../icons/chabareba.png'
+import sinatle from '../icons/sinatle.png'
+import tenianoba from '../icons/tenianoba.png'
+import kvebisObieqti from '../icons/kvebis_obieqti.png'
+import lipti from '../icons/lifti.png'
+import shlagbaumi from '../icons/shlagbaumi.png'
+import konsierji from '../icons/konsierji.png'
+import ezo from "../icons/ezo.png"
+
+
+
+
+
+
+
 
 // ------------------
 import "./Physical.css";
@@ -794,26 +821,28 @@ export default function EachComplex({
               </button>
 
 
+
+
               {/* ----Dollar and Lari Toggle button */}
-              <div className="currencyBox">
+              <div className="currencyBox__c">
                 <div
-                  className="switch"
+                  className="switch__c"
                   data-ison={isOn}
                   onClick={() => {
                     toggleSwitch();
                     HandleStateChange();
                   }}
                 >
-                  <motion.div className="handle" layout transition={spring}>
+                  <motion.div className="handle__c" layout transition={spring}>
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign ${isOn ? "active" : ""}`}
+                      className={`currency-sign__c ${isOn ? "active" : ""}`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign ${!isOn ? "active" : ""}`}
+                      className={`currency-sign__c ${!isOn ? "active" : ""}`}
                     />
                   </motion.div>
                 </div>
@@ -875,20 +904,18 @@ export default function EachComplex({
               </div>
 
               <div className="first_and_second_cont">
-                <p style={{ color: "#C2BFBF" }}>{handle_P_StatusButtonLanguageChange(selectedLanguage).buildings}</p>
-
+                <p style={{ color: "#C2BFBF" }} className="chabareba" >{handle_P_StatusButtonLanguageChange(selectedLanguage).buildings}</p>
+                <p style={{ color: "#FFFFFF", width: '100px' }}>{eachPrivateApartment?.numberOfBuildings}</p>
               </div>
 
-              <p style={{ color: "#C2BFBF" }}>
-                {handle_P_StatusButtonLanguageChange(selectedLanguage).flooring}
-              </p>
-            </div>
 
-            <div className="eachTextOnListTextsTwo">
+              <div className="first_and_second_cont">
+                <p style={{ color: "#C2BFBF" }} className="chabareba"  >{handle_P_StatusButtonLanguageChange(selectedLanguage).flooring}</p>
+                <p style={{ color: "#FFFFFF" }}>{eachPrivateApartment?.numberOfFloors}</p>
+              </div>
 
-              <p style={{ color: "#FFFFFF" }}>
-                {eachPrivateApartment?.numberOfFloors}
-              </p>
+
+
             </div>
           </div>
           {/* დარეკვისა და ნომრის ჩვენების სექცია */}
@@ -1049,11 +1076,7 @@ export default function EachComplex({
         {/* ეს დივი არის ..კომპლექსის შესახებ'' ესეთი წარწერა რომაა და true/false-ის მეშვეობით
         რომ ვფილტრავთ, მაგალითად სართულების ოდენობა, კამერა, ოთახები და ა.შ. */}
         <div>
-          <h4
-            style={{ color: "white", marginTop: "20px", marginBottom: "10px" }}
-          >
-            {handle_P_StatusButtonLanguageChange(selectedLanguage).aboutComplex}
-          </h4>
+          <h4 style={{ color: "white", marginTop: "20px", marginBottom: "10px", marginLeft: "80px" }} >{handle_P_StatusButtonLanguageChange(selectedLanguage).aboutComplex}</h4>
           <div className="shidaInformaciaIconebisBox">
             {/* სათითაო icons და ტექსტი */}
             <div className="eachDivBoxOfIcons">
@@ -1327,7 +1350,7 @@ export default function EachComplex({
 
             {/* iwyeba:   inprastruqturisIconsBox */}
             <div className="inprastruqturisIconsBigBox">
-              <h2>
+              <h2 className="hh2">
                 {" "}
                 {
                   handle_P_StatusButtonLanguageChange(selectedLanguage)
@@ -1460,99 +1483,93 @@ export default function EachComplex({
       </div>
 
       <div className="textBoxOfH4axloMdebareObieqtebi">
-        <h4 style={{ color: "white" }}>
+
+        <div className="make_middle_space" >
+
+          <div className="axloMdebareObieqtebiBox">
+            <div className="textBoxOfAxloMdebare">
+        <h4 style={{ color: "white" , marginTop: "40px" }}>
           {handle_P_StatusButtonLanguageChange(selectedLanguage).nearObjects}
         </h4>
-        <div className="axloMdebareObieqtebiBox">
-          <div className="textBoxOfAxloMdebare">
-            <div className="iconAndItsText">
-
-
-              {eachPrivateApartment?.metro && (
-                <>
-                  <img src={metro} alt="metro" />
-                  <p>
-                    {
-                      handle_P_StatusButtonLanguageChange(selectedLanguage)
-                        .metro
-                    }
-                  </p>
-                </>
-              )}
+              <div className="iconAndItsText">
+                {eachPrivateApartment?.metro && (
+                  <>
+                    <img src={metro} alt="metro" />
+                    <p>{handle_P_StatusButtonLanguageChange(selectedLanguage).metro}</p>
+                  </>
+                )}
+              </div>
+              <div className="iconAndItsText">
+                {eachPrivateApartment?.supermarket && (
+                  <>
+                    <img src={supermarket} alt="supermarket" />
+                    <p>{handle_P_StatusButtonLanguageChange(selectedLanguage).supermarket}</p>
+                  </>
+                )}
+              </div>
+              <div className="iconAndItsText">
+                {eachPrivateApartment?.pharmacy && (
+                  <>
+                    <img src={aptiaqi} alt="aptiaqi" />
+                    <p>
+                      {
+                        handle_P_StatusButtonLanguageChange(selectedLanguage)
+                          .pharmacy
+                      }
+                    </p>
+                  </>
+                )}
+              </div>
+              <div className="iconAndItsText">
+                {eachPrivateApartment?.square && (
+                  <>
+                    <img src={skveri} alt="skveri" />
+                    <p>
+                      {
+                        handle_P_StatusButtonLanguageChange(selectedLanguage)
+                          .square
+                      }
+                    </p>
+                  </>
+                )}
+              </div>
             </div>
-            <div className="iconAndItsText">
-              {eachPrivateApartment?.supermarket && (
-                <>
-                  <img src={supermarket} alt="supermarket" />
-                  <p>
-                    {
-                      handle_P_StatusButtonLanguageChange(selectedLanguage)
-                        .supermarket
-                    }
-                  </p>
-                </>
-              )}
-            </div>
-            <div className="iconAndItsText">
-              {eachPrivateApartment?.pharmacy && (
-                <>
-                  <img src={aptiaqi} alt="aptiaqi" />
-                  <p>
-                    {
-                      handle_P_StatusButtonLanguageChange(selectedLanguage)
-                        .pharmacy
-                    }
-                  </p>
-                </>
-              )}
-            </div>
-            <div className="iconAndItsText">
-              {eachPrivateApartment?.square && (
-                <>
-                  <img src={skveri} alt="skveri" />
-                  <p>
-                    {
-                      handle_P_StatusButtonLanguageChange(selectedLanguage)
-                        .square
-                    }
-                  </p>
-                </>
-              )}
-            </div>
-          </div>
 
-          <div className="child_map_container_P ">
-            <GoogleMap
-              id="mapp"
-              mapContainerStyle={{ height: "300px" }}
-              center={mapcenter}
-              zoom={16}
-              options={{
-                gestureHandling: "none",
-                zoomControl: true,
-                scrollwheel: false,
-                disableDoubleClickZoom: true,
-                streetViewControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
+            <div className="child_map_container_P ">
+              <GoogleMap
+                id="mapp"
+                mapContainerStyle={{ height: "300px" }}
+                center={mapcenter}
+                zoom={16}
+                options={{
+                  gestureHandling: "none",
+                  zoomControl: true,
+                  scrollwheel: false,
+                  disableDoubleClickZoom: true,
+                  streetViewControl: false,
+                  mapTypeControl: false,
+                  fullscreenControl: false,
 
-              }}
-
-            >
-              <Marker
-                key={privateApartments.id}
-                position={{
-                  lat: mapcenter.lat,
-                  lng: mapcenter.lng,
                 }}
-                icon={{
-                  url: private_apartment_location_icon,
-                  scaledSize: scalesize,
-                }}
-              />
-            </GoogleMap>
+
+              >
+                <Marker
+                  key={privateApartments.id}
+                  position={{
+                    lat: mapcenter.lat,
+                    lng: mapcenter.lng,
+                  }}
+                  icon={{
+                    url: private_apartment_location_icon,
+                    scaledSize: scalesize,
+                  }}
+                />
+              </GoogleMap>
+            </div>
           </div>
         </div>
+
+
         {/* (END) ახლო მდებარე ობიექტები box -------- */}
 
         {/* ----------- */}

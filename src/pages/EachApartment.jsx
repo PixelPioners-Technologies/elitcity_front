@@ -19,23 +19,23 @@ import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
 
 // images
-import binebisRaodenoba from "../assets/key.svg";
-import korpusebisRaodenoba from "../assets/buildings.svg";
-import parti from "../assets/Room.svg";
-import cherisSimagle from "../assets/cherisSimagle.svg";
-import sartulianoba from "../assets/sartulianoba.svg";
-import konstruqcia from "../assets/konstruqcia.svg";
-import parkingi from "../assets/parking_.svg";
-import dacva from "../assets/dacvaCamera.svg";
-import otaxebi from "../assets/otaxebi.svg";
-import chabareba from "../assets/chabarebaTetriKarkasi.svg";
-import sinatle from "../assets/sinatle.svg";
-import tenianoba from "../assets/tenianoba.svg";
-import kvebisObieqti from "../assets/kvebisObieqtebi.svg";
-import lipti from "../assets/lipti.svg";
-import shlagbaumi from "../assets/shlagbaumi.svg";
-import konsierji from "../assets/konsierji.svg";
-import ezo from "../assets/ezo.svg";
+// import binebisRaodenoba from "../assets/key.svg";
+// import korpusebisRaodenoba from "../assets/buildings.svg";
+// import parti from "../assets/Room.svg";
+// import cherisSimagle from "../assets/cherisSimagle.svg";
+// import sartulianoba from "../assets/sartulianoba.svg";
+// import konstruqcia from "../assets/konstruqcia.svg";
+// import parkingi from "../assets/parking_.svg";
+// import dacva from "../assets/dacvaCamera.svg";
+// import otaxebi from "../assets/otaxebi.svg";
+// import chabareba from "../assets/chabarebaTetriKarkasi.svg";
+// import sinatle from "../assets/sinatle.svg";
+// import tenianoba from "../assets/tenianoba.svg";
+// import kvebisObieqti from "../assets/kvebisObieqtebi.svg";
+// import lipti from "../assets/lipti.svg";
+// import shlagbaumi from "../assets/shlagbaumi.svg";
+// import konsierji from "../assets/konsierji.svg";
+// import ezo from "../assets/ezo.svg";
 import metro from "../assets/Metro.svg";
 import aptiaqi from "../assets/Aptiaqi.svg";
 import supermarket from "../assets/Supermarket.svg";
@@ -43,6 +43,32 @@ import skveri from "../assets/skveri.svg";
 import forMapPhoto from "../assets/ComplexesPhotos/1zz.jpg";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import private_apartment_location_icon from "../location_icons/private_apartment2.png";
+
+
+import binebisRaodenoba from '../icons/gasagebi.png'
+import korpusebisRaodenoba from '../icons/korpusi.png'
+import parti from '../icons/farti.png'
+import cherisSimagle from '../icons/cheris_simagle.png'
+import sartulianoba from  '../icons/sartulianoba.png'
+import konstruqcia from  '../icons/konstruqcia.png'
+import parkingi from '../icons/parkingi.png'
+import dacva from '../icons/video_kamera.png'
+import otaxebi from '../icons/otaxebi.png'
+import chabareba from '../icons/chabareba.png'
+import sinatle from '../icons/sinatle.png'
+import tenianoba from '../icons/tenianoba.png'
+import kvebisObieqti from '../icons/kvebis_obieqti.png'
+import lipti from '../icons/lifti.png'
+import shlagbaumi from '../icons/shlagbaumi.png'
+import konsierji from '../icons/konsierji.png'
+import ezo from "../icons/ezo.png"
+
+
+
+
+
+
+
 // ------------------
 import "./Physical.css";
 import axios from "axios";
@@ -1289,6 +1315,7 @@ export default function EachApartment({
             {/* iwyeba:   inprastruqturisIconsBox */}
             <div className="inprastruqturisIconsBigBox">
               <h2 className="hh2">
+
                 {" "}
                 {
                   handle_P_StatusButtonLanguageChange(selectedLanguage)
