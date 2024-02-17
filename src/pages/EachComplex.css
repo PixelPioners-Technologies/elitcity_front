@@ -262,6 +262,7 @@
   justify-content: space-between;
   /* border: 1px solid blue; */
   margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 
@@ -277,6 +278,37 @@
   display: flex;
   align-items: center;
   gap: 30px;
+}
+
+.eachTextOnListTexts{
+  width: 400px;
+}
+
+.first_and_second_cont{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.chabareba{
+  width: 230px;
+}
+
+
+.companyAdressPriceTextBox{
+  font-weight: 500;
+}
+
+.each_complex_title{
+  margin-bottom: 20px;
+}
+
+.each_complex_address{
+  margin-bottom: 10px;
+}
+
+.each_complex_price_square{
+  font-weight: 300;
+  color: rgb(131, 130, 137);
 }
 
 

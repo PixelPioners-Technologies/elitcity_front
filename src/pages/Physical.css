@@ -216,7 +216,7 @@ input[type="checkbox"] {
   /* border: 2PX solid red; */
   display: flex;
   /* align-items: center; */
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
   /* padding: 0 30px; */
   gap: 29px;
@@ -226,7 +226,7 @@ input[type="checkbox"] {
 
 .card_physical {
   width: 315px;
-  height: 400px;
+  height: 440px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -238,7 +238,7 @@ input[type="checkbox"] {
   overflow: hidden;
   /* padding: 10px; */
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
-
+  padding-top: 30px;
   transition: transform 0.3s ease-in-out;
 
   &:hover {
@@ -276,9 +276,24 @@ input[type="checkbox"] {
   transition: transform 0.3s ease;
 }
 /* ----------------------------------card info styles---------------------------------------------------- */
-.company_title {
+
+.title_and_fullprice{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.dolar_fullprice{
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+
+.company_title {
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
   margin-top: 3px;
 
@@ -290,12 +305,34 @@ input[type="checkbox"] {
   color: #868282;
 }
 
+.dola_apartment_card{
+  width: 15px;
+}
+
+
 .textInfo_physical {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   /* padding-left: 20px; */
   gap: 10px;
+}
+
+.rooms_and_rank{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.apartment_id_1{
+  color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.city_settings{
+  color:#f0f0f0
 }
 
 .private_apartment_rank {

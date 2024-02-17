@@ -640,6 +640,12 @@ export default function EachApartment({
     return languageInfo;
   };
 
+
+  const truncateText = (text, limit) => {
+    return text.length > limit ? `${text.substring(0, limit)}...` : text;
+  };
+
+
   // --------------------------------------------language change for card status setting and content ---------------------------------------------------
   const cardStatusSettingLanguage = (lang, status) => {
     const statusLanguageInfo = {
@@ -893,11 +899,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.internalApartmentDetails?.bedroom}
                 </div>
                 <div className="room_details" style={{ color: "#C2BFBF" }}>
-                  {
-                    handle_P_StatusButtonLanguageChange(selectedLanguage)
-                      .balcony
-                  }
-                  :{" "}
+                  {handle_P_StatusButtonLanguageChange(selectedLanguage).balcony} :{" "}
                   {eachComplexAllAppartments?.internalApartmentDetails?.balcony}
                 </div>
               </div>
@@ -919,11 +921,6 @@ export default function EachApartment({
                 </p>
                 <p style={{ color: "#FFFFFF" }}>
                   {eachPrivateApartment?.numberOfApartments}
-                </p>
-                <p style={{ color: "#FFFFFF" }}>
-                  {/* აქ, ბაზაში ნull არის მითითებული და ჯერ ჩავაკომენტარე რო ფრონტისთვის მეჩვენებინა */}
-                  {/* {eachPrivateApartment?.numberOfBuildings} */}
-                  null
                 </p>
                 <p style={{ color: "#FFFFFF" }}>
                   {eachPrivateApartment?.numberOfFloors}

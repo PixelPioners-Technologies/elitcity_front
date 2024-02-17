@@ -55,13 +55,19 @@ import button_icon from "../icons/Vector.svg";
 
 import { useLocation } from "react-router-dom";
 
+import mew_dolar_white from '../icons/new_dolar_white.png'
+
+
 // --------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------
-// ---  compleqsis misamartebi axali struqturidanaa amosagebi da ara aoartamentis addresidan       ------------------
+// ---------  compleqsis misamartebi axali struqturidanaa amosagebi da ara aoartamentis addresidan  -------------------
 // --------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------
+
+
+
 
 function normalizeData(item, lang) {
   return {
@@ -125,7 +131,7 @@ function normalizeData(item, lang) {
       apartmentName: apartment[`appartment_name_${lang}`],
       testField: apartment[`test_field_${lang}`],
       internalApartmentName: apartment.internal_apartment_name,
-      
+
       images: apartment.appartment_images,
       address: {
         city: apartment[`appartment_address_${lang}`][`city_${lang}`], // Correctly dynamic
@@ -170,7 +176,7 @@ export default function EachComplex({
   toggleSwitch,
   favoriteApartment,
   favorite_apartment_handler,
-  
+
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
@@ -218,6 +224,8 @@ export default function EachComplex({
   const [eachPrivateApartment, setEachPrivateApartment] = useState([]);
 
 
+
+  const [only_apartments, setOnly_apartments] = useState([]);
 
 
   const location = useLocation();
@@ -281,7 +289,7 @@ export default function EachComplex({
       setAllComplexImages(data.complexImages);
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
-
+      setOnly_apartments(normalised_Data.apartments)
       seteachComplexAllAppartments(normalised_Data);
 
       const imagesWithIds = data.complex_images.map((url, index) => ({
@@ -311,9 +319,9 @@ export default function EachComplex({
   ]);
 
   // console.log("aq unda iyos imigebi ", eachComplexAllAppartments);
-  useEffect(() => {
-    console.log("apartments ", privateApartments);
-  }, [privateApartments]);
+  // useEffect(() => {
+  //   console.log("apartments ", privateApartments);
+  // }, [privateApartments]);
 
   // ---------------------------------------------------------------------------------------------------------------------
 
@@ -442,10 +450,17 @@ export default function EachComplex({
       infrastructure: "Infrastructure",
       seen: "Seen",
       pricePerM: "Price from per m²",
+
+      m2: "m²",
+      sartuli: "Floor",
     };
 
     switch (lang) {
       case "en":
+        languageInfo.m2 = "m²";
+        languageInfo.sartuli = "Floor";
+
+
         languageInfo.statusInfoLanguage = "Select Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
@@ -489,6 +504,10 @@ export default function EachComplex({
         languageInfo.infrastructure = "Infrastructure";
         languageInfo.seen = "Seen";
         languageInfo.pricePerM = "Price from per m²";
+        languageInfo.m2 = "m²";
+        languageInfo.sartuli = "Floor";
+
+
         break;
 
       case "ka":
@@ -536,6 +555,9 @@ export default function EachComplex({
         languageInfo.seen = "ნახვები";
         languageInfo.pricePerM = "m²-ის ფასი";
         languageInfo.priceTo = "-დან";
+        languageInfo.m2 = "მ²";
+        languageInfo.sartuli = "სართული";
+
 
         break;
 
@@ -583,6 +605,9 @@ export default function EachComplex({
         languageInfo.infrastructure = "Инфраструктура";
         languageInfo.seen = "Просмотрено";
         languageInfo.pricePerM = "Цена за м²";
+        languageInfo.m2 = " м²";
+        languageInfo.sartuli = "Пол";
+
 
         break;
     }
@@ -657,6 +682,19 @@ export default function EachComplex({
   // const handleAppartmentClick = (complexId) => {
   //   navigate(`/eachComplex/${complexId},`);
   // };
+
+
+  const truncateText = (text, limit) => {
+    if (!text) return ""; // Return an empty string if text is null or undefined
+    return text.length > limit ? `${text.substring(0, limit)}...` : text;
+  };
+
+
+
+
+
+
+
 
   // const navigate = useNavigate();
   const handleAppartmentClick = (apartmentId) => {
@@ -740,20 +778,20 @@ export default function EachComplex({
             <div className="favouriteDollarAndShareBox">
               {/* Star favourite box */}
               <button
-                    key={eachPrivateApartment.id}
-                    className="heartButtons"
-                    onClick={() => favoriteHandler(eachPrivateApartment)}
-                  >
-                    {favorites.some((fav) => fav.id === eachPrivateApartment.id) ? (
-                      <img src={heartIcon} alt="Logo of heart" />
-                    ) : (
-                      <img
-                        src={heartIconEmpty}
-                        alt="Logo of empty heart"
-                        style={{ width: "30px", height: "30px", border: '1px solid white' }}
-                      />
-                    )}
-                  </button>
+                key={eachPrivateApartment.id}
+                className="heartButtons"
+                onClick={() => favoriteHandler(eachPrivateApartment)}
+              >
+                {favorites.some((fav) => fav.id === eachPrivateApartment.id) ? (
+                  <img src={heartIcon} alt="Logo of heart" />
+                ) : (
+                  <img
+                    src={heartIconEmpty}
+                    alt="Logo of empty heart"
+                    style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                  />
+                )}
+              </button>
 
 
               {/* ----Dollar and Lari Toggle button */}
@@ -788,17 +826,14 @@ export default function EachComplex({
           </div>
           {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}
           <div className="companyAdressPriceTextBox">
-            <p style={{ color: "#ccc", fontSize: "20px" }}>
-              {" "}
-              {eachPrivateApartment?.internalComplexName}
-            </p>
-            <p style={{ color: "#838289" }}>
+            <p className="each_complex_title" style={{ color: "#ccc", fontSize: "20px" }}>{" "}{eachPrivateApartment?.complexName}</p>
+            <p style={{ color: "#838289" }} className="each_complex_address" >
               {eachPrivateApartment &&
                 eachPrivateApartment.apartments &&
                 eachPrivateApartment.apartments.length > 0 &&
                 eachPrivateApartment.apartments[0]?.address.city}
             </p>
-            <p style={{ color: "#838289" }}>
+            <p style={{ color: "#838289" }} className="each_complex_price_square" >
               {eachPrivateApartment &&
                 eachPrivateApartment.apartments &&
                 eachPrivateApartment.apartments.length > 0 &&
@@ -806,8 +841,8 @@ export default function EachComplex({
             </p>
 
             <p style={{ color: "#838282" }}> {eachPrivateApartment?.adress}</p>
-            <p style={{ color: "#ccc", fontSize: "20px" }}>
-              {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}{" "}
+            <p className="each_complex_price_square" >
+              {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}  {" "}
               {currenceChangeState
                 ? eachPrivateApartment.pricePerSqMeter * getCorrencyRate
                 : eachPrivateApartment.pricePerSqMeter}
@@ -818,45 +853,39 @@ export default function EachComplex({
           <div className="chabarebaPartebiKorpusebi">
             {/* ქვედა, მეორე ტექსტია.. ჩაბარება, Fართები... სართულიანობა */}
             <div className="eachTextOnListTexts">
-              <p style={{ color: "#C2BFBF" }}>
-                {
-                  handle_P_StatusButtonLanguageChange(selectedLanguage)
-                    .submission
-                }
-              </p>
-              <p style={{ color: "#C2BFBF" }}>
-                {handle_P_StatusButtonLanguageChange(selectedLanguage).spaces}
-              </p>
-              <p style={{ color: "#C2BFBF" }}>
-                {
-                  handle_P_StatusButtonLanguageChange(selectedLanguage)
-                    .number_of_apartments
-                }
-              </p>
-              <p style={{ color: "#C2BFBF" }}>
-                {
-                  handle_P_StatusButtonLanguageChange(selectedLanguage)
-                    .buildings
-                }
-              </p>
+              <div className="first_and_second_cont" >
+                <p style={{ color: "#C2BFBF" }} className="chabareba" >{handle_P_StatusButtonLanguageChange(selectedLanguage).submission}</p>
+                <p style={{ color: "#FFFFFF" }}  >{eachPrivateApartment?.finishYear}</p>
+              </div>
+
+
+              <div className="first_and_second_cont">
+                <p style={{ color: "#C2BFBF" }} className="chabareba"  >{handle_P_StatusButtonLanguageChange(selectedLanguage).spaces}</p>
+                <p style={{ color: "#FFFFFF", width: '100px' }}>{eachPrivateApartment?.numberOfApartments} {handle_P_StatusButtonLanguageChange(selectedLanguage).m2}  </p>
+              </div>
+
+
+
+
+              <div className="first_and_second_cont">
+                <p style={{ color: "#C2BFBF" }} className="chabareba" >{handle_P_StatusButtonLanguageChange(selectedLanguage).number_of_apartments}</p>
+                <p style={{ color: "#FFFFFF" }}>
+                  {/* აქ, ბაზაში ნull არის მითითებული და ჯერ ჩავაკომენტარე რო ფრონტისთვის მეჩვენებინა */}
+                  {/* {eachPrivateApartment?.numberOfBuildings} */} 30 </p>
+              </div>
+
+              <div className="first_and_second_cont">
+                <p style={{ color: "#C2BFBF" }}>{handle_P_StatusButtonLanguageChange(selectedLanguage).buildings}</p>
+
+              </div>
+
               <p style={{ color: "#C2BFBF" }}>
                 {handle_P_StatusButtonLanguageChange(selectedLanguage).flooring}
               </p>
             </div>
 
             <div className="eachTextOnListTextsTwo">
-              <p style={{ color: "#FFFFFF" }}>
-                {eachPrivateApartment?.finishYear}
-              </p>
-              <p style={{ color: "#FFFFFF" }}> {eachPrivateApartment?.space}</p>
-              <p style={{ color: "#FFFFFF" }}>
-                {eachPrivateApartment?.numberOfApartments}
-              </p>
-              <p style={{ color: "#FFFFFF" }}>
-                {/* აქ, ბაზაში ნull არის მითითებული და ჯერ ჩავაკომენტარე რო ფრონტისთვის მეჩვენებინა */}
-                {/* {eachPrivateApartment?.numberOfBuildings} */}
-                null
-              </p>
+
               <p style={{ color: "#FFFFFF" }}>
                 {eachPrivateApartment?.numberOfFloors}
               </p>
@@ -932,7 +961,7 @@ export default function EachComplex({
         {/* ეს დივი არის გეგმარებები რომ ჩამოიშალოს... */}
         {showApartments && (
           <div className="allCards_physical paddingForEachComplexCardBox">
-            {privateApartments.apartments.map((prev_apartments, index) => (
+            {only_apartments.map((prev_apartments, index) => (
               <div
                 className="card_physical"
                 key={index}
@@ -964,39 +993,46 @@ export default function EachComplex({
                         )}
                       </button>
                     </div>
-                    {console.log('binis surati ', prev_apartments?.rank)}
+                    {/* WEFWEFWFWFWVEW EW FWE WEF WEF WEF WEF  */}
+                    {console.log('binis surati ', only_apartments)}
                     <img
-                        onClick={() => handleAppartmentClick(prev_apartments.id)}
-                      src={
-                        prev_apartments?.images[0]
-                      }
+                      onClick={() => handleAppartmentClick(prev_apartments.id)}
+                      src={prev_apartments?.images[0]}
                       alt={prev_apartments.name}
                       style={styles.imageStyles}
                     />
                   </div>
                   {/* --------------card details------------------- */}
-                  <h1 className="company_title" style={styles.companyTitle}>
-                    {prev_apartments.privateApartmentName}
-                  </h1>
+                  <div className="title_and_fullprice" >
+                    <h1 className="company_title" style={styles.companyTitle}>
+                      {prev_apartments?.apartmentName}
+                    </h1>
+                    <div className="dolar_fullprice" >
+                      <h1 className="company_title" style={styles.companyTitle}>
+                        {prev_apartments?.internalApartmentName?.full_price}
+                      </h1>
+                      <img src={mew_dolar_white} alt="dollar signe" className="dola_apartment_card" />
+                    </div>
+                  </div>
+
                   <div className="textInfo_physical" onClick={() => handleAppartmentClick(prev_apartments.id)}  >
-                    <p className="city_settings" style={styles.complexInfo}>
-                      {car_settings_language_change(selectedLanguage).city} :{" "}
-                      {prev_apartments.address.city}
-                    </p>
-                    <p className="price_settings" style={styles.complexInfo}>
-                      {prev_apartments.squarePrice}{" "}
-                      {
-                        car_settings_language_change(selectedLanguage)
-                          .square_from
-                      }
-                    </p>
+                    <p className="city_settings  ">{prev_apartments.address.city} {" , "}{prev_apartments.address.city} </p>
+                    <p className="price_settings" style={styles.complexInfo}> {prev_apartments?.internalApartmentName?.square_price}{" "} {handle_P_StatusButtonLanguageChange(selectedLanguage).m2} </p>
+                    <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).sartuli}  {"  : "} {prev_apartments.internalApartmentName?.floor_number}</p>
+
+
+                    <div className="rooms_and_rank">
+                      <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).rooms}  {"  : "} {prev_apartments.internalApartmentName?.rooms}</p>
+                      <p className="price_settings" style={styles.complexInfo}>{prev_apartments.internalApartmentName?.rank}</p>
+
+                    </div>
+
+                    <p className="apartment_id_1" > id : {prev_apartments?.id}    </p>
+
+
                     <div className="status_and_rank">
-                      <p className="status_settings">
-                        {" "}
-                        {cardStatusSettingLanguage(
-                          selectedLanguage,
-                          prev_apartments.status
-                        )}
+                      <p className="status_settings">{" "}{cardStatusSettingLanguage(selectedLanguage, prev_apartments.status)}
+
                       </p>
                       <p className="private_apartment_rank">
                         {prev_apartments.rank}{" "}
@@ -1421,12 +1457,12 @@ export default function EachComplex({
         </p>
 
         {/* (START) ახლო მდებარე ობიექტები box */}
-        <div className="textBoxOfH4axloMdebareObieqtebi">
-          <h4 style={{ color: "white" }}>
-            {handle_P_StatusButtonLanguageChange(selectedLanguage).nearObjects}
-          </h4>
-        </div>
+      </div>
 
+      <div className="textBoxOfH4axloMdebareObieqtebi">
+        <h4 style={{ color: "white" }}>
+          {handle_P_StatusButtonLanguageChange(selectedLanguage).nearObjects}
+        </h4>
         <div className="axloMdebareObieqtebiBox">
           <div className="textBoxOfAxloMdebare">
             <div className="iconAndItsText">
