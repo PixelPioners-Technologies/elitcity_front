@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap");
-
 .complex_page_div {
   padding: 0 80px;
   border: 1px solid red;
@@ -11,12 +9,11 @@
   justify-content: center;
   height: auto;
   margin-top: 0px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 .column_div_for_comfort {
   flex-direction: column;
 }
-
 .flex_end {
   width: 40%;
   /* border: 1px solid red; */
@@ -89,8 +86,7 @@
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: #fff;
 }
-
-.map_styles{
+.map_styles {
   /* border: 1px solid red; */
   display: flex;
   align-items: center;
@@ -244,7 +240,6 @@
   display: flex;
 }
 .complex_status_on_card {
-
   font-weight: 100;
   margin-top: 10px;
 }
@@ -294,7 +289,7 @@
 .find_map_div {
   width: 100%;
   /* border: 2px solid green; */
-  width: 65%;
+  width: 78%;
   display: flex;
   justify-content: end;
   margin-top: 20px;
@@ -351,7 +346,6 @@
 }
 
 @media screen and (max-width: 500px) {
-
   .numbers_link {
     border: none;
     display: flex;
@@ -424,18 +418,21 @@
   .forPaddingOfInfoFieldOfComplexsPlansMaps {
     padding: 10px;
   }
-  .project_div_parent, .sort_hide_resp{
+  .project_div_parent,
+  .sort_hide_resp {
     display: none;
   }
-  .arrow_for_complex, .sort_icon_for_complex_mob{
+  .arrow_for_complex,
+  .sort_icon_for_complex_mob {
     display: block;
   }
-  .sort_icon_for_complex_mob{
+
+  .sort_icon_for_complex_mob {
     /* border: 1px solid red; */
     display: flex;
     align-items: center;
   }
-  .styles_for_top_map{
+  .styles_for_top_map {
     display: flex;
     flex-direction: row;
     display: block;
@@ -443,17 +440,17 @@
     align-items: center;
     display: block;
   }
-  .mapAndLogoImg{
+  .mapAndLogoImg {
     display: flex;
     align-items: center;
     padding-left: 20px;
     /* width: 20px; */
   }
-  .textButton{
+  .textButton {
     display: block;
-    color: wheat;
+    /* color: wheat; */
   }
-  .close_cont{
+  .close_cont {
     display: block;
     display: flex;
     flex-direction: column;
@@ -461,7 +458,7 @@
     align-items: start;
   }
   .find_map_div {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     flex-direction: column;
     align-items: center;
     gap: 10px;
@@ -469,11 +466,11 @@
     /* width: 0%;
     gap: 0; */
   }
-  .gap_short{
+  .gap_short {
     width: auto !important;
     /* width: 2px !important; */
   }
-  .map_styles{
+  .map_styles {
     /* width: 200px; */
     /* border: 1px solid red; */
     display: flex;
@@ -484,37 +481,25 @@
   .complex_page_div {
     padding: 0 10px;
   }
+  .for_comfort {
+    padding: 20px;
+    flex-direction: column;
+    position: absolute;
+    z-index: 11111111;
+    background-color: black;
+    /* margin-top: 40px; */
+    right: 0px;
+  }
+  .allCards {
+    position: relative;
+  }
+  .column_div_for_comfort {
+    display: none;
+  }
+  .motionBox {
+    border: none;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ---------- M O D A L S ------------ */
 
@@ -528,7 +513,6 @@
   border-radius: 5px;
   margin-left: 10px;
 } */
-
 
 .min_price_complex:focus {
   outline: none;
@@ -558,7 +542,6 @@
   display: none;
 }
 
-
 .min_price_complex {
   /* border: 3px solid blue; */
   display: flex;
@@ -584,46 +567,42 @@
   color: #999;
 }
 
-
-
-
-
-  .currencyBox {
-    display: flex;
-    align-items: center;
-  }
-  .sort_text {
-    display: none;
-  }
-  .switch {
-    width: 50px !important;
-    height: 20px !important;
-    background-color: black;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border: 1px solid white;
-    border-radius: 50px;
-    padding: 7px;
-    cursor: pointer;
-  }
-  .switch[data-ison="true"] {
-    justify-content: flex-end;
-  }
-  .handle {
-    width: 20px !important;
-    height: 20px !important;
-    background-color: white;
-    border-radius: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .currency-sign {
-    width: 12px !important;
-    height: auto;
-    margin-right: 0px;
-  }
-  .currency-sign.active {
-    display: none;
-  }
+.currencyBox {
+  display: flex;
+  align-items: center;
+}
+.sort_text {
+  display: none;
+}
+.switch {
+  width: 50px !important;
+  height: 20px !important;
+  background-color: black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid white;
+  border-radius: 50px;
+  padding: 7px;
+  cursor: pointer;
+}
+.switch[data-ison="true"] {
+  justify-content: flex-end;
+}
+.handle {
+  width: 20px !important;
+  height: 20px !important;
+  background-color: white;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.currency-sign {
+  width: 12px !important;
+  height: auto;
+  margin-right: 0px;
+}
+.currency-sign.active {
+  display: none;
+}
