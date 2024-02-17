@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
 
 .ComplexBodyBox_physical {
   margin-top: 50px;
@@ -282,19 +281,19 @@ input[type="checkbox"] {
   justify-content: center;
   align-items: center;
   margin-top: 3px;
-  font-family: "Roboto", sans-serif;
+
 }
 
-.city_settings {
+/* .city_settings {
   font-family: "Roboto", sans-serif;
 }
 
 .price_settings {
   font-family: "Roboto", sans-serif;
-}
+} */
 
 .status_settings {
-  font-family: "Roboto", sans-serif;
+
   color: #868282;
 }
 

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
+
 
 .SalesBox {
   margin-top: 50px;
@@ -168,7 +168,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: "Roboto", sans-serif;
   padding: 10px;
 }
 
@@ -251,7 +250,6 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
-  font-family: "Roboto", sans-serif;
   font-size: 400;
 }
 
@@ -357,9 +355,7 @@
     width: 100%;
     /* width: 340px; */
   }
-  .whole_sale_omdal_content {
-    /* padding: 0 0px; */
-  }
+
   .call_and_number_on_saleModal {
     width: 100%;
     flex-direction: column;

@@ -81,6 +81,7 @@ const BaseURLs = {
   complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
   company_and_complex: 'https://api.storkhome.ge/companycomplex/',
   proxy: 'https://api.storkhome.ge/proxy/',
+  ids : 'https://api.storkhome.ge/',
 
 
   // local
@@ -96,7 +97,7 @@ const BaseURLs = {
   // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
   // company_and_complex: 'http://127.0.0.1:8000/companycomplex/',
   // proxy: 'http://127.0.0.1:8000/proxy/',
-
+  // ids : 'http://127.0.0.1:8000/',
 
 };
 
@@ -183,8 +184,27 @@ const normalizeLocationData = (data, lang) => {
   });
 };
 
+
+const useClearLocalStorageWeekly = () => {
+  useEffect(() => {
+    const currentDate = new Date();
+    const storedDateStr = localStorage.getItem('dateForClearingLocalStorage');
+    const storedDate = storedDateStr ? new Date(storedDateStr) : null;
+
+    if (!storedDate || (currentDate - storedDate) / (1000 * 60 * 60 * 24) > 7) {
+      localStorage.clear(); // Clear localStorage
+      localStorage.setItem('dateForClearingLocalStorage', currentDate.toISOString()); // Update stored date
+    }
+  }, []);
+};
+
+
+
+
 function App() {
   usePageTracking();
+  useClearLocalStorageWeekly()
+
 
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
@@ -345,6 +365,53 @@ function App() {
   const handleSetAllItems = (data) => {
     setTotal_item_number(data);
   };
+
+
+
+  useEffect(() => {
+    const applyFontBasedOnLanguage = (language) => {
+      let fontFamily;
+      switch (language) {
+        case 'en':
+          fontFamily = "Roboto-Bold, sans-serif";
+          break;
+        case 'ka':
+          fontFamily = "Noto Sans Georgian-Bold, sans-serif"; // Ensure the font name is correct and spaces are properly placed
+          break;
+        case 'ru':
+          fontFamily = "PT Serif, sans-serif"; // Removed "Bold" assuming you'll control weight separately
+          break;
+        default:
+          fontFamily = "Roboto-Bold, sans-serif"; // Default fallback
+      }
+
+      document.body.style.fontFamily = fontFamily;
+    };
+
+    applyFontBasedOnLanguage(selectedLanguage);
+
+    // Optional: Reset font family when component unmounts
+    return () => {
+      document.body.style.fontFamily = '';
+    };
+  }, [selectedLanguage]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // -----------------------------------------------------------------------------------------------------
 
   // useEffect(() => {
