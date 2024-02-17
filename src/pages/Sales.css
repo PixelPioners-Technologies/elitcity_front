@@ -294,7 +294,11 @@
 .hedaphone_ico_sale_modaln {
   width: 50px;
 }
-
+.clos{
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+}
 @media screen and (max-width: 500px) {
   .SalesBox {
     margin-top: 17%;
