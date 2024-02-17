@@ -16,6 +16,7 @@ import SaleModal from "../Modals_for_stokhome_plus/SaleModal";
 import headphone_icon from "../icons/headphones.png";
 import canse_iconl from "../icons/cancel.png";
 import phoneImage from "../assets/🦆 icon _phone_.svg";
+import Sort from '../assets/sort.png';
 
 const normalizePromotionData = (data, lang) => {
   return data.map((promotion) => ({
@@ -249,9 +250,19 @@ export default function Sales({ selectedLanguage, handleCallButtonClick }) {
   };
 
   // ---------------------------------------------------------------------------------------------------
+  
+  const [openSortComp, setOpenComp] = useState(false);
 
+  const sortOpen = () => {
+    setOpenComp(!openSortComp);
+  };
+  const closeSort = () => {
+    if (openSortComp) {
+      setOpenComp(false);
+    }
+};
   return (
-    <div className="SalesBox">
+    <div className="SalesBox" onClick={closeSort}>
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
       <motion.div
         initial={{ y: -50, opacity: 0 }}
@@ -267,7 +278,15 @@ export default function Sales({ selectedLanguage, handleCallButtonClick }) {
                 {LanguageChangeForSales(selectedLanguage).promotions_and_ofers}{" "}
               </p>
             </div>
-            <div className="allSaleGiftAndInstallmentBox">
+            <div className="sort_icon_for_complex_mob" onClick={sortOpen}>
+                <img
+                  src={Sort}
+                  style={{ width: "20px", height: "25px" }}
+                  alt="/"
+                />
+              </div>
+              {/*  */}
+            <div className={openSortComp ? "allSaleGiftAndInstallmentBox" : "clos"}>
               <div className="eachSectionBox">
                 <button
                   className="buttonOfEachSection"

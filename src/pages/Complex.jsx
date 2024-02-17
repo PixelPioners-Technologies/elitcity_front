@@ -624,6 +624,11 @@ export default function Complex({
   const sortOpen = () => {
     setOpenComp(!openSortComp);
   };
+  const closeSort = () => {
+    if (openSortComp) {
+      setOpenComp(false);
+    }
+};
 
   return (
     <div className="complex_page_div" >
@@ -1255,7 +1260,7 @@ export default function Complex({
 
       {/* // ------------------------------------------------------------------------------------ */}
 
-      <div className="allCards">
+      <div className="allCards" onClick={closeSort}>
         {complexes.map((complex, index) => (
           <div className="card" key={complex.id}>
             <motion.div

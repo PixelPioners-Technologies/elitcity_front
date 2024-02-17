@@ -1,7 +1,8 @@
 
 
 .SalesBox {
-  margin-top: 50px;
+  /* padding: 0px; */
+  margin-top: 7%;
   /* border: 1px solid red; */
   /* min-height: 100vh; Ensure the component covers at least the viewport height */
   background-color: black; /* Set your desired background color */
@@ -20,6 +21,7 @@
   justify-content: space-between;
   height: 70px;
   padding: 0 40px;
+  /* border: 1px solid red; */
 }
 
 .boxOftitleOfActionAndOffers {
@@ -295,7 +297,8 @@
 
 @media screen and (max-width: 500px) {
   .SalesBox {
-    padding: 20px;
+    margin-top: 17%;
+    /* padding: 20px; */
   }
   .forPaddingOfsalesNavBar {
     /* border: 1px solid green; */
@@ -308,8 +311,9 @@
     align-items: center;
     /* width: 100%; */
     width: 340px;
-    flex-direction: column;
-    margin-bottom: 30px;
+    border: none;
+    /* flex-direction: column; */
+    /* margin-bottom: 30px; */
   }
   .boxOftitleOfActionAndOffers {
     /* width: 340px; */
@@ -318,10 +322,20 @@
   .allSaleGiftAndInstallmentBox {
     gap: 20px;
     font-size: 15px;
+    /* border: 1px solid green; */
+    flex-direction: column;
+    position: absolute;
+    z-index: 1111;
+    background-color: black;
+    right: 0;
+    top: 140px;
+    padding: 15px;
+    align-items: center;
   }
   .saleArticlesBox {
     /* border: 1px solid blue; */
     padding: 0px;
+    margin-top: 0;
   }
   .eachSaleArticleBox {
     width: 340px;
@@ -350,6 +364,7 @@
   }
   .SaleArticleImageBox {
     margin-left: 0;
+    /* margin-top: 0; */
   }
   .image_for_sale_modal {
     width: 100%;
@@ -379,5 +394,11 @@
   .call_and_number_on_saleModal{
     /* border: 1px solid green; */
     align-items: center;
+  }
+  .clos{
+    display: none;
+  }
+  .eachSaleArticleBox2 {
+    /* border: 1px solid red; */
   }
 }

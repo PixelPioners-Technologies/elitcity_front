@@ -1,6 +1,7 @@
 .complex_page_div {
   padding: 0 80px;
   border: 1px solid red;
+  margin-top: 7%
 }
 .for_comfort {
   display: flex;
@@ -124,8 +125,9 @@
   transform: scaleY(1);
 }
 .currency-Box {
-  /* width: 70px; */
+  width: 70px;
   display: flex;
+  justify-content: end;
   align-items: center;
   /* border: 1px solid red; */
 }
@@ -157,7 +159,7 @@
   justify-content: center;
   align-items: center;
 }
-.currency-sign {
+.currency-sign_homepage  {
   width: 27px;
   height: auto;
   margin-right: 0px;
@@ -344,8 +346,51 @@
     rgba(0, 0, 0, 0.192) 0px 5.10423px 9.18761px -3.375px,
     rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px;
 }
+.currencyBox {
+  display: flex;
+  align-items: center;
+}
+.sort_text {
+  display: none;
+}
+.switch {
+  width: 80px ;
+  height: 40px ;
+  background-color: black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid white;
+  /* border-radius: 50px; */
+  padding: 7px;
+  cursor: pointer;
+}
+.switch[data-ison="true"] {
+  justify-content: flex-end;
+}
+.handle {
+  width: 35px ;
+  /* height: 20px ; */
+  background-color: white;
+  /* border-radius: 40px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.currency-sign {
+  width: 22px ;
+  color: #000;
+  height: auto;
+  margin-right: 0px;
+}
+.currency-sign.active {
+  display: none;
+}
 
 @media screen and (max-width: 500px) {
+  .complex_page_div {
+    margin-top: 15%;
+  }
   .numbers_link {
     border: none;
     display: flex;
@@ -567,42 +612,4 @@
   color: #999;
 }
 
-.currencyBox {
-  display: flex;
-  align-items: center;
-}
-.sort_text {
-  display: none;
-}
-.switch {
-  width: 50px !important;
-  height: 20px !important;
-  background-color: black;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  border: 1px solid white;
-  border-radius: 50px;
-  padding: 7px;
-  cursor: pointer;
-}
-.switch[data-ison="true"] {
-  justify-content: flex-end;
-}
-.handle {
-  width: 20px !important;
-  height: 20px !important;
-  background-color: white;
-  border-radius: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.currency-sign {
-  width: 12px !important;
-  height: auto;
-  margin-right: 0px;
-}
-.currency-sign.active {
-  display: none;
-}
+
