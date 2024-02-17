@@ -1,36 +1,99 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap");
 
-.ComplexBodyBox {
-  padding: 100px 150px;
+.complex_page_div {
+  padding: 0 80px;
+  border: 1px solid red;
 }
 .for_comfort {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: auto;
   margin-top: 0px;
+  border: 1px solid red;
+}
+.column_div_for_comfort {
+  flex-direction: column;
+}
+.flex_end {
+  width: 40%;
+  /* border: 1px solid red; */
+  margin-top: 20px;
 }
 .motionBox {
   border: 1px solid white;
+  margin-top: 20px;
+}
+.forPaddingOfInfoFieldOfComplexsPlansMaps {
+  /* border: 1px solid green; */
+  padding: 15px;
 }
 .infoFieldOfComplexsPlansMaps {
   display: flex;
   justify-content: space-between;
-  height: 70px;
-  padding: 0 20px;
-}
-.filter_cont_for_complexes {
-  margin-bottom: 40px;
+  /* border: 1px solid red; */
 }
 .complexInfoAndCountShowBox {
   display: flex;
   align-items: center;
+  /* border:1px solid green */
 }
 .projectsPlansMapsSortingAndDollarBox {
   display: flex;
   align-items: center;
+  justify-content: space-around;
   gap: 20px;
+  /* width: 35%; */
+  /* border: 2px solid blue; */
+}
+.project_div_parent {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+.projects_name {
+  color: white;
+  font-size: 17px;
+}
+.line_sizes {
+  width: 25px;
+  height: 5px;
+}
+.arrow_for_complex {
+  display: none;
+}
+.sort_icon_for_complex_mob {
+  display: none;
+  /* border: 1px solid red; */
 }
 .mapAndLogoImg {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 7px;
+  padding-left: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.styles_for_top_map {
+  height: 33px;
+  width: 159px;
+  gap: 7px;
+  padding-right: 80px;
+  padding-left: 18px;
+  flex-shrink: 0;
+  border: 1.5px solid #ada9a9;
+  mix-blend-mode: hard-light;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #fff;
+
+}
+.map_styles {
+
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  width: 120px;
 }
 .textButtonContainer:hover .textButton {
   cursor: pointer;
@@ -63,27 +126,28 @@
 .menu-open {
   transform: scaleY(1);
 }
-
-/* /////////////////////////////// */
-
-.currencyBox {
+.currency-Box {
+  /* width: 70px; */
   display: flex;
   align-items: center;
+  /* border: 1px solid red; */
 }
 .sort_text {
   display: none;
 }
 .switch {
-  width: 90px;
-  height: 40px;
   background-color: black;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
-  border-radius: 50px;
-  padding: 10px;
+  /* padding: 10px; */
   cursor: pointer;
+}
+.lari_and_dolari_style {
+  width: 100px;
+  height: 40px;
+  /* border: 1px solid green; */
 }
 .switch[data-ison="true"] {
   justify-content: flex-end;
@@ -92,7 +156,6 @@
   width: 35px;
   height: 35px;
   background-color: white;
-  border-radius: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,7 +184,6 @@
   border: 1px solid white;
   overflow: hidden;
   padding: 20px 20px;
-  border-radius: 10px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
   transition: transform 0.3s ease-in-out;
   &:hover {
@@ -134,11 +196,10 @@
   text-align: center;
 }
 .heartButtonBox {
-  width: 250px;
+  width: 210px;
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  margin-top: 5px;
 }
 .heartButtons {
   padding: 0;
@@ -158,38 +219,31 @@
   transition: transform 0.3s ease;
 }
 
-
-.company_title_on_card{
+.company_title_on_card {
   color: #f1eeee;
-  font-family: 'Roboto', sans-serif;
-  margin-left: 10px;
+  text-align: center;
 }
 
-.textinfo_and_company_logo{
+.textinfo_and_company_logo {
   display: flex;
-  justify-content: flex-start;
-  gap: 20px;
+  margin-top: 10px;
 }
 .company_logo_3 {
-  margin-top: 10px;
   width: 40px;
   border-radius: 50%;
   margin-left: 30px;
 }
 .textInfo {
-  margin-top: 10px;
   display: flex;
   flex-direction: column;
-  padding-left: 10px;
   gap: 10px;
   width: 300px;
-  font-family: "Roboto", sans-serif;
 }
 .price_and_value {
   display: flex;
 }
 .complex_status_on_card {
-  font-family: "Roboto", sans-serif;
+
   font-weight: 100;
   margin-top: 10px;
 }
@@ -214,10 +268,10 @@
   background-color: transparent;
   color: #f1eeee;
   border: none;
-  padding: 10px 20px; /* Adjust padding to match the size in the photo */
-  font-weight: bold; /* If the font is bold in the photo */
-  border-radius: 5px; /* Adjust the border-radius to match the button corners in the photo */
-  font-size: 16px; /* Adjust font size to match the photo */
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   transition: background-color 0.3s ease;
@@ -228,15 +282,22 @@
 .homepage_serch_button_complexpage:hover {
   background-color: transparent;
   color: black;
-  
 }
 .close_cont {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 70px;
-  gap: 13px;
-  padding-top: 65px;
+  gap: 23px;
+  margin-top: 20px;
+}
+.find_map_div {
+  width: 100%;
+  /* border: 2px solid green; */
+  width: 65%;
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+  gap: 60px;
 }
 .filter_icon_for_links {
   background-color: wheat;
@@ -269,7 +330,6 @@
     0 13.646761411524492px 13.646761411524492px -3.125px #0000001b,
     0 30px 30px -3.75px #0000000d;
   font-weight: bold;
-  font-family: Montserrat;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -288,7 +348,9 @@
     rgba(0, 0, 0, 0.192) 0px 5.10423px 9.18761px -3.375px,
     rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px;
 }
+
 @media screen and (max-width: 500px) {
+
   .numbers_link {
     border: none;
     display: flex;
@@ -317,10 +379,6 @@
   .komplex_text {
     font-size: 14px;
   }
-  .switch {
-    width: 40px;
-    height: 40px;
-  }
   .sortAndArrowDownImgBox {
     font-size: 12px;
   }
@@ -336,27 +394,133 @@
   .google_map {
     width: 200px;
   }
-  .projectsPlansMapsSortingAndDollarBox {
-    gap: 5px;
-  }
+
   .close_cont {
     display: none;
   }
   .filter_cont_for_complex {
     gap: 10px;
   }
-  .textInfo {
-    padding-left: 20px;
-  }
   .infoFieldOfComplexsPlansMaps {
     display: flex;
     padding-left: 0;
   }
+  .currency-sign.active {
+    display: none;
+  }
+  .sort_icon_for_complex {
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    /* margin-left: -  10px; */
+  }
+  .projectsPlansMapsSortingAndDollarBox {
+    gap: 5px;
+    /* border: 2px solid green; */
+    display: flex;
+    align-items: center;
+  }
+  .forPaddingOfInfoFieldOfComplexsPlansMaps {
+    padding: 10px;
+  }
+  .project_div_parent, .sort_hide_resp{
+    display: none;
+  }
+  .arrow_for_complex, .sort_icon_for_complex_mob{
+    display: block;
+  }
+
+  .sort_icon_for_complex_mob{
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+  }
+  .styles_for_top_map{
+
+    display: flex;
+    flex-direction: row;
+    display: block;
+    /* border: 1px solid red; */
+    align-items: center;
+    display: block;
+  }
+  .mapAndLogoImg{
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    /* width: 20px; */
+  }
+  .textButton{
+    display: block;
+    color: wheat;
+  }
+  .close_cont{
+    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
+  }
+  .find_map_div {
+    border: 1px solid green;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    /* width: 0%;
+    gap: 0; */
+  }
+  .gap_short{
+    width: auto !important;
+    /* width: 2px !important; */
+  }
+  .map_styles{
+    /* width: 200px; */
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* text-align: center; */
+  }
+
+  .complex_page_div {
+    padding: 0 10px;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ---------- M O D A L S ------------ */
 
-.min_price_complex {
+/* .min_price_complex {
   color: #ffffff;
   background-color: transparent;
   border-style: hidden;
@@ -365,7 +529,8 @@
   padding: 10px;
   border-radius: 5px;
   margin-left: 10px;
-}
+} */
+
 
 .min_price_complex:focus {
   outline: none;
@@ -394,3 +559,74 @@
 .min_price_complex::-ms-clear {
   display: none;
 }
+
+
+.min_price_complex {
+  /* border: 3px solid blue; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #ffffff;
+  width: 150px;
+  /* background-color: transparent; */
+  border-style: hidden;
+  /* border: 3px solid transparent; */
+  background-color: transparent;
+  padding: 10px;
+  /* border-radius: 5px; */
+  /* margin-left: 10px; */
+}
+.min_price_complex:focus {
+  outline: none;
+  border: none;
+  /* box-shadow: 0 0 5px rgb(161, 193, 202); */
+}
+.min_price_complex::placeholder {
+  font-size: 15px;
+  color: #999;
+}
+
+
+
+
+
+  .currencyBox {
+    display: flex;
+    align-items: center;
+  }
+  .sort_text {
+    display: none;
+  }
+  .switch {
+    width: 50px !important;
+    height: 20px !important;
+    background-color: black;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 7px;
+    cursor: pointer;
+  }
+  .switch[data-ison="true"] {
+    justify-content: flex-end;
+  }
+  .handle {
+    width: 20px !important;
+    height: 20px !important;
+    background-color: white;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .currency-sign {
+    width: 12px !important;
+    height: auto;
+    margin-right: 0px;
+  }
+  .currency-sign.active {
+    display: none;
+  }
+

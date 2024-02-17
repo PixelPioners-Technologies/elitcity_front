@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import "./App.css";
 import Header from "./Components/Header/Header";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -28,6 +26,8 @@ import EachApartment from "./pages/EachApartment";
 import EachBlog from "./pages/EachBlog";
 import Each_Developer from "./pages/Each_Developer";
 import storkhome__logo from "./company_logo/storkhome__logo.png";
+import Facebook from "./Facebook";
+
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
   const location = useLocation();
@@ -79,6 +79,7 @@ const BaseURLs = {
   complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
   company_and_complex: "https://api.storkhome.ge/companycomplex/",
   proxy: "https://api.storkhome.ge/proxy/",
+  ids: "https://api.storkhome.ge/",
 
   // local
 
@@ -93,6 +94,7 @@ const BaseURLs = {
   // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
   // company_and_complex: 'http://127.0.0.1:8000/companycomplex/',
   // proxy: 'http://127.0.0.1:8000/proxy/',
+  // ids : 'http://127.0.0.1:8000/',
 };
 
 export { BaseURLs };
@@ -179,14 +181,32 @@ const normalizeLocationData = (data, lang) => {
   });
 };
 
+const useClearLocalStorageWeekly = () => {
+  useEffect(() => {
+    const currentDate = new Date();
+    const storedDateStr = localStorage.getItem("dateForClearingLocalStorage");
+    const storedDate = storedDateStr ? new Date(storedDateStr) : null;
+
+    if (!storedDate || (currentDate - storedDate) / (1000 * 60 * 60 * 24) > 7) {
+      localStorage.clear(); // Clear localStorage
+      localStorage.setItem(
+        "dateForClearingLocalStorage",
+        currentDate.toISOString()
+      ); // Update stored date
+    }
+  }, []);
+};
+
 function App() {
   usePageTracking();
+  useClearLocalStorageWeekly();
 
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [favorites, setFavorites] = useState([]);
   const [favoritesLots, setFavoritesLots] = useState([]);
   const [favoritesPhysical, setFavoritesPhysical] = useState([]);
+  const [favoriteApartment, setFavoriteApartment] = useState([]);
 
   const [getCorrencyRate, setGetCorrencyRate] = useState(0);
 
@@ -348,6 +368,35 @@ function App() {
   const handleSetAllItems = (data) => {
     setTotal_item_number(data);
   };
+
+  useEffect(() => {
+    const applyFontBasedOnLanguage = (language) => {
+      let fontFamily;
+      switch (language) {
+        case "en":
+          fontFamily = "Roboto-Bold, sans-serif";
+          break;
+        case "ka":
+          fontFamily = "Noto Sans Georgian-Bold, sans-serif"; // Ensure the font name is correct and spaces are properly placed
+          break;
+        case "ru":
+          fontFamily = "PT Serif, sans-serif"; // Removed "Bold" assuming you'll control weight separately
+          break;
+        default:
+          fontFamily = "Roboto-Bold, sans-serif"; // Default fallback
+      }
+
+      document.body.style.fontFamily = fontFamily;
+    };
+
+    applyFontBasedOnLanguage(selectedLanguage);
+
+    // Optional: Reset font family when component unmounts
+    return () => {
+      document.body.style.fontFamily = "";
+    };
+  }, [selectedLanguage]);
+
   // -----------------------------------------------------------------------------------------------------
 
   // useEffect(() => {
@@ -548,7 +597,51 @@ function App() {
     }
   };
   // -----------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------
 
+  // Load favorites from localStorage on initial render FOR PHYSICAL JSX
+  // const [favoriteApartment, setFavoriteApartment] = useState([]);
+
+  // Retrieve saved favorites from localStorage on initial render
+  useEffect(() => {
+    const savedFavorites = JSON.parse(
+      localStorage.getItem("favoriteapartment")
+    );
+    if (savedFavorites) {
+      setFavoriteApartment(savedFavorites);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "favoriteapartment",
+      JSON.stringify(favoriteApartment)
+    );
+  }, [favoriteApartment]);
+
+  // favoritesPhysical functionality
+  const favorite_apartment_handler = (complex) => {
+    const isAlreadySaved = favoriteApartment.some((c) => c.id === complex.id);
+
+    if (isAlreadySaved) {
+      const updatedComplexes = favoriteApartment.filter(
+        (c) => c.id !== complex.id
+      );
+      setFavoriteApartment(updatedComplexes);
+      localStorage.setItem(
+        "favoriteapartment",
+        JSON.stringify(updatedComplexes)
+      ); // Update localStorage
+    } else {
+      const updated_favorite_apartment = [...favoriteApartment, complex];
+      setFavoriteApartment(updated_favorite_apartment);
+      localStorage.setItem(
+        "favoriteapartment",
+        JSON.stringify(updated_favorite_apartment)
+      ); // Update localStorage
+    }
+  };
+  // -----------------------------------------------------------------------------------------------
   // -------------------------------------function for fetching usd corrency --------------------------
 
   useEffect(() => {
@@ -676,7 +769,6 @@ function App() {
 
   const handleSendSheet = () => {
     setSedtsheet(!sedtsheet);
-    // Process or log the states here
     console.log(name, phone, email, salesDepartment, storkhomePlus, other);
   };
 
@@ -763,6 +855,9 @@ function App() {
 
   return (
     <div className="App">
+      <div>
+        <Facebook />
+      </div>
       {/* Conditional rendering for the Header */}
       {forVisible && window.location.pathname !== "/" ? (
         <div>
@@ -964,6 +1059,8 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoriteApartment={favoriteApartment}
+              favorite_apartment_handler={favorite_apartment_handler}
             />
           }
         />
@@ -981,6 +1078,9 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoritesLot={favoritesLots}
+              favoritesLots={favoritesLots}
+              favoriteHandlerLots={favoriteHandlerLots}
             />
           }
         />
@@ -998,6 +1098,9 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoriteHandlerPhysical={favoriteHandlerPhysical}
+              favoritesPhysical={favoritesPhysical}
+              favoriteHandlerLots={favoriteHandlerLots}
             />
           }
         />
@@ -1015,6 +1118,8 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoriteApartment={favoriteApartment}
+              favorite_apartment_handler={favorite_apartment_handler}
             />
           }
         />
@@ -1061,6 +1166,9 @@ function App() {
               currenceChangeState={currenceChangeState}
               isOn={isOn}
               toggleSwitch={toggleSwitch}
+              favoriteApartment={favoriteApartment}
+              favorite_apartment_handler={favorite_apartment_handler}
+              selectedLanguage={selectedLanguage}
             />
           }
         />

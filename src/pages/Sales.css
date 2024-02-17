@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
+
 
 .SalesBox {
   margin-top: 50px;
@@ -168,7 +168,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: "Roboto", sans-serif;
   padding: 10px;
 }
 
@@ -251,7 +250,6 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
-  font-family: "Roboto", sans-serif;
   font-size: 400;
 }
 
@@ -357,50 +355,22 @@
     width: 100%;
     /* width: 340px; */
   }
-  .whole_sale_omdal_content {
-    /* padding: 0 0px; */
-  }
+
   .call_and_number_on_saleModal {
     width: 100%;
     flex-direction: column;
     align-items: start;
     margin-top: 30px;
-    /* margin-bottom: 40px; */
-    /* border: 1px solid red; */
   }
-  .address_and_address {
-    /* width: 100%;
-    border: 1px solid red;
-    display: flex;
-    justify-content: start;
-    align-items: start; */
-  }
-  /* .sale_modal_container_main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  } */
-
   .close_icon_sale {
     width: 20px;
   }
   .close_sale_modal {
     margin-top: -20px;
   }
-  .image_container_for_sale_modal {
-    /* border-radius: 20px; */
-    /* border: 1px solid yellow; */
-  }
   .image_for_sale_modal {
-    border-radius: 20px;
+    /* border-radius: 20px; */
     margin-top: -10px;
-  }
-  .column {
-    /* display: none; */
-    /* font-size: 12px;
-    margin-top: -15px; */
-    /* border: 1px solid gray; */
   }
   .sale_settings_and_companylogo {
     flex-direction: column;

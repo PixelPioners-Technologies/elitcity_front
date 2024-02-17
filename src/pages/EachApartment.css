@@ -12,6 +12,9 @@
   /* gap: 50px; */
   /* border: 1px solid red; */
 }
+.gapp{
+  gap: 20px;
+}
 /* .apart_class_image{ */
   /* border: 40px solid goldenrod; */
   /* display: none; */
@@ -183,6 +186,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  /* border: 1px solid red; */
 }
 
 .stylesOfIconsOnEachComplex {
@@ -194,17 +198,21 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  /* border: 2px solid red; */
 }
-
 .inprastruqturisIconsBox {
   margin-top: 20px;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   /* justify-content: space-between; */
   gap: 30px;
 }
 
 .textBoxOfH4axloMdebareObieqtebi {
-  margin-top: 50px;
+  /* margin-top: 50px; */
+  padding-left: 30px;
+  margin-bottom: -30px;
   /* padding: 0 100px; */
 }
 
@@ -219,6 +227,10 @@
   flex-direction: column;
   gap: 10px;
   color: white;
+}
+.padding{
+  padding: 20px;
+  margin-top: -30px;
 }
 
 .iconAndItsText {
@@ -246,21 +258,9 @@
     width: 335px;
     align-items: center;
     display: none;
-    /* margin-top: -100px; */
-    /* margin-left: -200px; */
   }
-  /* .numberAndCallRequestBox {
-    flex-direction: column;
-  } */
-  /* .bigImageBox {
-    width: 340px;
-  } */
-  /* .eachComplexBox {
-    border: 2px solid yellow;
-    width: 100%;
-  } */
-  /* #lands_image{
-    display: none;
-    width: 340px;
-  } */
+  .padding{
+    gap: 25px;
+  }
+
 }

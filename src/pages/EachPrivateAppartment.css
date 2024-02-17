@@ -55,13 +55,12 @@
 
 .about_land_header_P {
   margin-bottom: 20px;
-  font-family: "Roboto", sans-serif;
+
   font-weight: 500;
 }
 
 .about_land_P {
   max-width: 600px;
-  font-family: "Roboto", sans-serif;
   color: aliceblue;
 }
 
@@ -90,5 +89,11 @@
   .child_map_container_P {
     width: 100%;
     padding-bottom: 30px;
+  }
+  #lands_image{
+    height: auto;
+  }
+  .miniImagesBoxS{
+    margin-top: 40px;
   }
 }

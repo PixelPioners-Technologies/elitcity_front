@@ -22,6 +22,11 @@ const HomePagecompanylogo = ({ selectedLanguage }) => {
     }));
   };
 
+
+
+
+
+  
   useEffect(() => {
     const fetchCompany = async () => {
       try {

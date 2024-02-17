@@ -10,14 +10,18 @@ import { Link, useNavigate } from "react-router-dom";
 
 import heartIcon from "../assets/starLogo.svg";
 import Filter from "../assets/filter.png";
+import LocationIcon from "../assets/locationIcon.png";
+import Sort from "../assets/sort.png";
+import Arrows from "../assets/arrows.png";
 
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import mapSignLogo from "../assets/mapSignLogoo.svg";
-import dollar from "../assets/dollar-svgrepo-com.svg";
-// import dollar from '../assets/dollar-whitee.svg';
 
-import lari from "../assets/lari-svgrepo-com.svg";
-// import lari from '../assets/lari-white.svg';
+import dollar_black from "../assets/dollar-svgrepo-com.svg";
+import lari_black from "../assets/lari-svgrepo-com.svg";
+import dollar from "../assets/dollar-whitee.svg";
+import lari from "../assets/lari-white.svg";
+
 import arrowDownSorting from "../assets/arrow-down-white.svg";
 import googleMapImage from "../assets/mapImageForFooter.svg";
 
@@ -619,29 +623,21 @@ export default function Complex({
     // console.log("open:", Open);
   };
 
+  const [openSortComp, setOpenComp] = useState(false);
+
+  const sortOpen = () => {
+    openSortComp(!setOpenComp);
+  };
   return (
-    <div className="ComplexBodyBox">
+    <div className="complex_page_div">
       <div className="filter_cont_for_complexes">
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 2 }}
+          className="column_div"
         >
-          <div className="for_comfort">
-            <div className="adgilicomportistvis title">
-              <p>
-                {
-                  handleStatusButtonLanguageChange(selectedLanguage)
-                    .place_for_your_comfort
-                }{" "}
-              </p>
-              <img
-                onClick={toggleFunc}
-                className="filter_icon_for_links"
-                src={Filter}
-                alt="/"
-              />
-            </div>
+          <div className="for_comfort column_div_for_comfort">
             <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
               {/* button for filtering space */}
               <div className="button-modal-container ">
@@ -705,6 +701,7 @@ export default function Complex({
                 </SpaceModal_complex>
               </div>
               {/* button for filtering price  */}
+
               <div className="button-modal-container">
                 <div onClick={handlePriceButtonClick} className="space_button">
                   {
@@ -726,31 +723,79 @@ export default function Complex({
                       handleStatusButtonLanguageChange(selectedLanguage)
                         .fullPriceHomePage
                     }
+
+                    <div className="currencyBox_homepage">
+                      <div
+                        className="switch_homepage"
+                        data-ison={isOn}
+                        onClick={toggleSwitch}
+                      >
+                        <motion.div
+                          className="handle_homepage"
+                          layout
+                          transition={spring}
+                        >
+                          <img
+                            src={lari_black}
+                            alt="Lari Sign"
+                            className={`currency-sign_homepage ${
+                              isOn ? "active" : ""
+                            }`}
+                          />
+                          <img
+                            src={dollar_black}
+                            alt="Dollar Sign"
+                            className={`currency-sign_homepage ${
+                              !isOn ? "active" : ""
+                            }`}
+                          />
+                        </motion.div>
+                      </div>
+                    </div>
                   </div>
                   <div>
-                    <input
-                      className="min_price_complex"
-                      type="number"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).dan
-                      }
-                      value={minPricePerSquareMeter}
-                      onChange={(e) =>
-                        minPricePerSquareMeterChangeHandler(e.target.value)
-                      }
-                    />
-
-                    <input
-                      className="min_price_complex"
-                      type="number"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).mde
-                      }
-                      value={maxPricePerSquareMeter}
-                      onChange={(e) =>
-                        maxPricePerSquareMeterChangeHandler(e.target.value)
-                      }
-                    />
+                    <div className="inputInlineDispley">
+                      {/* pirveli  */}
+                      <div className="for_dolar_and_lari">
+                        <input
+                          className="min_price_complex"
+                          type="number"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage)
+                              .dan
+                          }
+                          value={minPricePerSquareMeter}
+                          onChange={(e) =>
+                            minPricePerSquareMeterChangeHandler(e.target.value)
+                          }
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+                      {/* meore  */}
+                      <div className="for_dolar_and_lari">
+                        <input
+                          className="min_price_complex"
+                          type="number"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage)
+                              .mde
+                          }
+                          value={maxPricePerSquareMeter}
+                          onChange={(e) =>
+                            maxPricePerSquareMeterChangeHandler(e.target.value)
+                          }
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+                    </div>
 
                     <div className="meterPriceHomePageComplex">
                       {
@@ -758,31 +803,50 @@ export default function Complex({
                           .meterPriceHomePage
                       }
                     </div>
-
-                    <input
-                      className="min_price_complex"
-                      type="number"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).dan
-                      }
-                      value={minFullPrice}
-                      onChange={(e) =>
-                        props.minFullPriceChangeHandler(e.target.value)
-                      }
-                    />
-
-                    <input
-                      className="min_price_complex"
-                      type="number"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).mde
-                      }
-                      value={maxFullPrice}
-                      onChange={(e) =>
-                        maxFullPriceChangeHandler(e.target.value)
-                      }
-                    />
+                    {/* mesame  */}
+                    <div className="inputInlineDispley">
+                      <div className="for_dolar_and_lari">
+                        <input
+                          className="min_price_complex"
+                          type="number"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage)
+                              .dan
+                          }
+                          value={minFullPrice}
+                          onChange={(e) =>
+                            props.minFullPriceChangeHandler(e.target.value)
+                          }
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+                      {/* meotxe  */}
+                      <div className="for_dolar_and_lari">
+                        <input
+                          className="min_price_complex"
+                          type="number"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage)
+                              .mde
+                          }
+                          value={maxFullPrice}
+                          onChange={(e) =>
+                            maxFullPriceChangeHandler(e.target.value)
+                          }
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+                    </div>
                   </div>
+
                   <button
                     className="modal_close_button"
                     onClick={handleClosePriceModal}
@@ -861,7 +925,7 @@ export default function Complex({
                 <img src={loupe} alt="search icon" className="dropdown" />
                 {/* ------------------------- */}
               </div>
-              <div className="button-modal-container ">
+              {/* <div className="button-modal-container  find_map_div">
                 <div onClick={handleSearchButtonClick} className="space_button">
                   <button
                     className="homepage_serch_button_complexpage"
@@ -875,6 +939,46 @@ export default function Complex({
                     }
                   </button>
                 </div>
+              </div> */}
+            </div>
+            {/* <div className="flex_end"> */}
+            <div className="button-modal-container  find_map_div">
+              <Link to="/map">
+                <motion.div
+                  className="textButtonContainer map_styles"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <div className="mapAndLogoImg styles_for_top_map">
+                    <img
+                      src={LocationIcon}
+                      alt="mapSignLogo"
+                      className="location_icon_respons"
+                    />
+                    <button className="textButton">
+                      {" "}
+                      {handleStatusButtonLanguageChange(selectedLanguage).map}
+                    </button>
+                  </div>
+                </motion.div>
+              </Link>
+              <div
+                onClick={handleSearchButtonClick}
+                className="space_button gap_short"
+              >
+                <button
+                  className="homepage_serch_button_complexpage"
+                  style={{ color: "white" }}
+                  onClick={() => searchButtonhangeHandler(!searchButton)}
+                >
+                  {" "}
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .allFindButtonLanguage
+                  }
+                </button>
+                {/* </div> */}
               </div>
             </div>
           </div>
@@ -899,18 +1003,28 @@ export default function Complex({
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
             <div className="projectsPlansMapsSortingAndDollarBox">
+              {/*  projects*/}
+              <div className="project_div_parent res">
+                <div className="project_icon_div">
+                  <div className="line line_sizes"></div>
+                  <div className="line  line_sizes"></div>
+                  <div className="line  line_sizes"></div>
+                </div>
+                <p className="projects_name">projects</p>
+              </div>
+              {/* map */}
               <Link to="/map">
                 <motion.div
-                  className="textButtonContainer"
+                  className="textButtonContainer map_styles_for_complex"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <div className="mapAndLogoImg">
                     <img
-                      src={mapSignLogo}
+                      src={LocationIcon}
                       alt="mapSignLogo"
-                      className="mapSignLogo"
+                      className="location_icon_respons"
                     />
                     <button className="textButton">
                       {" "}
@@ -919,7 +1033,7 @@ export default function Complex({
                   </div>
                 </motion.div>
               </Link>
-
+              {/* sort button */}
               <Button
                 id="basic-button"
                 aria-controls={open ? "basic-menu" : undefined}
@@ -932,12 +1046,27 @@ export default function Complex({
                   <p className="sort_text_web">
                     {handleStatusButtonLanguageChange(selectedLanguage).sorting}
                   </p>
-                  <p className="sort_text">
-                    {handleStatusButtonLanguageChange(selectedLanguage).sort}
-                  </p>
-                  <img src={arrowDownSorting} style={{ width: "20px" }} />
+                  <img
+                    className="sort_hide_resp"
+                    src={arrowDownSorting}
+                    style={{ width: "20px" }}
+                  />
+                  <img
+                    className="arrow_for_complex"
+                    src={Arrows}
+                    style={{ width: "25px" }}
+                    onClick={sortOpen}
+                  />
                 </div>
               </Button>
+              {/* sort icon for complex */}
+              <div className="sort_icon_for_complex_mob">
+                <img
+                  src={Sort}
+                  style={{ width: "20px", height: "25px" }}
+                  alt="/"
+                />
+              </div>
 
               <Menu
                 id="basic-menu"
@@ -1102,7 +1231,7 @@ export default function Complex({
               {/* ---------------------------------- */}
 
               {/* ----Dollar and Lari Toggle button */}
-              <div className="currencyBox">
+              <div className="currency-Box  ">
                 <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
                   <motion.div className="handle" layout transition={spring}>
                     <img

@@ -1,8 +1,171 @@
 .ComplexBoxInFavoritesPages {
   display: flex;
-  padding: 50px 70px ;
+  padding: 50px 70px;
   width: 100%;
   justify-content: center;
+  flex-direction: column;
   gap: 50px;
   flex-wrap: wrap;
+
+
 }
+
+.item_header {
+  color: aliceblue;
+  margin-bottom: 30px;
+}
+
+.item_header_none {
+  display: none;
+}
+
+.same_items {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* =================================   complex   ============================================== */
+
+
+.textInfo_f {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+}
+
+
+
+
+
+
+
+
+.complex_card_f {
+  color: aliceblue;
+}
+
+.complex_title_f {
+  color: aliceblue;
+}
+
+.complex_square_price_f {
+  color: aliceblue;
+}
+
+.complex_addres_f {
+  color: aliceblue;
+  padding-right: 10px;
+}
+
+.heartButtons_f {
+  position: absolute;
+}
+
+.complex_status_and_rank_container_f {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 30px;
+}
+
+
+.complex_status_f {
+  color: rgb(104, 104, 104);
+}
+
+.complex_rank_f {
+  color: rgb(255, 255, 255);
+}
+
+
+/* ======================================   private apartments    ======================================================== */
+
+
+.p_apartment_title_f {
+  color: aliceblue;
+  margin-top: 3px;
+}
+
+.p_apartment_addres_f {
+  color: aliceblue;
+  padding-right: 10px;
+}
+
+
+.p_apartment_status_f {
+  color: rgb(122, 122, 122);
+}
+
+.p_apartment_rank_f {
+  color: aliceblue;
+}
+
+.P_apartment_squateproce_f {
+  color: aliceblue;
+}
+
+/* ==========================================     grounds      ============================================= */
+
+.ground_title_f {
+  color: aliceblue;
+}
+
+.ground_address_f {
+  color: aliceblue;
+  padding-right: 10px;
+}
+
+.ground_squareprice_f {
+  color: aliceblue;
+}
+
+
+.ground_status_f {
+  color: rgb(122, 122, 122);
+
+}
+
+.ground_rank_f {
+  color: aliceblue;
+}
+
+/* ========================================    apartments    =============================================== */
+
+
+.apartment_title_f {
+  margin-top: 3px;
+  color: aliceblue;
+}
+
+.apartment_adres_f {
+  color: aliceblue;
+  padding-right: 10px;
+}
+
+.apartment_squareproce_f {
+  color: aliceblue;
+}
+
+
+.apartment_status_f {
+  color: rgb(122, 122, 122);
+
+}
+
+.apartment_rank_f {
+  color: aliceblue;
+
+}
+
+/* 
+@media screen and (max-width:500px) {
+  .ComplexBoxInFavoritesPages {
+display: flex;
+justify-content: center;
+
+  }
+} */

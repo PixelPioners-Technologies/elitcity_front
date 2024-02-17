@@ -1,109 +1,116 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-
 
 .company_page {
-  font-family: 'Roboto', sans-serif;
+  width: 100%;
   color: aliceblue;
-  padding: 20px;
   /* border: 1px solid red; */
 }
-
-
-.company_background_image_container {
-  height: 350px;
-  overflow: hidden;
+.company_main_page {
+  width: 100%;
+  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
-  /* border: 1px solid blue; */
+  align-items: center;
 }
-
+.company_background_image_container {
+  width: 100%;
+  /* border: 1px solid rgb(251, 255, 0); */
+  position: relative;
+  background-size: cover;
+}
 .company_background_image_big {
   width: 100%;
+  max-height: 450px;
 }
-
-
-.company_logo_round {
-  border-radius: 50%;
-  /* position: absolute; */
-  /* margin-top: -42px;
-  margin-left: 30px; */
-  /* width: 240px; */
-}
-
-.cpmpany_name_and_settings {
+.responsive_logo {
+  width: 100%;
   display: flex;
   align-items: start;
   justify-content: start;
-  /* flex-direction: column; */
+  /* border: 1px solid red; */
+  position: relative;
+  top: -100px;
 }
-
+.company_logo_round {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+.colo_name_and_others {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  /* align-items: end; */
+  /* border: 2px solid green; */
+  margin-top: -60px;
+  position: relative;
+  top: -110px;
+}
+.cpmpany_name_and_settings {
+  width: 87%;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
 .all_settings_company_1 {
-  margin-left: 20%;
-  margin-top: 40px;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 15px;
 }
-
-
-.company_name_each{
-font-size: 200;
+.socials_box {
+  /* border: 1px solid red; */
+  width: 70%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  /* padding: 0; */
+  justify-content: space-around;
+  /* border: 1px solid gray; */
+  /* border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1; */
 }
-
-.company_adddresss{
+.about_each_company {
+  width: 100%;
+  padding: 40px;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: ; */
+  margin-top: -50px;
+  gap: 30px;
+}
+.currency_and_allcomplex_header {
+  /* border: 2px solid red; */
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.company_adddresss {
   font-size: medium;
   font-weight: 300;
 }
-
-
-.mobile_website_phone{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-left: 30px;
-}
-
-
 .email_and_website_container {
-  margin-top: 40px;
-  margin-left: 35px;
+  /* margin-top: 40px; */
+  /* margin-left: 35px; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
+  /* border: 1px solid red; */
 }
-
 .company_all_logos {
   width: 33px;
   height: 33px;
 }
-
-.about_each_company{
-  width: 100%;
-  margin-top: 150px;
-  padding: 40px;
-}
-
-.about_company_header{
-  font-family: 'Roboto', sans-serif;
+.about_company_header {
   font-weight: 500;
 }
 
-.about_company_container{
-  margin-top: 40px;
-}
-
-.currency_and_allcomplex_header{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 30px;
-  margin-top: 50px;
-}
-
-
-
 /* ---------------------------card styles ------------------------------ */
-
-
-
 
 .allCards_each_company {
   display: flex;
@@ -113,10 +120,7 @@ font-size: 200;
   gap: 40px;
   margin-top: 50px;
   margin-bottom: 100px;
-  
- 
 }
-
 
 .card_each_company {
   width: 315px;
@@ -128,7 +132,6 @@ font-size: 200;
   overflow: hidden;
   padding: 20px 20px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
-
 
   transition: transform 0.3s ease-in-out;
 
@@ -147,7 +150,6 @@ font-size: 200;
   display: flex;
   justify-content: flex-end;
   position: absolute;
-
 }
 
 .heartButtons_each_company {
@@ -164,8 +166,8 @@ font-size: 200;
 
 .heartButtons_each_company:hover {
   cursor: pointer;
-  transform: scale(1.2); 
-  transition: transform 0.3s ease; 
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
 }
 
 .textInfo_each_company {
@@ -176,10 +178,14 @@ font-size: 200;
   gap: 10px;
 }
 
-.companys_complexes_container{
+.companys_complexes_container {
   padding: 40px;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-wrap: wrap;
 }
-
 
 /* --------------------------------------------------currency styles  -------------------------------------------- */
 
@@ -187,30 +193,26 @@ font-size: 200;
   /* height: 50px; */
   display: flex;
   align-items: center;
-
-
 }
 
 /* classes of toggle button on currency --- */
 .switch {
-  width: 90px;
+  width: 80px;
   height: 40px;
   /* background-color: rgba(255, 255, 255, 0.4); */
   background-color: black;
 
   display: flex;
-  justify-content: flex-start;  
+  justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
 
   /* border: 1px solid red; */
-  border-radius: 50px;
+  /* border-radius: 50px; */
   padding: 10px;
   cursor: pointer;
   /* border-radius: 50px; */
 }
-
-
 
 .switch[data-ison="true"] {
   justify-content: flex-end;
@@ -220,82 +222,108 @@ font-size: 200;
   width: 35px;
   height: 35px;
   background-color: white;
-  border-radius: 40px;
+  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .currency-sign {
-  width: 27px; /* Adjust width as needed */
+  width: 20px; /* Adjust width as needed */
   height: auto;
-  margin-right: 0px; /* Add spacing between the images */
+  margin-right: 0px; 
 }
 
 .currency-sign.active {
-
   display: none; /* Hide inactive currency sign */
 }
 /* ------------- */
 
 @media screen and (max-width: 500px) {
-
-  .company_background_image_container {
+  .company_page {
+    border: 1px solid red;
+  }
+  .company_main_page {
     width: 100%;
   }
-  .responsive_logo{
-    position: absolute;
-    margin-bottom: 0px;
-    /* margin-top: 20px; */
-    /* z-index: 11; */
-    /* top: -80px; */
-    /* width: 100%; */
-    border: 1px solid red;
-    width: 60px;
-    height: 60px;
-
-    /* width: 100%; */
+  .company_background_image_big {
+    height: 300px;
   }
-  .company_logo_round{
+  .responsive_logo {
+    top: -60px;
+    justify-content: center;
+    /* border: 1px solid red; */
+  }
+  .company_logo_round {
     width: 100px;
     height: 100px;
   }
-  .mobile_website_phone {
-    flex-direction: column;
-    align-items: start;
-    margin-left: 0;
-    padding-left: 0;
-    justify-content: start;
+  .colo_name_and_others {
+    /* width: 60px; */
     /* border: 1px solid green; */
-    /* gap: 4px; */
-    /* display: none; */
+    margin-top: 40px;
+    
   }
   .cpmpany_name_and_settings {
-    /* border: 1px solid blue; */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    margin-left: 0;
-    padding-left: 0;
+    /* border: 1px solid gold; */
+    /* top: -80px; */
+    height: 200px;
+    width: 100%;
+    justify-content: space-between;
+    padding: 15px;
+    /* gap: 160px; */
+  }
+  .socials_box {
+    flex-direction: column;
+    /* border: 1px solid rgb(25, 0, 255); */
+    /* width: ; */
+    gap: 4px;
   }
   .all_settings_company_1 {
-    /* border: 2px solid yellow; */
-    margin-left: 0%;
-    margin-top: 0;
+    width: 100%;
+    border: 1px solid red;
+    font-size: px;
   }
-  .about_each_company{
+  .colo_name_and_others {
+    margin-top: 3px;
+  }
+  .email_and_website_container {
+    gap: 5px;
+    font-size: 14px;
+  }
+  .about_each_company {
+    margin-top: -100px;
+    padding: 15px;
+  }
+  .currency_and_allcomplex_header {
+    justify-content: space-between;
+  }
+  .companys_complexes_container{
     /* border: 1px solid red; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 0;
+  }
+  .allCards_each_company {
+    /* border: 1px solid red; */
+    justify-content: center;
     margin-top: 20px;
   }
-  .allCards_each_company{
+  .card{
+    padding: 15px;
     /* border: 1px solid red; */
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
   }
-  
+  .heartButtonBox_each_company {
+    width: 98%;
+  }
+  .switch{
+    width: 50px;
+    height: 25px;
+  }
+  .handle{
+    height: 25px;
+    width: 22px;
+  }
+  .currency-sign{
+    font-size: 10px;
+  }
+
 }
