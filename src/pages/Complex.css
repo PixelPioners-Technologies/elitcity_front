@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap");
 
 .complex_page_div {
   padding: 0 80px;
@@ -15,7 +14,7 @@
 }
 .column_div_for_comfort {
   flex-direction: column;
-
+}
 .flex_end {
   width: 40%;
   /* border: 1px solid red; */
@@ -351,9 +350,7 @@
 }
 
 @media screen and (max-width: 500px) {
-  .filter_cont_for_complexes {
-    /* display: none; */
-  }
+
   .numbers_link {
     border: none;
     display: flex;
@@ -438,9 +435,6 @@
     display: flex;
     align-items: center;
   }
-  .sortAndArrowDownImgBox{
-    /* border: 1px solid red; */
-  }
   .styles_for_top_map{
 
     display: flex;
@@ -488,9 +482,7 @@
     justify-content: center;
     /* text-align: center; */
   }
-  .for_comfort{
-    /* display: none; */
-  }
+
   .complex_page_div {
     padding: 0 10px;
   }
