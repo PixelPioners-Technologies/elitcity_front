@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+
 
 
 .main_blog{
@@ -12,7 +12,6 @@
   justify-content: flex-start;
   flex-direction: row;
   color: aliceblue;
-  font-family: 'Roboto', sans-serif;
   gap: 40px;
   margin-top: 60px;
 }

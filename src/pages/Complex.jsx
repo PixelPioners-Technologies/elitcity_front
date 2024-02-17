@@ -12,11 +12,15 @@ import Arrows from "../assets/arrows.png";
 
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import mapSignLogo from "../assets/mapSignLogoo.svg";
-import dollar from "../assets/dollar-svgrepo-com.svg";
-// import dollar from '../assets/dollar-whitee.svg';
 
-import lari from "../assets/lari-svgrepo-com.svg";
-// import lari from '../assets/lari-white.svg';
+
+import dollar_black from "../assets/dollar-svgrepo-com.svg";
+import lari_black from "../assets/lari-svgrepo-com.svg";
+import dollar from "../assets/dollar-whitee.svg";
+import lari from "../assets/lari-white.svg";
+
+
+
 import arrowDownSorting from "../assets/arrow-down-white.svg";
 import googleMapImage from "../assets/mapImageForFooter.svg";
 
@@ -719,31 +723,79 @@ const sortOpen = () => {
                       handleStatusButtonLanguageChange(selectedLanguage)
                         .fullPriceHomePage
                     }
+
+
+                    <div className="currencyBox_homepage">
+                      <div
+                        className="switch_homepage"
+                        data-ison={isOn}
+                        onClick={toggleSwitch}
+                      >
+                        <motion.div
+                          className="handle_homepage"
+                          layout
+                          transition={spring}
+                        >
+                          <img
+                            src={lari_black}
+                            alt="Lari Sign"
+                            className={`currency-sign_homepage ${isOn ? "active" : ""
+                              }`}
+                          />
+                          <img
+                            src={dollar_black}
+                            alt="Dollar Sign"
+                            className={`currency-sign_homepage ${!isOn ? "active" : ""
+                              }`}
+                          />
+                        </motion.div>
+                      </div>
+                    </div>
+
+
                   </div>
                   <div>
-                    <input
-                      className="min_price_complex"
-                      type="number"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).dan
-                      }
-                      value={minPricePerSquareMeter}
-                      onChange={(e) =>
-                        minPricePerSquareMeterChangeHandler(e.target.value)
-                      }
-                    />
 
-                    <input
-                      className="min_price_complex"
-                      type="number"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).mde
-                      }
-                      value={maxPricePerSquareMeter}
-                      onChange={(e) =>
-                        maxPricePerSquareMeterChangeHandler(e.target.value)
-                      }
-                    />
+                    <div className="inputInlineDispley">
+                      {/* pirveli  */}
+                      <div className="for_dolar_and_lari">
+                        <input
+                          className="min_price_complex"
+                          type="number"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage).dan
+                          }
+                          value={minPricePerSquareMeter}
+                          onChange={(e) =>
+                            minPricePerSquareMeterChangeHandler(e.target.value)
+                          }
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+                      {/* meore  */}
+                      <div className="for_dolar_and_lari">
+                        <input
+                          className="min_price_complex"
+                          type="number"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage).mde
+                          }
+                          value={maxPricePerSquareMeter}
+                          onChange={(e) =>
+                            maxPricePerSquareMeterChangeHandler(e.target.value)
+                          }
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+                    </div>
 
                     <div className="meterPriceHomePageComplex">
                       {
@@ -751,31 +803,47 @@ const sortOpen = () => {
                           .meterPriceHomePage
                       }
                     </div>
+                    {/* mesame  */}
+                  <div className="inputInlineDispley">
 
-                    <input
-                      className="min_price_complex"
-                      type="number"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).dan
-                      }
-                      value={minFullPrice}
-                      onChange={(e) =>
-                        props.minFullPriceChangeHandler(e.target.value)
-                      }
-                    />
+                    <div className="for_dolar_and_lari">
 
-                    <input
-                      className="min_price_complex"
-                      type="number"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).mde
-                      }
-                      value={maxFullPrice}
-                      onChange={(e) =>
-                        maxFullPriceChangeHandler(e.target.value)
-                      }
-                    />
+
+                      <input
+                        className="min_price_complex"
+                        type="number"
+                        placeholder={
+                          handleStatusButtonLanguageChange(selectedLanguage).dan
+                        }
+                        value={minFullPrice}
+                        onChange={(e) =>
+                          props.minFullPriceChangeHandler(e.target.value)
+                        }
+                      />
+                      <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+
+                    </div>
+                    {/* meotxe  */}
+                    <div className="for_dolar_and_lari">
+
+                      <input
+                        className="min_price_complex"
+                        type="number"
+                        placeholder={
+                          handleStatusButtonLanguageChange(selectedLanguage).mde
+                        }
+                        value={maxFullPrice}
+                        onChange={(e) =>
+                          maxFullPriceChangeHandler(e.target.value)
+                        }
+                      />
+                      <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+
+                    </div>
+                    
                   </div>
+                    </div>
+
                   <button
                     className="modal_close_button"
                     onClick={handleClosePriceModal}
@@ -1235,7 +1303,7 @@ const sortOpen = () => {
                       {" "}
                       {currenceChangeState
                         ? complex.complexDetails.pricePerSqMeter *
-                          getCorrencyRate
+                        getCorrencyRate
                         : complex.complexDetails.pricePerSqMeter}
                     </p>
                   </div>
