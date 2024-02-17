@@ -7,9 +7,8 @@
   padding: 20px;
   background-color: #000000;
   color: aliceblue;
-  border: 1px solid #a8a8a8;
-  z-index: 1000; /* Ensure it's above other content */
-  /* Add more styling as needed */
+  border: 1px solid white;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  z-index: 1000; 
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  border-radius: 8px;
 }
