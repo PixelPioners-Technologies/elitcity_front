@@ -28,7 +28,7 @@ import EachBlog from "./pages/EachBlog";
 import Each_Developer from "./pages/Each_Developer";
 import storkhome__logo from './company_logo/storkhome__logo.png'
 import Facebook from "./Facebook";
-
+import { Share } from "react-facebook";
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {

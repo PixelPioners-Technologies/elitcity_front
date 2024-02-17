@@ -19,6 +19,8 @@ import supermarket from "../assets/Supermarket.svg";
 import skveri from "../assets/skveri.svg";
 import heartIcon from "../assets/starLogo.svg";
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
+import ShareButton from "./Sheare";
+
 
 const normalizePrivateApartmentData = (data, lang) => {
   return {
@@ -296,10 +298,10 @@ export default function EachPrivateAppartment({
     setWordData(sliderImages[newIndex]);
   };
 
-  // for toggle DOllar AND LARI ---==---(START)
-  // const [isOn, setIsOn] = useState(false);
-  // const toggleSwitch = () => setIsOn(!isOn);
-  // // -----===--------(END)
+
+
+
+
 
   const squareSymbol = "\u00B2";
 
@@ -387,54 +389,53 @@ export default function EachPrivateAppartment({
                 <img src={star} style={{ width: "30px", height: "30px" }} />
               </button> */}
 
-                  <button
-                    // onClick={() => favoriteHandler(complex)}
-                    key={ground.id}
-                    className="heartButtons"
-                    onClick={() => favoriteHandlerPhysical(ground)}
-                  >
-                    {favoritesPhysical.some((fav) => fav.id === ground.id) ? (
-                      <img src={heartIcon} alt="Logo of heart" />
-                    ) : (
-                      <img
-                        src={heartIconEmpty}
-                        alt="Logo of empty heart"
-                        style={{ width: "30px", height: "30px", border: '1px solid white' }}
-                      />
-                    )}
-                  </button>
+              <button
+                // onClick={() => favoriteHandler(complex)}
+                key={ground.id}
+                className="heartButtons"
+                onClick={() => favoriteHandlerPhysical(ground)}
+              >
+                {favoritesPhysical.some((fav) => fav.id === ground.id) ? (
+                  <img src={heartIcon} alt="Logo of heart" />
+                ) : (
+                  <img
+                    src={heartIconEmpty}
+                    alt="Logo of empty heart"
+                    style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                  />
+                )}
+              </button>
 
 
-              
+
+
               {/* ----Dollar and Lari Toggle button */}
-              <div className="currencyBox">
+              <div className="currencyBox__c">
                 <div
-                  className="switch"
+                  className="switch__c"
                   data-ison={isOn}
                   onClick={() => {
                     toggleSwitch();
                     HandleStateChange();
                   }}
                 >
-                  <motion.div className="handle" layout transition={spring}>
+                  <motion.div className="handle__c" layout transition={spring}>
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign ${isOn ? "active" : ""}`}
+                      className={`currency-sign__c ${isOn ? "active" : ""}`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign ${!isOn ? "active" : ""}`}
+                      className={`currency-sign__c ${!isOn ? "active" : ""}`}
                     />
                   </motion.div>
                 </div>
               </div>
-              {/* Share Button */}
-              <button className="heartButtons">
-                <img src={share} style={{ width: "30px", height: "30px" }} />
-              </button>
 
+              {/* Share Button */}
+              <ShareButton  selectedLanguage={selectedLanguage}  />
             </div>
           </div>
 

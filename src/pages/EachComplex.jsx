@@ -17,7 +17,7 @@ import arrowDown from "../assets/arrow-down.svg";
 import arrowUp from "../assets/arrow-up.svg";
 import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
-
+import ShareButton from "./Sheare";
 // images
 // import binebisRaodenoba from "../assets/key.svg";
 // import korpusebisRaodenoba from "../assets/buildings.svg";
@@ -848,9 +848,8 @@ export default function EachComplex({
                 </div>
               </div>
               {/* Share Button */}
-              <button className="heartButtons">
-                <img src={share} style={{ width: "30px", height: "30px" }} />
-              </button>
+              <ShareButton  selectedLanguage={selectedLanguage}  />
+
             </div>
           </div>
           {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}

@@ -17,6 +17,7 @@ import arrowDown from "../assets/arrow-down.svg";
 import arrowUp from "../assets/arrow-up.svg";
 import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
+import ShareButton from "./Sheare";
 
 // images
 // import binebisRaodenoba from "../assets/key.svg";
@@ -49,8 +50,8 @@ import binebisRaodenoba from '../icons/gasagebi.png'
 import korpusebisRaodenoba from '../icons/korpusi.png'
 import parti from '../icons/farti.png'
 import cherisSimagle from '../icons/cheris_simagle.png'
-import sartulianoba from  '../icons/sartulianoba.png'
-import konstruqcia from  '../icons/konstruqcia.png'
+import sartulianoba from '../icons/sartulianoba.png'
+import konstruqcia from '../icons/konstruqcia.png'
 import parkingi from '../icons/parkingi.png'
 import dacva from '../icons/video_kamera.png'
 import otaxebi from '../icons/otaxebi.png'
@@ -828,33 +829,34 @@ export default function EachApartment({
                 </button>
 
                 {/* ----Dollar and Lari Toggle button */}
-                <div className="currencyBox">
+                <div className="currencyBox__c">
                   <div
-                    className="switch"
+                    className="switch__c"
                     data-ison={isOn}
                     onClick={() => {
                       toggleSwitch();
                       HandleStateChange();
                     }}
                   >
-                    <motion.div className="handle" layout transition={spring}>
+                    <motion.div className="handle__c" layout transition={spring}>
                       <img
                         src={lari}
                         alt="Lari Sign"
-                        className={`currency-sign ${isOn ? "active" : ""}`}
+                        className={`currency-sign__c ${isOn ? "active" : ""}`}
                       />
                       <img
                         src={dollar}
                         alt="Dollar Sign"
-                        className={`currency-sign ${!isOn ? "active" : ""}`}
+                        className={`currency-sign__c ${!isOn ? "active" : ""}`}
                       />
                     </motion.div>
                   </div>
                 </div>
+
+
                 {/* Share Button */}
-                <button className="heartButtons">
-                  <img src={share} style={{ width: "30px", height: "30px" }} />
-                </button>
+                <ShareButton  selectedLanguage={selectedLanguage}  />
+
               </div>
             </div>
             {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}
