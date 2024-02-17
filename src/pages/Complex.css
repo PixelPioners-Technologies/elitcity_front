@@ -15,8 +15,8 @@
 }
 .column_div_for_comfort {
   flex-direction: column;
-  /* border: 1px solid green; */
 }
+
 .flex_end {
   width: 40%;
   /* border: 1px solid red; */
@@ -89,7 +89,8 @@
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: #fff;
 }
-.map_styles {
+
+.map_styles{
   /* border: 1px solid red; */
   display: flex;
   align-items: center;
@@ -243,7 +244,7 @@
   display: flex;
 }
 .complex_status_on_card {
-  font-family: "Roboto", sans-serif;
+
   font-weight: 100;
   margin-top: 10px;
 }
@@ -330,7 +331,6 @@
     0 13.646761411524492px 13.646761411524492px -3.125px #0000001b,
     0 30px 30px -3.75px #0000000d;
   font-weight: bold;
-  font-family: Montserrat;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -351,9 +351,7 @@
 }
 
 @media screen and (max-width: 500px) {
-  .filter_cont_for_complexes {
-    /* display: none; */
-  }
+
   .numbers_link {
     border: none;
     display: flex;
@@ -437,9 +435,6 @@
     display: flex;
     align-items: center;
   }
-  .sortAndArrowDownImgBox{
-    /* border: 1px solid red; */
-  }
   .styles_for_top_map{
     display: flex;
     flex-direction: row;
@@ -486,9 +481,6 @@
     justify-content: center;
     /* text-align: center; */
   }
-  .for_comfort{
-    /* display: none; */
-  }
   .complex_page_div {
     padding: 0 10px;
   }
@@ -526,7 +518,7 @@
 
 /* ---------- M O D A L S ------------ */
 
-.min_price_complex {
+/* .min_price_complex {
   color: #ffffff;
   background-color: transparent;
   border-style: hidden;
@@ -535,7 +527,8 @@
   padding: 10px;
   border-radius: 5px;
   margin-left: 10px;
-}
+} */
+
 
 .min_price_complex:focus {
   outline: none;
@@ -564,3 +557,73 @@
 .min_price_complex::-ms-clear {
   display: none;
 }
+
+
+.min_price_complex {
+  /* border: 3px solid blue; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #ffffff;
+  width: 150px;
+  /* background-color: transparent; */
+  border-style: hidden;
+  /* border: 3px solid transparent; */
+  background-color: transparent;
+  padding: 10px;
+  /* border-radius: 5px; */
+  /* margin-left: 10px; */
+}
+.min_price_complex:focus {
+  outline: none;
+  border: none;
+  /* box-shadow: 0 0 5px rgb(161, 193, 202); */
+}
+.min_price_complex::placeholder {
+  font-size: 15px;
+  color: #999;
+}
+
+
+
+
+
+  .currencyBox {
+    display: flex;
+    align-items: center;
+  }
+  .sort_text {
+    display: none;
+  }
+  .switch {
+    width: 50px !important;
+    height: 20px !important;
+    background-color: black;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 7px;
+    cursor: pointer;
+  }
+  .switch[data-ison="true"] {
+    justify-content: flex-end;
+  }
+  .handle {
+    width: 20px !important;
+    height: 20px !important;
+    background-color: white;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .currency-sign {
+    width: 12px !important;
+    height: auto;
+    margin-right: 0px;
+  }
+  .currency-sign.active {
+    display: none;
+  }
