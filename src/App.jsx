@@ -236,7 +236,7 @@ function App() {
 
   // const [complex_homes, setComplex_homes] = useState([]);
 
-  // const [showSplashScreen, setShowSplashScreen] = useState(true);
+  const [showSplashScreen, setShowSplashScreen] = useState(true);
 
   const [ascendentPrice, setAscendentPrice] = useState("");
   const [searchInput, setSearchInput] = useState("");
@@ -731,32 +731,35 @@ function App() {
     setOther(!other);
   };
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setShowSplashScreen(false);
-  //   }, 3000); // 3000 milliseconds = 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplashScreen(false);
+    }, 3000); // 3000 milliseconds = 3 seconds
 
-  //   return () => clearTimeout(timer); // Clean up the timer
-  // }, []);
+    return () => clearTimeout(timer); // Clean up the timer
+  }, []);
 
-  // if (showSplashScreen) {
-  //   return (
-  //     <div className="slashscreen_container" >
-
-  //       <img className="slash_company_logo" src={storkhome__logo} alt='company_logo' />
-  //       <div className="spinner">
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (showSplashScreen) {
+    return (
+      <div className="slashscreen_container">
+        <img
+          className="slash_company_logo"
+          src={storkhome__logo}
+          alt="company_logo"
+        />
+        <div className="spinner">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
