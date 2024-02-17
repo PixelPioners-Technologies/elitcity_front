@@ -55,13 +55,12 @@
 
 .about_land_header_P {
   margin-bottom: 20px;
-  font-family: "Roboto", sans-serif;
+
   font-weight: 500;
 }
 
 .about_land_P {
   max-width: 600px;
-  font-family: "Roboto", sans-serif;
   color: aliceblue;
 }
 

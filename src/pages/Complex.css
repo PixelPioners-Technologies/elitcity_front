@@ -16,14 +16,7 @@
 .column_div_for_comfort {
   flex-direction: column;
 }
-.column_div {
-  /* border: 1px solid red; */
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 0; */
-}
+
 .flex_end {
   width: 40%;
   /* border: 1px solid red; */
@@ -78,9 +71,7 @@
   color: #fff;
   /* margin-right: 0px; */
 }
-.textButtonContainer{
-  /* border: 2px solid red; */
-}
+
 .map_styles{
   /* border: 1px solid red; */
   display: flex;
@@ -222,17 +213,13 @@
 .company_title_on_card {
   color: #f1eeee;
   text-align: center;
-  /* font-family: "Roboto", sans-serif; */
-  /* margin-left: 10px; */
-  /* border: 1px solid green; */
+
 }
 
 .textinfo_and_company_logo {
   display: flex;
   margin-top: 10px;
-  /* justify-content: flex-start; */
-  /* gap: 20px; */
-  /* border: 1px solid green; */
+
 }
 .company_logo_3 {
   /* margin-top: 10px; */
@@ -247,13 +234,13 @@
   /* padding-left: 10px; */
   gap: 10px;
   width: 300px;
-  /* font-family: "Roboto", sans-serif; */
+
 }
 .price_and_value {
   display: flex;
 }
 .complex_status_on_card {
-  font-family: "Roboto", sans-serif;
+
   font-weight: 100;
   margin-top: 10px;
 }
@@ -342,7 +329,6 @@
     0 13.646761411524492px 13.646761411524492px -3.125px #0000001b,
     0 30px 30px -3.75px #0000000d;
   font-weight: bold;
-  font-family: Montserrat;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -436,10 +422,7 @@
   .filter_cont_for_complex {
     gap: 10px;
   }
-  .textInfo {
-    /* padding-left: 20px; */
-    /* border: 1px solid red; */
-  }
+
   .infoFieldOfComplexsPlansMaps {
     display: flex;
     padding-left: 0;
@@ -449,7 +432,7 @@
 
 /* ---------- M O D A L S ------------ */
 
-.min_price_complex {
+/* .min_price_complex {
   color: #ffffff;
   background-color: transparent;
   border-style: hidden;
@@ -458,7 +441,8 @@
   padding: 10px;
   border-radius: 5px;
   margin-left: 10px;
-}
+} */
+
 
 .min_price_complex:focus {
   outline: none;
@@ -488,24 +472,34 @@
   display: none;
 }
 
-/* 
 
-<div className="switch" data-ison={isOn} onClick={toggleSwitch}>
+.min_price_complex {
+  /* border: 3px solid blue; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #ffffff;
+  width: 150px;
+  /* background-color: transparent; */
+  border-style: hidden;
+  /* border: 3px solid transparent; */
+  background-color: transparent;
+  padding: 10px;
+  /* border-radius: 5px; */
+  /* margin-left: 10px; */
+}
+.min_price_complex:focus {
+  outline: none;
+  border: none;
+  /* box-shadow: 0 0 5px rgb(161, 193, 202); */
+}
+.min_price_complex::placeholder {
+  font-size: 15px;
+  color: #999;
+}
 
-<motion.div className="handle" layout transition={spring}>
-  <img
-    src={lari}
-    alt="Lari Sign"
-    className={`currency-sign ${isOn ? "active" : ""}`}
-  />
-  <img
-    src={dollar}
-    alt="Dollar Sign"
-    className={`currency-sign ${!isOn ? "active" : ""}`}
-  />
-</motion.div>
-</div>
- */
+
+
 
 
   .currencyBox {
