@@ -200,7 +200,7 @@
 
 /* classes of toggle button on currency --- */
 .switch {
-  width: 90px;
+  width: 80px;
   height: 40px;
   /* background-color: rgba(255, 255, 255, 0.4); */
   background-color: black;
@@ -211,7 +211,7 @@
   border: 1px solid white;
 
   /* border: 1px solid red; */
-  border-radius: 50px;
+  /* border-radius: 50px; */
   padding: 10px;
   cursor: pointer;
   /* border-radius: 50px; */
@@ -225,16 +225,16 @@
   width: 35px;
   height: 35px;
   background-color: white;
-  border-radius: 40px;
+  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .currency-sign {
-  width: 27px; /* Adjust width as needed */
+  width: 20px; /* Adjust width as needed */
   height: auto;
-  margin-right: 0px; /* Add spacing between the images */
+  margin-right: 0px; 
 }
 
 .currency-sign.active {
@@ -317,4 +317,16 @@
   .heartButtonBox_each_company {
     width: 98%;
   }
+  .switch{
+    width: 50px;
+    height: 25px;
+  }
+  .handle{
+    height: 25px;
+    width: 22px;
+  }
+  .currency-sign{
+    font-size: 10px;
+  }
+
 }

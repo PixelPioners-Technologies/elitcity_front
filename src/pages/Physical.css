@@ -363,7 +363,7 @@ input[type="checkbox"] {
     /* display: flex;
     flex-direction: row !;
   } */
-  .textButton_physical, .textButton {
+  .textButton_physical{
     display: none;
   }
   .forPaddingOfInfoFieldOfComplexsPlansMaps_physical {
