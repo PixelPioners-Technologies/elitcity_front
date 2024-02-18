@@ -850,6 +850,10 @@ export default function EachComplex({
               {/* Share Button */}
               <ShareButton  selectedLanguage={selectedLanguage}  />
 
+{/* marge to main  */}
+
+
+
             </div>
           </div>
           {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}
