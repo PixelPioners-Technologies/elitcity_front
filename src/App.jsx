@@ -708,7 +708,6 @@ function App() {
 // Empty dependency array means this effect runs once after initial render
 // Empty dependency array means this effect runs once after initial render
 
-concole.log("hello world")
 
 
   const handleCloseCallModal = () => {
