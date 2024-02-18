@@ -90,7 +90,6 @@ export default function Complex({
   setSearchInput,
   stringSearchHeandles,
 }) {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
@@ -98,10 +97,7 @@ export default function Complex({
 
   const [modalContent, setModalContent] = useState("");
 
-
   const navigate = useNavigate();
-
-
 
   const handleHouseClick = (complexId) => {
     navigate(`/eachComplex/${complexId}`, { state: { complexId } });
@@ -111,7 +107,6 @@ export default function Complex({
     // console.log('corrent page----', complexes.complexDetails.rank)
     console.log("corrent page----", complexes);
   }, [complexes]);
-
 
   // ------------------------------------------------------------------------------------
   // for Sorting
@@ -600,10 +595,10 @@ export default function Complex({
     if (openSortComp) {
       setOpenComp(false);
     }
-};
+  };
 
   return (
-    <div className="complex_page_div" >
+    <div className="complex_page_div">
       <div className="filter_cont_for_complexes">
         <motion.div
           initial={{ y: 50, opacity: 0 }}

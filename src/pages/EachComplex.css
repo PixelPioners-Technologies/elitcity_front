@@ -1,6 +1,5 @@
 .eachComplexBox3 {
   width: 100%;
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,9 +10,7 @@
 .imageAndTextInfos3 {
   display: flex;
   flex-direction: row;
-  /* border: 1px solid rgb(0, 255, 13); */
   justify-content: center;
-  /* background-color: aquaa; */
   gap: 70px;
 }
 #lands_img {
@@ -24,11 +21,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 2px solid blue; */
 }
 .miniImagesBox2 {
-  /* border: 1px solid red; */
-  /* display: flex; */
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -76,12 +70,6 @@
   transform: translate(5px, 5px);
   transition-duration: 0.3s;
 }
-/* 
-.imageAndTextInfos {
-  display: flex;
-  gap: 50px;
-} */
-
 .imageSliderBox {
   display: flex;
   flex-direction: column;
@@ -92,17 +80,6 @@
   width: 711px;
   position: relative;
 }
-
-/* .miniImagesBox {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  position: absolute;
-  top: 371px;
-  left: 136px;
-  background-color: lightblue; /* Add a background color 
-} */
-
 .thumbnail {
   border: 2px solid white;
 }
@@ -119,33 +96,17 @@
   transition: transform 0.3s ease; /* Add a smooth transition effect */
 }
 
-/* .clicked {
-  scale: 1.1;
-} */
-
 .complexTextsBox2 {
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   gap: 15px;
-  /* width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  padding-top: 40px; */
 }
 
 .seenIdFavouriteAndOthersBox2 {
-  /* border: 1px solid blue; */
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* color: white; */
-  /* display: flex; */
-  /* justify-content: space-around; */
-  /* gap: 50px; */
-  /* justify-content: space-between; */
 }
 
 .chabarebaPartebiKorpusebi {
@@ -172,9 +133,7 @@
 .numberBox {
   border: 1px solid white;
   padding: 11px 10px;
-  /* width: 274px; */
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   gap: 20px;
 }
@@ -199,7 +158,6 @@
   border: 1px solid white;
   display: flex;
   flex-direction: row;
-  /* justify-content: center; */
   align-items: center;
   gap: 20px;
   padding: 11px 10px;
@@ -211,27 +169,22 @@
 
 .firstBoxOfBinebi {
   width: 100%;
-  /* border: 1px solid red; */
   align-items: center;
   display: flex;
   justify-content: space-between;
-  /* padding: 0 60px 0 60px; */
   margin-top: 30px;
 }
 
 .paddingForEachComplexCardBox {
   padding: 0 50px;
-  border: 1px solid red;
   padding-bottom: 30px !important;
 }
 
-.eachDivBoxOfTextOfIcons{
+.eachDivBoxOfTextOfIcons {
   color: aliceblue;
 }
 
-
 .shidaInformaciaIconebisBox {
-  /* padding: 30px 80px; */
   background-color: rgb(0, 0, 0);
   display: flex;
   flex-wrap: wrap;
@@ -255,7 +208,7 @@
   width: 100%;
 }
 
-.hh2{
+.hh2 {
   color: aliceblue;
 }
 
@@ -263,79 +216,57 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   gap: 30px;
 }
-
-
-
-.textBoxOfH4axloMdebareObieqtebi{
+.textBoxOfH4axloMdebareObieqtebi {
   width: 100%;
 }
-
-
 .axloMdebareObieqtebiBox {
   display: flex;
   align-items: center;
   justify-content: space-around !important;
   width: 100%;
-  /* border: 1px solid blue; */
   margin-bottom: 20px;
   margin-top: 30px;
 }
-
-
 .textBoxOfAxloMdebare {
   display: flex;
   flex-direction: column;
   gap: 10px;
   color: white;
-  /* border: 2px solid green; */
 }
-
 .iconAndItsText {
   display: flex;
   align-items: center;
   gap: 30px;
 }
-
-.eachTextOnListTexts{
+.eachTextOnListTexts {
   width: 400px;
 }
-
-.first_and_second_cont{
+.first_and_second_cont {
   display: flex;
   justify-content: flex-start;
 }
-
-.chabareba{
+.chabareba {
   width: 230px;
 }
-
-
-.companyAdressPriceTextBox{
+.companyAdressPriceTextBox {
   font-weight: 500;
 }
-
-.each_complex_title{
+.each_complex_title {
   margin-bottom: 20px;
 }
-
-.each_complex_address{
+.each_complex_address {
   margin-bottom: 10px;
 }
-
-.each_complex_price_square{
+.each_complex_price_square {
   font-weight: 300;
   color: rgb(131, 130, 137);
 }
-
-
-.make_middle_space{
+.make_middle_space {
   display: flex;
   justify-content: space-between;
 }
-
 .allCards_physical_aa {
   display: flex;
   justify-content: flex-start;
@@ -347,10 +278,11 @@
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
   padding-left: 30px;
   padding-right: 30px;
-
 }
-
-
+.show_studio_apartment{
+  padding: 10px;
+  margin-top: -10px;
+}
 .card_physical_aa {
   width: 315px;
   height: 440px;
@@ -358,14 +290,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* background-color: #C1D6CC; */
   background-color: black;
   border: 1px solid white;
-  /* border-radius: 20px; */
   overflow: hidden;
-  /* padding: 10px; */
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
-  padding-top: 30px;
+  padding-top: 20px;
   transition: transform 0.3s ease-in-out;
   margin-bottom: 20px;
   &:hover {
@@ -374,33 +303,22 @@
   }
 }
 
-
-
 /* --------------------------------------------------currency styles  -------------------------------------------- */
 
 .currencyBox__c {
-  /* height: 50px; */
   display: flex;
   align-items: center;
 }
-
-/* classes of toggle button on currency --- */
 .switch__c {
-  width: 80px;
-  height: 40px;
-  /* background-color: rgba(255, 255, 255, 0.4); */
+  width: 70px;
+  height: 30px;
   background-color: black;
-
   display: flex;
   justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
-
-  /* border: 1px solid red; */
-  /* border-radius: 50px; */
   padding: 10px;
   cursor: pointer;
-  /* border-radius: 50px; */
 }
 
 .switch__c[data-ison="true"] {
@@ -408,28 +326,22 @@
 }
 
 .handle__c {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   background-color: white;
-  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .currency-sign__c {
-  width: 20px; /* Adjust width as needed */
+  width: 20px;
   height: auto;
-  margin-right: 0px; 
+  margin-right: 0px;
 }
 
 .currency-sign__c.active {
-  display: none; /* Hide inactive currency sign */
+  display: none;
 }
-
-
-
-
 .googlePhotoOnEachComplexPage {
   width: 774px;
   height: 232px;
@@ -443,7 +355,7 @@
   }
 
   .allCards_physical_aa {
-    width: 100%;
+    /* width: 100%; */
     justify-content: center;
     margin-top: 30px;
     margin-bottom: 10px;
@@ -451,21 +363,12 @@
   }
   .imageAndTextInfos3 {
     flex-direction: column;
-    /* padding: 20px; */
     align-items: center;
-  }
-  .lands_img {
-    /* width: 340px;
-     */
-    /* width: 100%; */
-    padding: 10px;
   }
   #lands_img {
     width: 100%;
-    /* width: 340px; */
   }
   .complexTextsBox2 {
-    /* width: 100px */
     width: 340px;
   }
   .axloMdebareObieqtebiBox {
@@ -477,28 +380,19 @@
     width: 100%;
   }
   .miniImagesBox2 {
-    /* border: 1px solid red; */
     width: 300px;
     margin-top: 40px;
   }
   .axloMdebareObieqtebiBox {
     width: 100%;
-    /* border: 2px solid blue; */
-    /* P: 0;
-     */
-    /* padding: 0 20px; */
     padding: 0;
   }
   .child_map_container_P {
     width: 100%;
-    /* width: 700px; */
-    /* border: 2px solid red; */
   }
-  
+
   .binebiDaGegmarebaFullBox {
     width: 100%;
-    /* border: 1px solid red; */
-    /* padding: 10px 0; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -506,9 +400,10 @@
   }
   .complexTextsBox2 {
     width: 100%;
+    margin-top: -60px;
   }
 
-  .numberBox{
-    width: 300px
+  .numberBox {
+    width: 300px;
   }
 }

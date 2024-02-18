@@ -26,8 +26,8 @@
   position: relative; /* Positioning context for child elements */
   max-height: 80vh; /* Maximum height */
   overflow-y: auto; /* Scroll if content is too tall */
+  border-radius: 0 !important;
 }
-
 /* Animations for modal appearance */
 .scale-up-top1 {
   -webkit-animation: scale-up-tl 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;

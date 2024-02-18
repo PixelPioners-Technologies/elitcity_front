@@ -100,7 +100,7 @@
 }
 .mapSignLogo {
   width: 30px;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 .sortAndArrowDownImgBox {
   display: flex;
@@ -325,6 +325,7 @@
   border-color: aliceblue;
   border-width: 1px;
   margin-top: 30px;
+  border-radius: 0 !important;
 }
 .modal_close_button:hover {
   scale: 0.95;

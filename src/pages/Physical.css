@@ -194,7 +194,6 @@ input[type="checkbox"] {
   margin-bottom: 100px;
 }
 .card_physical {
-  /* border: 1px solid red; */
   width: 315px;
   height: 440px;
   display: flex;
@@ -205,24 +204,21 @@ input[type="checkbox"] {
   border: 1px solid white;
   overflow: hidden;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
-  /* padding-top: 30px; */
   padding: 20px;
   transition: transform 0.3s ease-in-out;
-  /* gap: 30px; */
 
   &:hover {
     transform: scale(1.05);
     cursor: pointer;
   }
 }
-.gap_box{
-  /* border: 1px solid red; */
+.gap_box {
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.backImg{
+.backImg {
   width: 280px;
   height: 200px;
 }
@@ -259,17 +255,19 @@ input[type="checkbox"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 20px;
 }
 .dolar_fullprice {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 5px;
+  /* border: 1px solid red; */
 }
 .company_title {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* margin-top: 3px; */
 }
 .status_settings {
   color: #868282;
@@ -328,7 +326,6 @@ input[type="checkbox"] {
 @media screen and (max-width: 500px) {
   .googleMapImage_physical {
     width: 100px;
-    /* margin-bottom: 30px; */
   }
   .ComplexBodyBox_physical {
     padding: 20px;
@@ -370,9 +367,8 @@ input[type="checkbox"] {
     justify-content: space-between;
   }
 
-  .switch_physical{
-    /* border: 1px solid green;    */
-     width: 50px;
+  .switch_physical {
+    width: 50px;
     height: 25px;
   }
   .handle_physical {
@@ -387,7 +383,6 @@ input[type="checkbox"] {
     gap: 10px;
   }
   .googleMapImage_physical {
-    /* width: 100px; */
     width: 100%;
   }
   .sort_text {
@@ -419,26 +414,23 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
   }
-  .gap_box{
+  .gap_box {
     padding-bottom: 0;
   }
-  .backImg{
+  .backImg {
     width: 250px;
     height: 160px;
   }
   .card_physical {
-    /* border: 1px solid red; */
     width: 280px;
     height: 380px;
-    /* padding: 23px; */
   }
-  .company_title{
+  .company_title {
     margin-top: -10px;
     display: flex;
     justify-content: center;
-  
   }
-  .status_settings{
+  .status_settings {
     margin-top: -3px;
   }
   .private_apartment_rank {
