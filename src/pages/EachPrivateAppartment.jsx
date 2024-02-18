@@ -453,8 +453,8 @@ export default function EachPrivateAppartment({
             <p style={{ color: "#ccc", fontSize: "20px" }}>
               {handleStaticTextLanguageChange(selectedLanguage).square_price}:{" "}
               {currenceChangeState
-                ? ground.squarePrice * getCorrencyRate
-                : ground.squarePrice}</p>
+                ? (Number(ground.squarePrice * getCorrencyRate)).toFixed(2)
+                : Number(ground.squarePrice).toFixed(2)}{ isOn ? '  $  ' :  '  ₾  ' }  </p>
             <p style={{ color: "#C2BFBF" }}>{handleStaticTextLanguageChange(selectedLanguage).status}: {cardStatusSettingLanguage(selectedLanguage, ground.status)}</p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).area} : {ground.area} m²  </p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).rank}: {ground.rank}</p>

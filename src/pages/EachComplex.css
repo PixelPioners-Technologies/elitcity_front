@@ -300,7 +300,10 @@
 }
 
 .eachTextOnListTexts{
+  display: flex;
   width: 400px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .first_and_second_cont{

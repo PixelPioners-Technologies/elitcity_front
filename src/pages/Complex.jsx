@@ -1290,7 +1290,7 @@ export default function Complex({
                       {" "}
                       {currenceChangeState
                         ? (Number(complex.complexDetails.pricePerSqMeter) * getCorrencyRate).toFixed(2)
-                        : Number(complex.complexDetails.pricePerSqMeter).toFixed(2)}
+                        : Number(complex.complexDetails.pricePerSqMeter).toFixed(2)} { isOn ? '  $  ' :  '  ₾  ' }
                     </p>
                   </div>
                   <p
