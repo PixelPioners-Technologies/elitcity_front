@@ -716,6 +716,16 @@ export default function EachComplex({
     return text.length > limit ? `${text.substring(0, limit)}...` : text;
   };
 
+// ---------------------------------------------------function for filtering room numbers ------------------------------------------
+
+only_apartments 
+
+
+
+
+
+
+
 
 
 
@@ -848,7 +858,7 @@ export default function EachComplex({
                 </div>
               </div>
               {/* Share Button */}
-              <ShareButton  selectedLanguage={selectedLanguage}  />
+              <ShareButton selectedLanguage={selectedLanguage} />
 
             </div>
           </div>
@@ -985,6 +995,9 @@ export default function EachComplex({
         {/* ---------- (end ფილტრაცია ბოქსი) */}
 
         {/* ეს დივი არის გეგმარებები რომ ჩამოიშალოს... */}
+
+
+
         {showApartments && (
           <div className="allCards_physical paddingForEachComplexCardBox">
             {only_apartments.map((prev_apartments, index) => (
@@ -1071,6 +1084,9 @@ export default function EachComplex({
           </div>
         )}
         {/* ------------ */}
+
+
+
 
         {/* ეს დივი არის ..კომპლექსის შესახებ'' ესეთი წარწერა რომაა და true/false-ის მეშვეობით
         რომ ვფილტრავთ, მაგალითად სართულების ოდენობა, კამერა, ოთახები და ა.შ. */}
@@ -1487,9 +1503,9 @@ export default function EachComplex({
 
           <div className="axloMdebareObieqtebiBox">
             <div className="textBoxOfAxloMdebare">
-        <h4 style={{ color: "white" , marginTop: "40px" }}>
-          {handle_P_StatusButtonLanguageChange(selectedLanguage).nearObjects}
-        </h4>
+              <h4 style={{ color: "white", marginTop: "40px" }}>
+                {handle_P_StatusButtonLanguageChange(selectedLanguage).nearObjects}
+              </h4>
               <div className="iconAndItsText">
                 {eachPrivateApartment?.metro && (
                   <>

@@ -789,6 +789,7 @@ function App() {
     setPopupMessage("Sending..."); // Initial popup message
     setShowPopup(true); // Show popup immediately
     setSedtsheet(!sedtsheet); // Trigger the useEffect
+    
   };
   useEffect(() => {
     const sendDataToSheet = async () => {
