@@ -875,16 +875,14 @@ export default function EachApartment({
               {eachComplexAllAppartments &&
                 eachComplexAllAppartments.complex && (
                   <p style={{ color: "#ccc", fontSize: "20px" }}>
-                    {
-                      handle_P_StatusButtonLanguageChange(selectedLanguage)
-                        .pricePerM
+                    {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM
                     }{" "}
                     {currenceChangeState
-                      ? eachComplexAllAppartments?.complex?.internalComplex
-                        ?.pricePerSqMeter * getCorrencyRate
-                      : eachComplexAllAppartments?.complex?.internalComplex
-                        ?.pricePerSqMeter}
-                    $
+                      ? (Number( eachComplexAllAppartments?.complex?.internalComplex
+                        ?.pricePerSqMeter) * getCorrencyRate).toFixed(2)
+                      : Number(eachComplexAllAppartments?.complex?.internalComplex
+                        ?.pricePerSqMeter).toFixed(2) }
+                      { isOn ? '  $  ' :  '  ₾  ' }
                   </p>
                 )}
             </div>
