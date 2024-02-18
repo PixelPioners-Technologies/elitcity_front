@@ -12,14 +12,14 @@ import P_StatusModal from "../modals for private page/P_StatusModa";
 import { motion } from "framer-motion";
 import button_icon from "../icons/Vector.svg";
 import { Link } from "react-router-dom";
-import mapSignLogo from "../assets/mapSignLogoo.svg";
+// import mapSignLogo from "../assets/mapSignLogoo.svg";
 import Button from "@mui/material/Button";
 import arrowDownSorting from "../assets/arrow-down-white.svg";
 import Menu from "@mui/material/Menu";
 import loupe from "../icons/loupe.png";
 import MenuItem from "@mui/material/MenuItem";
 import lari from "../assets/lari-svgrepo-com.svg";
-import Filter from "../assets/filter.png";
+// import Filter from "../assets/filter.png";
 import dollar from "../assets/dollar-svgrepo-com.svg";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
@@ -28,6 +28,10 @@ import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import googleMapImage from "../assets/mapImageForFooter.svg";
 import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
+import Sort from '../assets/sort.png';
+import Arrows from '../assets/arrows.png';
+import LocationIcon from '../assets/locationIcon.png';
+// import LocationIcon from '../assets/location.png';
 
 const normalizePrivateApartmentData = (data, lang) => {
   return data.map((item) => ({
@@ -114,35 +118,34 @@ export default function Physical({
   const [selectedStatuses, setSelectedStatuses] = useState([]);
   const [selectedRoomNumbers, setSelectedRoomNumbers] = useState([]);
 
-  
   const [min_area, setMin_area] = useState("");
   const [max_area, setMax_area] = useState("");
-  
+
   const [totalCount, setTotalCount] = useState(0);
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [currentPage, setCorrentPage] = useState(0);
   const [ascendentPrice, setAscendentPrice] = useState("");
-  
+
   const [stringFilterValue, setStringFilterValue] = useState("");
-  
+
   const [search, setSearch] = useState(false);
-  
+
   const [min_square_price, setMin_square_price] = useState("");
   const [max_square_price, setMax_square_price] = useState("");
 
-  const [converter_min_square_price, setConverter_min_square_price] = useState(min_square_price);
-  const [converter_max_square_price, setConverter_max_square_price] = useState(max_square_price);
+  const [converter_min_square_price, setConverter_min_square_price] =
+    useState(min_square_price);
+  const [converter_max_square_price, setConverter_max_square_price] =
+    useState(max_square_price);
 
   const [minFullPrice, setMinFullPrice] = useState("");
   const [maxFullPrice, setMaxFullPrice] = useState("");
-  
-  const [converter_min_full_price, setConverter_min_full_price] = useState(minFullPrice);
-  const [converter_max_full_price, setConverter_max_full_price] = useState(maxFullPrice);
-  
 
+  const [converter_min_full_price, setConverter_min_full_price] =
+    useState(minFullPrice);
+  const [converter_max_full_price, setConverter_max_full_price] =
+    useState(maxFullPrice);
 
-
-  
   useEffect(() => {
     setSelectedCity("");
     setSelectedPharentDistricts([]);
@@ -245,37 +248,34 @@ export default function Physical({
   const habdle_Search_Button_Click = () => {
     setSearch(!search);
 
-    if (min_square_price ==="" ){
-      setConverter_min_square_price("")
+    if (min_square_price === "") {
+      setConverter_min_square_price("");
     } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverter_min_square_price(String(min_square_price * conversionRate))
+      setConverter_min_square_price(String(min_square_price * conversionRate));
     }
 
-    if (max_square_price ==="" ){
-      setConverter_max_square_price("")
+    if (max_square_price === "") {
+      setConverter_max_square_price("");
     } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverter_max_square_price(String(max_square_price * conversionRate))
+      setConverter_max_square_price(String(max_square_price * conversionRate));
     }
 
-    if (minFullPrice ==="" ){
-      setConverter_min_full_price("")
+    if (minFullPrice === "") {
+      setConverter_min_full_price("");
     } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverter_min_full_price(String(minFullPrice * conversionRate))
+      setConverter_min_full_price(String(minFullPrice * conversionRate));
     }
 
-    if (maxFullPrice ==="" ){
-      setConverter_max_full_price("")
+    if (maxFullPrice === "") {
+      setConverter_max_full_price("");
     } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverter_max_full_price(String(maxFullPrice * conversionRate))
+      setConverter_max_full_price(String(maxFullPrice * conversionRate));
     }
-
   };
-
-
 
   //-----------------------------------fetch ionly locations --------------------------------------
   useEffect(() => {
@@ -558,10 +558,10 @@ export default function Physical({
       complexes: "Complexes",
       private_apartments: "Private Appartments",
       allFindButtonLanguage: "Search",
-      map : "Map",
-      sorting : 'Sorting',
-      sort: 'Sort',
-      projects : "Projects"
+      map: "Map",
+      sorting: "Sorting",
+      sort: "Sort",
+      projects: "Projects",
     };
 
     switch (lang) {
@@ -584,8 +584,6 @@ export default function Physical({
         languageInfo.sort = "Sort";
         languageInfo.projects = "Projects";
 
-
-
         break;
 
       case "ka":
@@ -607,8 +605,6 @@ export default function Physical({
         languageInfo.sort = "სორტ";
         languageInfo.projects = "პროექტები";
 
-
-
         break;
 
       case "ru":
@@ -628,7 +624,6 @@ export default function Physical({
         languageInfo.sorting = "Сортировка";
         languageInfo.sort = "Сорт";
         languageInfo.projects = "Проекты";
-
 
         break;
     }
@@ -769,7 +764,8 @@ export default function Physical({
         languageInfo.sortingButtonAscendantTime = "თარიღი ზრდადობით";
         languageInfo.sortingButtonDescendentTime = "თარიღი კლებადობით";
         languageInfo.sortingButtonAscendantFullPrice = "მთლიანი ფასი ზრდადობით";
-        languageInfo.sortingButtonDescendentFullPrice ="მთლიანი ფასი კლებადობით";
+        languageInfo.sortingButtonDescendentFullPrice =
+          "მთლიანი ფასი კლებადობით";
         languageInfo.studio = "სტუდიო";
         languageInfo.spaceButtonClose = "დახურვა";
         languageInfo.minPrice = "დან მ²";
@@ -787,8 +783,10 @@ export default function Physical({
         languageInfo.sortingButtonDescendentPrice = "Цена м² цена по снижение";
         languageInfo.sortingButtonAscendantTime = "Время по увеличение";
         languageInfo.sortingButtonDescendentTime = "Время по снижение";
-        languageInfo.sortingButtonAscendantFullPrice = "Полная цена по увеличение";
-        languageInfo.sortingButtonDescendentFullPrice ="Полная цена по снижение";
+        languageInfo.sortingButtonAscendantFullPrice =
+          "Полная цена по увеличение";
+        languageInfo.sortingButtonDescendentFullPrice =
+          "Полная цена по снижение";
         languageInfo.studio = "Студия";
         languageInfo.spaceButtonClose = "закрить";
         languageInfo.minPrice = "из м²";
@@ -900,21 +898,28 @@ export default function Physical({
   const toggleSort = () => {
     setOpenSort(!openSort);
   };
+  const closeSort = () => {
+    if (openSort) {
+      setOpenSort(false);
+    }
+  }
   // ------------------------------------------------------------------------------------------------------------------------
 
   return (
-    <div className="ComplexBodyBox_physical">
-      <div className="filter_div_for_sort_icon">
+    <div className="ComplexBodyBox_physical" >
+      {/* <div className="filter_div_for_sort_icon">
         <img onClick={toggleSort} className="filter_image" src={Filter} alt="" />
-      </div>
-      <div className="private_filter_conteiner">
+      </div> */}
+      <div className="private_filter_conteiner one">
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
+          className="oneo"
         >
           {/* className="filter_cont_for_physical " */}
-          <div className={openSort ? "filter_cont_for_physical " : "close_sort"}>
+
+          <div className={openSort ? "filter_cont_for_physicaly": "close_sort"}>
             {/* button for filtering space */}
             <div className="button-modal-container ">
               <div onClick={handle_P_SpaceButtonClick} className="space_button">
@@ -1103,7 +1108,7 @@ export default function Physical({
               </div>
               <P_Modal isOpen={is_P_ModalOpen} close={closeModal}>
                 {renderModalContent()}
-                </P_Modal>
+              </P_Modal>
             </div>
 
             {/* button for status */}
@@ -1207,45 +1212,39 @@ export default function Physical({
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <div className="mapAndLogoImg_physical">
-                    <img
-                      src={mapSignLogo}
-                      alt="mapSignLogo"
-                      className="mapSignLogo"
-                    />
-                    <button className="textButton_physical">{handle_P_StatusButtonLanguageChange(selectedLanguage).projects}</button>
+                    <div className="project_icon_div">
+                      <div className="line line_sizes"></div>
+                      <div className="line  line_sizes"></div>
+                      <div className="line  line_sizes"></div>
+                    </div>
+                    <button className="textButton_physical">
+                      {
+                        handle_P_StatusButtonLanguageChange(selectedLanguage)
+                          .projects
+                      }
+                    </button>
                   </div>
                 </motion.div>
               </Link>
-              {/* 
-              <Link to='/complex/apartmentList' >
-              <motion.div
-                className="textButtonContainer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-              >
-                <div className='mapAndLogoImg'>
-                  <img src={mapSignLogo} alt='mapSignLogo_physical' className='mapSignLogo' />
-                  <button className='textButton'>გეგმარებები</button>
-                </div>
-              </motion.div>
-              </Link>
- */}
-
               <Link to="/map">
                 <motion.div
-                  className="textButtonContainer"
+                  className="textButtonContainer noneBut"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <div className="mapAndLogoImg">
                     <img
-                      src={mapSignLogo}
+                      src={LocationIcon}
                       alt="mapSignLogo"
-                      className="mapSignLogo"
+                      className="location_icon_respons"
                     />
-                    <button className="textButton">{handle_P_StatusButtonLanguageChange(selectedLanguage).map}</button>
+                    <button className="textButton">
+                      {
+                        handle_P_StatusButtonLanguageChange(selectedLanguage)
+                          .map
+                      }
+                    </button>
                   </div>
                 </motion.div>
               </Link>
@@ -1261,11 +1260,24 @@ export default function Physical({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox_physical">
-                  <p className="sort_text_web">{handle_P_StatusButtonLanguageChange(selectedLanguage).sorting}</p>
-                  <p className="sort_text">{handle_P_StatusButtonLanguageChange(selectedLanguage).sort}</p>
-                  <img src={arrowDownSorting} style={{ width: "20px" }} />
+                  <p className="sort_text_web">
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .sorting
+                    }
+                  </p>
+                  <img className="arrowDownIcon" src={arrowDownSorting} style={{ width: "20px" }} />
+                  <img className="noneWeb" src={Arrows} style={{width: "25px"}}  alt="/"/>
                 </div>
               </Button>
+              <div className="sort_icon_for_complex_mob " onClick={toggleSort }>
+                <img
+                  src={Sort}
+                  style={{ width: "20px", height: "25px" }}
+                  alt="/"
+                />
+              </div>
+
 
               <Menu
                 id="basic-menu"
@@ -1470,7 +1482,7 @@ export default function Physical({
 
       {/* // ------------------------------------------------------------------------------------ */}
 
-      <div className="allCards_physical">
+      <div className="allCards_physical" onClick={closeSort}>
         {privateApartments.map((prev_apartments, index) => (
           <div className="card_physical" key={index}>
             <motion.div
@@ -1479,6 +1491,7 @@ export default function Physical({
               transition={{ duration: 1 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
+              className="gap_box"
             >
               <div className="heartbuttonAndImageBox_physical">
                 <div className="heartButtonBox_physical">
@@ -1505,6 +1518,7 @@ export default function Physical({
                   alt={prev_apartments.name}
                   style={styles.imageStyles}
                   onClick={() => handleAppartmentClick(prev_apartments.id)}
+                  className="backImg"
                 />
               </div>
               {/* --------------card details------------------- */}
@@ -1543,8 +1557,6 @@ export default function Physical({
         ))}
       </div>
 
-
-      
       {/* Pagination for user to select some page */}
       <div className="pagination">
         <Stack spacing={2}>
@@ -1610,8 +1622,8 @@ export default function Physical({
 
 const styles = {
   imageStyles: {
-    width: "278px",
-    height: "229px",
+    // width: "258px",
+    // height: "150px",
     overflow: "hidden",
     // borderRadius: "20px",
   },

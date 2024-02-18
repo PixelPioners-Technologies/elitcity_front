@@ -1,29 +1,18 @@
-
 .ComplexBodyBox_physical {
-  margin-top: 50px;
   padding: 0 80px;
-  /* padding: 100px 150px; */
-  border: 1px solid red;
   margin-top: 7%;
-}
-.filter_div_for_sort_icon {
-  width: 100%;
-  text-align: end;
-  display: none;
-  /* border: 1px solid red; */
 }
 .filter_image {
   width: 30px;
   background-color: #fff;
   border-radius: 50%;
 }
-.close_sort{
+.close_sort {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 20px;
   margin-bottom: 35px;
-  /* border: 1px solid green; */
 }
 
 .motionBox_physical {
@@ -54,23 +43,21 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  /* border: 1px solid green; */
 }
 
 .mapAndLogoImg_physical {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
 }
 
 .textButtonContainer_physical:hover .textButton {
-  /* color: aqua; */
   cursor: pointer;
 }
 
 .textButton_physical {
   display: inline-block;
-  /* padding: 10px 20px; */
   font-size: 16px;
   text-align: center;
   text-decoration: none;
@@ -78,7 +65,6 @@
   background-color: #000;
   color: #fff;
 }
-
 .mapSignLogo_physical {
   width: 30px;
 }
@@ -100,28 +86,21 @@
 /* /////////////////////////////// */
 
 .currencyBox_physical {
-  /* height: 50px; */
   display: flex;
   align-items: center;
 }
 
 /* classes of toggle button on currency --- */
 .switch_physical {
-  width: 90px;
-  height: 40px;
-  /* background-color: rgba(255, 255, 255, 0.4); */
+  width: 70px;
+  height: 30px;
   background-color: black;
-
   display: flex;
   justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
-
-  /* border: 1px solid red; */
-  /* border-radius: 50px; */
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
-  /* border-radius: 50px; */
 }
 
 .switch_physical[data-ison="true"] {
@@ -129,17 +108,16 @@
 }
 
 .handle_physical {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   background-color: white;
-  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .currency-sign_physical {
-  width: 27px; /* Adjust width as needed */
+  width: 20px; /* Adjust width as needed */
   height: auto;
   margin-right: 0px; /* Add spacing between the images */
 }
@@ -154,8 +132,6 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
-  /* margin-bottom: 50px; */
-  /* border: 1px solid red; */
 }
 
 /* ------------------------------------------------------------------------------------------------------------- */
@@ -166,7 +142,6 @@
   margin-bottom: 120px;
   display: flex;
   justify-content: center;
-  /* border: 2px solid red; */
 }
 
 /* ------------------------------------------------------------------------------------------------------------- */
@@ -183,80 +158,79 @@
   color: rgb(201, 201, 201); /* Set placeholder text color to white */
   opacity: 1; /* Optional: ensures full opacity of placeholder */
 }
-
 .dropdown {
   width: 20px;
 }
-
 /* ---------------------------------------room number chackboxes----------------------------------------------------- */
 .room_choice_container {
   margin-top: 10px;
 }
-
 .checkbox-label {
   padding: 5px 10px;
   margin: 0 5px;
   color: #f0f0f0;
   cursor: pointer;
 }
-
 .checkbox-label:hover {
   background-color: #fffbfb;
   color: #000;
 }
-
 .checkbox-label.selected {
   background-color: #fcfeff;
   color: rgb(0, 0, 0);
 }
-
 input[type="checkbox"] {
-  display: none; /* Hide the checkbox */
+  display: none;
 }
 
 /* ------------------------------------------------------------------------------------------------------------- */
 
 .allCards_physical {
-  /* border: 2PX solid red; */
   display: flex;
-  /* align-items: center; */
   justify-content: center;
   flex-wrap: wrap;
-  /* padding: 0 30px; */
   gap: 29px;
   margin-top: 50px;
   margin-bottom: 100px;
 }
-
 .card_physical {
+  /* border: 1px solid red; */
   width: 315px;
   height: 440px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* background-color: #C1D6CC; */
   background-color: black;
   border: 1px solid white;
-  /* border-radius: 20px; */
   overflow: hidden;
-  /* padding: 10px; */
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
-  padding-top: 30px;
+  /* padding-top: 30px; */
+  padding: 20px;
   transition: transform 0.3s ease-in-out;
+  /* gap: 30px; */
 
   &:hover {
     transform: scale(1.05);
     cursor: pointer;
   }
 }
-
+.gap_box{
+  /* border: 1px solid red; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.backImg{
+  width: 280px;
+  height: 200px;
+}
 .heartbuttonAndImageBox_physical {
   position: relative;
 }
-
 .heartButtonBox_physical {
-  /* width: 100%; */
+  width: 100%;
   display: flex;
   justify-content: flex-end;
   position: absolute;
@@ -281,62 +255,49 @@ input[type="checkbox"] {
 }
 /* ----------------------------------card info styles---------------------------------------------------- */
 
-.title_and_fullprice{
+.title_and_fullprice {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-
-.dolar_fullprice{
+.dolar_fullprice {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-
 .company_title {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 3px;
-
+  /* margin-top: 3px; */
 }
-
-
 .status_settings {
-
   color: #868282;
 }
-
-.dola_apartment_card{
+.dola_apartment_card {
   width: 15px;
 }
-
-
 .textInfo_physical {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  /* padding-left: 20px; */
   gap: 10px;
 }
-
-.rooms_and_rank{
+.rooms_and_rank {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.apartment_id_1{
+.apartment_id_1 {
   color: #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.city_settings{
-  color:#f0f0f0
+.city_settings {
+  color: #f0f0f0;
 }
 
 .private_apartment_rank {
@@ -360,19 +321,25 @@ input[type="checkbox"] {
   height: 358px;
   width: 1074px;
 }
+.noneWeb {
+  display: none;
+}
 
 @media screen and (max-width: 500px) {
+  .googleMapImage_physical {
+    width: 100px;
+    /* margin-bottom: 30px; */
+  }
   .ComplexBodyBox_physical {
     padding: 20px;
-    /* border: 1px solid red; */
     margin-top: 10%;
   }
   .pagination {
     display: flex;
-    /* border: 1px solid green; */
   }
   .allCards_physical {
     justify-content: center;
+    margin-top: 30px;
   }
   .filter_cont_for_physical {
     flex-direction: column;
@@ -381,45 +348,26 @@ input[type="checkbox"] {
   .filter_div_for_sort_icon {
     display: block;
     margin-bottom: 20px;
-    border: 1px solid red;
   }
-  .filter_image{
+  .filter_image {
     width: 30px;
-  }
-  .close_sort{
-    display: none;
-  }
-  /* .numbers_link {
-    /* border: 1px solid red; */
-  /* }  */
-  /* .row_link { */
-    /* border:1px solid yellow; */
-    /* display: flex;
-    flex-direction: row !;
-  } */
-  .textButton_physical{
-    display: none;
   }
   .forPaddingOfInfoFieldOfComplexsPlansMaps_physical {
     padding: 0 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* align-items: start; */
-    /* gap: 10px; */
-    /* border: 1px solid red; */
   }
-  .complexInfoAndCountShowBox_physical{
+  .complexInfoAndCountShowBox_physical {
     font-size: 15px;
   }
-  .infoFieldOfComplexsPlansMaps_physical{
+  .infoFieldOfComplexsPlansMaps_physical {
     width: 100%;
     padding: 0;
     gap: 0px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* width: 340px; */
   }
 
   .switch_physical{
@@ -428,22 +376,72 @@ input[type="checkbox"] {
     height: 25px;
   }
   .handle_physical {
-    width: 30px;
+    width: 22px;
     height: 23px;
   }
   .currency-sign_physical {
     font-size: 10px;
   }
-  .projectsPlansMapsSortingAndDollarBox_physical{
-    justify-content: space-between;
-    /* gap: 0; */
+  .projectsPlansMapsSortingAndDollarBox_physical {
+    padding-left: 0;
+    gap: 10px;
   }
   .googleMapImage_physical {
+    /* width: 100px; */
     width: 100%;
   }
-  .sort_text{
+  .sort_text {
     font-size: 15px;
   }
+  .textButtonContainer_physical {
+    display: none;
+  }
+  .noneBut {
+    display: none;
+  }
+  .arrowDownIcon {
+    display: none;
+  }
+  .noneWeb {
+    display: block;
+  }
+  .close_sort {
+    display: none;
+  }
+  .filter_cont_for_physicaly {
+    position: absolute;
+    z-index: 11111;
+    right: 0;
+    top: 10%;
+    background-color: #000;
+    padding: 20px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .gap_box{
+    padding-bottom: 0;
+  }
+  .backImg{
+    width: 250px;
+    height: 160px;
+  }
+  .card_physical {
+    /* border: 1px solid red; */
+    width: 280px;
+    height: 380px;
+    /* padding: 23px; */
+  }
+  .company_title{
+    margin-top: -10px;
+    display: flex;
+    justify-content: center;
+  
+  }
+  .status_settings{
+    margin-top: -3px;
+  }
+  .private_apartment_rank {
+    margin-top: -3px;
+  }
 }
-
-

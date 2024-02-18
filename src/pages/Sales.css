@@ -148,7 +148,6 @@
 }
 
 .sale_modal_container_main {
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -205,8 +204,6 @@
   border-radius: 6px; /* Rounded corners of the scrollbar thumb */
   border: 3px solid #2e2e2e; /* Creates a padding around the scroll thumb */
 }
-
-/* Handle on hover */
 .microfon_logo_and_alert::-webkit-scrollbar-thumb:hover {
   background-color: #3d3c3c; /* Color of the scrollbar thumb on hover */
 }
@@ -230,6 +227,7 @@
   justify-content: space-around;
   width: 100%;
   font-size: 400;
+  margin-top: 30px;
 }
 .call_and_number_on_saleModal {
   display: flex;
@@ -335,7 +333,6 @@
   .image_for_sale_modal {
     width: 240px;
     margin-top: 0;
-    /* width: 100%; */
   }
   .call_and_number_on_saleModal {
     width: 100%;
@@ -347,13 +344,16 @@
     width: 20px;
   }
   .close_sale_modal {
-    margin-top: -20px;
+    margin-bottom: 7px;
+    margin-top: 0;
   }
   .image_for_sale_modal {
-    margin-top: -10px;
+    width: 302px;
+    height: 160px;
   }
   .sale_settings_and_companylogo {
     flex-direction: column;
+    margin-top: 7px;
   }
   .call_and_number_on_saleModal {
     align-items: center;
@@ -370,8 +370,18 @@
   }
   .image_container_for_sale_modal{
     width: 100%;
-
-    /* margin-top: 30px; */
-    border: 2px solid green;
   }
+  .address_and_address {
+    margin-top: -20px;
+  }
+  .sale_modal_container_main{
+    padding: 10px;
+  }
+  .all_call_modal_buttons{
+    margin-top: -20px;
+  }
+  .image_company_for_sale_modal{
+    width: 60px;
+  }
+  
 }

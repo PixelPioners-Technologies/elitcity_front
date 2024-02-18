@@ -11,7 +11,7 @@ import Sort from "../assets/sort.png";
 import Arrows from "../assets/arrows.png";
 
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
-import mapSignLogo from "../assets/mapSignLogoo.svg";
+// import mapSignLogo from "../assets/mapSignLogoo.svg";
 
 import dollar_black from "../assets/dollar-svgrepo-com.svg";
 import lari_black from "../assets/lari-svgrepo-com.svg";
@@ -1257,7 +1257,6 @@ export default function Complex({
                         style={{
                           width: "30px",
                           height: "30px",
-                          border: "1px solid white",
                         }}
                       />
                     )}

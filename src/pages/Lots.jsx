@@ -905,13 +905,13 @@ export default function Physical({
   };
   const closeSort = () => {
     if (sortOpen) {
-        setSortOpen(false);
+      setSortOpen(false);
     }
-};
-// "closeSort"
+  };
+  // "closeSort"
   return (
-    <div className="ComplexBodyBox_physical" >
-      <div className={sortOpen ? "private_filter_conteiner " : "closeSort" }>
+    <div className="ComplexBodyBox_physical">
+      <div className={sortOpen ? "private_filter_conteiner " : "closeSort"}>
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -1217,7 +1217,11 @@ export default function Physical({
                     src={arrowDownSorting}
                     style={{ width: "20px" }}
                   />
-                  <img className="arrow_none" src={Arrows} style={{ width: "25px" }} />
+                  <img
+                    className="arrow_none"
+                    src={Arrows}
+                    style={{ width: "25px" }}
+                  />
                 </div>
               </Button>
 
@@ -1383,9 +1387,11 @@ export default function Physical({
                 </motion.div>
               </Menu>
               {/* ---------------------------------- */}
-              <div className="sort_icon_for_complex_mob lots_sort" onClick={sortOpenLots}>
+              <div
+                className="sort_icon_for_complex_mob lots_sort"
+                onClick={sortOpenLots}
+              >
                 <img
-
                   src={Sort}
                   style={{ width: "20px", height: "25px" }}
                   alt="/"
@@ -1440,6 +1446,7 @@ export default function Physical({
               transition={{ duration: 1 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
+              className="gap_box"
             >
               <div className="heartbuttonAndImageBox_physical">
                 <div className="heartButtonBox_physical">
@@ -1464,8 +1471,10 @@ export default function Physical({
                 <img
                   src={prev_apartments.images[0]}
                   alt={prev_apartments.name}
-                  style={styles.imageStyles}
+                  // style={styles.imageStyles}
                   onClick={() => handleLotsClick(prev_apartments.id)}
+                  className="backImg"
+                 
                 />
               </div>
               {/* --------------card details------------------- */}
