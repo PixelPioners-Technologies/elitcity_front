@@ -835,15 +835,15 @@ export default function EachComplex({
 
 
 
-  useEffect(() => {
-    console.log("5+", fivePlusBedrooms)
-    console.log("4", fourBedrooms)
-    console.log("3", threeBedrooms)
-    console.log("2", twoBedrooms)
-    console.log("1", oneBedrooms)
-    console.log("studio", studios)
+  // useEffect(() => {
+  //   console.log("5+", fivePlusBedrooms)
+  //   console.log("4", fourBedrooms)
+  //   console.log("3", threeBedrooms)
+  //   console.log("2", twoBedrooms)
+  //   console.log("1", oneBedrooms)
+  //   console.log("studio", studios)
 
-  }, [studios, fivePlusBedrooms, fourBedrooms, threeBedrooms, twoBedrooms, oneBedrooms, studios])
+  // }, [studios, fivePlusBedrooms, fourBedrooms, threeBedrooms, twoBedrooms, oneBedrooms, studios])
 
 
 

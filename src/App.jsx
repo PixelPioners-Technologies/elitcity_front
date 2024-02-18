@@ -185,25 +185,25 @@ const normalizeLocationData = (data, lang) => {
 };
 
 
-const useClearLocalStorageWeekly = () => {
-  useEffect(() => {
-    const currentDate = new Date();
-    const storedDateStr = localStorage.getItem('dateForClearingLocalStorage');
-    const storedDate = storedDateStr ? new Date(storedDateStr) : null;
+// const useClearLocalStorageWeekly = () => {
+//   useEffect(() => {
+//     const currentDate = new Date();
+//     const storedDateStr = localStorage.getItem('dateForClearingLocalStorage');
+//     const storedDate = storedDateStr ? new Date(storedDateStr) : null;
 
-    if (!storedDate || (currentDate - storedDate) / (1000 * 60 * 60 * 24) > 7) {
-      localStorage.clear(); // Clear localStorage
-      localStorage.setItem('dateForClearingLocalStorage', currentDate.toISOString()); // Update stored date
-    }
-  }, []);
-};
+//     if (!storedDate || (currentDate - storedDate) / (1000 * 60 * 60 * 24) > 7) {
+//       localStorage.clear(); // Clear localStorage
+//       localStorage.setItem('dateForClearingLocalStorage', currentDate.toISOString()); // Update stored date
+//     }
+//   }, []);
+// };
 
 
 
 
 function App() {
   usePageTracking();
-  useClearLocalStorageWeekly()
+  // useClearLocalStorageWeekly()
 
 
   const [forVisible, setForVisible] = useState(true);
