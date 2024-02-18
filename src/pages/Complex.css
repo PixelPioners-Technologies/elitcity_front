@@ -1,7 +1,6 @@
 .complex_page_div {
   padding: 0 80px;
-  border: 1px solid red;
-  margin-top: 7%
+  margin-top: 8%
 }
 .for_comfort {
   display: flex;
@@ -10,44 +9,39 @@
   justify-content: center;
   height: auto;
   margin-top: 0px;
-  /* border: 1px solid red; */
 }
 .column_div_for_comfort {
   flex-direction: column;
 }
 .flex_end {
   width: 40%;
-  /* border: 1px solid red; */
   margin-top: 20px;
+}
+.complex_dard_1{
+  width: 255px;
 }
 .motionBox {
   border: 1px solid white;
   margin-top: 20px;
 }
 .forPaddingOfInfoFieldOfComplexsPlansMaps {
-  /* border: 1px solid green; */
   padding: 15px;
 }
 .infoFieldOfComplexsPlansMaps {
   display: flex;
   justify-content: space-between;
-  /* border: 1px solid red; */
 }
 .complexInfoAndCountShowBox {
   display: flex;
   align-items: center;
-  /* border:1px solid green */
 }
 .projectsPlansMapsSortingAndDollarBox {
   display: flex;
   align-items: center;
   justify-content: space-around;
   gap: 20px;
-  /* width: 35%; */
-  /* border: 2px solid blue; */
 }
 .project_div_parent {
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -66,7 +60,6 @@
 }
 .sort_icon_for_complex_mob {
   display: none;
-  /* border: 1px solid red; */
 }
 .mapAndLogoImg {
   display: flex;
@@ -88,7 +81,6 @@
   color: #fff;
 }
 .map_styles {
-  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   width: 120px;
@@ -129,7 +121,6 @@
   display: flex;
   justify-content: end;
   align-items: center;
-  /* border: 1px solid red; */
 }
 .sort_text {
   display: none;
@@ -140,13 +131,11 @@
   justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
-  /* padding: 10px; */
   cursor: pointer;
 }
 .lari_and_dolari_style {
   width: 100px;
   height: 40px;
-  /* border: 1px solid green; */
 }
 .switch[data-ison="true"] {
   justify-content: flex-end;
@@ -195,7 +184,7 @@
   text-align: center;
 }
 .heartButtonBox {
-  width: 210px;
+  width: 260px;
   display: flex;
   justify-content: flex-end;
   position: absolute;
@@ -290,7 +279,6 @@
 }
 .find_map_div {
   width: 100%;
-  /* border: 2px solid green; */
   width: 78%;
   display: flex;
   justify-content: end;
@@ -361,8 +349,7 @@
   justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
-  /* border-radius: 50px; */
-  padding: 7px;
+  padding: 5px;
   cursor: pointer;
 }
 .switch[data-ison="true"] {
@@ -370,9 +357,7 @@
 }
 .handle {
   width: 35px ;
-  /* height: 20px ; */
   background-color: white;
-  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -432,9 +417,8 @@
     padding: 10px 10px;
   }
   .google_map {
-    width: 200px;
+    width: 100%;
   }
-
   .close_cont {
     display: none;
   }
@@ -449,14 +433,11 @@
     display: none;
   }
   .sort_icon_for_complex {
-    /* border: 1px solid red; */
     display: flex;
     align-items: center;
-    /* margin-left: -  10px; */
   }
   .projectsPlansMapsSortingAndDollarBox {
     gap: 5px;
-    /* border: 2px solid green; */
     display: flex;
     align-items: center;
   }
@@ -471,9 +452,7 @@
   .sort_icon_for_complex_mob {
     display: block;
   }
-
   .sort_icon_for_complex_mob {
-    /* border: 1px solid red; */
     display: flex;
     align-items: center;
   }
@@ -481,7 +460,6 @@
     display: flex;
     flex-direction: row;
     display: block;
-    /* border: 1px solid red; */
     align-items: center;
     display: block;
   }
@@ -489,11 +467,9 @@
     display: flex;
     align-items: center;
     padding-left: 20px;
-    /* width: 20px; */
   }
   .textButton {
     display: block;
-    /* color: wheat; */
   }
   .close_cont {
     display: block;
@@ -503,25 +479,18 @@
     align-items: start;
   }
   .find_map_div {
-    /* border: 1px solid green; */
     flex-direction: column;
     align-items: center;
     gap: 10px;
     justify-content: center;
-    /* width: 0%;
-    gap: 0; */
   }
   .gap_short {
     width: auto !important;
-    /* width: 2px !important; */
   }
   .map_styles {
-    /* width: 200px; */
-    /* border: 1px solid red; */
     display: flex;
     align-items: center;
     justify-content: center;
-    /* text-align: center; */
   }
   .complex_page_div {
     padding: 0 10px;
@@ -532,11 +501,11 @@
     position: absolute;
     z-index: 11111111;
     background-color: black;
-    /* margin-top: 40px; */
     right: 0px;
   }
   .allCards {
     position: relative;
+    margin-top: 20px;
   }
   .column_div_for_comfort {
     display: none;
@@ -547,17 +516,6 @@
 }
 
 /* ---------- M O D A L S ------------ */
-
-/* .min_price_complex {
-  color: #ffffff;
-  background-color: transparent;
-  border-style: hidden;
-  border: 3px solid transparent;
-  background-color: transparent;
-  padding: 10px;
-  border-radius: 5px;
-  margin-left: 10px;
-} */
 
 .min_price_complex:focus {
   outline: none;
@@ -588,24 +546,18 @@
 }
 
 .min_price_complex {
-  /* border: 3px solid blue; */
   display: flex;
   flex-direction: row;
   align-items: center;
   color: #ffffff;
   width: 150px;
-  /* background-color: transparent; */
   border-style: hidden;
-  /* border: 3px solid transparent; */
   background-color: transparent;
   padding: 10px;
-  /* border-radius: 5px; */
-  /* margin-left: 10px; */
 }
 .min_price_complex:focus {
   outline: none;
   border: none;
-  /* box-shadow: 0 0 5px rgb(161, 193, 202); */
 }
 .min_price_complex::placeholder {
   font-size: 15px;

@@ -16,7 +16,7 @@ import SaleModal from "../Modals_for_stokhome_plus/SaleModal";
 import headphone_icon from "../icons/headphones.png";
 import canse_iconl from "../icons/cancel.png";
 import phoneImage from "../assets/🦆 icon _phone_.svg";
-import Sort from '../assets/sort.png';
+import Sort from "../assets/sort.png";
 
 const normalizePromotionData = (data, lang) => {
   return data.map((promotion) => ({
@@ -103,7 +103,7 @@ export default function Sales({ selectedLanguage, handleCallButtonClick }) {
             </p>
           </div>
           <div className="logoOfPercentAndCompany">
-            <img src={percentImage} alt="Percent Discount" />
+            <img className="company_logo_sales" src={percentImage} alt="Percent Discount" />
             <img
               src={item.details.company_Logo?.logocompany}
               alt="Company Logo"
@@ -250,7 +250,7 @@ export default function Sales({ selectedLanguage, handleCallButtonClick }) {
   };
 
   // ---------------------------------------------------------------------------------------------------
-  
+
   const [openSortComp, setOpenComp] = useState(false);
 
   const sortOpen = () => {
@@ -260,7 +260,7 @@ export default function Sales({ selectedLanguage, handleCallButtonClick }) {
     if (openSortComp) {
       setOpenComp(false);
     }
-};
+  };
   return (
     <div className="SalesBox" onClick={closeSort}>
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
@@ -279,14 +279,16 @@ export default function Sales({ selectedLanguage, handleCallButtonClick }) {
               </p>
             </div>
             <div className="sort_icon_for_complex_mob" onClick={sortOpen}>
-                <img
-                  src={Sort}
-                  style={{ width: "20px", height: "25px" }}
-                  alt="/"
-                />
-              </div>
-              {/*  */}
-            <div className={openSortComp ? "allSaleGiftAndInstallmentBox" : "clos"}>
+              <img
+                src={Sort}
+                style={{ width: "20px", height: "25px" }}
+                alt="/"
+              />
+            </div>
+            {/*  */}
+            <div
+              className={openSortComp ? "allSaleGiftAndInstallmentBox" : "clos"}
+            >
               <div className="eachSectionBox">
                 <button
                   className="buttonOfEachSection"

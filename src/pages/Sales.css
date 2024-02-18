@@ -1,17 +1,10 @@
-
-
 .SalesBox {
-  /* padding: 0px; */
   margin-top: 7%;
-  /* border: 1px solid red; */
-  /* min-height: 100vh; Ensure the component covers at least the viewport height */
   background-color: black; /* Set your desired background color */
-  /* padding: 20px; */
   overflow: hidden;
 }
 
 .forPaddingOfsalesNavBar {
-  /* border: 1px solid green; */
   padding: 0 90px;
 }
 
@@ -21,13 +14,11 @@
   justify-content: space-between;
   height: 70px;
   padding: 0 40px;
-  /* border: 1px solid red; */
 }
 
 .boxOftitleOfActionAndOffers {
   display: flex;
   align-items: center;
-  /* border: 1px solid blue; */
 }
 
 .titleOfActionAndOffers {
@@ -35,7 +26,6 @@
 }
 
 .allSaleGiftAndInstallmentBox {
-  /* border: 1px solid blue; */
   display: flex;
   gap: 105px;
 }
@@ -70,12 +60,10 @@
 }
 
 .saleArticlesBox {
-  /* border: 1px solid red; */
-
   display: flex;
   flex-direction: row;
   margin-top: 50px;
-  padding: 40px;
+  padding: 20px;
   flex-wrap: wrap;
   justify-content: space-around;
 }
@@ -83,6 +71,8 @@
 /* ------------------------------------------------------------- */
 .eachSaleArticleBox {
   border: 1px solid white;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  transition: transform 0.3s ease-in-out;
   padding: 20px;
   display: flex;
   gap: 10px;
@@ -91,10 +81,8 @@
 }
 
 .eachSaleArticleBox2 {
-  /* border: 1px solid blue; */
   padding: 20px;
   display: flex;
-  /* gap: 10px; */
   color: white;
 }
 .saleArticleInfoText {
@@ -118,7 +106,6 @@
 
 .logoOfPercentAndCOmpany {
   display: flex;
-  gap: 5px;
 }
 
 .SaleArticleImageBox {
@@ -147,14 +134,12 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
-  /* border: 1px solid red; */
 }
 .whole_sale_omdal_content {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 3px solid green; */
 }
 
 .close_icon_sale {
@@ -163,9 +148,6 @@
 }
 
 .sale_modal_container_main {
-  /* border: 1px solid blue; */
-  /* height: 600px; */
-  /* width: 500px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -175,7 +157,6 @@
 
 .image_for_sale_modal {
   width: 500px;
-  /* border: 1px solid green; */
 }
 
 .image_company_for_sale_modal {
@@ -243,25 +224,18 @@
   display: flex;
   justify-content: center;
 }
-
-/* .call_and_number_on_saleModal{
-  
-} */
-
 .all_call_modal_buttons {
   display: flex;
   justify-content: space-around;
   width: 100%;
   font-size: 400;
 }
-
 .call_and_number_on_saleModal {
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 20px;
 }
-
 .show_number_sale_modal {
   display: flex;
   justify-content: space-around;
@@ -273,11 +247,9 @@
   width: 256px;
   height: 56px;
 }
-
 .call_sale_modal {
   font-size: small;
 }
-
 .make_call_Sale_modal {
   display: flex;
   justify-content: space-around;
@@ -290,11 +262,10 @@
   height: 56px;
   cursor: pointer;
 }
-
 .hedaphone_ico_sale_modaln {
   width: 50px;
 }
-.clos{
+.clos {
   display: flex;
   flex-direction: row;
   gap: 25px;
@@ -302,10 +273,8 @@
 @media screen and (max-width: 500px) {
   .SalesBox {
     margin-top: 17%;
-    /* padding: 20px; */
   }
   .forPaddingOfsalesNavBar {
-    /* border: 1px solid green; */
     display: flex;
     justify-content: center;
     padding: 0;
@@ -313,20 +282,15 @@
   .infoFieldOfSalesAndSoOn {
     padding: 0;
     align-items: center;
-    /* width: 100%; */
     width: 340px;
     border: none;
-    /* flex-direction: column; */
-    /* margin-bottom: 30px; */
   }
   .boxOftitleOfActionAndOffers {
-    /* width: 340px; */
     text-align: center;
   }
   .allSaleGiftAndInstallmentBox {
     gap: 20px;
     font-size: 15px;
-    /* border: 1px solid green; */
     flex-direction: column;
     position: absolute;
     z-index: 1111;
@@ -337,44 +301,39 @@
     align-items: center;
   }
   .saleArticlesBox {
-    /* border: 1px solid blue; */
     padding: 0px;
     margin-top: 0;
   }
   .eachSaleArticleBox {
     width: 340px;
-    flex-direction: column;
-    gap: 20px;
+    height: 160px;
     align-items: center;
-    /* padding: 0; */
   }
   .eachSaleArticleBox2 {
     padding: 20px;
-    /* border: 1px solid blue; */
   }
   .saleArticleInfoText {
-    /* border: 1px solid green; */
-    width: 330px;
-    font-size: 14px;
+    padding: 5px;
+    height: 150px;
+    font-size: 8px;
+  }
+  .timeAndCompanyLogo{
+    display: flex;
+    flex-direction: column;
+  }
+  .logoOfPercentAndCompany{
+    display: flex;
+    justify-content: space-between;
   }
   .imageOfSaleComplex {
-    width: 330px;
-    /* padding: 0; */
-  }
-  .SaleArticleImageBox {
-    width: 330px;
-    /* padding: 0 ; */
-    /* border: 1px solid blue; */
+    width: 140px;
   }
   .SaleArticleImageBox {
     margin-left: 0;
-    /* margin-top: 0; */
   }
   .image_for_sale_modal {
     width: 100%;
-    /* width: 340px; */
   }
-
   .call_and_number_on_saleModal {
     width: 100%;
     flex-direction: column;
@@ -388,21 +347,22 @@
     margin-top: -20px;
   }
   .image_for_sale_modal {
-    /* border-radius: 20px; */
     margin-top: -10px;
   }
   .sale_settings_and_companylogo {
     flex-direction: column;
-    /* border: 1px solid gray; */
   }
-  .call_and_number_on_saleModal{
-    /* border: 1px solid green; */
+  .call_and_number_on_saleModal {
     align-items: center;
   }
-  .clos{
+  .clos {
     display: none;
   }
-  .eachSaleArticleBox2 {
-    /* border: 1px solid red; */
+  .eachSaleArticleBox {
+    padding: 10px;
+  }
+  .company_logo_sales{
+    width: 20px;
+    height: 20px;
   }
 }
