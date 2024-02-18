@@ -195,10 +195,13 @@ const normalizeApartmentData = (data, lang) => {
       bathroom: data.internal_apartment_name.Bathroom,
       bedroom: data.internal_apartment_name.bedroom,
       balcony: data.internal_apartment_name.Balcony,
+      rank : data.internal_apartment_name.rank,
+      status : data.internal_apartment_name.status,
     },
 
     apartmentImages: data.appartment_images,
     testField: data[`test_field_${lang}`],
+    appartment_name : data[`appartment_name_${lang}`]
   };
 };
 

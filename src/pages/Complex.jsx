@@ -80,25 +80,16 @@ export default function Complex({
   handleCorrentPageHandler,
   complexes,
   total_item_number,
-
   getCorrencyRate,
   HandleStateChange,
   currenceChangeState,
   isOn,
   toggleSwitch,
-
   sortingChangeHandler,
-
   searchInput,
   setSearchInput,
   stringSearchHeandles,
 }) {
-  // const [homes, setHomes] = useState([]);
-
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [forPriceDecrease, setForPriceDecrease] = useState(null);
-  // const [sortedHomes, setSortedHomes] = useState(null);
-  // const [ascendentPrice, setAscendentPrice] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
@@ -107,19 +98,10 @@ export default function Complex({
 
   const [modalContent, setModalContent] = useState("");
 
-  // const [status, setStatus] = useState('');
-
-  // const [mapCenter, setMapCenter] = useState(initialCenter);
-  // const [zoomLevel, setZoomLevel] = useState(13);
-
-  // const [mapInstance, setMapInstance] = useState(null);
 
   const navigate = useNavigate();
 
-  // Assuming `complex` is an object representing each house
-  // const handleHouseClick = (complexId) => {
-  //   navigate(`/eachComplex/${complexId}`);
-  // };
+
 
   const handleHouseClick = (complexId) => {
     navigate(`/eachComplex/${complexId}`, { state: { complexId } });
@@ -130,16 +112,6 @@ export default function Complex({
     console.log("corrent page----", complexes);
   }, [complexes]);
 
-  // useEffect(() => {
-
-  //   console.log("total_item_number on complex", total_item_number);
-  // }, [total_item_number]);
-
-  // 1111111111111111111111111111111111
-  // for toggle DOllar AND LARI ---==---(START)
-  // const [isOn, setIsOn] = useState(false);
-  // const toggleSwitch = () => setIsOn(!isOn);
-  // // -----===--------(END)
 
   // ------------------------------------------------------------------------------------
   // for Sorting

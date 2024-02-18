@@ -82,8 +82,8 @@ export default function Header({
   return (
     <div className="header">
 
-      <Link to="/homePage">
-        <img className="header_logo_img" src={CompanyLogo} alt="Logo of Company STARKHOME COMPANY " />
+      <Link to="/">
+        <img src={CompanyLogo} alt="Logo of Company STARKHOME COMPANY " />
       </Link>
       {/* ------------------------------- */}
       {/* ჯერ–ჯერობით favorite უბრალოდ img-ად მაქვს ვიზუალისთვის და არა ფუნქციონალით */}

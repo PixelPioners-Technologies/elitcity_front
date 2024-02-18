@@ -185,25 +185,25 @@ const normalizeLocationData = (data, lang) => {
 };
 
 
-const useClearLocalStorageWeekly = () => {
-  useEffect(() => {
-    const currentDate = new Date();
-    const storedDateStr = localStorage.getItem('dateForClearingLocalStorage');
-    const storedDate = storedDateStr ? new Date(storedDateStr) : null;
+// const useClearLocalStorageWeekly = () => {
+//   useEffect(() => {
+//     const currentDate = new Date();
+//     const storedDateStr = localStorage.getItem('dateForClearingLocalStorage');
+//     const storedDate = storedDateStr ? new Date(storedDateStr) : null;
 
-    if (!storedDate || (currentDate - storedDate) / (1000 * 60 * 60 * 24) > 7) {
-      localStorage.clear(); // Clear localStorage
-      localStorage.setItem('dateForClearingLocalStorage', currentDate.toISOString()); // Update stored date
-    }
-  }, []);
-};
+//     if (!storedDate || (currentDate - storedDate) / (1000 * 60 * 60 * 24) > 7) {
+//       localStorage.clear(); // Clear localStorage
+//       localStorage.setItem('dateForClearingLocalStorage', currentDate.toISOString()); // Update stored date
+//     }
+//   }, []);
+// };
 
 
 
 
 function App() {
   usePageTracking();
-  useClearLocalStorageWeekly()
+  // useClearLocalStorageWeekly()
 
 
   const [forVisible, setForVisible] = useState(true);
@@ -254,7 +254,7 @@ function App() {
 
   // const [complex_homes, setComplex_homes] = useState([]);
 
-  // const [showSplashScreen, setShowSplashScreen] = useState(true);
+  const [showSplashScreen, setShowSplashScreen] = useState(true);
 
   const [ascendentPrice, setAscendentPrice] = useState("");
   const [searchInput, setSearchInput] = useState("");
@@ -691,13 +691,13 @@ function App() {
     // First timer to open the modal after 10 seconds
     const timer1 = setTimeout(() => {
       setIsCallModalOpen(true);
-    }, 6000000); // 10 seconds
+    },  60000); // 10 seconds
 
     // Second timer to close and then reopen the modal after 20 seconds
     const timer2 = setTimeout(() => {
       setIsCallModalOpen(false); // Close the modal first to create a noticeable effect
       setTimeout(() => setIsCallModalOpen(true), 200); // Reopen it shortly after closing for user notice
-    }, 12000000); // 20 seconds
+    }, 120000); // 20 seconds
 
     // Cleanup function to clear both timers if the component unmounts
     return () => {
@@ -705,6 +705,10 @@ function App() {
       clearTimeout(timer2);
     };
   }, []); // Empty dependency array means this effect runs once after initial render
+// Empty dependency array means this effect runs once after initial render
+// Empty dependency array means this effect runs once after initial render
+
+
 
   const handleCloseCallModal = () => {
     setIsCallModalOpen(false);
@@ -856,41 +860,39 @@ function App() {
 
 
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setShowSplashScreen(false);
-  //   }, 3000); // 3000 milliseconds = 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplashScreen(false);
+    }, 3000); // 3000 milliseconds = 3 seconds
 
-  //   return () => clearTimeout(timer); // Clean up the timer
-  // }, []);
+    return () => clearTimeout(timer); // Clean up the timer
+  }, []);
 
-  // if (showSplashScreen) {
-  //   return (
-  //     <div className="slashscreen_container" >
+  if (showSplashScreen) {
+    return (
+      <div className="slashscreen_container" >
 
-  //       <img className="slash_company_logo" src={storkhome__logo} alt='company_logo' />
-  //       <div className="spinner">
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+        <img className="slash_company_logo" src={storkhome__logo} alt='company_logo' />
+        <div className="spinner">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
       <div>
         <Facebook />
       </div>
-      {/* Conditional rendering for the Header */}
-      {forVisible && window.location.pathname !== "/" ? (
-        <div>
+        <div  >
           <Header
             favorites={favorites}
             favoritesPhysical={favoritesPhysical}
@@ -898,15 +900,17 @@ function App() {
             handleLanguageChange={handleLanguageChange}
             onButtonClick={trackButtonClick}
             selectedLanguage={selectedLanguage}
+        
+
           />
         </div>
-      ) : null}
+    
 
       <Routes>
-        <Route path="/" element={<Nothing />} />
+        {/* <Route path="/" element={<Nothing />} /> */}
 
         <Route
-          path="/homepage"
+          path="/"
           element={
             <HomePage
               searchInput={searchInput}

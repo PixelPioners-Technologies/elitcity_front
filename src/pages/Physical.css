@@ -2,12 +2,6 @@
   padding: 0 80px;
   margin-top: 7%;
 }
-.one {
-  /* display: none; */
-}
-.oneo {
-  /* display: none; */
-}
 .filter_image {
   width: 30px;
   background-color: #fff;
@@ -375,8 +369,10 @@ input[type="checkbox"] {
     flex-direction: row;
     justify-content: space-between;
   }
-  .switch_physical {
-    width: 50px;
+
+  .switch_physical{
+    /* border: 1px solid green;    */
+     width: 50px;
     height: 25px;
   }
   .handle_physical {
@@ -411,9 +407,6 @@ input[type="checkbox"] {
   }
   .close_sort {
     display: none;
-  }
-  .one {
-    /* display: none !important; */
   }
   .filter_cont_for_physicaly {
     position: absolute;

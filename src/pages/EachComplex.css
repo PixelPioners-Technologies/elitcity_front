@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   padding-top: 30px;
+  margin-top: 80px;
 }
 .imageAndTextInfos3 {
   display: flex;
@@ -220,6 +221,8 @@
 
 .paddingForEachComplexCardBox {
   padding: 0 50px;
+  border: 1px solid red;
+  padding-bottom: 30px !important;
 }
 
 .eachDivBoxOfTextOfIcons{
@@ -333,6 +336,46 @@
   justify-content: space-between;
 }
 
+.allCards_physical_aa {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 29px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  border: 1px solid white;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  padding-left: 30px;
+  padding-right: 30px;
+
+}
+
+
+.card_physical_aa {
+  width: 315px;
+  height: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #C1D6CC; */
+  background-color: black;
+  border: 1px solid white;
+  /* border-radius: 20px; */
+  overflow: hidden;
+  /* padding: 10px; */
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  padding-top: 30px;
+  transition: transform 0.3s ease-in-out;
+  margin-bottom: 20px;
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}
+
+
+
 /* --------------------------------------------------currency styles  -------------------------------------------- */
 
 .currencyBox__c {
@@ -398,6 +441,14 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .allCards_physical_aa {
+    width: 100%;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    flex-direction: column;
+  }
   .imageAndTextInfos3 {
     flex-direction: column;
     /* padding: 20px; */
@@ -455,5 +506,9 @@
   }
   .complexTextsBox2 {
     width: 100%;
+  }
+
+  .numberBox{
+    width: 300px
   }
 }
