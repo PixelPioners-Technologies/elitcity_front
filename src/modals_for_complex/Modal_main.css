@@ -17,12 +17,11 @@
 }
 
 .modal-content-complex {
-  background: black; /* Semi-transparent white */
+  background: rgb(6, 6, 6); /* Semi-transparent white */
   color: #333; /* Dark text color */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9); /* Soft text shadow for legibility */
   width: 400px; /* Fixed width */
   padding: 10px; /* Padding around the content */
-  border-radius: 10px; /* Rounded corners */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.9); /* Subtle shadow for depth */
   position: relative; /* Positioning context for child elements */
   max-height: 80vh; /* Maximum height */
@@ -66,3 +65,9 @@
 }
 
 /* Add here the similar keyframe definitions for scale-up-top if needed */
+@media screen and (max-width:500px) {
+  .modal-content-complex {
+    width: 220px;
+  }
+  
+}

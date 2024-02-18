@@ -1,24 +1,26 @@
 .developers_main_container {
-  padding: 60px;
+  padding: 0 80px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* border: 1px solid green; */
+  margin-top: 7%;
 }
-.header_container {
-  color: aliceblue;
-  width: 442px;
-  height: 36px;
-  top: 88px;
-  left: 71px;
-
+.headerCont {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  color: #fcfcfc;
   font-size: 12px;
-  font-weight: 400;
   letter-spacing: 0.11em;
-  text-align: left;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
-
+.settings_container {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  gap: 10px;
+  letter-spacing: 0.05em;
+}
 .companyes_header {
   color: aliceblue;
   height: 36px;
@@ -29,13 +31,11 @@
   letter-spacing: 0.11em;
   text-align: left;
   margin-bottom: 70px;
-  margin-top: 70px;
   display: flex;
   justify-content: space-between;
 }
 /* ---------------------------developer cards cstyles ------------------------------------------- */
 .developers {
-  /* height: 190px; */
   padding: 20px;
   display: flex;
   color: aliceblue;
@@ -46,7 +46,6 @@
   border-width: 2px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
 }
-
 .developers_child_container {
   display: flex;
   align-items: center;
@@ -57,11 +56,6 @@
   width: 110px;
   border-radius: 50%;
 }
-
-/* .settings_container {
-  font-family: "Noto Sans", sans-serif;
-} */
-
 .company_background_image {
   height: 170px;
   margin-right: 30px;
@@ -77,7 +71,6 @@
   align-items: center;
   gap: 43px;
   flex-shrink: 0;
-  border: 1.5px solid #ada9a9;
   mix-blend-mode: hard-light;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: #fff;
@@ -85,17 +78,14 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 0px; /* 0% */
+  line-height: 0px; 
   letter-spacing: 1.76px;
   position: relative;
-  /* border: 1px solid ridge; */
 }
-
 .dropdown {
   position: absolute;
   margin-left: 80%;
 }
-
 .lacation_button_for_word {
   flex-shrink: 0;
 }
@@ -103,27 +93,38 @@
 /* ----------------------------------------------------------------------------------------------- */
 
 @media screen and (max-width: 500px) {
-  .developers {
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    /* border: ; */
-  }
-  /* .big_container_for_key{
-    border: 1px solid red;
-  }
-  .textButtonContainer{
-    border: 1px solid rgb(60, 255, 0);
-  } */
-  .company_background_image {
-    margin-right: 0;
-    border-radius: 25px;
+  .developers_main_container {
+    margin-top: 15%;
     padding: 15px;
   }
-  h1,
-  .header_container {
-    font-size: 18px;
-    /* border: 1px solid red; */
+  .startDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .headerCont {
+    justify-content: center;
+    font-size: 10px;
+  }
+  .developers {
+    width: 340px;
+    height: 160px;
+    gap: 15px;
+    align-items: center;
+    padding: 10px;
+  }
+  .second_developers_child_container {
+    width: 130px;
+  }
+  .company_background_image {
+    width: 130px;
+    height: 100px;
+  }
+  .developers_child_container {
+    gap: 15px;
+  }
+  .company_logo {
+    width: 50px;
   }
   .companyes_header {
     flex-direction: column;
@@ -131,18 +132,7 @@
     gap: 15px;
   }
   .settings_container {
-    font-size: 12px;
-  }
-  /* .developers_child_container {
-    gap: 10px;
-  }
-  .second_developers_child_container{
-    border: 2px solid blue; 
-    padding: 10px;
-  } */
-  .company_background_image{
-    width: 100%;
-    /* border: 1px solid green; */
-    padding: 0;
+    font-size: 13px;
+    gap: 15px;
   }
 }

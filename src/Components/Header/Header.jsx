@@ -27,6 +27,12 @@ export default function Header({
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
+
+//   const closeSort = () => {
+//     if (isMenuOpen) {
+//       setIsMenuOpen(false);
+//     }
+// };
   const handle_P_StatusButtonLanguageChange = (lang) => {
     var languageInfo = {
       complex: "Complexes",
