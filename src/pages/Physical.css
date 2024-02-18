@@ -421,12 +421,7 @@ input[type="checkbox"] {
     justify-content: space-between;
     /* width: 340px; */
   }
-  .currencyBox_physical{
-    /* border: 1px solid red; */
 
-    /* margin-right: 23px; */
-
-  }
   .switch_physical{
     /* border: 1px solid green;    */
      width: 50px;
