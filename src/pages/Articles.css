@@ -1,38 +1,30 @@
 .ArticlesPageBox {
-  min-height: 100vh; /* Ensure the component covers at least the viewport height */
-  background-color: black; /* Set your desired background color */
+  background-color: black;
   padding: 20px;
   overflow: hidden;
-  /* border: 1px solid red; */
+  margin-top: 7%;
 }
-
 .Left {
   float: left;
-  /* border: 1px solid red; */
 }
-
 .Right {
   float: right;
 }
-
 .BoxOfEachArticle {
   margin-top: 20px;
   display: flex;
   border: 1px solid white;
   width: 60%;
 }
-
 .ArticleImgBox {
   padding: 20px;
   width: 400px;
 }
-
 .img {
-  width: 100%; /* Make image width responsive */
-  max-width: auto; /* Adjust max-width as necessary */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%;
+  max-width: auto;
+  height: auto;
 }
-
 .ArticleTextBox {
   color: white;
   padding: 20px 30px;
@@ -41,62 +33,54 @@
   gap: 20px;
 }
 
-/* Responsive adjustments */
 @media screen and (max-width: 500px) {
-  .ArticlesPageBox{
-    /* border: 2px solid green; */
+  .ArticlesPageBox {
     padding: 40px;
   }
   .BoxOfEachArticle {
     width: 100%;
     padding: 10px;
-    /* border: 1px solid red; */
-    flex-direction: column; /* Stack image and text vertically on smaller screens */
-    /* width: 445px; Use the full width of the container */
+    flex-direction: column;
   }
 
-  .ArticleImgBox, .ArticleTextBox {
-    padding: 10px; /* Reduce padding on smaller screens */
+  .ArticleImgBox,
+  .ArticleTextBox {
+    padding: 10px;
   }
-.ArticlesPageBox{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
-  .Left, .Right {
-    float: none; /* Remove float for smaller screens */
+  .ArticlesPageBox {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
-}
-
-@media (max-width: 480px) {
+  .Left,
+  .Right {
+    float: none;
+  }
   .ArticlesPageBox {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     gap: 30px;
-    width: 408px;
     padding: 10px;
     overflow: hidden;
-     /* Further reduce padding for very small screens */
+    margin-top: 12%;
   }
 
-.BoxOfEachArticle{
-  width: 348px;
-  padding: 10px;
-}
-
-  .ArticleImgBox, .ArticleTextBox {
-    padding: 5px; /* Minimal padding on very small screens */
+  .BoxOfEachArticle {
+    width: 348px;
+    padding: 10px;
   }
-
+  .ArticleImgBox,
+  .ArticleTextBox {
+    padding: 5px;
+  }
   .img {
-    width: 310px; 
+    width: 310px;
     margin-left: 5px;
   }
-
   .ArticleTextBox {
-    gap: 10px; /* Reduce gap between text elements */
+    gap: 10px;
   }
 }

@@ -1,35 +1,22 @@
-
-
 .main_storkhome_container {
   color: aliceblue;
   padding: 60px;
-  /* border: 1px solid red; */
+  margin-top: 7%;
 }
-
-
-
 .storkhome_plus_container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  /* border: 1px solid green; */
 }
-
-
 .storkhome_plus {
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-weight: 300px;
-
 }
-
 .storkhome_plus_translatable {
-
   font-weight: 200;
-  /* border: 1px solid blue; */
 }
 
 /* --------------------------------------card kit styles ----------------------------------------- */
@@ -39,13 +26,9 @@
   align-items: center;
   gap: 50px;
   margin-top: 40px;
-  /* border: 1px solid blue; */
-  /* flex-direction: column; */
 }
 
-
 .storkhome_cards {
-  /* padding: 30px 140px; */
   width: 427.7px;
   height: 211px;
   top: 213px;
@@ -58,39 +41,27 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  /* border: 1px solid red; */
-
 }
-.column{
-  /* border: 1px solid red; */
+.column {
   display: flex;
   flex-direction: column;
-  /* flex-direction: row; */
   justify-content: space-between;
   margin-top: 20px;
 }
-
 .kit {
   display: flex;
   justify-content: flex-end;
 }
-
-
 .logo_plus {
   margin-bottom: 13px;
-  /* border: 1px solid blue; */
 }
-
 .card_logo_and_plus {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  /* border: 1px solid green; */
   margin-top: 25px;
-
 }
-
 
 /* -------------------------------------------------------------------------------------------------- */
 
@@ -102,10 +73,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid red; */
-
 }
-
 .kit_settings_cont {
   display: flex;
   flex-direction: column;
@@ -118,14 +86,13 @@
 /* -------------------------------------------------------------------------------------------------- */
 
 /* -------------------------------------- call cntainer settings ----------------------------------------- */
-.big_call_cont{
+.big_call_cont {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
-.make_call{
+.make_call {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -138,61 +105,50 @@
   cursor: pointer;
 }
 
-
-.hedaphone_icon{
+.hedaphone_icon {
   width: 60px;
 }
 
-
-.call{
-
+.call {
   background-color: black;
   color: aliceblue;
-
-  
 }
-
 
 /* -------------------------------------------------------------------------------------------------- */
 /* -----------------------------------call modal styles---------------------------------------------- */
 
-.call_modal_content{
+.call_modal_content {
   color: aliceblue;
 }
 
-
-.call_modal{
+.call_modal {
   height: 400px;
 }
 
-
-
-
-
-
 /* -------------------------------------------------------------------------------------------------- */
 @media screen and (max-width: 500px) {
-  .main_storkhome_container{
+  .main_storkhome_container {
     padding: 0;
-
+    margin-top: 17%;
   }
   .storkhome_cards_container {
     width: 100%;
     flex-direction: column;
-
   }
   .storkhome_cards {
     width: 340px;
   }
-  .textButtonCont{
+  .textButtonCont {
     margin-bottom: 20px;
-
   }
-  .make_call{
-    width: 340px
+  .make_call {
+    width: 340px;
   }
   .storkhome_plus_container {
     margin-top: 40px;
   }
-  
+  .column {
+    font-size: 13px;
+    gap: 4px;
+  }
 }
