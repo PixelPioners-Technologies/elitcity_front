@@ -82,7 +82,7 @@ export default function Header({
   return (
     <div className="header">
 
-      <Link to="/homePage">
+      <Link to="/">
         <img src={CompanyLogo} alt="Logo of Company STARKHOME COMPANY " />
       </Link>
       {/* ------------------------------- */}
