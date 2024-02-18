@@ -13,13 +13,10 @@ import Arrows from "../assets/arrows.png";
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import mapSignLogo from "../assets/mapSignLogoo.svg";
 
-
 import dollar_black from "../assets/dollar-svgrepo-com.svg";
 import lari_black from "../assets/lari-svgrepo-com.svg";
 import dollar from "../assets/dollar-whitee.svg";
 import lari from "../assets/lari-white.svg";
-
-
 
 import arrowDownSorting from "../assets/arrow-down-white.svg";
 import googleMapImage from "../assets/mapImageForFooter.svg";
@@ -622,14 +619,19 @@ export default function Complex({
     // console.log("open:", Open);
   };
 
-
   const [openSortComp, setOpenComp] = useState(false);
 
-const sortOpen = () => {
-  openSortComp (!setOpenComp);
-}
+  const sortOpen = () => {
+    setOpenComp(!openSortComp);
+  };
+  const closeSort = () => {
+    if (openSortComp) {
+      setOpenComp(false);
+    }
+};
+
   return (
-    <div className="complex_page_div">
+    <div className="complex_page_div" >
       <div className="filter_cont_for_complexes">
         <motion.div
           initial={{ y: 50, opacity: 0 }}
@@ -637,7 +639,10 @@ const sortOpen = () => {
           transition={{ duration: 2 }}
           className="column_div"
         >
-          <div className="for_comfort column_div_for_comfort">
+          {/* for_comfort column_div_for_comfort */}
+          <div
+            className={openSortComp ? "for_comfort" : "column_div_for_comfort "}
+          >
             <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
               {/* button for filtering space */}
               <div className="button-modal-container ">
@@ -724,7 +729,6 @@ const sortOpen = () => {
                         .fullPriceHomePage
                     }
 
-
                     <div className="currencyBox_homepage">
                       <div
                         className="switch_homepage"
@@ -739,23 +743,22 @@ const sortOpen = () => {
                           <img
                             src={lari_black}
                             alt="Lari Sign"
-                            className={`currency-sign_homepage ${isOn ? "active" : ""
-                              }`}
+                            className={`currency-sign_homepage ${
+                              isOn ? "active" : ""
+                            }`}
                           />
                           <img
                             src={dollar_black}
                             alt="Dollar Sign"
-                            className={`currency-sign_homepage ${!isOn ? "active" : ""
-                              }`}
+                            className={`currency-sign_homepage ${
+                              !isOn ? "active" : ""
+                            }`}
                           />
                         </motion.div>
                       </div>
                     </div>
-
-
                   </div>
                   <div>
-
                     <div className="inputInlineDispley">
                       {/* pirveli  */}
                       <div className="for_dolar_and_lari">
@@ -763,7 +766,8 @@ const sortOpen = () => {
                           className="min_price_complex"
                           type="number"
                           placeholder={
-                            handleStatusButtonLanguageChange(selectedLanguage).dan
+                            handleStatusButtonLanguageChange(selectedLanguage)
+                              .dan
                           }
                           value={minPricePerSquareMeter}
                           onChange={(e) =>
@@ -782,7 +786,8 @@ const sortOpen = () => {
                           className="min_price_complex"
                           type="number"
                           placeholder={
-                            handleStatusButtonLanguageChange(selectedLanguage).mde
+                            handleStatusButtonLanguageChange(selectedLanguage)
+                              .mde
                           }
                           value={maxPricePerSquareMeter}
                           onChange={(e) =>
@@ -804,45 +809,48 @@ const sortOpen = () => {
                       }
                     </div>
                     {/* mesame  */}
-                  <div className="inputInlineDispley">
-
-                    <div className="for_dolar_and_lari">
-
-
-                      <input
-                        className="min_price_complex"
-                        type="number"
-                        placeholder={
-                          handleStatusButtonLanguageChange(selectedLanguage).dan
-                        }
-                        value={minFullPrice}
-                        onChange={(e) =>
-                          props.minFullPriceChangeHandler(e.target.value)
-                        }
-                      />
-                      <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
-
+                    <div className="inputInlineDispley">
+                      <div className="for_dolar_and_lari">
+                        <input
+                          className="min_price_complex"
+                          type="number"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage)
+                              .dan
+                          }
+                          value={minFullPrice}
+                          onChange={(e) =>
+                            props.minFullPriceChangeHandler(e.target.value)
+                          }
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+                      {/* meotxe  */}
+                      <div className="for_dolar_and_lari">
+                        <input
+                          className="min_price_complex"
+                          type="number"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage)
+                              .mde
+                          }
+                          value={maxFullPrice}
+                          onChange={(e) =>
+                            maxFullPriceChangeHandler(e.target.value)
+                          }
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
                     </div>
-                    {/* meotxe  */}
-                    <div className="for_dolar_and_lari">
-
-                      <input
-                        className="min_price_complex"
-                        type="number"
-                        placeholder={
-                          handleStatusButtonLanguageChange(selectedLanguage).mde
-                        }
-                        value={maxFullPrice}
-                        onChange={(e) =>
-                          maxFullPriceChangeHandler(e.target.value)
-                        }
-                      />
-                      <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
-
-                    </div>
-                    
                   </div>
-                    </div>
 
                   <button
                     className="modal_close_button"
@@ -960,7 +968,10 @@ const sortOpen = () => {
                   </div>
                 </motion.div>
               </Link>
-              <div onClick={handleSearchButtonClick} className="space_button gap_short">
+              <div
+                onClick={handleSearchButtonClick}
+                className="space_button gap_short"
+              >
                 <button
                   className="homepage_serch_button_complexpage"
                   style={{ color: "white" }}
@@ -1049,13 +1060,16 @@ const sortOpen = () => {
                     className="arrow_for_complex"
                     src={Arrows}
                     style={{ width: "25px" }}
-                    onClick={sortOpen}
                   />
                 </div>
               </Button>
               {/* sort icon for complex */}
-              <div className="sort_icon_for_complex_mob">
-                <img src={Sort} style={{ width: "20px", height: "25px" }} alt="/" />
+              <div className="sort_icon_for_complex_mob" onClick={sortOpen}>
+                <img
+                  src={Sort}
+                  style={{ width: "20px", height: "25px" }}
+                  alt="/"
+                />
               </div>
 
               <Menu
@@ -1222,7 +1236,7 @@ const sortOpen = () => {
 
               {/* ----Dollar and Lari Toggle button */}
               <div className="currency-Box  ">
-                <div className= "switch" data-ison={isOn} onClick={toggleSwitch}>
+                <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
                   <motion.div className="handle" layout transition={spring}>
                     <img
                       src={lari}
@@ -1246,7 +1260,7 @@ const sortOpen = () => {
 
       {/* // ------------------------------------------------------------------------------------ */}
 
-      <div className="allCards">
+      <div className="allCards" onClick={closeSort}>
         {complexes.map((complex, index) => (
           <div className="card" key={complex.id}>
             <motion.div
@@ -1303,7 +1317,7 @@ const sortOpen = () => {
                       {" "}
                       {currenceChangeState
                         ? complex.complexDetails.pricePerSqMeter *
-                        getCorrencyRate
+                          getCorrencyRate
                         : complex.complexDetails.pricePerSqMeter}
                     </p>
                   </div>

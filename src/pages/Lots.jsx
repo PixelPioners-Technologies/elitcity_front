@@ -24,7 +24,9 @@ import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import googleMapImage from "../assets/mapImageForFooter.svg";
 import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
-import Filter from "../assets/filter.png";
+import LocationIcon from "../assets/locationIcon.png";
+import Arrows from "../assets/arrows.png";
+import Sort from "../assets/sort.png";
 
 const normalizeGroundData = (data, lang) => {
   return data.map((item) => ({
@@ -113,15 +115,18 @@ export default function Physical({
   const [min_square_price, setMin_square_price] = useState("");
   const [max_square_price, setMax_square_price] = useState("");
 
-  const [convertedMinSquarePrice, setConvertedMinSquarePrice] = useState(min_square_price);
-  const [convertedMaxSquarePrice, setConvertedMaxSquarePrice] = useState(max_square_price);
+  const [convertedMinSquarePrice, setConvertedMinSquarePrice] =
+    useState(min_square_price);
+  const [convertedMaxSquarePrice, setConvertedMaxSquarePrice] =
+    useState(max_square_price);
 
   const [minFullPrice, setMinFullPrice] = useState("");
   const [maxFullPrice, setMaxFullPrice] = useState("");
 
-  const [convertedMinFullPrice, setConvertedMinFullPrice] = useState(minFullPrice);
-  const [convertedMaxFullPrice, setConvertedMaxFullPrice] = useState(maxFullPrice);
-
+  const [convertedMinFullPrice, setConvertedMinFullPrice] =
+    useState(minFullPrice);
+  const [convertedMaxFullPrice, setConvertedMaxFullPrice] =
+    useState(maxFullPrice);
 
   useEffect(() => {
     setSelectedCity("");
@@ -209,8 +214,6 @@ export default function Physical({
     // graundStatus,
   ]);
 
-
-
   const habdle_Search_Button_Click = () => {
     setSearch(!search);
     if (min_square_price === "") {
@@ -241,10 +244,7 @@ export default function Physical({
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
       setConvertedMaxFullPrice(String(maxFullPrice * conversionRate));
     }
-
   };
-
-
 
   // useEffect(() => {
   //   console.log("aq unda iyos suratebi", privateApartments);
@@ -301,6 +301,10 @@ export default function Physical({
         const city = locations.find((loc) => loc.city === selectedCity);
         if (!city) return null;
 
+        const [lotsOpen, setLotsOpen] = useState(false);
+        const toggleLots = () => {
+          setLotsOpen(!lotsOpen);
+        };
         return (
           <div className="location_modal_container">
             <div className="districts_and_pharentdostricts">
@@ -524,11 +528,9 @@ export default function Physical({
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
-      map : "Map",
-      sorting : 'Sorting',
-      sort: 'Sort'
-
-      
+      map: "Map",
+      sorting: "Sorting",
+      sort: "Sort",
     };
 
     switch (lang) {
@@ -553,12 +555,10 @@ export default function Physical({
         languageInfo.meterPriceHomePage = "The price of m²";
         languageInfo.dan = "from";
         languageInfo.mde = "to";
-        
+
         languageInfo.map = "Map";
         languageInfo.sorting = "Sorting";
         languageInfo.sort = "Sort";
-
-        
 
         break;
 
@@ -588,9 +588,6 @@ export default function Physical({
         languageInfo.sorting = "სორტირება";
         languageInfo.sort = "სორტ";
 
-        
-        
-
         break;
 
       case "ru":
@@ -617,7 +614,6 @@ export default function Physical({
         languageInfo.map = "карта";
         languageInfo.sorting = "Сортировка";
         languageInfo.sort = "Сорт";
-
 
         break;
     }
@@ -907,19 +903,15 @@ export default function Physical({
   const sortOpenLots = () => {
     setSortOpen(!sortOpen);
   };
-
+  const closeSort = () => {
+    if (sortOpen) {
+        setSortOpen(false);
+    }
+};
+// "closeSort"
   return (
-    <div className="ComplexBodyBox_physical">
-      <div className="filter_div_for_sort_icon">
-        <img
-          onClick={sortOpenLots}
-          className="filter_image"
-          src={Filter}
-          alt=""
-        />
-      </div>
-      {/* className="private_filter_conteiner" */}
-      <div className={sortOpen ? "private_filter_conteiner" : "closeSort"} >
+    <div className="ComplexBodyBox_physical" >
+      <div className={sortOpen ? "private_filter_conteiner " : "closeSort" }>
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -1139,19 +1131,40 @@ export default function Physical({
                 />
               </div>
             </div>
-            {/*serach  Button */}
-            <div
-              className="all_search_button"
-              onClick={habdle_Search_Button_Click}
-
-            >
-              {
-                handleStatusButtonLanguageChange(selectedLanguage)
-                  .allFindButtonLanguage
-              }
-            </div>
+            {/*serach  Button  and map*/}
           </div>
         </motion.div>
+        <div className=" flex_box_lots">
+          <Link to="/map">
+            <motion.div
+              className="textButtonContainer map_styles"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <div className="mapAndLogoImg styles_for_top_map">
+                <img
+                  src={LocationIcon}
+                  alt="mapSignLogo"
+                  className="location_icon_respons"
+                />
+                <button className="textButton">
+                  Map
+                  {handleStatusButtonLanguageChange(selectedLanguage).map}
+                </button>
+              </div>
+            </motion.div>
+          </Link>
+          <div
+            className="all_search_button"
+            onClick={habdle_Search_Button_Click}
+          >
+            {
+              handleStatusButtonLanguageChange(selectedLanguage)
+                .allFindButtonLanguage
+            }
+          </div>
+        </div>
       </div>
 
       {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
@@ -1181,40 +1194,6 @@ export default function Physical({
             </div>
             {/* აქ არის კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დოლარი ---- */}
             <div className="projectsPlansMapsSortingAndDollarBox_physical">
-
-              {/* 
-              <Link to='/complex/apartmentList' >
-              <motion.div
-                className="textButtonContainer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-              >
-                <div className='mapAndLogoImg'>
-                  <img src={mapSignLogo} alt='mapSignLogo_physical' className='mapSignLogo' />
-                  <button className='textButton'>გეგმარებები</button>
-                </div>
-              </motion.div>
-              </Link>
- */}
-
-              <Link to="/map">
-                <motion.div
-                  className="textButtonContainer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <div className="mapAndLogoImg">
-                    <img
-                      src={mapSignLogo}
-                      alt="mapSignLogo"
-                      className="mapSignLogo"
-                    />
-                    <button className="textButton">{handle_P_StatusButtonLanguageChange(selectedLanguage).map}</button>
-                  </div>
-                </motion.div>
-              </Link>
               {/* მხოლოდ for sorting ----- */}
               {/* ველოდები სახლების ატვირთვას, და back-ში სორტირების გაკეთებას, რომ შესაბამისი რექუესთი გავაგზავნო
               რასაც მომხმარებელი აირჩევს: მაგ.: ფასი ზრდადობით და ა.შ.  */}
@@ -1227,9 +1206,18 @@ export default function Physical({
                 style={{ color: "white", fontSize: "16px" }}
               >
                 <div className="sortAndArrowDownImgBox_physical">
-                  <p className="sort_text_web">{handle_P_StatusButtonLanguageChange(selectedLanguage).sorting}</p>
-                  <p className="sort_text">{handle_P_StatusButtonLanguageChange(selectedLanguage).sort}</p>
-                  <img src={arrowDownSorting} style={{ width: "20px" }} />
+                  <p className="sort_text_web">
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .sorting
+                    }
+                  </p>
+                  <img
+                    className="none_arrow"
+                    src={arrowDownSorting}
+                    style={{ width: "20px" }}
+                  />
+                  <img className="arrow_none" src={Arrows} style={{ width: "25px" }} />
                 </div>
               </Button>
 
@@ -1395,7 +1383,14 @@ export default function Physical({
                 </motion.div>
               </Menu>
               {/* ---------------------------------- */}
+              <div className="sort_icon_for_complex_mob lots_sort" onClick={sortOpenLots}>
+                <img
 
+                  src={Sort}
+                  style={{ width: "20px", height: "25px" }}
+                  alt="/"
+                />
+              </div>
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox_physical">
                 <div
@@ -1414,12 +1409,16 @@ export default function Physical({
                     <img
                       src={lari}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${isOn ? "active" : ""}`}
+                      className={`currency-sign_physical ${
+                        isOn ? "active" : ""
+                      }`}
                     />
                     <img
                       src={dollar}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${!isOn ? "active" : ""}`}
+                      className={`currency-sign_physical ${
+                        !isOn ? "active" : ""
+                      }`}
                     />
                   </motion.div>
                 </div>
@@ -1432,7 +1431,7 @@ export default function Physical({
 
       {/* // ------------------------------------------------------------------------------------ */}
 
-      <div className="allCards_physical">
+      <div className="allCards_physical" onClick={closeSort}>
         {privateApartments.map((prev_apartments, index) => (
           <div className="card_physical" key={prev_apartments.id}>
             <motion.div

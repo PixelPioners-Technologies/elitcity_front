@@ -133,8 +133,8 @@ export default function Developers({ favorites, selectedLanguage }) {
 
   return (
     <div className='developers_main_container'>
-      <div>
-        <div className="header_container">
+      <div className='startDiv'>
+        <div className="headerCont">
           <h1>{LanguageChangeForCompanyPage(selectedLanguage).header}  </h1>
         </div>
         {topCompanies.map((developers, index) => (
@@ -201,7 +201,7 @@ export default function Developers({ favorites, selectedLanguage }) {
         </div>
       </div>
 
-      <div>
+      <div className='startDiv'>
         {otherCompanies.map((developers, index) => (
           <div className='big_container_for_key' key={index} onClick={() => handle_company_click(developers.id)}   >
             <motion.div

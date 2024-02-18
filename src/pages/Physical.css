@@ -1,8 +1,10 @@
 
 .ComplexBodyBox_physical {
   margin-top: 50px;
-  padding: 100px 150px;
-  /* border: 1px solid red; */
+  padding: 0 80px;
+  /* padding: 100px 150px; */
+  border: 1px solid red;
+  margin-top: 7%;
 }
 .filter_div_for_sort_icon {
   width: 100%;
@@ -26,10 +28,11 @@
 
 .motionBox_physical {
   border: 1px solid white;
+  margin-top: 20px;
 }
 
 .forPaddingOfInfoFieldOfComplexsPlansMaps_physical {
-  padding: 0 30px;
+  padding: 0 20px;
 }
 
 .infoFieldOfComplexsPlansMaps_physical {
@@ -49,8 +52,9 @@
 .projectsPlansMapsSortingAndDollarBox_physical {
   display: flex;
   align-items: center;
-
+  justify-content: space-between;
   gap: 20px;
+  /* border: 1px solid green; */
 }
 
 .mapAndLogoImg_physical {
@@ -114,7 +118,7 @@
   border: 1px solid white;
 
   /* border: 1px solid red; */
-  border-radius: 50px;
+  /* border-radius: 50px; */
   padding: 10px;
   cursor: pointer;
   /* border-radius: 50px; */
@@ -128,7 +132,7 @@
   width: 35px;
   height: 35px;
   background-color: white;
-  border-radius: 40px;
+  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -149,8 +153,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 13px;
-  margin-bottom: 50px;
+  gap: 20px;
+  /* margin-bottom: 50px; */
   /* border: 1px solid red; */
 }
 
@@ -324,6 +328,7 @@ input[type="checkbox"] {
   .ComplexBodyBox_physical {
     padding: 20px;
     /* border: 1px solid red; */
+    margin-top: 10%;
   }
   .pagination {
     display: flex;
@@ -339,7 +344,7 @@ input[type="checkbox"] {
   .filter_div_for_sort_icon {
     display: block;
     margin-bottom: 20px;
-    /* border: 1px solid red; */
+    border: 1px solid red;
   }
   .filter_image{
     width: 30px;
@@ -381,13 +386,25 @@ input[type="checkbox"] {
   }
   .currencyBox_physical{
     /* border: 1px solid red; */
-    width: 80px;
-    /* height: 40px; */
+
     /* margin-right: 23px; */
 
   }
+  .switch_physical{
+    /* border: 1px solid green;    */
+     width: 50px;
+    height: 25px;
+  }
+  .handle_physical {
+    width: 30px;
+    height: 23px;
+  }
+  .currency-sign_physical {
+    font-size: 10px;
+  }
   .projectsPlansMapsSortingAndDollarBox_physical{
-    gap: 0;
+    justify-content: space-between;
+    /* gap: 0; */
   }
   .googleMapImage_physical {
     width: 100%;
