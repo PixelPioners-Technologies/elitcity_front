@@ -1451,6 +1451,7 @@ export default function Physical({
                     toggleSwitch();
                     HandleStateChange();
                   }}
+                  
                 >
                   <motion.div
                     className="handle_physical"
@@ -1535,8 +1536,8 @@ export default function Physical({
                 </p>
                 <p className="price_settings" style={styles.complexInfo}>
                   {currenceChangeState
-                    ? prev_apartments.squarePrice * getCorrencyRate
-                    : prev_apartments.squarePrice}
+                    ? (Number (prev_apartments.squarePrice) * getCorrencyRate).toFixed(2)       
+                    : Number(prev_apartments.squarePrice).toFixed(2)  }
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">

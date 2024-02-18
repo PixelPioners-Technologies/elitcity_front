@@ -284,6 +284,11 @@
     align-items: center; */
 
   }
+
+.dabla{
+  display: contents;
+}
+
   .location_icon_respons{
     width: 15px;
     height: 20px;

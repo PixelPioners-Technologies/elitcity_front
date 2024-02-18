@@ -1,0 +1,55 @@
+.footer_container{
+  width: 100%;
+  background-color: none;
+  height: 300px;
+  margin-top: 40px;
+  color: aliceblue;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
+.footer_settings_container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.each_setting{
+  margin-bottom: 10px;
+}
+
+.name_and_facebook{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name_and_facebook{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.website_name{
+  color: rgb(83, 83, 83);
+}
+
+
+.website_links_container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.facebook_logo{
+  cursor: pointer;
+}
+
+

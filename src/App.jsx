@@ -28,7 +28,7 @@ import EachBlog from "./pages/EachBlog";
 import Each_Developer from "./pages/Each_Developer";
 import storkhome__logo from './company_logo/storkhome__logo.png'
 import Facebook from "./Facebook";
-import { Share } from "react-facebook";
+import Footer from "./pages/Footer";
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
@@ -860,32 +860,32 @@ function App() {
 
 
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplashScreen(false);
-    }, 3000); // 3000 milliseconds = 3 seconds
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowSplashScreen(false);
+  //   }, 3000); // 3000 milliseconds = 3 seconds
 
-    return () => clearTimeout(timer); // Clean up the timer
-  }, []);
+  //   return () => clearTimeout(timer); // Clean up the timer
+  // }, []);
 
-  if (showSplashScreen) {
-    return (
-      <div className="slashscreen_container" >
+  // if (showSplashScreen) {
+  //   return (
+  //     <div className="slashscreen_container" >
 
-        <img className="slash_company_logo" src={storkhome__logo} alt='company_logo' />
-        <div className="spinner">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    );
-  }
+  //       <img className="slash_company_logo" src={storkhome__logo} alt='company_logo' />
+  //       <div className="spinner">
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //         <span></span>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="App">
@@ -1214,7 +1214,9 @@ function App() {
           }
         />
       </Routes>
+      <Footer/>
       <Call_Modal
+
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
       // onClick={(e) => e.stopPropagation()}

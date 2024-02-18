@@ -1001,9 +1001,11 @@ export default function EachComplex({
             <p className="each_complex_price_square" >
               {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}  {" "}
               {currenceChangeState
-                ? eachPrivateApartment.pricePerSqMeter * getCorrencyRate
-                : eachPrivateApartment.pricePerSqMeter}
-              ${handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
+                ? (Number(eachPrivateApartment.pricePerSqMeter) * getCorrencyRate).toFixed(2)
+                : Number(eachPrivateApartment.pricePerSqMeter).toFixed(2)}
+
+                { isOn ? '  $  ' :  '  ₾  ' }
+              {handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
             </p>
           </div>
 
