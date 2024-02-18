@@ -27,7 +27,10 @@
 }
 @media screen and (max-width:500px) {
   .modal-content_sale {
-    width:300px;
+    width:340px;
+    padding: 5px;
+    border: 2px solid green;
+    margin-top: 50%;
   }
   
 }
