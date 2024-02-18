@@ -28,7 +28,7 @@ import EachBlog from "./pages/EachBlog";
 import Each_Developer from "./pages/Each_Developer";
 import storkhome__logo from './company_logo/storkhome__logo.png'
 import Facebook from "./Facebook";
-
+import { Share } from "react-facebook";
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
@@ -81,7 +81,7 @@ const BaseURLs = {
   complex_and_apartments: "https://api.storkhome.ge/complexandappartments/",
   company_and_complex: 'https://api.storkhome.ge/companycomplex/',
   proxy: 'https://api.storkhome.ge/proxy/',
-  ids : 'https://api.storkhome.ge/',
+  ids: 'https://api.storkhome.ge/',
 
 
   // local
@@ -150,7 +150,7 @@ const normalizeComplexData = (data, lang) => {
       space: item.internal_complex_name.space,
       isVipComplex: item.internal_complex_name.vipComplex,
       isVisible: item.internal_complex_name.visibiliti,
-      
+
       metro: item.internal_complex_name.metro,
       Pharmacy: item.internal_complex_name.Pharmacy,
       supermarket: item.internal_complex_name.supermarket,
@@ -222,7 +222,7 @@ function App() {
 
   const [selectedPharentDistricts, setSelectedPharentDistricts] = useState([]);
   const [selectedDistricts, setSelectedDistricts] = useState([]);
-// ===================================================================================================
+  // ===================================================================================================
   const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState("");
   const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState("");
 
@@ -234,7 +234,7 @@ function App() {
 
   const [converted_min_full_price, setConverted_min_full_price] = useState(minFullPrice);
   const [converted_max_full_price, setConverted_max_full_price] = useState(maxFullPrice);
-// ===================================================================================================
+  // ===================================================================================================
 
   const [min_space, setMin_space] = useState("");
   const [max_space, setMax_space] = useState("");
@@ -320,32 +320,32 @@ function App() {
   const searchButtonhangeHandler = (data) => {
     setSearchButton(data);
 
-    if (minPricePerSquareMeter === ""){
+    if (minPricePerSquareMeter === "") {
       setConverted_min_price_square_meter("");
-    }else{
+    } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverted_min_price_square_meter(String(minPricePerSquareMeter * conversionRate ))
+      setConverted_min_price_square_meter(String(minPricePerSquareMeter * conversionRate))
     }
 
-    if (maxPricePerSquareMeter === ""){
+    if (maxPricePerSquareMeter === "") {
       setConverted_max_price_square_meter("");
-    }else{
+    } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverted_max_price_square_meter(String(maxPricePerSquareMeter * conversionRate ))
+      setConverted_max_price_square_meter(String(maxPricePerSquareMeter * conversionRate))
     }
 
-    if (minFullPrice === ""){
+    if (minFullPrice === "") {
       setConverted_min_full_price("");
-    }else{
+    } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverted_min_full_price(String(minFullPrice * conversionRate ))
+      setConverted_min_full_price(String(minFullPrice * conversionRate))
     }
 
-    if (maxFullPrice === ""){
+    if (maxFullPrice === "") {
       setConverted_max_full_price("");
-    }else{
+    } else {
       const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
-      setConverted_max_full_price(String(maxFullPrice * conversionRate ))
+      setConverted_max_full_price(String(maxFullPrice * conversionRate))
     }
   };
 
@@ -603,7 +603,7 @@ function App() {
     }
   };
   // -----------------------------------------------------------------------------------------------
- // -----------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------
 
   // Load favorites from localStorage on initial render FOR PHYSICAL JSX
   // const [favoriteApartment, setFavoriteApartment] = useState([]);
@@ -726,6 +726,7 @@ function App() {
       storkhome_plus: "Storkhome +",
       other: "Other",
       send: "Send",
+      sheet_send: "Information sent successfully!"
     };
 
     switch (lang) {
@@ -737,6 +738,8 @@ function App() {
         languageInfo.storkhome_plus = "Storkhome +";
         languageInfo.other = "Other";
         languageInfo.send = "Send";
+        languageInfo.sheet_send = "Information sent successfully!";
+
 
         break;
 
@@ -748,6 +751,7 @@ function App() {
         languageInfo.storkhome_plus = "Storkhome +";
         languageInfo.other = "სხვა";
         languageInfo.send = "გაგზავნა";
+        languageInfo.sheet_send = "ინფორმაცია წარმატებიტ გაიგზავნა";
         break;
 
       case "ru":
@@ -758,6 +762,7 @@ function App() {
         languageInfo.storkhome_plus = "Storkhome +";
         languageInfo.other = "Другой";
         languageInfo.send = "Отправлять";
+        languageInfo.sheet_send = "Информация успешно отправлена!";
         break;
     }
     return languageInfo;
@@ -773,20 +778,21 @@ function App() {
   const [salesDepartment, setSalesDepartment] = useState(false);
   const [storkhomePlus, setStorkhomePlus] = useState(false);
   const [other, setOther] = useState(false);
-
-
   const [sedtsheet, setSedtsheet] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const handleSendSheet = () => {
-    setSedtsheet(!sedtsheet)
-    console.log(name, phone, email, salesDepartment, storkhomePlus, other);
- 
-  }
-
-
+    setIsLoading(true); // Indicate loading
+    setPopupMessage("Sending..."); // Initial popup message
+    setShowPopup(true); // Show popup immediately
+    setSedtsheet(!sedtsheet); // Trigger the useEffect
+    
+  };
   useEffect(() => {
     const sendDataToSheet = async () => {
-
       if (!sedtsheet) return;
 
       const formData = {
@@ -795,21 +801,28 @@ function App() {
         email,
         salesDepartment,
         storkhomePlus,
-        other
+        other,
       };
 
       try {
-        // Await the Axios call
         const response = await axios.post(BaseURLs.proxy, formData);
-        console.log(response.data); // Log the response data, not the whole response
+        setPopupMessage('Data sent successfully!');
+        // Optionally reset form fields here if you want to clear the form upon success
       } catch (error) {
-        console.error('Error sending data to sheet:', error);
+        setPopupMessage('Failed to send data.');
+      } finally {
+        setIsLoading(false); // Stop loading indicator
+        // Start a timer to hide the popup after 2 seconds
+        setTimeout(() => {
+          setShowPopup(false);
+          // Reset sedtsheet to allow for future submissions
+          setSedtsheet(false);
+        }, 2000);
       }
     };
 
     sendDataToSheet();
   }, [sedtsheet]);
-
 
 
   // Event handlers will be defined here
@@ -873,7 +886,7 @@ function App() {
   return (
     <div className="App">
       <div>
-        <Facebook/>
+        <Facebook />
       </div>
       {/* Conditional rendering for the Header */}
       {forVisible && window.location.pathname !== "/" ? (
@@ -1142,7 +1155,7 @@ function App() {
               toggleSwitch={toggleSwitch}
               favoriteApartment={favoriteApartment}
               favorite_apartment_handler={favorite_apartment_handler}
-              
+
             />
           }
         />
@@ -1340,6 +1353,11 @@ function App() {
                 {languageTranslationForCheetModal(selectedLanguage).send}
               </button>
             </motion.div>
+            {showPopup && (
+              <div className="sheet_sended" >
+                {isLoading ? "Sending...." : languageTranslationForCheetModal(selectedLanguage).sheet_send}
+              </div>
+            )}
           </div>
         </div>
       </Call_Modal>

@@ -15,6 +15,7 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import ground_location_icon from "../location_icons/ground_location_icon.png";
 import heartIcon from "../assets/starLogo.svg";
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
+import ShareButton from "./Sheare";
 
 const normalizeGroundData = (data, lang) => {
   return {
@@ -315,34 +316,34 @@ export default function EachGround({
                     )}
                   </button>
 
-              {/* ----Dollar and Lari Toggle button */}
-              <div className="currencyBox">
-                <div
-                  className="switch"
-                  data-ison={isOn}
-                  onClick={() => {
-                    toggleSwitch();
-                    HandleStateChange();
-                  }}
-                >
-                  <motion.div className="handle" layout transition={spring}>
-                    <img
-                      src={lari}
-                      alt="Lari Sign"
-                      className={`currency-sign ${isOn ? "active" : ""}`}
-                    />
-                    <img
-                      src={dollar}
-                      alt="Dollar Sign"
-                      className={`currency-sign ${!isOn ? "active" : ""}`}
-                    />
-                  </motion.div>
+
+                {/* ----Dollar and Lari Toggle button */}
+                <div className="currencyBox__c">
+                  <div
+                    className="switch__c"
+                    data-ison={isOn}
+                    onClick={() => {
+                      toggleSwitch();
+                      HandleStateChange();
+                    }}
+                  >
+                    <motion.div className="handle__c" layout transition={spring}>
+                      <img
+                        src={lari}
+                        alt="Lari Sign"
+                        className={`currency-sign__c ${isOn ? "active" : ""}`}
+                      />
+                      <img
+                        src={dollar}
+                        alt="Dollar Sign"
+                        className={`currency-sign__c ${!isOn ? "active" : ""}`}
+                      />
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
+
               {/* Share Button */}
-              <button className="heartButtons">
-                <img src={share} style={{ width: "30px", height: "30px" }} />
-              </button>
+              <ShareButton  selectedLanguage={selectedLanguage}  />
             </div>
           </div>
 
