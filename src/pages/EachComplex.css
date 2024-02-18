@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   padding-top: 30px;
+  margin-top: 80px;
 }
 .imageAndTextInfos3 {
   display: flex;
@@ -442,7 +443,11 @@
   }
 
   .allCards_physical_aa {
+    width: 100%;
     justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    flex-direction: column;
   }
   .imageAndTextInfos3 {
     flex-direction: column;
@@ -501,5 +506,9 @@
   }
   .complexTextsBox2 {
     width: 100%;
+  }
+
+  .numberBox{
+    width: 300px
   }
 }

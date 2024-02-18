@@ -639,6 +639,59 @@ export default function EachComplex({
     return languageInfo;
   };
 
+
+
+
+
+  const handle_room_language_change = (lang) => {
+    var languageInfo = {
+      studio: "Studio",
+      one_room : "One room",
+      two_rom : "Two rooms",
+      three_room :"Three rooms",
+      four_room : "Four rooms",
+      fiveplus_room : "Five + rooms",
+
+    };
+
+    switch (lang) {
+      case "en":
+        languageInfo.studio = "Studio";
+        languageInfo.one_room = "One room";
+        languageInfo.two_rom = "Two rooms";
+        languageInfo.three_room = "Three rooms";
+        languageInfo.four_room = "Four rooms";
+        languageInfo.fiveplus_room = "Five + rooms";
+
+
+        break;
+
+      case "ka":
+        languageInfo.studio = "სტუდიო";
+        languageInfo.one_room = "ერთოთახიანი";
+        languageInfo.two_rom = "ოროთახიანი";
+        languageInfo.three_room = "სამოთახიანი";
+        languageInfo.four_room = "ოთხოთახიანი";
+        languageInfo.fiveplus_room = "ხუთი და მეტი ოთახით";
+
+        break;
+
+      case "ru":
+        languageInfo.studio = "Студия";
+        languageInfo.one_room = "Одна комната";
+        languageInfo.two_rom = "Две комнаты";
+        languageInfo.three_room = "Три комнаты";
+        languageInfo.four_room = "Четыре комнаты";
+        languageInfo.fiveplus_room = "Пять + комнаты";
+        break;
+    }
+    return languageInfo;
+  };
+
+
+
+
+
   // --------------------------------------------language change for card status setting and content ---------------------------------------------------
   const cardStatusSettingLanguage = (lang, status) => {
     const statusLanguageInfo = {
@@ -1044,11 +1097,11 @@ export default function EachComplex({
 
 
 
-        {showApartments && (
+        {showApartments && studios.length > 0 && (
           <div className="allCards_physical_aa ">
 
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}> studio </p>
+              <p style={{ color: "#FFFFFF" }}>{handle_room_language_change(selectedLanguage).studio}</p>
               <button className="numberSHowButton" onClick={handle_show_studio}>
 
                 {show_studio ? (
@@ -1138,11 +1191,11 @@ export default function EachComplex({
 
         {/* --------------------------------------------------------------------------------------------------- */}
 
-        {showApartments && (
+        {showApartments && oneBedrooms.length > 0 &&(
           <div className="allCards_physical_aa ">
 
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}> 1 otaxi  </p>
+              <p style={{ color: "#FFFFFF" }}>{handle_room_language_change(selectedLanguage).one_room} </p>
               <button className="numberSHowButton" onClick={handle_show_one_bedrom}>
 
                 {show_one_bedroom ? (
@@ -1232,11 +1285,11 @@ export default function EachComplex({
 
         {/* --------------------------------------------------------------------------------------------------- */}
 
-        {showApartments && (
+        {showApartments && twoBedrooms.length > 0 &&   (
           <div className="allCards_physical_aa ">
 
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}> 2 otaxi  </p>
+              <p style={{ color: "#FFFFFF" }}>{handle_room_language_change(selectedLanguage).two_rom}</p>
               <button className="numberSHowButton" onClick={handle_show_two_bedrom}>
 
                 {show_two_bedrom ? (
@@ -1326,11 +1379,11 @@ export default function EachComplex({
 
         {/* --------------------------------------------------------------------------------------------------- */}
 
-        {showApartments && (
+        {showApartments &&  threeBedrooms.length > 0 && (
           <div className="allCards_physical_aa ">
 
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}> 3 otaxi  </p>
+              <p style={{ color: "#FFFFFF" }}> {handle_room_language_change(selectedLanguage).three_room} </p>
               <button className="numberSHowButton" onClick={handle_show_three_badroom}>
 
                 {show_three_bedrom ? (
@@ -1420,11 +1473,11 @@ export default function EachComplex({
 
         {/* --------------------------------------------------------------------------------------------------- */}
 
-        {showApartments && (
+        {showApartments && fourBedrooms.length > 0 && (
           <div className="allCards_physical_aa ">
 
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}> 4 otaxi  </p>
+              <p style={{ color: "#FFFFFF" }}> {handle_room_language_change(selectedLanguage).four_room}</p>
               <button className="numberSHowButton" onClick={handle_show_four_bedroom}>
 
                 {show_four_bedrom ? (
@@ -1515,11 +1568,11 @@ export default function EachComplex({
 
         {/* --------------------------------------------------------------------------------------------------- */}
 
-        {showApartments && (
+        {showApartments && fivePlusBedrooms.length > 0 && (
           <div className="allCards_physical_aa ">
 
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}> 5+ otaxi  </p>
+              <p style={{ color: "#FFFFFF" }}> {handle_room_language_change(selectedLanguage).fiveplus_room} </p>
               <button className="numberSHowButton" onClick={handle_show_fivePlus_bedroom}>
 
                 {show_fivePlus_bedrom ? (
@@ -1605,10 +1658,6 @@ export default function EachComplex({
 
           </div>
         )}
-
-
-
-
 
 
 
