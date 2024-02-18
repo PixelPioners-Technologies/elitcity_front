@@ -1,9 +1,6 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import "./Storkhome.css";
 import CompanyLogo from "../assets/LogoOfStorkhome.svg";
-// import Call_Modal from '../Modals_for_stokhome_plus/Call_Modal'
 import headphone_icon from "../icons/headphones.png";
 import { motion } from "framer-motion";
 
@@ -116,40 +113,9 @@ export default function Storkhome({ selectedLanguage, handleCallButtonClick }) {
           </div>
         </div>
       </div>
-      {/* 
-      <div className="card_kit_settings_container">
-        <div className="kit_settings_cont">
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-        </div>
-
-        <div className="kit_settings_cont">
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-          <p className="kit_settings">imformaciistvis velodebit damkvets</p>
-        </div>
-      </div> */}
       <motion.div
         className="textButtonContainer textButtonCont"
         whileHover={{ scale: 1.05 }}
-        // whileTap={{ scale: 0.9 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <div className="big_call_cont" onClick={handleCallButtonClick}>

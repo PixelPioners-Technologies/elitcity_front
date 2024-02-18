@@ -15,7 +15,7 @@ import Sort from "../assets/sort.png";
 import Arrows from "../assets/arrows.png";
 
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
-import mapSignLogo from "../assets/mapSignLogoo.svg";
+// import mapSignLogo from "../assets/mapSignLogoo.svg";
 
 import dollar_black from "../assets/dollar-svgrepo-com.svg";
 import lari_black from "../assets/lari-svgrepo-com.svg";
@@ -84,26 +84,16 @@ export default function Complex({
   handleCorrentPageHandler,
   complexes,
   total_item_number,
-
   getCorrencyRate,
   HandleStateChange,
   currenceChangeState,
   isOn,
   toggleSwitch,
-
   sortingChangeHandler,
-
   searchInput,
   setSearchInput,
   stringSearchHeandles,
 }) {
-  // const [homes, setHomes] = useState([]);
-
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [forPriceDecrease, setForPriceDecrease] = useState(null);
-  // const [sortedHomes, setSortedHomes] = useState(null);
-  // const [ascendentPrice, setAscendentPrice] = useState("");
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
@@ -111,19 +101,7 @@ export default function Complex({
 
   const [modalContent, setModalContent] = useState("");
 
-  // const [status, setStatus] = useState('');
-
-  // const [mapCenter, setMapCenter] = useState(initialCenter);
-  // const [zoomLevel, setZoomLevel] = useState(13);
-
-  // const [mapInstance, setMapInstance] = useState(null);
-
   const navigate = useNavigate();
-
-  // Assuming `complex` is an object representing each house
-  // const handleHouseClick = (complexId) => {
-  //   navigate(`/eachComplex/${complexId}`);
-  // };
 
   const handleHouseClick = (complexId) => {
     navigate(`/eachComplex/${complexId}`, { state: { complexId } });
@@ -133,17 +111,6 @@ export default function Complex({
     // console.log('corrent page----', complexes.complexDetails.rank)
     console.log("corrent page----", complexes);
   }, [complexes]);
-
-  // useEffect(() => {
-
-  //   console.log("total_item_number on complex", total_item_number);
-  // }, [total_item_number]);
-
-  // 1111111111111111111111111111111111
-  // for toggle DOllar AND LARI ---==---(START)
-  // const [isOn, setIsOn] = useState(false);
-  // const toggleSwitch = () => setIsOn(!isOn);
-  // // -----===--------(END)
 
   // ------------------------------------------------------------------------------------
   // for Sorting
@@ -626,8 +593,14 @@ export default function Complex({
   const [openSortComp, setOpenComp] = useState(false);
 
   const sortOpen = () => {
-    openSortComp(!setOpenComp);
+    setOpenComp(!openSortComp);
   };
+  const closeSort = () => {
+    if (openSortComp) {
+      setOpenComp(false);
+    }
+  };
+
   return (
     <div className="complex_page_div">
       <div className="filter_cont_for_complexes">
@@ -637,7 +610,10 @@ export default function Complex({
           transition={{ duration: 2 }}
           className="column_div"
         >
-          <div className="for_comfort column_div_for_comfort">
+          {/* for_comfort column_div_for_comfort */}
+          <div
+            className={openSortComp ? "for_comfort" : "column_div_for_comfort "}
+          >
             <div className={Open ? "filter_cont_for_complex" : "close_cont"}>
               {/* button for filtering space */}
               <div className="button-modal-container ">
@@ -754,7 +730,7 @@ export default function Complex({
                     </div>
                   </div>
                   <div>
-                    <div className="inputInlineDispley">
+                    <div className="inputInlineDispley dabla">
                       {/* pirveli  */}
                       <div className="for_dolar_and_lari">
                         <input
@@ -804,7 +780,7 @@ export default function Complex({
                       }
                     </div>
                     {/* mesame  */}
-                    <div className="inputInlineDispley">
+                    <div className="inputInlineDispley dabla">
                       <div className="for_dolar_and_lari">
                         <input
                           className="min_price_complex"
@@ -1055,12 +1031,11 @@ export default function Complex({
                     className="arrow_for_complex"
                     src={Arrows}
                     style={{ width: "25px" }}
-                    onClick={sortOpen}
                   />
                 </div>
               </Button>
               {/* sort icon for complex */}
-              <div className="sort_icon_for_complex_mob">
+              <div className="sort_icon_for_complex_mob" onClick={sortOpen}>
                 <img
                   src={Sort}
                   style={{ width: "20px", height: "25px" }}
@@ -1231,22 +1206,32 @@ export default function Complex({
               {/* ---------------------------------- */}
 
               {/* ----Dollar and Lari Toggle button */}
-              <div className="currency-Box  ">
-                <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
-                  <motion.div className="handle" layout transition={spring}>
+              <div className="currencyBox_physical">
+                <div
+                  className="switch_physical"
+                  data-ison={isOn}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
+                >
+                  <motion.div
+                    className="handle_physical"
+                    layout
+                    transition={spring}
+                  >
                     <img
-                      src={lari}
+                      src={lari_black}
                       alt="Lari Sign"
                       className={`currency-sign ${isOn ? "active" : ""}`}
                     />
                     <img
-                      src={dollar}
+                      src={dollar_black}
                       alt="Dollar Sign"
                       className={`currency-sign ${!isOn ? "active" : ""}`}
                     />
                   </motion.div>
                 </div>
-
                 {/* ---------------- */}
               </div>
             </div>
@@ -1256,7 +1241,7 @@ export default function Complex({
 
       {/* // ------------------------------------------------------------------------------------ */}
 
-      <div className="allCards">
+      <div className="allCards" onClick={closeSort}>
         {complexes.map((complex, index) => (
           <div className="card" key={complex.id}>
             <motion.div
@@ -1281,7 +1266,6 @@ export default function Complex({
                         style={{
                           width: "30px",
                           height: "30px",
-                          border: "1px solid white",
                         }}
                       />
                     )}
@@ -1302,7 +1286,7 @@ export default function Complex({
                   onClick={() => handleHouseClick(complex.id)}
                 >
                   <p style={styles.complexInfo}>{complex.address.city}</p>
-                  <div className="price_and_">
+                  <div className="price_and_its_value">
                     <p style={styles.complexInfo}>
                       {
                         handleStatusButtonLanguageChange(selectedLanguage)
@@ -1312,9 +1296,13 @@ export default function Complex({
                     <p style={styles.complexInfo}>
                       {" "}
                       {currenceChangeState
-                        ? complex.complexDetails.pricePerSqMeter *
-                          getCorrencyRate
-                        : complex.complexDetails.pricePerSqMeter}
+                        ? (
+                            Number(complex.complexDetails.pricePerSqMeter) *
+                            getCorrencyRate
+                          ).toFixed(2)
+                        : Number(
+                            complex.complexDetails.pricePerSqMeter
+                          ).toFixed(2)}
                     </p>
                   </div>
                   <p

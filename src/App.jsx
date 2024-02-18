@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import "./App.css";
 import Header from "./Components/Header/Header";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -27,6 +29,7 @@ import EachBlog from "./pages/EachBlog";
 import Each_Developer from "./pages/Each_Developer";
 import storkhome__logo from "./company_logo/storkhome__logo.png";
 import Facebook from "./Facebook";
+import Footer from "./pages/Footer";
 
 // This function assumes you've already initialized GA as shown in your index.html
 const usePageTracking = () => {
@@ -181,25 +184,22 @@ const normalizeLocationData = (data, lang) => {
   });
 };
 
-const useClearLocalStorageWeekly = () => {
-  useEffect(() => {
-    const currentDate = new Date();
-    const storedDateStr = localStorage.getItem("dateForClearingLocalStorage");
-    const storedDate = storedDateStr ? new Date(storedDateStr) : null;
+// const useClearLocalStorageWeekly = () => {
+//   useEffect(() => {
+//     const currentDate = new Date();
+//     const storedDateStr = localStorage.getItem('dateForClearingLocalStorage');
+//     const storedDate = storedDateStr ? new Date(storedDateStr) : null;
 
-    if (!storedDate || (currentDate - storedDate) / (1000 * 60 * 60 * 24) > 7) {
-      localStorage.clear(); // Clear localStorage
-      localStorage.setItem(
-        "dateForClearingLocalStorage",
-        currentDate.toISOString()
-      ); // Update stored date
-    }
-  }, []);
-};
+//     if (!storedDate || (currentDate - storedDate) / (1000 * 60 * 60 * 24) > 7) {
+//       localStorage.clear(); // Clear localStorage
+//       localStorage.setItem('dateForClearingLocalStorage', currentDate.toISOString()); // Update stored date
+//     }
+//   }, []);
+// };
 
 function App() {
   usePageTracking();
-  useClearLocalStorageWeekly();
+  // useClearLocalStorageWeekly()
 
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
@@ -685,13 +685,13 @@ function App() {
     // First timer to open the modal after 10 seconds
     const timer1 = setTimeout(() => {
       setIsCallModalOpen(true);
-    }, 6000000); // 10 seconds
+    }, 60000); // 10 seconds
 
     // Second timer to close and then reopen the modal after 20 seconds
     const timer2 = setTimeout(() => {
       setIsCallModalOpen(false); // Close the modal first to create a noticeable effect
       setTimeout(() => setIsCallModalOpen(true), 200); // Reopen it shortly after closing for user notice
-    }, 12000000); // 20 seconds
+    }, 120000); // 20 seconds
 
     // Cleanup function to clear both timers if the component unmounts
     return () => {
@@ -699,6 +699,8 @@ function App() {
       clearTimeout(timer2);
     };
   }, []); // Empty dependency array means this effect runs once after initial render
+  // Empty dependency array means this effect runs once after initial render
+  // Empty dependency array means this effect runs once after initial render
 
   const handleCloseCallModal = () => {
     setIsCallModalOpen(false);
@@ -720,6 +722,7 @@ function App() {
       storkhome_plus: "Storkhome +",
       other: "Other",
       send: "Send",
+      sheet_send: "Information sent successfully!",
     };
 
     switch (lang) {
@@ -731,6 +734,7 @@ function App() {
         languageInfo.storkhome_plus = "Storkhome +";
         languageInfo.other = "Other";
         languageInfo.send = "Send";
+        languageInfo.sheet_send = "Information sent successfully!";
 
         break;
 
@@ -742,6 +746,7 @@ function App() {
         languageInfo.storkhome_plus = "Storkhome +";
         languageInfo.other = "სხვა";
         languageInfo.send = "გაგზავნა";
+        languageInfo.sheet_send = "ინფორმაცია წარმატებიტ გაიგზავნა";
         break;
 
       case "ru":
@@ -752,6 +757,7 @@ function App() {
         languageInfo.storkhome_plus = "Storkhome +";
         languageInfo.other = "Другой";
         languageInfo.send = "Отправлять";
+        languageInfo.sheet_send = "Информация успешно отправлена!";
         break;
     }
     return languageInfo;
@@ -764,14 +770,17 @@ function App() {
   const [salesDepartment, setSalesDepartment] = useState(false);
   const [storkhomePlus, setStorkhomePlus] = useState(false);
   const [other, setOther] = useState(false);
-
   const [sedtsheet, setSedtsheet] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSendSheet = () => {
-    setSedtsheet(!sedtsheet);
-    console.log(name, phone, email, salesDepartment, storkhomePlus, other);
+    setIsLoading(true); // Indicate loading
+    setPopupMessage("Sending..."); // Initial popup message
+    setShowPopup(true); // Show popup immediately
+    setSedtsheet(!sedtsheet); // Trigger the useEffect
   };
-
   useEffect(() => {
     const sendDataToSheet = async () => {
       if (!sedtsheet) return;
@@ -786,11 +795,19 @@ function App() {
       };
 
       try {
-        // Await the Axios call
         const response = await axios.post(BaseURLs.proxy, formData);
-        console.log(response.data); // Log the response data, not the whole response
+        setPopupMessage("Data sent successfully!");
+        // Optionally reset form fields here if you want to clear the form upon success
       } catch (error) {
-        console.error("Error sending data to sheet:", error);
+        setPopupMessage("Failed to send data.");
+      } finally {
+        setIsLoading(false); // Stop loading indicator
+        // Start a timer to hide the popup after 2 seconds
+        setTimeout(() => {
+          setShowPopup(false);
+          // Reset sedtsheet to allow for future submissions
+          setSedtsheet(false);
+        }, 2000);
       }
     };
 
@@ -858,25 +875,22 @@ function App() {
       <div>
         <Facebook />
       </div>
-      {/* Conditional rendering for the Header */}
-      {forVisible && window.location.pathname !== "/" ? (
-        <div>
-          <Header
-            favorites={favorites}
-            favoritesPhysical={favoritesPhysical}
-            favoritesLots={favoritesLots}
-            handleLanguageChange={handleLanguageChange}
-            onButtonClick={trackButtonClick}
-            selectedLanguage={selectedLanguage}
-          />
-        </div>
-      ) : null}
+      <div>
+        <Header
+          favorites={favorites}
+          favoritesPhysical={favoritesPhysical}
+          favoritesLots={favoritesLots}
+          handleLanguageChange={handleLanguageChange}
+          onButtonClick={trackButtonClick}
+          selectedLanguage={selectedLanguage}
+        />
+      </div>
 
       <Routes>
-        <Route path="/" element={<Nothing />} />
+        {/* <Route path="/" element={<Nothing />} /> */}
 
         <Route
-          path="/homepage"
+          path="/"
           element={
             <HomePage
               searchInput={searchInput}
@@ -1173,6 +1187,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
@@ -1311,6 +1326,14 @@ function App() {
                 {languageTranslationForCheetModal(selectedLanguage).send}
               </button>
             </motion.div>
+            {showPopup && (
+              <div className="sheet_sended">
+                {isLoading
+                  ? "Sending...."
+                  : languageTranslationForCheetModal(selectedLanguage)
+                      .sheet_send}
+              </div>
+            )}
           </div>
         </div>
       </Call_Modal>

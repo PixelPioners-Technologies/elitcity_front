@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // აქ ეს diseibleee იმიტო დავწერე, რომ map-ზე error-ს მიგდებდა tsx-ის გამო რო იქ რაღაცაა ისეთი გაწერილი რომ მიგდებს ამას
 /* eslint-disable react/prop-types */
 // import React from 'react'
@@ -192,7 +193,14 @@ export default function FavoriteComplex({
                     {/* ----------- */}
                     <img
                       onClick={() => handleHouseClick(complex.id)}
-                      src={complex?.images[0]}
+                      // src={ complex?.images[0] !== undefined ?  complex?.images[0] :  complex?.complexImages[0]  }
+                      src={
+                        complex?.images?.length > 0
+                          ? complex.images[0]
+                          : complex?.complexImages?.length > 0
+                          ? complex.complexImages[0]
+                          : defaultImage
+                      }
                       alt={complex.name}
                       style={styles.imageStyles}
                     />
@@ -200,24 +208,48 @@ export default function FavoriteComplex({
                     <p className="complex_title_f">{complex?.complexName}</p>
                     <div className="textInfo_f">
                       <p className="complex_addres_f">
-                        {complex.address.city} {"  ,  "}{" "}
-                        {complex.address?.street}
+                        {complex?.images?.length > 0
+                          ? complex.address.city
+                          : complex?.complexImages?.length > 0
+                          ? complex.complexAddress.city
+                          : "city"}{" "}
+                        {"  ,  "}
+                        {complex?.images?.length > 0
+                          ? complex.address.street
+                          : complex?.complexImages?.length > 0
+                          ? complex.complexAddress.address
+                          : "city"}
                       </p>
                       <p className="complex_square_price_f">
                         {language_chage(selectedLanguage).meterPriceHomePage}
-                        {"  :  "} {complex.complexDetails?.pricePerSqMeter}{" "}
+                        {"  :  "}
+                        {complex?.images?.length > 0
+                          ? complex.complexDetails?.pricePerSqMeter
+                          : complex?.complexImages?.length > 0
+                          ? complex.pricePerSqMeter
+                          : "..."}
                       </p>
+
                       <div className="complex_status_and_rank_container_f">
                         <p className="complex_status_f">
                           {" "}
                           {get_complex_StatusTranslation(
-                            complex.complexDetails?.isFinished,
+                            complex?.images?.length > 0
+                              ? complex.complexDetails?.isFinished
+                              : complex?.complexImages?.length > 0
+                              ? complex?.status
+                              : "...",
                             selectedLanguage
                           )}
                         </p>
+
                         <p className="complex_rank_f">
-                          {" "}
-                          {complex.complexDetails?.rank}
+                          {/* {complex.complexDetails?.rank} */}
+                          {complex?.images?.length > 0
+                            ? complex.complexDetails?.rank
+                            : complex?.complexImages?.length > 0
+                            ? complex.rank
+                            : "..."}
                         </p>
                       </div>
                     </div>
@@ -262,6 +294,7 @@ export default function FavoriteComplex({
                     <img
                       onClick={() => handleprivateAppartmentClick(complex.id)}
                       src={complex?.images[0]}
+                      // src={complex?.images?.length > 0 ? complex.images[0] : complex?.complexImages?.length > 0 ? complex.complexImages[0] : defaultImage}
                       alt={complex.name}
                       style={styles.imageStyles}
                     />
@@ -273,6 +306,7 @@ export default function FavoriteComplex({
                         {complex?.address?.city}
                         {"  ,  "} {complex.address?.address}
                       </p>
+
                       <p className="P_apartment_squateproce_f">
                         {language_chage(selectedLanguage).meterPriceHomePage}
                         {"  :  "} {complex?.squarePrice}
@@ -383,32 +417,63 @@ export default function FavoriteComplex({
                     {/* ----------- */}
                     <img
                       onClick={() => handleAppartmentClick(complex.id)}
-                      src={complex?.images[0]}
+                      src={
+                        complex?.images?.length > 0
+                          ? complex.images[0]
+                          : complex?.apartmentImages?.length > 0
+                          ? complex.apartmentImages[0]
+                          : "fwefwefwfew"
+                      }
                       alt={complex.name}
                       style={styles.imageStyles}
                     />
                     <p className="apartment_title_f">
-                      {complex?.apartmentName}
+                      {complex?.images?.length > 0
+                        ? complex?.apartmentName
+                        : complex?.apartmentImages?.length > 0
+                        ? complex.appartment_name
+                        : "fwefwefwfew"}
                     </p>
                     <div className="textInfo_f">
                       <p className="apartment_adres_f">
-                        {" "}
-                        {complex.address?.city}, {complex.address?.address}
+                        {complex?.images?.length > 0
+                          ? complex.address?.city
+                          : complex?.apartmentImages?.length > 0
+                          ? complex?.apartmentAddress?.city
+                          : "fwefwefwfew"}
+                        {complex?.images?.length > 0
+                          ? complex.address?.address
+                          : complex?.apartmentImages?.length > 0
+                          ? complex.apartmentAddress?.address
+                          : "fwefwefwfew"}
                       </p>
                       <p className="apartment_squareproce_f">
                         {" "}
                         {language_chage(selectedLanguage).meterPriceHomePage}
-                        {"  :  "} {complex.internalApartmentName?.square_price}
+                        {"  :  "}
+                        {complex?.images?.length > 0
+                          ? complex.internalApartmentName?.square_price
+                          : complex?.apartmentImages?.length > 0
+                          ? complex.internalApartmentDetails?.squarePrice
+                          : "fwefwefwfew"}
                       </p>
                       <div className="complex_status_and_rank_container_f">
                         <p className="apartment_status_f">
                           {get_complex_StatusTranslation(
-                            complex.internalApartmentName?.status,
+                            complex?.images?.length > 0
+                              ? complex.internalApartmentName?.status
+                              : complex?.apartmentImages?.length > 0
+                              ? complex.internalApartmentDetails?.status
+                              : "fwefwefwfew",
                             selectedLanguage
                           )}
                         </p>
                         <p className="apartment_rank_f">
-                          {complex.internalApartmentName?.rank}
+                          {complex?.images?.length > 0
+                            ? complex.internalApartmentName?.rank
+                            : complex?.apartmentImages?.length > 0
+                            ? complex.internalApartmentDetails?.rank
+                            : "fwefwefwfew"}
                         </p>
                       </div>
                     </div>

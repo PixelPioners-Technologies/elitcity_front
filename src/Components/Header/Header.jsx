@@ -27,6 +27,12 @@ export default function Header({
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
+
+//   const closeSort = () => {
+//     if (isMenuOpen) {
+//       setIsMenuOpen(false);
+//     }
+// };
   const handle_P_StatusButtonLanguageChange = (lang) => {
     var languageInfo = {
       complex: "Complexes",
@@ -76,7 +82,7 @@ export default function Header({
   return (
     <div className="header">
 
-      <Link to="/homePage">
+      <Link to="/">
         <img src={CompanyLogo} alt="Logo of Company STARKHOME COMPANY " />
       </Link>
       {/* ------------------------------- */}

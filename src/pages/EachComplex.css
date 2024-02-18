@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   padding-top: 30px;
+  margin-top: 80px;
 }
 .imageAndTextInfos3 {
   display: flex;
@@ -220,11 +221,18 @@
 
 .paddingForEachComplexCardBox {
   padding: 0 50px;
+  border: 1px solid red;
+  padding-bottom: 30px !important;
 }
+
+.eachDivBoxOfTextOfIcons{
+  color: aliceblue;
+}
+
 
 .shidaInformaciaIconebisBox {
   /* padding: 30px 80px; */
-  background-color: rgb(182, 175, 175);
+  background-color: rgb(0, 0, 0);
   display: flex;
   flex-wrap: wrap;
   gap: 60px;
@@ -247,6 +255,10 @@
   width: 100%;
 }
 
+.hh2{
+  color: aliceblue;
+}
+
 .inprastruqturisIconsBox {
   margin-top: 20px;
   display: flex;
@@ -256,12 +268,20 @@
 }
 
 
+
+.textBoxOfH4axloMdebareObieqtebi{
+  width: 100%;
+}
+
+
 .axloMdebareObieqtebiBox {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around !important;
+  width: 100%;
   /* border: 1px solid blue; */
   margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 
@@ -279,6 +299,135 @@
   gap: 30px;
 }
 
+.eachTextOnListTexts{
+  width: 400px;
+}
+
+.first_and_second_cont{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.chabareba{
+  width: 230px;
+}
+
+
+.companyAdressPriceTextBox{
+  font-weight: 500;
+}
+
+.each_complex_title{
+  margin-bottom: 20px;
+}
+
+.each_complex_address{
+  margin-bottom: 10px;
+}
+
+.each_complex_price_square{
+  font-weight: 300;
+  color: rgb(131, 130, 137);
+}
+
+
+.make_middle_space{
+  display: flex;
+  justify-content: space-between;
+}
+
+.allCards_physical_aa {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 29px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  border: 1px solid white;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  padding-left: 30px;
+  padding-right: 30px;
+
+}
+
+
+.card_physical_aa {
+  width: 315px;
+  height: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #C1D6CC; */
+  background-color: black;
+  border: 1px solid white;
+  /* border-radius: 20px; */
+  overflow: hidden;
+  /* padding: 10px; */
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  padding-top: 30px;
+  transition: transform 0.3s ease-in-out;
+  margin-bottom: 20px;
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}
+
+
+
+/* --------------------------------------------------currency styles  -------------------------------------------- */
+
+.currencyBox__c {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+}
+
+/* classes of toggle button on currency --- */
+.switch__c {
+  width: 80px;
+  height: 40px;
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  background-color: black;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid white;
+
+  /* border: 1px solid red; */
+  /* border-radius: 50px; */
+  padding: 10px;
+  cursor: pointer;
+  /* border-radius: 50px; */
+}
+
+.switch__c[data-ison="true"] {
+  justify-content: flex-end;
+}
+
+.handle__c {
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  /* border-radius: 40px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.currency-sign__c {
+  width: 20px; /* Adjust width as needed */
+  height: auto;
+  margin-right: 0px; 
+}
+
+.currency-sign__c.active {
+  display: none; /* Hide inactive currency sign */
+}
+
+
 
 
 .googlePhotoOnEachComplexPage {
@@ -291,6 +440,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .allCards_physical_aa {
+    width: 100%;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    flex-direction: column;
   }
   .imageAndTextInfos3 {
     flex-direction: column;
@@ -317,6 +474,7 @@
   }
   .textBoxOfH4axloMdebareObieqtebi {
     text-align: center;
+    width: 100%;
   }
   .miniImagesBox2 {
     /* border: 1px solid red; */
@@ -348,5 +506,9 @@
   }
   .complexTextsBox2 {
     width: 100%;
+  }
+
+  .numberBox{
+    width: 300px
   }
 }
