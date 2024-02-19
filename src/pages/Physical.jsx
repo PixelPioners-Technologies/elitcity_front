@@ -18,9 +18,9 @@ import arrowDownSorting from "../assets/arrow-down-white.svg";
 import Menu from "@mui/material/Menu";
 import loupe from "../icons/loupe.png";
 import MenuItem from "@mui/material/MenuItem";
-import lari from "../assets/lari-svgrepo-com.svg";
+import lari from "../assets/lari-white.svg";
+import dollar from "../assets/dollar-whitee.svg";
 // import Filter from "../assets/filter.png";
-import dollar from "../assets/dollar-svgrepo-com.svg";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 import heartIcon from "../assets/starLogo.svg";
@@ -28,10 +28,14 @@ import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import googleMapImage from "../assets/mapImageForFooter.svg";
 import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
-import Sort from '../assets/sort.png';
-import Arrows from '../assets/arrows.png';
-import LocationIcon from '../assets/locationIcon.png';
+import Sort from "../assets/sort.png";
+import Arrows from "../assets/arrows.png";
+import LocationIcon from "../assets/locationIcon.png";
 // import LocationIcon from '../assets/location.png';
+import dollar_black from "../assets/dollar-svgrepo-com.svg";
+import lari_black from "../assets/lari-svgrepo-com.svg";
+
+
 
 const normalizePrivateApartmentData = (data, lang) => {
   return data.map((item) => ({
@@ -566,7 +570,7 @@ export default function Physical({
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.statusInfoLanguage = "Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
         languageInfo.priceButtonLanguage = "Price";
@@ -587,7 +591,7 @@ export default function Physical({
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.statusInfoLanguage = "სტატუსი";
         languageInfo.cityButtonLanguage = "მდებარეობა";
         languageInfo.spaceButtonLanguage = "ფართი";
         languageInfo.priceButtonLanguage = "ფასი";
@@ -608,7 +612,7 @@ export default function Physical({
         break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "Выберите статус";
+        languageInfo.statusInfoLanguage = "статус";
         languageInfo.cityButtonLanguage = "Местоположение";
         languageInfo.spaceButtonLanguage = "Площадь";
         languageInfo.priceButtonLanguage = "Цена";
@@ -902,11 +906,11 @@ export default function Physical({
     if (openSort) {
       setOpenSort(false);
     }
-  }
+  };
   // ------------------------------------------------------------------------------------------------------------------------
 
   return (
-    <div className="ComplexBodyBox_physical" >
+    <div className="ComplexBodyBox_physical">
       {/* <div className="filter_div_for_sort_icon">
         <img onClick={toggleSort} className="filter_image" src={Filter} alt="" />
       </div> */}
@@ -919,7 +923,9 @@ export default function Physical({
         >
           {/* className="filter_cont_for_physical " */}
 
-          <div className={openSort ? "filter_cont_for_physicaly": "close_sort"}>
+          <div
+            className={openSort ? "filter_cont_for_physicaly" : "close_sort"}
+          >
             {/* button for filtering space */}
             <div className="button-modal-container ">
               <div onClick={handle_P_SpaceButtonClick} className="space_button">
@@ -974,11 +980,10 @@ export default function Physical({
                     {NUMBER_OF_ROOM_CHOICES.map((choice) => (
                       <React.Fragment key={choice.value}>
                         <label
-                          className={`checkbox-label ${
-                            selectedRoomNumbers.includes(choice.value)
-                              ? "selected"
-                              : ""
-                          }`}
+                          className={`checkbox-label ${selectedRoomNumbers.includes(choice.value)
+                            ? "selected"
+                            : ""
+                            }`}
                           onClick={() => handleRoomNumberChange(choice.value)}
                         >
                           {choice.label}
@@ -989,7 +994,7 @@ export default function Physical({
                           name="number_of_rooms"
                           value={choice.value}
                           checked={selectedRoomNumbers.includes(choice.value)}
-                          onChange={() => {}}
+                          onChange={() => { }}
                           style={{ display: "none" }}
                         />
                       </React.Fragment>
@@ -1033,26 +1038,81 @@ export default function Physical({
                       handleStatusButtonLanguageChange(selectedLanguage)
                         .fullPriceHomePage
                     }
-                  </div>
-                  <input
-                    type="number"
-                    className="filter_inputs"
-                    placeholder={
-                      handleStatusButtonLanguageChange(selectedLanguage).dan
-                    }
-                    value={min_square_price}
-                    onChange={(e) => setMin_square_price(e.target.value)}
-                  />
 
-                  <input
-                    type="number"
-                    className="filter_inputs"
-                    placeholder={
-                      handleStatusButtonLanguageChange(selectedLanguage).mde
-                    }
-                    value={max_square_price}
-                    onChange={(e) => setMax_square_price(e.target.value)}
-                  />
+                    <div className="currencyBox_homepage">
+                      <div
+                        className="switch_homepage"
+                        data-ison={isOn}
+                        onClick={() => {
+                          toggleSwitch();
+                          HandleStateChange();
+                        }}
+                      >
+                        <motion.div
+                          className="handle_homepage"
+                          layout
+                          transition={spring}
+                        >
+                          <img
+                            src={lari_black}
+                            alt="Lari Sign"
+                            className={`currency-sign_homepage ${isOn ? "active" : ""
+                              }`}
+                          />
+                          <img
+                            src={dollar_black}
+                            alt="Dollar Sign"
+                            className={`currency-sign_homepage ${!isOn ? "active" : ""
+                              }`}
+                          />
+                        </motion.div>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  {/* pirveli inputi  */}
+                  <div className="inputInlineDispley dabla">
+                    <div className="for_dolar_and_lari">
+
+                      <input
+                        type="number"
+                        className="filter_inputs"
+                        placeholder={
+                          handleStatusButtonLanguageChange(selectedLanguage).dan
+                        }
+                        value={min_square_price}
+                        onChange={(e) => setMin_square_price(e.target.value)}
+                      />
+                      <img
+                        src={isOn ? dollar : lari}
+                        alt="lari"
+                        className="currency-sign_homepage_11"
+                      />
+
+                    </div>
+
+                    {/* meore inputi  */}
+                    <div className="for_dolar_and_lari">
+
+                      <input
+                        type="number"
+                        className="filter_inputs"
+                        placeholder={
+                          handleStatusButtonLanguageChange(selectedLanguage).mde
+                        }
+                        value={max_square_price}
+                        onChange={(e) => setMax_square_price(e.target.value)}
+                      />
+                      <img
+                        src={isOn ? dollar : lari}
+                        alt="lari"
+                        className="currency-sign_homepage_11"
+                      />
+                    </div>
+
+                  </div>
 
                   <div className="meterPriceHomePageComplex">
                     {
@@ -1061,25 +1121,47 @@ export default function Physical({
                     }
                   </div>
 
-                  <input
-                    type="number"
-                    className="filter_inputs"
-                    placeholder={
-                      handleStatusButtonLanguageChange(selectedLanguage).dan
-                    }
-                    value={minFullPrice}
-                    onChange={(e) => setMinFullPrice(e.target.value)}
-                  />
+                  {/* mesame inputi  */}
+                  <div className="inputInlineDispley dabla">
+                    <div className="for_dolar_and_lari">
 
-                  <input
-                    type="number"
-                    className="filter_inputs"
-                    placeholder={
-                      handleStatusButtonLanguageChange(selectedLanguage).mde
-                    }
-                    value={maxFullPrice}
-                    onChange={(e) => setMaxFullPrice(e.target.value)}
-                  />
+                      <input
+                        type="number"
+                        className="filter_inputs"
+                        placeholder={
+                          handleStatusButtonLanguageChange(selectedLanguage).dan
+                        }
+                        value={minFullPrice}
+                        onChange={(e) => setMinFullPrice(e.target.value)}
+                      />
+                      <img
+                        src={isOn ? dollar : lari}
+                        alt="lari"
+                        className="currency-sign_homepage_11"
+                      />
+                    </div>
+
+                    {/* meotxe inputi  */}
+                    <div className="for_dolar_and_lari">
+
+                      <input
+                        type="number"
+                        className="filter_inputs"
+                        placeholder={
+                          handleStatusButtonLanguageChange(selectedLanguage).mde
+                        }
+                        value={maxFullPrice}
+                        onChange={(e) => setMaxFullPrice(e.target.value)}
+                      />
+                      <img
+                        src={isOn ? dollar : lari}
+                        alt="lari"
+                        className="currency-sign_homepage_11"
+                      />
+                    </div>
+
+                  </div>
+
                 </div>
                 <button
                   className="modal_close_button"
@@ -1266,18 +1348,26 @@ export default function Physical({
                         .sorting
                     }
                   </p>
-                  <img className="arrowDownIcon" src={arrowDownSorting} style={{ width: "20px" }} />
-                  <img className="noneWeb" src={Arrows} style={{width: "25px"}}  alt="/"/>
+                  <img
+                    className="arrowDownIcon"
+                    src={arrowDownSorting}
+                    style={{ width: "20px" }}
+                  />
+                  <img
+                    className="noneWeb"
+                    src={Arrows}
+                    style={{ width: "25px" }}
+                    alt="/"
+                  />
                 </div>
               </Button>
-              <div className="sort_icon_for_complex_mob " onClick={toggleSort }>
+              <div className="sort_icon_for_complex_mob " onClick={toggleSort}>
                 <img
                   src={Sort}
                   style={{ width: "20px", height: "25px" }}
                   alt="/"
                 />
               </div>
-
 
               <Menu
                 id="basic-menu"
@@ -1451,7 +1541,6 @@ export default function Physical({
                     toggleSwitch();
                     HandleStateChange();
                   }}
-                  
                 >
                   <motion.div
                     className="handle_physical"
@@ -1459,18 +1548,16 @@ export default function Physical({
                     transition={spring}
                   >
                     <img
-                      src={lari}
+                      src={lari_black}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${
-                        isOn ? "active" : ""
-                      }`}
+                      className={`currency-sign_physical ${isOn ? "active" : ""
+                        }`}
                     />
                     <img
-                      src={dollar}
+                      src={dollar_black}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${
-                        !isOn ? "active" : ""
-                      }`}
+                      className={`currency-sign_physical ${!isOn ? "active" : ""
+                        }`}
                     />
                   </motion.div>
                 </div>
@@ -1535,8 +1622,10 @@ export default function Physical({
                 </p>
                 <p className="price_settings" style={styles.complexInfo}>
                   {currenceChangeState
-                    ? (Number (prev_apartments.squarePrice) * getCorrencyRate).toFixed(2)       
-                    : Number(prev_apartments.squarePrice).toFixed(2)  }
+                    ? (
+                      Number(prev_apartments.squarePrice) * getCorrencyRate
+                    ).toFixed(2)
+                    : Number(prev_apartments.squarePrice).toFixed(2)}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">

@@ -58,6 +58,11 @@
   background-color: transparent;
   color: black;
 }
+
+/* .homepage_search_button:focus {
+  outline: none !important;
+} */
+
 .button-container {
   width: 100%;
   display: flex;
@@ -357,6 +362,7 @@
 .currency-sign_homepage_11 {
   width: 17px;
   height: auto;
+  color: #f1eeee;
 }
 .currency-sign_homepage_11.active {
   display: none;

@@ -14,6 +14,8 @@
   justify-content: space-between;
   height: 70px;
   padding: 0 40px;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+
 }
 
 .boxOftitleOfActionAndOffers {

@@ -23,8 +23,12 @@
 .motionBox {
   border: 1px solid white;
   margin-top: 20px;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+
 }
 .forPaddingOfInfoFieldOfComplexsPlansMaps {
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+
   padding: 15px;
 }
 .infoFieldOfComplexsPlansMaps {
@@ -378,6 +382,7 @@
 .price_and_its_value{
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   gap: 5px;
 }
 

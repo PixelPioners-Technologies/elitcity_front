@@ -1,6 +1,5 @@
 .main_map {
   background-color: rgb(0, 0, 0);
-  height: 100vh;
   margin-top: 7%;
 }
 .map_cont {
@@ -172,6 +171,7 @@
   margin-bottom: 10px;
 }
 .text_modal_color {
+  font-size: 17px;
   color: #fff;
 }
 
@@ -421,11 +421,13 @@
   padding: 10px;
   border-radius: 5px;
   margin-left: 10px;
+  width: 90px;
 }
 
 .filter_inputs:focus {
   outline: none;
-  box-shadow: 0 0 5px rgb(161, 193, 202);
+  /* Optionally, change border or add shadow on focus */
+
 }
 .filter_inputs::placeholder {
   font-size: 15px;

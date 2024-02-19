@@ -359,10 +359,10 @@ export default function EachGround({
               {ground.address?.city} ,{ground.address?.streetName}{" "}
             </p>
             <p style={{ color: "#ccc", fontSize: "20px" }}>
-              {handleStaticTextLanguageChange(selectedLanguage).square_price}:
+              {handleStaticTextLanguageChange(selectedLanguage).square_price}{ "  :  "}
               {currenceChangeState
-                ? ground.squarePrice * getCorrencyRate
-                : ground.squarePrice}
+                ? (Number(ground.squarePrice * getCorrencyRate)).toFixed(2)
+                : Number(ground.squarePrice).toFixed(2)} { isOn ? '  $  ' :  '  ₾  ' }
             </p>
             <p style={{ color: "#C2BFBF" }}>
               {handleStaticTextLanguageChange(selectedLanguage).status}:{" "}

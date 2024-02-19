@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import{  useEffect } from "react";
-import React, { useState } from 'react';
+import { useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./Map.css";
 import {
@@ -30,6 +30,12 @@ import G_SpaceModal from "../modals for ground filters/G_SpaceModal";
 import G_StatusModal from "../modals for ground filters/G_StatusModa";
 import { BaseURLs } from "../App";
 import Sort from "../assets/sort.png";
+import dollar_black from "../assets/dollar-svgrepo-com.svg";
+import lari_black from "../assets/lari-svgrepo-com.svg";
+import lari from "../assets/lari-white.svg";
+import dollar from "../assets/dollar-whitee.svg";
+
+
 
 const initialCenter = {
   lat: 41.7151,
@@ -168,7 +174,14 @@ const normalizeGroundData = (data, lang) => {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-export default function Map({ selectedLanguage }) {
+export default function Map({
+  selectedLanguage,
+  toggleSwitch,
+  currenceChangeState,
+  isOn,
+  getCorrencyRate,
+  HandleStateChange,
+}) {
   const [complexes, setComplexes] = useState([]);
   const [selectedComplex, setSelectedComplex] = useState(null);
   const [locations, setLocations] = useState([]);
@@ -181,58 +194,83 @@ export default function Map({ selectedLanguage }) {
   const [selectedPharentDistricts, setSelectedPharentDistricts] = useState([]);
   const [selectedDistricts, setSelectedDistricts] = useState([]);
 
-  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState("");
-  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState("");
 
   const [min_space, setMin_space] = useState("");
   const [max_space, setMax_space] = useState("");
 
+
+  // ===============================================================================================
   const [minFullPrice, setMinFullPrice] = useState("");
   const [maxFullPrice, setMaxFullPrice] = useState("");
 
-  const [status, setStatus] = useState("");
+  const [converted_complex_min_fullprice, setConverted_complex_min_fullprice] = useState(minFullPrice);
+  const [converted_complex_max_fullprice, setConverted_complex_max_fullprice] = useState(maxFullPrice);
 
+  const [minPricePerSquareMeter, setMinPricePerSquareMeter] = useState("");
+  const [maxPricePerSquareMeter, setMaxPricePerSquareMeter] = useState("");
+
+  const [converted_complex_min_squarePrice, setConverted_complex_min_squarePrice] = useState(minPricePerSquareMeter);
+  const [converted_complex_max_squarePrice, setConverted_complex_max_squarePrice] = useState(maxPricePerSquareMeter);
+
+
+  // ===============================================================================================
+  const [status, setStatus] = useState("");
   const [mapCenter, setMapCenter] = useState(initialCenter);
   const [zoomLevel, setZoomLevel] = useState(11);
-
   const [mapInstance, setMapInstance] = useState(null);
-
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
   const [selectedStatuses, setSelectedStatuses] = useState([]);
   const [isfilterChangeModalOpen, setIsfilterChangeModalOpen] = useState(false);
-
   const [ascendentPrice, setAscendentPrice] = useState("");
-
   // ეს არის სთეიტი ფილტრაციების შეცვლისთვისკომპლექსებიდან კერძო აპარტამენტებზე
   const [filterType, setFilterType] = useState("complexes");
   // -------------------------private apartment states-----------------------
   const [privateApartments, setPrivateApartments] = useState([]);
-  const [selectedPrivateApartments, setSelectedPrivateApartments] =
-    useState(null);
+  const [selectedPrivateApartments, setSelectedPrivateApartments] = useState(null);
+  // ===============================================================================================
+
   const [min_square_price, setMin_square_price] = useState("");
   const [max_square_price, setMax_square_price] = useState("");
+
+  const [converted_min__P_apartment_squarePrice, setConverted_min__P_apartment_squarePrice] = useState(min_square_price);
+  const [converted_max__P_apartment_squarePrice, setConverted_max__P_apartment_squarePrice] = useState(max_square_price);
+
+  const [min_P_FullPrice, setMin_P_FullPrice] = useState("");
+  const [max_P_FullPrice, setMax_P_FullPrice] = useState("");
+
+  const [converted_min__P_apartment_fullPrice, setConverted_min__P_apartment_fullPrice] = useState(min_P_FullPrice);
+  const [converted_max__P_apartment_fullPrice, setConverted_max__P_apartment_fullPrice] = useState(max_P_FullPrice);
+
+  // ===============================================================================================
+
   const [min_area, setMin_area] = useState("");
   const [max_area, setMax_area] = useState("");
-  const [max_P_FullPrice, setMax_P_FullPrice] = useState("");
-  const [min_P_FullPrice, setMin_P_FullPrice] = useState("");
   const [selectedStatuses_For_P, setSelectedStatuses_For_P] = useState([]);
-
   // this states are for grounds-----------------------------------
-  const [grounds, setGrounds] = useState("");
+  const [grounds, setGrounds] = useState([]);
   const [selectedGrounds, setSelectedGrounds] = useState("");
-
   const [min_ground_area, setMin_ground_area] = useState("");
   const [max_ground_area, setMax_ground_area] = useState("");
+  const [graundStatus, setGraundStatus] = useState([]);
+
+  // ===============================================================================================
 
   const [min_graund_full_price, setMin_graund_full_price] = useState("");
   const [max_ground_fill_price, setMax_ground_fill_price] = useState("");
 
+  const [converted_min_ground_fullPrice, setConverted_min_ground_fullPrice] = useState(min_graund_full_price);
+  const [converted_max_ground_fullPrice, setConverted_max_ground_fullPrice] = useState(max_ground_fill_price);
+
   const [min_graund_square_price, setMin_graund_square_price] = useState("");
   const [max_ground_square_price, setMax_ground_square_price] = useState("");
 
-  const [graundStatus, setGraundStatus] = useState([]);
+  const [converted_min_ground_square_price, setConverted_min_ground_square_price] = useState(min_graund_square_price);
+  const [converted_max_ground_square_price, setConverted_max_ground_square_price] = useState(max_ground_square_price);
+
+
+  // ===============================================================================================
 
   // --------------------------------------------------------------------------
 
@@ -299,14 +337,15 @@ export default function Map({ selectedLanguage }) {
         [cityParam]: selectedCity,
         [pharentdistrictParams]: selectedPharentDistricts.join(","),
         [districtParams]: selectedDistricts.join(","),
-        min_price_per_sq_meter: minPricePerSquareMeter,
-        max_price_per_sq_meter: maxPricePerSquareMeter,
-        min_full_price: minFullPrice,
-        max_full_price: maxFullPrice,
+        min_price_per_sq_meter: converted_complex_min_squarePrice,
+        max_price_per_sq_meter: converted_complex_max_squarePrice,
+        min_full_price: converted_complex_min_fullprice,
+        max_full_price: converted_complex_max_fullprice,
         min_space: min_space,
         max_space: max_space,
         ordering: ascendentPrice,
       });
+
 
       // Append each status as a separate parameter
       selectedStatuses.forEach((status) => {
@@ -337,13 +376,18 @@ export default function Map({ selectedLanguage }) {
     selectedPharentDistricts,
     selectedDistricts,
     minPricePerSquareMeter,
+    converted_complex_max_fullprice,
     maxPricePerSquareMeter,
+    converted_complex_max_squarePrice,
     minFullPrice,
+    converted_complex_min_fullprice,
     maxFullPrice,
+    converted_complex_max_fullprice,
     selectedStatuses,
     ascendentPrice,
     max_space,
-    min_space /*,resendAxios]*/,
+    min_space,
+    isOn,
   ]);
 
   // ----------------------------------------------------------------------------------------------
@@ -382,10 +426,10 @@ export default function Map({ selectedLanguage }) {
         [cityParam]: selectedCity,
         [pharentdistrictParams]: selectedPharentDistricts.join(","),
         [districtParams]: selectedDistricts.join(","),
-        min_square_price: min_square_price,
-        max_square_price: max_square_price,
-        min_full_price: minFullPrice,
-        max_full_price: maxFullPrice,
+        min_square_price: converted_min__P_apartment_squarePrice,
+        max_square_price: converted_max__P_apartment_squarePrice,
+        min_full_price: converted_min__P_apartment_fullPrice,
+        max_full_price: converted_max__P_apartment_fullPrice,
         min_area: min_area,
         max_area: max_area,
         // ordering: ascendentPrice
@@ -413,10 +457,19 @@ export default function Map({ selectedLanguage }) {
     selectedCity,
     selectedPharentDistricts,
     selectedDistricts,
+
     min_square_price,
+    converted_min__P_apartment_squarePrice,
+
     max_square_price,
+    converted_max__P_apartment_squarePrice,
+
     minFullPrice,
+    converted_min__P_apartment_fullPrice,
+
     maxFullPrice,
+    converted_max__P_apartment_fullPrice,
+
     selectedStatuses,
     max_area,
     min_area,
@@ -436,10 +489,10 @@ export default function Map({ selectedLanguage }) {
         [cityParam]: selectedCity,
         [pharentdistrictParams]: selectedPharentDistricts.join(","),
         [districtParams]: selectedDistricts.join(","),
-        min_square_price: min_graund_square_price,
-        max_square_price: max_ground_square_price,
-        min_full_price: min_graund_full_price,
-        max_full_price: max_ground_fill_price,
+        min_square_price: converted_min_ground_square_price,
+        max_square_price: converted_max_ground_square_price,
+        min_full_price: converted_min_ground_fullPrice,
+        max_full_price: converted_max_ground_fullPrice,
         min_area: min_ground_area,
         max_area: max_ground_area,
       });
@@ -464,14 +517,147 @@ export default function Map({ selectedLanguage }) {
     selectedDistricts,
     min_ground_area,
     max_ground_area,
+
     min_graund_full_price,
+    converted_min_ground_fullPrice,
+
     max_ground_fill_price,
+    converted_max_ground_fullPrice,
+
     min_graund_square_price,
+    converted_min_ground_square_price,
+
     max_ground_square_price,
+    converted_max_ground_square_price,
+
     graundStatus,
   ]);
 
   // ----------------------------------------------------------------------------------------------
+
+  // const [converted_complex_min_fullprice, setConverted_complex_min_fullprice] = useState(minFullPrice);
+
+  // =====================================for complex value price covertion ==============================================
+  useEffect(() => {
+    if (minFullPrice === "") {
+      setConverted_complex_min_fullprice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_complex_min_fullprice(String(minFullPrice * conversionRate));
+    }
+
+    if (maxFullPrice === "") {
+      setConverted_complex_max_fullprice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_complex_max_fullprice(String(maxFullPrice * conversionRate));
+    }
+
+
+    if (minPricePerSquareMeter === "") {
+      setConverted_complex_min_squarePrice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_complex_min_squarePrice(String(minPricePerSquareMeter * conversionRate));
+    }
+
+
+    if (maxPricePerSquareMeter === "") {
+      setConverted_complex_max_squarePrice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_complex_max_squarePrice(String(maxPricePerSquareMeter * conversionRate));
+    }
+
+
+  }, [minFullPrice, maxFullPrice, minPricePerSquareMeter, maxPricePerSquareMeter, isOn])
+
+  // =====================================for private apartment price value covertion ==============================================
+
+
+  useEffect(() => {
+    if (min_square_price === "") {
+      setConverted_min__P_apartment_squarePrice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_min__P_apartment_squarePrice(String(min_square_price * conversionRate));
+    }
+    if (max_square_price === "") {
+      setConverted_max__P_apartment_squarePrice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_max__P_apartment_squarePrice(String(max_square_price * conversionRate));
+    }
+
+    if (min_P_FullPrice === "") {
+      setConverted_min__P_apartment_fullPrice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_min__P_apartment_fullPrice(String(min_P_FullPrice * conversionRate));
+    }
+
+    if (max_P_FullPrice === "") {
+      setConverted_max__P_apartment_fullPrice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_max__P_apartment_fullPrice(String(max_P_FullPrice * conversionRate));
+    }
+
+
+  }, [min_square_price, max_square_price, max_P_FullPrice, min_P_FullPrice, isOn])
+
+
+
+  // ===================================== for ground apartment price value covertion ==============================================
+
+
+  useEffect(() => {
+    if (min_graund_full_price === "") {
+      setConverted_min_ground_fullPrice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_min_ground_fullPrice(String(min_graund_full_price * conversionRate));
+    }
+
+
+    if (max_ground_fill_price === "") {
+      setConverted_max_ground_fullPrice("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_max_ground_fullPrice(String(max_ground_fill_price * conversionRate));
+    }
+
+    if (min_graund_square_price === "") {
+      setConverted_min_ground_square_price("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_min_ground_square_price(String(min_graund_square_price * conversionRate));
+    }
+
+    if (max_ground_square_price === "") {
+      setConverted_max_ground_square_price("");
+    } else {
+      // Proceed with conversion if there's a value
+      const conversionRate = !isOn ? 1 / getCorrencyRate : 1;
+      setConverted_max_ground_square_price(String(max_ground_square_price * conversionRate));
+    }
+
+
+  }, [min_graund_full_price, max_ground_fill_price, min_graund_square_price, max_ground_square_price , isOn])
+
+
+
 
   // ----------------------------------icon coloure and  status  change  ----------------------------------------------------------
 
@@ -979,7 +1165,7 @@ export default function Map({ selectedLanguage }) {
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.statusInfoLanguage = "Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
         languageInfo.priceButtonLanguage = "Price";
@@ -1006,7 +1192,7 @@ export default function Map({ selectedLanguage }) {
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.statusInfoLanguage = "სტატუსი";
         languageInfo.cityButtonLanguage = "მდებარეობა";
         languageInfo.spaceButtonLanguage = "ფართი";
         languageInfo.priceButtonLanguage = "ფასი";
@@ -1033,7 +1219,7 @@ export default function Map({ selectedLanguage }) {
         break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус";
+        languageInfo.statusInfoLanguage = "статус";
         languageInfo.cityButtonLanguage = "Местоположение";
         languageInfo.spaceButtonLanguage = "Площадь";
         languageInfo.priceButtonLanguage = "Цена";
@@ -1298,60 +1484,129 @@ export default function Map({ selectedLanguage }) {
                     <div className="fullPriceHomePage">
                       {
                         handleStatusButtonLanguageChange(selectedLanguage)
-                          .fullPriceHomePage
+                          .meterPriceHomePage
                       }
+                      <div className="currencyBox_homepage">
+                        <div
+                          className="switch_homepage"
+                          data-ison={isOn}
+                          onClick={() => {
+                            toggleSwitch();
+                            HandleStateChange();
+                          }}
+                        >
+                          <motion.div
+                            className="handle_homepage"
+                            layout
+                            transition={spring}
+                          >
+                            <img
+                              src={lari_black}
+                              alt="Lari Sign"
+                              className={`currency-sign_homepage ${isOn ? "active" : ""
+                                }`}
+                            />
+                            <img
+                              src={dollar_black}
+                              alt="Dollar Sign"
+                              className={`currency-sign_homepage ${!isOn ? "active" : ""
+                                }`}
+                            />
+                          </motion.div>
+                        </div>
+                      </div>
                     </div>
                     <div>
-                      <input
-                        type="number"
-                        className="filter_inputs"
-                        placeholder={
-                          handleStatusButtonLanguageChange(selectedLanguage).dan
-                        }
-                        value={minPricePerSquareMeter}
-                        onChange={(e) =>
-                          setMinPricePerSquareMeter(e.target.value)
-                        }
-                      />
 
-                      <input
-                        type="number"
-                        className="filter_inputs"
-                        placeholder={
-                          handleStatusButtonLanguageChange(selectedLanguage).mde
-                        }
-                        value={maxPricePerSquareMeter}
-                        onChange={(e) =>
-                          setMaxPricePerSquareMeter(e.target.value)
-                        }
-                      />
+                      {/* pirveli inputi  */}
+                      <div className="inputInlineDispley dabla">
+                        <div className="for_dolar_and_lari">
 
-                      <div className="meterPriceHomePageComplex">
-                        {
-                          handleStatusButtonLanguageChange(selectedLanguage)
-                            .meterPriceHomePage
-                        }
+                          <input
+                            type="number"
+                            className="filter_inputs"
+                            placeholder={
+                              handleStatusButtonLanguageChange(selectedLanguage).dan
+                            }
+                            value={minPricePerSquareMeter}
+                            onChange={(e) =>
+                              setMinPricePerSquareMeter(e.target.value)
+                            }
+                          />
+                          <img
+                            src={isOn ? dollar : lari}
+                            alt="lari"
+                            className="currency-sign_homepage_11"
+                          />
+                        </div>
+
+                        {/* meore inputi  */}
+                        <div className="for_dolar_and_lari">
+
+                          <input
+                            type="number"
+                            className="filter_inputs"
+                            placeholder={
+                              handleStatusButtonLanguageChange(selectedLanguage).mde
+                            }
+                            value={maxPricePerSquareMeter}
+                            onChange={(e) =>
+                              setMaxPricePerSquareMeter(e.target.value)
+                            }
+                          />
+                          <img
+                            src={isOn ? dollar : lari}
+                            alt="lari"
+                            className="currency-sign_homepage_11"
+                          />
+                        </div>
+
                       </div>
 
-                      <input
-                        type="number"
-                        className="filter_inputs"
-                        placeholder={
-                          handleStatusButtonLanguageChange(selectedLanguage).dan
-                        }
-                        value={minFullPrice}
-                        onChange={(e) => setMinFullPrice(e.target.value)}
-                      />
+                      <div className="meterPriceHomePageComplex">
+                        {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+                      </div>
 
-                      <input
-                        type="number"
-                        className="filter_inputs"
-                        placeholder={
-                          handleStatusButtonLanguageChange(selectedLanguage).mde
-                        }
-                        value={maxFullPrice}
-                        onChange={(e) => setMaxFullPrice(e.target.value)}
-                      />
+                      {/* mesame inputi  */}
+                      <div className="inputInlineDispley dabla">
+                        <div className="for_dolar_and_lari">
+
+                          <input
+                            type="number"
+                            className="filter_inputs"
+                            placeholder={
+                              handleStatusButtonLanguageChange(selectedLanguage).dan
+                            }
+                            value={minFullPrice}
+                            onChange={(e) => setMinFullPrice(e.target.value)}
+                          />
+                          <img
+                            src={isOn ? dollar : lari}
+                            alt="lari"
+                            className="currency-sign_homepage_11"
+                          />
+                        </div>
+
+                        {/* meotxe inputi  */}
+                        <div className="for_dolar_and_lari">
+                          <input
+                            type="number"
+                            className="filter_inputs"
+                            placeholder={
+                              handleStatusButtonLanguageChange(selectedLanguage).mde
+                            }
+                            value={maxFullPrice}
+                            onChange={(e) => setMaxFullPrice(e.target.value)}
+                          />
+                          <img
+                            src={isOn ? dollar : lari}
+                            alt="lari"
+                            className="currency-sign_homepage_11"
+                          />
+                        </div>
+
+                      </div>
+
                     </div>
                     <button
                       className="modal_close_button"
@@ -1497,56 +1752,131 @@ export default function Map({ selectedLanguage }) {
                   <div className="fullPriceHomePage">
                     {
                       handleStatusButtonLanguageChange(selectedLanguage)
-                        .fullPriceHomePage
+                        .meterPriceHomePage
                     }
+                    <div className="currencyBox_homepage">
+                      <div
+                        className="switch_homepage"
+                        data-ison={isOn}
+                        onClick={() => {
+                          toggleSwitch();
+                          HandleStateChange();
+                        }}
+                      >
+                        <motion.div
+                          className="handle_homepage"
+                          layout
+                          transition={spring}
+                        >
+                          <img
+                            src={lari_black}
+                            alt="Lari Sign"
+                            className={`currency-sign_homepage ${isOn ? "active" : ""
+                              }`}
+                          />
+                          <img
+                            src={dollar_black}
+                            alt="Dollar Sign"
+                            className={`currency-sign_homepage ${!isOn ? "active" : ""
+                              }`}
+                          />
+                        </motion.div>
+                      </div>
+                    </div>
                   </div>
                   <div>
-                    <input
-                      type="number"
-                      className="filter_inputs"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).dan
-                      }
-                      value={min_square_price}
-                      onChange={(e) => setMin_square_price(e.target.value)}
-                    />
 
-                    <input
-                      type="number"
-                      className="filter_inputs"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).mde
-                      }
-                      value={max_square_price}
-                      onChange={(e) => setMax_square_price(e.target.value)}
-                    />
+                    {/* pirveli inputi  */}
+                    <div className="inputInlineDispley dabla">
+                      <div className="for_dolar_and_lari">
+
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage).dan
+                          }
+                          value={min_square_price}
+                          onChange={(e) => setMin_square_price(e.target.value)}
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+
+                      {/* meore inputi  */}
+                      <div className="for_dolar_and_lari">
+
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage).mde
+                          }
+                          value={max_square_price}
+                          onChange={(e) => setMax_square_price(e.target.value)}
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+
+                    </div>
 
                     <div className="meterPriceHomePageComplex">
                       {
                         handleStatusButtonLanguageChange(selectedLanguage)
-                          .meterPriceHomePage
+                          .fullPriceHomePage
                       }
+
+
                     </div>
 
-                    <input
-                      type="number"
-                      className="filter_inputs"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).dan
-                      }
-                      value={min_P_FullPrice}
-                      onChange={(e) => setMin_P_FullPrice(e.target.value)}
-                    />
+                    {/* mesame inputi  */}
+                    <div className="inputInlineDispley dabla">
+                      <div className="for_dolar_and_lari">
 
-                    <input
-                      type="number"
-                      className="filter_inputs"
-                      placeholder={
-                        handleStatusButtonLanguageChange(selectedLanguage).mde
-                      }
-                      value={max_P_FullPrice}
-                      onChange={(e) => setMax_P_FullPrice(e.target.value)}
-                    />
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage).dan
+                          }
+                          value={min_P_FullPrice}
+                          onChange={(e) => setMin_P_FullPrice(e.target.value)}
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+
+                      {/* meotxe inputi  */}
+                      <div className="for_dolar_and_lari">
+
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage).mde
+                          }
+                          value={max_P_FullPrice}
+                          onChange={(e) => setMax_P_FullPrice(e.target.value)}
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+
+                    </div>
+
                   </div>
                   <button
                     className="modal_close_button"
@@ -1667,6 +1997,7 @@ export default function Map({ selectedLanguage }) {
                     handleStatusButtonLanguageChange(selectedLanguage)
                       .priceButtonLanguage
                   }
+
                   <img
                     src={button_icon}
                     alt="button dropdown icon"
@@ -1678,53 +2009,134 @@ export default function Map({ selectedLanguage }) {
                   close={handleClosePriceModal}
                 >
                   <div>
-                    <input
-                      type="number"
-                      className="filter_inputs"
-                      placeholder={
-                        handleInputLanguageChange(selectedLanguage)
-                          .min_price_per_sq_meter
+                    <div className="fullPriceHomePage" >
+                      {
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .meterPriceHomePage
                       }
-                      value={min_graund_square_price}
-                      onChange={(e) =>
-                        setMin_graund_square_price(e.target.value)
-                      }
-                    />
+                      <div className="currencyBox_homepage">
+                        <div
+                          className="switch_homepage"
+                          data-ison={isOn}
+                          onClick={() => {
+                            toggleSwitch();
+                            HandleStateChange();
+                          }}
+                        >
+                          <motion.div
+                            className="handle_homepage"
+                            layout
+                            transition={spring}
+                          >
+                            <img
+                              src={lari_black}
+                              alt="Lari Sign"
+                              className={`currency-sign_homepage ${isOn ? "active" : ""
+                                }`}
+                            />
+                            <img
+                              src={dollar_black}
+                              alt="Dollar Sign"
+                              className={`currency-sign_homepage ${!isOn ? "active" : ""
+                                }`}
+                            />
+                          </motion.div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* pirveli inputi  */}
+                    <div className="inputInlineDispley dabla">
+                      <div className="for_dolar_and_lari">
 
-                    <input
-                      type="number"
-                      className="filter_inputs"
-                      placeholder={
-                        handleInputLanguageChange(selectedLanguage)
-                          .max_price_per_sq_meter
-                      }
-                      value={max_ground_square_price}
-                      onChange={(e) =>
-                        setMax_ground_square_price(e.target.value)
-                      }
-                    />
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleInputLanguageChange(selectedLanguage)
+                              .min_price_per_sq_meter
+                          }
+                          value={min_graund_square_price}
+                          onChange={(e) =>
+                            setMin_graund_square_price(e.target.value)
+                          }
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
 
-                    <input
-                      type="number"
-                      placeholder={
-                        handleInputLanguageChange(selectedLanguage)
-                          .min_full_price
-                      }
-                      className="filter_inputs"
-                      value={min_graund_full_price}
-                      onChange={(e) => setMin_graund_full_price(e.target.value)}
-                    />
+                      {/* meore inputi  */}
+                      <div className="for_dolar_and_lari">
 
-                    <input
-                      type="number"
-                      className="filter_inputs"
-                      placeholder={
-                        handleInputLanguageChange(selectedLanguage)
-                          .max_full_price
-                      }
-                      value={max_ground_fill_price}
-                      onChange={(e) => setMax_ground_fill_price(e.target.value)}
-                    />
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleInputLanguageChange(selectedLanguage)
+                              .max_price_per_sq_meter
+                          }
+                          value={max_ground_square_price}
+                          onChange={(e) =>
+                            setMax_ground_square_price(e.target.value)
+                          }
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+                    </div>
+
+                    {/* mesame inputi  */}
+                    <div className="meterPriceHomePageComplex">
+                      {handleStatusButtonLanguageChange(selectedLanguage).fullPriceHomePage}
+                    </div>
+                    <div className="inputInlineDispley dabla">
+
+                      <div className="for_dolar_and_lari">
+
+                        <input
+                          type="number"
+                          placeholder={
+                            handleInputLanguageChange(selectedLanguage)
+                              .min_full_price
+                          }
+                          className="filter_inputs"
+                          value={min_graund_full_price}
+                          onChange={(e) => setMin_graund_full_price(e.target.value)}
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+
+                      {/* meotxe inputi  */}
+                      <div className="for_dolar_and_lari">
+
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleInputLanguageChange(selectedLanguage)
+                              .max_full_price
+                          }
+                          value={max_ground_fill_price}
+                          onChange={(e) => setMax_ground_fill_price(e.target.value)}
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+
+                    </div>
+
                   </div>
                   <button
                     className="modal_close_button"
@@ -1912,9 +2324,9 @@ export default function Map({ selectedLanguage }) {
                   <h2>
                     {selectedPrivateApartments.privateApartmentName.length > 15
                       ? `${selectedPrivateApartments.privateApartmentName.substring(
-                          0,
-                          15
-                        )}...`
+                        0,
+                        15
+                      )}...`
                       : selectedPrivateApartments.privateApartmentName}
                   </h2>
 
@@ -2160,9 +2572,9 @@ export default function Map({ selectedLanguage }) {
                   <h2>
                     {selectedPrivateApartments.privateApartmentName.length > 15
                       ? `${selectedPrivateApartments.privateApartmentName.substring(
-                          0,
-                          15
-                        )}...`
+                        0,
+                        15
+                      )}...`
                       : selectedPrivateApartments.privateApartmentName}
                   </h2>
 
@@ -2567,10 +2979,9 @@ export default function Map({ selectedLanguage }) {
         initial={{ y: 100, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 1 }}
-        // className={openMapFilter ? "show_map_filter" : "closeMapSort"}
+      // className={openMapFilter ? "show_map_filter" : "closeMapSort"}
       >
-        {/* "filtetmethods_and_filters closeMapSort" */}
-        <div className= "filtetmethods_and_filterss closeMapSortt">
+        <div className="filtetmethods_and_filterss closeMapSort">
           <div className="filter_methods_container">
             {/* modal for filtering method changing */}
             <div className="button-modal-container category_button">
@@ -2713,7 +3124,7 @@ export default function Map({ selectedLanguage }) {
               />
             </div>
           </div>
-          <div className= {openSortComp ? "filtetmethods_and_filters" : "closeMapSort"}>
+          <div className= {openSortComp ? "s" : "closeMapSort"}>
           <div className="filter_methods_container">
             {/* modal for filtering method changing */}
             <div className="button-modal-container category_button">
@@ -2755,3 +3166,11 @@ export default function Map({ selectedLanguage }) {
     </div>
   );
 }
+
+
+
+const spring = {
+  type: "spring",
+  stiffness: 100,
+  damping: 30,
+};
