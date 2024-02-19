@@ -259,6 +259,11 @@
   .button_flex {
     margin-top: 50px;
   }
+
+  .dabla {
+    display: contents;
+  }
+
   .location_icon_respons {
     width: 15px;
     height: 20px;
@@ -312,7 +317,6 @@
   #inputForComp {
     display: flex;
     flex-direction: column !important;
-    border: 1px solid red;
   }
 }
 .min_price_homePage::-webkit-outer-spin-button,

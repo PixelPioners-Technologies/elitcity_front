@@ -726,7 +726,7 @@ export default function Complex({
                     </div>
                   </div>
                   <div>
-                    <div className="inputInlineDispley">
+                    <div className="inputInlineDispley dabla">
                       {/* pirveli  */}
                       <div className="for_dolar_and_lari">
                         <input
@@ -776,7 +776,7 @@ export default function Complex({
                       }
                     </div>
                     {/* mesame  */}
-                    <div className="inputInlineDispley">
+                    <div className="inputInlineDispley dabla">
                       <div className="for_dolar_and_lari">
                         <input
                           className="min_price_complex"
@@ -1202,22 +1202,24 @@ export default function Complex({
               {/* ---------------------------------- */}
 
               {/* ----Dollar and Lari Toggle button */}
-              <div className="currency-Box  ">
-                <div className="switch" data-ison={isOn} onClick={toggleSwitch}>
-                  <motion.div className="handle" layout transition={spring}>
+              <div className="currencyBox_physical">
+                <div className="switch_physical" data-ison={isOn} onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}>
+                  <motion.div className="handle_physical" layout transition={spring}>
                     <img
-                      src={lari}
+                      src={lari_black}
                       alt="Lari Sign"
                       className={`currency-sign ${isOn ? "active" : ""}`}
                     />
                     <img
-                      src={dollar}
+                      src={dollar_black}
                       alt="Dollar Sign"
                       className={`currency-sign ${!isOn ? "active" : ""}`}
                     />
                   </motion.div>
                 </div>
-
                 {/* ---------------- */}
               </div>
             </div>
@@ -1272,7 +1274,7 @@ export default function Complex({
                   onClick={() => handleHouseClick(complex.id)}
                 >
                   <p style={styles.complexInfo}>{complex.address.city}</p>
-                  <div className="price_and_">
+                  <div className="price_and_its_value">
                     <p style={styles.complexInfo}>
                       {
                         handleStatusButtonLanguageChange(selectedLanguage)
@@ -1282,9 +1284,8 @@ export default function Complex({
                     <p style={styles.complexInfo}>
                       {" "}
                       {currenceChangeState
-                        ? complex.complexDetails.pricePerSqMeter *
-                          getCorrencyRate
-                        : complex.complexDetails.pricePerSqMeter}
+                        ? (Number(complex.complexDetails.pricePerSqMeter) * getCorrencyRate).toFixed(2)
+                        : Number(complex.complexDetails.pricePerSqMeter).toFixed(2)}
                     </p>
                   </div>
                   <p
