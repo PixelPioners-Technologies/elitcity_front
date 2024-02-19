@@ -97,6 +97,14 @@
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1; */
 }
 
+
+
+.image-gallery-left-nav .image-gallery-svg, .image-gallery-right-nav .image-gallery-svg {
+  height: 52px;
+  width: 60px;
+}
+
+
 .Btn::before {
   width: 77px;
   height: 130px;

@@ -13,6 +13,10 @@
   justify-content: center;
   gap: 70px;
 }
+
+
+
+
 #lands_img {
   width: 700px;
   height: 450px;
@@ -350,6 +354,8 @@
   width: 774px;
   height: 232px;
 }
+
+
 @media screen and (max-width: 500px) {
   .eachComplexBox3 {
     padding: 10px 0px;

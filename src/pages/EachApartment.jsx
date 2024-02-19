@@ -62,13 +62,16 @@ import lipti from "../icons/lifti.png";
 import shlagbaumi from "../icons/shlagbaumi.png";
 import konsierji from "../icons/konsierji.png";
 import ezo from "../icons/ezo.png";
-
-// ------------------
 import "./Physical.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
 import { useLocation } from "react-router-dom";
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
+
+
+
+
 const normalizeApartmentData = (data, lang) => {
   return {
     id: data.id,

@@ -20,6 +20,8 @@ import skveri from "../assets/skveri.svg";
 import heartIcon from "../assets/starLogo.svg";
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import ShareButton from "./Sheare";
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
 
 
 const normalizePrivateApartmentData = (data, lang) => {
@@ -102,12 +104,13 @@ export default function EachPrivateAppartment({
       const data = response.data;
       const normadata = normalizePrivateApartmentData(data, selectedLanguage);
       setGround(normadata);
-      console.log(data)
-      // Update sliderImages state with all images from the fetched data
-      const sliderImagesFromData = normadata.images.map((imgUrl, index) => ({
-        id: index,
-        value: imgUrl, // Directly using the URL from the JSON data
+
+      const sliderImagesFromData = normadata.images.map((image) => ({
+        original: image,// Use the actual property name for the full-size image URL
+        thumbnail: image, // Use the actual property name for the thumbnail image URL
       }));
+
+
       setSliderImages(sliderImagesFromData); // Update the state
       setWordData(sliderImagesFromData[0] || null); // Initialize with the first image or null if empty
     };
@@ -338,42 +341,10 @@ export default function EachPrivateAppartment({
             </button> */}
         {/* </div> */}
         {/* </div> */}
-        <div className="lands_image">
-          {wordData && ( // Check if wordData is not null/undefined before rendering
-            <img
-              id="lands_image"
-              src={wordData.value}
-              alt={`Complex ${wordData.id}`}
-              height="450"
-              width="711"
-              className={clickedIndex !== null ? "clicked" : ""}
-            />
-          )}
+        <div style={{width: "500px" , height: "auto"}} >
+          {sliderImages.length > 0 && <ImageGallery items={sliderImages} />}
+      </div>
 
-          <div className="miniImagesBoxS">
-            <button className="Btn" onClick={handlePrevious}>
-              {handleStaticTextLanguageChange(selectedLanguage).previous_button}
-            </button>
-            {sliderImages
-              .slice(carouselPosition, carouselPosition + 4) // Use carouselPosition here
-              .map((data, i) => (
-                <div className="thumbnail" key={i}>
-                  <img
-                    className={`${wordData.id === data.id ? "clicked" : ""} ${clickedIndex === i ? "enlarge" : ""
-                      }`}
-                    src={data.value}
-                    alt={`Complex ${data.id}`}
-                    onClick={() => handleClick(i + carouselPosition)}
-                    height="70"
-                    width="100"
-                  />
-                </div>
-              ))}
-            <button className="Btn" onClick={handleNext}>
-              {handleStaticTextLanguageChange(selectedLanguage).nex_button}
-            </button>
-          </div>
-        </div>
         {/* --------- */}
 
         {/* complex text info */}
