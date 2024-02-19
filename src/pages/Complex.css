@@ -387,6 +387,11 @@
   gap: 5px;
 }
 
+
+
+
+
+
 @media screen and (max-width: 500px) {
   .complex_page_div {
     margin-top: 15%;
@@ -406,9 +411,9 @@
   .ComplexBodyBox {
     padding: 20px;
   }
-  .mapAndLogoImg {
+  /* .mapAndLogoImg {
     display: none;
-  }
+  } */
   .filter_cont_for_complex {
     display: flex;
     flex-direction: column;
@@ -476,7 +481,6 @@
     flex-direction: row;
     display: block;
     align-items: center;
-    border: 2px solid blue;
     display: block;
   }
   .mapAndLogoImg {
@@ -529,6 +533,9 @@
   .motionBox {
     border: none;
   }
+  /* .mapAndLogoImg {
+    display: none;
+  } */
 }
 
 /* ---------- M O D A L S ------------ */

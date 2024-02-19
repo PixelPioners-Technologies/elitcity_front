@@ -11,8 +11,12 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 70px;
+  gap: 100px;
 }
+
+
+
+
 #lands_img {
   width: 700px;
   height: 450px;
@@ -102,6 +106,19 @@
   gap: 15px;
 }
 
+
+.image_galery_container{
+  width: 900px;
+
+}
+
+
+.image-gallery-image {
+  width: 100%; /* Stretch to the full width of its container */
+  height: 500px; /* Set a fixed height */
+  object-fit: cover; /* Cover the area without maintaining aspect ratio */
+}
+
 .seenIdFavouriteAndOthersBox2 {
   width: 100%;
   display: flex;
@@ -173,6 +190,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
+  padding: 0px 40px;
 }
 
 .paddingForEachComplexCardBox {
@@ -350,6 +368,8 @@
   width: 774px;
   height: 232px;
 }
+
+
 @media screen and (max-width: 500px) {
   .eachComplexBox3 {
     padding: 10px 0px;
@@ -358,6 +378,12 @@
     align-items: center;
   }
 
+  .image_galery_container{
+    width: 320px;
+    overflow: hidden;
+  }
+  
+  
   .allCards_physical_aa {
     /* width: 100%; */
     justify-content: center;
@@ -372,8 +398,10 @@
   #lands_img {
     width: 100%;
   }
+
   .complexTextsBox2 {
     width: 340px;
+    overflow: hidden;
   }
   .axloMdebareObieqtebiBox {
     flex-direction: column;
@@ -382,6 +410,8 @@
   .textBoxOfH4axloMdebareObieqtebi {
     text-align: center;
     width: 100%;
+    padding-left: 0;
+    gap: 10px;
   }
   .miniImagesBox2 {
     width: 300px;

@@ -34,6 +34,12 @@ import Arrows from "../assets/arrows.png";
 import Sort from "../assets/sort.png";
 import dollar_black from "../assets/dollar-svgrepo-com.svg";
 import lari_black from "../assets/lari-svgrepo-com.svg";
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
+
+
+
+
 
 const normalizeGroundData = (data, lang) => {
   return data.map((item) => ({

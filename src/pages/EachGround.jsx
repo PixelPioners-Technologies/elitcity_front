@@ -16,6 +16,9 @@ import ground_location_icon from "../location_icons/ground_location_icon.png";
 import heartIcon from "../assets/starLogo.svg";
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import ShareButton from "./Sheare";
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
+
 
 const normalizeGroundData = (data, lang) => {
   return {
@@ -78,12 +81,13 @@ export default function EachGround({
       const normadata = normalizeGroundData(data, selectedLanguage);
       setGround(normadata);
 
-      // Update sliderImages state with all images from the fetched data
-      const sliderImagesFromData = normadata.images.map((imgUrl, index) => ({
-        id: index,
-        value: imgUrl, // Directly using the URL from the JSON data
+      const imagesWithIds = normadata.images.map((image) => ({
+        original: image,// Use the actual property name for the full-size image URL
+        thumbnail: image, // Use the actual property name for the thumbnail image URL
       }));
-      setSliderImages(sliderImagesFromData); // Update the state
+
+
+      setSliderImages(imagesWithIds); // Update the state
       setWordData(sliderImagesFromData[0] || null); // Initialize with the first image or null if empty
     };
     fetcPrivateApartments();
@@ -236,55 +240,18 @@ export default function EachGround({
   return (
     <div className="eachComplexBox2">
       <div className="imageAndTextInfos2">
-        {/* <div className="carusel_buttons2"> */}
-          {/* <button className="Btn" onClick={handlePrevious} >
-            {handleStaticTextLanguageChange(selectedLanguage).previous_button}
-          </button> */}
-          {/* <button className="Btn" onClick={handleNext} >
-            {handleStaticTextLanguageChange(selectedLanguage).nex_button}
-          </button> */}
-        {/* </div> */}
-        {/* Complexes photos info */}
-        <div className="imageSliderBox6">
-          <div className="lands_image">
-            {wordData && ( // Check if wordData is not null/undefined before rendering
-              <img
-                id="lands_image"
-                src={wordData.value}
-                alt={`Complex ${wordData.id}`}
-                // height="450"
-                // width="711"
-                className={clickedIndex !== null ? "clicked" : ""}
-              />
-            )}
-          </div>
-
-          <div className="slide_style">
-            <button className="Btn" onClick={handlePrevious}>
-              {handleStaticTextLanguageChange(selectedLanguage).previous_button}
-            </button>
-            {sliderImages
-              .slice(carouselPosition, carouselPosition + 4) // Use carouselPosition here
-              .map((data, i) => (
-                <div className="thumbnail" key={i}>
-                  <img
-                    className={`${wordData.id === data.id ? "clicked" : ""} ${
-                      clickedIndex === i ? "enlarge" : ""
-                    }`}
-                    src={data.value}
-                    alt={`Complex ${data.id}`}
-                    onClick={() => handleClick(i + carouselPosition)}
-                    height="70"
-                    width="100"
-                  />
-                </div>
-              ))}
-
-            <button className="Btn" onClick={handleNext}>
-              {handleStaticTextLanguageChange(selectedLanguage).nex_button}
-            </button>
-          </div>
+        <div className="image_galery_container"  >
+          {sliderImages.length > 0 && <ImageGallery
+            items={sliderImages}
+            autoPlay={true}
+            slideInterval={3000}
+            thumbnailPosition="left"
+          />}
         </div>
+
+
+        {/* Complexes photos info */}
+
         {/* --------- */}
 
         {/* complex text info */}
@@ -300,50 +267,50 @@ export default function EachGround({
             <div className="favouriteDollarAndShareBox">
               {/* Star favourite box */}
               <button
-               
-                    key={ground.id}
-                    className="heartButtons"
-                    onClick={() => favoriteHandlerLots(ground)}
-                  >
-                    {favoritesLots.some((fav) => fav.id === ground.id) ? (
-                      <img src={heartIcon} alt="Logo of heart" />
-                    ) : (
-                      <img
-                        src={heartIconEmpty}
-                        alt="Logo of empty heart"
-                        style={{ width: "30px", height: "30px", border: '1px solid white' }}
-                      />
-                    )}
-                  </button>
+
+                key={ground.id}
+                className="heartButtons"
+                onClick={() => favoriteHandlerLots(ground)}
+              >
+                {favoritesLots.some((fav) => fav.id === ground.id) ? (
+                  <img src={heartIcon} alt="Logo of heart" />
+                ) : (
+                  <img
+                    src={heartIconEmpty}
+                    alt="Logo of empty heart"
+                    style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                  />
+                )}
+              </button>
 
 
-                {/* ----Dollar and Lari Toggle button */}
-                <div className="currencyBox__c">
-                  <div
-                    className="switch__c"
-                    data-ison={isOn}
-                    onClick={() => {
-                      toggleSwitch();
-                      HandleStateChange();
-                    }}
-                  >
-                    <motion.div className="handle__c" layout transition={spring}>
-                      <img
-                        src={lari}
-                        alt="Lari Sign"
-                        className={`currency-sign__c ${isOn ? "active" : ""}`}
-                      />
-                      <img
-                        src={dollar}
-                        alt="Dollar Sign"
-                        className={`currency-sign__c ${!isOn ? "active" : ""}`}
-                      />
-                    </motion.div>
-                  </div>
+              {/* ----Dollar and Lari Toggle button */}
+              <div className="currencyBox__c">
+                <div
+                  className="switch__c"
+                  data-ison={isOn}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
+                >
+                  <motion.div className="handle__c" layout transition={spring}>
+                    <img
+                      src={lari}
+                      alt="Lari Sign"
+                      className={`currency-sign__c ${isOn ? "active" : ""}`}
+                    />
+                    <img
+                      src={dollar}
+                      alt="Dollar Sign"
+                      className={`currency-sign__c ${!isOn ? "active" : ""}`}
+                    />
+                  </motion.div>
                 </div>
+              </div>
 
               {/* Share Button */}
-              <ShareButton  selectedLanguage={selectedLanguage}  />
+              <ShareButton selectedLanguage={selectedLanguage} />
             </div>
           </div>
 
@@ -359,10 +326,10 @@ export default function EachGround({
               {ground.address?.city} ,{ground.address?.streetName}{" "}
             </p>
             <p style={{ color: "#ccc", fontSize: "20px" }}>
-              {handleStaticTextLanguageChange(selectedLanguage).square_price}{ "  :  "}
+              {handleStaticTextLanguageChange(selectedLanguage).square_price}{"  :  "}
               {currenceChangeState
                 ? (Number(ground.squarePrice * getCorrencyRate)).toFixed(2)
-                : Number(ground.squarePrice).toFixed(2)} { isOn ? '  $  ' :  '  ₾  ' }
+                : Number(ground.squarePrice).toFixed(2)} {isOn ? '  $  ' : '  ₾  '}
             </p>
             <p style={{ color: "#C2BFBF" }}>
               {handleStaticTextLanguageChange(selectedLanguage).status}:{" "}
@@ -461,7 +428,7 @@ export default function EachGround({
                 key={ground.id}
                 position={{
                   lat: mapcenter.lat,
-                  lng:  mapcenter.lng
+                  lng: mapcenter.lng
                 }}
                 icon={{
                   url: ground_location_icon,

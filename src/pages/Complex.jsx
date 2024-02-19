@@ -931,6 +931,8 @@ export default function Complex({
                 >
                   <div className="mapAndLogoImg styles_for_top_map" >
                     <img
+
+                    
                       src={LocationIcon}
                       alt="mapSignLogo"
                       className="location_icon_respons"
