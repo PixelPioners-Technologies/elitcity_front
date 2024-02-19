@@ -49,11 +49,20 @@
 
 .aboud_and_map_child_container_P {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 70px;
   /* border: 4px solid blue; */
 }
+
+.about_private_apartment{
+  margin-bottom: 30px;
+}
+
+.for_footer_padding_phisycal{
+  padding-bottom:50px;
+}
+
 
 .about_land_header_P {
   margin-bottom: 20px;
@@ -67,7 +76,7 @@
 }
 
 .child_map_container_P {
-  width: 800px;
+  width: 900px;
   /* height: 200px; */
 }
 @media screen and (max-width: 500px) {
@@ -83,6 +92,11 @@
     /* padding-bottom: 10px; */
 
   }
+
+.for_footer_padding_phisycal{
+  padding-bottom: 450px;
+}
+
   .aboud_and_map_child_container_P {
     flex-direction: column;
     /* border: 1px solid red; */
