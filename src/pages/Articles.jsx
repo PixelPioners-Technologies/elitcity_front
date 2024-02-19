@@ -43,7 +43,7 @@ export default function Articles({ selectedLanguage }) {
   };
 
   return (
-    <div className="ArticlesPageBox">
+    <div className="ArticlesPageBox" >
       {/* habflsdfndbfd */}
       {articles.map((article, index) => (
         <motion.div

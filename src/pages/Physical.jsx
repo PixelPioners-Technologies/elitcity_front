@@ -35,8 +35,6 @@ import LocationIcon from "../assets/locationIcon.png";
 import dollar_black from "../assets/dollar-svgrepo-com.svg";
 import lari_black from "../assets/lari-svgrepo-com.svg";
 
-
-
 const normalizePrivateApartmentData = (data, lang) => {
   return data.map((item) => ({
     id: item.id,
@@ -911,9 +909,6 @@ export default function Physical({
 
   return (
     <div className="ComplexBodyBox_physical">
-      {/* <div className="filter_div_for_sort_icon">
-        <img onClick={toggleSort} className="filter_image" src={Filter} alt="" />
-      </div> */}
       <div className="private_filter_conteiner one">
         <motion.div
           initial={{ y: 100, opacity: 0 }}
@@ -921,12 +916,10 @@ export default function Physical({
           transition={{ duration: 1 }}
           className="oneo"
         >
-          {/* className="filter_cont_for_physical " */}
-
           <div
             className={openSort ? "filter_cont_for_physicaly" : "close_sort"}
           >
-            {/* button for filtering space */}
+            <div className="column_for_physical">
             <div className="button-modal-container ">
               <div onClick={handle_P_SpaceButtonClick} className="space_button">
                 {
@@ -980,10 +973,11 @@ export default function Physical({
                     {NUMBER_OF_ROOM_CHOICES.map((choice) => (
                       <React.Fragment key={choice.value}>
                         <label
-                          className={`checkbox-label ${selectedRoomNumbers.includes(choice.value)
-                            ? "selected"
-                            : ""
-                            }`}
+                          className={`checkbox-label ${
+                            selectedRoomNumbers.includes(choice.value)
+                              ? "selected"
+                              : ""
+                          }`}
                           onClick={() => handleRoomNumberChange(choice.value)}
                         >
                           {choice.label}
@@ -994,7 +988,7 @@ export default function Physical({
                           name="number_of_rooms"
                           value={choice.value}
                           checked={selectedRoomNumbers.includes(choice.value)}
-                          onChange={() => { }}
+                          onChange={() => {}}
                           style={{ display: "none" }}
                         />
                       </React.Fragment>
@@ -1014,7 +1008,6 @@ export default function Physical({
                 </button>
               </P_SpaceModal>
             </div>
-
             {/* button for filtering price  */}
             <div className="button-modal-container">
               <div onClick={handle_P_PriceButtonClick} className="space_button">
@@ -1056,26 +1049,25 @@ export default function Physical({
                           <img
                             src={lari_black}
                             alt="Lari Sign"
-                            className={`currency-sign_homepage ${isOn ? "active" : ""
-                              }`}
+                            className={`currency-sign_homepage ${
+                              isOn ? "active" : ""
+                            }`}
                           />
                           <img
                             src={dollar_black}
                             alt="Dollar Sign"
-                            className={`currency-sign_homepage ${!isOn ? "active" : ""
-                              }`}
+                            className={`currency-sign_homepage ${
+                              !isOn ? "active" : ""
+                            }`}
                           />
                         </motion.div>
                       </div>
                     </div>
-
                   </div>
-
 
                   {/* pirveli inputi  */}
                   <div className="inputInlineDispley dabla">
                     <div className="for_dolar_and_lari">
-
                       <input
                         type="number"
                         className="filter_inputs"
@@ -1090,12 +1082,10 @@ export default function Physical({
                         alt="lari"
                         className="currency-sign_homepage_11"
                       />
-
                     </div>
 
                     {/* meore inputi  */}
                     <div className="for_dolar_and_lari">
-
                       <input
                         type="number"
                         className="filter_inputs"
@@ -1111,7 +1101,6 @@ export default function Physical({
                         className="currency-sign_homepage_11"
                       />
                     </div>
-
                   </div>
 
                   <div className="meterPriceHomePageComplex">
@@ -1124,7 +1113,6 @@ export default function Physical({
                   {/* mesame inputi  */}
                   <div className="inputInlineDispley dabla">
                     <div className="for_dolar_and_lari">
-
                       <input
                         type="number"
                         className="filter_inputs"
@@ -1143,7 +1131,6 @@ export default function Physical({
 
                     {/* meotxe inputi  */}
                     <div className="for_dolar_and_lari">
-
                       <input
                         type="number"
                         className="filter_inputs"
@@ -1159,9 +1146,7 @@ export default function Physical({
                         className="currency-sign_homepage_11"
                       />
                     </div>
-
                   </div>
-
                 </div>
                 <button
                   className="modal_close_button"
@@ -1174,7 +1159,6 @@ export default function Physical({
                 </button>
               </P_PriceModal>
             </div>
-
             {/* button for locations */}
             <div className="button-modal-container">
               <div onClick={handleShowModal} className="lacation_button">
@@ -1192,7 +1176,6 @@ export default function Physical({
                 {renderModalContent()}
               </P_Modal>
             </div>
-
             {/* button for status */}
             <div className="button-modal-container">
               <div
@@ -1222,7 +1205,6 @@ export default function Physical({
                 </button>
               </P_StatusModal>
             </div>
-
             {/* for searching with string*/}
             <div className="button-modal-container">
               <div className="lacation_button">
@@ -1245,7 +1227,31 @@ export default function Physical({
                 />
               </div>
             </div>
+            </div>
             {/*serach  Button */}
+            <div className="map_search_buttons">
+            <Link to="/map">
+                <motion.div
+                  className="textButtonContainer noneBut physical_map_box"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <div className="mapAndLogoImg physical_style_map">
+                    <img
+                      src={LocationIcon}
+                      alt="mapSignLogo"
+                      className="location_icon_respons"
+                    />
+                    <button className="textButton">
+                      {
+                        handle_P_StatusButtonLanguageChange(selectedLanguage)
+                          .map
+                      }
+                    </button>
+                  </div>
+                </motion.div>
+              </Link>
             <div
               className="all_search_button"
               onClick={habdle_Search_Button_Click}
@@ -1254,6 +1260,7 @@ export default function Physical({
                 handle_P_StatusButtonLanguageChange(selectedLanguage)
                   .allFindButtonLanguage
               }
+            </div>
             </div>
           </div>
         </motion.div>
@@ -1550,14 +1557,16 @@ export default function Physical({
                     <img
                       src={lari_black}
                       alt="Lari Sign"
-                      className={`currency-sign_physical ${isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        isOn ? "active" : ""
+                      }`}
                     />
                     <img
                       src={dollar_black}
                       alt="Dollar Sign"
-                      className={`currency-sign_physical ${!isOn ? "active" : ""
-                        }`}
+                      className={`currency-sign_physical ${
+                        !isOn ? "active" : ""
+                      }`}
                     />
                   </motion.div>
                 </div>
@@ -1623,8 +1632,8 @@ export default function Physical({
                 <p className="price_settings" style={styles.complexInfo}>
                   {currenceChangeState
                     ? (
-                      Number(prev_apartments.squarePrice) * getCorrencyRate
-                    ).toFixed(2)
+                        Number(prev_apartments.squarePrice) * getCorrencyRate
+                      ).toFixed(2)
                     : Number(prev_apartments.squarePrice).toFixed(2)}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>

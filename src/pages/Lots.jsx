@@ -930,7 +930,7 @@ export default function Physical({
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <div className="filter_cont_for_physical ">
+          <div className="filter_cont_for_physical flex_lots ">
             {/* button for filtering space */}
             <div className="button-modal-container ">
               <div onClick={handle_P_SpaceButtonClick} className="space_button">

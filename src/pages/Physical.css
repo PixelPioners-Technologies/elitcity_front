@@ -131,11 +131,20 @@
 }
 
 /* ----------------------------------filter container  styles ---------------------------------------------- */
-.filter_cont_for_physical {
+.close_sort{
+  /* border: 1px solid red; */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
+}
+.map_search_buttons{
+  width: 60%;
+  display: flex;
+  gap: 15px;
+  justify-content: end;
+  /* border: 2px solid green; */
 }
 
 /* ------------------------------------------------------------------------------------------------------------- */
@@ -326,8 +335,31 @@ input[type="checkbox"] {
 .noneWeb {
   display: none;
 }
+.column_for_physical{
+  /* background-origin: 1px solid red; */
+  display: flex;
+  gap: 15px;
+  /* flex-direction: column; */
+}
+.physical_map_box{
+  border: 1px solid gray;
+  width: 140px;
+  
+}
+.physical_style_map{
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  height: 33px;
+  /* flex-direction: column; */
+}
 
 @media screen and (max-width: 500px) {
+  .column_for_physical{
+    flex-direction: column;
+    align-items: start;
+  }
+
   .googleMapImage_physical {
     width: 100px;
   }
@@ -417,6 +449,7 @@ input[type="checkbox"] {
     gap: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   .gap_box {
     padding-bottom: 0;
@@ -439,5 +472,14 @@ input[type="checkbox"] {
   }
   .private_apartment_rank {
     margin-top: -3px;
+  }  
+  .map_search_buttons{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .physical_map_box{
+    display: block;
   }
 }

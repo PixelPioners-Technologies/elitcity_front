@@ -66,6 +66,7 @@
   display: none;
 }
 .mapAndLogoImg {
+  /* border: 1px solid blue; */
   display: flex;
   align-items: center;
   gap: 7px;

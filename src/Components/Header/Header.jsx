@@ -24,7 +24,9 @@ export default function Header({
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+const closeBurgerMenu = () => {
+  setIsMenuOpen(!isMenuOpen)
+}
   //   const closeSort = () => {
   //     if (isMenuOpen) {
   //       setIsMenuOpen(false);
