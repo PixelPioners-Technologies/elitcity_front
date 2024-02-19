@@ -9,3 +9,10 @@
 .modal-overlay.open {
   display: block; /* Show when the modal is open */
 }
+
+
+
+
+.make_thinner{
+  width: 200px;
+}
