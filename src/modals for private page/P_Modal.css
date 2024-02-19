@@ -39,7 +39,7 @@
     background-color: black;
     border-width: 0.5px;
     border-style: solid; /* This line is necessary */
-    border-color: aliceblue;
+    border-color: black !important;
   }
 
 

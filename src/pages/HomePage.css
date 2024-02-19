@@ -11,17 +11,13 @@
   margin-top: 150px;
 }
 
-
-.location_icon_respons{
+.location_icon_respons {
   width: 15px;
   height: 20px;
   margin-left: -10px;
-/* border: 1px solid red; */
-  /* display: none; */
 }
 .adgilicomportistvis {
   text-align: center;
-  /* font-weight: 400; */
   font-size: 48px;
   line-height: 52.22px;
   letter-spacing: 10%;
@@ -43,28 +39,23 @@
   padding: 10px 20px;
   text-transform: uppercase;
   font-weight: bold;
-  /* border-radius: 5px; */
   font-size: 16px;
   cursor: pointer;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   transition: background-color 0.3s ease;
   align-items: end;
   margin: 0 10px;
-  /* margin-top: 0px; */
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* border: 1px solid red; */
   gap: 10px;
-  
-
 }
-.homepage_map_link{
+.homepage_map_link {
   width: 120px;
 }
 .homepage_map_link:hover,
 .homepage_serch_button:hover {
-  background-color: transparent; /* Color when hovered, adjust as needed */
+  background-color: transparent;
   color: black;
 }
 .button-container {
@@ -111,24 +102,18 @@
 }
 
 .min_price_homePage {
-  /* border: 3px solid blue; */
   display: flex;
   flex-direction: row;
   align-items: center;
   color: #ffffff;
   width: 150px;
-  /* background-color: transparent; */
   border-style: hidden;
-  /* border: 3px solid transparent; */
   background-color: transparent;
   padding: 10px;
-  /* border-radius: 5px; */
-  /* margin-left: 10px; */
 }
 .min_price_homePage:focus {
   outline: none;
   border: none;
-  /* box-shadow: 0 0 5px rgb(161, 193, 202); */
 }
 .min_price_homePage::placeholder {
   font-size: 15px;
@@ -148,13 +133,11 @@
   padding-top: 25px;
 }
 
-.inputInlineDispley{
+.inputInlineDispley {
   display: flex;
   gap: 20px;
   margin-top: 15px;
-  /* border: 1px solid green; */
   width: 100%;
-  /* width: 200px; */
 }
 
 /* -------------------------------space button stules ------------------------------------------- */
@@ -230,7 +213,6 @@
   left: 0;
   height: 1em;
   width: 1em;
-  /* border-radius: 50%; */
   border: 4px;
   border-color: #fff;
   background-color: #ffffff;
@@ -271,35 +253,26 @@
   margin-left: 20px;
 }
 @media screen and (max-width: 500px) {
-  .home_page_etyle{
+  .home_page_etyle {
     padding: 15px;
-    /* border: 1px solid red; */
-    /* gap: 0; */
   }
-  .button_flex{
-    /* border: 1px solid green; */
+  .button_flex {
     margin-top: 50px;
-    /* display: flex;
-    flex-direction: row;
-    align-items: center; */
-
   }
 
-.dabla{
-  display: contents;
-}
+  .dabla {
+    display: contents;
+  }
 
-  .location_icon_respons{
+  .location_icon_respons {
     width: 15px;
     height: 20px;
     display: block;
   }
-  .row_butt{
+  .row_butt {
     width: 100px;
-    /* border: 1px solid red; */
     display: flex;
     align-items: center;
-    /* align-items: start; */
     gap: 10px;
     padding-left: 17px;
     padding-right: 20px;
@@ -315,9 +288,6 @@
   }
   .adgilicomportistvis {
     font-size: 20px;
-    /* margin-bottom: 50px; */
-    /* border: 1px solid red; */
-    /* margin-top: 10px; */
   }
   .title_filter_cont {
     margin-top: 50px;
@@ -329,9 +299,6 @@
     padding-left: 0%;
     margin-top: 0;
     gap: 20px;
-    /* font-size: 15px; */
-    /* margin-top: 40px; */
-    /* border:1px solid red; */
   }
   .min_price_homePage::-webkit-outer-spin-button,
   .min_price_homePage::-webkit-inner-spin-button {
@@ -347,6 +314,10 @@
   .min_price_homePage::-ms-clear {
     display: none;
   }
+  #inputForComp {
+    display: flex;
+    flex-direction: column !important;
+  }
 }
 .min_price_homePage::-webkit-outer-spin-button,
 .min_price_homePage::-webkit-inner-spin-button {
@@ -363,19 +334,11 @@
   display: none;
 }
 
-
-
-/* Remove spin buttons for Webkit browsers like Chrome and Safari */
 .min_price_homePage::-webkit-outer-spin-button,
 .min_price_homePage::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
-/* Remove spin buttons for Mozilla Firefox */
-
-
-/* Remove spin buttons for MS Edge */
 .min_price_homePage::-ms-clear,
 .min_price_homePage::-ms-reveal {
   display: none;
@@ -383,103 +346,59 @@
   height: 0;
 }
 
-
-.for_dolar_and_lari{
-  /* position: relative; */
-  /* border: 1px solid red; */
+.for_dolar_and_lari {
   display: flex;
   align-items: center;
-  /* border: 1.5px solid #ada9a9;
-  mix-blend-mode: hard-light;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
   padding-right: 5px;
-  /* gap: 3px; */
 }
-
-
-/* Remove spin buttons and clear button for Internet Explorer */
 .min_price_homePage::-ms-clear {
   display: none;
-  /* border: 10px solid green; */
 }
-
-
 .currency-sign_homepage_11 {
-  width: 17px; /* Adjust width as needed */
+  width: 17px;
   height: auto;
-  /* margin-right: 0px;  */
-  /* position: absolute; */
-  /* left: 184px; */
-  /* top: 12px; */
-
 }
-
 .currency-sign_homepage_11.active {
-
-  display: none; /* Hide inactive currency sign */
+  display: none;
 }
-
-
-
-
-
 
 /* --------------------------------------------------currency styles  -------------------------------------------- */
 
 .currencyBox_homepage {
-  /* height: 50px; */
   display: flex;
   align-items: center;
-
-
 }
-
-/* classes of toggle button on currency --- */
 .switch_homepage {
   width: 70px;
   height: 30px;
-  /* background-color: rgba(255, 255, 255, 0.4); */
   background-color: none;
-
   display: flex;
-  justify-content: flex-start;  
+  justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
-
-  /* border: 1px solid red; */
-  /* border-radius: 50px; */
   padding: 10px;
   cursor: pointer;
-  /* border-radius: 50px; */
 }
-
-
-
 .switch_homepage[data-ison="true"] {
   justify-content: flex-end;
 }
-
 .handle_homepage {
   width: 25px;
   height: 25px;
   background-color: white;
-  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .currency-sign_homepage {
-  width: 17px; /* Adjust width as needed */
+  width: 17px;
   height: auto;
-  margin-right: 0px; /* Add spacing between the images */
+  margin-right: 0px;
 }
-
 .currency-sign_homepage.active {
-
-  display: none; /* Hide inactive currency sign */
+  display: none;
 }
 /* ------------- */
-  .min_price_homePage{
-    width: 100px;
-  }
+.min_price_homePage {
+  width: 100px;
+}

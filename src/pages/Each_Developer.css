@@ -1,19 +1,15 @@
-
 .company_page {
   width: 100%;
   color: aliceblue;
-  /* border: 1px solid red; */
 }
 .company_main_page {
   width: 100%;
-  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .company_background_image_container {
   width: 100%;
-  /* border: 1px solid rgb(251, 255, 0); */
   position: relative;
   background-size: cover;
 }
@@ -26,7 +22,6 @@
   display: flex;
   align-items: start;
   justify-content: start;
-  /* border: 1px solid red; */
   position: relative;
   top: -100px;
 }
@@ -39,15 +34,12 @@
   width: 100%;
   display: flex;
   justify-content: end;
-  /* align-items: end; */
-  /* border: 2px solid green; */
   margin-top: -60px;
   position: relative;
   top: -110px;
 }
 .cpmpany_name_and_settings {
   width: 87%;
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -55,36 +47,27 @@
   gap: 25px;
 }
 .all_settings_company_1 {
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   align-items: start;
   gap: 15px;
 }
 .socials_box {
-  /* border: 1px solid red; */
   width: 70%;
   height: 100px;
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
-  /* padding: 0; */
   justify-content: space-around;
-  /* border: 1px solid gray; */
-  /* border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1; */
 }
 .about_each_company {
   width: 100%;
   padding: 40px;
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
-  /* align-items: ; */
   margin-top: -50px;
   gap: 30px;
 }
 .currency_and_allcomplex_header {
-  /* border: 2px solid red; */
   display: flex;
   align-items: center;
   gap: 60px;
@@ -94,13 +77,10 @@
   font-weight: 300;
 }
 .email_and_website_container {
-  /* margin-top: 40px; */
-  /* margin-left: 35px; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
-  /* border: 1px solid red; */
 }
 .company_all_logos {
   width: 33px;
@@ -116,7 +96,6 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  /* padding: 0 30px; */
   gap: 40px;
   margin-top: 50px;
   margin-bottom: 100px;
@@ -125,10 +104,8 @@
 .card_each_company {
   width: 315px;
   height: 400px;
-  /* background-color: #C1D6CC; */
   background-color: black;
   border: 1px solid white;
-  /* border-radius: 20px; */
   overflow: hidden;
   padding: 20px 20px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
@@ -180,38 +157,28 @@
 
 .companys_complexes_container {
   padding: 40px;
-  /* border: 1px solid red; */
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   flex-wrap: wrap;
 }
 
 /* --------------------------------------------------currency styles  -------------------------------------------- */
 
 .currencyBox {
-  /* height: 50px; */
   display: flex;
   align-items: center;
 }
-
-/* classes of toggle button on currency --- */
 .switch {
-  width: 80px;
-  height: 40px;
-  /* background-color: rgba(255, 255, 255, 0.4); */
+  width: 70px;
+  height: 30px;
   background-color: black;
 
   display: flex;
   justify-content: flex-start;
   align-items: center;
   border: 1px solid white;
-
-  /* border: 1px solid red; */
-  /* border-radius: 50px; */
   padding: 10px;
   cursor: pointer;
-  /* border-radius: 50px; */
 }
 
 .switch[data-ison="true"] {
@@ -219,30 +186,25 @@
 }
 
 .handle {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   background-color: white;
-  /* border-radius: 40px; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .currency-sign {
-  width: 20px; /* Adjust width as needed */
+  width: 20px; 
   height: auto;
   margin-right: 0px; 
 }
 
 .currency-sign.active {
-  display: none; /* Hide inactive currency sign */
+  display: none; 
 }
 /* ------------- */
 
 @media screen and (max-width: 500px) {
-  .company_page {
-    border: 1px solid red;
-  }
   .company_main_page {
     width: 100%;
   }
@@ -252,36 +214,26 @@
   .responsive_logo {
     top: -60px;
     justify-content: center;
-    /* border: 1px solid red; */
   }
   .company_logo_round {
     width: 100px;
     height: 100px;
   }
   .colo_name_and_others {
-    /* width: 60px; */
-    /* border: 1px solid green; */
     margin-top: 40px;
-    
   }
   .cpmpany_name_and_settings {
-    /* border: 1px solid gold; */
-    /* top: -80px; */
     height: 200px;
     width: 100%;
     justify-content: space-between;
     padding: 15px;
-    /* gap: 160px; */
   }
   .socials_box {
     flex-direction: column;
-    /* border: 1px solid rgb(25, 0, 255); */
-    /* width: ; */
     gap: 4px;
   }
   .all_settings_company_1 {
     width: 100%;
-    border: 1px solid red;
     font-size: px;
   }
   .colo_name_and_others {
@@ -299,17 +251,14 @@
     justify-content: space-between;
   }
   .companys_complexes_container{
-    /* border: 1px solid red; */
     padding: 0;
   }
   .allCards_each_company {
-    /* border: 1px solid red; */
     justify-content: center;
     margin-top: 20px;
   }
   .card{
     padding: 15px;
-    /* border: 1px solid red; */
   }
   .heartButtonBox_each_company {
     width: 98%;
