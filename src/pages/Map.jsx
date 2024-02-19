@@ -375,13 +375,13 @@ export default function Map({
     selectedCity,
     selectedPharentDistricts,
     selectedDistricts,
-    minPricePerSquareMeter,
-    converted_complex_max_fullprice,
-    maxPricePerSquareMeter,
+    // minPricePerSquareMeter,
+    converted_complex_min_squarePrice,
+    // maxPricePerSquareMeter,
     converted_complex_max_squarePrice,
-    minFullPrice,
+    // minFullPrice,
     converted_complex_min_fullprice,
-    maxFullPrice,
+    // maxFullPrice,
     converted_complex_max_fullprice,
     selectedStatuses,
     ascendentPrice,
@@ -458,16 +458,16 @@ export default function Map({
     selectedPharentDistricts,
     selectedDistricts,
 
-    min_square_price,
+    // min_square_price,
     converted_min__P_apartment_squarePrice,
 
-    max_square_price,
+    // max_square_price,
     converted_max__P_apartment_squarePrice,
 
-    minFullPrice,
+    // minFullPrice,
     converted_min__P_apartment_fullPrice,
 
-    maxFullPrice,
+    // maxFullPrice,
     converted_max__P_apartment_fullPrice,
 
     selectedStatuses,
@@ -517,17 +517,16 @@ export default function Map({
     selectedDistricts,
     min_ground_area,
     max_ground_area,
-
-    min_graund_full_price,
+    // min_graund_full_price,
     converted_min_ground_fullPrice,
 
-    max_ground_fill_price,
+    // max_ground_fill_price,
     converted_max_ground_fullPrice,
 
-    min_graund_square_price,
+    // min_graund_square_price,
     converted_min_ground_square_price,
 
-    max_ground_square_price,
+    // max_ground_square_price,
     converted_max_ground_square_price,
 
     graundStatus,
