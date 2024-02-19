@@ -104,7 +104,7 @@
 }
 .mapSignLogo {
   width: 30px;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 .sortAndArrowDownImgBox {
   display: flex;
@@ -382,6 +382,7 @@
 .price_and_its_value{
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   gap: 5px;
 }
 

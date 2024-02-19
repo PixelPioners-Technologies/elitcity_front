@@ -18,11 +18,15 @@
   padding: 20px 20px;
   border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
 }
+.modal-content_sale {
+  margin-top: 15%;
+
+}
 @media screen and (max-width:500px) {
   .modal-content_sale {
     width:340px;
     padding: 5px;
-    margin-top: 18%;
+    margin-top: 15%;
   }
   
 }

@@ -1526,7 +1526,6 @@ export default function Physical({
                 <img
                   src={prev_apartments.images[0]}
                   alt={prev_apartments.name}
-                  style={styles.imageStyles}
                   onClick={() => handleAppartmentClick(prev_apartments.id)}
                   className="backImg"
                 />
@@ -1634,15 +1633,9 @@ export default function Physical({
 
 const styles = {
   imageStyles: {
-    // width: "258px",
-    // height: "150px",
     overflow: "hidden",
-    // borderRadius: "20px",
   },
   companyTitle: {
-    // position: 'absolute',
-    // top: '262px',
-    // paddingLeft: '20px'
     color: "white",
     fontSize: "16px",
   },

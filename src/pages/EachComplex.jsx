@@ -1178,13 +1178,19 @@ export default function EachComplex({
                             className="company_title"
                             style={styles.companyTitle}
                           >
-                            {prev_apartments?.internalApartmentName?.full_price}
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
-                          <img
-                            src={mew_dolar_white}
-                            alt="dollar signe"
-                            className="dola_apartment_card"
-                          />
                         </div>
                       </div>
 
@@ -1351,13 +1357,19 @@ export default function EachComplex({
                             className="company_title"
                             style={styles.companyTitle}
                           >
-                            {prev_apartments?.internalApartmentName?.full_price}
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
-                          <img
-                            src={mew_dolar_white}
-                            alt="dollar signe"
-                            className="dola_apartment_card"
-                          />
                         </div>
                       </div>
 
@@ -1524,13 +1536,19 @@ export default function EachComplex({
                             className="company_title"
                             style={styles.companyTitle}
                           >
-                            {prev_apartments?.internalApartmentName?.full_price}
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
-                          <img
-                            src={mew_dolar_white}
-                            alt="dollar signe"
-                            className="dola_apartment_card"
-                          />
                         </div>
                       </div>
 
@@ -1698,7 +1716,19 @@ export default function EachComplex({
                             className="company_title"
                             style={styles.companyTitle}
                           >
-                            {prev_apartments?.internalApartmentName?.full_price}
+                            {/* {prev_apartments?.internalApartmentName?.full_price} */}
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
                           <img
                             src={mew_dolar_white}
@@ -1872,13 +1902,21 @@ export default function EachComplex({
                             className="company_title"
                             style={styles.companyTitle}
                           >
-                            {prev_apartments?.internalApartmentName?.full_price}
+                            {/* {prev_apartments?.internalApartmentName?.full_price} */}
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
-                          <img
-                            src={mew_dolar_white}
-                            alt="dollar signe"
-                            className="dola_apartment_card"
-                          />
+                          {/* <img src={mew_dolar_white} alt="dollar signe" className="dola_apartment_card" /> */}
                         </div>
                       </div>
 
@@ -2048,13 +2086,20 @@ export default function EachComplex({
                             className="company_title"
                             style={styles.companyTitle}
                           >
-                            {prev_apartments?.internalApartmentName?.full_price}
+                            {/* {prev_apartments?.internalApartmentName?.full_price} */}
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
-                          <img
-                            src={mew_dolar_white}
-                            alt="dollar signe"
-                            className="dola_apartment_card"
-                          />
                         </div>
                       </div>
 

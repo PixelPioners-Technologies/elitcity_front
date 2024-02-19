@@ -1302,7 +1302,8 @@ export default function Complex({
                           ).toFixed(2)
                         : Number(
                             complex.complexDetails.pricePerSqMeter
-                          ).toFixed(2)}
+                          ).toFixed(2)}{" "}
+                      {isOn ? "  $  " : "  ₾  "}
                     </p>
                   </div>
                   <p

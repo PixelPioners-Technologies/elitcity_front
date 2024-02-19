@@ -45,6 +45,7 @@
   justify-content: space-around;
   align-items: center;
   gap: 10px;
+  margin-right: 80px;
 }
 
 
@@ -53,3 +54,24 @@
 }
 
 
+@media screen and (max-width: 500px) {
+
+.footer_settings_container{
+  flex-direction: column;
+  
+}
+
+.footer_stting{
+  margin-bottom: 30px;
+}
+
+.name_and_facebook{
+  justify-content: center;
+  gap: 20px;
+}
+.website_links_container{
+  margin-right: 0px;
+}
+
+
+}

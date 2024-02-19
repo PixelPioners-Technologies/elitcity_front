@@ -2,7 +2,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./Map.css";
 import {
@@ -28,6 +29,7 @@ import G_PriceModal from "../modals for ground filters/G_PriceModal";
 import G_SpaceModal from "../modals for ground filters/G_SpaceModal";
 import G_StatusModal from "../modals for ground filters/G_StatusModa";
 import { BaseURLs } from "../App";
+import Sort from "../assets/sort.png";
 
 const initialCenter = {
   lat: 41.7151,
@@ -2550,21 +2552,21 @@ export default function Map({ selectedLanguage }) {
     return <div>Loading...</div>;
   }
 
-  // export const YourComponent = () => {
-  //   const [isMapContVisible, setMapContVisible] = useState(false);
+  // const [openSortComp, setOpenComp] = useState(false);
 
-  //   const handleFilterChangeModalClick = () => {
-  //     setMapContVisible(!isMapContVisible); // Toggle visibility of map_cont
-  //   };
-  // // ---------------------------------------------------------------------------------------------------------------------
+  // const sortOpen = () => {
+  //   setOpenComp(!openSortComp);
+  // };
+
   return (
     <div className="main_map">
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 1 }}
+        // className={openMapFilter ? "show_map_filter" : "closeMapSort"}
       >
-        <div className="filtetmethods_and_filters">
+        <div className="filtetmethods_and_filters closeMapSort">
           <div className="filter_methods_container">
             {/* modal for filtering method changing */}
             <div className="button-modal-container category_button">
@@ -2603,77 +2605,110 @@ export default function Map({ selectedLanguage }) {
         </div>
       </motion.div>
 
-      <div className="toggle-button-container"></div>
-
-      <div className="map_cont scale-up-hor-center">
-        <GoogleMap
-          mapContainerStyle={{ width: "100%", height: "625px" }}
-          center={mapCenter}
-          zoom={zoomLevel}
-          onLoad={handleLoad}
-          onZoomChanged={handleZoomChanged}
-          options={{
-            gestureHandling: "greedy",
-          }}
-        >
-          {renderMarkers()}
-        </GoogleMap>
-      </div>
-      <div className="legend_contained scale-up-hor-center">
-        <div className="child_legend_cont" onClick={handle_red_markerClick}>
-          <img src={red} alt="location icon" className="loc_icon" />
-          <p>
-            {" "}
-            {
-              handleStatusButtonLanguageChange(selectedLanguage)
-                .legendUnderPlanning
-            }{" "}
-          </p>
+      <div className="column_reverse_map">
+        <div className="map_cont scale-up-hor-center">
+          <GoogleMap
+            mapContainerStyle={{ width: "100%", height: "625px" }}
+            center={mapCenter}
+            zoom={zoomLevel}
+            onLoad={handleLoad}
+            onZoomChanged={handleZoomChanged}
+            options={{
+              gestureHandling: "greedy",
+            }}
+          >
+            {renderMarkers()}
+          </GoogleMap>
         </div>
+        <div className="legend_contained scale-up-hor-center">
+          <div className="space_between">
+            <div className="flex_start">
+              <div
+                className="child_legend_cont"
+                onClick={handle_red_markerClick}
+              >
+                <img src={red} alt="location icon" className="loc_icon" />
+                <p>
+                  {" "}
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .legendUnderPlanning
+                  }{" "}
+                </p>
+              </div>
 
-        <div className="child_legend_cont" onClick={handle_yelow_markerClick}>
-          <img src={yelow} rel="location icon" className="loc_icon" />
-          <p>
-            {" "}
-            {
-              handleStatusButtonLanguageChange(selectedLanguage)
-                .legendUnderConstructioin
-            }{" "}
-          </p>
-        </div>
+              <div
+                className="child_legend_cont"
+                onClick={handle_yelow_markerClick}
+              >
+                <img src={yelow} rel="location icon" className="loc_icon" />
+                <p>
+                  {" "}
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .legendUnderConstructioin
+                  }{" "}
+                </p>
+              </div>
 
-        <div className="child_legend_cont" onClick={handle_green_markerClick}>
-          <img src={green} rel="location icon" className="loc_icon" />
-          <p>
-            {" "}
-            {handleStatusButtonLanguageChange(selectedLanguage).legendComplited}
-          </p>
-        </div>
+              <div
+                className="child_legend_cont"
+                onClick={handle_green_markerClick}
+              >
+                <img src={green} rel="location icon" className="loc_icon" />
+                <p>
+                  {" "}
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .legendComplited
+                  }
+                </p>
+              </div>
 
-        <div
-          className="child_legend_cont"
-          onClick={handle_PApartmentMarkerClick}
-        >
-          <img
-            src={apartment_market}
-            rel="location icon"
-            className="loc_icon"
-          />
-          <p>
-            {" "}
-            {
-              handleStatusButtonLanguageChange(selectedLanguage)
-                .privateApartmebt
-            }
-          </p>
-        </div>
+              <div
+                className="child_legend_cont"
+                onClick={handle_PApartmentMarkerClick}
+              >
+                <img
+                  src={apartment_market}
+                  rel="location icon"
+                  className="loc_icon"
+                />
+                <p>
+                  {" "}
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .privateApartmebt
+                  }
+                </p>
+              </div>
 
-        <div className="child_legend_cont" onClick={handle_Ground_MarkerClick}>
-          <img src={ground_marker} rel="location icon" className="loc_icon" />
-          <p>
-            {" "}
-            {handleStatusButtonLanguageChange(selectedLanguage).groundMarkers}
-          </p>
+              <div
+                className="child_legend_cont"
+                onClick={handle_Ground_MarkerClick}
+              >
+                <img
+                  src={ground_marker}
+                  rel="location icon"
+                  className="loc_icon"
+                />
+                <p>
+                  {" "}
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .groundMarkers
+                  }
+                </p>
+              </div>
+            </div>
+            <div className="map_sort_icon">
+              <img
+                src={Sort}
+                style={{ width: "20px", height: "25px" }}
+                alt="/"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
