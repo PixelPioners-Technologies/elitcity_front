@@ -685,22 +685,22 @@ function App() {
     // First timer to open the modal after 10 seconds
     const timer1 = setTimeout(() => {
       setIsCallModalOpen(true);
-    }, 60000); // 10 seconds
+    },  600000); 
 
     // Second timer to close and then reopen the modal after 20 seconds
     const timer2 = setTimeout(() => {
       setIsCallModalOpen(false); // Close the modal first to create a noticeable effect
       setTimeout(() => setIsCallModalOpen(true), 200); // Reopen it shortly after closing for user notice
-    }, 120000); // 20 seconds
+    }, 1200000);
 
     // Cleanup function to clear both timers if the component unmounts
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, []); // Empty dependency array means this effect runs once after initial render
-  // Empty dependency array means this effect runs once after initial render
-  // Empty dependency array means this effect runs once after initial render
+  }, []); 
+
+
 
   const handleCloseCallModal = () => {
     setIsCallModalOpen(false);
@@ -723,6 +723,7 @@ function App() {
       other: "Other",
       send: "Send",
       sheet_send: "Information sent successfully!",
+      email :  "Email"
     };
 
     switch (lang) {
@@ -735,6 +736,8 @@ function App() {
         languageInfo.other = "Other";
         languageInfo.send = "Send";
         languageInfo.sheet_send = "Information sent successfully!";
+        languageInfo.email = "Email";
+
 
         break;
 
@@ -747,6 +750,8 @@ function App() {
         languageInfo.other = "სხვა";
         languageInfo.send = "გაგზავნა";
         languageInfo.sheet_send = "ინფორმაცია წარმატებიტ გაიგზავნა";
+        languageInfo.email = "ელ-ფოსტა";
+
         break;
 
       case "ru":
@@ -758,6 +763,8 @@ function App() {
         languageInfo.other = "Другой";
         languageInfo.send = "Отправлять";
         languageInfo.sheet_send = "Информация успешно отправлена!";
+        languageInfo.email = "Электронная почта";
+
         break;
     }
     return languageInfo;
@@ -802,12 +809,14 @@ function App() {
         setPopupMessage("Failed to send data.");
       } finally {
         setIsLoading(false); // Stop loading indicator
-        // Start a timer to hide the popup after 2 seconds
         setTimeout(() => {
           setShowPopup(false);
           // Reset sedtsheet to allow for future submissions
           setSedtsheet(false);
         }, 2000);
+        setTimeout(() => {
+          setIsCallModalOpen(false)
+        }, 1600);
       }
     };
 
@@ -1019,7 +1028,16 @@ function App() {
         />
         <Route
           path="map"
-          element={<Map selectedLanguage={selectedLanguage} />}
+          element={<Map 
+            selectedLanguage={selectedLanguage}
+            toggleSwitch={toggleSwitch}
+            currenceChangeState={currenceChangeState}
+            isOn={isOn}
+            HandleStateChange={HandleStateChange}
+            getCorrencyRate={getCorrencyRate}
+            
+            
+            />}
         />
         <Route
           path="sales"
@@ -1243,8 +1261,10 @@ function App() {
                 className="call_input"
                 placeholder={
                   languageTranslationForCheetModal(selectedLanguage)
-                    .phone_number
+                    .email
                 }
+
+
               />
             </div>
           </div>
