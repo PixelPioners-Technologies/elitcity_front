@@ -728,7 +728,8 @@ function App() {
       storkhome_plus: "Storkhome +",
       other: "Other",
       send: "Send",
-      sheet_send: "Information sent successfully!"
+      sheet_send: "Information sent successfully!",
+      email :  "Email"
     };
 
     switch (lang) {
@@ -741,6 +742,8 @@ function App() {
         languageInfo.other = "Other";
         languageInfo.send = "Send";
         languageInfo.sheet_send = "Information sent successfully!";
+        languageInfo.email = "Email";
+
 
 
         break;
@@ -754,6 +757,8 @@ function App() {
         languageInfo.other = "სხვა";
         languageInfo.send = "გაგზავნა";
         languageInfo.sheet_send = "ინფორმაცია წარმატებიტ გაიგზავნა";
+        languageInfo.email = "ელ-ფოსტა";
+
         break;
 
       case "ru":
@@ -765,6 +770,8 @@ function App() {
         languageInfo.other = "Другой";
         languageInfo.send = "Отправлять";
         languageInfo.sheet_send = "Информация успешно отправлена!";
+        languageInfo.email = "Электронная почта";
+
         break;
     }
     return languageInfo;
@@ -858,32 +865,32 @@ function App() {
 
 
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setShowSplashScreen(false);
-  //   }, 3000); // 3000 milliseconds = 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplashScreen(false);
+    }, 3000); // 3000 milliseconds = 3 seconds
 
-  //   return () => clearTimeout(timer); // Clean up the timer
-  // }, []);
+    return () => clearTimeout(timer); // Clean up the timer
+  }, []);
 
-  // if (showSplashScreen) {
-  //   return (
-  //     <div className="slashscreen_container" >
+  if (showSplashScreen) {
+    return (
+      <div className="slashscreen_container" >
 
-  //       <img className="slash_company_logo" src={storkhome__logo} alt='company_logo' />
-  //       <div className="spinner">
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //         <span></span>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+        <img className="slash_company_logo" src={storkhome__logo} alt='company_logo' />
+        <div className="spinner">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
@@ -1269,8 +1276,10 @@ function App() {
                 className="call_input"
                 placeholder={
                   languageTranslationForCheetModal(selectedLanguage)
-                    .phone_number
+                    .email
                 }
+
+
               />
             </div>
 
