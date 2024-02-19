@@ -325,7 +325,7 @@ export default function EachPrivateAppartment({
   const scalesize = new window.google.maps.Size(40, 40);
 
   return (
-    <div className="eachComplexBox">
+    <div className="eachComplexBox  for_footer_padding_phisycal ">
       <div className="imageAndTextInfos">
         {/* Complexes photos info */}
         {/* <div className="imageSliderBoxS"> */}
@@ -435,7 +435,7 @@ export default function EachPrivateAppartment({
               </div>
 
               {/* Share Button */}
-              <ShareButton  selectedLanguage={selectedLanguage}  />
+              <ShareButton selectedLanguage={selectedLanguage} />
             </div>
           </div>
 
@@ -454,7 +454,7 @@ export default function EachPrivateAppartment({
               {handleStaticTextLanguageChange(selectedLanguage).square_price}:{" "}
               {currenceChangeState
                 ? (Number(ground.squarePrice * getCorrencyRate)).toFixed(2)
-                : Number(ground.squarePrice).toFixed(2)}{ isOn ? '  $  ' :  '  ₾  ' }  </p>
+                : Number(ground.squarePrice).toFixed(2)}{isOn ? '  $  ' : '  ₾  '}  </p>
             <p style={{ color: "#C2BFBF" }}>{handleStaticTextLanguageChange(selectedLanguage).status}: {cardStatusSettingLanguage(selectedLanguage, ground.status)}</p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).area} : {ground.area} m²  </p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).rank}: {ground.rank}</p>
@@ -505,16 +505,77 @@ export default function EachPrivateAppartment({
       {/* ---------- */}
       {/* ---------- */}
       <div className="about_and_map_P">
+
+        <div className='about_private_apartment'>
+          <h1 className='about_land_header_P' > {handleStaticTextLanguageChange(selectedLanguage).description} </h1>
+          <p className='about_land_P' >
+            {ground.about}
+          </p>
+        </div>
+
         <div className="aboud_and_map_child_container_P">
-          {/* about container  */}
-          <div>
-            <h1 className='about_land_header_P' > {handleStaticTextLanguageChange(selectedLanguage).description} </h1>
-            <p className='about_land_P' >
-              {ground.about}
-            </p>
+          {/* map container */}
+          <div className="textBoxOfAxloMdebare">
+      
+            <div className="textBoxOfH4axloMdebareObieqtebi">
+              <h4 style={{ color: "white",  marginBottom: "20px" }}>
+                {handleStaticTextLanguageChange(selectedLanguage).nearObjects}
+              </h4>
+            </div>
+            <div className="iconAndItsText">
+              {ground?.metro && (
+                <>
+                  <img src={metro} alt="metro" />
+                  <p>
+                    {
+                      handleStaticTextLanguageChange(selectedLanguage)
+                        .metro
+                    }
+                  </p>
+                </>
+              )}
+            </div>
+            <div className="iconAndItsText">
+              {ground?.supermarket && (
+                <>
+                  <img src={supermarket} alt="supermarket" />
+                  <p>
+                    {
+                      handleStaticTextLanguageChange(selectedLanguage)
+                        .supermarket
+                    }
+                  </p>
+                </>
+              )}
+            </div>
+            <div className="iconAndItsText">
+              {ground?.pharmacy && (
+                <>
+                  <img src={aptiaqi} alt="aptiaqi" />
+                  <p>
+                    {
+                      handleStaticTextLanguageChange(selectedLanguage)
+                        .pharmacy
+                    }
+                  </p>
+                </>
+              )}
+            </div>
+            <div className="iconAndItsText">
+              {ground?.square && (
+                <>
+                  <img src={skveri} alt="skveri" />
+                  <p>
+                    {
+                      handleStaticTextLanguageChange(selectedLanguage)
+                        .square
+                    }
+                  </p>
+                </>
+              )}
+            </div>
           </div>
 
-          {/* map container */}
           <div className="child_map_container_P">
             <GoogleMap
               mapContainerStyle={{ height: "300px" }}
@@ -545,66 +606,8 @@ export default function EachPrivateAppartment({
           </div>
         </div>
 
-        <div className="textBoxOfAxloMdebare">
-          {/* (START) ახლო მდებარე ობიექტები box */}
-          <div className="textBoxOfH4axloMdebareObieqtebi">
-            <h4 style={{ color: "white" }}>
-              {handleStaticTextLanguageChange(selectedLanguage).nearObjects}
-            </h4>
-          </div>
-          <div className="iconAndItsText">
-            {ground?.metro && (
-              <>
-                <img src={metro} alt="metro" />
-                <p>
-                  {
-                    handleStaticTextLanguageChange(selectedLanguage)
-                      .metro
-                  }
-                </p>
-              </>
-            )}
-          </div>
-          <div className="iconAndItsText">
-            {ground?.supermarket && (
-              <>
-                <img src={supermarket} alt="supermarket" />
-                <p>
-                  {
-                    handleStaticTextLanguageChange(selectedLanguage)
-                      .supermarket
-                  }
-                </p>
-              </>
-            )}
-          </div>
-          <div className="iconAndItsText">
-            {ground?.pharmacy && (
-              <>
-                <img src={aptiaqi} alt="aptiaqi" />
-                <p>
-                  {
-                    handleStaticTextLanguageChange(selectedLanguage)
-                      .pharmacy
-                  }
-                </p>
-              </>
-            )}
-          </div>
-          <div className="iconAndItsText">
-            {ground?.square && (
-              <>
-                <img src={skveri} alt="skveri" />
-                <p>
-                  {
-                    handleStaticTextLanguageChange(selectedLanguage)
-                      .square
-                  }
-                </p>
-              </>
-            )}
-          </div>
-        </div>
+
+
 
 
 
