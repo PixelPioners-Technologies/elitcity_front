@@ -67,6 +67,11 @@
   background-color: transparent; /* Color when hovered, adjust as needed */
   color: black;
 }
+
+/* .homepage_search_button:focus {
+  outline: none !important;
+} */
+
 .button-container {
   width: 100%;
   display: flex;

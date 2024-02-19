@@ -19,7 +19,7 @@ export default function Storkhome({ selectedLanguage, handleCallButtonClick }) {
         break;
 
       case "ka":
-        languageInfo.header = "ტოპ დეველუპერული კომპანიები";
+        languageInfo.header = "ტოპ დეველოპერული კომპანიები";
         languageInfo.make_call = "ზარის მოთხოვნა";
 
         break;

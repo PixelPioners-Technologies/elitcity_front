@@ -28,9 +28,9 @@ import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import googleMapImage from "../assets/mapImageForFooter.svg";
 import { BaseURLs } from "../App";
 import { useNavigate } from "react-router-dom";
-import Sort from '../assets/sort.png';
-import Arrows from '../assets/arrows.png';
-import LocationIcon from '../assets/locationIcon.png';
+import Sort from "../assets/sort.png";
+import Arrows from "../assets/arrows.png";
+import LocationIcon from "../assets/locationIcon.png";
 // import LocationIcon from '../assets/location.png';
 
 const normalizePrivateApartmentData = (data, lang) => {
@@ -566,7 +566,7 @@ export default function Physical({
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.statusInfoLanguage = "Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
         languageInfo.priceButtonLanguage = "Price";
@@ -587,7 +587,7 @@ export default function Physical({
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.statusInfoLanguage = "სტატუსი";
         languageInfo.cityButtonLanguage = "მდებარეობა";
         languageInfo.spaceButtonLanguage = "ფართი";
         languageInfo.priceButtonLanguage = "ფასი";
@@ -608,7 +608,7 @@ export default function Physical({
         break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "Выберите статус";
+        languageInfo.statusInfoLanguage = "статус";
         languageInfo.cityButtonLanguage = "Местоположение";
         languageInfo.spaceButtonLanguage = "Площадь";
         languageInfo.priceButtonLanguage = "Цена";
@@ -902,11 +902,11 @@ export default function Physical({
     if (openSort) {
       setOpenSort(false);
     }
-  }
+  };
   // ------------------------------------------------------------------------------------------------------------------------
 
   return (
-    <div className="ComplexBodyBox_physical" >
+    <div className="ComplexBodyBox_physical">
       {/* <div className="filter_div_for_sort_icon">
         <img onClick={toggleSort} className="filter_image" src={Filter} alt="" />
       </div> */}
@@ -919,7 +919,9 @@ export default function Physical({
         >
           {/* className="filter_cont_for_physical " */}
 
-          <div className={openSort ? "filter_cont_for_physicaly": "close_sort"}>
+          <div
+            className={openSort ? "filter_cont_for_physicaly" : "close_sort"}
+          >
             {/* button for filtering space */}
             <div className="button-modal-container ">
               <div onClick={handle_P_SpaceButtonClick} className="space_button">
@@ -1266,18 +1268,26 @@ export default function Physical({
                         .sorting
                     }
                   </p>
-                  <img className="arrowDownIcon" src={arrowDownSorting} style={{ width: "20px" }} />
-                  <img className="noneWeb" src={Arrows} style={{width: "25px"}}  alt="/"/>
+                  <img
+                    className="arrowDownIcon"
+                    src={arrowDownSorting}
+                    style={{ width: "20px" }}
+                  />
+                  <img
+                    className="noneWeb"
+                    src={Arrows}
+                    style={{ width: "25px" }}
+                    alt="/"
+                  />
                 </div>
               </Button>
-              <div className="sort_icon_for_complex_mob " onClick={toggleSort }>
+              <div className="sort_icon_for_complex_mob " onClick={toggleSort}>
                 <img
                   src={Sort}
                   style={{ width: "20px", height: "25px" }}
                   alt="/"
                 />
               </div>
-
 
               <Menu
                 id="basic-menu"
@@ -1451,7 +1461,6 @@ export default function Physical({
                     toggleSwitch();
                     HandleStateChange();
                   }}
-                  
                 >
                   <motion.div
                     className="handle_physical"
@@ -1536,8 +1545,10 @@ export default function Physical({
                 </p>
                 <p className="price_settings" style={styles.complexInfo}>
                   {currenceChangeState
-                    ? (Number (prev_apartments.squarePrice) * getCorrencyRate).toFixed(2)       
-                    : Number(prev_apartments.squarePrice).toFixed(2)  }
+                    ? (
+                        Number(prev_apartments.squarePrice) * getCorrencyRate
+                      ).toFixed(2)
+                    : Number(prev_apartments.squarePrice).toFixed(2)}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">

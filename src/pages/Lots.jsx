@@ -1,3 +1,8 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable no-case-declarations */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 import "./Physical.css";
 import "./Lots.css";
 import axios from "axios";
@@ -535,7 +540,7 @@ export default function Physical({
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.statusInfoLanguage = "Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
         languageInfo.priceButtonLanguage = "Price";
@@ -563,7 +568,7 @@ export default function Physical({
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.statusInfoLanguage = "სტატუსი";
         languageInfo.cityButtonLanguage = "მდებარეობა";
         languageInfo.spaceButtonLanguage = "ფართი";
         languageInfo.priceButtonLanguage = "ფასი";
@@ -591,7 +596,7 @@ export default function Physical({
         break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "Выберите статус";
+        languageInfo.statusInfoLanguage = "статус";
         languageInfo.cityButtonLanguage = "Местоположение";
         languageInfo.spaceButtonLanguage = "Площадь";
         languageInfo.priceButtonLanguage = "Цена";
@@ -1474,7 +1479,6 @@ export default function Physical({
                   // style={styles.imageStyles}
                   onClick={() => handleLotsClick(prev_apartments.id)}
                   className="backImg"
-                 
                 />
               </div>
               {/* --------------card details------------------- */}
@@ -1492,8 +1496,10 @@ export default function Physical({
                 <p className="price_settings" style={styles.complexInfo}>
                   {/* {prev_apartments.squarePrice *   getCorrencyRate}{" "} */}
                   {currenceChangeState
-                    ? (Number(prev_apartments.squarePrice) * getCorrencyRate).toFixed(2)
-                    : Number(prev_apartments.squarePrice).toFixed(2) }
+                    ? (
+                        Number(prev_apartments.squarePrice) * getCorrencyRate
+                      ).toFixed(2)
+                    : Number(prev_apartments.squarePrice).toFixed(2)}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">

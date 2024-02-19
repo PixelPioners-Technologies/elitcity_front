@@ -17,10 +17,14 @@
 
 .motionBox_physical {
   border: 1px solid white;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+
   margin-top: 20px;
 }
 
 .forPaddingOfInfoFieldOfComplexsPlansMaps_physical {
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+
   padding: 0 20px;
 }
 

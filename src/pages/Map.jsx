@@ -977,7 +977,7 @@ export default function Map({ selectedLanguage }) {
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.statusInfoLanguage = "Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
         languageInfo.priceButtonLanguage = "Price";
@@ -1004,7 +1004,7 @@ export default function Map({ selectedLanguage }) {
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.statusInfoLanguage = "სტატუსი";
         languageInfo.cityButtonLanguage = "მდებარეობა";
         languageInfo.spaceButtonLanguage = "ფართი";
         languageInfo.priceButtonLanguage = "ფასი";
@@ -1031,7 +1031,7 @@ export default function Map({ selectedLanguage }) {
         break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус";
+        languageInfo.statusInfoLanguage = "статус";
         languageInfo.cityButtonLanguage = "Местоположение";
         languageInfo.spaceButtonLanguage = "Площадь";
         languageInfo.priceButtonLanguage = "Цена";
@@ -2552,7 +2552,7 @@ export default function Map({ selectedLanguage }) {
 
   // export const YourComponent = () => {
   //   const [isMapContVisible, setMapContVisible] = useState(false);
-  
+
   //   const handleFilterChangeModalClick = () => {
   //     setMapContVisible(!isMapContVisible); // Toggle visibility of map_cont
   //   };
