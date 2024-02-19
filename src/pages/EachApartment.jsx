@@ -45,30 +45,23 @@ import forMapPhoto from "../assets/ComplexesPhotos/1zz.jpg";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import private_apartment_location_icon from "../location_icons/private_apartment2.png";
 
-
-import binebisRaodenoba from '../icons/gasagebi.png'
-import korpusebisRaodenoba from '../icons/korpusi.png'
-import parti from '../icons/farti.png'
-import cherisSimagle from '../icons/cheris_simagle.png'
-import sartulianoba from '../icons/sartulianoba.png'
-import konstruqcia from '../icons/konstruqcia.png'
-import parkingi from '../icons/parkingi.png'
-import dacva from '../icons/video_kamera.png'
-import otaxebi from '../icons/otaxebi.png'
-import chabareba from '../icons/chabareba.png'
-import sinatle from '../icons/sinatle.png'
-import tenianoba from '../icons/tenianoba.png'
-import kvebisObieqti from '../icons/kvebis_obieqti.png'
-import lipti from '../icons/lifti.png'
-import shlagbaumi from '../icons/shlagbaumi.png'
-import konsierji from '../icons/konsierji.png'
-import ezo from "../icons/ezo.png"
-
-
-
-
-
-
+import binebisRaodenoba from "../icons/gasagebi.png";
+import korpusebisRaodenoba from "../icons/korpusi.png";
+import parti from "../icons/farti.png";
+import cherisSimagle from "../icons/cheris_simagle.png";
+import sartulianoba from "../icons/sartulianoba.png";
+import konstruqcia from "../icons/konstruqcia.png";
+import parkingi from "../icons/parkingi.png";
+import dacva from "../icons/video_kamera.png";
+import otaxebi from "../icons/otaxebi.png";
+import chabareba from "../icons/chabareba.png";
+import sinatle from "../icons/sinatle.png";
+import tenianoba from "../icons/tenianoba.png";
+import kvebisObieqti from "../icons/kvebis_obieqti.png";
+import lipti from "../icons/lifti.png";
+import shlagbaumi from "../icons/shlagbaumi.png";
+import konsierji from "../icons/konsierji.png";
+import ezo from "../icons/ezo.png";
 
 // ------------------
 import "./Physical.css";
@@ -195,13 +188,13 @@ const normalizeApartmentData = (data, lang) => {
       bathroom: data.internal_apartment_name.Bathroom,
       bedroom: data.internal_apartment_name.bedroom,
       balcony: data.internal_apartment_name.Balcony,
-      rank : data.internal_apartment_name.rank,
-      status : data.internal_apartment_name.status,
+      rank: data.internal_apartment_name.rank,
+      status: data.internal_apartment_name.status,
     },
 
     apartmentImages: data.appartment_images,
     testField: data[`test_field_${lang}`],
-    appartment_name : data[`appartment_name_${lang}`]
+    appartment_name: data[`appartment_name_${lang}`],
   };
 };
 
@@ -223,8 +216,6 @@ export default function EachApartment({
   toggleSwitch,
   favoriteApartment,
   favorite_apartment_handler,
-
-
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
@@ -237,7 +228,9 @@ export default function EachApartment({
   //   { id: 6, value: img6 },
   // ];
 
-  const [eachComplexAllAppartments, seteachComplexAllAppartments] = useState([]);
+  const [eachComplexAllAppartments, seteachComplexAllAppartments] = useState(
+    []
+  );
 
   const [wordData, setWordData] = useState(null);
   const [val, setVal] = useState(0);
@@ -518,7 +511,7 @@ export default function EachApartment({
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.statusInfoLanguage = "Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
         languageInfo.priceButtonLanguage = "Price";
@@ -568,7 +561,7 @@ export default function EachApartment({
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.statusInfoLanguage = "სტატუსი";
         languageInfo.cityButtonLanguage = "მდებარეობა";
         languageInfo.spaceButtonLanguage = "ფართი";
         languageInfo.priceButtonLanguage = "ფასი";
@@ -618,7 +611,7 @@ export default function EachApartment({
         break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "Выберите статус";
+        languageInfo.statusInfoLanguage = "статус";
         languageInfo.cityButtonLanguage = "Местоположение";
         languageInfo.spaceButtonLanguage = "Площадь";
         languageInfo.priceButtonLanguage = "Цена";
@@ -670,11 +663,9 @@ export default function EachApartment({
     return languageInfo;
   };
 
-
   const truncateText = (text, limit) => {
     return text.length > limit ? `${text.substring(0, limit)}...` : text;
   };
-
 
   // --------------------------------------------language change for card status setting and content ---------------------------------------------------
   const cardStatusSettingLanguage = (lang, status) => {
@@ -758,7 +749,7 @@ export default function EachApartment({
     return <div>Loading...</div>;
   }
   const scalesize = new window.google.maps.Size(40, 40);
-  // 
+  //
   return (
     <div className="eachComplexBoxn imageAndTextInfos3">
       <div className="imageAndTextInfos3 center">
@@ -788,8 +779,9 @@ export default function EachApartment({
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData?.id === data.id ? "clicked" : ""} ${clickedIndex === i ? "enlarge" : ""
-                      }`}
+                    className={`${wordData?.id === data.id ? "clicked" : ""} ${
+                      clickedIndex === i ? "enlarge" : ""
+                    }`}
                     src={data.value}
                     alt={`Complex ${data.id}`}
                     onClick={() => handleClick(i + carouselPosition)}
@@ -818,15 +810,23 @@ export default function EachApartment({
                 <button
                   key={eachComplexAllAppartments.id}
                   className="heartButtons"
-                  onClick={() => favorite_apartment_handler(eachComplexAllAppartments)}
+                  onClick={() =>
+                    favorite_apartment_handler(eachComplexAllAppartments)
+                  }
                 >
-                  {favoriteApartment.some((fav) => fav.id === eachComplexAllAppartments.id) ? (
+                  {favoriteApartment.some(
+                    (fav) => fav.id === eachComplexAllAppartments.id
+                  ) ? (
                     <img src={heartIcon} alt="Logo of heart" />
                   ) : (
                     <img
                       src={heartIconEmpty}
                       alt="Logo of empty heart"
-                      style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        border: "1px solid white",
+                      }}
                     />
                   )}
                 </button>
@@ -841,7 +841,11 @@ export default function EachApartment({
                       HandleStateChange();
                     }}
                   >
-                    <motion.div className="handle__c" layout transition={spring}>
+                    <motion.div
+                      className="handle__c"
+                      layout
+                      transition={spring}
+                    >
                       <img
                         src={lari}
                         alt="Lari Sign"
@@ -856,10 +860,8 @@ export default function EachApartment({
                   </div>
                 </div>
 
-
                 {/* Share Button */}
-                <ShareButton  selectedLanguage={selectedLanguage}  />
-
+                <ShareButton selectedLanguage={selectedLanguage} />
               </div>
             </div>
             {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}
@@ -875,14 +877,22 @@ export default function EachApartment({
               {eachComplexAllAppartments &&
                 eachComplexAllAppartments.complex && (
                   <p style={{ color: "#ccc", fontSize: "20px" }}>
-                    {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM
+                    {
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .pricePerM
                     }{" "}
                     {currenceChangeState
-                      ? (Number( eachComplexAllAppartments?.complex?.internalComplex
-                        ?.pricePerSqMeter) * getCorrencyRate).toFixed(2)
-                      : Number(eachComplexAllAppartments?.complex?.internalComplex
-                        ?.pricePerSqMeter).toFixed(2) }
-                      { isOn ? '  $  ' :  '  ₾  ' }
+                      ? (
+                          Number(
+                            eachComplexAllAppartments?.complex?.internalComplex
+                              ?.pricePerSqMeter
+                          ) * getCorrencyRate
+                        ).toFixed(2)
+                      : Number(
+                          eachComplexAllAppartments?.complex?.internalComplex
+                            ?.pricePerSqMeter
+                        ).toFixed(2)}
+                    {isOn ? "  $  " : "  ₾  "}
                   </p>
                 )}
             </div>
@@ -928,7 +938,11 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.internalApartmentDetails?.bedroom}
                 </div>
                 <div className="room_details" style={{ color: "#C2BFBF" }}>
-                  {handle_P_StatusButtonLanguageChange(selectedLanguage).balcony} :{" "}
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .balcony
+                  }{" "}
+                  :{" "}
                   {eachComplexAllAppartments?.internalApartmentDetails?.balcony}
                 </div>
               </div>
@@ -964,8 +978,8 @@ export default function EachApartment({
                   {phoneNumbers && showFullNumber
                     ? phoneNumbers
                     : phoneNumbers
-                      ?.slice(0, -2)
-                      .padEnd(phoneNumbers?.length, "*")}
+                        ?.slice(0, -2)
+                        .padEnd(phoneNumbers?.length, "*")}
                 </p>
                 <button
                   onClick={handleToggleNumberDisplay}
@@ -1034,7 +1048,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.numberOfApartments !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                      ?.numberOfApartments
+                        ?.numberOfApartments
                     : "---"}{" "}
                 </p>
               </div>
@@ -1061,7 +1075,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.numberOfBuildings !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                      ?.numberOfBuildings
+                        ?.numberOfBuildings
                     : "---"}
                 </p>{" "}
               </div>
@@ -1112,7 +1126,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     .ceilingHeightMeters !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                      .ceilingHeightMeters
+                        .ceilingHeightMeters
                     : "---"}
                 </p>
               </div>
@@ -1138,7 +1152,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.flooring !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                      ?.flooring
+                        ?.flooring
                     : "---"}
                 </p>
               </div>
@@ -1188,7 +1202,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.parkingQuantity !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                      ?.parkingQuantity
+                        ?.parkingQuantity
                     : "---"}
                 </p>
               </div>
@@ -1235,7 +1249,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.roomsQuantity !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                      ?.roomsQuantity
+                        ?.roomsQuantity
                     : "---"}
                 </p>
               </div>
@@ -1282,7 +1296,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.lightPercentage !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                      ?.lightPercentage
+                        ?.lightPercentage
                     : "---"}
                 </p>
               </div>
@@ -1308,7 +1322,7 @@ export default function EachApartment({
                   {eachComplexAllAppartments?.complex?.internalComplex
                     ?.humidityPercentage !== null
                     ? eachComplexAllAppartments?.complex?.internalComplex
-                      ?.humidityPercentage
+                        ?.humidityPercentage
                     : "---"}
                 </p>
               </div>
@@ -1318,7 +1332,6 @@ export default function EachApartment({
             {/* iwyeba:   inprastruqturisIconsBox */}
             <div className="inprastruqturisIconsBigBox">
               <h2 className="hh2">
-
                 {" "}
                 {
                   handle_P_StatusButtonLanguageChange(selectedLanguage)
@@ -1329,139 +1342,139 @@ export default function EachApartment({
                 {/* სათითაო icons და ტექსტი */}
                 {eachComplexAllAppartments?.complex?.internalComplex
                   ?.cateringFacility && (
-                    <div className="eachDivBoxOfIcons">
-                      <img
-                        src={kvebisObieqti}
-                        alt="kvebisObieqti"
-                        className="stylesOfIconsOnEachComplex"
-                      />
-                      <div className="eachDivBoxOfTextOfIcons">
-                        <p>
-                          {
-                            handle_P_StatusButtonLanguageChange(selectedLanguage)
-                              .catering_facility
-                          }
-                        </p>
-                        <p>{eachPrivateApartment.cateringFacility}</p>
-                      </div>
+                  <div className="eachDivBoxOfIcons">
+                    <img
+                      src={kvebisObieqti}
+                      alt="kvebisObieqti"
+                      className="stylesOfIconsOnEachComplex"
+                    />
+                    <div className="eachDivBoxOfTextOfIcons">
+                      <p>
+                        {
+                          handle_P_StatusButtonLanguageChange(selectedLanguage)
+                            .catering_facility
+                        }
+                      </p>
+                      <p>{eachPrivateApartment.cateringFacility}</p>
                     </div>
-                  )}
+                  </div>
+                )}
 
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
                 {eachComplexAllAppartments?.complex?.internalComplex
                   ?.elevatorType && (
-                    <div className="eachDivBoxOfIcons">
-                      <img
-                        src={lipti}
-                        alt="lipti"
-                        className="stylesOfIconsOnEachComplex"
-                      />
-                      <div className="eachDivBoxOfTextOfIcons">
-                        <p>
-                          {" "}
-                          {
-                            handle_P_StatusButtonLanguageChange(selectedLanguage)
-                              .elevator
-                          }
-                        </p>
-                        <p>
-                          {
-                            eachComplexAllAppartments?.complex?.internalComplex
-                              ?.elevatorType
-                          }
-                        </p>
-                      </div>
+                  <div className="eachDivBoxOfIcons">
+                    <img
+                      src={lipti}
+                      alt="lipti"
+                      className="stylesOfIconsOnEachComplex"
+                    />
+                    <div className="eachDivBoxOfTextOfIcons">
+                      <p>
+                        {" "}
+                        {
+                          handle_P_StatusButtonLanguageChange(selectedLanguage)
+                            .elevator
+                        }
+                      </p>
+                      <p>
+                        {
+                          eachComplexAllAppartments?.complex?.internalComplex
+                            ?.elevatorType
+                        }
+                      </p>
                     </div>
-                  )}
+                  </div>
+                )}
 
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
                 {eachComplexAllAppartments?.complex?.internalComplex
                   ?.schlangbaum && (
-                    <div className="eachDivBoxOfIcons">
-                      <img
-                        src={shlagbaumi}
-                        alt="shlagbaumi"
-                        className="stylesOfIconsOnEachComplex"
-                      />
-                      <div className="eachDivBoxOfTextOfIcons">
-                        <p>
-                          {" "}
-                          {
-                            handle_P_StatusButtonLanguageChange(selectedLanguage)
-                              .schlangbaum
-                          }
-                        </p>
-                        <p>
-                          {
-                            eachComplexAllAppartments?.complex?.internalComplex
-                              ?.schlangbaum
-                          }
-                        </p>
-                      </div>
+                  <div className="eachDivBoxOfIcons">
+                    <img
+                      src={shlagbaumi}
+                      alt="shlagbaumi"
+                      className="stylesOfIconsOnEachComplex"
+                    />
+                    <div className="eachDivBoxOfTextOfIcons">
+                      <p>
+                        {" "}
+                        {
+                          handle_P_StatusButtonLanguageChange(selectedLanguage)
+                            .schlangbaum
+                        }
+                      </p>
+                      <p>
+                        {
+                          eachComplexAllAppartments?.complex?.internalComplex
+                            ?.schlangbaum
+                        }
+                      </p>
                     </div>
-                  )}
+                  </div>
+                )}
 
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
                 {eachComplexAllAppartments?.complex?.internalComplex
                   ?.conciergeService && (
-                    <div className="eachDivBoxOfIcons">
-                      <img
-                        src={konsierji}
-                        alt="konsierji"
-                        className="stylesOfIconsOnEachComplex"
-                      />
-                      <div className="eachDivBoxOfTextOfIcons">
-                        <p>
-                          {" "}
-                          {
-                            handle_P_StatusButtonLanguageChange(selectedLanguage)
-                              .concierge
-                          }
-                        </p>
-                        <p>
-                          {
-                            eachComplexAllAppartments?.complex?.internalComplex
-                              ?.conciergeService
-                          }
-                        </p>
-                      </div>
+                  <div className="eachDivBoxOfIcons">
+                    <img
+                      src={konsierji}
+                      alt="konsierji"
+                      className="stylesOfIconsOnEachComplex"
+                    />
+                    <div className="eachDivBoxOfTextOfIcons">
+                      <p>
+                        {" "}
+                        {
+                          handle_P_StatusButtonLanguageChange(selectedLanguage)
+                            .concierge
+                        }
+                      </p>
+                      <p>
+                        {
+                          eachComplexAllAppartments?.complex?.internalComplex
+                            ?.conciergeService
+                        }
+                      </p>
                     </div>
-                  )}
+                  </div>
+                )}
 
                 {/* ----- */}
 
                 {/* სათითაო icons და ტექსტი */}
                 {eachComplexAllAppartments?.complex?.internalComplex
                   ?.yardDescription && (
-                    <div className="eachDivBoxOfIcons">
-                      <img
-                        src={ezo}
-                        alt="ezo"
-                        className="stylesOfIconsOnEachComplex"
-                      />
-                      <div className="eachDivBoxOfTextOfIcons">
-                        <p>
-                          {" "}
-                          {
-                            handle_P_StatusButtonLanguageChange(selectedLanguage)
-                              .yard
-                          }
-                        </p>
-                        <p>
-                          {
-                            eachComplexAllAppartments?.complex?.internalComplex
-                              ?.yardDescription
-                          }
-                        </p>
-                      </div>
+                  <div className="eachDivBoxOfIcons">
+                    <img
+                      src={ezo}
+                      alt="ezo"
+                      className="stylesOfIconsOnEachComplex"
+                    />
+                    <div className="eachDivBoxOfTextOfIcons">
+                      <p>
+                        {" "}
+                        {
+                          handle_P_StatusButtonLanguageChange(selectedLanguage)
+                            .yard
+                        }
+                      </p>
+                      <p>
+                        {
+                          eachComplexAllAppartments?.complex?.internalComplex
+                            ?.yardDescription
+                        }
+                      </p>
                     </div>
-                  )}
+                  </div>
+                )}
 
                 {/* ----- */}
               </div>
@@ -1528,12 +1541,10 @@ export default function EachApartment({
               position={{
                 lat: mapcenter.lat,
                 lng: mapcenter.lng,
-
-
               }}
               icon={{
                 url: private_apartment_location_icon,
-                scaledSize: scalesize
+                scaledSize: scalesize,
               }}
             />
           </GoogleMap>

@@ -1,3 +1,7 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import "./Complex.css";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -369,7 +373,7 @@ export default function Complex({
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.statusInfoLanguage = "Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
         languageInfo.priceButtonLanguage = "Price";
@@ -403,7 +407,7 @@ export default function Complex({
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.statusInfoLanguage = "სტატუსი";
         languageInfo.cityButtonLanguage = "მდებარეობა";
         languageInfo.spaceButtonLanguage = "ფართი";
         languageInfo.priceButtonLanguage = "ფასი";
@@ -436,7 +440,7 @@ export default function Complex({
         break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус";
+        languageInfo.statusInfoLanguage = "статус";
         languageInfo.cityButtonLanguage = "Местоположение";
         languageInfo.spaceButtonLanguage = "Площадь";
         languageInfo.priceButtonLanguage = "Цена";
@@ -1203,11 +1207,19 @@ export default function Complex({
 
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox_physical">
-                <div className="switch_physical" data-ison={isOn} onClick={() => {
+                <div
+                  className="switch_physical"
+                  data-ison={isOn}
+                  onClick={() => {
                     toggleSwitch();
                     HandleStateChange();
-                  }}>
-                  <motion.div className="handle_physical" layout transition={spring}>
+                  }}
+                >
+                  <motion.div
+                    className="handle_physical"
+                    layout
+                    transition={spring}
+                  >
                     <img
                       src={lari_black}
                       alt="Lari Sign"
@@ -1284,8 +1296,14 @@ export default function Complex({
                     <p style={styles.complexInfo}>
                       {" "}
                       {currenceChangeState
-                        ? (Number(complex.complexDetails.pricePerSqMeter) * getCorrencyRate).toFixed(2)
-                        : Number(complex.complexDetails.pricePerSqMeter).toFixed(2)} { isOn ? '  $  ' :  '  ₾  ' }
+                        ? (
+                            Number(complex.complexDetails.pricePerSqMeter) *
+                            getCorrencyRate
+                          ).toFixed(2)
+                        : Number(
+                            complex.complexDetails.pricePerSqMeter
+                          ).toFixed(2)}{" "}
+                      {isOn ? "  $  " : "  ₾  "}
                     </p>
                   </div>
                   <p
