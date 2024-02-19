@@ -66,6 +66,7 @@
   display: none;
 }
 .mapAndLogoImg {
+  /* border: 1px solid blue; */
   display: flex;
   align-items: center;
   gap: 7px;
@@ -475,6 +476,7 @@
     flex-direction: row;
     display: block;
     align-items: center;
+    border: 2px solid blue;
     display: block;
   }
   .mapAndLogoImg {
@@ -526,9 +528,6 @@
   }
   .motionBox {
     border: none;
-  }
-  .mapAndLogoImg {
-    display: none;
   }
 }
 

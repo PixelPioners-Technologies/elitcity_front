@@ -921,15 +921,15 @@ export default function Complex({
               </div> */}
             </div>
             {/* <div className="flex_end"> */}
-            <div className="button-modal-container  find_map_div">
+            <div className="button-modal-container  find_map_div ">
               <Link to="/map">
                 <motion.div
-                  className="textButtonContainer map_styles"
+                  className="textButtonContainer map_styles "
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <div className="mapAndLogoImg styles_for_top_map">
+                  <div className="mapAndLogoImg styles_for_top_map" >
                     <img
                       src={LocationIcon}
                       alt="mapSignLogo"
