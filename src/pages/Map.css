@@ -477,12 +477,13 @@
   padding: 10px;
   border-radius: 5px;
   margin-left: 10px;
+  width: 90px;
 }
 
 .filter_inputs:focus{
   outline: none;
   /* Optionally, change border or add shadow on focus */
-  box-shadow: 0 0 5px rgb(161, 193, 202);
+
 }
 
 .filter_inputs::placeholder{

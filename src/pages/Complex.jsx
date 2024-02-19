@@ -704,7 +704,10 @@ export default function Complex({
                       <div
                         className="switch_homepage"
                         data-ison={isOn}
-                        onClick={toggleSwitch}
+                        onClick={() => {
+                          toggleSwitch();
+                          HandleStateChange();
+                        }}
                       >
                         <motion.div
                           className="handle_homepage"
