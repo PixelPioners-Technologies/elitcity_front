@@ -100,7 +100,7 @@
 }
 .mapSignLogo {
   width: 30px;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 .sortAndArrowDownImgBox {
   display: flex;

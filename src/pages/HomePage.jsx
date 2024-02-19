@@ -467,7 +467,7 @@ export default function Map({
                       }
                     </text>
                   </div>
-                  <div className="inputInlineDispley">
+                  <div className="inputInlineDispley " id = 'inputForComp'>
                     <input
                       className="min_price_homePage"
                       type="number"
@@ -524,7 +524,7 @@ export default function Map({
                 isOpen={isPriceModalOpen}
                 close={handleClosePriceModal}
               >
-                <div className="fullPriceHomePage">
+                <div className="fullPriceHomePage fullPriceComp">
                   {
                     handleStatusButtonLanguageChange(selectedLanguage)
                       .fullPriceHomePage

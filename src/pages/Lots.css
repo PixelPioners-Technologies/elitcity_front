@@ -27,13 +27,13 @@
   flex-direction: row;
   justify-content: end;
   gap: 77px;
-  width: 85%;
+  width: 80%;
 }
 .arrow_none {
   display: none;
 }
 .closeSort {
-    display: flex;
+  display: flex;
   flex-direction: column;
   gap: 20px;
 }
