@@ -341,9 +341,15 @@ export default function EachPrivateAppartment({
             </button> */}
         {/* </div> */}
         {/* </div> */}
-        <div style={{width: "500px" , height: "auto"}} >
-          {sliderImages.length > 0 && <ImageGallery items={sliderImages} />}
-      </div>
+        <div className="image_galery_container"  >
+          {sliderImages.length > 0 && <ImageGallery
+            items={sliderImages}
+            autoPlay={true}
+            slideInterval={3000}
+            thumbnailPosition="left"
+
+          />}
+        </div>
 
         {/* --------- */}
 
@@ -487,9 +493,9 @@ export default function EachPrivateAppartment({
         <div className="aboud_and_map_child_container_P">
           {/* map container */}
           <div className="textBoxOfAxloMdebare">
-      
+
             <div className="textBoxOfH4axloMdebareObieqtebi">
-              <h4 style={{ color: "white",  marginBottom: "20px" }}>
+              <h4 style={{ color: "white", marginBottom: "20px" }}>
                 {handleStaticTextLanguageChange(selectedLanguage).nearObjects}
               </h4>
             </div>

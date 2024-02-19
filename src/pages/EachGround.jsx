@@ -240,13 +240,15 @@ export default function EachGround({
   return (
     <div className="eachComplexBox2">
       <div className="imageAndTextInfos2">
+        <div className="image_galery_container"  >
+          {sliderImages.length > 0 && <ImageGallery
+            items={sliderImages}
+            autoPlay={true}
+            slideInterval={3000}
+            thumbnailPosition="left"
+          />}
+        </div>
 
-
-
-      <div style={{width: "500px" , height: "auto"}} >
-          {sliderImages.length > 0 && <ImageGallery items={sliderImages} />}
-      </div>
-     
 
         {/* Complexes photos info */}
 
@@ -265,50 +267,50 @@ export default function EachGround({
             <div className="favouriteDollarAndShareBox">
               {/* Star favourite box */}
               <button
-               
-                    key={ground.id}
-                    className="heartButtons"
-                    onClick={() => favoriteHandlerLots(ground)}
-                  >
-                    {favoritesLots.some((fav) => fav.id === ground.id) ? (
-                      <img src={heartIcon} alt="Logo of heart" />
-                    ) : (
-                      <img
-                        src={heartIconEmpty}
-                        alt="Logo of empty heart"
-                        style={{ width: "30px", height: "30px", border: '1px solid white' }}
-                      />
-                    )}
-                  </button>
+
+                key={ground.id}
+                className="heartButtons"
+                onClick={() => favoriteHandlerLots(ground)}
+              >
+                {favoritesLots.some((fav) => fav.id === ground.id) ? (
+                  <img src={heartIcon} alt="Logo of heart" />
+                ) : (
+                  <img
+                    src={heartIconEmpty}
+                    alt="Logo of empty heart"
+                    style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                  />
+                )}
+              </button>
 
 
-                {/* ----Dollar and Lari Toggle button */}
-                <div className="currencyBox__c">
-                  <div
-                    className="switch__c"
-                    data-ison={isOn}
-                    onClick={() => {
-                      toggleSwitch();
-                      HandleStateChange();
-                    }}
-                  >
-                    <motion.div className="handle__c" layout transition={spring}>
-                      <img
-                        src={lari}
-                        alt="Lari Sign"
-                        className={`currency-sign__c ${isOn ? "active" : ""}`}
-                      />
-                      <img
-                        src={dollar}
-                        alt="Dollar Sign"
-                        className={`currency-sign__c ${!isOn ? "active" : ""}`}
-                      />
-                    </motion.div>
-                  </div>
+              {/* ----Dollar and Lari Toggle button */}
+              <div className="currencyBox__c">
+                <div
+                  className="switch__c"
+                  data-ison={isOn}
+                  onClick={() => {
+                    toggleSwitch();
+                    HandleStateChange();
+                  }}
+                >
+                  <motion.div className="handle__c" layout transition={spring}>
+                    <img
+                      src={lari}
+                      alt="Lari Sign"
+                      className={`currency-sign__c ${isOn ? "active" : ""}`}
+                    />
+                    <img
+                      src={dollar}
+                      alt="Dollar Sign"
+                      className={`currency-sign__c ${!isOn ? "active" : ""}`}
+                    />
+                  </motion.div>
                 </div>
+              </div>
 
               {/* Share Button */}
-              <ShareButton  selectedLanguage={selectedLanguage}  />
+              <ShareButton selectedLanguage={selectedLanguage} />
             </div>
           </div>
 
@@ -324,10 +326,10 @@ export default function EachGround({
               {ground.address?.city} ,{ground.address?.streetName}{" "}
             </p>
             <p style={{ color: "#ccc", fontSize: "20px" }}>
-              {handleStaticTextLanguageChange(selectedLanguage).square_price}{ "  :  "}
+              {handleStaticTextLanguageChange(selectedLanguage).square_price}{"  :  "}
               {currenceChangeState
                 ? (Number(ground.squarePrice * getCorrencyRate)).toFixed(2)
-                : Number(ground.squarePrice).toFixed(2)} { isOn ? '  $  ' :  '  ₾  ' }
+                : Number(ground.squarePrice).toFixed(2)} {isOn ? '  $  ' : '  ₾  '}
             </p>
             <p style={{ color: "#C2BFBF" }}>
               {handleStaticTextLanguageChange(selectedLanguage).status}:{" "}
@@ -426,7 +428,7 @@ export default function EachGround({
                 key={ground.id}
                 position={{
                   lat: mapcenter.lat,
-                  lng:  mapcenter.lng
+                  lng: mapcenter.lng
                 }}
                 icon={{
                   url: ground_location_icon,
