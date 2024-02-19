@@ -1,51 +1,34 @@
-
 .main_map {
   background-color: rgb(0, 0, 0);
   height: 100vh;
   margin-top: 7%;
-  /* border: 1px solid red; */
 }
-
 .map_cont {
   margin-top: 46px;
-  /* border: 1px solid red; */
-  
 }
-
 .filtetmethods_and_filters {
-
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 13px;
-  margin-top: 7%;
+  display: none;
 }
-
 .filter_methods_container {
   padding-top: 70px;
-  /* border: 3px solid blue; */
 }
-.column_reverse_map{
+.column_reverse_map {
   display: flex;
-  /* border: 2px solid green; */
   flex-direction: column;
-
 }
-
-
 .filter_cont {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-top: 70px;
-  /* border: 1px solid red; */
   gap: 13px;
 }
-
 /* -------------------------------space button stules ------------------------------------------- */
 .space_button {
- 
   display: flex;
   width: 159px;
   height: 33px;
@@ -58,15 +41,10 @@
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: #fff;
   position: relative;
-   /* border: 1px solid red; */
-
 }
-
-
 .button-modal-container {
   position: relative;
   cursor: pointer;
-  /* border: 2px solid blue; */
 }
 
 /* ----------------------------------------------------------------------------------------------- */
@@ -88,24 +66,17 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 0px; /* 0% */
+  line-height: 0px;
   letter-spacing: 1.76px;
   position: relative;
 }
-
 .dropdown {
   position: absolute;
   margin-left: 80%;
 }
-
 .lacation_button_for_word {
   flex-shrink: 0;
 }
-
-/* ----------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------chackbox button styles ------------------------------------ */
-/* Hide the default checkbox */
 .container input {
   position: absolute;
   opacity: 0;
@@ -114,7 +85,6 @@
   width: 0;
   border: 2px;
 }
-
 .container {
   display: block;
   position: relative;
@@ -123,42 +93,30 @@
   user-select: none;
   animation: jello-horizontal 0.9s both;
 }
-
 .checkmark:hover {
   animation: jello-horizontal 0.9s both;
 }
-
-/* Create a custom checkbox */
 .checkmark {
   position: relative;
   top: 0;
   left: 0;
   height: 1em;
   width: 1em;
-  /* border-radius: 50%; */
   border: 4px;
   border-color: #fff;
   background-color: #ffffff;
 }
-
-/* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
   background-color: rgb(0, 0, 0);
 }
-
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
-
-/* Show the checkmark when checked */
 .container input:checked ~ .checkmark:after {
   display: block;
 }
-
-/* Style the checkmark/indicator */
 .container .checkmark:after {
   left: 0.4em;
   top: 0.2em;
@@ -213,9 +171,6 @@
   gap: 10px;
   margin-bottom: 10px;
 }
-
-/* ----------------------------------------------------------------------------------------------- */
-
 .text_modal_color {
   color: #fff;
 }
@@ -223,14 +178,12 @@
 .location_modal_container {
   color: #fff;
 }
-
 .districts_and_pharentdostricts {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   gap: 20px;
 }
-
 .pharent_district_chackmarks {
   display: flex;
   justify-content: flex-start;
@@ -278,12 +231,11 @@
   display: flex;
   align-items: center;
   transition: 150ms ease-in-out;
-  border-style: solid; /* This line is necessary */
+  border-style: solid; 
   border-color: aliceblue;
   border-width: 1px;
   margin-top: 30px;
 }
-
 .modal_close_button:hover {
   scale: 0.95;
   background: black;
@@ -358,7 +310,7 @@
 
 .legend_contained {
   display: flex;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   align-items: center;
   color: #fff;
   gap: 30px;
@@ -408,7 +360,6 @@
   background-color: #000000 !important;
   color: #fff !important;
 }
-
 .gm-style-iw-d {
   padding: 0px !important;
   background-color: #000000 !important;
@@ -417,11 +368,9 @@
   display: flex;
   justify-content: center;
 }
-
 .gm-ui-hover-effect {
   margin-right: 10px !important;
 }
-
 .gm-ui-hover-effect > span {
   background-color: #ffffff !important;
   width: 52px !important;
@@ -443,7 +392,6 @@
 .complex_status {
   font-weight: 10px !important;
 }
-
 .infowindow_settings {
   display: flex;
   flex-direction: column;
@@ -451,14 +399,12 @@
   gap: 10px;
   margin-bottom: 10px;
 }
-
 #rank_p_tag {
   font-size: 13px;
   font-weight: 600;
   color: #fff;
   padding-left: 50%;
 }
-
 #rank_container {
   display: flex !important;
   justify-content: flex-end !important;
@@ -467,44 +413,35 @@
 /* ----------------------------------------------------------------------- */
 
 .filter_inputs {
-  color:#FFFFFF;
+  color: #ffffff;
   background-color: transparent;
   border-style: hidden;
   border: 3px solid transparent;
-  /* Additional styling to ensure the input field blends well with your design */
-  background-color: transparent; /* Light background for visibility */
+  background-color: transparent;
   padding: 10px;
   border-radius: 5px;
   margin-left: 10px;
 }
 
-.filter_inputs:focus{
+.filter_inputs:focus {
   outline: none;
-  /* Optionally, change border or add shadow on focus */
   box-shadow: 0 0 5px rgb(161, 193, 202);
 }
-
-.filter_inputs::placeholder{
-  font-size: 15px; /* Larger text size */
+.filter_inputs::placeholder {
+  font-size: 15px;
   color: #999;
 }
-
-/* demove default arrows from input */
 .filter_inputs::-webkit-outer-spin-button,
 .filter_inputs::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
-/* Remove spin buttons for MS Edge */
 .filter_inputs::-ms-clear,
 .filter_inputs::-ms-reveal {
   display: none;
   width: 0;
   height: 0;
 }
-
-/* Remove spin buttons and clear button for Internet Explorer */
 .filter_inputs::-ms-clear {
   display: none;
 }
@@ -524,64 +461,59 @@
   margin-right: 10px;
   color: #ffffff;
 }
-
-/* 
-span {
-  display: inline-block;
-  transform: skew(21deg);
+.closeMapSort {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  display: none;
 }
-
-.city_button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 100%;
-  left: 0;
-  background: rgb(20, 20, 20);
-  opacity: 0;
-  z-index: -1;
-  transition: all 0.5s;
+.filtetmethods_and_filters {
+  display: none;
 }
-
-.city_button:hover {
-  color: #fff;
-}
-
-.city_button:hover::before {
-  left: 0;
-  right: 0;
-  opacity: 1;
-} */
-.space_between{
+.space_between {
   width: 100%;
 }
-.flex_start{
+.flex_start {
   width: 100%;
   display: flex;
   flex-direction: row;
   font-size: 18px;
   justify-content: space-around;
-  /* border: 2px solid green; */
 }
-.map_sort_icon{
+#noneMap {
   display: none;
 }
-@media screen and (max-width:500px) {
+.map_sort_icon {
+  display: none;
+}
+.filtetmethods_and_filterss {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 7%;
+  gap: 13px;
+}
+@media screen and (max-width: 500px) {
+  .map_sort_icon {
+    display: block;
+  }
   .map_cont {
     width: 100%;
   }
   .filtetmethods_and_filters {
     width: 100%;
     flex-direction: column;
-    /* border: 1px solid red; */
-    align-items: start;
-    /* display: block; */
+    align-items: center;
+    justify-content: center;
+  }
+  .filtetmethods_and_filterss {
+    display: none;
   }
   .filter_cont {
-    /* border: 1px solid red; */
     flex-direction: column;
-    align-items: start;
+    align-items: center;
     padding-top: 0;
     gap: 15px;
     margin-top: 10px;
@@ -590,40 +522,33 @@ span {
     width: 100%;
     padding: 0;
     margin-left: 0;
-    /* flex-direction: column; */
     flex-wrap: wrap;
-    /* border: 1px solid green; */
-    /* align-items: start; */
   }
-  .column_reverse_map{
+  .column_reverse_map {
     flex-direction: column-reverse;
   }
-  .flex_start{
-    /* border: 2px solid blue; */
+  .flex_start {
     display: flex;
     flex-direction: column;
     align-items: start;
     gap: 5px;
   }
-  .space_between{
+  .space_between {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 20px;
-    /* align-items: start; */
+    margin-bottom: -50px;
   }
-  .map_sort_icon{
+  .filtetmethods_and_filters {
     display: block;
   }
-  /* .show_map_filter{
-    border: 1px solid blue;
-  } */
-  /* .filter_methods_container{
-    display: block;
-
-  }
-  .closeMapSort{
+  .closeMapSort {
     display: none;
-  } */
+  }
+  .button-modal-container {
+    display: flex;
+    justify-content: center;
+  }
 }

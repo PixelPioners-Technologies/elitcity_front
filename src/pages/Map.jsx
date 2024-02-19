@@ -2540,6 +2540,14 @@ export default function Map({ selectedLanguage }) {
     setMin_graund_square_price("");
     setMax_ground_square_price("");
   };
+  
+  const [openSortComp, setOpenComp] = useState(false);
+
+  const sortOpen = () => {
+    setOpenComp(!openSortComp);
+  };
+
+
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
@@ -2552,11 +2560,6 @@ export default function Map({ selectedLanguage }) {
     return <div>Loading...</div>;
   }
 
-  // const [openSortComp, setOpenComp] = useState(false);
-
-  // const sortOpen = () => {
-  //   setOpenComp(!openSortComp);
-  // };
 
   return (
     <div className="main_map">
@@ -2566,8 +2569,8 @@ export default function Map({ selectedLanguage }) {
         transition={{ duration: 1 }}
         // className={openMapFilter ? "show_map_filter" : "closeMapSort"}
       >
-        
-        <div className= "filtetmethods_and_filters closeMapSort">
+        {/* "filtetmethods_and_filters closeMapSort" */}
+        <div className= "filtetmethods_and_filterss closeMapSortt">
           <div className="filter_methods_container">
             {/* modal for filtering method changing */}
             <div className="button-modal-container category_button">
@@ -2702,7 +2705,7 @@ export default function Map({ selectedLanguage }) {
                 </p>
               </div>
             </div>
-            <div className="map_sort_icon">
+            <div className="map_sort_icon" onClick={sortOpen}>
               <img
                 src={Sort}
                 style={{ width: "20px", height: "25px" }}
@@ -2710,6 +2713,43 @@ export default function Map({ selectedLanguage }) {
               />
             </div>
           </div>
+          <div className= {openSortComp ? "filtetmethods_and_filters" : "closeMapSort"}>
+          <div className="filter_methods_container">
+            {/* modal for filtering method changing */}
+            <div className="button-modal-container category_button">
+              <div
+                onClick={handleFilterChangeModalClick}
+                className="space_button"
+              >
+                {
+                  handleStatusButtonLanguageChange(selectedLanguage)
+                    .categoryLanguage
+                }
+                <img
+                  src={button_icon}
+                  alt="button dropdown icon"
+                  className="dropdown"
+                />
+              </div>
+
+              <FilterChangeModal
+                isOpen={isfilterChangeModalOpen}
+                close={closeFilterChangeModal}
+              >
+                <div className="filter_little_container">
+                  {renderFilterMethods()}
+                </div>
+                <button
+                  className="modal_close_button"
+                  onClick={closeFilterChangeModal}
+                >
+                  Close
+                </button>
+              </FilterChangeModal>
+            </div>
+          </div>
+          <div>{renderFilterUI()}</div>
+        </div>
         </div>
       </div>
     </div>
