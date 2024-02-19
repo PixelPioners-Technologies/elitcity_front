@@ -75,6 +75,11 @@ import button_icon from "../icons/Vector.svg";
 import { useLocation } from "react-router-dom";
 
 import mew_dolar_white from "../icons/new_dolar_white.png";
+import ReactImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
+
+
 
 // --------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------
@@ -295,9 +300,15 @@ export default function EachComplex({
       setOnly_apartments(normalised_Data.apartments);
       seteachComplexAllAppartments(normalised_Data);
 
-      const imagesWithIds = data.complex_images.map((url, index) => ({
-        id: index,
-        value: url,
+      // const imagesWithIds = data.complex_images.map((original, thumbnail) => ({
+      //   original: index,
+      //   value: url,
+
+      // }));
+      console.log("images ", data.complex_images)
+      const imagesWithIds = data.complex_images.map((image) => ({
+        original: image,// Use the actual property name for the full-size image URL
+        thumbnail: image, // Use the actual property name for the thumbnail image URL
       }));
 
       setSliderImages(imagesWithIds);
@@ -842,47 +853,15 @@ export default function EachComplex({
     <div className="eachComplexBox3">
       <div className="imageAndTextInfos3">
         {/* Complexes photos info */}
-        <div className="imageSliderBox3">
-          <div className="lands_img">
-            {/* <button className="btns" onClick={handlePrevious}>
-              P
-            </button> */}
-            {wordData && ( // Check if wordData is not null/undefined before rendering
-              <img
-                id="lands_img"
-                src={wordData.value}
-                alt={`Complex ${wordData.id}`}
-                // height="450"
-                // width="711"
-                className={clickedIndex !== null ? "clicked" : ""}
-              />
-            )}
-          </div>
-          <div className="miniImagesBox2">
-            <button className="btns" onClick={handleNext}>
-              Next
-            </button>
-            {sliderImages
-              .slice(carouselPosition, carouselPosition + 4)
-              .map((data, i) => (
-                <div className="thumbnail" key={i}>
-                  <img
-                    className={`${wordData?.id === data.id ? "clicked" : ""} ${
-                      clickedIndex === i ? "enlarge" : ""
-                    }`}
-                    src={data.value}
-                    alt={`Complex ${data.id}`}
-                    onClick={() => handleClick(i + carouselPosition)}
-                    height="70"
-                    width="100"
-                  />
-                </div>
-              ))}
-            <button className="btns" onClick={handlePrevious}>
-              Previus
-            </button>
-          </div>
+        <div className="image_galery_container"  >
+          {sliderImages.length > 0 && <ImageGallery
+            items={sliderImages}
+            autoPlay={true}
+            slideInterval={3000}
+            thumbnailPosition="left"
+          />}
         </div>
+
         {/* --------- */}
 
         {/* complex text info */}
@@ -976,9 +955,9 @@ export default function EachComplex({
               {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}{" "}
               {currenceChangeState
                 ? (
-                    Number(eachPrivateApartment.pricePerSqMeter) *
-                    getCorrencyRate
-                  ).toFixed(2)
+                  Number(eachPrivateApartment.pricePerSqMeter) *
+                  getCorrencyRate
+                ).toFixed(2)
                 : Number(eachPrivateApartment.pricePerSqMeter).toFixed(2)}
               {isOn ? "  $  " : "  ₾  "}
               {handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
@@ -1180,15 +1159,15 @@ export default function EachComplex({
                           >
                             {currenceChangeState
                               ? (
-                                  Number(
-                                    prev_apartments?.internalApartmentName
-                                      ?.full_price
-                                  ) * getCorrencyRate
-                                ).toFixed(2)
-                              : Number(
+                                Number(
                                   prev_apartments?.internalApartmentName
                                     ?.full_price
-                                ).toFixed(2)}
+                                ) * getCorrencyRate
+                              ).toFixed(2)
+                              : Number(
+                                prev_apartments?.internalApartmentName
+                                  ?.full_price
+                              ).toFixed(2)}
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>
@@ -1359,15 +1338,15 @@ export default function EachComplex({
                           >
                             {currenceChangeState
                               ? (
-                                  Number(
-                                    prev_apartments?.internalApartmentName
-                                      ?.full_price
-                                  ) * getCorrencyRate
-                                ).toFixed(2)
-                              : Number(
+                                Number(
                                   prev_apartments?.internalApartmentName
                                     ?.full_price
-                                ).toFixed(2)}
+                                ) * getCorrencyRate
+                              ).toFixed(2)
+                              : Number(
+                                prev_apartments?.internalApartmentName
+                                  ?.full_price
+                              ).toFixed(2)}
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>
@@ -1538,15 +1517,15 @@ export default function EachComplex({
                           >
                             {currenceChangeState
                               ? (
-                                  Number(
-                                    prev_apartments?.internalApartmentName
-                                      ?.full_price
-                                  ) * getCorrencyRate
-                                ).toFixed(2)
-                              : Number(
+                                Number(
                                   prev_apartments?.internalApartmentName
                                     ?.full_price
-                                ).toFixed(2)}
+                                ) * getCorrencyRate
+                              ).toFixed(2)
+                              : Number(
+                                prev_apartments?.internalApartmentName
+                                  ?.full_price
+                              ).toFixed(2)}
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>
@@ -1719,15 +1698,15 @@ export default function EachComplex({
                             {/* {prev_apartments?.internalApartmentName?.full_price} */}
                             {currenceChangeState
                               ? (
-                                  Number(
-                                    prev_apartments?.internalApartmentName
-                                      ?.full_price
-                                  ) * getCorrencyRate
-                                ).toFixed(2)
-                              : Number(
+                                Number(
                                   prev_apartments?.internalApartmentName
                                     ?.full_price
-                                ).toFixed(2)}
+                                ) * getCorrencyRate
+                              ).toFixed(2)
+                              : Number(
+                                prev_apartments?.internalApartmentName
+                                  ?.full_price
+                              ).toFixed(2)}
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                           <img
@@ -1905,15 +1884,15 @@ export default function EachComplex({
                             {/* {prev_apartments?.internalApartmentName?.full_price} */}
                             {currenceChangeState
                               ? (
-                                  Number(
-                                    prev_apartments?.internalApartmentName
-                                      ?.full_price
-                                  ) * getCorrencyRate
-                                ).toFixed(2)
-                              : Number(
+                                Number(
                                   prev_apartments?.internalApartmentName
                                     ?.full_price
-                                ).toFixed(2)}
+                                ) * getCorrencyRate
+                              ).toFixed(2)
+                              : Number(
+                                prev_apartments?.internalApartmentName
+                                  ?.full_price
+                              ).toFixed(2)}
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                           {/* <img src={mew_dolar_white} alt="dollar signe" className="dola_apartment_card" /> */}
@@ -2089,15 +2068,15 @@ export default function EachComplex({
                             {/* {prev_apartments?.internalApartmentName?.full_price} */}
                             {currenceChangeState
                               ? (
-                                  Number(
-                                    prev_apartments?.internalApartmentName
-                                      ?.full_price
-                                  ) * getCorrencyRate
-                                ).toFixed(2)
-                              : Number(
+                                Number(
                                   prev_apartments?.internalApartmentName
                                     ?.full_price
-                                ).toFixed(2)}
+                                ) * getCorrencyRate
+                              ).toFixed(2)
+                              : Number(
+                                prev_apartments?.internalApartmentName
+                                  ?.full_price
+                              ).toFixed(2)}
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>

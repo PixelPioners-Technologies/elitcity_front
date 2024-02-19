@@ -9,3 +9,7 @@
 .modal-overlay.open {
   display: block; /* Show when the modal is open */
 }
+
+.shevaviwrovot{
+  width: auto;
+}

@@ -517,6 +517,7 @@ export default function Map({
     selectedDistricts,
     min_ground_area,
     max_ground_area,
+    
     // min_graund_full_price,
     converted_min_ground_fullPrice,
 
