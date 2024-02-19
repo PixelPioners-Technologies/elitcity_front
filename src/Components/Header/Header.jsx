@@ -12,8 +12,6 @@ import ArrowDown from "../../assets/arrowDownFromHeader.svg";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
-
-
 export default function Header({
   favorites,
   handleLanguageChange,
@@ -22,17 +20,16 @@ export default function Header({
   favoritesLots,
   favoritesPhysical,
 }) {
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  }
+  };
 
-//   const closeSort = () => {
-//     if (isMenuOpen) {
-//       setIsMenuOpen(false);
-//     }
-// };
+  //   const closeSort = () => {
+  //     if (isMenuOpen) {
+  //       setIsMenuOpen(false);
+  //     }
+  // };
   const handle_P_StatusButtonLanguageChange = (lang) => {
     var languageInfo = {
       complex: "Complexes",
@@ -76,14 +73,16 @@ export default function Header({
         break;
     }
     return languageInfo;
-
   };
 
   return (
     <div className="header">
-
       <Link to="/">
-        <img src={CompanyLogo} alt="Logo of Company STARKHOME COMPANY " />
+        <img
+          src={CompanyLogo}
+          alt="Logo of Company STARKHOME COMPANY "
+          className="companyLogoForDesktop"
+        />
       </Link>
       {/* ------------------------------- */}
       {/* ჯერ–ჯერობით favorite უბრალოდ img-ად მაქვს ვიზუალისთვის და არა ფუნქციონალით */}
@@ -118,7 +117,6 @@ export default function Header({
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-
                   <button className="buttonItemsOfList">
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
@@ -136,7 +134,6 @@ export default function Header({
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-
                   <button className="buttonItemsOfList">
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
@@ -154,7 +151,7 @@ export default function Header({
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className="buttonItemsOfList">
+                  <button className="buttonItemsOfList for_more_width_physical_button">
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
                         .natural_persons
@@ -202,7 +199,6 @@ export default function Header({
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-
                   <button className="buttonItemsOfList">
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
@@ -226,11 +222,12 @@ export default function Header({
             </li>
           </ul>
         </nav>
-
       </div>
 
-      <div className="favouriteAndLanguageAndDayModeChanger">
-        {/* სამკუთხედის ჩამოსაშლელი ისრის სურათი და დეველოპერების button */}
+      {/* სამკუთხედის ჩამოსაშლელი ისრის სურათი და დეველოპერების button
+      !!!  ეს აქ დროებითაა ჩაკომენტარებული.. მომავალში დასჭირდებათ..
+      ... */}
+      {/* <div className="favouriteAndLanguageAndDayModeChanger">
         <div className="downArrowImgAndDevelopersLinkBox">
           <div className="arrowDownImgBox">
             <img src={ArrowDown} alt="arrowDown image" />
@@ -239,8 +236,7 @@ export default function Header({
             <button className="buttonItemsOfList">დეველო</button>
           </Link>
         </div>
-
-      </div>
+      </div> */}
 
       <div className="favouriteAndLanguageAndDayModeChanger">
         <Link to="/favoriteComplex">
@@ -258,7 +254,6 @@ export default function Header({
         <div className="line"></div>
         <div className="line"></div>
         <div className="line"></div>
-
       </div>
     </div>
   );

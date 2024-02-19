@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import{  useEffect } from "react";
-import React, { useState } from 'react';
+import { useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./Map.css";
 import {
@@ -979,7 +979,7 @@ export default function Map({ selectedLanguage }) {
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.statusInfoLanguage = "Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
         languageInfo.priceButtonLanguage = "Price";
@@ -1006,7 +1006,7 @@ export default function Map({ selectedLanguage }) {
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.statusInfoLanguage = "სტატუსი";
         languageInfo.cityButtonLanguage = "მდებარეობა";
         languageInfo.spaceButtonLanguage = "ფართი";
         languageInfo.priceButtonLanguage = "ფასი";
@@ -1033,7 +1033,7 @@ export default function Map({ selectedLanguage }) {
         break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус";
+        languageInfo.statusInfoLanguage = "статус";
         languageInfo.cityButtonLanguage = "Местоположение";
         languageInfo.spaceButtonLanguage = "Площадь";
         languageInfo.priceButtonLanguage = "Цена";
@@ -2566,8 +2566,7 @@ export default function Map({ selectedLanguage }) {
         transition={{ duration: 1 }}
         // className={openMapFilter ? "show_map_filter" : "closeMapSort"}
       >
-        
-        <div className= "filtetmethods_and_filters closeMapSort">
+        <div className="filtetmethods_and_filters closeMapSort">
           <div className="filter_methods_container">
             {/* modal for filtering method changing */}
             <div className="button-modal-container category_button">

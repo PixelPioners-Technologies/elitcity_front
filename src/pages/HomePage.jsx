@@ -361,7 +361,7 @@ export default function Map({
 
     switch (lang) {
       case "en":
-        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.statusInfoLanguage = "Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
         languageInfo.priceButtonLanguage = "Price";
@@ -380,12 +380,12 @@ export default function Map({
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.statusInfoLanguage = "სტატუსი";
         languageInfo.cityButtonLanguage = "მდებარეობა";
         languageInfo.spaceButtonLanguage = "ფართი";
         languageInfo.priceButtonLanguage = "ფასი";
         languageInfo.allStatusLanguage = "ყველა";
-        languageInfo.findMapButtonLanguage = "რუქა";
+        languageInfo.findMapButtonLanguage = "რუკა";
         languageInfo.allFindButtonLanguage = "ძიება";
         languageInfo.spaceButtonClose = "დახურვა";
         languageInfo.minPrice = "დან მ²";
@@ -395,11 +395,11 @@ export default function Map({
         languageInfo.meterPriceHomePage = "მ² - ის ფასი";
         languageInfo.dan = "დან";
         languageInfo.mde = "მდე";
-        languageInfo.place_for_your_comfort = "ადგილი შენი კომფორტისტვის";
+        languageInfo.place_for_your_comfort = "ადგილი შენი კომფორტისთვის";
         break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "выберите статус";
+        languageInfo.statusInfoLanguage = "статус";
         languageInfo.cityButtonLanguage = "Местоположение";
         languageInfo.spaceButtonLanguage = "Площадь";
         languageInfo.priceButtonLanguage = "Цена";
@@ -628,7 +628,11 @@ export default function Map({
                           minFullPriceChangeHandler(e.target.value)
                         }
                       />
-                      <img src={isOn ? dollar : lari} alt='lari' className='currency-sign_homepage_11' />
+                      <img
+                        src={isOn ? dollar : lari}
+                        alt="lari"
+                        className="currency-sign_homepage_11"
+                      />
                     </div>
 
                     {/* meotxe  */}

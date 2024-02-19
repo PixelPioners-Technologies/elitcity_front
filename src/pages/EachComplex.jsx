@@ -45,31 +45,23 @@ import forMapPhoto from "../assets/ComplexesPhotos/1zz.jpg";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import private_apartment_location_icon from "../location_icons/private_apartment2.png";
 
-
-import binebisRaodenoba from '../icons/gasagebi.png'
-import korpusebisRaodenoba from '../icons/korpusi.png'
-import parti from '../icons/farti.png'
-import cherisSimagle from '../icons/cheris_simagle.png'
-import sartulianoba from '../icons/sartulianoba.png'
-import konstruqcia from '../icons/konstruqcia.png'
-import parkingi from '../icons/parkingi.png'
-import dacva from '../icons/video_kamera.png'
-import otaxebi from '../icons/otaxebi.png'
-import chabareba from '../icons/chabareba.png'
-import sinatle from '../icons/sinatle.png'
-import tenianoba from '../icons/tenianoba.png'
-import kvebisObieqti from '../icons/kvebis_obieqti.png'
-import lipti from '../icons/lifti.png'
-import shlagbaumi from '../icons/shlagbaumi.png'
-import konsierji from '../icons/konsierji.png'
-import ezo from "../icons/ezo.png"
-
-
-
-
-
-
-
+import binebisRaodenoba from "../icons/gasagebi.png";
+import korpusebisRaodenoba from "../icons/korpusi.png";
+import parti from "../icons/farti.png";
+import cherisSimagle from "../icons/cheris_simagle.png";
+import sartulianoba from "../icons/sartulianoba.png";
+import konstruqcia from "../icons/konstruqcia.png";
+import parkingi from "../icons/parkingi.png";
+import dacva from "../icons/video_kamera.png";
+import otaxebi from "../icons/otaxebi.png";
+import chabareba from "../icons/chabareba.png";
+import sinatle from "../icons/sinatle.png";
+import tenianoba from "../icons/tenianoba.png";
+import kvebisObieqti from "../icons/kvebis_obieqti.png";
+import lipti from "../icons/lifti.png";
+import shlagbaumi from "../icons/shlagbaumi.png";
+import konsierji from "../icons/konsierji.png";
+import ezo from "../icons/ezo.png";
 
 // ------------------
 import "./Physical.css";
@@ -82,8 +74,7 @@ import button_icon from "../icons/Vector.svg";
 
 import { useLocation } from "react-router-dom";
 
-import mew_dolar_white from '../icons/new_dolar_white.png'
-
+import mew_dolar_white from "../icons/new_dolar_white.png";
 
 // --------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------
@@ -92,9 +83,6 @@ import mew_dolar_white from '../icons/new_dolar_white.png'
 // --------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------
-
-
-
 
 function normalizeData(item, lang) {
   return {
@@ -203,7 +191,6 @@ export default function EachComplex({
   toggleSwitch,
   favoriteApartment,
   favorite_apartment_handler,
-
 }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
 
@@ -250,19 +237,10 @@ export default function EachComplex({
 
   const [eachPrivateApartment, setEachPrivateApartment] = useState([]);
 
-
-
   const [only_apartments, setOnly_apartments] = useState([]);
-
 
   const location = useLocation();
   const { complexId } = location.state || {}; // Ensure fallback to prevent errors if state is undefined
-
-
-
-
-
-
 
   useEffect(() => {
     setSelectedCity("");
@@ -314,7 +292,7 @@ export default function EachComplex({
       setAllComplexImages(data.complexImages);
       setEachPrivateApartment(normalised_Data);
       setPrivateApartments(normalised_Data);
-      setOnly_apartments(normalised_Data.apartments)
+      setOnly_apartments(normalised_Data.apartments);
       seteachComplexAllAppartments(normalised_Data);
 
       const imagesWithIds = data.complex_images.map((url, index) => ({
@@ -485,8 +463,7 @@ export default function EachComplex({
         languageInfo.m2 = "m²";
         languageInfo.sartuli = "Floor";
 
-
-        languageInfo.statusInfoLanguage = "Select Status";
+        languageInfo.statusInfoLanguage = "Status";
         languageInfo.cityButtonLanguage = "Location";
         languageInfo.spaceButtonLanguage = "Space";
         languageInfo.priceButtonLanguage = "Price";
@@ -532,11 +509,10 @@ export default function EachComplex({
         languageInfo.m2 = "m²";
         languageInfo.sartuli = "Floor";
 
-
         break;
 
       case "ka":
-        languageInfo.statusInfoLanguage = "აირჩიე სტატუსი";
+        languageInfo.statusInfoLanguage = "სტატუსი";
         languageInfo.cityButtonLanguage = "მდებარეობა";
         languageInfo.spaceButtonLanguage = "ფართი";
         languageInfo.priceButtonLanguage = "ფასი";
@@ -583,11 +559,10 @@ export default function EachComplex({
         languageInfo.m2 = "მ²";
         languageInfo.sartuli = "სართული";
 
-
         break;
 
       case "ru":
-        languageInfo.statusInfoLanguage = "Выберите статус";
+        languageInfo.statusInfoLanguage = "статус";
         languageInfo.cityButtonLanguage = "Местоположение";
         languageInfo.spaceButtonLanguage = "Площадь";
         languageInfo.priceButtonLanguage = "Цена";
@@ -633,25 +608,19 @@ export default function EachComplex({
         languageInfo.m2 = " м²";
         languageInfo.sartuli = "Пол";
 
-
         break;
     }
     return languageInfo;
   };
 
-
-
-
-
   const handle_room_language_change = (lang) => {
     var languageInfo = {
       studio: "Studio",
-      one_room : "One room",
-      two_rom : "Two rooms",
-      three_room :"Three rooms",
-      four_room : "Four rooms",
-      fiveplus_room : "Five + rooms",
-
+      one_room: "One room",
+      two_rom: "Two rooms",
+      three_room: "Three rooms",
+      four_room: "Four rooms",
+      fiveplus_room: "Five + rooms",
     };
 
     switch (lang) {
@@ -662,7 +631,6 @@ export default function EachComplex({
         languageInfo.three_room = "Three rooms";
         languageInfo.four_room = "Four rooms";
         languageInfo.fiveplus_room = "Five + rooms";
-
 
         break;
 
@@ -687,10 +655,6 @@ export default function EachComplex({
     }
     return languageInfo;
   };
-
-
-
-
 
   // --------------------------------------------language change for card status setting and content ---------------------------------------------------
   const cardStatusSettingLanguage = (lang, status) => {
@@ -761,14 +725,12 @@ export default function EachComplex({
   //   navigate(`/eachComplex/${complexId},`);
   // };
 
-
   const truncateText = (text, limit) => {
     if (!text) return ""; // Return an empty string if text is null or undefined
     return text.length > limit ? `${text.substring(0, limit)}...` : text;
   };
 
   // ---------------------------------------------------function for filtering room numbers ------------------------------------------
-
 
   const [studios, setStudios] = useState([]);
   const [oneBedrooms, setOneBedrooms] = useState([]);
@@ -784,56 +746,63 @@ export default function EachComplex({
   const [show_four_bedrom, setShow_four_bedrom] = useState(false);
   const [show_fivePlus_bedrom, setShow_fivePlus_bedrom] = useState(false);
 
-
   const handle_show_studio = () => {
-    setShow_studio(!show_studio)
-  }
+    setShow_studio(!show_studio);
+  };
 
   const handle_show_one_bedrom = () => {
-    setShow_one_bedroom(!show_one_bedroom)
-  }
+    setShow_one_bedroom(!show_one_bedroom);
+  };
 
   const handle_show_two_bedrom = () => {
-    setShow_two_bedrom(!show_two_bedrom)
-  }
+    setShow_two_bedrom(!show_two_bedrom);
+  };
 
   const handle_show_three_badroom = () => {
-    setShow_three_bedrom(!show_three_bedrom)
-  }
+    setShow_three_bedrom(!show_three_bedrom);
+  };
 
   const handle_show_four_bedroom = () => {
-    setShow_four_bedrom(!show_four_bedrom)
-  }
+    setShow_four_bedrom(!show_four_bedrom);
+  };
 
   const handle_show_fivePlus_bedroom = () => {
-    setShow_fivePlus_bedrom(!show_fivePlus_bedrom)
-  }
+    setShow_fivePlus_bedrom(!show_fivePlus_bedrom);
+  };
 
+  useEffect(() => {
+    // Filter apartments data whenever it changes
+    const studiosFiltered = only_apartments.filter(
+      (apartment) =>
+        apartment.internalApartmentName.number_of_rooms === "studio"
+    );
+    const oneBedroomsFiltered = only_apartments.filter(
+      (apartment) => apartment.internalApartmentName.number_of_rooms === "1"
+    );
+    const twoBedroomsFiltered = only_apartments.filter(
+      (apartment) => apartment.internalApartmentName.number_of_rooms === "2"
+    );
+    const threeBedroomsFiltered = only_apartments.filter(
+      (apartment) => apartment.internalApartmentName.number_of_rooms === "3"
+    );
+    const fourBedroomsFiltered = only_apartments.filter(
+      (apartment) => apartment.internalApartmentName.number_of_rooms === "4"
+    );
+    const fivePlusBedroomsFiltered = only_apartments.filter(
+      (apartment) =>
+        parseInt(apartment.internalApartmentName.number_of_rooms) >= 5
+    );
 
+    // Update states with the filtered data
+    setStudios(studiosFiltered);
+    setOneBedrooms(oneBedroomsFiltered);
+    setTwoBedrooms(twoBedroomsFiltered);
+    setThreeBedrooms(threeBedroomsFiltered);
+    setFourBedrooms(fourBedroomsFiltered);
+    setFivePlusBedrooms(fivePlusBedroomsFiltered);
 
-
-    useEffect(() => {
-      // Filter apartments data whenever it changes
-      const studiosFiltered = only_apartments.filter(apartment => apartment.internalApartmentName.number_of_rooms === 'studio');
-      const oneBedroomsFiltered = only_apartments.filter(apartment => apartment.internalApartmentName.number_of_rooms === '1');
-      const twoBedroomsFiltered = only_apartments.filter(apartment => apartment.internalApartmentName.number_of_rooms === '2');
-      const threeBedroomsFiltered = only_apartments.filter(apartment => apartment.internalApartmentName.number_of_rooms === '3');
-      const fourBedroomsFiltered = only_apartments.filter(apartment => apartment.internalApartmentName.number_of_rooms === '4');
-      const fivePlusBedroomsFiltered = only_apartments.filter(apartment => parseInt(apartment.internalApartmentName.number_of_rooms) >= 5);
-
-      // Update states with the filtered data
-      setStudios(studiosFiltered);
-      setOneBedrooms(oneBedroomsFiltered);
-      setTwoBedrooms(twoBedroomsFiltered);
-      setThreeBedrooms(threeBedroomsFiltered);
-      setFourBedrooms(fourBedroomsFiltered);
-      setFivePlusBedrooms(fivePlusBedroomsFiltered);
-
-      console.log()
-
-    }, [only_apartments]);
-
-
+    console.log();
+  }, [only_apartments]);
 
   // useEffect(() => {
   //   console.log("5+", fivePlusBedrooms)
@@ -844,9 +813,6 @@ export default function EachComplex({
   //   console.log("studio", studios)
 
   // }, [studios, fivePlusBedrooms, fourBedrooms, threeBedrooms, twoBedrooms, oneBedrooms, studios])
-
-
-
 
   // const navigate = useNavigate();
   const handleAppartmentClick = (apartmentId) => {
@@ -901,8 +867,9 @@ export default function EachComplex({
               .map((data, i) => (
                 <div className="thumbnail" key={i}>
                   <img
-                    className={`${wordData?.id === data.id ? "clicked" : ""} ${clickedIndex === i ? "enlarge" : ""
-                      }`}
+                    className={`${wordData?.id === data.id ? "clicked" : ""} ${
+                      clickedIndex === i ? "enlarge" : ""
+                    }`}
                     src={data.value}
                     alt={`Complex ${data.id}`}
                     onClick={() => handleClick(i + carouselPosition)}
@@ -940,13 +907,14 @@ export default function EachComplex({
                   <img
                     src={heartIconEmpty}
                     alt="Logo of empty heart"
-                    style={{ width: "30px", height: "30px", border: '1px solid white' }}
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      border: "1px solid white",
+                    }}
                   />
                 )}
               </button>
-
-
-
 
               {/* ----Dollar and Lari Toggle button */}
               <div className="currencyBox__c">
@@ -976,21 +944,27 @@ export default function EachComplex({
               <ShareButton selectedLanguage={selectedLanguage} />
 
               {/* marge to main  */}
-
-
-
             </div>
           </div>
           {/* აქ არის პირველი ზედა ტექსტები, არქი, მისამართი, ქუჩა, მ2-ის ფასი */}
           <div className="companyAdressPriceTextBox">
-            <p className="each_complex_title" style={{ color: "#ccc", fontSize: "20px" }}>{" "}{eachPrivateApartment?.complexName}</p>
-            <p style={{ color: "#838289" }} className="each_complex_address" >
+            <p
+              className="each_complex_title"
+              style={{ color: "#ccc", fontSize: "20px" }}
+            >
+              {" "}
+              {eachPrivateApartment?.complexName}
+            </p>
+            <p style={{ color: "#838289" }} className="each_complex_address">
               {eachPrivateApartment &&
                 eachPrivateApartment.apartments &&
                 eachPrivateApartment.apartments.length > 0 &&
                 eachPrivateApartment.apartments[0]?.address.city}
             </p>
-            <p style={{ color: "#838289" }} className="each_complex_price_square" >
+            <p
+              style={{ color: "#838289" }}
+              className="each_complex_price_square"
+            >
               {eachPrivateApartment &&
                 eachPrivateApartment.apartments &&
                 eachPrivateApartment.apartments.length > 0 &&
@@ -998,13 +972,15 @@ export default function EachComplex({
             </p>
 
             <p style={{ color: "#838282" }}> {eachPrivateApartment?.adress}</p>
-            <p className="each_complex_price_square" >
-              {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}  {" "}
+            <p className="each_complex_price_square">
+              {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}{" "}
               {currenceChangeState
-                ? (Number(eachPrivateApartment.pricePerSqMeter) * getCorrencyRate).toFixed(2)
+                ? (
+                    Number(eachPrivateApartment.pricePerSqMeter) *
+                    getCorrencyRate
+                  ).toFixed(2)
                 : Number(eachPrivateApartment.pricePerSqMeter).toFixed(2)}
-
-                { isOn ? '  $  ' :  '  ₾  ' }
+              {isOn ? "  $  " : "  ₾  "}
               {handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
             </p>
           </div>
@@ -1012,40 +988,64 @@ export default function EachComplex({
           <div className="chabarebaPartebiKorpusebi">
             {/* ქვედა, მეორე ტექსტია.. ჩაბარება, Fართები... სართულიანობა */}
             <div className="eachTextOnListTexts">
-              <div className="first_and_second_cont" >
-                <p style={{ color: "#C2BFBF" }} className="chabareba" >{handle_P_StatusButtonLanguageChange(selectedLanguage).submission}</p>
-                <p style={{ color: "#FFFFFF" }}  >{eachPrivateApartment?.finishYear}</p>
+              <div className="first_and_second_cont">
+                <p style={{ color: "#C2BFBF" }} className="chabareba">
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .submission
+                  }
+                </p>
+                <p style={{ color: "#FFFFFF" }}>
+                  {eachPrivateApartment?.finishYear}
+                </p>
               </div>
 
-
               <div className="first_and_second_cont">
-                <p style={{ color: "#C2BFBF" }} className="chabareba"  >{handle_P_StatusButtonLanguageChange(selectedLanguage).spaces}</p>
-                <p style={{ color: "#FFFFFF", width: '100px' }}>{eachPrivateApartment?.numberOfApartments} {handle_P_StatusButtonLanguageChange(selectedLanguage).m2}  </p>
+                <p style={{ color: "#C2BFBF" }} className="chabareba">
+                  {handle_P_StatusButtonLanguageChange(selectedLanguage).spaces}
+                </p>
+                <p style={{ color: "#FFFFFF", width: "100px" }}>
+                  {eachPrivateApartment?.numberOfApartments}{" "}
+                  {handle_P_StatusButtonLanguageChange(selectedLanguage).m2}{" "}
+                </p>
               </div>
 
-
-
-
               <div className="first_and_second_cont">
-                <p style={{ color: "#C2BFBF" }} className="chabareba" >{handle_P_StatusButtonLanguageChange(selectedLanguage).number_of_apartments}</p>
+                <p style={{ color: "#C2BFBF" }} className="chabareba">
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .number_of_apartments
+                  }
+                </p>
                 <p style={{ color: "#FFFFFF" }}>
                   {/* აქ, ბაზაში ნull არის მითითებული და ჯერ ჩავაკომენტარე რო ფრონტისთვის მეჩვენებინა */}
-                  {/* {eachPrivateApartment?.numberOfBuildings} */} 30 </p>
+                  {/* {eachPrivateApartment?.numberOfBuildings} */} 30{" "}
+                </p>
               </div>
 
               <div className="first_and_second_cont">
-                <p style={{ color: "#C2BFBF" }} className="chabareba" >{handle_P_StatusButtonLanguageChange(selectedLanguage).buildings}</p>
-                <p style={{ color: "#FFFFFF", width: '100px' }}>{eachPrivateApartment?.numberOfBuildings}</p>
+                <p style={{ color: "#C2BFBF" }} className="chabareba">
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .buildings
+                  }
+                </p>
+                <p style={{ color: "#FFFFFF", width: "100px" }}>
+                  {eachPrivateApartment?.numberOfBuildings}
+                </p>
               </div>
-
 
               <div className="first_and_second_cont">
-                <p style={{ color: "#C2BFBF" }} className="chabareba"  >{handle_P_StatusButtonLanguageChange(selectedLanguage).flooring}</p>
-                <p style={{ color: "#FFFFFF" }}>{eachPrivateApartment?.numberOfFloors}</p>
+                <p style={{ color: "#C2BFBF" }} className="chabareba">
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .flooring
+                  }
+                </p>
+                <p style={{ color: "#FFFFFF" }}>
+                  {eachPrivateApartment?.numberOfFloors}
+                </p>
               </div>
-
-
-
             </div>
           </div>
           {/* დარეკვისა და ნომრის ჩვენების სექცია */}
@@ -1086,8 +1086,17 @@ export default function EachComplex({
       <div className="binebiDaGegmarebaFullBox">
         {/* ბინები და ყველა აპარტამენტის ტექსტი და ბათონი */}
         <div className="firstBoxOfBinebi">
-          <p style={{ color: "#FFFFFF" }}>{handle_P_StatusButtonLanguageChange(selectedLanguage).appartmentsAndPlanning}</p>
-          <button className="numberSHowButton" onClick={handleShowHideClick}>{handle_P_StatusButtonLanguageChange(selectedLanguage).allAppartments}
+          <p style={{ color: "#FFFFFF" }}>
+            {
+              handle_P_StatusButtonLanguageChange(selectedLanguage)
+                .appartmentsAndPlanning
+            }
+          </p>
+          <button className="numberSHowButton" onClick={handleShowHideClick}>
+            {
+              handle_P_StatusButtonLanguageChange(selectedLanguage)
+                .allAppartments
+            }
             {showApartments ? (
               <img src={arrowUp} style={{ width: "20px", marginLeft: "5px" }} />
             ) : (
@@ -1096,18 +1105,18 @@ export default function EachComplex({
           </button>
         </div>
 
-
-
-
         {showApartments && studios.length > 0 && (
           <div className="allCards_physical_aa ">
-
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}>{handle_room_language_change(selectedLanguage).studio}</p>
+              <p style={{ color: "#FFFFFF" }}>
+                {handle_room_language_change(selectedLanguage).studio}
+              </p>
               <button className="numberSHowButton" onClick={handle_show_studio}>
-
                 {show_studio ? (
-                  <img src={arrowUp} style={{ width: "20px", marginLeft: "5px" }} />
+                  <img
+                    src={arrowUp}
+                    style={{ width: "20px", marginLeft: "5px" }}
+                  />
                 ) : (
                   <img src={arrowDown} style={{ width: "30px" }} />
                 )}
@@ -1115,12 +1124,9 @@ export default function EachComplex({
             </div>
 
             <div className="show_studio_apartment">
-              {show_studio && 
-                (studios.map((prev_apartments, index) => (
-                  <div
-                    className="card_physical_aa"
-                    key={index}
-                  >
+              {show_studio &&
+                studios.map((prev_apartments, index) => (
+                  <div className="card_physical_aa" key={index}>
                     <motion.div
                       key={currentPage}
                       initial={{ x: -50, opacity: 0 }}
@@ -1131,7 +1137,9 @@ export default function EachComplex({
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
                           <button
-                            onClick={() => favorite_apartment_handler(prev_apartments)}
+                            onClick={() =>
+                              favorite_apartment_handler(prev_apartments)
+                            }
                             key={prev_apartments.id}
                             className="heartButtons_physical"
                           >
@@ -1149,61 +1157,145 @@ export default function EachComplex({
                           </button>
                         </div>
                         <img
-                          onClick={() => handleAppartmentClick(prev_apartments.id)}
+                          onClick={() =>
+                            handleAppartmentClick(prev_apartments.id)
+                          }
                           src={prev_apartments?.images[0]}
                           alt={prev_apartments.name}
                           style={styles.imageStyles}
                         />
                       </div>
                       {/* --------------card details------------------- */}
-                      <div className="title_and_fullprice" >
-                        <h1 className="company_title" style={styles.companyTitle}>
+                      <div className="title_and_fullprice">
+                        <h1
+                          className="company_title"
+                          style={styles.companyTitle}
+                        >
                           {prev_apartments?.apartmentName}
                         </h1>
-                        <div className="dolar_fullprice" >
-                          <h1 className="company_title" style={styles.companyTitle}>
-                            { currenceChangeState ? 
-                            (Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate ).toFixed(2) :
-                            Number( prev_apartments?.internalApartmentName?.full_price).toFixed(2)}{ isOn ? '  $  ' :  '  ₾  ' }
+                        <div className="dolar_fullprice">
+                          <h1
+                            className="company_title"
+                            style={styles.companyTitle}
+                          >
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
-
                         </div>
                       </div>
 
-                      <div className="textInfo_physical" onClick={() => handleAppartmentClick(prev_apartments.id)}  >
-                        <p className="city_settings  ">{prev_apartments.address.city} {" , "}{prev_apartments.address.city} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {prev_apartments?.internalApartmentName?.square_price}{" "} {handle_P_StatusButtonLanguageChange(selectedLanguage).m2} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).sartuli}  {"  : "} {prev_apartments.internalApartmentName?.floor_number}</p>
+                      <div
+                        className="textInfo_physical"
+                        onClick={() =>
+                          handleAppartmentClick(prev_apartments.id)
+                        }
+                      >
+                        <p className="city_settings  ">
+                          {prev_apartments.address.city} {" , "}
+                          {prev_apartments.address.city}{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            prev_apartments?.internalApartmentName?.square_price
+                          }{" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).m2
+                          }{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).sartuli
+                          }{" "}
+                          {"  : "}{" "}
+                          {prev_apartments.internalApartmentName?.floor_number}
+                        </p>
                         <div className="rooms_and_rank">
-                          <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).rooms}  {"  : "} {prev_apartments.internalApartmentName?.number_of_rooms}</p>
-                          <p className="price_settings" style={styles.complexInfo}>{prev_apartments.internalApartmentName?.rank}</p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {" "}
+                            {
+                              handle_P_StatusButtonLanguageChange(
+                                selectedLanguage
+                              ).rooms
+                            }{" "}
+                            {"  : "}{" "}
+                            {
+                              prev_apartments.internalApartmentName
+                                ?.number_of_rooms
+                            }
+                          </p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {prev_apartments.internalApartmentName?.rank}
+                          </p>
                         </div>
-                        <p className="apartment_id_1" > id : {prev_apartments?.id}    </p>
+                        <p className="apartment_id_1">
+                          {" "}
+                          id : {prev_apartments?.id}{" "}
+                        </p>
                         <div className="status_and_rank">
-                          <p className="status_settings">{" "}{cardStatusSettingLanguage(selectedLanguage, prev_apartments.status)}</p>
-                          <p className="private_apartment_rank">{prev_apartments.rank}{" "}</p>
+                          <p className="status_settings">
+                            {" "}
+                            {cardStatusSettingLanguage(
+                              selectedLanguage,
+                              prev_apartments.status
+                            )}
+                          </p>
+                          <p className="private_apartment_rank">
+                            {prev_apartments.rank}{" "}
+                          </p>
                         </div>
                       </div>
                     </motion.div>
                   </div>
-                )))}
+                ))}
             </div>
-
           </div>
         )}
 
-
         {/* --------------------------------------------------------------------------------------------------- */}
 
-        {showApartments && oneBedrooms.length > 0 &&(
+        {showApartments && oneBedrooms.length > 0 && (
           <div className="allCards_physical_aa ">
-
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}>{handle_room_language_change(selectedLanguage).one_room} </p>
-              <button className="numberSHowButton" onClick={handle_show_one_bedrom}>
-
+              <p style={{ color: "#FFFFFF" }}>
+                {handle_room_language_change(selectedLanguage).one_room}{" "}
+              </p>
+              <button
+                className="numberSHowButton"
+                onClick={handle_show_one_bedrom}
+              >
                 {show_one_bedroom ? (
-                  <img src={arrowUp} style={{ width: "20px", marginLeft: "5px" }} />
+                  <img
+                    src={arrowUp}
+                    style={{ width: "20px", marginLeft: "5px" }}
+                  />
                 ) : (
                   <img src={arrowDown} style={{ width: "30px" }} />
                 )}
@@ -1212,11 +1304,8 @@ export default function EachComplex({
 
             <div className="show_studio_apartment">
               {show_one_bedroom &&
-                (oneBedrooms.map((prev_apartments, index) => (
-                  <div
-                    className="card_physical_aa"
-                    key={index}
-                  >
+                oneBedrooms.map((prev_apartments, index) => (
+                  <div className="card_physical_aa" key={index}>
                     <motion.div
                       key={currentPage}
                       initial={{ x: -50, opacity: 0 }}
@@ -1227,7 +1316,9 @@ export default function EachComplex({
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
                           <button
-                            onClick={() => favorite_apartment_handler(prev_apartments)}
+                            onClick={() =>
+                              favorite_apartment_handler(prev_apartments)
+                            }
                             key={prev_apartments.id}
                             className="heartButtons_physical"
                           >
@@ -1245,60 +1336,145 @@ export default function EachComplex({
                           </button>
                         </div>
                         <img
-                          onClick={() => handleAppartmentClick(prev_apartments.id)}
+                          onClick={() =>
+                            handleAppartmentClick(prev_apartments.id)
+                          }
                           src={prev_apartments?.images[0]}
                           alt={prev_apartments.name}
                           style={styles.imageStyles}
                         />
                       </div>
                       {/* --------------card details------------------- */}
-                      <div className="title_and_fullprice" >
-                        <h1 className="company_title" style={styles.companyTitle}>
+                      <div className="title_and_fullprice">
+                        <h1
+                          className="company_title"
+                          style={styles.companyTitle}
+                        >
                           {prev_apartments?.apartmentName}
                         </h1>
-                        <div className="dolar_fullprice" >
-                          <h1 className="company_title" style={styles.companyTitle}>
-                            { currenceChangeState ? 
-                            (Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate ).toFixed(2) :
-                            Number( prev_apartments?.internalApartmentName?.full_price).toFixed(2)}{ isOn ? '  $  ' :  '  ₾  ' }
+                        <div className="dolar_fullprice">
+                          <h1
+                            className="company_title"
+                            style={styles.companyTitle}
+                          >
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>
                       </div>
 
-                      <div className="textInfo_physical" onClick={() => handleAppartmentClick(prev_apartments.id)}  >
-                        <p className="city_settings  ">{prev_apartments.address.city} {" , "}{prev_apartments.address.city} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {prev_apartments?.internalApartmentName?.square_price}{" "} {handle_P_StatusButtonLanguageChange(selectedLanguage).m2} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).sartuli}  {"  : "} {prev_apartments.internalApartmentName?.floor_number}</p>
+                      <div
+                        className="textInfo_physical"
+                        onClick={() =>
+                          handleAppartmentClick(prev_apartments.id)
+                        }
+                      >
+                        <p className="city_settings  ">
+                          {prev_apartments.address.city} {" , "}
+                          {prev_apartments.address.city}{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            prev_apartments?.internalApartmentName?.square_price
+                          }{" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).m2
+                          }{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).sartuli
+                          }{" "}
+                          {"  : "}{" "}
+                          {prev_apartments.internalApartmentName?.floor_number}
+                        </p>
                         <div className="rooms_and_rank">
-                          <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).rooms}  {"  : "} {prev_apartments.internalApartmentName?.number_of_rooms}</p>
-                          <p className="price_settings" style={styles.complexInfo}>{prev_apartments.internalApartmentName?.rank}</p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {" "}
+                            {
+                              handle_P_StatusButtonLanguageChange(
+                                selectedLanguage
+                              ).rooms
+                            }{" "}
+                            {"  : "}{" "}
+                            {
+                              prev_apartments.internalApartmentName
+                                ?.number_of_rooms
+                            }
+                          </p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {prev_apartments.internalApartmentName?.rank}
+                          </p>
                         </div>
-                        <p className="apartment_id_1" > id : {prev_apartments?.id}    </p>
+                        <p className="apartment_id_1">
+                          {" "}
+                          id : {prev_apartments?.id}{" "}
+                        </p>
                         <div className="status_and_rank">
-                          <p className="status_settings">{" "}{cardStatusSettingLanguage(selectedLanguage, prev_apartments.status)}</p>
-                          <p className="private_apartment_rank">{prev_apartments.rank}{" "}</p>
+                          <p className="status_settings">
+                            {" "}
+                            {cardStatusSettingLanguage(
+                              selectedLanguage,
+                              prev_apartments.status
+                            )}
+                          </p>
+                          <p className="private_apartment_rank">
+                            {prev_apartments.rank}{" "}
+                          </p>
                         </div>
                       </div>
                     </motion.div>
                   </div>
-                )))}
+                ))}
             </div>
-
           </div>
         )}
 
-
         {/* --------------------------------------------------------------------------------------------------- */}
 
-        {showApartments && twoBedrooms.length > 0 &&   (
+        {showApartments && twoBedrooms.length > 0 && (
           <div className="allCards_physical_aa ">
-
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}>{handle_room_language_change(selectedLanguage).two_rom}</p>
-              <button className="numberSHowButton" onClick={handle_show_two_bedrom}>
-
+              <p style={{ color: "#FFFFFF" }}>
+                {handle_room_language_change(selectedLanguage).two_rom}
+              </p>
+              <button
+                className="numberSHowButton"
+                onClick={handle_show_two_bedrom}
+              >
                 {show_two_bedrom ? (
-                  <img src={arrowUp} style={{ width: "20px", marginLeft: "5px" }} />
+                  <img
+                    src={arrowUp}
+                    style={{ width: "20px", marginLeft: "5px" }}
+                  />
                 ) : (
                   <img src={arrowDown} style={{ width: "30px" }} />
                 )}
@@ -1307,11 +1483,8 @@ export default function EachComplex({
 
             <div className="show_studio_apartment">
               {show_two_bedrom &&
-                (twoBedrooms.map((prev_apartments, index) => (
-                  <div
-                    className="card_physical_aa"
-                    key={index}
-                  >
+                twoBedrooms.map((prev_apartments, index) => (
+                  <div className="card_physical_aa" key={index}>
                     <motion.div
                       key={currentPage}
                       initial={{ x: -50, opacity: 0 }}
@@ -1322,7 +1495,9 @@ export default function EachComplex({
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
                           <button
-                            onClick={() => favorite_apartment_handler(prev_apartments)}
+                            onClick={() =>
+                              favorite_apartment_handler(prev_apartments)
+                            }
                             key={prev_apartments.id}
                             className="heartButtons_physical"
                           >
@@ -1340,60 +1515,146 @@ export default function EachComplex({
                           </button>
                         </div>
                         <img
-                          onClick={() => handleAppartmentClick(prev_apartments.id)}
+                          onClick={() =>
+                            handleAppartmentClick(prev_apartments.id)
+                          }
                           src={prev_apartments?.images[0]}
                           alt={prev_apartments.name}
                           style={styles.imageStyles}
                         />
                       </div>
                       {/* --------------card details------------------- */}
-                      <div className="title_and_fullprice" >
-                        <h1 className="company_title" style={styles.companyTitle}>
+                      <div className="title_and_fullprice">
+                        <h1
+                          className="company_title"
+                          style={styles.companyTitle}
+                        >
                           {prev_apartments?.apartmentName}
                         </h1>
-                        <div className="dolar_fullprice" >
-                          <h1 className="company_title" style={styles.companyTitle}>
-                            { currenceChangeState ? 
-                            (Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate ).toFixed(2) :
-                            Number( prev_apartments?.internalApartmentName?.full_price).toFixed(2)}{ isOn ? '  $  ' :  '  ₾  ' }
+                        <div className="dolar_fullprice">
+                          <h1
+                            className="company_title"
+                            style={styles.companyTitle}
+                          >
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>
                       </div>
 
-                      <div className="textInfo_physical" onClick={() => handleAppartmentClick(prev_apartments.id)}  >
-                        <p className="city_settings  ">{prev_apartments.address.city} {" , "}{prev_apartments.address.city} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {prev_apartments?.internalApartmentName?.square_price}{" "} {handle_P_StatusButtonLanguageChange(selectedLanguage).m2} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).sartuli}  {"  : "} {prev_apartments.internalApartmentName?.floor_number}</p>
+                      <div
+                        className="textInfo_physical"
+                        onClick={() =>
+                          handleAppartmentClick(prev_apartments.id)
+                        }
+                      >
+                        <p className="city_settings  ">
+                          {prev_apartments.address.city} {" , "}
+                          {prev_apartments.address.city}{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            prev_apartments?.internalApartmentName?.square_price
+                          }{" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).m2
+                          }{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).sartuli
+                          }{" "}
+                          {"  : "}{" "}
+                          {prev_apartments.internalApartmentName?.floor_number}
+                        </p>
                         <div className="rooms_and_rank">
-                          <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).rooms}  {"  : "} {prev_apartments.internalApartmentName?.number_of_rooms}</p>
-                          <p className="price_settings" style={styles.complexInfo}>{prev_apartments.internalApartmentName?.rank}</p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {" "}
+                            {
+                              handle_P_StatusButtonLanguageChange(
+                                selectedLanguage
+                              ).rooms
+                            }{" "}
+                            {"  : "}{" "}
+                            {
+                              prev_apartments.internalApartmentName
+                                ?.number_of_rooms
+                            }
+                          </p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {prev_apartments.internalApartmentName?.rank}
+                          </p>
                         </div>
-                        <p className="apartment_id_1" > id : {prev_apartments?.id}    </p>
+                        <p className="apartment_id_1">
+                          {" "}
+                          id : {prev_apartments?.id}{" "}
+                        </p>
                         <div className="status_and_rank">
-                          <p className="status_settings">{" "}{cardStatusSettingLanguage(selectedLanguage, prev_apartments.status)}</p>
-                          <p className="private_apartment_rank">{prev_apartments.rank}{" "}</p>
+                          <p className="status_settings">
+                            {" "}
+                            {cardStatusSettingLanguage(
+                              selectedLanguage,
+                              prev_apartments.status
+                            )}
+                          </p>
+                          <p className="private_apartment_rank">
+                            {prev_apartments.rank}{" "}
+                          </p>
                         </div>
                       </div>
                     </motion.div>
                   </div>
-                )))}
+                ))}
             </div>
-
           </div>
         )}
 
-
         {/* --------------------------------------------------------------------------------------------------- */}
 
-        {showApartments &&  threeBedrooms.length > 0 && (
+        {showApartments && threeBedrooms.length > 0 && (
           <div className="allCards_physical_aa ">
-
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}> {handle_room_language_change(selectedLanguage).three_room} </p>
-              <button className="numberSHowButton" onClick={handle_show_three_badroom}>
-
+              <p style={{ color: "#FFFFFF" }}>
+                {" "}
+                {handle_room_language_change(selectedLanguage).three_room}{" "}
+              </p>
+              <button
+                className="numberSHowButton"
+                onClick={handle_show_three_badroom}
+              >
                 {show_three_bedrom ? (
-                  <img src={arrowUp} style={{ width: "20px", marginLeft: "5px" }} />
+                  <img
+                    src={arrowUp}
+                    style={{ width: "20px", marginLeft: "5px" }}
+                  />
                 ) : (
                   <img src={arrowDown} style={{ width: "30px" }} />
                 )}
@@ -1402,11 +1663,8 @@ export default function EachComplex({
 
             <div className="show_studio_apartment">
               {show_three_bedrom &&
-                (threeBedrooms.map((prev_apartments, index) => (
-                  <div
-                    className="card_physical_aa"
-                    key={index}
-                  >
+                threeBedrooms.map((prev_apartments, index) => (
+                  <div className="card_physical_aa" key={index}>
                     <motion.div
                       key={currentPage}
                       initial={{ x: -50, opacity: 0 }}
@@ -1417,7 +1675,9 @@ export default function EachComplex({
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
                           <button
-                            onClick={() => favorite_apartment_handler(prev_apartments)}
+                            onClick={() =>
+                              favorite_apartment_handler(prev_apartments)
+                            }
                             key={prev_apartments.id}
                             className="heartButtons_physical"
                           >
@@ -1435,62 +1695,152 @@ export default function EachComplex({
                           </button>
                         </div>
                         <img
-                          onClick={() => handleAppartmentClick(prev_apartments.id)}
+                          onClick={() =>
+                            handleAppartmentClick(prev_apartments.id)
+                          }
                           src={prev_apartments?.images[0]}
                           alt={prev_apartments.name}
                           style={styles.imageStyles}
                         />
                       </div>
                       {/* --------------card details------------------- */}
-                      <div className="title_and_fullprice" >
-                        <h1 className="company_title" style={styles.companyTitle}>
+                      <div className="title_and_fullprice">
+                        <h1
+                          className="company_title"
+                          style={styles.companyTitle}
+                        >
                           {prev_apartments?.apartmentName}
                         </h1>
-                        <div className="dolar_fullprice" >
-                          <h1 className="company_title" style={styles.companyTitle}>
+                        <div className="dolar_fullprice">
+                          <h1
+                            className="company_title"
+                            style={styles.companyTitle}
+                          >
                             {/* {prev_apartments?.internalApartmentName?.full_price} */}
-                            { currenceChangeState ? 
-                            (Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate ).toFixed(2) :
-                            Number( prev_apartments?.internalApartmentName?.full_price).toFixed(2)}{ isOn ? '  $  ' :  '  ₾  ' }
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
-                          <img src={mew_dolar_white} alt="dollar signe" className="dola_apartment_card" />
+                          <img
+                            src={mew_dolar_white}
+                            alt="dollar signe"
+                            className="dola_apartment_card"
+                          />
                         </div>
                       </div>
 
-                      <div className="textInfo_physical" onClick={() => handleAppartmentClick(prev_apartments.id)}  >
-                        <p className="city_settings  ">{prev_apartments.address.city} {" , "}{prev_apartments.address.city} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {prev_apartments?.internalApartmentName?.square_price}{" "} {handle_P_StatusButtonLanguageChange(selectedLanguage).m2} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).sartuli}  {"  : "} {prev_apartments.internalApartmentName?.floor_number}</p>
+                      <div
+                        className="textInfo_physical"
+                        onClick={() =>
+                          handleAppartmentClick(prev_apartments.id)
+                        }
+                      >
+                        <p className="city_settings  ">
+                          {prev_apartments.address.city} {" , "}
+                          {prev_apartments.address.city}{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            prev_apartments?.internalApartmentName?.square_price
+                          }{" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).m2
+                          }{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).sartuli
+                          }{" "}
+                          {"  : "}{" "}
+                          {prev_apartments.internalApartmentName?.floor_number}
+                        </p>
                         <div className="rooms_and_rank">
-                          <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).rooms}  {"  : "} {prev_apartments.internalApartmentName?.number_of_rooms}</p>
-                          <p className="price_settings" style={styles.complexInfo}>{prev_apartments.internalApartmentName?.rank}</p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {" "}
+                            {
+                              handle_P_StatusButtonLanguageChange(
+                                selectedLanguage
+                              ).rooms
+                            }{" "}
+                            {"  : "}{" "}
+                            {
+                              prev_apartments.internalApartmentName
+                                ?.number_of_rooms
+                            }
+                          </p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {prev_apartments.internalApartmentName?.rank}
+                          </p>
                         </div>
-                        <p className="apartment_id_1" > id : {prev_apartments?.id}    </p>
+                        <p className="apartment_id_1">
+                          {" "}
+                          id : {prev_apartments?.id}{" "}
+                        </p>
                         <div className="status_and_rank">
-                          <p className="status_settings">{" "}{cardStatusSettingLanguage(selectedLanguage, prev_apartments.status)}</p>
-                          <p className="private_apartment_rank">{prev_apartments.rank}{" "}</p>
+                          <p className="status_settings">
+                            {" "}
+                            {cardStatusSettingLanguage(
+                              selectedLanguage,
+                              prev_apartments.status
+                            )}
+                          </p>
+                          <p className="private_apartment_rank">
+                            {prev_apartments.rank}{" "}
+                          </p>
                         </div>
                       </div>
                     </motion.div>
                   </div>
-                )))}
+                ))}
             </div>
-
           </div>
         )}
-
 
         {/* --------------------------------------------------------------------------------------------------- */}
 
         {showApartments && fourBedrooms.length > 0 && (
           <div className="allCards_physical_aa ">
-
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}> {handle_room_language_change(selectedLanguage).four_room}</p>
-              <button className="numberSHowButton" onClick={handle_show_four_bedroom}>
-
+              <p style={{ color: "#FFFFFF" }}>
+                {" "}
+                {handle_room_language_change(selectedLanguage).four_room}
+              </p>
+              <button
+                className="numberSHowButton"
+                onClick={handle_show_four_bedroom}
+              >
                 {show_four_bedrom ? (
-                  <img src={arrowUp} style={{ width: "20px", marginLeft: "5px" }} />
+                  <img
+                    src={arrowUp}
+                    style={{ width: "20px", marginLeft: "5px" }}
+                  />
                 ) : (
                   <img src={arrowDown} style={{ width: "30px" }} />
                 )}
@@ -1499,11 +1849,8 @@ export default function EachComplex({
 
             <div className="show_studio_apartment">
               {show_four_bedrom &&
-                (fourBedrooms.map((prev_apartments, index) => (
-                  <div
-                    className="card_physical_aa"
-                    key={index}
-                  >
+                fourBedrooms.map((prev_apartments, index) => (
+                  <div className="card_physical_aa" key={index}>
                     <motion.div
                       key={currentPage}
                       initial={{ x: -50, opacity: 0 }}
@@ -1514,7 +1861,9 @@ export default function EachComplex({
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
                           <button
-                            onClick={() => favorite_apartment_handler(prev_apartments)}
+                            onClick={() =>
+                              favorite_apartment_handler(prev_apartments)
+                            }
                             key={prev_apartments.id}
                             className="heartButtons_physical"
                           >
@@ -1532,64 +1881,150 @@ export default function EachComplex({
                           </button>
                         </div>
                         <img
-                          onClick={() => handleAppartmentClick(prev_apartments.id)}
+                          onClick={() =>
+                            handleAppartmentClick(prev_apartments.id)
+                          }
                           src={prev_apartments?.images[0]}
                           alt={prev_apartments.name}
                           style={styles.imageStyles}
                         />
                       </div>
                       {/* --------------card details------------------- */}
-                      <div className="title_and_fullprice" >
-                        <h1 className="company_title" style={styles.companyTitle}>
+                      <div className="title_and_fullprice">
+                        <h1
+                          className="company_title"
+                          style={styles.companyTitle}
+                        >
                           {prev_apartments?.apartmentName}
                         </h1>
-                        <div className="dolar_fullprice" >
-                          <h1 className="company_title" style={styles.companyTitle}>
+                        <div className="dolar_fullprice">
+                          <h1
+                            className="company_title"
+                            style={styles.companyTitle}
+                          >
                             {/* {prev_apartments?.internalApartmentName?.full_price} */}
-                            { currenceChangeState ? 
-                            (Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate ).toFixed(2) :
-                            Number( prev_apartments?.internalApartmentName?.full_price).toFixed(2)}{ isOn ? '  $  ' :  '  ₾  ' }
-
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
                           {/* <img src={mew_dolar_white} alt="dollar signe" className="dola_apartment_card" /> */}
                         </div>
                       </div>
 
-                      <div className="textInfo_physical" onClick={() => handleAppartmentClick(prev_apartments.id)}  >
-                        <p className="city_settings  ">{prev_apartments.address.city} {" , "}{prev_apartments.address.city} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {prev_apartments?.internalApartmentName?.square_price}{" "} {handle_P_StatusButtonLanguageChange(selectedLanguage).m2} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).sartuli}  {"  : "} {prev_apartments.internalApartmentName?.floor_number}</p>
+                      <div
+                        className="textInfo_physical"
+                        onClick={() =>
+                          handleAppartmentClick(prev_apartments.id)
+                        }
+                      >
+                        <p className="city_settings  ">
+                          {prev_apartments.address.city} {" , "}
+                          {prev_apartments.address.city}{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            prev_apartments?.internalApartmentName?.square_price
+                          }{" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).m2
+                          }{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).sartuli
+                          }{" "}
+                          {"  : "}{" "}
+                          {prev_apartments.internalApartmentName?.floor_number}
+                        </p>
                         <div className="rooms_and_rank">
-                          <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).rooms}  {"  : "} {prev_apartments.internalApartmentName?.number_of_rooms}</p>
-                          <p className="price_settings" style={styles.complexInfo}>{prev_apartments.internalApartmentName?.rank}</p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {" "}
+                            {
+                              handle_P_StatusButtonLanguageChange(
+                                selectedLanguage
+                              ).rooms
+                            }{" "}
+                            {"  : "}{" "}
+                            {
+                              prev_apartments.internalApartmentName
+                                ?.number_of_rooms
+                            }
+                          </p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {prev_apartments.internalApartmentName?.rank}
+                          </p>
                         </div>
-                        <p className="apartment_id_1" > id : {prev_apartments?.id}    </p>
+                        <p className="apartment_id_1">
+                          {" "}
+                          id : {prev_apartments?.id}{" "}
+                        </p>
                         <div className="status_and_rank">
-                          <p className="status_settings">{" "}{cardStatusSettingLanguage(selectedLanguage, prev_apartments.status)}</p>
-                          <p className="private_apartment_rank">{prev_apartments.rank}{" "}</p>
+                          <p className="status_settings">
+                            {" "}
+                            {cardStatusSettingLanguage(
+                              selectedLanguage,
+                              prev_apartments.status
+                            )}
+                          </p>
+                          <p className="private_apartment_rank">
+                            {prev_apartments.rank}{" "}
+                          </p>
                         </div>
                       </div>
                     </motion.div>
                   </div>
-                )))}
+                ))}
             </div>
-
           </div>
         )}
-
-
 
         {/* --------------------------------------------------------------------------------------------------- */}
 
         {showApartments && fivePlusBedrooms.length > 0 && (
           <div className="allCards_physical_aa ">
-
             <div className="firstBoxOfBinebi">
-              <p style={{ color: "#FFFFFF" }}> {handle_room_language_change(selectedLanguage).fiveplus_room} </p>
-              <button className="numberSHowButton" onClick={handle_show_fivePlus_bedroom}>
-
+              <p style={{ color: "#FFFFFF" }}>
+                {" "}
+                {
+                  handle_room_language_change(selectedLanguage).fiveplus_room
+                }{" "}
+              </p>
+              <button
+                className="numberSHowButton"
+                onClick={handle_show_fivePlus_bedroom}
+              >
                 {show_fivePlus_bedrom ? (
-                  <img src={arrowUp} style={{ width: "20px", marginLeft: "5px" }} />
+                  <img
+                    src={arrowUp}
+                    style={{ width: "20px", marginLeft: "5px" }}
+                  />
                 ) : (
                   <img src={arrowDown} style={{ width: "30px" }} />
                 )}
@@ -1598,11 +2033,8 @@ export default function EachComplex({
 
             <div className="show_studio_apartment">
               {show_fivePlus_bedrom &&
-                (fivePlusBedrooms.map((prev_apartments, index) => (
-                  <div
-                    className="card_physical_aa"
-                    key={index}
-                  >
+                fivePlusBedrooms.map((prev_apartments, index) => (
+                  <div className="card_physical_aa" key={index}>
                     <motion.div
                       key={currentPage}
                       initial={{ x: -50, opacity: 0 }}
@@ -1613,7 +2045,9 @@ export default function EachComplex({
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
                           <button
-                            onClick={() => favorite_apartment_handler(prev_apartments)}
+                            onClick={() =>
+                              favorite_apartment_handler(prev_apartments)
+                            }
                             key={prev_apartments.id}
                             className="heartButtons_physical"
                           >
@@ -1631,57 +2065,142 @@ export default function EachComplex({
                           </button>
                         </div>
                         <img
-                          onClick={() => handleAppartmentClick(prev_apartments.id)}
+                          onClick={() =>
+                            handleAppartmentClick(prev_apartments.id)
+                          }
                           src={prev_apartments?.images[0]}
                           alt={prev_apartments.name}
                           style={styles.imageStyles}
                         />
                       </div>
                       {/* --------------card details------------------- */}
-                      <div className="title_and_fullprice" >
-                        <h1 className="company_title" style={styles.companyTitle}>
+                      <div className="title_and_fullprice">
+                        <h1
+                          className="company_title"
+                          style={styles.companyTitle}
+                        >
                           {prev_apartments?.apartmentName}
-                          
                         </h1>
-                        <div className="dolar_fullprice" >
-                          <h1 className="company_title" style={styles.companyTitle}>
+                        <div className="dolar_fullprice">
+                          <h1
+                            className="company_title"
+                            style={styles.companyTitle}
+                          >
                             {/* {prev_apartments?.internalApartmentName?.full_price} */}
-                            { currenceChangeState ? 
-                            (Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate ).toFixed(2) :
-                            Number( prev_apartments?.internalApartmentName?.full_price).toFixed(2)}{ isOn ? '  $  ' :  '  ₾  ' }
+                            {currenceChangeState
+                              ? (
+                                  Number(
+                                    prev_apartments?.internalApartmentName
+                                      ?.full_price
+                                  ) * getCorrencyRate
+                                ).toFixed(2)
+                              : Number(
+                                  prev_apartments?.internalApartmentName
+                                    ?.full_price
+                                ).toFixed(2)}
+                            {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>
                       </div>
 
-                      <div className="textInfo_physical" onClick={() => handleAppartmentClick(prev_apartments.id)}  >
-                        <p className="city_settings  ">{prev_apartments.address.city} {" , "}{prev_apartments.address.city} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {prev_apartments?.internalApartmentName?.square_price}{" "} {handle_P_StatusButtonLanguageChange(selectedLanguage).m2} </p>
-                        <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).sartuli}  {"  : "} {prev_apartments.internalApartmentName?.floor_number}</p>
+                      <div
+                        className="textInfo_physical"
+                        onClick={() =>
+                          handleAppartmentClick(prev_apartments.id)
+                        }
+                      >
+                        <p className="city_settings  ">
+                          {prev_apartments.address.city} {" , "}
+                          {prev_apartments.address.city}{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            prev_apartments?.internalApartmentName?.square_price
+                          }{" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).m2
+                          }{" "}
+                        </p>
+                        <p
+                          className="price_settings"
+                          style={styles.complexInfo}
+                        >
+                          {" "}
+                          {
+                            handle_P_StatusButtonLanguageChange(
+                              selectedLanguage
+                            ).sartuli
+                          }{" "}
+                          {"  : "}{" "}
+                          {prev_apartments.internalApartmentName?.floor_number}
+                        </p>
                         <div className="rooms_and_rank">
-                          <p className="price_settings" style={styles.complexInfo}> {handle_P_StatusButtonLanguageChange(selectedLanguage).rooms}  {"  : "} {prev_apartments.internalApartmentName?.number_of_rooms}</p>
-                          <p className="price_settings" style={styles.complexInfo}>{prev_apartments.internalApartmentName?.rank}</p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {" "}
+                            {
+                              handle_P_StatusButtonLanguageChange(
+                                selectedLanguage
+                              ).rooms
+                            }{" "}
+                            {"  : "}{" "}
+                            {
+                              prev_apartments.internalApartmentName
+                                ?.number_of_rooms
+                            }
+                          </p>
+                          <p
+                            className="price_settings"
+                            style={styles.complexInfo}
+                          >
+                            {prev_apartments.internalApartmentName?.rank}
+                          </p>
                         </div>
-                        <p className="apartment_id_1" > id : {prev_apartments?.id}    </p>
+                        <p className="apartment_id_1">
+                          {" "}
+                          id : {prev_apartments?.id}{" "}
+                        </p>
                         <div className="status_and_rank">
-                          <p className="status_settings">{" "}{cardStatusSettingLanguage(selectedLanguage, prev_apartments.status)}</p>
-                          <p className="private_apartment_rank">{prev_apartments.rank}{" "}</p>
+                          <p className="status_settings">
+                            {" "}
+                            {cardStatusSettingLanguage(
+                              selectedLanguage,
+                              prev_apartments.status
+                            )}
+                          </p>
+                          <p className="private_apartment_rank">
+                            {prev_apartments.rank}{" "}
+                          </p>
                         </div>
                       </div>
                     </motion.div>
                   </div>
-                )))}
+                ))}
             </div>
-
           </div>
         )}
-
-
-
 
         {/* ეს დივი არის ..კომპლექსის შესახებ'' ესეთი წარწერა რომაა და true/false-ის მეშვეობით
         რომ ვფილტრავთ, მაგალითად სართულების ოდენობა, კამერა, ოთახები და ა.შ. */}
         <div>
-          <h4 style={{ color: "white", marginTop: "20px", marginBottom: "10px", marginLeft: "80px" }} >{handle_P_StatusButtonLanguageChange(selectedLanguage).aboutComplex}</h4>
+          <h4
+            style={{
+              color: "white",
+              marginTop: "20px",
+              marginBottom: "10px",
+              marginLeft: "80px",
+            }}
+          >
+            {handle_P_StatusButtonLanguageChange(selectedLanguage).aboutComplex}
+          </h4>
           <div className="shidaInformaciaIconebisBox">
             {/* სათითაო icons და ტექსტი */}
             <div className="eachDivBoxOfIcons">
@@ -2088,19 +2607,25 @@ export default function EachComplex({
       </div>
 
       <div className="textBoxOfH4axloMdebareObieqtebi">
-
-        <div className="make_middle_space" >
-
+        <div className="make_middle_space">
           <div className="axloMdebareObieqtebiBox">
             <div className="textBoxOfAxloMdebare">
               <h4 style={{ color: "white", marginTop: "40px" }}>
-                {handle_P_StatusButtonLanguageChange(selectedLanguage).nearObjects}
+                {
+                  handle_P_StatusButtonLanguageChange(selectedLanguage)
+                    .nearObjects
+                }
               </h4>
               <div className="iconAndItsText">
                 {eachPrivateApartment?.metro && (
                   <>
                     <img src={metro} alt="metro" />
-                    <p>{handle_P_StatusButtonLanguageChange(selectedLanguage).metro}</p>
+                    <p>
+                      {
+                        handle_P_StatusButtonLanguageChange(selectedLanguage)
+                          .metro
+                      }
+                    </p>
                   </>
                 )}
               </div>
@@ -2108,7 +2633,12 @@ export default function EachComplex({
                 {eachPrivateApartment?.supermarket && (
                   <>
                     <img src={supermarket} alt="supermarket" />
-                    <p>{handle_P_StatusButtonLanguageChange(selectedLanguage).supermarket}</p>
+                    <p>
+                      {
+                        handle_P_StatusButtonLanguageChange(selectedLanguage)
+                          .supermarket
+                      }
+                    </p>
                   </>
                 )}
               </div>
@@ -2154,9 +2684,7 @@ export default function EachComplex({
                   streetViewControl: false,
                   mapTypeControl: false,
                   fullscreenControl: false,
-
                 }}
-
               >
                 <Marker
                   key={privateApartments.id}
@@ -2173,7 +2701,6 @@ export default function EachComplex({
             </div>
           </div>
         </div>
-
 
         {/* (END) ახლო მდებარე ობიექტები box -------- */}
 
