@@ -1026,7 +1026,16 @@ function App() {
         />
         <Route
           path="map"
-          element={<Map selectedLanguage={selectedLanguage} />}
+          element={<Map 
+            selectedLanguage={selectedLanguage}
+            toggleSwitch={toggleSwitch}
+            currenceChangeState={currenceChangeState}
+            isOn={isOn}
+            HandleStateChange={HandleStateChange}
+            getCorrencyRate={getCorrencyRate}
+            
+            
+            />}
         />
         <Route
           path="sales"
