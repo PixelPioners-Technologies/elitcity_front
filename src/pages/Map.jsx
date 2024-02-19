@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import{  useEffect } from "react";
+import { useEffect } from "react";
 import React, { useState } from 'react';
 import axios from "axios";
 import "./Map.css";
@@ -1912,9 +1912,9 @@ export default function Map({ selectedLanguage }) {
                   <h2>
                     {selectedPrivateApartments.privateApartmentName.length > 15
                       ? `${selectedPrivateApartments.privateApartmentName.substring(
-                          0,
-                          15
-                        )}...`
+                        0,
+                        15
+                      )}...`
                       : selectedPrivateApartments.privateApartmentName}
                   </h2>
 
@@ -2160,9 +2160,9 @@ export default function Map({ selectedLanguage }) {
                   <h2>
                     {selectedPrivateApartments.privateApartmentName.length > 15
                       ? `${selectedPrivateApartments.privateApartmentName.substring(
-                          0,
-                          15
-                        )}...`
+                        0,
+                        15
+                      )}...`
                       : selectedPrivateApartments.privateApartmentName}
                   </h2>
 
@@ -2541,6 +2541,16 @@ export default function Map({ selectedLanguage }) {
     setMax_ground_square_price("");
   };
 
+
+
+  const [openSortComp, setOpenComp] = useState(false);
+
+  const sortOpen = () => {
+    setOpenComp(!openSortComp);
+  };
+
+
+
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
   });
@@ -2552,22 +2562,30 @@ export default function Map({ selectedLanguage }) {
     return <div>Loading...</div>;
   }
 
-  // const [openSortComp, setOpenComp] = useState(false);
-
-  // const sortOpen = () => {
-  //   setOpenComp(!openSortComp);
-  // };
 
   return (
     <div className="main_map">
+      <div className="map_sort_icon" onClick={sortOpen}  >
+        <img
+          src={Sort}
+          style={{ width: "20px", height: "25px", marginTop: "100px" , marginrig: "20px" }}
+          alt="/"
+        />
+      </div>
+
+
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 1 }}
-        // className={openMapFilter ? "show_map_filter" : "closeMapSort"}
+      // className={openMapFilter ? "show_map_filter" : "closeMapSort"}
       >
-        
-        <div className= "filtetmethods_and_filters closeMapSort">
+
+
+        {/* "filtetmethods_and_filters closeMapSort"  */}
+        <div className={openSortComp ? "filtetmethods_and_filters" : "closeMapSort"}   >
+
+
           <div className="filter_methods_container">
             {/* modal for filtering method changing */}
             <div className="button-modal-container category_button">
@@ -2702,13 +2720,7 @@ export default function Map({ selectedLanguage }) {
                 </p>
               </div>
             </div>
-            <div className="map_sort_icon">
-              <img
-                src={Sort}
-                style={{ width: "20px", height: "25px" }}
-                alt="/"
-              />
-            </div>
+
           </div>
         </div>
       </div>

@@ -575,8 +575,11 @@ span {
     width: 100%;
     flex-direction: column;
     /* border: 1px solid red; */
+ 
     align-items: start;
     /* display: block; */
+    padding-left: 30px;
+
   }
   .filter_cont {
     /* border: 1px solid red; */
@@ -614,16 +617,20 @@ span {
     /* align-items: start; */
   }
   .map_sort_icon{
-    display: block;
+    display: flex;
+    justify-content: flex-end;
+    overflow-x: hidden;
   }
   /* .show_map_filter{
     border: 1px solid blue;
   } */
-  /* .filter_methods_container{
+  .filter_methods_container{
     display: block;
-
+    
   }
+
+
   .closeMapSort{
     display: none;
-  } */
+  } 
 }
