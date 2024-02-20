@@ -21,17 +21,16 @@ export default function Header({
   favoritesPhysical,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
 const closeBurgerMenu = () => {
-  setIsMenuOpen(!isMenuOpen)
+  setIsMenuOpen(false)
 }
-  //   const closeSort = () => {
-  //     if (isMenuOpen) {
-  //       setIsMenuOpen(false);
-  //     }
-  // };
+
+
   const handle_P_StatusButtonLanguageChange = (lang) => {
     var languageInfo = {
       complex: "Complexes",
@@ -100,7 +99,12 @@ const closeBurgerMenu = () => {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <button
-                    onClick={() => onButtonClick("ComplexButton")}
+
+                  onClick={() => {
+                    closeBurgerMenu();
+                    onButtonClick("ComplexButton");
+                  }}
+
                     className="buttonItemsOfList"
                   >
                     {
@@ -119,7 +123,7 @@ const closeBurgerMenu = () => {
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className="buttonItemsOfList">
+                  <button className="buttonItemsOfList" onClick={closeBurgerMenu}   >
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
                         .lands
@@ -136,7 +140,7 @@ const closeBurgerMenu = () => {
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className="buttonItemsOfList">
+                  <button className="buttonItemsOfList" onClick={closeBurgerMenu}   >
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
                         .developers
@@ -153,7 +157,7 @@ const closeBurgerMenu = () => {
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className="buttonItemsOfList for_more_width_physical_button">
+                  <button className="buttonItemsOfList for_more_width_physical_button" onClick={closeBurgerMenu}   >
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
                         .natural_persons
@@ -170,14 +174,14 @@ const closeBurgerMenu = () => {
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className="buttonItemsOfList">
+                  <button className="buttonItemsOfList" onClick={closeBurgerMenu}   >
                     {handle_P_StatusButtonLanguageChange(selectedLanguage).map}
                   </button>
                 </motion.div>
               </Link>
             </li>
             <li>
-              <Link to="/sales">
+              <Link to="/sales"  onClick={closeBurgerMenu}   >
                 <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
@@ -201,7 +205,7 @@ const closeBurgerMenu = () => {
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <button className="buttonItemsOfList">
+                  <button className="buttonItemsOfList" onClick={closeBurgerMenu}   >
                     {
                       handle_P_StatusButtonLanguageChange(selectedLanguage)
                         .Blogs
@@ -211,7 +215,7 @@ const closeBurgerMenu = () => {
               </Link>
             </li>
             <li>
-              <Link to="/storkhome">
+              <Link to="/storkhome"  onClick={closeBurgerMenu}   >
                 <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}

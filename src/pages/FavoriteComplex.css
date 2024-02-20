@@ -6,7 +6,7 @@
   flex-direction: column;
   gap: 50px;
   flex-wrap: wrap;
-
+  margin-top: 7%;
 
 }
 
@@ -22,6 +22,8 @@
 .same_items {
   display: flex;
   justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
   flex-wrap: wrap;
   gap: 40px;
 }
@@ -161,11 +163,13 @@
 
 }
 
-/* 
+
 @media screen and (max-width:500px) {
   .ComplexBoxInFavoritesPages {
-display: flex;
-justify-content: center;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-top: 19%;
   }
-} */
+}

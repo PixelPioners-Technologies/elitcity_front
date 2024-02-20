@@ -10,11 +10,16 @@
   display: block; /* Show when the modal is open */
 }
 
+.make_thinner_complex_price{
+  width: 300px !important;
+}
+
 
 @media screen and (max-width: 500px) {
 
-.make_thinner{
-  width: 300px !important;
+.make_thinner_complex_price{
+  width: 250px !important;
+  left: -40px
 }
 
 

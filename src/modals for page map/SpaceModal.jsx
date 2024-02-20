@@ -24,7 +24,7 @@ const SpaceModal = ({ isOpen, close, children }) => {
 
   return (
     <div className={`modal-overlay ${openClass}`} onClick={close}>
-      <div className="modal-content scale-up-tl scaleuptl make_thinner" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content scale-up-tl scaleuptl mae_smaller_complex_space" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>
