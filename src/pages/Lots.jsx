@@ -222,6 +222,7 @@ export default function Physical({
     // max_area,
     // min_area,
     currentPage,
+    ascendentPrice,
     // ascendentPrice,
     // stringFilterValue,
     // graundStatus,
@@ -744,6 +745,7 @@ export default function Physical({
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
+      map : "Map",
     };
 
     switch (lang) {
@@ -764,6 +766,8 @@ export default function Physical({
         languageInfo.meterPriceHomePage = "The price of m²";
         languageInfo.dan = "from";
         languageInfo.mde = "to";
+        languageInfo.map = "Map";
+
 
         break;
 
@@ -785,18 +789,20 @@ export default function Physical({
         languageInfo.meterPriceHomePage = "მ² - ის ფასი";
         languageInfo.dan = "დან";
         languageInfo.mde = "მდე";
-
+        languageInfo.map = "ღუკა";
+        
+        
         break;
-
-      case "ru":
-        languageInfo.sortingButtonAscendentPrice = "Ццена м² с шагом";
+        
+        case "ru":
+          languageInfo.sortingButtonAscendentPrice = "Ццена м² с шагом";
         languageInfo.sortingButtonDescendentPrice = "м² цена снижается";
         languageInfo.sortingButtonAscendantTime = "Асцендент создан в";
         languageInfo.sortingButtonDescendentTime = "Потомок создан в";
         languageInfo.sortingButtonAscendantFullPrice =
-          "Полная цена Асцендента.";
+        "Полная цена Асцендента.";
         languageInfo.sortingButtonDescendentFullPrice =
-          "Полная стоимость потомка";
+        "Полная стоимость потомка";
         languageInfo.studio = "Студия";
         languageInfo.allFindButtonLanguage = "Поиск";
         languageInfo.spaceButtonClose = "закрить";
@@ -807,6 +813,8 @@ export default function Physical({
         languageInfo.meterPriceHomePage = "Цена м²";
         languageInfo.dan = "из";
         languageInfo.mde = "до";
+        languageInfo.map = "Карта";
+
 
         break;
     }
@@ -1242,7 +1250,7 @@ export default function Physical({
                   className="location_icon_respons"
                 />
                 <button className="textButton">
-                  Map
+              
                   {handleStatusButtonLanguageChange(selectedLanguage).map}
                 </button>
               </div>
@@ -1296,7 +1304,7 @@ export default function Physical({
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
-                style={{ color: "white", fontSize: "16px" }}
+                style={{ color: "white", fontSize: "16px" }}ფ
               >
                 <div className="sortAndArrowDownImgBox_physical">
                   <p className="sort_text_web">

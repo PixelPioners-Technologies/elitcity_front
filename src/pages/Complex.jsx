@@ -346,7 +346,7 @@ export default function Complex({
       priceButtonLanguage: "Price",
       allStatusLanguage: "All",
       findMapButtonLanguage: "Find Map",
-      allFindButtonLanguage: "Find",
+      allFindButtonLanguage: "Search",
       spaceButtonClose: "Close",
       minPrice: "From m²",
       maxPrice: "To m²",
@@ -369,6 +369,7 @@ export default function Complex({
       sorting: "Sorting",
       place_for_your_comfort: "A place for your comfort",
       sort: "Sort",
+      projects : "Projects"
     };
 
     switch (lang) {
@@ -379,7 +380,7 @@ export default function Complex({
         languageInfo.priceButtonLanguage = "Price";
         languageInfo.allStatusLanguage = "All";
         languageInfo.findMapButtonLanguage = "Find Map";
-        languageInfo.allFindButtonLanguage = "Find";
+        languageInfo.allFindButtonLanguage = "Search";
         languageInfo.spaceButtonClose = "Close";
         languageInfo.minPrice = "From m²";
         languageInfo.maxPrice = "To m²";
@@ -403,6 +404,8 @@ export default function Complex({
         languageInfo.sort = "Sort";
 
         languageInfo.place_for_your_comfort = "A place for your comfort";
+        languageInfo.projects = "Projects";
+
 
         break;
 
@@ -432,10 +435,12 @@ export default function Complex({
         languageInfo.sortingButtonDescendent_rank = "რანკი კლებით";
 
         languageInfo.complexes = "კომპლექსები";
-        languageInfo.map = "რუქა";
+        languageInfo.map = "რუკა";
         languageInfo.sorting = "სორტირება";
         languageInfo.sort = "სორტ";
         languageInfo.place_for_your_comfort = "ადგილი შენი კომფორტისტვის";
+        languageInfo.projects = "პროექტები";
+
 
         break;
 
@@ -470,6 +475,8 @@ export default function Complex({
         languageInfo.sort = "Сорт";
 
         languageInfo.place_for_your_comfort = "Место для вашего комфорта";
+        languageInfo.projects = "Проекты";
+
 
         break;
     }
@@ -1035,7 +1042,7 @@ export default function Complex({
                   <div className="line  line_sizes"></div>
                   <div className="line  line_sizes"></div>
                 </div>
-                <p className="projects_name">projects</p>
+                <p className="projects_name">{handleStatusButtonLanguageChange(selectedLanguage).projects}</p>
               </div>
               {/* map */}
               <Link to="/map">

@@ -202,7 +202,7 @@ function App() {
   // useClearLocalStorageWeekly()
 
   const [forVisible, setForVisible] = useState(true);
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedLanguage, setSelectedLanguage] = useState("ka");
   const [favorites, setFavorites] = useState([]);
   const [favoritesLots, setFavoritesLots] = useState([]);
   const [favoritesPhysical, setFavoritesPhysical] = useState([]);
@@ -454,7 +454,9 @@ function App() {
     };
 
     fetchComplexes();
-  }, [searchButton]);
+
+
+  }, [searchButton , ascendentPrice]);
 
   // const rank = complexes.map((complex.internal_complex_name.rank) => {
 
@@ -749,7 +751,7 @@ function App() {
         languageInfo.storkhome_plus = "Storkhome +";
         languageInfo.other = "სხვა";
         languageInfo.send = "გაგზავნა";
-        languageInfo.sheet_send = "ინფორმაცია წარმატებიტ გაიგზავნა";
+        languageInfo.sheet_send = "ინფორმაცია წარმატებით გაიგზავნა";
         languageInfo.email = "ელ-ფოსტა";
 
         break;
