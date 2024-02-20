@@ -48,6 +48,9 @@
 
 
 
+
+
+
 /*  *******
 (START)
   1) This styles is for SpaceModals and PRICEmodals(ანუ სადაც SPACE-ისა და Price მხრივ ირჩევს
@@ -134,3 +137,11 @@
 /* --(END)---------------------------------------- */
 
 
+@media screen and (max-width: 500px) {
+  
+  .make_thinner_complex_location{
+    width: 320px !important;
+    left: -60px;
+  }
+  
+}

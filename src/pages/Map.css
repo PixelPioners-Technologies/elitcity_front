@@ -247,8 +247,6 @@
     rgba(0, 0, 0, 0.03) 0px 16px 28.8px -4.5px;
 }
 
-
-
 /* ----------------------------------------------------------------------------------------------- */
 
 /* (START)   რუკის დივზე ეფექტურად, ანიმაციურად გასახსნელად.. ასევე pin-ის აიკონების დივზეც  */
@@ -451,6 +449,9 @@
   display: none;
 }
 
+
+
+
 /* ----------------------------------------------------------------------- */
 
 .city_button {
@@ -504,6 +505,11 @@
   .map_sort_icon {
     display: block;
   }
+
+.remove_from_laptop_version{
+  display: flex;
+}
+
   .map_cont {
     width: 100%;
   }
@@ -556,4 +562,13 @@
     display: flex;
     justify-content: center;
   }
+
+
+  .location_modal_container {
+    max-height: 300px; /* Adjust based on your needs */
+    overflow-y: auto; /* Enables vertical scrolling */
+  }
+
+
+
 }

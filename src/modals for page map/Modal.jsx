@@ -28,7 +28,7 @@ const Modal = ({ isOpen, close, children }) => {
 
   return (
     <div className={`modal-overlay ${openClass}`} onClick={close}>
-      <div className="modal-content scale-up-top" onClick={e => e.stopPropagation()}>
+      <div className="modal-content scale-up-top  make_thinner_complex_location" onClick={e => e.stopPropagation()}>
         {children}
       </div>
     </div>

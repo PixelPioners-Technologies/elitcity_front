@@ -1630,6 +1630,7 @@ export default function Map({
                       className="dropdown"
                     />
                   </div>
+                  
                   <Modal isOpen={isModalOpen} close={closeModal}>
                     {renderModalContent()}
                   </Modal>
@@ -1721,7 +1722,6 @@ export default function Map({
                       value={max_area}
                       onChange={(e) => setMax_area(e.target.value)}
                     />
-                    <p>otaxebis filtraciac unda iyos aq</p>
                   </div>
                   <button
                     className="modal_close_button"
@@ -2955,9 +2955,32 @@ export default function Map({
   
   const [openSortComp, setOpenComp] = useState(false);
 
+  // const sortOpen = () => {
+  //   setOpenComp(!openSortComp);
+  // };
+  const mobileWidthThreshold = 500;
+
+  const checkWindowSize = () => {
+    if (window.innerWidth > mobileWidthThreshold) {
+      setOpenComp(false);
+    }
+  };
+
+  useEffect(() => {
+    // Attach the event listener when the component mounts
+    window.addEventListener('resize', checkWindowSize);
+
+    // Call the function to set the initial state based on the current window size
+    checkWindowSize();
+
+    // Remove the event listener when the component unmounts
+    return () => window.removeEventListener('resize', checkWindowSize);
+  }, []);
+
   const sortOpen = () => {
     setOpenComp(!openSortComp);
   };
+
 
 
 
@@ -3159,7 +3182,7 @@ export default function Map({
               </FilterChangeModal>
             </div>
           </div>
-          <div>{renderFilterUI()}</div>
+          <div className="remove_from_laptop_version"  >{renderFilterUI()}</div>
         </div>
         </div>
       </div>
