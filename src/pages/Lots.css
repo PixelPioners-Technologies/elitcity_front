@@ -13,9 +13,8 @@
   font-weight: 400;
   line-height: 0px;
   letter-spacing: 1.76px;
-  border: 1px solid gray;
+  border: 1.5px solid #3b3b3b;;
   overflow: hidden;
-  /* border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1; */
 }
 .private_filter_conteiner {
   display: flex;

@@ -575,6 +575,24 @@ export default function Complex({
     setIsModalOpen(false);
   };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const pagiHandler = () => {
     window.scrollTo({
       top: 0,
@@ -600,6 +618,32 @@ export default function Complex({
       setOpenComp(false);
     }
   };
+
+
+
+
+  const mobileWidthThreshold = 500;
+
+  const checkWindowSize = () => {
+    if (window.innerWidth > mobileWidthThreshold) {
+      setOpenComp(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', checkWindowSize);
+
+    // Call the function to set the initial state based on the current window size
+    checkWindowSize();
+
+    // Remove the event listener when the component unmounts
+    return () => window.removeEventListener('resize', checkWindowSize);
+  }, []);
+
+ 
+
+
+
 
   return (
     <div className="complex_page_div">

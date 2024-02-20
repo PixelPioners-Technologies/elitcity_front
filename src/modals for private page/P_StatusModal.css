@@ -11,3 +11,12 @@
   
 }
 
+
+@media screen and (max-width: 500px) {
+  .make_thinner_ground_status{
+    width: 200px !important;
+
+  }
+  
+  
+}

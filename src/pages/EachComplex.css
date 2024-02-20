@@ -110,7 +110,7 @@
 .image_galery_container{
   width: 900px;
 
-}
+} 
 
 
 .image-gallery-image {
@@ -345,6 +345,9 @@
 
 .switch__c[data-ison="true"] {
   justify-content: flex-end;
+}.fullscreen-active {
+  width: 100vw;
+  height: 100vh;
 }
 
 .handle__c {
@@ -367,6 +370,12 @@
 .googlePhotoOnEachComplexPage {
   width: 774px;
   height: 232px;
+}
+
+
+.fullscreen-active {
+  width: 100vw;
+  height: 100vh;
 }
 
 

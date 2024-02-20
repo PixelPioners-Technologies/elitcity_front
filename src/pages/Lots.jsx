@@ -290,6 +290,13 @@ export default function Physical({
   // ----------------------------------------------------------------------------------------------
 
   // ------------------------------------modal and logic for opening filtration window --------------------------------------
+  const [lotsOpen, setLotsOpen] = useState(false);
+  const toggleLots = () => {
+    setLotsOpen(!lotsOpen);
+  };
+
+
+  
   const renderModalContent = () => {
     switch (modalContent) {
       case "cities":
@@ -314,10 +321,7 @@ export default function Physical({
         const city = locations.find((loc) => loc.city === selectedCity);
         if (!city) return null;
 
-        const [lotsOpen, setLotsOpen] = useState(false);
-        const toggleLots = () => {
-          setLotsOpen(!lotsOpen);
-        };
+
         return (
           <div className="location_modal_container">
             <div className="districts_and_pharentdostricts">

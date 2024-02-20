@@ -712,6 +712,7 @@ export default function EachApartment({
             autoPlay={true}
             slideInterval={3000}
             thumbnailPosition="left"
+            showFullscreenButton={false}
 
           />}
         </div>

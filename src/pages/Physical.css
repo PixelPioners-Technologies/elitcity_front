@@ -2,11 +2,13 @@
   padding: 0 80px;
   margin-top: 7%;
 }
+
 .filter_image {
   width: 30px;
   background-color: #fff;
   border-radius: 50%;
 }
+
 .close_sort {
   display: flex;
   flex-direction: row;
@@ -17,13 +19,13 @@
 
 .motionBox_physical {
   border: 1px solid white;
-  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(124, 124, 124)) 1;
 
   margin-top: 20px;
 }
 
 .forPaddingOfInfoFieldOfComplexsPlansMaps_physical {
-  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(124, 124, 124)) 1;
 
   padding: 0 20px;
 }
@@ -69,6 +71,7 @@
   background-color: #000;
   color: #fff;
 }
+
 .mapSignLogo_physical {
   width: 30px;
 }
@@ -80,13 +83,19 @@
 
 /* /////////////////////////////// */
 .menu-transition {
-  transition: transform 0.3s ease-in-out; /* Adjust duration and easing as needed */
-  transform-origin: top center; /* Set the transform origin */
-  transform: scaleY(0); /* Initially set the scale to 0 to hide the menu */
+  transition: transform 0.3s ease-in-out;
+  /* Adjust duration and easing as needed */
+  transform-origin: top center;
+  /* Set the transform origin */
+  transform: scaleY(0);
+  /* Initially set the scale to 0 to hide the menu */
 }
+
 .menu-open {
-  transform: scaleY(1); /* Set the scale to 1 to show the menu */
+  transform: scaleY(1);
+  /* Set the scale to 1 to show the menu */
 }
+
 /* /////////////////////////////// */
 
 .currencyBox_physical {
@@ -121,17 +130,20 @@
 }
 
 .currency-sign_physical {
-  width: 20px; /* Adjust width as needed */
+  width: 20px;
+  /* Adjust width as needed */
   height: auto;
-  margin-right: 0px; /* Add spacing between the images */
+  margin-right: 0px;
+  /* Add spacing between the images */
 }
 
 .currency-sign_physical.active {
-  display: none; /* Hide inactive currency sign */
+  display: none;
+  /* Hide inactive currency sign */
 }
 
 /* ----------------------------------filter container  styles ---------------------------------------------- */
-.close_sort{
+.close_sort {
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
@@ -139,7 +151,8 @@
   align-items: center;
   gap: 20px;
 }
-.map_search_buttons{
+
+.map_search_buttons {
   width: 60%;
   display: flex;
   gap: 15px;
@@ -160,38 +173,50 @@
 /* ------------------------------------------------------------------------------------------------------------- */
 /* ----------------------------------string filtration input styles ---------------------------------------------- */
 .string_filter_input {
-  background-color: transparent; /* Make background transparent */
-  border: none; /* Remove border */
-  outline: none; /* Remove outline */
-  color: #fffcfc; /* Set text color to black, adjust as needed */
+  background-color: transparent;
+  /* Make background transparent */
+  border: none;
+  /* Remove border */
+  outline: none;
+  /* Remove outline */
+  color: #fffcfc;
+  /* Set text color to black, adjust as needed */
   /* Add other styling here */
 }
 
 .string_filter_input::placeholder {
-  color: rgb(201, 201, 201); /* Set placeholder text color to white */
-  opacity: 1; /* Optional: ensures full opacity of placeholder */
+  color: rgb(201, 201, 201);
+  /* Set placeholder text color to white */
+  opacity: 1;
+  /* Optional: ensures full opacity of placeholder */
 }
+
 .dropdown {
   width: 20px;
 }
+
 /* ---------------------------------------room number chackboxes----------------------------------------------------- */
 .room_choice_container {
   margin-top: 10px;
 }
+
 .checkbox-label {
   padding: 5px 10px;
   margin: 0 5px;
   color: #f0f0f0;
   cursor: pointer;
 }
+
 .checkbox-label:hover {
   background-color: #fffbfb;
   color: #000;
 }
+
 .checkbox-label.selected {
   background-color: #fcfeff;
   color: rgb(0, 0, 0);
 }
+
 input[type="checkbox"] {
   display: none;
 }
@@ -206,6 +231,7 @@ input[type="checkbox"] {
   margin-top: 50px;
   margin-bottom: 100px;
 }
+
 .card_physical {
   width: 315px;
   height: 440px;
@@ -216,7 +242,7 @@ input[type="checkbox"] {
   background-color: black;
   border: 1px solid white;
   overflow: hidden;
-  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(124, 124, 124)) 1;
   padding: 20px;
   transition: transform 0.3s ease-in-out;
 
@@ -225,19 +251,23 @@ input[type="checkbox"] {
     cursor: pointer;
   }
 }
+
 .gap_box {
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 .backImg {
   width: 280px;
   height: 200px;
 }
+
 .heartbuttonAndImageBox_physical {
   position: relative;
 }
+
 .heartButtonBox_physical {
   width: 100%;
   display: flex;
@@ -262,6 +292,7 @@ input[type="checkbox"] {
   transform: scale(1.2);
   transition: transform 0.3s ease;
 }
+
 /* ----------------------------------card info styles---------------------------------------------------- */
 
 .title_and_fullprice {
@@ -270,6 +301,7 @@ input[type="checkbox"] {
   align-items: center;
   margin-top: 20px;
 }
+
 .dolar_fullprice {
   display: flex;
   justify-content: center;
@@ -277,23 +309,28 @@ input[type="checkbox"] {
   gap: 5px;
   /* border: 1px solid red; */
 }
+
 .company_title {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
+
 .status_settings {
   color: #868282;
 }
+
 .dola_apartment_card {
   width: 15px;
 }
+
 .textInfo_physical {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .rooms_and_rank {
   display: flex;
   justify-content: space-between;
@@ -332,21 +369,26 @@ input[type="checkbox"] {
   height: 358px;
   width: 1074px;
 }
+
 .noneWeb {
   display: none;
 }
-.column_for_physical{
+
+.column_for_physical {
   /* background-origin: 1px solid red; */
   display: flex;
   gap: 15px;
   /* flex-direction: column; */
 }
-.physical_map_box{
-  border: 1px solid gray;
+
+.physical_map_box {
+  border: 1.5px solid #4b4b4b;
   width: 140px;
-  
+  height: 31px;
+
 }
-.physical_style_map{
+
+.physical_style_map {
   display: flex;
   align-items: center;
   padding-left: 20px;
@@ -355,7 +397,7 @@ input[type="checkbox"] {
 }
 
 @media screen and (max-width: 500px) {
-  .column_for_physical{
+  .column_for_physical {
     flex-direction: column;
     align-items: start;
   }
@@ -363,37 +405,46 @@ input[type="checkbox"] {
   .googleMapImage_physical {
     width: 100px;
   }
+
   .ComplexBodyBox_physical {
     padding: 20px;
     margin-top: 10%;
   }
+
   .pagination {
     display: flex;
   }
+
   .allCards_physical {
     justify-content: center;
     margin-top: 30px;
   }
+
   .filter_cont_for_physical {
     flex-direction: column;
     align-items: start;
   }
+
   .filter_div_for_sort_icon {
     display: block;
     margin-bottom: 20px;
   }
+
   .filter_image {
     width: 30px;
   }
+
   .forPaddingOfInfoFieldOfComplexsPlansMaps_physical {
     padding: 0 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
+
   .complexInfoAndCountShowBox_physical {
     font-size: 15px;
   }
+
   .infoFieldOfComplexsPlansMaps_physical {
     width: 100%;
     padding: 0;
@@ -407,38 +458,49 @@ input[type="checkbox"] {
     width: 50px;
     height: 25px;
   }
+
   .handle_physical {
     width: 22px;
     height: 23px;
   }
+
   .currency-sign_physical {
     font-size: 10px;
   }
+
   .projectsPlansMapsSortingAndDollarBox_physical {
     padding-left: 0;
     gap: 10px;
   }
+
   .googleMapImage_physical {
     width: 100%;
   }
+
   .sort_text {
     font-size: 15px;
   }
+
   .textButtonContainer_physical {
     display: none;
   }
+
   .noneBut {
     display: none;
   }
+
   .arrowDownIcon {
     display: none;
   }
+
   .noneWeb {
     display: block;
   }
+
   .close_sort {
     display: none;
   }
+
   .filter_cont_for_physicaly {
     position: absolute;
     z-index: 11111;
@@ -451,35 +513,43 @@ input[type="checkbox"] {
     flex-direction: column;
     align-items: center;
   }
+
   .gap_box {
     padding-bottom: 0;
   }
+
   .backImg {
     width: 250px;
     height: 160px;
   }
+
   .card_physical {
     width: 280px;
     height: 380px;
   }
+
   .company_title {
     margin-top: -10px;
     display: flex;
     justify-content: center;
   }
+
   .status_settings {
     margin-top: -3px;
   }
+
   .private_apartment_rank {
     margin-top: -3px;
-  }  
-  .map_search_buttons{
+  }
+
+  .map_search_buttons {
     width: 100%;
     align-items: center;
     justify-content: center;
     flex-direction: column;
   }
-  .physical_map_box{
+
+  .physical_map_box {
     display: block;
   }
 }
