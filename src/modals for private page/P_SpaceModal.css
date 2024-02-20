@@ -9,3 +9,13 @@
 .modal-overlay.open {
   display: block; /* Show when the modal is open */
 }
+
+
+
+@media screen and (max-width: 500px) {
+  .make_thinner_ground_spase{
+    width: 310px  !important;
+    left: -100px;
+  }
+  
+}

@@ -9,3 +9,10 @@
 .modal-overlay.open {
   display: block; /* Show when the modal is open */
 }
+
+@media screen and (max-width: 500px) {
+  .make_thinner_grounud_price{
+    width: 270px !important;
+    left: -60px;
+  }
+}

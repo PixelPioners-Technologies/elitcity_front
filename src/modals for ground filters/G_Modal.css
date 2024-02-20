@@ -42,14 +42,12 @@
     border-color: aliceblue;
   }
 
+  .make_thinner_ground_location{
+    left: -70px;
+  }
+  
 
 
-
-/*  *******
-(START)
-  1) This styles is for SpaceModals and PRICEmodals(ანუ სადაც SPACE-ისა და Price მხრივ ირჩევს
-   მომხმარებელი ინფორმაციას) მაგის DIV-ის სტილების 
-  შესაცვლელად -------  */
 
 .scale-up-tl {
 	-webkit-animation: scale-up-tl 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
@@ -85,15 +83,6 @@
   }
 }
 
-/* --(END)---------------------------------------- */
-
-
-
-
-/*  *******
-(START)
-  2) This styles is for LOCATIONModals(ანუ სადაც LOCATION-ის მხრივ ირჩევს მომხმარებელი ინფორმაციას) მაგის DIV-ის სტილების 
-  შესაცვლელად -------  */
 .scale-up-top {
 	-webkit-animation: scale-up-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 	        animation: scale-up-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
@@ -131,4 +120,11 @@
 
 /* --(END)---------------------------------------- */
 
-
+@media screen and (max-width : 500px) {
+  .make_thinner_ground_location{
+    width: 300px;
+    left: -57px;
+  }
+  
+  
+}

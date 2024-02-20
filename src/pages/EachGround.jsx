@@ -246,6 +246,8 @@ export default function EachGround({
             autoPlay={true}
             slideInterval={3000}
             thumbnailPosition="left"
+            showFullscreenButton={false}
+
           />}
         </div>
 

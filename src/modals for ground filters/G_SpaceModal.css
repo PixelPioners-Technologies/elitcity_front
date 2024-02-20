@@ -10,6 +10,17 @@
   display: block; /* Show when the modal is open */
 }
 
-.shevaviwrovot{
-  width: auto;
+.make_thinner_ground_space{
+  width: 200px;
+}
+
+@media screen and (max-width : 500px) {
+  
+  .make_thinner_ground_space{
+    left: -20px;
+  }
+  
+
+
+
 }

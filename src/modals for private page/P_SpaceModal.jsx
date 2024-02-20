@@ -24,7 +24,7 @@ const P_SpaceModal = ({ isOpen, close, children }) => {
 
   return (
     <div className={`modal-overlay ${openClass}`} onClick={close}>
-      <div className="modal-content scale-up-tl" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content scale-up-tl  make_thinner_ground_spase" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>

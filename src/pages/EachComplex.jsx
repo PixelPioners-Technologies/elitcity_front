@@ -859,6 +859,8 @@ export default function EachComplex({
             autoPlay={true}
             slideInterval={3000}
             thumbnailPosition="left"
+            useBrowserFullscreen={true}
+            showFullscreenButton={false}
           />}
         </div>
 

@@ -73,7 +73,7 @@
 /* ------------------------------------------------------------- */
 .eachSaleArticleBox {
   border: 1px solid white;
-  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(247, 247, 246)) 1;
+  border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(124, 124, 124)) 1;
   transition: transform 0.3s ease-in-out;
   padding: 20px;
   display: flex;
