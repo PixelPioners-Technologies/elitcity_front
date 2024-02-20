@@ -242,6 +242,7 @@ export default function Physical({
     // max_area,
     // min_area,
     currentPage,
+    ascendentPrice,
     // ascendentPrice,
     // stringFilterValue,
     // selectedRoomNumbers,
@@ -602,7 +603,7 @@ export default function Physical({
         languageInfo.private_apartments = "კერძო ბინები";
         languageInfo.allFindButtonLanguage = "ძებნა";
 
-        languageInfo.map = "რუქა";
+        languageInfo.map = "რუკა";
         languageInfo.sorting = "სორტირება";
         languageInfo.sort = "სორტ";
         languageInfo.projects = "პროექტები";
@@ -622,7 +623,7 @@ export default function Physical({
         languageInfo.complexes = "Комплексы";
         languageInfo.private_apartments = "Частные апартаменты";
         languageInfo.allFindButtonLanguage = "Поиск";
-        languageInfo.map = "карта";
+        languageInfo.map = "Карта";
         languageInfo.sorting = "Сортировка";
         languageInfo.sort = "Сорт";
         languageInfo.projects = "Проекты";

@@ -347,7 +347,7 @@ export default function Map({
       priceButtonLanguage: "Price",
       allStatusLanguage: "All",
       findMapButtonLanguage: "Map",
-      allFindButtonLanguage: "Find",
+      allFindButtonLanguage: "Search",
       spaceButtonClose: "Close",
       minPrice: "From m²",
       maxPrice: "To m²",
@@ -367,7 +367,7 @@ export default function Map({
         languageInfo.priceButtonLanguage = "Price";
         languageInfo.allStatusLanguage = "All";
         languageInfo.findMapButtonLanguage = "Map";
-        languageInfo.allFindButtonLanguage = "Find";
+        languageInfo.allFindButtonLanguage = "Search";
         languageInfo.spaceButtonClose = "Close";
         languageInfo.minPrice = "From m²";
         languageInfo.maxPrice = "To m²";
@@ -405,7 +405,7 @@ export default function Map({
         languageInfo.priceButtonLanguage = "Цена";
         languageInfo.allStatusLanguage = "Все";
         languageInfo.findMapButtonLanguage = "Карта";
-        languageInfo.allFindButtonLanguage = "Натдти";
+        languageInfo.allFindButtonLanguage = "Поиск";
         languageInfo.spaceButtonClose = "закрить";
         languageInfo.minPrice = "из м²";
         languageInfo.maxPrice = "до м²";

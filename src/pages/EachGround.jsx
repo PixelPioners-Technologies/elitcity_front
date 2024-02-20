@@ -78,6 +78,7 @@ export default function EachGround({
       const requestUrl = `${BaseURLs.ground}${selectedLanguage}/${prev_apartments}`;
       const response = await axios.get(requestUrl);
       const data = response.data;
+      console.log(data)
       const normadata = normalizeGroundData(data, selectedLanguage);
       setGround(normadata);
 
@@ -354,6 +355,9 @@ export default function EachGround({
               <img src={phoneImage} style={{ width: "40px" }} alt="phone" />
               <p style={{ color: "#FFFFFF" }}>032 22 23 **</p>
               <button className="numberSHowButton">
+
+
+
                 {
                   handleStaticTextLanguageChange(selectedLanguage)
                     .show_mobile_number
