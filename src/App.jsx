@@ -818,6 +818,12 @@ function App() {
           setShowPopup(false);
           // Reset sedtsheet to allow for future submissions
           setSedtsheet(false);
+          setName('')
+          setPhone('')
+          setEmail('')
+          setStorkhomePlus(false)
+          setOther(false)
+          setOther(false)
         }, 2000);
         setTimeout(() => {
           setIsCallModalOpen(false)
