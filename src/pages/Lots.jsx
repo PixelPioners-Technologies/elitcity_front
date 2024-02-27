@@ -297,7 +297,7 @@ export default function Physical({
   };
 
 
-  
+
   const renderModalContent = () => {
     switch (modalContent) {
       case "cities":
@@ -745,7 +745,7 @@ export default function Physical({
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
-      map : "Map",
+      map: "Map",
     };
 
     switch (lang) {
@@ -790,19 +790,19 @@ export default function Physical({
         languageInfo.dan = "დან";
         languageInfo.mde = "მდე";
         languageInfo.map = "ღუკა";
-        
-        
+
+
         break;
-        
-        case "ru":
-          languageInfo.sortingButtonAscendentPrice = "Ццена м² с шагом";
+
+      case "ru":
+        languageInfo.sortingButtonAscendentPrice = "Ццена м² с шагом";
         languageInfo.sortingButtonDescendentPrice = "м² цена снижается";
         languageInfo.sortingButtonAscendantTime = "Асцендент создан в";
         languageInfo.sortingButtonDescendentTime = "Потомок создан в";
         languageInfo.sortingButtonAscendantFullPrice =
-        "Полная цена Асцендента.";
+          "Полная цена Асцендента.";
         languageInfo.sortingButtonDescendentFullPrice =
-        "Полная стоимость потомка";
+          "Полная стоимость потомка";
         languageInfo.studio = "Студия";
         languageInfo.allFindButtonLanguage = "Поиск";
         languageInfo.spaceButtonClose = "закрить";
@@ -1028,35 +1028,28 @@ export default function Physical({
                         .fullPriceHomePage
                     }
 
-                    <div className="currencyBox_homepage">
-                      <div
-                        className="switch_homepage"
-                        data-ison={isOn}
-                        onClick={() => {
-                          toggleSwitch();
-                          HandleStateChange();
-                        }}
-                      >
-                        <motion.div
-                          className="handle_homepage"
-                          layout
-                          transition={spring}
-                        >
-                          <img
-                            src={lari_black}
-                            alt="Lari Sign"
-                            className={`currency-sign_homepage ${isOn ? "active" : ""
-                              }`}
-                          />
-                          <img
-                            src={dollar_black}
-                            alt="Dollar Sign"
-                            className={`currency-sign_homepage ${!isOn ? "active" : ""
-                              }`}
-                          />
-                        </motion.div>
+                    {/* ----Dollar and Lari Toggle button */}
+                    <div
+                      className="valutis_cvlilebis_konteineri"
+                      data-ison={isOn}
+                      onClick={() => {
+                        toggleSwitch();
+                        HandleStateChange();
+                      }}
+                    >
+                      <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                        <img src={isOn ? dollar_black : dollar}
+                          alt="dollar signe"
+                          className="valutis_nishnebi" />
+                      </div>
+
+                      <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                        <img src={!isOn ? lari_black : lari}
+                          alt="dollar signe"
+                          className="valutis_nishnebi" />
                       </div>
                     </div>
+                    {/* ---------------- */}
 
 
                   </div>
@@ -1250,7 +1243,7 @@ export default function Physical({
                   className="location_icon_respons"
                 />
                 <button className="textButton">
-              
+
                   {handleStatusButtonLanguageChange(selectedLanguage).map}
                 </button>
               </div>
@@ -1304,7 +1297,7 @@ export default function Physical({
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
-                style={{ color: "white", fontSize: "16px" }}ფ
+                style={{ color: "white", fontSize: "16px" }} ფ
               >
                 <div className="sortAndArrowDownImgBox_physical">
                   <p className="sort_text_web">
@@ -1499,34 +1492,27 @@ export default function Physical({
                 />
               </div>
               {/* ----Dollar and Lari Toggle button */}
-              <div className="currencyBox_physical">
-                <div
-                  className="switch_physical"
-                  data-ison={isOn}
-                  onClick={() => {
-                    toggleSwitch();
-                    HandleStateChange();
-                  }}
-                >
-                  <motion.div
-                    className="handle_physical"
-                    layout
-                    transition={spring}
-                  >
-                    <img
-                      src={lari_black}
-                      alt="Lari Sign"
-                      className={`currency-sign_physical ${isOn ? "active" : ""
-                        }`}
-                    />
-                    <img
-                      src={dollar_black}
-                      alt="Dollar Sign"
-                      className={`currency-sign_physical ${!isOn ? "active" : ""
-                        }`}
-                    />
-                  </motion.div>
+              <div
+                className="valutis_cvlilebis_konteineri"
+                data-ison={isOn}
+                onClick={() => {
+                  toggleSwitch();
+                  HandleStateChange();
+                }}
+              >
+                <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                  <img src={isOn ? dollar_black : dollar}
+                    alt="dollar signe"
+                    className="valutis_nishnebi" />
                 </div>
+
+                <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                  <img src={!isOn ? lari_black : lari}
+                    alt="dollar signe"
+                    className="valutis_nishnebi" />
+                </div>
+
+
               </div>
               {/* ---------------- */}
             </div>

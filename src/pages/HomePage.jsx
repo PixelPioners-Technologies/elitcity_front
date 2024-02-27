@@ -467,7 +467,7 @@ export default function Map({
                       }
                     </text>
                   </div>
-                  <div className="inputInlineDispley " id = 'inputForComp'>
+                  <div className="inputInlineDispley " id='inputForComp'>
                     <input
                       className="min_price_homePage"
                       type="number"
@@ -531,34 +531,27 @@ export default function Map({
                   }
 
                   {/* ----Dollar and Lari Toggle button */}
-                  <div className="currencyBox_homepage">
-                    <div
-                      className="switch_homepage"
-                      data-ison={isOn}
-                      onClick={toggleSwitch}
-                    >
-                      <motion.div
-                        className="handle_homepage"
-                        layout
-                        transition={spring}
-                      >
-                        <img
-                          src={lari_black}
-                          alt="Lari Sign"
-                          className={`currency-sign_homepage ${
-                            isOn ? "active" : ""
-                          }`}
-                        />
-                        <img
-                          src={dollar_black}
-                          alt="Dollar Sign"
-                          className={`currency-sign_homepage ${
-                            !isOn ? "active" : ""
-                          }`}
-                        />
-                      </motion.div>
+                  <div
+                    className="valutis_cvlilebis_konteineri"
+                    data-ison={isOn}
+                    onClick={() => {
+                      toggleSwitch();
+                      HandleStateChange();
+                    }}
+                  >
+                    <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                      <img src={isOn ? dollar_black : dollar}
+                        alt="dollar signe"
+                        className="valutis_nishnebi" />
+                    </div>
+
+                    <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                      <img src={!isOn ? lari_black : lari}
+                        alt="dollar signe"
+                        className="valutis_nishnebi" />
                     </div>
                   </div>
+                  {/* ---------------- */}
                   {/* ---------------- */}
                 </div>
                 <div>

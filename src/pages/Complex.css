@@ -390,6 +390,39 @@ border-image: linear-gradient(45deg, rgb(3, 3, 3), rgb(124, 124, 124)) 1;
 
 
 
+.valutis_cvlilebis_konteineri{
+  width: 70px;
+  height: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid white;
+  gap: 1px;
+}
+
+.same_stiles_corrency{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.valutis_nishnebi{
+  width: 25px;
+  height: 25px;
+}
+
+.chartuli{
+  width: 35px;
+  height: 35px;
+  background-color: #fff;
+}
+
+.centrshi{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px ;
+}
 
 
 

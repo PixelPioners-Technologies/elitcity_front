@@ -517,7 +517,7 @@ export default function Map({
     selectedDistricts,
     min_ground_area,
     max_ground_area,
-    
+
     // min_graund_full_price,
     converted_min_ground_fullPrice,
 
@@ -654,7 +654,7 @@ export default function Map({
     }
 
 
-  }, [min_graund_full_price, max_ground_fill_price, min_graund_square_price, max_ground_square_price , isOn])
+  }, [min_graund_full_price, max_ground_fill_price, min_graund_square_price, max_ground_square_price, isOn])
 
 
 
@@ -1486,35 +1486,29 @@ export default function Map({
                         handleStatusButtonLanguageChange(selectedLanguage)
                           .meterPriceHomePage
                       }
-                      <div className="currencyBox_homepage">
-                        <div
-                          className="switch_homepage"
-                          data-ison={isOn}
-                          onClick={() => {
-                            toggleSwitch();
-                            HandleStateChange();
-                          }}
-                        >
-                          <motion.div
-                            className="handle_homepage"
-                            layout
-                            transition={spring}
-                          >
-                            <img
-                              src={lari_black}
-                              alt="Lari Sign"
-                              className={`currency-sign_homepage ${isOn ? "active" : ""
-                                }`}
-                            />
-                            <img
-                              src={dollar_black}
-                              alt="Dollar Sign"
-                              className={`currency-sign_homepage ${!isOn ? "active" : ""
-                                }`}
-                            />
-                          </motion.div>
+
+                      {/* ----Dollar and Lari Toggle button */}
+                      <div
+                        className="valutis_cvlilebis_konteineri"
+                        data-ison={isOn}
+                        onClick={() => {
+                          toggleSwitch();
+                          HandleStateChange();
+                        }}
+                      >
+                        <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                          <img src={isOn ? dollar_black : dollar}
+                            alt="dollar signe"
+                            className="valutis_nishnebi" />
+                        </div>
+
+                        <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                          <img src={!isOn ? lari_black : lari}
+                            alt="dollar signe"
+                            className="valutis_nishnebi" />
                         </div>
                       </div>
+                      {/* ---------------- */}
                     </div>
                     <div>
 
@@ -1630,7 +1624,7 @@ export default function Map({
                       className="dropdown"
                     />
                   </div>
-                  
+
                   <Modal isOpen={isModalOpen} close={closeModal}>
                     {renderModalContent()}
                   </Modal>
@@ -1754,35 +1748,29 @@ export default function Map({
                       handleStatusButtonLanguageChange(selectedLanguage)
                         .meterPriceHomePage
                     }
-                    <div className="currencyBox_homepage">
-                      <div
-                        className="switch_homepage"
-                        data-ison={isOn}
-                        onClick={() => {
-                          toggleSwitch();
-                          HandleStateChange();
-                        }}
-                      >
-                        <motion.div
-                          className="handle_homepage"
-                          layout
-                          transition={spring}
-                        >
-                          <img
-                            src={lari_black}
-                            alt="Lari Sign"
-                            className={`currency-sign_homepage ${isOn ? "active" : ""
-                              }`}
-                          />
-                          <img
-                            src={dollar_black}
-                            alt="Dollar Sign"
-                            className={`currency-sign_homepage ${!isOn ? "active" : ""
-                              }`}
-                          />
-                        </motion.div>
+
+                    {/* ----Dollar and Lari Toggle button */}
+                    <div
+                      className="valutis_cvlilebis_konteineri"
+                      data-ison={isOn}
+                      onClick={() => {
+                        toggleSwitch();
+                        HandleStateChange();
+                      }}
+                    >
+                      <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                        <img src={isOn ? dollar_black : dollar}
+                          alt="dollar signe"
+                          className="valutis_nishnebi" />
+                      </div>
+
+                      <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                        <img src={!isOn ? lari_black : lari}
+                          alt="dollar signe"
+                          className="valutis_nishnebi" />
                       </div>
                     </div>
+                    {/* ---------------- */}
                   </div>
                   <div>
 
@@ -2014,35 +2002,29 @@ export default function Map({
                         handleStatusButtonLanguageChange(selectedLanguage)
                           .meterPriceHomePage
                       }
-                      <div className="currencyBox_homepage">
-                        <div
-                          className="switch_homepage"
-                          data-ison={isOn}
-                          onClick={() => {
-                            toggleSwitch();
-                            HandleStateChange();
-                          }}
-                        >
-                          <motion.div
-                            className="handle_homepage"
-                            layout
-                            transition={spring}
-                          >
-                            <img
-                              src={lari_black}
-                              alt="Lari Sign"
-                              className={`currency-sign_homepage ${isOn ? "active" : ""
-                                }`}
-                            />
-                            <img
-                              src={dollar_black}
-                              alt="Dollar Sign"
-                              className={`currency-sign_homepage ${!isOn ? "active" : ""
-                                }`}
-                            />
-                          </motion.div>
+
+                      {/* ----Dollar and Lari Toggle button */}
+                      <div
+                        className="valutis_cvlilebis_konteineri"
+                        data-ison={isOn}
+                        onClick={() => {
+                          toggleSwitch();
+                          HandleStateChange();
+                        }}
+                      >
+                        <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                          <img src={isOn ? dollar_black : dollar}
+                            alt="dollar signe"
+                            className="valutis_nishnebi" />
+                        </div>
+
+                        <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                          <img src={!isOn ? lari_black : lari}
+                            alt="dollar signe"
+                            className="valutis_nishnebi" />
                         </div>
                       </div>
+                      {/* ---------------- */}
                     </div>
                     {/* pirveli inputi  */}
                     <div className="inputInlineDispley dabla">
@@ -2952,7 +2934,7 @@ export default function Map({
     setMin_graund_square_price("");
     setMax_ground_square_price("");
   };
-  
+
   const [openSortComp, setOpenComp] = useState(false);
 
   // const sortOpen = () => {
@@ -3147,43 +3129,43 @@ export default function Map({
               />
             </div>
           </div>
-          <div className= {openSortComp ? "s" : "closeMapSort"}>
-          <div className="filter_methods_container">
-            {/* modal for filtering method changing */}
-            <div className="button-modal-container category_button">
-              <div
-                onClick={handleFilterChangeModalClick}
-                className="space_button"
-              >
-                {
-                  handleStatusButtonLanguageChange(selectedLanguage)
-                    .categoryLanguage
-                }
-                <img
-                  src={button_icon}
-                  alt="button dropdown icon"
-                  className="dropdown"
-                />
-              </div>
-
-              <FilterChangeModal
-                isOpen={isfilterChangeModalOpen}
-                close={closeFilterChangeModal}
-              >
-                <div className="filter_little_container">
-                  {renderFilterMethods()}
-                </div>
-                <button
-                  className="modal_close_button"
-                  onClick={closeFilterChangeModal}
+          <div className={openSortComp ? "s" : "closeMapSort"}>
+            <div className="filter_methods_container">
+              {/* modal for filtering method changing */}
+              <div className="button-modal-container category_button">
+                <div
+                  onClick={handleFilterChangeModalClick}
+                  className="space_button"
                 >
-                  Close
-                </button>
-              </FilterChangeModal>
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .categoryLanguage
+                  }
+                  <img
+                    src={button_icon}
+                    alt="button dropdown icon"
+                    className="dropdown"
+                  />
+                </div>
+
+                <FilterChangeModal
+                  isOpen={isfilterChangeModalOpen}
+                  close={closeFilterChangeModal}
+                >
+                  <div className="filter_little_container">
+                    {renderFilterMethods()}
+                  </div>
+                  <button
+                    className="modal_close_button"
+                    onClick={closeFilterChangeModal}
+                  >
+                    Close
+                  </button>
+                </FilterChangeModal>
+              </div>
             </div>
+            <div className="remove_from_laptop_version"  >{renderFilterUI()}</div>
           </div>
-          <div className="remove_from_laptop_version"  >{renderFilterUI()}</div>
-        </div>
         </div>
       </div>
     </div>

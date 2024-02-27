@@ -369,7 +369,7 @@ export default function Complex({
       sorting: "Sorting",
       place_for_your_comfort: "A place for your comfort",
       sort: "Sort",
-      projects : "Projects"
+      projects: "Projects"
     };
 
     switch (lang) {
@@ -647,7 +647,7 @@ export default function Complex({
     return () => window.removeEventListener('resize', checkWindowSize);
   }, []);
 
- 
+
 
 
 
@@ -751,37 +751,29 @@ export default function Complex({
                         .fullPriceHomePage
                     }
 
-                    <div className="currencyBox_homepage">
-                      <div
-                        className="switch_homepage"
-                        data-ison={isOn}
-                        onClick={() => {
-                          toggleSwitch();
-                          HandleStateChange();
-                        }}
-                      >
-                        <motion.div
-                          className="handle_homepage"
-                          layout
-                          transition={spring}
-                        >
-                          <img
-                            src={lari_black}
-                            alt="Lari Sign"
-                            className={`currency-sign_homepage ${
-                              isOn ? "active" : ""
-                            }`}
-                          />
-                          <img
-                            src={dollar_black}
-                            alt="Dollar Sign"
-                            className={`currency-sign_homepage ${
-                              !isOn ? "active" : ""
-                            }`}
-                          />
-                        </motion.div>
+
+                    {/* ----Dollar and Lari Toggle button */}
+                    <div
+                      className="valutis_cvlilebis_konteineri"
+                      data-ison={isOn}
+                      onClick={() => {
+                        toggleSwitch();
+                        HandleStateChange();
+                      }}
+                    >
+                      <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                        <img src={isOn ? dollar_black : dollar}
+                          alt="dollar signe"
+                          className="valutis_nishnebi" />
+                      </div>
+
+                      <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                        <img src={!isOn ? lari_black : lari}
+                          alt="dollar signe"
+                          className="valutis_nishnebi" />
                       </div>
                     </div>
+                    {/* ---------------- */}
                   </div>
                   <div>
                     <div className="inputInlineDispley dabla">
@@ -983,7 +975,7 @@ export default function Complex({
                   <div className="mapAndLogoImg styles_for_top_map" >
                     <img
 
-                    
+
                       src={LocationIcon}
                       alt="mapSignLogo"
                       className="location_icon_respons"
@@ -1262,34 +1254,27 @@ export default function Complex({
               {/* ---------------------------------- */}
 
               {/* ----Dollar and Lari Toggle button */}
-              <div className="currencyBox_physical">
-                <div
-                  className="switch_physical"
-                  data-ison={isOn}
-                  onClick={() => {
-                    toggleSwitch();
-                    HandleStateChange();
-                  }}
-                >
-                  <motion.div
-                    className="handle_physical"
-                    layout
-                    transition={spring}
-                  >
-                    <img
-                      src={lari_black}
-                      alt="Lari Sign"
-                      className={`currency-sign ${isOn ? "active" : ""}`}
-                    />
-                    <img
-                      src={dollar_black}
-                      alt="Dollar Sign"
-                      className={`currency-sign ${!isOn ? "active" : ""}`}
-                    />
-                  </motion.div>
+              <div
+                className="valutis_cvlilebis_konteineri"
+                data-ison={isOn}
+                onClick={() => {
+                  toggleSwitch();
+                  HandleStateChange();
+                }}
+              >
+                <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                  <img src={isOn ? dollar_black : dollar}
+                    alt="dollar signe"
+                    className="valutis_nishnebi" />
                 </div>
-                {/* ---------------- */}
+
+                <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                  <img src={!isOn ? lari_black : lari}
+                    alt="dollar signe"
+                    className="valutis_nishnebi" />
+                </div>
               </div>
+              {/* ---------------- */}
             </div>
           </div>
         </div>
@@ -1353,12 +1338,12 @@ export default function Complex({
                       {" "}
                       {currenceChangeState
                         ? (
-                            Number(complex.complexDetails.pricePerSqMeter) *
-                            getCorrencyRate
-                          ).toFixed(2)
+                          Number(complex.complexDetails.pricePerSqMeter) *
+                          getCorrencyRate
+                        ).toFixed(2)
                         : Number(
-                            complex.complexDetails.pricePerSqMeter
-                          ).toFixed(2)}{" "}
+                          complex.complexDetails.pricePerSqMeter
+                        ).toFixed(2)}{" "}
                       {isOn ? "  $  " : "  ₾  "}
                     </p>
                   </div>
