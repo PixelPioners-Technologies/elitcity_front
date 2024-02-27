@@ -205,7 +205,10 @@ export default function Complex({
               </button>
             ))}
             <button className="modal_close_button" onClick={closeModal}>
-              close
+              {
+                handleStatusButtonLanguageChange(selectedLanguage)
+                  .spaceButtonClose
+              }
             </button>
           </div>
         );
@@ -261,11 +264,14 @@ export default function Complex({
               ))}
             </div>
             <button className="modal_close_button" onClick={closeModal}>
-              Close
+              {
+                handleStatusButtonLanguageChange(selectedLanguage)
+                  .spaceButtonClose
+              }
             </button>
           </div>
         );
-
+        // border: solid rgb(255, 255, 255);
       default:
         return null;
     }
@@ -514,6 +520,7 @@ export default function Complex({
     return Object.entries(statusTranslations).map(([value, labels]) => (
       <div className="status_chackboxes" key={value}>
         <label className="container" style={{ display: "flex", gap: "15px" }}>
+          
           <input
             type="checkbox"
             checked={selectedStatuses.includes(value)}
@@ -656,11 +663,11 @@ export default function Complex({
     <div className="complex_page_div">
       <div className="filter_cont_for_complexes">
         <div
-          // initial={{ y: 50, opacity: 0 }}
-          // whileInView={{ y: 0, opacity: 1 }}
-          // transition={{ duration: 2 }}
-          // className="column_div"
-          >
+        // initial={{ y: 50, opacity: 0 }}
+        // whileInView={{ y: 0, opacity: 1 }}
+        // transition={{ duration: 2 }}
+        // className="column_div"
+        >
           {/* for_comfort column_div_for_comfort */}
           <div
             className={openSortComp ? "for_comfort" : "column_div_for_comfort "}
@@ -1040,9 +1047,9 @@ export default function Complex({
               <Link to="/map">
                 <div
                   className="textButtonContainer map_styles_for_complex"
-                  // whileHover={{ scale: 1.1 }}
-                  // whiletap={{ scale: 0.9 }}
-                  // transition={{ duration: 0.3, ease: "easeInOut" }}
+                // whileHover={{ scale: 1.1 }}
+                // whiletap={{ scale: 0.9 }}
+                // transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <div className="mapAndLogoImg">
                     <img
@@ -1286,10 +1293,10 @@ export default function Complex({
         {complexes.map((complex, index) => (
           <div className="card" key={complex.id}>
             <div
-              // initial={{ x: -50, opacity: 0 }}
-              // transition={{ duration: 1.1 }}
-              // whileInView={{ x: 0, opacity: 1 }}
-              // viewport={{ once: true }}
+            // initial={{ x: -50, opacity: 0 }}
+            // transition={{ duration: 1.1 }}
+            // whileInView={{ x: 0, opacity: 1 }}
+            // viewport={{ once: true }}
             >
               <div className="heartbuttonAndImageBox">
                 <div className="heartButtonBox">
@@ -1336,19 +1343,19 @@ export default function Complex({
                     </p>
                     <p style={styles.complexInfo}>
                       {" "}
-                      
+
                       {currenceChangeState
-                        ? new Intl.NumberFormat('en-US', { 
-                          style: 'decimal', 
-                          useGrouping: true, 
-                          minimumFractionDigits: 0, 
-                          maximumFractionDigits: 0 
+                        ? new Intl.NumberFormat('en-US', {
+                          style: 'decimal',
+                          useGrouping: true,
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0
                         }).format(Number(complex.complexDetails.pricePerSqMeter) * getCorrencyRate).replace(/,/g, ' ')
-                        :new Intl.NumberFormat('en-US', { 
-                          style: 'decimal', 
-                          useGrouping: true, 
-                          minimumFractionDigits: 0, 
-                          maximumFractionDigits: 0 
+                        : new Intl.NumberFormat('en-US', {
+                          style: 'decimal',
+                          useGrouping: true,
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0
                         }).format(Number(complex.complexDetails.pricePerSqMeter)).replace(/,/g, ' ')} {" "}
                       {isOn ? "  $  " : "  ₾  "}
                     </p>

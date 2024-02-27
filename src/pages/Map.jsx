@@ -866,7 +866,7 @@ export default function Map({
               </button>
             ))}
             <button className="modal_close_button" onClick={closeModal}>
-              close
+              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
             </button>
           </div>
         );
@@ -922,7 +922,7 @@ export default function Map({
               ))}
             </div>
             <button className="modal_close_button" onClick={closeModal}>
-              Close
+              {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
             </button>
           </div>
         );
@@ -1395,10 +1395,10 @@ export default function Map({
           <div>
             {/* axali divebi butonebis magivrad filtraciistvis */}
             <div
-              // key={filterType}
-              // initial={{ y: 100, opacity: 0 }}
-              // whileInView={{ y: 0, opacity: 1 }}
-              // transition={{ duration: 1 }}
+            // key={filterType}
+            // initial={{ y: 100, opacity: 0 }}
+            // whileInView={{ y: 0, opacity: 1 }}
+            // transition={{ duration: 1 }}
             >
               <div className="filter_cont " id="filter_cont_2">
                 {/* button for filtering space */}
@@ -1455,7 +1455,7 @@ export default function Map({
                       className="modal_close_button"
                       onClick={closeSpaceModal}
                     >
-                      Close
+                      {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                     </button>
                   </SpaceModal>
                 </div>
@@ -1605,7 +1605,7 @@ export default function Map({
                       className="modal_close_button"
                       onClick={handleClosePriceModal}
                     >
-                      Close
+                      {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                     </button>
                   </PriceModal>
                 </div>
@@ -1654,7 +1654,7 @@ export default function Map({
                       className="modal_close_button"
                       onClick={handleCloseStatusModal}
                     >
-                      Close
+                      {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                     </button>
                   </StatusModal>
                 </div>
@@ -1665,10 +1665,10 @@ export default function Map({
       case "privateApartments":
         return (
           <div
-            // key={filterType}
-            // initial={{ y: 100, opacity: 0 }}
-            // whileInView={{ y: 0, opacity: 1 }}
-            // transition={{ duration: 1 }}
+          // key={filterType}
+          // initial={{ y: 100, opacity: 0 }}
+          // whileInView={{ y: 0, opacity: 1 }}
+          // transition={{ duration: 1 }}
           >
             <div className="filter_cont">
               {/* container for filtering space */}
@@ -1720,7 +1720,7 @@ export default function Map({
                     className="modal_close_button"
                     onClick={closeSpaceModal}
                   >
-                    Close
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
                 </SpaceModal>
               </div>
@@ -1869,7 +1869,7 @@ export default function Map({
                     className="modal_close_button"
                     onClick={handleClosePriceModal}
                   >
-                    Close
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
                 </PriceModal>
               </div>
@@ -1917,7 +1917,7 @@ export default function Map({
                     className="modal_close_button"
                     onClick={handleCloseStatusModal}
                   >
-                    Close
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
                 </StatusModal>
               </div>
@@ -1927,10 +1927,10 @@ export default function Map({
       case "grounds":
         return (
           <div
-            // key={filterType}
-            // initial={{ y: 100, opacity: 0 }}
-            // whileInView={{ y: 0, opacity: 1 }}
-            // transition={{ duration: 1 }}
+          // key={filterType}
+          // initial={{ y: 100, opacity: 0 }}
+          // whileInView={{ y: 0, opacity: 1 }}
+          // transition={{ duration: 1 }}
           >
             <div className="filter_cont">
               {/* container for filtering space */}
@@ -1972,7 +1972,7 @@ export default function Map({
                     className="modal_close_button"
                     onClick={closeSpaceModal}
                   >
-                    Close
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
                 </G_SpaceModal>
               </div>
@@ -2123,7 +2123,7 @@ export default function Map({
                     className="modal_close_button"
                     onClick={handleClosePriceModal}
                   >
-                    Close
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
                 </G_PriceModal>
               </div>
@@ -2171,7 +2171,7 @@ export default function Map({
                     className="modal_close_button"
                     onClick={handleCloseStatusModal}
                   >
-                    Close
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
                 </G_StatusModal>
               </div>
@@ -2980,9 +2980,9 @@ export default function Map({
   return (
     <div className="main_map">
       <div
-        // initial={{ y: 100, opacity: 0 }}
-        // whileInView={{ y: 0, opacity: 1 }}
-        // transition={{ duration: 1 }}
+      // initial={{ y: 100, opacity: 0 }}
+      // whileInView={{ y: 0, opacity: 1 }}
+      // transition={{ duration: 1 }}
       // className={openMapFilter ? "show_map_filter" : "closeMapSort"}
       >
         <div className="filtetmethods_and_filterss closeMapSort">
@@ -3015,7 +3015,7 @@ export default function Map({
                   className="modal_close_button"
                   onClick={closeFilterChangeModal}
                 >
-                  Close
+                  {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                 </button>
               </FilterChangeModal>
             </div>
@@ -3158,7 +3158,7 @@ export default function Map({
                     className="modal_close_button"
                     onClick={closeFilterChangeModal}
                   >
-                    Close
+                    {handleStatusButtonLanguageChange(selectedLanguage).spaceButtonClose}
                   </button>
                 </FilterChangeModal>
               </div>

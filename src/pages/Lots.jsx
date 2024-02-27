@@ -313,7 +313,10 @@ export default function Physical({
               </button>
             ))}
             <button className="modal_close_button" onClick={closeModal}>
-              close
+              {
+                handleStatusButtonLanguageChange(selectedLanguage)
+                  .spaceButtonClose
+              }
             </button>
           </div>
         );
@@ -370,7 +373,10 @@ export default function Physical({
               ))}
             </div>
             <button className="modal_close_button" onClick={closeModal}>
-              Close
+              {
+                handleStatusButtonLanguageChange(selectedLanguage)
+                  .spaceButtonClose
+              }
             </button>
           </div>
         );
@@ -1198,7 +1204,10 @@ export default function Physical({
                   className="modal_close_button"
                   onClick={handleClose_P_StatusModal}
                 >
-                  Close
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .spaceButtonClose
+                  }
                 </button>
               </P_StatusModal>
             </div>
@@ -1576,19 +1585,19 @@ export default function Physical({
                 <p className="price_settings" style={styles.complexInfo}>
                   {/* {prev_apartments.squarePrice *   getCorrencyRate}{" "} */}
                   {currenceChangeState
-                    ? new Intl.NumberFormat('en-US', { 
-                      style: 'decimal', 
-                      useGrouping: true, 
-                      minimumFractionDigits: 0, 
-                      maximumFractionDigits: 0 
+                    ? new Intl.NumberFormat('en-US', {
+                      style: 'decimal',
+                      useGrouping: true,
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
                     }).format(Number(prev_apartments.squarePrice) * getCorrencyRate).replace(/,/g, ' ')
-                    :new Intl.NumberFormat('en-US', { 
-                          style: 'decimal', 
-                          useGrouping: true, 
-                          minimumFractionDigits: 0, 
-                          maximumFractionDigits: 0 
-                        }).format(Number(prev_apartments.squarePrice)).replace(/,/g, ' ')} {" "}
-                         {isOn ? "  $  " : "  ₾  "}
+                    : new Intl.NumberFormat('en-US', {
+                      style: 'decimal',
+                      useGrouping: true,
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
+                    }).format(Number(prev_apartments.squarePrice)).replace(/,/g, ' ')} {" "}
+                  {isOn ? "  $  " : "  ₾  "}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">
@@ -1662,10 +1671,10 @@ export default function Physical({
       <div className="googleMapImageBox_physical">
         <Link to="/map">
           <div
-            // initial={{ x: -150, opacity: 0 }}
-            // transition={{ duration: 1.5 }}
-            // whileInView={{ x: 0, opacity: 1 }}
-            // viewport={{ once: true }}
+          // initial={{ x: -150, opacity: 0 }}
+          // transition={{ duration: 1.5 }}
+          // whileInView={{ x: 0, opacity: 1 }}
+          // viewport={{ once: true }}
           >
             <img
               src={googleMapImage}

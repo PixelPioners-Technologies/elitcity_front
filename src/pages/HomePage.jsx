@@ -112,7 +112,10 @@ export default function Map({
               className="modal_close_button_homePage"
               onClick={closeModal}
             >
-              close
+              {
+                handleStatusButtonLanguageChange(selectedLanguage)
+                  .spaceButtonClose
+              }
             </button>
           </div>
         );
@@ -122,12 +125,12 @@ export default function Map({
         if (!city) return null;
 
         return (
-          <div className="location_modal_container-homepage">
-            <div className="districts_and_pharentdostricts-homepage">
+          <div className="location_modal_container">
+            <div className="districts_and_pharentdostricts">
               {city.pharentDistricts.map((parentDistrict, index) => (
                 <ul key={index}>
-                  <div className="pharent_district_chackmarks-homepage">
-                    <label className="container-homepage">
+                  <div className="pharent_district_chackmarks">
+                    <label className="container">
                       <input
                         type="checkbox"
                         checked={selectedPharentDistricts.includes(
@@ -140,24 +143,25 @@ export default function Map({
                           )
                         }
                       />
-                      <div className="checkmark-homepage"></div>
+
+                      <div className="checkmark"></div>
                     </label>
                     <p>{parentDistrict.pharentDistrict}</p>
                   </div>
 
-                  <div className="district_checkmarks-homepage">
+                  <div className="district_checkmarks">
                     {parentDistrict.districts.map((district, districtIndex) => (
                       <li
                         key={districtIndex}
-                        className="child_district_checkmarks-homepage"
+                        className="child_district_checkmarks"
                       >
-                        <label className="container-homepage">
+                        <label className="container">
                           <input
                             type="checkbox"
                             checked={selectedDistricts.includes(district)}
                             onChange={(e) => handleDistrictChange(e, district)}
                           />
-                          <div className="checkmark-homepage"></div>
+                          <div className="checkmark"></div>
                         </label>
 
                         <p>{district}</p>
@@ -171,7 +175,10 @@ export default function Map({
               className="modal_close_button_homePage"
               onClick={closeModal}
             >
-              Close
+              {
+                handleStatusButtonLanguageChange(selectedLanguage)
+                  .spaceButtonClose
+              }
             </button>
           </div>
         );
@@ -426,10 +433,10 @@ export default function Map({
     // <div className='hhh'>
     <>
       <div className="main_map main_foto home_page_etyle">
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 2 }}
+        <div
+          // initial={{ y: 50, opacity: 0 }}
+          // whileInView={{ y: 0, opacity: 1 }}
+          // transition={{ duration: 2 }}
           className="title_filter_cont"
         >
           {/* <div className='for_comfort'> */}
@@ -732,12 +739,12 @@ export default function Map({
           </div>
 
           {/* </div> */}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 2 }}
+        <div
+          // initial={{ y: 100, opacity: 0 }}
+          // whileInView={{ y: 0, opacity: 1 }}
+          // transition={{ duration: 2 }}
           className="button_flex"
         >
           {/* Map button link */}
@@ -767,7 +774,7 @@ export default function Map({
               </button>
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </>
     // </div>

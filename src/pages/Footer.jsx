@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <div className="footer_container">
 
-      <div className="footer_settings_container">
+      {/* <div className="footer_settings_container">
         <div className="footer_stting">
           <p className="each_setting">Lorem Ipsum is simply dummy text</p>
           <p className="each_setting">Lorem Ipsum is simply dummy text</p>
@@ -44,7 +44,7 @@ export default function Footer() {
           <p className="each_setting">Lorem Ipsum is simply dummy text</p>
           <p className="each_setting">Lorem Ipsum is simply dummy text</p>
         </div>
-      </div>
+      </div> */}
 
 
       <div className="name_and_facebook">
