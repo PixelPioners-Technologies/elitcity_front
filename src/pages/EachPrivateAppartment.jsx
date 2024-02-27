@@ -347,7 +347,6 @@ export default function EachPrivateAppartment({
         <div className="image_galery_container"  >
           {sliderImages.length > 0 && <ImageGallery
             items={sliderImages}
-            autoPlay={true}
             slideInterval={3000}
             thumbnailPosition="left"
             showFullscreenButton={false}

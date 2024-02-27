@@ -655,12 +655,12 @@ export default function Complex({
   return (
     <div className="complex_page_div">
       <div className="filter_cont_for_complexes">
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 2 }}
-          className="column_div"
-        >
+        <div
+          // initial={{ y: 50, opacity: 0 }}
+          // whileInView={{ y: 0, opacity: 1 }}
+          // transition={{ duration: 2 }}
+          // className="column_div"
+          >
           {/* for_comfort column_div_for_comfort */}
           <div
             className={openSortComp ? "for_comfort" : "column_div_for_comfort "}
@@ -966,7 +966,7 @@ export default function Complex({
             {/* <div className="flex_end"> */}
             <div className="button-modal-container  find_map_div ">
               <Link to="/map">
-                <motion.div
+                <div
                   className="textButtonContainer map_styles "
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -985,7 +985,7 @@ export default function Complex({
                       {handleStatusButtonLanguageChange(selectedLanguage).map}
                     </button>
                   </div>
-                </motion.div>
+                </div>
               </Link>
               <div
                 onClick={handleSearchButtonClick}
@@ -1006,15 +1006,15 @@ export default function Complex({
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
-      <motion.div
-        initial={{ y: -50, opacity: 0 }}
-        transition={{ duration: 1 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
+      <div
+        // initial={{ y: -50, opacity: 0 }}
+        // transition={{ duration: 1 }}
+        // whileInView={{ y: 0, opacity: 1 }}
+        // viewport={{ once: true }}
         className="motionBox"
       >
         <div className="forPaddingOfInfoFieldOfComplexsPlansMaps">
@@ -1038,11 +1038,11 @@ export default function Complex({
               </div>
               {/* map */}
               <Link to="/map">
-                <motion.div
+                <div
                   className="textButtonContainer map_styles_for_complex"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  // whileHover={{ scale: 1.1 }}
+                  // whileTap={{ scale: 0.9 }}
+                  // transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <div className="mapAndLogoImg">
                     <img
@@ -1055,7 +1055,7 @@ export default function Complex({
                       {handleStatusButtonLanguageChange(selectedLanguage).map}
                     </button>
                   </div>
-                </motion.div>
+                </div>
               </Link>
               {/* sort button */}
               <Button
@@ -1278,18 +1278,18 @@ export default function Complex({
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* // ------------------------------------------------------------------------------------ */}
 
       <div className="allCards" onClick={closeSort}>
         {complexes.map((complex, index) => (
           <div className="card" key={complex.id}>
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              transition={{ duration: 1.1 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
+            <div
+              // initial={{ x: -50, opacity: 0 }}
+              // transition={{ duration: 1.1 }}
+              // whileInView={{ x: 0, opacity: 1 }}
+              // viewport={{ once: true }}
             >
               <div className="heartbuttonAndImageBox">
                 <div className="heartButtonBox">
@@ -1371,7 +1371,7 @@ export default function Complex({
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         ))}
       </div>
@@ -1438,18 +1438,15 @@ export default function Complex({
       {/* ---------------------------------------------------------------- */}
       <div className="googleMapImageBox">
         <Link to="/map">
-          <motion.div
-            initial={{ x: -150, opacity: 0 }}
-            transition={{ duration: 1 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true }}
+          <div
+
           >
             <img
               src={googleMapImage}
               alt="googleMapImage"
               className="googleMapImage google_map"
             />
-          </motion.div>
+          </div>
         </Link>
       </div>
     </div>

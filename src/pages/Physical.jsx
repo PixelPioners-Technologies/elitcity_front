@@ -911,10 +911,10 @@ export default function Physical({
   return (
     <div className="ComplexBodyBox_physical">
       <div className="private_filter_conteiner one">
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
+        <div
+          // initial={{ y: 100, opacity: 0 }}
+          // whileInView={{ y: 0, opacity: 1 }}
+          // transition={{ duration: 1 }}
           className="oneo"
         >
           <div
@@ -1255,7 +1255,7 @@ export default function Physical({
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
@@ -1265,11 +1265,11 @@ export default function Physical({
       {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
 
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
-      <motion.div
-        initial={{ y: -50, opacity: 0 }}
-        transition={{ duration: 1 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
+      <div
+        // initial={{ y: -50, opacity: 0 }}
+        // transition={{ duration: 1 }}
+        // whileInView={{ y: 0, opacity: 1 }}
+        // viewport={{ once: true }}
         className="motionBox_physical"
       >
         <div className="forPaddingOfInfoFieldOfComplexsPlansMaps_physical">
@@ -1556,19 +1556,19 @@ export default function Physical({
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* // ------------------------------------------------------------------------------------ */}
 
       <div className="allCards_physical" onClick={closeSort}>
         {privateApartments.map((prev_apartments, index) => (
           <div className="card_physical" key={index}>
-            <motion.div
-              key={currentPage}
-              initial={{ x: -50, opacity: 0 }}
-              transition={{ duration: 1 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
+            <div
+              // key={currentPage}
+              // initial={{ x: -50, opacity: 0 }}
+              // transition={{ duration: 1 }}
+              // whileInView={{ x: 0, opacity: 1 }}
+              // viewport={{ once: true }}
               className="gap_box"
             >
               <div className="heartbuttonAndImageBox_physical">
@@ -1631,7 +1631,7 @@ export default function Physical({
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         ))}
       </div>
@@ -1681,18 +1681,18 @@ export default function Physical({
       {/* ---------------------------------------------------------------- */}
       <div className="googleMapImageBox_physical">
         <Link to="/map">
-          <motion.div
-            initial={{ x: -150, opacity: 0 }}
-            transition={{ duration: 1.5 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true }}
+          <div
+            // initial={{ x: -150, opacity: 0 }}
+            // transition={{ duration: 1.5 }}
+            // whileInView={{ x: 0, opacity: 1 }}
+            // viewport={{ once: true }}
           >
             <img
               src={googleMapImage}
               alt="googleMapImage"
               className="googleMapImage_physical"
             />
-          </motion.div>
+          </div>
         </Link>
       </div>
     </div>

@@ -22,7 +22,6 @@ import PriceModal from "../modals for page map/PriceModal";
 import StatusModal from "../modals for page map/StatusModa";
 import button_icon from "../icons/Vector.svg";
 import ground_marker from "../location_icons/ground_location_icon.png";
-import { motion } from "framer-motion";
 import FilterChangeModal from "../modals for page map/FilterChangeModal";
 import G_Modal from "../modals for ground filters/G_Modal";
 import G_PriceModal from "../modals for ground filters/G_PriceModal";
@@ -1395,11 +1394,11 @@ export default function Map({
         return (
           <div>
             {/* axali divebi butonebis magivrad filtraciistvis */}
-            <motion.div
-              key={filterType}
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1 }}
+            <div
+              // key={filterType}
+              // initial={{ y: 100, opacity: 0 }}
+              // whileInView={{ y: 0, opacity: 1 }}
+              // transition={{ duration: 1 }}
             >
               <div className="filter_cont " id="filter_cont_2">
                 {/* button for filtering space */}
@@ -1660,16 +1659,16 @@ export default function Map({
                   </StatusModal>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         );
       case "privateApartments":
         return (
-          <motion.div
-            key={filterType}
-            initial={{ y: 100, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1 }}
+          <div
+            // key={filterType}
+            // initial={{ y: 100, opacity: 0 }}
+            // whileInView={{ y: 0, opacity: 1 }}
+            // transition={{ duration: 1 }}
           >
             <div className="filter_cont">
               {/* container for filtering space */}
@@ -1923,15 +1922,15 @@ export default function Map({
                 </StatusModal>
               </div>
             </div>
-          </motion.div>
+          </div>
         );
       case "grounds":
         return (
-          <motion.div
-            key={filterType}
-            initial={{ y: 100, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1 }}
+          <div
+            // key={filterType}
+            // initial={{ y: 100, opacity: 0 }}
+            // whileInView={{ y: 0, opacity: 1 }}
+            // transition={{ duration: 1 }}
           >
             <div className="filter_cont">
               {/* container for filtering space */}
@@ -2177,7 +2176,7 @@ export default function Map({
                 </G_StatusModal>
               </div>
             </div>
-          </motion.div>
+          </div>
         );
     }
   };
@@ -2980,10 +2979,10 @@ export default function Map({
 
   return (
     <div className="main_map">
-      <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1 }}
+      <div
+        // initial={{ y: 100, opacity: 0 }}
+        // whileInView={{ y: 0, opacity: 1 }}
+        // transition={{ duration: 1 }}
       // className={openMapFilter ? "show_map_filter" : "closeMapSort"}
       >
         <div className="filtetmethods_and_filterss closeMapSort">
@@ -3023,7 +3022,7 @@ export default function Map({
           </div>
           <div>{renderFilterUI()}</div>
         </div>
-      </motion.div>
+      </div>
 
       <div className="column_reverse_map">
         <div className="map_cont scale-up-hor-center">

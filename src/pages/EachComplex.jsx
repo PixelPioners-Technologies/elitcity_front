@@ -456,7 +456,7 @@ export default function EachComplex({
       buildings: "Buildings",
       showNumber: "Show Number",
       callRequest: "Call Request",
-      allAppartments: "All Appartments",
+      allAppartments: "Affordable apartment",
       appartmentsAndPlanning: "Appartments and Planning",
       aboutComplex: "About Complex",
       nearObjects: "Near Objects",
@@ -509,7 +509,7 @@ export default function EachComplex({
         languageInfo.buildings = "Buildings";
         languageInfo.showNumber = "Show Number";
         languageInfo.callRequest = "Call Request";
-        languageInfo.allAppartments = "All Apartments";
+        languageInfo.allAppartments = "Affordable apartment";
         languageInfo.appartmentsAndPlanning = "Apartments and Planning";
         languageInfo.aboutComplex = "About Complex";
         languageInfo.nearObjects = "Near Objects";
@@ -558,7 +558,7 @@ export default function EachComplex({
         languageInfo.buildings = "კორპუსები";
         languageInfo.showNumber = "ნომრის ჩვენება";
         languageInfo.callRequest = "ზარის მოთხოვნა";
-        languageInfo.allAppartments = "ყველა ბინა";
+        languageInfo.allAppartments = "ხელმისაწვდომი ბინა";
         languageInfo.appartmentsAndPlanning = "ბინები და გეგმარება";
         languageInfo.aboutComplex = "კომპლექსის შესახებ";
         languageInfo.nearObjects = "ახლო მდებარე ობიექტები";
@@ -608,7 +608,7 @@ export default function EachComplex({
         languageInfo.buildings = "Здания";
         languageInfo.showNumber = "Показать номер";
         languageInfo.callRequest = "Запросить звонок";
-        languageInfo.allAppartments = "Все квартиры";
+        languageInfo.allAppartments = "Доступная квартира";
         languageInfo.appartmentsAndPlanning = "Квартиры и планировка";
         languageInfo.aboutComplex = "О комплексе";
         languageInfo.nearObjects = "Близкие объекты";
@@ -859,7 +859,6 @@ export default function EachComplex({
         <div className="image_galery_container"  >
           {sliderImages.length > 0 && <ImageGallery
             items={sliderImages}
-            autoPlay={true}
             slideInterval={3000}
             thumbnailPosition="left"
             useBrowserFullscreen={true}

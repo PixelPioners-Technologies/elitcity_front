@@ -160,16 +160,16 @@ export default function Sales({ selectedLanguage, handleCallButtonClick }) {
     return (
       <div className="saleArticlesBox">
         {promotions.map((item, index) => (
-          <motion.div
-            key={`saleArticle_${index}`}
-            initial={{ x: -120, opacity: 0 }}
-            transition={{ duration: 1.5 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true }}
+          <div
+            // key={`saleArticle_${index}`}
+            // initial={{ x: -120, opacity: 0 }}
+            // transition={{ duration: 1.5 }}
+            // whileInView={{ x: 0, opacity: 1 }}
+            // viewport={{ once: true }}
             className="eachSaleArticleBox2" // Ensure this matches your CSS className for individual items
           >
             {renderSaleArticle(item)}
-          </motion.div>
+          </div>
         ))}
       </div>
     );
@@ -264,11 +264,11 @@ export default function Sales({ selectedLanguage, handleCallButtonClick }) {
   return (
     <div className="SalesBox" onClick={closeSort}>
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
-      <motion.div
-        initial={{ y: -50, opacity: 0 }}
-        transition={{ duration: 1 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
+      <div
+        // initial={{ y: -50, opacity: 0 }}
+        // transition={{ duration: 1 }}
+        // whileInView={{ y: 0, opacity: 1 }}
+        // viewport={{ once: true }}
       >
         {/* Sale page Nav bar */}
         <div className="forPaddingOfsalesNavBar">
@@ -335,7 +335,7 @@ export default function Sales({ selectedLanguage, handleCallButtonClick }) {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {renderSaleArticles()}
 

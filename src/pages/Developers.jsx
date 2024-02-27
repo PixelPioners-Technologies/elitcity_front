@@ -129,12 +129,12 @@ export default function Developers({ favorites, selectedLanguage }) {
         </div>
         {topCompanies.map((developers, index) => (
           <div className="big_container_for_key" key={index}>
-            <motion.div
+            <div
               // key={currentPage}
-              initial={{ x: -50, opacity: 0 }}
-              transition={{ duration: 1 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
+              // initial={{ x: -50, opacity: 0 }}
+              // transition={{ duration: 1 }}
+              // whileInView={{ x: 0, opacity: 1 }}
+              // viewport={{ once: true }}
             >
               {/* ------------------this is company cards-------------------------- */}
               <motion.div
@@ -173,7 +173,7 @@ export default function Developers({ favorites, selectedLanguage }) {
                   </div>
                 </div>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
         ))}
       </div>
@@ -207,12 +207,12 @@ export default function Developers({ favorites, selectedLanguage }) {
             key={index}
             onClick={() => handle_company_click(developers.id)}
           >
-            <motion.div
+            <div
               // key={currentPage}
-              initial={{ x: -50, opacity: 0 }}
-              transition={{ duration: 1 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
+              // initial={{ x: -50, opacity: 0 }}
+              // transition={{ duration: 1 }}
+              // whileInView={{ x: 0, opacity: 1 }}
+              // viewport={{ once: true }}
             >
               {/* ------------------this is company cards-------------------------- */}
               <motion.div
@@ -248,7 +248,7 @@ export default function Developers({ favorites, selectedLanguage }) {
                   </div>
                 </div>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
         ))}
         {/* ----------------------------------------------------------------- */}
