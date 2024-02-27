@@ -352,6 +352,7 @@ export default function EachPrivateAppartment({
             showFullscreenButton={false}
 
 
+
           />}
         </div>
 
@@ -432,8 +433,21 @@ export default function EachPrivateAppartment({
             <p style={{ color: "#ccc", fontSize: "20px" }}>
               {handleStaticTextLanguageChange(selectedLanguage).square_price}:{" "}
               {currenceChangeState
-                ? (Number(ground.squarePrice * getCorrencyRate)).toFixed(2)
-                : Number(ground.squarePrice).toFixed(2)}{isOn ? '  $  ' : '  ₾  '}  </p>
+                ? new Intl.NumberFormat('en-US', {
+                  style: 'decimal',
+                  useGrouping: true,
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0
+                }).format(Number(ground.squarePrice) * getCorrencyRate).replace(/,/g, ' ')
+                : new Intl.NumberFormat('en-US', {
+                  style: 'decimal',
+                  useGrouping: true,
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0
+                }).format(Number(ground.squarePrice)).replace(/,/g, ' ')} {" "}
+              {isOn ? "  $  " : "  ₾  "}
+
+            </p>
             <p style={{ color: "#C2BFBF" }}>{handleStaticTextLanguageChange(selectedLanguage).status}: {cardStatusSettingLanguage(selectedLanguage, ground.status)}</p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).area} : {ground.area} m²  </p>
             <p style={{ color: "#C2BFBF" }}> {handleStaticTextLanguageChange(selectedLanguage).rank}: {ground.rank}</p>

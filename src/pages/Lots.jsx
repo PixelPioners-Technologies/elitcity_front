@@ -1576,10 +1576,19 @@ export default function Physical({
                 <p className="price_settings" style={styles.complexInfo}>
                   {/* {prev_apartments.squarePrice *   getCorrencyRate}{" "} */}
                   {currenceChangeState
-                    ? (
-                      Number(prev_apartments.squarePrice) * getCorrencyRate
-                    ).toFixed(2)
-                    : Number(prev_apartments.squarePrice).toFixed(2)}
+                    ? new Intl.NumberFormat('en-US', { 
+                      style: 'decimal', 
+                      useGrouping: true, 
+                      minimumFractionDigits: 0, 
+                      maximumFractionDigits: 0 
+                    }).format(Number(prev_apartments.squarePrice) * getCorrencyRate).replace(/,/g, ' ')
+                    :new Intl.NumberFormat('en-US', { 
+                          style: 'decimal', 
+                          useGrouping: true, 
+                          minimumFractionDigits: 0, 
+                          maximumFractionDigits: 0 
+                        }).format(Number(prev_apartments.squarePrice)).replace(/,/g, ' ')} {" "}
+                         {isOn ? "  $  " : "  ₾  "}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">

@@ -969,7 +969,7 @@ export default function Complex({
                 <div
                   className="textButtonContainer map_styles "
                   whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whiletap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <div className="mapAndLogoImg styles_for_top_map" >
@@ -1041,7 +1041,7 @@ export default function Complex({
                 <div
                   className="textButtonContainer map_styles_for_complex"
                   // whileHover={{ scale: 1.1 }}
-                  // whileTap={{ scale: 0.9 }}
+                  // whiletap={{ scale: 0.9 }}
                   // transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <div className="mapAndLogoImg">
@@ -1115,7 +1115,7 @@ export default function Complex({
               >
                 <motion.div
                   whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whiletap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
@@ -1138,7 +1138,7 @@ export default function Complex({
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whiletap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
@@ -1161,7 +1161,7 @@ export default function Complex({
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whiletap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
@@ -1184,7 +1184,7 @@ export default function Complex({
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whiletap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
@@ -1207,7 +1207,7 @@ export default function Complex({
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whiletap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
@@ -1230,7 +1230,7 @@ export default function Complex({
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whiletap={{ scale: 0.9 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <MenuItem
@@ -1336,14 +1336,20 @@ export default function Complex({
                     </p>
                     <p style={styles.complexInfo}>
                       {" "}
+                      
                       {currenceChangeState
-                        ? (
-                          Number(complex.complexDetails.pricePerSqMeter) *
-                          getCorrencyRate
-                        ).toFixed(2)
-                        : Number(
-                          complex.complexDetails.pricePerSqMeter
-                        ).toFixed(2)}{" "}
+                        ? new Intl.NumberFormat('en-US', { 
+                          style: 'decimal', 
+                          useGrouping: true, 
+                          minimumFractionDigits: 0, 
+                          maximumFractionDigits: 0 
+                        }).format(Number(complex.complexDetails.pricePerSqMeter) * getCorrencyRate).replace(/,/g, ' ')
+                        :new Intl.NumberFormat('en-US', { 
+                          style: 'decimal', 
+                          useGrouping: true, 
+                          minimumFractionDigits: 0, 
+                          maximumFractionDigits: 0 
+                        }).format(Number(complex.complexDetails.pricePerSqMeter)).replace(/,/g, ' ')} {" "}
                       {isOn ? "  $  " : "  ₾  "}
                     </p>
                   </div>

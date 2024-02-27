@@ -289,8 +289,8 @@ export default function EachGround({
               </button>
 
 
-                            {/* ----Dollar and Lari Toggle button */}
-                            <div
+              {/* ----Dollar and Lari Toggle button */}
+              <div
                 className="valutis_cvlilebis_konteineri"
                 data-ison={isOn}
                 onClick={() => {
@@ -330,8 +330,19 @@ export default function EachGround({
             <p style={{ color: "#ccc", fontSize: "20px" }}>
               {handleStaticTextLanguageChange(selectedLanguage).square_price}{"  :  "}
               {currenceChangeState
-                ? (Number(ground.squarePrice * getCorrencyRate)).toFixed(2)
-                : Number(ground.squarePrice).toFixed(2)} {isOn ? '  $  ' : '  ₾  '}
+                ? new Intl.NumberFormat('en-US', {
+                  style: 'decimal',
+                  useGrouping: true,
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0
+                }).format(Number(ground.squarePrice) * getCorrencyRate).replace(/,/g, ' ')
+                : new Intl.NumberFormat('en-US', {
+                  style: 'decimal',
+                  useGrouping: true,
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0
+                }).format(Number(ground.squarePrice)).replace(/,/g, ' ')} {" "}
+              {isOn ? '  $  ' : '  ₾  '}
             </p>
             <p style={{ color: "#C2BFBF" }}>
               {handleStaticTextLanguageChange(selectedLanguage).status}:{" "}

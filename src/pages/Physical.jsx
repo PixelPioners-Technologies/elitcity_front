@@ -975,8 +975,8 @@ export default function Physical({
                         <React.Fragment key={choice.value}>
                           <label
                             className={`checkbox-label ${selectedRoomNumbers.includes(choice.value)
-                                ? "selected"
-                                : ""
+                              ? "selected"
+                              : ""
                               }`}
                             onClick={() => handleRoomNumberChange(choice.value)}
                           >
@@ -1033,28 +1033,28 @@ export default function Physical({
                       }
 
 
-                    {/* ----Dollar and Lari Toggle button */}
-                    <div
-                      className="valutis_cvlilebis_konteineri"
-                      data-ison={isOn}
-                      onClick={() => {
-                        toggleSwitch();
-                        HandleStateChange();
-                      }}
-                    >
-                      <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
-                        <img src={isOn ? dollar_black : dollar}
-                          alt="dollar signe"
-                          className="valutis_nishnebi" />
-                      </div>
+                      {/* ----Dollar and Lari Toggle button */}
+                      <div
+                        className="valutis_cvlilebis_konteineri"
+                        data-ison={isOn}
+                        onClick={() => {
+                          toggleSwitch();
+                          HandleStateChange();
+                        }}
+                      >
+                        <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                          <img src={isOn ? dollar_black : dollar}
+                            alt="dollar signe"
+                            className="valutis_nishnebi" />
+                        </div>
 
-                      <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
-                        <img src={!isOn ? lari_black : lari}
-                          alt="dollar signe"
-                          className="valutis_nishnebi" />
+                        <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                          <img src={!isOn ? lari_black : lari}
+                            alt="dollar signe"
+                            className="valutis_nishnebi" />
+                        </div>
                       </div>
-                    </div>
-                    {/* ---------------- */}
+                      {/* ---------------- */}
                     </div>
 
                     {/* pirveli inputi  */}
@@ -1612,10 +1612,21 @@ export default function Physical({
                 </p>
                 <p className="price_settings" style={styles.complexInfo}>
                   {currenceChangeState
-                    ? (
-                      Number(prev_apartments.squarePrice) * getCorrencyRate
-                    ).toFixed(2)
-                    : Number(prev_apartments.squarePrice).toFixed(2)}
+
+                    ? new Intl.NumberFormat('en-US', {
+                      style: 'decimal',
+                      useGrouping: true,
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
+                    }).format(Number(prev_apartments.squarePrice) * getCorrencyRate).replace(/,/g, ' ')
+
+                    : new Intl.NumberFormat('en-US', {
+                      style: 'decimal',
+                      useGrouping: true,
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
+                    }).format(Number(prev_apartments.squarePrice)).replace(/,/g, ' ')} {" "}
+                  {isOn ? "  $  " : "  ₾  "}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">
@@ -1682,10 +1693,10 @@ export default function Physical({
       <div className="googleMapImageBox_physical">
         <Link to="/map">
           <div
-            // initial={{ x: -150, opacity: 0 }}
-            // transition={{ duration: 1.5 }}
-            // whileInView={{ x: 0, opacity: 1 }}
-            // viewport={{ once: true }}
+          // initial={{ x: -150, opacity: 0 }}
+          // transition={{ duration: 1.5 }}
+          // whileInView={{ x: 0, opacity: 1 }}
+          // viewport={{ once: true }}
           >
             <img
               src={googleMapImage}

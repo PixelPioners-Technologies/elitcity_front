@@ -957,11 +957,19 @@ export default function EachComplex({
             <p className="each_complex_price_square">
               {handle_P_StatusButtonLanguageChange(selectedLanguage).pricePerM}{" "}
               {currenceChangeState
-                ? (
-                  Number(eachPrivateApartment.pricePerSqMeter) *
-                  getCorrencyRate
-                ).toFixed(2)
-                : Number(eachPrivateApartment.pricePerSqMeter).toFixed(2)}
+                ?
+                new Intl.NumberFormat('en-US', {
+                  style: 'decimal',
+                  useGrouping: true,
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0
+                }).format(Number(eachPrivateApartment.pricePerSqMeter) * getCorrencyRate).replace(/,/g, ' ')
+                : new Intl.NumberFormat('en-US', {
+                  style: 'decimal',
+                  useGrouping: true,
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0
+                }).format(Number(eachPrivateApartment.pricePerSqMeter)).replace(/,/g, ' ')} {" "}
               {isOn ? "  $  " : "  ₾  "}
               {handle_P_StatusButtonLanguageChange(selectedLanguage).priceTo}
             </p>
@@ -1109,12 +1117,12 @@ export default function EachComplex({
               {show_studio &&
                 studios.map((prev_apartments, index) => (
                   <div className="card_physical_aa" key={index}>
-                    <motion.div
-                      key={currentPage}
-                      initial={{ x: -50, opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      viewport={{ once: true }}
+                    <div
+                    // key={currentPage}
+                    // initial={{ x: -50, opacity: 0 }}
+                    // transition={{ duration: 1 }}
+                    // whileInView={{ x: 0, opacity: 1 }}
+                    // viewport={{ once: true }}
                     >
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
@@ -1161,16 +1169,20 @@ export default function EachComplex({
                             style={styles.companyTitle}
                           >
                             {currenceChangeState
-                              ? (
-                                Number(
-                                  prev_apartments?.internalApartmentName
-                                    ?.full_price
-                                ) * getCorrencyRate
-                              ).toFixed(2)
-                              : Number(
-                                prev_apartments?.internalApartmentName
-                                  ?.full_price
-                              ).toFixed(2)}
+                              ?
+                              new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate).replace(/,/g, ' ')
+
+                              : new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price)).replace(/,/g, ' ')} {" "}
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>
@@ -1254,7 +1266,7 @@ export default function EachComplex({
                           </p>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 ))}
             </div>
@@ -1288,12 +1300,12 @@ export default function EachComplex({
               {show_one_bedroom &&
                 oneBedrooms.map((prev_apartments, index) => (
                   <div className="card_physical_aa" key={index}>
-                    <motion.div
-                      key={currentPage}
-                      initial={{ x: -50, opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      viewport={{ once: true }}
+                    <div
+                    // key={currentPage}
+                    // initial={{ x: -50, opacity: 0 }}
+                    // transition={{ duration: 1 }}
+                    // whileInView={{ x: 0, opacity: 1 }}
+                    // viewport={{ once: true }}
                     >
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
@@ -1340,16 +1352,20 @@ export default function EachComplex({
                             style={styles.companyTitle}
                           >
                             {currenceChangeState
-                              ? (
-                                Number(
-                                  prev_apartments?.internalApartmentName
-                                    ?.full_price
-                                ) * getCorrencyRate
-                              ).toFixed(2)
-                              : Number(
-                                prev_apartments?.internalApartmentName
-                                  ?.full_price
-                              ).toFixed(2)}
+                              ?
+                              new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate).replace(/,/g, ' ')
+
+                              : new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price)).replace(/,/g, ' ')}
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>
@@ -1433,7 +1449,7 @@ export default function EachComplex({
                           </p>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 ))}
             </div>
@@ -1467,12 +1483,12 @@ export default function EachComplex({
               {show_two_bedrom &&
                 twoBedrooms.map((prev_apartments, index) => (
                   <div className="card_physical_aa" key={index}>
-                    <motion.div
-                      key={currentPage}
-                      initial={{ x: -50, opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      viewport={{ once: true }}
+                    <div
+                    // key={currentPage}
+                    // initial={{ x: -50, opacity: 0 }}
+                    // transition={{ duration: 1 }}
+                    // whileInView={{ x: 0, opacity: 1 }}
+                    // viewport={{ once: true }}
                     >
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
@@ -1519,16 +1535,20 @@ export default function EachComplex({
                             style={styles.companyTitle}
                           >
                             {currenceChangeState
-                              ? (
-                                Number(
-                                  prev_apartments?.internalApartmentName
-                                    ?.full_price
-                                ) * getCorrencyRate
-                              ).toFixed(2)
-                              : Number(
-                                prev_apartments?.internalApartmentName
-                                  ?.full_price
-                              ).toFixed(2)}
+                              ?
+                              new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate).replace(/,/g, ' ')
+
+                              : new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price)).replace(/,/g, ' ')}
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>
@@ -1612,7 +1632,7 @@ export default function EachComplex({
                           </p>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 ))}
             </div>
@@ -1647,12 +1667,12 @@ export default function EachComplex({
               {show_three_bedrom &&
                 threeBedrooms.map((prev_apartments, index) => (
                   <div className="card_physical_aa" key={index}>
-                    <motion.div
-                      key={currentPage}
-                      initial={{ x: -50, opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      viewport={{ once: true }}
+                    <div
+                    // key={currentPage}
+                    // initial={{ x: -50, opacity: 0 }}
+                    // transition={{ duration: 1 }}
+                    // whileInView={{ x: 0, opacity: 1 }}
+                    // viewport={{ once: true }}
                     >
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
@@ -1700,16 +1720,21 @@ export default function EachComplex({
                           >
                             {/* {prev_apartments?.internalApartmentName?.full_price} */}
                             {currenceChangeState
-                              ? (
-                                Number(
-                                  prev_apartments?.internalApartmentName
-                                    ?.full_price
-                                ) * getCorrencyRate
-                              ).toFixed(2)
-                              : Number(
-                                prev_apartments?.internalApartmentName
-                                  ?.full_price
-                              ).toFixed(2)}
+                              ?
+                              new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate).replace(/,/g, ' ')
+
+                              : new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price)).replace(/,/g, ' ')}
+
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                           <img
@@ -1798,7 +1823,7 @@ export default function EachComplex({
                           </p>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 ))}
             </div>
@@ -1833,12 +1858,12 @@ export default function EachComplex({
               {show_four_bedrom &&
                 fourBedrooms.map((prev_apartments, index) => (
                   <div className="card_physical_aa" key={index}>
-                    <motion.div
-                      key={currentPage}
-                      initial={{ x: -50, opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      viewport={{ once: true }}
+                    <div
+                    // key={currentPage}
+                    // initial={{ x: -50, opacity: 0 }}
+                    // transition={{ duration: 1 }}
+                    // whileInView={{ x: 0, opacity: 1 }}
+                    // viewport={{ once: true }}
                     >
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
@@ -1886,16 +1911,22 @@ export default function EachComplex({
                           >
                             {/* {prev_apartments?.internalApartmentName?.full_price} */}
                             {currenceChangeState
-                              ? (
-                                Number(
-                                  prev_apartments?.internalApartmentName
-                                    ?.full_price
-                                ) * getCorrencyRate
-                              ).toFixed(2)
-                              : Number(
-                                prev_apartments?.internalApartmentName
-                                  ?.full_price
-                              ).toFixed(2)}
+                              ?
+                              new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate).replace(/,/g, ' ')
+
+                              : new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price)).replace(/,/g, ' ')}
+
+
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                           {/* <img src={mew_dolar_white} alt="dollar signe" className="dola_apartment_card" /> */}
@@ -1980,7 +2011,7 @@ export default function EachComplex({
                           </p>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 ))}
             </div>
@@ -2017,12 +2048,12 @@ export default function EachComplex({
               {show_fivePlus_bedrom &&
                 fivePlusBedrooms.map((prev_apartments, index) => (
                   <div className="card_physical_aa" key={index}>
-                    <motion.div
-                      key={currentPage}
-                      initial={{ x: -50, opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      viewport={{ once: true }}
+                    <div
+                    // key={currentPage}
+                    // initial={{ x: -50, opacity: 0 }}
+                    // transition={{ duration: 1 }}
+                    // whileInView={{ x: 0, opacity: 1 }}
+                    // viewport={{ once: true }}
                     >
                       <div className="heartbuttonAndImageBox_physical">
                         <div className="heartButtonBox_physical">
@@ -2070,16 +2101,22 @@ export default function EachComplex({
                           >
                             {/* {prev_apartments?.internalApartmentName?.full_price} */}
                             {currenceChangeState
-                              ? (
-                                Number(
-                                  prev_apartments?.internalApartmentName
-                                    ?.full_price
-                                ) * getCorrencyRate
-                              ).toFixed(2)
-                              : Number(
-                                prev_apartments?.internalApartmentName
-                                  ?.full_price
-                              ).toFixed(2)}
+                              ?
+                              new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price) * getCorrencyRate).replace(/,/g, ' ')
+
+                              : new Intl.NumberFormat('en-US', {
+                                style: 'decimal',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(Number(prev_apartments?.internalApartmentName?.full_price)).replace(/,/g, ' ')}
+
+
                             {isOn ? "  $  " : "  ₾  "}
                           </h1>
                         </div>
@@ -2163,7 +2200,7 @@ export default function EachComplex({
                           </p>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 ))}
             </div>
