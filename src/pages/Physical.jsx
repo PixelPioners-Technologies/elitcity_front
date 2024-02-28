@@ -911,327 +911,318 @@ export default function Physical({
   return (
     <div className="ComplexBodyBox_physical">
       <div className="private_filter_conteiner one">
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
+        <div
+          // initial={{ y: 100, opacity: 0 }}
+          // whileInView={{ y: 0, opacity: 1 }}
+          // transition={{ duration: 1 }}
           className="oneo"
         >
           <div
             className={openSort ? "filter_cont_for_physicaly" : "close_sort"}
           >
             <div className="column_for_physical">
-            <div className="button-modal-container ">
-              <div onClick={handle_P_SpaceButtonClick} className="space_button">
-                {
-                  handle_P_StatusButtonLanguageChange(selectedLanguage)
-                    .spaceButtonLanguage
-                }
-                <img
-                  src={button_icon}
-                  alt="button dropdown icon"
-                  className="dropdown"
-                />
-              </div>
-
-              <div>
-                <p className="priceTextHomePage">
+              <div className="button-modal-container ">
+                <div onClick={handle_P_SpaceButtonClick} className="space_button">
                   {
-                    handleStatusButtonLanguageChange(selectedLanguage)
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
                       .spaceButtonLanguage
                   }
-                </p>
-              </div>
-
-              <P_SpaceModal
-                isOpen={is_P_SpaceModalOpen}
-                close={close_P_SpaceModal}
-              >
-                <div>
-                  <input
-                    type="number"
-                    className="filter_inputs"
-                    placeholder={
-                      handleStatusButtonLanguageChange(selectedLanguage)
-                        .minPrice
-                    }
-                    value={min_area}
-                    onChange={(e) => setMin_area(e.target.value)}
+                  <img
+                    src={button_icon}
+                    alt="button dropdown icon"
+                    className="dropdown"
                   />
-
-                  <input
-                    type="number"
-                    className="filter_inputs"
-                    placeholder={
-                      handleStatusButtonLanguageChange(selectedLanguage)
-                        .maxPrice
-                    }
-                    value={max_area}
-                    onChange={(e) => setMax_area(e.target.value)}
-                  />
-                  {/* otaxebis raodenobis filtraciistvis */}
-                  <div className="room_choice_container">
-                    {NUMBER_OF_ROOM_CHOICES.map((choice) => (
-                      <React.Fragment key={choice.value}>
-                        <label
-                          className={`checkbox-label ${
-                            selectedRoomNumbers.includes(choice.value)
-                              ? "selected"
-                              : ""
-                          }`}
-                          onClick={() => handleRoomNumberChange(choice.value)}
-                        >
-                          {choice.label}
-                        </label>
-                        <input
-                          type="checkbox"
-                          id={`checkbox-${choice.value}`}
-                          name="number_of_rooms"
-                          value={choice.value}
-                          checked={selectedRoomNumbers.includes(choice.value)}
-                          onChange={() => {}}
-                          style={{ display: "none" }}
-                        />
-                      </React.Fragment>
-                    ))}
-                  </div>
-
-                  <p>otaxebis filtraciac unda iyos aq</p>
                 </div>
-                <button
-                  className="modal_close_button"
-                  onClick={close_P_SpaceModal}
-                >
-                  {
-                    handleStatusButtonLanguageChange(selectedLanguage)
-                      .spaceButtonClose
-                  }
-                </button>
-              </P_SpaceModal>
-            </div>
-            {/* button for filtering price  */}
-            <div className="button-modal-container">
-              <div onClick={handle_P_PriceButtonClick} className="space_button">
-                {
-                  handle_P_StatusButtonLanguageChange(selectedLanguage)
-                    .priceButtonLanguage
-                }
-                <img
-                  src={button_icon}
-                  alt="button dropdown icon"
-                  className="dropdown"
-                />
-              </div>
-              <P_PriceModal
-                isOpen={is_P_PriceModalOpen}
-                close={handleClose_P_PriceModal}
-              >
+
                 <div>
-                  <div className="fullPriceHomePage">
+                  <p className="priceTextHomePage">
                     {
                       handleStatusButtonLanguageChange(selectedLanguage)
-                        .fullPriceHomePage
+                        .spaceButtonLanguage
                     }
+                  </p>
+                </div>
 
-                    <div className="currencyBox_homepage">
+                <P_SpaceModal
+                  isOpen={is_P_SpaceModalOpen}
+                  close={close_P_SpaceModal}
+                >
+                  <div>
+                    <input
+                      type="number"
+                      className="filter_inputs"
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .minPrice
+                      }
+                      value={min_area}
+                      onChange={(e) => setMin_area(e.target.value)}
+                    />
+
+                    <input
+                      type="number"
+                      className="filter_inputs"
+                      placeholder={
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .maxPrice
+                      }
+                      value={max_area}
+                      onChange={(e) => setMax_area(e.target.value)}
+                    />
+                    {/* otaxebis raodenobis filtraciistvis */}
+                    <div className="room_choice_container">
+                      {NUMBER_OF_ROOM_CHOICES.map((choice) => (
+                        <React.Fragment key={choice.value}>
+                          <label
+                            className={`checkbox-label ${selectedRoomNumbers.includes(choice.value)
+                              ? "selected"
+                              : ""
+                              }`}
+                            onClick={() => handleRoomNumberChange(choice.value)}
+                          >
+                            {choice.label}
+                          </label>
+                          <input
+                            type="checkbox"
+                            id={`checkbox-${choice.value}`}
+                            name="number_of_rooms"
+                            value={choice.value}
+                            checked={selectedRoomNumbers.includes(choice.value)}
+                            onChange={() => { }}
+                            style={{ display: "none" }}
+                          />
+                        </React.Fragment>
+                      ))}
+                    </div>
+
+                    <p>otaxebis filtraciac unda iyos aq</p>
+                  </div>
+                  <button
+                    className="modal_close_button"
+                    onClick={close_P_SpaceModal}
+                  >
+                    {
+                      handleStatusButtonLanguageChange(selectedLanguage)
+                        .spaceButtonClose
+                    }
+                  </button>
+                </P_SpaceModal>
+              </div>
+              {/* button for filtering price  */}
+              <div className="button-modal-container">
+                <div onClick={handle_P_PriceButtonClick} className="space_button">
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .priceButtonLanguage
+                  }
+                  <img
+                    src={button_icon}
+                    alt="button dropdown icon"
+                    className="dropdown"
+                  />
+                </div>
+                <P_PriceModal
+                  isOpen={is_P_PriceModalOpen}
+                  close={handleClose_P_PriceModal}
+                >
+                  <div>
+                    <div className="fullPriceHomePage">
+                      {
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .fullPriceHomePage
+                      }
+
+
+                      {/* ----Dollar and Lari Toggle button */}
                       <div
-                        className="switch_homepage"
+                        className="valutis_cvlilebis_konteineri"
                         data-ison={isOn}
                         onClick={() => {
                           toggleSwitch();
                           HandleStateChange();
                         }}
                       >
-                        <motion.div
-                          className="handle_homepage"
-                          layout
-                          transition={spring}
-                        >
-                          <img
-                            src={lari_black}
-                            alt="Lari Sign"
-                            className={`currency-sign_homepage ${
-                              isOn ? "active" : ""
-                            }`}
-                          />
-                          <img
-                            src={dollar_black}
-                            alt="Dollar Sign"
-                            className={`currency-sign_homepage ${
-                              !isOn ? "active" : ""
-                            }`}
-                          />
-                        </motion.div>
+                        <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                          <img src={isOn ? dollar_black : dollar}
+                            alt="dollar signe"
+                            className="valutis_nishnebi" />
+                        </div>
+
+                        <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                          <img src={!isOn ? lari_black : lari}
+                            alt="dollar signe"
+                            className="valutis_nishnebi" />
+                        </div>
+                      </div>
+                      {/* ---------------- */}
+                    </div>
+
+                    {/* pirveli inputi  */}
+                    <div className="inputInlineDispley dabla">
+                      <div className="for_dolar_and_lari">
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage).dan
+                          }
+                          value={min_square_price}
+                          onChange={(e) => setMin_square_price(e.target.value)}
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+
+                      {/* meore inputi  */}
+                      <div className="for_dolar_and_lari">
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage).mde
+                          }
+                          value={max_square_price}
+                          onChange={(e) => setMax_square_price(e.target.value)}
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="meterPriceHomePageComplex">
+                      {
+                        handleStatusButtonLanguageChange(selectedLanguage)
+                          .meterPriceHomePage
+                      }
+                    </div>
+
+                    {/* mesame inputi  */}
+                    <div className="inputInlineDispley dabla">
+                      <div className="for_dolar_and_lari">
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage).dan
+                          }
+                          value={minFullPrice}
+                          onChange={(e) => setMinFullPrice(e.target.value)}
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
+                      </div>
+
+                      {/* meotxe inputi  */}
+                      <div className="for_dolar_and_lari">
+                        <input
+                          type="number"
+                          className="filter_inputs"
+                          placeholder={
+                            handleStatusButtonLanguageChange(selectedLanguage).mde
+                          }
+                          value={maxFullPrice}
+                          onChange={(e) => setMaxFullPrice(e.target.value)}
+                        />
+                        <img
+                          src={isOn ? dollar : lari}
+                          alt="lari"
+                          className="currency-sign_homepage_11"
+                        />
                       </div>
                     </div>
                   </div>
-
-                  {/* pirveli inputi  */}
-                  <div className="inputInlineDispley dabla">
-                    <div className="for_dolar_and_lari">
-                      <input
-                        type="number"
-                        className="filter_inputs"
-                        placeholder={
-                          handleStatusButtonLanguageChange(selectedLanguage).dan
-                        }
-                        value={min_square_price}
-                        onChange={(e) => setMin_square_price(e.target.value)}
-                      />
-                      <img
-                        src={isOn ? dollar : lari}
-                        alt="lari"
-                        className="currency-sign_homepage_11"
-                      />
-                    </div>
-
-                    {/* meore inputi  */}
-                    <div className="for_dolar_and_lari">
-                      <input
-                        type="number"
-                        className="filter_inputs"
-                        placeholder={
-                          handleStatusButtonLanguageChange(selectedLanguage).mde
-                        }
-                        value={max_square_price}
-                        onChange={(e) => setMax_square_price(e.target.value)}
-                      />
-                      <img
-                        src={isOn ? dollar : lari}
-                        alt="lari"
-                        className="currency-sign_homepage_11"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="meterPriceHomePageComplex">
+                  <button
+                    className="modal_close_button"
+                    onClick={handleClose_P_PriceModal}
+                  >
                     {
                       handleStatusButtonLanguageChange(selectedLanguage)
-                        .meterPriceHomePage
+                        .spaceButtonClose
                     }
-                  </div>
-
-                  {/* mesame inputi  */}
-                  <div className="inputInlineDispley dabla">
-                    <div className="for_dolar_and_lari">
-                      <input
-                        type="number"
-                        className="filter_inputs"
-                        placeholder={
-                          handleStatusButtonLanguageChange(selectedLanguage).dan
-                        }
-                        value={minFullPrice}
-                        onChange={(e) => setMinFullPrice(e.target.value)}
-                      />
-                      <img
-                        src={isOn ? dollar : lari}
-                        alt="lari"
-                        className="currency-sign_homepage_11"
-                      />
-                    </div>
-
-                    {/* meotxe inputi  */}
-                    <div className="for_dolar_and_lari">
-                      <input
-                        type="number"
-                        className="filter_inputs"
-                        placeholder={
-                          handleStatusButtonLanguageChange(selectedLanguage).mde
-                        }
-                        value={maxFullPrice}
-                        onChange={(e) => setMaxFullPrice(e.target.value)}
-                      />
-                      <img
-                        src={isOn ? dollar : lari}
-                        alt="lari"
-                        className="currency-sign_homepage_11"
-                      />
-                    </div>
-                  </div>
+                  </button>
+                </P_PriceModal>
+              </div>
+              {/* button for locations */}
+              <div className="button-modal-container">
+                <div onClick={handleShowModal} className="lacation_button">
+                  {
+                    handle_P_StatusButtonLanguageChange(selectedLanguage)
+                      .cityButtonLanguage
+                  }
+                  <img
+                    src={button_icon}
+                    alt="button dropdown icon"
+                    className="dropdown"
+                  />
                 </div>
-                <button
-                  className="modal_close_button"
-                  onClick={handleClose_P_PriceModal}
+                <P_Modal isOpen={is_P_ModalOpen} close={closeModal}>
+                  {renderModalContent()}
+                </P_Modal>
+              </div>
+              {/* button for status */}
+              <div className="button-modal-container">
+                <div
+                  onClick={handle_P_StatusButtonClick}
+                  className="lacation_button"
                 >
                   {
-                    handleStatusButtonLanguageChange(selectedLanguage)
-                      .spaceButtonClose
-                  }
-                </button>
-              </P_PriceModal>
-            </div>
-            {/* button for locations */}
-            <div className="button-modal-container">
-              <div onClick={handleShowModal} className="lacation_button">
-                {
-                  handle_P_StatusButtonLanguageChange(selectedLanguage)
-                    .cityButtonLanguage
-                }
-                <img
-                  src={button_icon}
-                  alt="button dropdown icon"
-                  className="dropdown"
-                />
-              </div>
-              <P_Modal isOpen={is_P_ModalOpen} close={closeModal}>
-                {renderModalContent()}
-              </P_Modal>
-            </div>
-            {/* button for status */}
-            <div className="button-modal-container">
-              <div
-                onClick={handle_P_StatusButtonClick}
-                className="lacation_button"
-              >
-                {
-                  handle_P_StatusButtonLanguageChange(selectedLanguage)
-                    .statusInfoLanguage
-                }
-                <img
-                  src={button_icon}
-                  alt="button dropdown icon"
-                  className="dropdown"
-                />
-              </div>
-              <P_StatusModal
-                isOpen={is_P_StatusModalOpen}
-                close={handleClose_P_StatusModal}
-              >
-                {renderStatusOptions()}
-                <button
-                  className="modal_close_button"
-                  onClick={handleClose_P_StatusModal}
-                >
-                  Close
-                </button>
-              </P_StatusModal>
-            </div>
-            {/* for searching with string*/}
-            <div className="button-modal-container">
-              <div className="lacation_button">
-                <input
-                  className="string_filter_input"
-                  type="text"
-                  placeholder={
                     handle_P_StatusButtonLanguageChange(selectedLanguage)
-                      .stringFiltrationButtonLanguage
+                      .statusInfoLanguage
                   }
-                  value={stringFilterValue}
-                  onChange={(e) => {
-                    setStringFilterValue(e.target.value);
-                  }}
-                />
-                <img
-                  src={loupe}
-                  alt="button dropdown icon"
-                  className="dropdown"
-                />
+                  <img
+                    src={button_icon}
+                    alt="button dropdown icon"
+                    className="dropdown"
+                  />
+                </div>
+                <P_StatusModal
+                  isOpen={is_P_StatusModalOpen}
+                  close={handleClose_P_StatusModal}
+                >
+                  {renderStatusOptions()}
+                  <button
+                    className="modal_close_button"
+                    onClick={handleClose_P_StatusModal}
+                  >
+                    Close
+                  </button>
+                </P_StatusModal>
               </div>
-            </div>
+              {/* for searching with string*/}
+              <div className="button-modal-container">
+                <div className="lacation_button">
+                  <input
+                    className="string_filter_input"
+                    type="text"
+                    placeholder={
+                      handle_P_StatusButtonLanguageChange(selectedLanguage)
+                        .stringFiltrationButtonLanguage
+                    }
+                    value={stringFilterValue}
+                    onChange={(e) => {
+                      setStringFilterValue(e.target.value);
+                    }}
+                  />
+                  <img
+                    src={loupe}
+                    alt="button dropdown icon"
+                    className="dropdown"
+                  />
+                </div>
+              </div>
             </div>
             {/*serach  Button */}
             <div className="map_search_buttons">
-            <Link to="/map">
+              <Link to="/map">
                 <motion.div
                   className="textButtonContainer noneBut physical_map_box"
                   whileHover={{ scale: 1.1 }}
@@ -1253,18 +1244,18 @@ export default function Physical({
                   </div>
                 </motion.div>
               </Link>
-            <div
-              className="all_search_button"
-              onClick={habdle_Search_Button_Click}
-            >
-              {
-                handle_P_StatusButtonLanguageChange(selectedLanguage)
-                  .allFindButtonLanguage
-              }
-            </div>
+              <div
+                className="all_search_button"
+                onClick={habdle_Search_Button_Click}
+              >
+                {
+                  handle_P_StatusButtonLanguageChange(selectedLanguage)
+                    .allFindButtonLanguage
+                }
+              </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
@@ -1274,11 +1265,11 @@ export default function Physical({
       {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
 
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
-      <motion.div
-        initial={{ y: -50, opacity: 0 }}
-        transition={{ duration: 1 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
+      <div
+        // initial={{ y: -50, opacity: 0 }}
+        // transition={{ duration: 1 }}
+        // whileInView={{ y: 0, opacity: 1 }}
+        // viewport={{ once: true }}
         className="motionBox_physical"
       >
         <div className="forPaddingOfInfoFieldOfComplexsPlansMaps_physical">
@@ -1541,54 +1532,43 @@ export default function Physical({
               {/* ---------------------------------- */}
 
               {/* ----Dollar and Lari Toggle button */}
-              <div className="currencyBox_physical">
-                <div
-                  className="switch_physical"
-                  data-ison={isOn}
-                  onClick={() => {
-                    toggleSwitch();
-                    HandleStateChange();
-                  }}
-                >
-                  <motion.div
-                    className="handle_physical"
-                    layout
-                    transition={spring}
-                  >
-                    <img
-                      src={lari_black}
-                      alt="Lari Sign"
-                      className={`currency-sign_physical ${
-                        isOn ? "active" : ""
-                      }`}
-                    />
-                    <img
-                      src={dollar_black}
-                      alt="Dollar Sign"
-                      className={`currency-sign_physical ${
-                        !isOn ? "active" : ""
-                      }`}
-                    />
-                  </motion.div>
+              <div
+                className="valutis_cvlilebis_konteineri"
+                data-ison={isOn}
+                onClick={() => {
+                  toggleSwitch();
+                  HandleStateChange();
+                }}
+              >
+                <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                  <img src={isOn ? dollar_black : dollar}
+                    alt="dollar signe"
+                    className="valutis_nishnebi" />
+                </div>
+
+                <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                  <img src={!isOn ? lari_black : lari}
+                    alt="dollar signe"
+                    className="valutis_nishnebi" />
                 </div>
               </div>
               {/* ---------------- */}
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* // ------------------------------------------------------------------------------------ */}
 
       <div className="allCards_physical" onClick={closeSort}>
         {privateApartments.map((prev_apartments, index) => (
           <div className="card_physical" key={index}>
-            <motion.div
-              key={currentPage}
-              initial={{ x: -50, opacity: 0 }}
-              transition={{ duration: 1 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
+            <div
+              // key={currentPage}
+              // initial={{ x: -50, opacity: 0 }}
+              // transition={{ duration: 1 }}
+              // whileInView={{ x: 0, opacity: 1 }}
+              // viewport={{ once: true }}
               className="gap_box"
             >
               <div className="heartbuttonAndImageBox_physical">
@@ -1632,10 +1612,21 @@ export default function Physical({
                 </p>
                 <p className="price_settings" style={styles.complexInfo}>
                   {currenceChangeState
-                    ? (
-                        Number(prev_apartments.squarePrice) * getCorrencyRate
-                      ).toFixed(2)
-                    : Number(prev_apartments.squarePrice).toFixed(2)}
+
+                    ? new Intl.NumberFormat('en-US', {
+                      style: 'decimal',
+                      useGrouping: true,
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
+                    }).format(Number(prev_apartments.squarePrice) * getCorrencyRate).replace(/,/g, ' ')
+
+                    : new Intl.NumberFormat('en-US', {
+                      style: 'decimal',
+                      useGrouping: true,
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
+                    }).format(Number(prev_apartments.squarePrice)).replace(/,/g, ' ')} {" "}
+                  {isOn ? "  $  " : "  ₾  "}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">
@@ -1651,7 +1642,7 @@ export default function Physical({
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         ))}
       </div>
@@ -1701,18 +1692,18 @@ export default function Physical({
       {/* ---------------------------------------------------------------- */}
       <div className="googleMapImageBox_physical">
         <Link to="/map">
-          <motion.div
-            initial={{ x: -150, opacity: 0 }}
-            transition={{ duration: 1.5 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true }}
+          <div
+          // initial={{ x: -150, opacity: 0 }}
+          // transition={{ duration: 1.5 }}
+          // whileInView={{ x: 0, opacity: 1 }}
+          // viewport={{ once: true }}
           >
             <img
               src={googleMapImage}
               alt="googleMapImage"
               className="googleMapImage_physical"
             />
-          </motion.div>
+          </div>
         </Link>
       </div>
     </div>

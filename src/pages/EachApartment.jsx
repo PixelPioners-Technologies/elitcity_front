@@ -1,8 +1,11 @@
 import "./EachApartment.css";
 import DATA from "../EachComplexDATA.json";
 import { motion } from "framer-motion";
-import lari from "../assets/lari-svgrepo-com.svg";
-import dollar from "../assets/dollar-svgrepo-com.svg";
+import dollar_black from "../assets/dollar-svgrepo-com.svg";
+import lari_black from "../assets/lari-svgrepo-com.svg";
+import dollar from "../assets/dollar-whitee.svg";
+import lari from "../assets/lari-white.svg";
+
 import star from "../assets/Star for Each Complex Page.svg";
 import share from "../assets/ShareImage.svg";
 import phoneImage from "../assets/🦆 icon _phone_.svg";
@@ -709,7 +712,6 @@ export default function EachApartment({
         <div  className="image_galery_container">
           {sliderImages.length > 0 && <ImageGallery
             items={sliderImages}
-            autoPlay={true}
             slideInterval={3000}
             thumbnailPosition="left"
             showFullscreenButton={false}
@@ -754,34 +756,27 @@ export default function EachApartment({
                 </button>
 
                 {/* ----Dollar and Lari Toggle button */}
-                <div className="currencyBox__c">
-                  <div
-                    className="switch__c"
-                    data-ison={isOn}
-                    onClick={() => {
-                      toggleSwitch();
-                      HandleStateChange();
-                    }}
-                  >
-                    <motion.div
-                      className="handle__c"
-                      layout
-                      transition={spring}
-                    >
-                      <img
-                        src={lari}
-                        alt="Lari Sign"
-                        className={`currency-sign__c ${isOn ? "active" : ""}`}
-                      />
-                      <img
-                        src={dollar}
-                        alt="Dollar Sign"
-                        className={`currency-sign__c ${!isOn ? "active" : ""}`}
-                      />
-                    </motion.div>
-                  </div>
+                <div
+                className="valutis_cvlilebis_konteineri"
+                data-ison={isOn}
+                onClick={() => {
+                  toggleSwitch();
+                  HandleStateChange();
+                }}
+              >
+                <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                  <img src={isOn ? dollar_black : dollar}
+                    alt="dollar signe"
+                    className="valutis_nishnebi" />
                 </div>
 
+                <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                  <img src={!isOn ? lari_black : lari}
+                    alt="dollar signe"
+                    className="valutis_nishnebi" />
+                </div>
+              </div>
+              {/* ---------------- */}
                 {/* Share Button */}
                 <ShareButton selectedLanguage={selectedLanguage} />
               </div>

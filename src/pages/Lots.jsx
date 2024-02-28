@@ -297,7 +297,7 @@ export default function Physical({
   };
 
 
-  
+
   const renderModalContent = () => {
     switch (modalContent) {
       case "cities":
@@ -313,7 +313,10 @@ export default function Physical({
               </button>
             ))}
             <button className="modal_close_button" onClick={closeModal}>
-              close
+              {
+                handleStatusButtonLanguageChange(selectedLanguage)
+                  .spaceButtonClose
+              }
             </button>
           </div>
         );
@@ -370,7 +373,10 @@ export default function Physical({
               ))}
             </div>
             <button className="modal_close_button" onClick={closeModal}>
-              Close
+              {
+                handleStatusButtonLanguageChange(selectedLanguage)
+                  .spaceButtonClose
+              }
             </button>
           </div>
         );
@@ -745,7 +751,7 @@ export default function Physical({
       meterPriceHomePage: "The price of m²",
       dan: "from",
       mde: "to",
-      map : "Map",
+      map: "Map",
     };
 
     switch (lang) {
@@ -790,19 +796,19 @@ export default function Physical({
         languageInfo.dan = "დან";
         languageInfo.mde = "მდე";
         languageInfo.map = "ღუკა";
-        
-        
+
+
         break;
-        
-        case "ru":
-          languageInfo.sortingButtonAscendentPrice = "Ццена м² с шагом";
+
+      case "ru":
+        languageInfo.sortingButtonAscendentPrice = "Ццена м² с шагом";
         languageInfo.sortingButtonDescendentPrice = "м² цена снижается";
         languageInfo.sortingButtonAscendantTime = "Асцендент создан в";
         languageInfo.sortingButtonDescendentTime = "Потомок создан в";
         languageInfo.sortingButtonAscendantFullPrice =
-        "Полная цена Асцендента.";
+          "Полная цена Асцендента.";
         languageInfo.sortingButtonDescendentFullPrice =
-        "Полная стоимость потомка";
+          "Полная стоимость потомка";
         languageInfo.studio = "Студия";
         languageInfo.allFindButtonLanguage = "Поиск";
         languageInfo.spaceButtonClose = "закрить";
@@ -937,7 +943,7 @@ export default function Physical({
   return (
     <div className="ComplexBodyBox_physical">
       <div className={sortOpen ? "private_filter_conteiner " : "closeSort"}>
-        <motion.div
+        <div
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
@@ -1028,35 +1034,28 @@ export default function Physical({
                         .fullPriceHomePage
                     }
 
-                    <div className="currencyBox_homepage">
-                      <div
-                        className="switch_homepage"
-                        data-ison={isOn}
-                        onClick={() => {
-                          toggleSwitch();
-                          HandleStateChange();
-                        }}
-                      >
-                        <motion.div
-                          className="handle_homepage"
-                          layout
-                          transition={spring}
-                        >
-                          <img
-                            src={lari_black}
-                            alt="Lari Sign"
-                            className={`currency-sign_homepage ${isOn ? "active" : ""
-                              }`}
-                          />
-                          <img
-                            src={dollar_black}
-                            alt="Dollar Sign"
-                            className={`currency-sign_homepage ${!isOn ? "active" : ""
-                              }`}
-                          />
-                        </motion.div>
+                    {/* ----Dollar and Lari Toggle button */}
+                    <div
+                      className="valutis_cvlilebis_konteineri"
+                      data-ison={isOn}
+                      onClick={() => {
+                        toggleSwitch();
+                        HandleStateChange();
+                      }}
+                    >
+                      <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                        <img src={isOn ? dollar_black : dollar}
+                          alt="dollar signe"
+                          className="valutis_nishnebi" />
+                      </div>
+
+                      <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                        <img src={!isOn ? lari_black : lari}
+                          alt="dollar signe"
+                          className="valutis_nishnebi" />
                       </div>
                     </div>
+                    {/* ---------------- */}
 
 
                   </div>
@@ -1205,7 +1204,10 @@ export default function Physical({
                   className="modal_close_button"
                   onClick={handleClose_P_StatusModal}
                 >
-                  Close
+                  {
+                    handleStatusButtonLanguageChange(selectedLanguage)
+                      .spaceButtonClose
+                  }
                 </button>
               </P_StatusModal>
             </div>
@@ -1234,7 +1236,7 @@ export default function Physical({
             </div>
             {/*serach  Button  and map*/}
           </div>
-        </motion.div>
+        </div>
         <div className=" flex_box_lots">
           <Link to="/map">
             <motion.div
@@ -1250,7 +1252,7 @@ export default function Physical({
                   className="location_icon_respons"
                 />
                 <button className="textButton">
-              
+
                   {handleStatusButtonLanguageChange(selectedLanguage).map}
                 </button>
               </div>
@@ -1275,11 +1277,11 @@ export default function Physical({
       {/* ---------------------------------------------------------------------------------------------------------------------------------- */}
 
       {/* ეს არის ჩამონათვალი button–ები, რომ გადახვიდე კომპლექსებზე, გეგმარებებზე, რუკაზე, სორტირება და დასაკელება და counter-ი ... */}
-      <motion.div
-        initial={{ y: -50, opacity: 0 }}
-        transition={{ duration: 1 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
+      <div
+        // initial={{ y: -50, opacity: 0 }}
+        // transition={{ duration: 1 }}
+        // whileInView={{ y: 0, opacity: 1 }}
+        // viewport={{ once: true }}
         className="motionBox_physical"
       >
         <div className="forPaddingOfInfoFieldOfComplexsPlansMaps_physical">
@@ -1304,7 +1306,7 @@ export default function Physical({
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
-                style={{ color: "white", fontSize: "16px" }}ფ
+                style={{ color: "white", fontSize: "16px" }} ფ
               >
                 <div className="sortAndArrowDownImgBox_physical">
                   <p className="sort_text_web">
@@ -1499,52 +1501,45 @@ export default function Physical({
                 />
               </div>
               {/* ----Dollar and Lari Toggle button */}
-              <div className="currencyBox_physical">
-                <div
-                  className="switch_physical"
-                  data-ison={isOn}
-                  onClick={() => {
-                    toggleSwitch();
-                    HandleStateChange();
-                  }}
-                >
-                  <motion.div
-                    className="handle_physical"
-                    layout
-                    transition={spring}
-                  >
-                    <img
-                      src={lari_black}
-                      alt="Lari Sign"
-                      className={`currency-sign_physical ${isOn ? "active" : ""
-                        }`}
-                    />
-                    <img
-                      src={dollar_black}
-                      alt="Dollar Sign"
-                      className={`currency-sign_physical ${!isOn ? "active" : ""
-                        }`}
-                    />
-                  </motion.div>
+              <div
+                className="valutis_cvlilebis_konteineri"
+                data-ison={isOn}
+                onClick={() => {
+                  toggleSwitch();
+                  HandleStateChange();
+                }}
+              >
+                <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+                  <img src={isOn ? dollar_black : dollar}
+                    alt="dollar signe"
+                    className="valutis_nishnebi" />
                 </div>
+
+                <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+                  <img src={!isOn ? lari_black : lari}
+                    alt="dollar signe"
+                    className="valutis_nishnebi" />
+                </div>
+
+
               </div>
               {/* ---------------- */}
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* // ------------------------------------------------------------------------------------ */}
 
       <div className="allCards_physical" onClick={closeSort}>
         {privateApartments.map((prev_apartments, index) => (
           <div className="card_physical" key={prev_apartments.id}>
-            <motion.div
-              key={currentPage}
-              initial={{ x: -50, opacity: 0 }}
-              transition={{ duration: 1 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
+            <div
+              // key={currentPage}
+              // initial={{ x: -50, opacity: 0 }}
+              // transition={{ duration: 1 }}
+              // whileInView={{ x: 0, opacity: 1 }}
+              // viewport={{ once: true }}
               className="gap_box"
             >
               <div className="heartbuttonAndImageBox_physical">
@@ -1590,10 +1585,19 @@ export default function Physical({
                 <p className="price_settings" style={styles.complexInfo}>
                   {/* {prev_apartments.squarePrice *   getCorrencyRate}{" "} */}
                   {currenceChangeState
-                    ? (
-                      Number(prev_apartments.squarePrice) * getCorrencyRate
-                    ).toFixed(2)
-                    : Number(prev_apartments.squarePrice).toFixed(2)}
+                    ? new Intl.NumberFormat('en-US', {
+                      style: 'decimal',
+                      useGrouping: true,
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
+                    }).format(Number(prev_apartments.squarePrice) * getCorrencyRate).replace(/,/g, ' ')
+                    : new Intl.NumberFormat('en-US', {
+                      style: 'decimal',
+                      useGrouping: true,
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
+                    }).format(Number(prev_apartments.squarePrice)).replace(/,/g, ' ')} {" "}
+                  {isOn ? "  $  " : "  ₾  "}
                   {car_settings_language_change(selectedLanguage).square_from}
                 </p>
                 <div className="status_and_rank">
@@ -1609,7 +1613,7 @@ export default function Physical({
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         ))}
       </div>
@@ -1666,18 +1670,18 @@ export default function Physical({
       {/* ---------------------------------------------------------------- */}
       <div className="googleMapImageBox_physical">
         <Link to="/map">
-          <motion.div
-            initial={{ x: -150, opacity: 0 }}
-            transition={{ duration: 1.5 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true }}
+          <div
+          // initial={{ x: -150, opacity: 0 }}
+          // transition={{ duration: 1.5 }}
+          // whileInView={{ x: 0, opacity: 1 }}
+          // viewport={{ once: true }}
           >
             <img
               src={googleMapImage}
               alt="googleMapImage"
               className="googleMapImage_physical"
             />
-          </motion.div>
+          </div>
         </Link>
       </div>
     </div>

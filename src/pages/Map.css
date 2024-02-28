@@ -256,7 +256,7 @@
     both;
   animation: scale-up-hor-center 1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
-
+/* 
 @-webkit-keyframes scale-up-hor-center {
   0% {
     -webkit-transform: scaleX(0.4);
@@ -304,7 +304,7 @@
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
   }
-}
+} */
 /* --(END)---------------------------------------- */
 
 /* --------------legend styles----------------------------- */

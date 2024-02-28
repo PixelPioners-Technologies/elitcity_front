@@ -46,16 +46,16 @@ export default function Articles({ selectedLanguage }) {
     <div className="ArticlesPageBox" >
       {/* habflsdfndbfd */}
       {articles.map((article, index) => (
-        <motion.div
-          key={article.id}
-          initial={
-            index % 2 === 0 ? { x: -50, opacity: 0 } : { x: 50, opacity: 0 }
-          }
-          transition={{ duration: 1 }}
-          whileInView={
-            index % 2 === 0 ? { x: 0, opacity: 1 } : { x: 0, opacity: 1 }
-          }
-          viewport={{ once: true }}
+        <div
+          // key={article.id}
+          // initial={
+          //   index % 2 === 0 ? { x: -50, opacity: 0 } : { x: 50, opacity: 0 }
+          // }
+          // transition={{ duration: 1 }}
+          // whileInView={
+          //   index % 2 === 0 ? { x: 0, opacity: 1 } : { x: 0, opacity: 1 }
+          // }
+          // viewport={{ once: true }}
           className={`BoxOfEachArticle ${index % 2 === 0 ? "Left" : "Right"}`}
           onClick={() => handleAppartmentClick(article.id)}
         >
@@ -70,7 +70,7 @@ export default function Articles({ selectedLanguage }) {
             <h2>{truncateText(article.blogName, 100)}</h2>
             <p>{truncateText(article.description, 350)}</p>
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

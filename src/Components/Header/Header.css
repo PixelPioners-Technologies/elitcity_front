@@ -13,7 +13,9 @@
   z-index: 1000; /* Set a high z-index to ensure it stays on top of other elements */
 }
 .companyLogoForDesktop {
-  margin-top: 17px; 
+  margin-left: 5px;
+  margin-top: 7px; 
+  width: 100px;
 }
 .header_logo_img {
   padding-top: 10px;

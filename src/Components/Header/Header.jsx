@@ -4,7 +4,9 @@
 import React from "react";
 
 import "./Header.css";
-import CompanyLogo from "../../assets/LogoOfStorkhome.svg";
+// import CompanyLogo from "../../assets/LogoOfStorkhome.svg";
+import CompanyLogo from "../../assets/11111111111111111.svg";
+
 import { Link } from "react-router-dom";
 import HeartLogo from "../../assets/starLogo.svg";
 import Language from "./Language/Language";
@@ -20,15 +22,16 @@ export default function Header({
   favoritesLots,
   favoritesPhysical,
 }) {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-const closeBurgerMenu = () => {
-  setIsMenuOpen(false)
-}
+  const closeBurgerMenu = () => {
+    setIsMenuOpen(false)
+  }
 
 
   const handle_P_StatusButtonLanguageChange = (lang) => {
@@ -78,7 +81,7 @@ const closeBurgerMenu = () => {
 
   return (
     <div className="header">
-      <Link to="/">
+      <Link to="/" >
         <img
           src={CompanyLogo}
           alt="Logo of Company STARKHOME COMPANY "
@@ -100,10 +103,10 @@ const closeBurgerMenu = () => {
                 >
                   <button
 
-                  onClick={() => {
-                    closeBurgerMenu();
-                    onButtonClick("ComplexButton");
-                  }}
+                    onClick={() => {
+                      closeBurgerMenu();
+                      onButtonClick("ComplexButton");
+                    }}
 
                     className="buttonItemsOfList"
                   >
@@ -181,7 +184,7 @@ const closeBurgerMenu = () => {
               </Link>
             </li>
             <li>
-              <Link to="/sales"  onClick={closeBurgerMenu}   >
+              <Link to="/sales" onClick={closeBurgerMenu}   >
                 <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}
@@ -215,7 +218,7 @@ const closeBurgerMenu = () => {
               </Link>
             </li>
             <li>
-              <Link to="/storkhome"  onClick={closeBurgerMenu}   >
+              <Link to="/storkhome" onClick={closeBurgerMenu}   >
                 <motion.div
                   className="textButtonContainer"
                   whileHover={{ scale: 1.1 }}

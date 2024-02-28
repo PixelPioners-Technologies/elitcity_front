@@ -27,7 +27,9 @@ import cancel_icon from "./icons/cancel.png";
 import EachApartment from "./pages/EachApartment";
 import EachBlog from "./pages/EachBlog";
 import Each_Developer from "./pages/Each_Developer";
-import storkhome__logo from "./company_logo/storkhome__logo.png";
+// import storkhome__logo from "./company_logo/storkhome__logo.png";
+import storkhome__logo from "../src/assets/11111111111111111.svg";
+
 import Facebook from "./Facebook";
 import Footer from "./pages/Footer";
 
@@ -399,9 +401,6 @@ function App() {
 
   // -----------------------------------------------------------------------------------------------------
 
-  // useEffect(() => {
-  //   console.log('total_item_number on app', total_item_number)
-  // }, [total_item_number])
 
   useEffect(() => {
     const fetchComplexes = async () => {
@@ -456,7 +455,7 @@ function App() {
     fetchComplexes();
 
 
-  }, [searchButton , ascendentPrice]);
+  }, [searchButton, ascendentPrice]);
 
   // const rank = complexes.map((complex.internal_complex_name.rank) => {
 
@@ -657,7 +656,7 @@ function App() {
         const rateInfo = rates.find((rate) => rate.code === "USD");
         if (rateInfo) {
           setGetCorrencyRate(rateInfo.rate);
-          // console.log("Exchange rate from USD to GEL:", rateInfo.rate);
+  
         }
       } catch (error) {
         console.error("Error fetching exchange rate:", error);
@@ -687,7 +686,7 @@ function App() {
     // First timer to open the modal after 10 seconds
     const timer1 = setTimeout(() => {
       setIsCallModalOpen(true);
-    },  600000); 
+    }, 600000);
 
     // Second timer to close and then reopen the modal after 20 seconds
     const timer2 = setTimeout(() => {
@@ -700,17 +699,10 @@ function App() {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, []); 
+  }, []);
 
 
 
-  const handleCloseCallModal = () => {
-    setIsCallModalOpen(false);
-  };
-
-  const handleCallButtonClick = () => {
-    setIsCallModalOpen(true);
-  };
 
   // ------------------------------------------------------------------------------------------
   // ----------------------------static buttons and input language translation----------------------------------------
@@ -725,7 +717,7 @@ function App() {
       other: "Other",
       send: "Send",
       sheet_send: "Information sent successfully!",
-      email :  "Email"
+      email: "Email"
     };
 
     switch (lang) {
@@ -779,6 +771,8 @@ function App() {
   const [salesDepartment, setSalesDepartment] = useState(false);
   const [storkhomePlus, setStorkhomePlus] = useState(false);
   const [other, setOther] = useState(false);
+  const [other_text, setOther_text] = useState('');
+
   const [sedtsheet, setSedtsheet] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
@@ -790,6 +784,12 @@ function App() {
     setShowPopup(true); // Show popup immediately
     setSedtsheet(!sedtsheet); // Trigger the useEffect
   };
+
+
+  const handle_toggle_show_other_text = () => {
+    setOther(!other)
+  }
+
   useEffect(() => {
     const sendDataToSheet = async () => {
       if (!sedtsheet) return;
@@ -801,6 +801,7 @@ function App() {
         salesDepartment,
         storkhomePlus,
         other,
+        other_text,
       };
 
       try {
@@ -815,6 +816,12 @@ function App() {
           setShowPopup(false);
           // Reset sedtsheet to allow for future submissions
           setSedtsheet(false);
+          setName('')
+          setPhone('')
+          setEmail('')
+          setStorkhomePlus(false)
+          setOther(false)
+          setOther(false)
         }, 2000);
         setTimeout(() => {
           setIsCallModalOpen(false)
@@ -825,7 +832,24 @@ function App() {
     sendDataToSheet();
   }, [sedtsheet]);
 
-  // Event handlers will be defined here
+
+  const handleCloseCallModal = () => {
+    setIsCallModalOpen(false);
+    setName('')
+    setPhone('')
+    setEmail('')
+    setStorkhomePlus(false)
+    setOther(false)
+    setOther(false)
+  };
+
+  const handleCallButtonClick = () => {
+    setIsCallModalOpen(true);
+  };
+
+  const handle_other_text_change = (e) => {
+    setOther_text(e.target.value)
+  }
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -1030,16 +1054,16 @@ function App() {
         />
         <Route
           path="map"
-          element={<Map 
+          element={<Map
             selectedLanguage={selectedLanguage}
             toggleSwitch={toggleSwitch}
             currenceChangeState={currenceChangeState}
             isOn={isOn}
             HandleStateChange={HandleStateChange}
             getCorrencyRate={getCorrencyRate}
-            
-            
-            />}
+
+
+          />}
         />
         <Route
           path="sales"
@@ -1180,7 +1204,7 @@ function App() {
           element={
             <EachBlog
               selectedLanguage={selectedLanguage}
-              // handleCallButtonClick={handleCallButtonClick}
+            // handleCallButtonClick={handleCallButtonClick}
             />
           }
         />
@@ -1211,7 +1235,7 @@ function App() {
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
-        // onClick={(e) => e.stopPropagation()}
+      // onClick={(e) => e.stopPropagation()}
       >
         <div className="call_modal_containerr">
           <div className="cancel_icon_container">
@@ -1328,13 +1352,30 @@ function App() {
                   type="checkbox"
                   className="input"
                   value={other}
-                  onChange={handleOtherChange}
+                  onChange={handle_toggle_show_other_text}
                 />
                 <span className="custom-checkbox"></span>
               </label>
+
               <p style={{ color: "white" }}>
                 {languageTranslationForCheetModal(selectedLanguage).other}
               </p>
+            </div>
+            <div style={{ display: 'flex', justifyContent: "center", alignItems: 'center', width: "100%" }} >
+              {!other ?
+                ""
+                : <div className="call_input_container">
+                  <input
+                    name="name"
+                    type="text"
+                    className="call_input"
+                    onChange={handle_other_text_change}
+                    value={other_text}
+                    placeholder={languageTranslationForCheetModal(selectedLanguage).name}
+                  />
+                </div>
+              }
+
             </div>
           </div>
           <div className="send_container">
@@ -1353,7 +1394,7 @@ function App() {
                 {isLoading
                   ? "Sending...."
                   : languageTranslationForCheetModal(selectedLanguage)
-                      .sheet_send}
+                    .sheet_send}
               </div>
             )}
           </div>
@@ -1364,3 +1405,17 @@ function App() {
 }
 
 export default App;
+
+
+{/* <div className="call_input_container">
+<input
+  name="name"
+  type="text"
+  className="call_input"
+  onChange={handleNameChange}
+  value={name}
+  placeholder={
+    languageTranslationForCheetModal(selectedLanguage).name
+  }
+/>
+</div> */}
