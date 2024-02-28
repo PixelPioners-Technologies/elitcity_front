@@ -401,9 +401,6 @@ function App() {
 
   // -----------------------------------------------------------------------------------------------------
 
-  // useEffect(() => {
-  //   console.log('total_item_number on app', total_item_number)
-  // }, [total_item_number])
 
   useEffect(() => {
     const fetchComplexes = async () => {
@@ -659,7 +656,7 @@ function App() {
         const rateInfo = rates.find((rate) => rate.code === "USD");
         if (rateInfo) {
           setGetCorrencyRate(rateInfo.rate);
-          // console.log("Exchange rate from USD to GEL:", rateInfo.rate);
+  
         }
       } catch (error) {
         console.error("Error fetching exchange rate:", error);
@@ -809,7 +806,6 @@ function App() {
 
       try {
         const response = await axios.post(BaseURLs.proxy, formData);
-        console.log(response)
         setPopupMessage("Data sent successfully!");
         // Optionally reset form fields here if you want to clear the form upon success
       } catch (error) {
