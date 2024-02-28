@@ -55,6 +55,12 @@
 .logo_plus {
   margin-bottom: 13px;
 }
+
+
+.storkhomr_logo_storkhome{
+  width: 200px;
+}
+
 .card_logo_and_plus {
   display: flex;
   justify-content: center;

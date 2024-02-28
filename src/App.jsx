@@ -27,7 +27,9 @@ import cancel_icon from "./icons/cancel.png";
 import EachApartment from "./pages/EachApartment";
 import EachBlog from "./pages/EachBlog";
 import Each_Developer from "./pages/Each_Developer";
-import storkhome__logo from "./company_logo/storkhome__logo.png";
+// import storkhome__logo from "./company_logo/storkhome__logo.png";
+import storkhome__logo from "../src/assets/11111111111111111.svg";
+
 import Facebook from "./Facebook";
 import Footer from "./pages/Footer";
 

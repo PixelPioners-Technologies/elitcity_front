@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import "./Storkhome.css";
-import CompanyLogo from "../assets/LogoOfStorkhome.svg";
+import CompanyLogo from "../assets/11111111111111111.svg";
 import headphone_icon from "../icons/headphones.png";
 import { motion } from "framer-motion";
 
@@ -51,7 +51,7 @@ export default function Storkhome({ selectedLanguage, handleCallButtonClick }) {
           <div className="storkhome_cards">
             <p className="kit">Starter Kit </p>
             <div className="card_logo_and_plus">
-              <img src={CompanyLogo} rel="company logo" />
+              <img src={CompanyLogo} rel="company logo"  className="storkhomr_logo_storkhome" />
               <p className="logo_plus">+</p>
             </div>
             <p> T : +995 111 222 333 </p>
@@ -74,7 +74,7 @@ export default function Storkhome({ selectedLanguage, handleCallButtonClick }) {
           <div className="storkhome_cards">
             <p className="kit">Regular Kit</p>
             <div className="card_logo_and_plus">
-              <img src={CompanyLogo} rel="company logo" />
+              <img src={CompanyLogo} rel="company logo"   className="storkhomr_logo_storkhome" />
               <p className="logo_plus">+</p>
             </div>
             <p> T : +995 111 222 333 </p>
@@ -97,7 +97,7 @@ export default function Storkhome({ selectedLanguage, handleCallButtonClick }) {
           <div className="storkhome_cards">
             <p className="kit">Premium Kit</p>
             <div className="card_logo_and_plus">
-              <img src={CompanyLogo} rel="company logo" />
+              <img src={CompanyLogo} rel="company logo"  className="storkhomr_logo_storkhome"  />
               <p className="logo_plus">+</p>
             </div>
             <p> T : +995 111 222 333 </p>
