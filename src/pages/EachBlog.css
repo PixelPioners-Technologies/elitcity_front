@@ -9,7 +9,7 @@
 
 .blog_container{
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-direction: row;
   color: aliceblue;
   gap: 40px;
