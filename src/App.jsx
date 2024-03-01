@@ -656,7 +656,7 @@ function App() {
         const rateInfo = rates.find((rate) => rate.code === "USD");
         if (rateInfo) {
           setGetCorrencyRate(rateInfo.rate);
-  
+
         }
       } catch (error) {
         console.error("Error fetching exchange rate:", error);
@@ -874,58 +874,66 @@ function App() {
   const handleOtherChange = () => {
     setOther(!other);
   };
+  // ----------------------------------es mere unda waishalos, es aris damaluli pathistvis ------------------------------
+  const location = useLocation();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplashScreen(false);
-    }, 3000); // 3000 milliseconds = 3 seconds
+  // ----------------------------------------------------------------------------------------------------------------
 
-    return () => clearTimeout(timer); // Clean up the timer
-  }, []);
 
-  if (showSplashScreen) {
-    return (
-      <div className="slashscreen_container">
-        <img
-          className="slash_company_logo"
-          src={storkhome__logo}
-          alt="company_logo"
-        />
-        <div className="spinner">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+  if ((location.pathname).length > 2) {
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setShowSplashScreen(false);
+      }, 3000); // 3000 milliseconds = 3 seconds
+
+      return () => clearTimeout(timer); // Clean up the timer
+    }, []);
+
+    if (showSplashScreen) {
+      return (
+        <div className="slashscreen_container">
+          <img
+            className="slash_company_logo"
+            src={storkhome__logo}
+            alt="company_logo"
+          />
+          <div className="spinner">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
-
   return (
     <div className="App">
       <div>
         <Facebook />
       </div>
-      <div>
-        <Header
-          favorites={favorites}
-          favoritesPhysical={favoritesPhysical}
-          favoritesLots={favoritesLots}
-          handleLanguageChange={handleLanguageChange}
-          onButtonClick={trackButtonClick}
-          selectedLanguage={selectedLanguage}
-        />
-      </div>
+      {(location.pathname).length > 2 && (
+        <div>
+          <Header
+            favorites={favorites}
+            favoritesPhysical={favoritesPhysical}
+            favoritesLots={favoritesLots}
+            handleLanguageChange={handleLanguageChange}
+            onButtonClick={trackButtonClick}
+            selectedLanguage={selectedLanguage}
+          />
+        </div>
+      )}
 
       <Routes>
-        {/* <Route path="/" element={<Nothing />} /> */}
+        <Route path="/" element={<Nothing />} />
 
         <Route
-          path="/"
+          path="/hhomepage"
           element={
             <HomePage
               searchInput={searchInput}
@@ -1231,7 +1239,9 @@ function App() {
           }
         />
       </Routes>
-      <Footer />
+      {(location.pathname).length > 2 && (
+        <Footer />
+      )}
       <Call_Modal
         isOpen={isCallModalOpen}
         close={handleCloseCallModal}
