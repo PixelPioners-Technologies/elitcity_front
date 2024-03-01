@@ -39,7 +39,9 @@ const usePageTracking = () => {
   useEffect(() => {
     const pagePath = location.pathname + location.search;
 
-    window.gtag("config", "G-FFTZPPMQNZ", {
+    // window.gtag("config", "G-FFTZPPMQNZ", {
+    window.gtag("config", "G-XBND7498TF", {
+
       page_path: pagePath,
     });
   }, [location]);
@@ -52,23 +54,19 @@ function trackButtonClick(buttonName) {
   });
 }
 
-//   useEffect(() => {
-//     const pagePath = location.pathname + location.search;
 
-//     // Here we're using the gtag function directly as it's globally available from the index.html script
-//     window.gtag("config", "G-FFTZPPMQNZ", {
-//       page_path: pagePath,
-//     });
-//   }, [location]);
-// };
 
-// function trackButtonClick(buttonName) {
-//   ReactGA.event({
-//     category: "Header",
-//     action: "Click",
-//     label: buttonName,
-//   });
-// }
+
+// Deployment ID
+// AKfycbzgaJ6q1C4eA-fwWAwzkRv81U0FdEsQ-cnCeZa47TqfmQcEQy6NbRKU8K1TDJ49ySwA
+
+
+// url
+// https://script.google.com/macros/s/AKfycbzgaJ6q1C4eA-fwWAwzkRv81U0FdEsQ-cnCeZa47TqfmQcEQy6NbRKU8K1TDJ49ySwA/exec
+
+
+
+
 
 const BaseURLs = {
   //   // storkhome
