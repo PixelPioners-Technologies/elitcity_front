@@ -81,7 +81,7 @@ export default function Header({
 
   return (
     <div className="header">
-      <Link to="/" >
+      <Link to="/hhomepage" >
         <img
           src={CompanyLogo}
           alt="Logo of Company STARKHOME COMPANY "
