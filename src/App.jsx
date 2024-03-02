@@ -36,28 +36,51 @@ import Footer from "./pages/Footer";
 
 
 
-
-// This function assumes you've already initialized GA as shown in your index.html
-
-
-
 const gTagId = import.meta.env.VITE_G_TAG_ID;
 
+
+// const usePageTracking = () => {
+//   const location = useLocation();
+//   useEffect(() => {
+//     const pagePath = location.pathname + location.search;
+
+//     window.gtag("config", `${gTagId}`, {
+
+//       page_path: pagePath,
+//     });
+//   }, [location]);
+// };
+
+// function trackButtonClick(buttonName) {
+//   window.gtag("event", "click", {
+//     event_category: "Header",
+//     event_label: buttonName,
+//   });
+// }
+
+
+
+const safeGtagCall = (action, ...params) => {
+  if (typeof window.gtag === 'function') {
+    window.gtag(action, ...params);
+  } else {
+    console.warn('gtag not initialized');
+    // Optionally, you could queue these calls to be made once gtag is initialized
+  }
+};
 
 const usePageTracking = () => {
   const location = useLocation();
   useEffect(() => {
     const pagePath = location.pathname + location.search;
-
-    window.gtag("config", `${gTagId}`, {
-
+    safeGtagCall("config", gTagId, {
       page_path: pagePath,
     });
   }, [location]);
 };
 
 function trackButtonClick(buttonName) {
-  window.gtag("event", "click", {
+  safeGtagCall("event", "click", {
     event_category: "Header",
     event_label: buttonName,
   });
@@ -66,20 +89,10 @@ function trackButtonClick(buttonName) {
 
 
 
-// Deployment ID
-// AKfycbzgaJ6q1C4eA-fwWAwzkRv81U0FdEsQ-cnCeZa47TqfmQcEQy6NbRKU8K1TDJ49ySwA
-
-
-// url
-// https://script.google.com/macros/s/AKfycbzgaJ6q1C4eA-fwWAwzkRv81U0FdEsQ-cnCeZa47TqfmQcEQy6NbRKU8K1TDJ49ySwA/exec
-
-
 
 
 
 const BaseURLs = {
-  //   // storkhome
-
   complex: "https://api.storkhome.ge/complex/",
   company: "https://api.storkhome.ge/company/",
   apartment: "https://api.storkhome.ge/apartment/",
@@ -92,21 +105,6 @@ const BaseURLs = {
   company_and_complex: "https://api.storkhome.ge/companycomplex/",
   proxy: "https://api.storkhome.ge/proxy/",
   ids: "https://api.storkhome.ge/",
-
-  // local
-
-  // complex: "http://127.0.0.1:8000/complex/",
-  // company: "http://127.0.0.1:8000/company/",
-  // apartment: "http://127.0.0.1:8000/apartment/",
-  // private_apartment: "http://127.0.0.1:8000/privateapartments/",
-  // ground: "http://127.0.0.1:8000/ground/",
-  // promotion: "http://127.0.0.1:8000/promotions/",
-  // blog: "http://127.0.0.1:8000/blog/",
-  // map: "http://127.0.0.1:8000/map/",
-  // complex_and_apartments: "http://127.0.0.1:8000/complexandappartments/",
-  // company_and_complex: 'http://127.0.0.1:8000/companycomplex/',
-  // proxy: 'http://127.0.0.1:8000/proxy/',
-  // ids : 'http://127.0.0.1:8000/',
 };
 
 export { BaseURLs };
