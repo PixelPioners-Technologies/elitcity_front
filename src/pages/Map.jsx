@@ -2963,13 +2963,15 @@ export default function Map({
   };
 
 
-  
+
+  const js_api_key = import.meta.env.VITE_JAVASCRRIPT_API_KEY
 
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyBjdozXFehGju20YP_kEJzJVs3gvPA6HD0",
+
+    googleMapsApiKey: `${js_api_key}`,
 
   });
-
+  console.log("-------------------" , js_api_key)
   if (loadError) {
     return <div>Error loading maps</div>;
   }
