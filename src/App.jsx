@@ -39,26 +39,6 @@ import Footer from "./pages/Footer";
 const gTagId = import.meta.env.VITE_G_TAG_ID;
 
 
-// const usePageTracking = () => {
-//   const location = useLocation();
-//   useEffect(() => {
-//     const pagePath = location.pathname + location.search;
-
-//     window.gtag("config", `${gTagId}`, {
-
-//       page_path: pagePath,
-//     });
-//   }, [location]);
-// };
-
-// function trackButtonClick(buttonName) {
-//   window.gtag("event", "click", {
-//     event_category: "Header",
-//     event_label: buttonName,
-//   });
-// }
-
-
 
 const safeGtagCall = (action, ...params) => {
   if (typeof window.gtag === 'function') {
