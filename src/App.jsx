@@ -33,14 +33,23 @@ import storkhome__logo from "../src/assets/11111111111111111.svg";
 import Facebook from "./Facebook";
 import Footer from "./pages/Footer";
 
+
+
+
+
 // This function assumes you've already initialized GA as shown in your index.html
+
+
+
+const gTagId = import.meta.env.VITE_G_TAG_ID;
+
+
 const usePageTracking = () => {
   const location = useLocation();
   useEffect(() => {
     const pagePath = location.pathname + location.search;
 
-    // window.gtag("config", "G-FFTZPPMQNZ", {
-    window.gtag("config", "G-XBND7498TF", {
+    window.gtag("config", `${gTagId}`, {
 
       page_path: pagePath,
     });
@@ -167,9 +176,10 @@ const normalizeLocationData = (data, lang) => {
     const cityNameField = `city_${lang}`;
     const pharentDistrictField = `pharentDistrict_${lang}`;
     const districtField = `district_${lang}`;
-
     const cityName = cityItem[cityNameField];
     const pharentDistricts = cityItem[pharentDistrictField].map(
+
+
       (pharentDistrictItem) => {
         const pharentDistrictName = pharentDistrictItem[pharentDistrictField];
         const districts = pharentDistrictItem[districtField].map(
@@ -184,18 +194,7 @@ const normalizeLocationData = (data, lang) => {
   });
 };
 
-// const useClearLocalStorageWeekly = () => {
-//   useEffect(() => {
-//     const currentDate = new Date();
-//     const storedDateStr = localStorage.getItem('dateForClearingLocalStorage');
-//     const storedDate = storedDateStr ? new Date(storedDateStr) : null;
 
-//     if (!storedDate || (currentDate - storedDate) / (1000 * 60 * 60 * 24) > 7) {
-//       localStorage.clear(); // Clear localStorage
-//       localStorage.setItem('dateForClearingLocalStorage', currentDate.toISOString()); // Update stored date
-//     }
-//   }, []);
-// };
 
 function App() {
   usePageTracking();
