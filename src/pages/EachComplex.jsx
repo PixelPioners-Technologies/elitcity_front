@@ -840,8 +840,11 @@ export default function EachComplex({
 
   const navigate = useNavigate();
 
+  const js_api_key = import.meta.env.VITE_JAVASCRRIPT_API_KEY
+
+
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
+    googleMapsApiKey: `${js_api_key}`,
   });
 
   if (loadError) {
