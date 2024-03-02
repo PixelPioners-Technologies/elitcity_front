@@ -2963,10 +2963,11 @@ export default function Map({
   };
 
 
-
+  
 
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0",
+    googleMapsApiKey: "AIzaSyBjdozXFehGju20YP_kEJzJVs3gvPA6HD0",
+
   });
 
   if (loadError) {
