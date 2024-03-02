@@ -47,21 +47,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </BrowserRouter>
 );
-
-
-// =======================================html gtag script       ===============================================
-// <!-- <script
-// async
-// src="https://www.googletagmanager.com/gtag/js?id=G-XBND7498TF"
-// ></script> 
-// <script>
-// window.dataLayer = window.dataLayer || [];
-// function gtag() {
-//   dataLayer.push(arguments);
-// }
-// gtag("js", new Date());
-
-// gtag("config", "G-XBND7498TF"); -->
-
-
-// =========================================================================================================================
