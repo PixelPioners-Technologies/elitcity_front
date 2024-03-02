@@ -1,3 +1,17 @@
+// // import React from 'react'
+// import ReactDOM from 'react-dom/client'
+// import App from './App.jsx'
+// import './index.css';
+// import { BrowserRouter } from "react-router-dom";
+
+// ReactDOM.createRoot(document.getElementById('root')).render(
+//   <BrowserRouter>
+//     <App />
+//   </BrowserRouter>
+// )
+
+
+
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
@@ -10,8 +24,14 @@ const loadGTag = () => {
   const script = document.createElement('script');
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${gtagId}`;
+  script.onload = () => {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', gtagId);
+  };
   document.head.appendChild(script);
-
+  
   // Initializing GTM data layer and configuration
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
