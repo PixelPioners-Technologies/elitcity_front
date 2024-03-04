@@ -8,8 +8,11 @@ import email_logo from "../icons/email.png";
 import phone_logo from "../icons/phone.png";
 import { motion } from "framer-motion";
 import heartIcon from "../assets/starLogo.svg";
-import dollar from "../assets/dollar-svgrepo-com.svg";
-import lari from "../assets/lari-svgrepo-com.svg";
+import dollar_black from "../assets/dollar-svgrepo-com.svg";
+import lari_black from "../assets/lari-svgrepo-com.svg";
+import dollar from "../assets/dollar-whitee.svg";
+import lari from "../assets/lari-white.svg";
+
 import heartIconEmpty from "../assets/emptyStarLogo.svg";
 import { useNavigate } from "react-router-dom";
 
@@ -178,12 +181,12 @@ export default function Each_Developer({
             className="company_background_image_big"
           />
         </div>
-          {/* logo */}
-          <div className='responsive_logo'>
-            <img src={company.logo} rel='company logo' className="company_logo_round" />
-          </div>
-          {/* name container  */}        
-          <div className="colo_name_and_others">
+        {/* logo */}
+        <div className='responsive_logo'>
+          <img src={company.logo} rel='company logo' className="company_logo_round" />
+        </div>
+        {/* name container  */}
+        <div className="colo_name_and_others">
           <div className="cpmpany_name_and_settings">
             <div className="all_settings_company_1">
               <h1 className="company_name_each">{company.name}</h1>
@@ -238,29 +241,28 @@ export default function Each_Developer({
                 .company_complexes
             }
           </p>
-          <div className="currencyBox currency_box">
-            <div
-              className="switch"
-              data-ison={isOn}
-              onClick={() => {
-                toggleSwitch();
-                HandleStateChange();
-              }}
-            >
-              <motion.div className="handle" layout transition={spring}>
-                <img
-                  src={lari}
-                  alt="Lari Sign"
-                  className={`currency-sign ${isOn ? "active" : ""}`}
-                />
-                <img
-                  src={dollar}
-                  alt="Dollar Sign"
-                  className={`currency-sign ${!isOn ? "active" : ""}`}
-                />
-              </motion.div>
+          {/* ----Dollar and Lari Toggle button */}
+          <div
+            className="valutis_cvlilebis_konteineri"
+            data-ison={isOn}
+            onClick={() => {
+              toggleSwitch();
+              HandleStateChange();
+            }}
+          >
+            <div className={`same_stiles_corrency  ${isOn ? `chartuli` : "centrshi"}   `}   >
+              <img src={isOn ? dollar_black : dollar}
+                alt="dollar signe"
+                className="valutis_nishnebi" />
+            </div>
+
+            <div className={`same_stiles_corrency  ${!isOn ? `chartuli` : "centrshi"}   `}   >
+              <img src={!isOn ? lari_black : lari}
+                alt="dollar signe"
+                className="valutis_nishnebi" />
             </div>
           </div>
+          {/* ---------------- */}
         </div>
       </div>
       <div className="companys_complexes_container">
@@ -306,14 +308,20 @@ export default function Each_Developer({
                   <p style={styles.complexInfo}>{complex.address.city}</p>
                   <p style={styles.complexInfo}>
                     {currenceChangeState
-                      ? complex.pricePerSqMeter * getCorrencyRate
-                      : complex.pricePerSqMeter}
-
-                    {/* {complex.pricePerSqMeter} */}
-                    {
-                      language_change_for_each_companyPage(selectedLanguage)
-                        .price_per_meter
-                    }
+                      ? new Intl.NumberFormat('en-US', {
+                        style: 'decimal',
+                        useGrouping: true,
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0
+                      }).format(Number(complex.pricePerSqMeter) * getCorrencyRate).replace(/,/g, ' ')
+                      : new Intl.NumberFormat('en-US', {
+                        style: 'decimal',
+                        useGrouping: true,
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0
+                      }).format(Number(complex.pricePerSqMeter)).replace(/,/g, ' ')} {" "}
+                    {isOn ? "  $  " : "  ₾  "}
+                    {language_change_for_each_companyPage(selectedLanguage).price_per_meter}
                   </p>
                   <p style={styles.complexFinished}>{complex.finishYear}</p>
                 </div>
