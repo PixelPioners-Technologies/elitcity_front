@@ -1225,7 +1225,7 @@ export default function Complex({
                     }}
                     onClick={() => {
                       handleClose();
-                      sortingChangeHandler("-rank");
+                      sortingChangeHandler("rank");
                     }}
                   >
                     {
@@ -1248,7 +1248,7 @@ export default function Complex({
                     }}
                     onClick={() => {
                       handleClose();
-                      sortingChangeHandler("rank");
+                      sortingChangeHandler("-rank");
                     }}
                   >
                     {
