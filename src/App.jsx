@@ -176,7 +176,7 @@ const normalizeLocationData = (data, lang) => {
 
 function App() {
   usePageTracking();
-  useClearLocalStorageWeekly()
+  // useClearLocalStorageWeekly()
 
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("ka");
