@@ -36,35 +36,35 @@ import Footer from "./pages/Footer";
 
 
 
-// const gTagId = import.meta.env.VITE_G_TAG_ID;
+const gTagId = import.meta.env.VITE_G_TAG_ID;
 
 
 
-// const safeGtagCall = (action, ...params) => {
-//   if (typeof window.gtag === 'function') {
-//     window.gtag(action, ...params);
-//   } else {
-//     console.warn('gtag not initialized');
-//     // Optionally, you could queue these calls to be made once gtag is initialized
-//   }
-// };
+const safeGtagCall = (action, ...params) => {
+  if (typeof window.gtag === 'function') {
+    window.gtag(action, ...params);
+  } else {
+    console.warn('gtag not initialized');
+    // Optionally, you could queue these calls to be made once gtag is initialized
+  }
+};
 
-// const usePageTracking = () => {
-//   const location = useLocation();
-//   useEffect(() => {
-//     const pagePath = location.pathname + location.search;
-//     safeGtagCall("config", gTagId, {
-//       page_path: pagePath,
-//     });
-//   }, [location]);
-// };
+const usePageTracking = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pagePath = location.pathname + location.search;
+    safeGtagCall("config", gTagId, {
+      page_path: pagePath,
+    });
+  }, [location]);
+};
 
-// function trackButtonClick(buttonName) {
-//   safeGtagCall("event", "click", {
-//     event_category: "Header",
-//     event_label: buttonName,
-//   });
-// }
+function trackButtonClick(buttonName) {
+  safeGtagCall("event", "click", {
+    event_category: "Header",
+    event_label: buttonName,
+  });
+}
 
 
 
@@ -175,8 +175,8 @@ const normalizeLocationData = (data, lang) => {
 
 
 function App() {
-  // usePageTracking();
-  // useClearLocalStorageWeekly()
+  usePageTracking();
+  useClearLocalStorageWeekly()
 
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("ka");
