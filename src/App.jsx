@@ -178,6 +178,9 @@ function App() {
   usePageTracking();
   // useClearLocalStorageWeekly()
 
+
+
+
   const [forVisible, setForVisible] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("ka");
   const [favorites, setFavorites] = useState([]);
@@ -455,7 +458,6 @@ function App() {
     fetchLocations();
   }, [searchButton]);
 
-  // ----------------------------------------------------------------------------------------------
 
   //-----------------------------------fetch private apartments --------------------------------------
 
